@@ -9,17 +9,7 @@
 #' @import plyr
 #' @import dplyr
 #' @import PheWAS
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate icd 10 using date
-#' @param isPhecodeDescription PheWAS Phecode/ description for icd9, default is True
-#' @examples
-#' groupICDBasedOnPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", F)
-
- phecode_icd9_1 <- readRDS("~/PheWAS/phecode_icd9_1.rds")
- phecode_icd9_2 <- readRDS("~/PheWAS/phecode_icd9_2.rds")
+#' @param icdList An icd code list
 
 convertIcdShortToDecimal<-function(icdList){
   for(icd in 1:length(icdList)){
@@ -30,6 +20,14 @@ convertIcdShortToDecimal<-function(icdList){
   }
   return(icdList)
 }
+#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
+#' @param idColName A column for MemberID of DxDataFile
+#' @param icdColName A column for ICD of DxDataFile
+#' @param dateColName A column for Date of DxDataFile
+#' @param icd10usingDate icd 10 using date
+#' @param isPhecodeDescription PheWAS Phecode/ description for icd9, default is True
+#' @examples
+#' groupICDBasedOnPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", F)
 #' @export
 groupICDBasedOnPhecode<-function(DxDataFile,idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription=TRUE){
   DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)),deparse(substitute(icdColName)),deparse(substitute(dateColName)) )]

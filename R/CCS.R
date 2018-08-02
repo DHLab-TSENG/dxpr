@@ -8,17 +8,6 @@
 #' @import plyr
 #' @import dplyr
 #' @param icdList An icd code list
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate icd 10 using date
-#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/ description for icd9/ 10, default is True
-#' @param CCSLevel Clinical Classifications Software (CCS) multiple level
-#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/ description for icd9/ 10, default is True
-#' @examples
-#' groupICDBasedOnCCS (DxDataFile, ID, ICD, Date, "2016-01-01", T)
-#' groupICDBasedOnCCSLvl (DxDataFile, ID, ICD, Date, "2016-01-01", 2, T)
 
 convertIcdDecimaltoShort<-function(icdList){
   for(icd in 1:length(icdList)){
@@ -28,6 +17,14 @@ convertIcdDecimaltoShort<-function(icdList){
   }
   return(icdList)
 }
+#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"
+#' @param idColName A column for MemberID of DxDataFile
+#' @param icdColName A column for ICD of DxDataFile
+#' @param dateColName A column for Date of DxDataFile
+#' @param icd10usingDate icd 10 using date
+#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/ description for icd9/ 10, default is True
+#' @examples
+#' groupICDBasedOnCCS (DxDataFile, ID, ICD, Date, "2016-01-01", T)
 #' @export
 groupICDBasedOnCCS<-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,isCCSCategoryDescription=TRUE){
   DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)),deparse(substitute(icdColName)),deparse(substitute(dateColName)) )]
@@ -51,6 +48,15 @@ groupICDBasedOnCCS<-function(DxDataFile,idColName,icdColName,dateColName,icd10us
   DxDataFile
 }
 
+#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"
+#' @param idColName A column for MemberID of DxDataFile
+#' @param icdColName A column for ICD of DxDataFile
+#' @param dateColName A column for Date of DxDataFile
+#' @param icd10usingDate icd 10 using date
+#' @param CCSLevel Clinical Classifications Software (CCS) multiple level
+#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/ description for icd9/ 10, default is True
+#' @examples
+#' groupICDBasedOnCCSLvl (DxDataFile, ID, ICD, Date, "2016-01-01", 2, T)
 #' @export
 groupICDBasedOnCCSLvl<-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,CCSLevel=1,CCSLvlLabel=TRUE){
   DxDataFile[,deparse(substitute(icdColName))]<-convertIcdDecimaltoShort(DxDataFile[,deparse(substitute(icdColName))])
