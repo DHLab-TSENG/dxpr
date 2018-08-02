@@ -33,8 +33,8 @@ groupICDBasedOnCCS<-function(DxDataFile,idColName,icdColName,dateColName,icd10us
 
   icd10 <- DxDataFile[DxDataFile$Date >=icd10usingDate,"ICD"]
   icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate,"ICD"]
-  icd9 <-left_join(icd9,select(ccsDxICD9,ICD,CCS_CATEGORY,CCS_CATEGORY_DESCRIPTION),by="ICD") %>% unique()
-  icd10<-left_join(icd10,select(ccsDxICD10,ICD,CCS_CATEGORY,CCS_CATEGORY_DESCRIPTION),by="ICD") %>% unique()
+  icd9 <-left_join(data.frame(ICD = icd9, stringsAsFactors = F), select(ccsDxICD9,ICD,CCS_CATEGORY,CCS_CATEGORY_DESCRIPTION),by="ICD") %>% unique()
+  icd10<-left_join(data.frame(ICD = icd10, stringsAsFactors = F), select(ccsDxICD10,ICD,CCS_CATEGORY,CCS_CATEGORY_DESCRIPTION),by="ICD") %>% unique()
 
   DxDataFile_original<-DxDataFile
   DxDataFile<-full_join(icd9,icd10,by = c("ICD","CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
