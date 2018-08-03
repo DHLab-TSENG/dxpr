@@ -12,14 +12,10 @@
 #' @param icdList An icd code list
 
 convertIcdShortToDecimal<-function(icdList){
-  for(icd in 1:length(icdList)){
-    if(!grepl("[.]",icdList[icd])==TRUE){
-      icdList[icd]<-icd_short_to_decimal(icdList[icd])
-      icdList[icd]<-gsub("[..]","\\.",icdList[icd])
-    }
-  }
-  return(icdList)
+  newicdList <- ifelse(!grepl("[.]",icdList), icd_short_to_decimal(icdList), icdList)
+  return(newicdList)
 }
+
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
