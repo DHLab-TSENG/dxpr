@@ -18,19 +18,21 @@
 #' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elix Comorbidity
 #' @param NumericOrBinary  Member have one (or more) diagnostic comorbidities
 #' @param groupByDate Default is True.
+#' @export
 #' @examples
 #' groupICDBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, T)
-
-#' @export
+#'
 groupICDBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = T){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
   comorbidMethod<-tolower(deparse(substitute(comorbidMethod)))
+
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate, ]
   comorbidMap9 <- eval(parse(text = paste("icd9_map_", comorbidMethod, sep= "")))
   comorbidDf9  <- as.data.frame(matrix(c(T), nrow = nrow(icd9), ncol = length(comorbidMap9)))
   names(comorbidDf9) <- names(comorbidMap9)
+
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate, ]
   comorbidMap10 <- eval(parse(text = paste("icd10_map_", comorbidMethod, sep = "")))
   comorbidDf10 <- as.data.frame(matrix(c(T), nrow = nrow(icd10), ncol = length(comorbidMap10)))
@@ -40,19 +42,20 @@ groupICDBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   comorbidDf9 <- comorbidDf9 %>% mutate(ID = icd9$ID) %>% mutate(ICD = icd9$ICD) %>% mutate(Date = icd9$Date)
   for(i in 1:nrow(comorbidDf10)){comorbidDf10[i,] <- grepl(icd10$ICD[i], comorbidMap10)}
   comorbidDf10 <- comorbidDf10 %>% mutate(ID = icd10$ID) %>% mutate(ICD = icd10$ICD) %>% mutate(Date = icd10$Date)
-  comorbidDf <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date"))
-  comorbidDf <- comorbidDf %>% arrange(ID, Date, ICD)
+
+  comorbidDf_combine <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date"))
+  comorbidDf_combine <- comorbidDf_combine %>% arrange(ID, Date, ICD)
   if(toupper(deparse (substitute (NumericOrBinary))) == "N"){
     NumOrBin <- eval(parse(text = "sum"))
     if(groupByDate == T){
-      comorbidDf <- comorbidDf %>% group_by(ID, Date, ICD) %>% unique()
-      comorbidDf$Date <- NULL
-      comorbidDf$ICD <- NULL
+      comorbidDf_combine <- comorbidDf_combine %>% group_by(ID, Date, ICD) %>% unique()
+      comorbidDf_combine$Date <- NULL
+      comorbidDf_combine$ICD <- NULL
     }
   }else{
     NumOrBin <- eval(parse(text = "any"))
   }
-  comorbidDf <- comorbidDf %>%
+  comorbidDf_combine <- comorbidDf_combine %>%
     group_by(ID) %>%
     summarise(CHF  =  NumOrBin(CHF), Valvular = NumOrBin(Valvular), PHTN = NumOrBin(PHTN), PVD = NumOrBin(PVD), HTN = NumOrBin(HTN),
               HTNcx = NumOrBin(HTNcx), Paralysis = NumOrBin(Paralysis), NeuroOther = NumOrBin(NeuroOther), Pulmonary = NumOrBin(Pulmonary),
@@ -61,5 +64,5 @@ groupICDBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
               Rheumatic = NumOrBin(Rheumatic), Coagulopathy = NumOrBin(Coagulopathy), Obesity = NumOrBin(Obesity), WeightLoss = NumOrBin(WeightLoss),
               FluidsLytes = NumOrBin(FluidsLytes), BloodLoss = NumOrBin(BloodLoss), Anemia = NumOrBin(Anemia), Alcohol = NumOrBin(Alcohol),
               Drugs = NumOrBin(Drugs), Psychoses = NumOrBin(Psychoses), Depression = NumOrBin(Depression))
-  comorbidDf
+  comorbidDf_combine
 }

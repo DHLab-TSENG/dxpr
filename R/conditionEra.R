@@ -16,10 +16,10 @@
 #' @param gapDate Length ofcondition era, default is 30 days
 #' @param icdorCCS Stratified by icd or ccs, default is CCS
 #' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False
-
+#' @export
 #' @examples
 #' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
-#' @export
+#'
 getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,gapDate=30,icdorCCS=CCS,isCCSDescription=F){
   DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile)<-c("ID","ICD","Date")
@@ -29,31 +29,29 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
       mutate(CCS=groupICDBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
       arrange(ID,CCS,Date) %>%
       group_by(ID,CCS) %>%
-      mutate(LastDate=lag(Date)) %>%
       mutate(Gap=Date-LastDate)
   }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
     DxDataFile$ICD<-convertIcdDecimaltoShort(DxDataFile$ICD)
     DxDataFile<- DxDataFile %>%
       arrange(ID,ICD,Date) %>%
       group_by(ID,ICD) %>%
-      mutate(LastDate=lag(Date)) %>%
       mutate(Gap=Date-LastDate)
   }else{
     stop("'please enter icd or ccs",call.=FALSE)
   }
-  DxDataFile<-as.data.table(DxDataFile)
-  DxDataFile$episode <- DxDataFile$Gap > gapDate
-  DxDataFile[is.na(DxDataFile$episode)]$episode<-T
+  DxDataTable<-as.data.table(DxDataFile)
+  DxDataTable$episode <- DxDataTable$Gap > gapDate
+  DxDataTable[is.na(DxDataTable$episode)]$episode<-T
 
   if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
-    DxDataFile[,Era:=cumsum(episode),by=list(ID,CCS)]
+    DxDataTable[,Era:=cumsum(episode),by=list(ID,CCS)]
   }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
-    DxDataFile[,Era:=cumsum(episode),by=list(ID,ICD)]
+    DxDataTable[,Era:=cumsum(episode),by=list(ID,ICD)]
   }
-  DxDataFile<-subset(DxDataFile, select = c(-LastDate, -Gap, -episode))
-  if(sum(is.na(DxDataFile$CCS)==F)<length(DxDataFile$CCS) && toupper(deparse(substitute(icdorCCS)))=="CCS"){
+  DxDataTable<-subset(DxDataTable, select = c(-Gap, -episode))
+  if(sum(is.na(DxDataTable$CCS)==F)<length(DxDataTable$CCS) && toupper(deparse(substitute(icdorCCS)))=="CCS"){
     warning("'NA' means icd code does not match format",call. = F)
-    warning(paste0("wrong format: ",DxDataFile$ICD[is.na(DxDataFile$CCS)],sep="\t"))
+    warning(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t"))
   }
-  DxDataFile
+  DxDataTable
 }
