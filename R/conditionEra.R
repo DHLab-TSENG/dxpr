@@ -18,6 +18,10 @@
 #' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False
 #' @export
 #' @examples
+#' DxDataFile <- data.frame(ID=c("A","A","A"),
+#'                          ICD=c("6929","V433","I350"),
+#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
+#'                          stringsAsFactors = F)
 #' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
 #'
 getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,gapDate=30,icdorCCS=CCS,isCCSDescription=F){
@@ -29,13 +33,13 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
       mutate(CCS=groupICDBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
       arrange(ID,CCS,Date) %>%
       group_by(ID,CCS) %>%
-      mutate(Gap=Date-LastDate)
+      mutate(Gap=Date-lag(Date))
   }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
     DxDataFile$ICD<-convertIcdDecimaltoShort(DxDataFile$ICD)
     DxDataFile<- DxDataFile %>%
       arrange(ID,ICD,Date) %>%
       group_by(ID,ICD) %>%
-      mutate(Gap=Date-LastDate)
+      mutate(Gap=Date-lag(Date))
   }else{
     stop("'please enter icd or ccs",call.=FALSE)
   }
