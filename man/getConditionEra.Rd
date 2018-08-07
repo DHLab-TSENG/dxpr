@@ -22,8 +22,6 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icdorCCS}{Stratified by icd or ccs, default is CCS}
 
-\item{icdList}{An icd code list}
-
 \item{isCCSCategoryDescription}{Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False}
 }
 \description{
