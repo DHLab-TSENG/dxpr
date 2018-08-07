@@ -20,5 +20,8 @@ Imports:
 Depends: R (>= 3.4.0)
 URL: https://github.com/DHLab-CGU
 RoxygenNote: 6.1.0
-Suggests: testthat
-
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -28,7 +28,6 @@ groupIcdBasedOnPhecode<-function(DxDataFile,idColName, icdColName, dateColName, 
   names(DxDataFile)<-c("ID","ICD","Date")
   DxDataFile$ICD<-convertIcdShortToDecimal(DxDataFile$ICD)
 
-
   icd10 <- DxDataFile[DxDataFile$Date >=icd10usingDate,"ICD"]
   icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate,"ICD"]
   icd9 <-left_join(data.frame(ICD = icd9, stringsAsFactors = F),select(phecode_icd9_2,ICD,PheCode,PheCodeDescription),by="ICD") %>% unique()
@@ -43,7 +42,9 @@ groupIcdBasedOnPhecode<-function(DxDataFile,idColName, icdColName, dateColName, 
     DxDataFile_combine_with_originalFile<-DxDataFile_combine_with_originalFile$PheCode
   }
   DxDataFile_combine_with_originalFile<-unlist(unname(DxDataFile_combine_with_originalFile))
-  if(is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])[1] ){
+
+  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
+  if(sum(errorID)>=1){
     warning("'NA means pheWAS does not have icd10'",call. = F)
   }
   DxDataFile_combine_with_originalFile

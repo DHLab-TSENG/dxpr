@@ -49,7 +49,9 @@ groupIcdBasedOnCCSLvl<-function(DxDataFile,idColName,icdColName,dateColName,icd1
     CCSLevelcol<-as.character(parse(text=paste("CCS_LVL_",CCSLevel,sep="")))
   }
   DxDataFile_combine_with_originalFile<-unlist(unname(DxDataFile_combine_with_originalFile[,CCSLevelcol]))
-  if(is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])[1] && CCSLevel>=3){
+
+  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
+  if(sum(errorID)>=1 && CCSLevel>=3){
     warning("'NA means icd10 CCS multiple levels are 1~2",call. = F)
   }
   DxDataFile_combine_with_originalFile

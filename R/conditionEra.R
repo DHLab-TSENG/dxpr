@@ -26,7 +26,7 @@
 getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,gapDate=30,icdorCCS=CCS,isCCSDescription=F){
   DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile)<-c("ID","ICD","Date")
-
+  errorID<-0
   if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
     DxDataFile <- DxDataFile %>%
       mutate(CCS=groupIcdBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
@@ -48,11 +48,12 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
 
   if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
     DxDataTable[,Era:=cumsum(episode),by=list(ID,CCS)]
+    errorID<-is.na(DxDataTable$CCS)
   }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
     DxDataTable[,Era:=cumsum(episode),by=list(ID,ICD)]
   }
   DxDataTable<-subset(DxDataTable, select = c(-Gap, -episode))
-  if(sum(is.na(DxDataTable$CCS)==F)<length(DxDataTable$CCS) && toupper(deparse(substitute(icdorCCS)))=="CCS"){
+  if(sum(errorID)>=1){
     warning("'NA' means icd code does not match format",call. = F)
     warning(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t"))
   }

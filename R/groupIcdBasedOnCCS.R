@@ -39,7 +39,9 @@ groupIcdBasedOnCCS <- function(DxDataFile, idColName, icdColName, dateColName, i
   } else {
     DxDataFile_combine_with_originalFile <- DxDataFile_combine_with_originalFile$CCS_CATEGORY
   }
-  if(is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])[1]){
+  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
+
+  if(sum(errorID)>=1){
     warning("'NA means icd code does not match the format.",call. = F)
   }
   DxDataFile_combine_with_originalFile
