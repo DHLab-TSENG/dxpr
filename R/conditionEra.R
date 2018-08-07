@@ -7,7 +7,6 @@
 #' @import dplyr
 #' @import lubridate
 #' @import data.table
-#' @param icdList An icd code list
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -30,7 +29,7 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
 
   if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
     DxDataFile <- DxDataFile %>%
-      mutate(CCS=groupICDBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
+      mutate(CCS=groupIcdBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
       arrange(ID,CCS,Date) %>%
       group_by(ID,CCS) %>%
       mutate(Gap=Date-lag(Date))
