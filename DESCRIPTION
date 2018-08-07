@@ -16,7 +16,9 @@ Imports:
     PheWAS,
     data.table,
     lubridate,
-    stringr
+    stringr,
+    rlist,
+    tidyr
 Depends: R (>= 3.4.0)
 URL: https://github.com/DHLab-CGU
 RoxygenNote: 6.1.0
