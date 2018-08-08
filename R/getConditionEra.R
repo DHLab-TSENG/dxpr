@@ -1,8 +1,12 @@
 #' Get the condition era
 #'
 #' A Condition Era is defined as a span of time when the member is assumed to have a given condition.
-#' based on ICD code in clinical diagnostic data,
-#' return CCS single and multiple category/ description based on ICD9/ 10
+#' Condition Eras are periods of Condition Occurrence.
+#' Combining individual Condition Occurrences into a single Condition Era based on ICD code in clinical diagnostic data.
+#' Condition Eras are built with a Persistence Window,deafault is 30 days, meaning, if no occurence of the same member id happens within 30 days of any one occurrence, it will be considered the end date of the last condition occurrence.
+#'
+#' return DxDataFile with new column, condition era.
+#'
 #' @import icd
 #' @import dplyr
 #' @import lubridate
@@ -14,7 +18,7 @@
 #' @param icd10usingDate Icd 10 using date
 #' @param gapDate Length ofcondition era, default is 30 days
 #' @param icdorCCS Stratified by icd or ccs, default is CCS
-#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False
+#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","A"),
@@ -54,8 +58,7 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
   }
   DxDataTable<-subset(DxDataTable, select = c(-Gap, -episode))
   if(sum(errorID)>=1){
-    warning("'NA' means icd code does not match format",call. = F)
-    warning(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t"))
+    warning(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t\n"),call. = F)
   }
   DxDataTable
 }
