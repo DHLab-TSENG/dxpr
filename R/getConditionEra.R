@@ -58,7 +58,7 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
   }
   DxDataTable<-subset(DxDataTable, select = c(-Gap, -episode))
   if(sum(errorID)>=1){
-    warning(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t\n"),call. = F)
+    message(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t\n"))
   }
   DxDataTable
 }
