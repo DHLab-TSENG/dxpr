@@ -1,8 +1,8 @@
-#' Get the PheWAS Phecode/ description
+#' Get the PheWAS Phecode or description of ICD-9 diagnosis codes
 #'
-#' This can be used to select the PheWAS Phecode/ description
-#' based on ICD code in clinical diagnostic data,
-#' return CCS single and multiple category/ description based on ICD
+#' This can be used to group PheWAS Phecode or description based on ICD-9 codes in clinical diagnostic data.
+#'
+#' return PheWAS Phecode or description based on ICD-9-CM codes
 #'
 #' @import stringr
 #' @import icd

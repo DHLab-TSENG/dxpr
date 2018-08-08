@@ -1,8 +1,8 @@
 #' Grouping comorbid method comorbidities (AHRQ, Charlson and Elix Comorbidity) infers whether to use ICD-9 or ICD-10 codes
 #'
-#' This can be used to select the comorbidity methods
-#' based on ICD code in clinical diagnostic data,
-#' return comorbidity meseaures based on ICD
+#' This can be used to select the comorbidity methods based on ICD code in clinical diagnostic data.
+#'
+#' return comorbidity meseaures based on ICD diagnosis codes
 #'
 #' @import stringr
 #' @import icd

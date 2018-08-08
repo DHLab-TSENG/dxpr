@@ -1,11 +1,11 @@
 Package: emr
 Type: Package
-Title: A health data analysis tool of Electric Medical Record
+Title: Tool of Electric Medical Record for grouping with ICD-9 and ICD-10 codes by ccs, comorbidities and phecodes, and calculating condition era. 
 Version: 0.1.0
 Date: 2018-07-31
 Author: person("Yi-Ju", "Tseng", email= "yjtseng@mail.cgu.edu.tw", role= c("aut", "cre"))
 Maintainer: HJ,Chiu <aibabi3@gmail.com>
-Description: A health data analysis tool of electric medical record in R. For medical, health, clinical data analysis from DHLab at CGU.
+Description: A health data analysis tool of electric medical record in R. For medical, health, clinical data analysis from DHLab at CGU.Grouping ICD-9 and ICD-10 codes to Clinical Classifications Software (CCS), Comorbidities and phecode.ICD-9 and ICD-10 comorbidity mappings from AHRQ, Charlson and Elixhauser included.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -24,6 +24,7 @@ URL: https://github.com/DHLab-CGU
 RoxygenNote: 6.1.0
 Suggests: 
     testthat,
+    roxygen2,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

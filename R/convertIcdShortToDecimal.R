@@ -1,15 +1,12 @@
-#' Get the PheWAS Phecode/ description
+#' Convert ICD Codes From Short To Decimal Forms
 #'
-#' This can be used to select the PheWAS Phecode/ description
-#' based on ICD code in clinical diagnostic data,
-#' return CCS single and multiple category/ description based on ICD
+#' Convert codes between short and decimal forms
 #'
 #' @import stringr
 #' @import icd
 #' @import plyr
 #' @import dplyr
-#' @import PheWAS
-#' @param icdList An icd code list
+#' @param icdList ICD codes
 #'
 convertIcdShortToDecimal<-function(icdList){
   newicdList <- ifelse(!grepl("[.]",icdList), icd_short_to_decimal(icdList), icdList)

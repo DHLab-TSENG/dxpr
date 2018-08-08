@@ -1,8 +1,9 @@
-#' Get the Clinical Classifications Software (CCS) single and multiple category/ description
+#' Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
-#' This can be used to select the Clinical Classifications Software (CCS) single and multiple category/ description
-#' based on ICD code in clinical diagnostic data,
-#' return Clinical Classifications Software (CCS) single and multiple category/ description based on ICD-9 and ICD-10
+#' Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.
+#'
+#' return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
+#'
 #' @import stringr
 #' @import icd
 #' @import plyr
@@ -42,7 +43,7 @@ groupIcdBasedOnCCS <- function(DxDataFile, idColName, icdColName, dateColName, i
   errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
 
   if(sum(errorID)>=1){
-    warning("'NA means icd code does not match the format.",call. = F)
+    warning("NA means icd code does not match the format.",call. = F)
   }
   DxDataFile_combine_with_originalFile
 }

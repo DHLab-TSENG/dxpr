@@ -1,8 +1,8 @@
-#' Get the Clinical Classifications Software (CCS) single and multiple category/ description
+#' Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
-#' This can be used to select the Clinical Classifications Software (CCS) single and multiple category/ description
-#' based on ICD code in clinical diagnostic data,
-#' return Clinical Classifications Software (CCS) single and multiple category/ description based on ICD-9 and ICD-10
+#'  Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme. Four levels exist in the multi-level diagnosis CCS for ICD-9-CM codes, and two levels exist in the multi-level diagnosis CCS for ICD-10-CM codes
+#'
+#' return Multi-leve Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 #' @import stringr
 #' @import icd
 #' @import plyr
