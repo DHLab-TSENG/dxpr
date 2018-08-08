@@ -2,15 +2,13 @@
 % Please edit documentation in R/convertIcdDecimaltoShort.R
 \name{convertIcdDecimaltoShort}
 \alias{convertIcdDecimaltoShort}
-\title{Get the Clinical Classifications Software (CCS) single and multiple category/ description}
+\title{Convert ICD Codes From Decimal To Short Forms}
 \usage{
 convertIcdDecimaltoShort(icdList)
 }
 \arguments{
-\item{icdList}{An icd code list}
+\item{icdList}{ICD codes}
 }
 \description{
-This can be used to select the Clinical Classifications Software (CCS) single and multiple category/ description
-based on ICD code in clinical diagnostic data,
-return Clinical Classifications Software (CCS) single and multiple category/ description based on ICD-9 and ICD-10
+Convert codes between short and decimal forms
 }

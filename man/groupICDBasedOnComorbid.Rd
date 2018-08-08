@@ -25,9 +25,10 @@ groupIcdBasedOnComorbid(DxDataFile, idColName, icdColName, dateColName,
 \item{groupByDate}{Default is True.}
 }
 \description{
-This can be used to select the comorbidity methods
-based on ICD code in clinical diagnostic data,
-return comorbidity meseaures based on ICD
+This can be used to select the comorbidity methods based on ICD code in clinical diagnostic data.
+}
+\details{
+return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
 DxDataFile <- data.frame(ID=c("A","A","A"),

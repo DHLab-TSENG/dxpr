@@ -2,7 +2,7 @@
 % Please edit documentation in R/groupIcdBasedOnCCSLvl.R
 \name{groupIcdBasedOnCCSLvl}
 \alias{groupIcdBasedOnCCSLvl}
-\title{Get the Clinical Classifications Software (CCS) single and multiple category/ description}
+\title{Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.}
 \usage{
 groupIcdBasedOnCCSLvl(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE)
@@ -23,9 +23,10 @@ groupIcdBasedOnCCSLvl(DxDataFile, idColName, icdColName, dateColName,
 \item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/ description for icd9/ 10, default is True}
 }
 \description{
-This can be used to select the Clinical Classifications Software (CCS) single and multiple category/ description
-based on ICD code in clinical diagnostic data,
-return Clinical Classifications Software (CCS) single and multiple category/ description based on ICD-9 and ICD-10
+Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme. Four levels exist in the multi-level diagnosis CCS for ICD-9-CM codes, and two levels exist in the multi-level diagnosis CCS for ICD-10-CM codes
+}
+\details{
+return Multi-leve Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 }
 \examples{
 DxDataFile <- data.frame(ID=c("A","A","A"),

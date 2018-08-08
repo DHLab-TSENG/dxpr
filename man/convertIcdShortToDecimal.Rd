@@ -2,15 +2,13 @@
 % Please edit documentation in R/convertIcdShortToDecimal.R
 \name{convertIcdShortToDecimal}
 \alias{convertIcdShortToDecimal}
-\title{Get the PheWAS Phecode/ description}
+\title{Convert ICD Codes From Short To Decimal Forms}
 \usage{
 convertIcdShortToDecimal(icdList)
 }
 \arguments{
-\item{icdList}{An icd code list}
+\item{icdList}{ICD codes}
 }
 \description{
-This can be used to select the PheWAS Phecode/ description
-based on ICD code in clinical diagnostic data,
-return CCS single and multiple category/ description based on ICD
+Convert codes between short and decimal forms
 }
