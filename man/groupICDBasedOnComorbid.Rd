@@ -18,7 +18,7 @@ groupIcdBasedOnComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elix Comorbidity}
+\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity}
 
 \item{NumericOrBinary}{Member have one (or more) diagnostic comorbidities}
 

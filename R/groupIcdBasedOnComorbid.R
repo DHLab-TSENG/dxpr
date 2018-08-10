@@ -15,7 +15,7 @@
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
-#' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elix Comorbidity
+#' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity
 #' @param NumericOrBinary  Member have one (or more) diagnostic comorbidities
 #' @param groupByDate Default is True.
 #' @export
