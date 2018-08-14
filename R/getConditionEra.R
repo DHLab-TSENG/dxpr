@@ -9,7 +9,6 @@
 #'
 #' @import icd
 #' @import dplyr
-#' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -17,47 +16,53 @@
 #' @param icd10usingDate Icd 10 using date
 #' @param gapDate Length ofcondition era, default is 30 days
 #' @param icdorCCS Stratified by icd or ccs, default is CCS
-#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.
+#' @param isCCSDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","A"),
 #'                          ICD=c("6929","V433","I350"),
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-#'                          stringsAsFactors = F)
+#'                          stringsAsFactors = FALSE)
 #' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
+#' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, F)
 #'
-getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,gapDate=30,icdorCCS=CCS,isCCSDescription=F){
-  DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
-  names(DxDataFile)<-c("ID","ICD","Date")
-  errorID<-0
-  if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
-    DxDataFile <- DxDataFile %>%
-      mutate(CCS=groupIcdBasedOnCCS(DxDataFile,ID,ICD,Date,icd10usingDate,isCCSDescription)) %>%
-      arrange(ID,CCS,Date) %>%
-      group_by(ID,CCS) %>%
-      mutate(Gap=Date-lag(Date))
-  }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
-    DxDataFile$ICD<-convertIcdDecimaltoShort(DxDataFile$ICD)
-    DxDataFile<- DxDataFile %>%
-      arrange(ID,ICD,Date) %>%
-      group_by(ID,ICD) %>%
-      mutate(Gap=Date-lag(Date))
-  }else{
-    stop("'please enter icd or ccs for 'icdorCCS'",call.=FALSE)
-  }
-  DxDataTable<-as.data.table(DxDataFile)
-  DxDataTable$episode <- DxDataTable$Gap > gapDate
-  DxDataTable[is.na(DxDataTable$episode)]$episode<-T
+getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = F){
+  DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
+  icdorCCS <- toupper(deparse(substitute(icdorCCS)))
+  errorID <- 0
 
-  if(toupper(deparse(substitute(icdorCCS)))=="CCS"){
-    DxDataTable[,Era:=cumsum(episode),by=list(ID,CCS)]
-    errorID<-is.na(DxDataTable$CCS)
-  }else if(toupper(deparse(substitute(icdorCCS)))=="ICD"){
-    DxDataTable[,Era:=cumsum(episode),by=list(ID,ICD)]
+  if(icdorCCS == "CCS"){
+    DxDataFile <- DxDataFile %>%
+      mutate(CCS = groupIcdToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isCCSDescription)) %>%
+      arrange(ID, CCS, Date) %>%
+      group_by(ID, CCS) %>%
+      mutate(Gap = Date - lag(Date))
+  }else if(icdorCCS == "ICD"){
+    DxDataFile <- DxDataFile %>%
+      arrange(ID, ICD, Date) %>%
+      group_by(ID, ICD) %>%
+      mutate(Gap = Date - lag(Date))
+  }else{
+    stop("'please enter icd or ccs for 'icdorCCS'", call. = FALSE)
   }
-  DxDataTable<-subset(DxDataTable, select = c(-Gap, -episode))
-  if(sum(errorID)>=1){
-    message(paste0("wrong format: ",DxDataTable$ICD[is.na(DxDataTable$CCS)],sep="\t\n"))
+  DxDataFile$episode <- DxDataFile$Gap > gapDate
+  DxDataFile$episode[is.na(DxDataFile$episode)] <- T
+  if(icdorCCS == "CCS"){
+    DxDataFile <- DxDataFile %>%
+      group_by(ID, CCS) %>%
+      mutate(Era = cumsum(episode))
+    errorID <- is.na(DxDataFile$CCS)
+
+  }else if(icdorCCS == "ICD"){
+    DxDataFile <- DxDataFile %>%
+      group_by(ID, ICD) %>%
+      mutate(Era = cumsum(episode))
   }
-  DxDataTable
+  DxDataFile <- select(DxDataFile, c(-"Gap", -"episode"))
+  if(sum(errorID) >= 1){
+    message(paste0("wrong format: ", DxDataFile$ICD[is.na(DxDataFile$CCS)], sep = "\t\n"))
+  }
+  DxDataFile
 }
