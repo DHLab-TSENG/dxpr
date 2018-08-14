@@ -9,7 +9,6 @@
 #'
 #' @import icd
 #' @import dplyr
-#' @import lubridate
 #' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
@@ -44,7 +43,7 @@ getConditionEra <-function(DxDataFile,idColName,icdColName,dateColName,icd10usin
       group_by(ID,ICD) %>%
       mutate(Gap=Date-lag(Date))
   }else{
-    stop("'please enter icd or ccs",call.=FALSE)
+    stop("'please enter icd or ccs for 'icdorCCS'",call.=FALSE)
   }
   DxDataTable<-as.data.table(DxDataFile)
   DxDataTable$episode <- DxDataTable$Gap > gapDate

@@ -4,9 +4,7 @@
 #'
 #' return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 #'
-#' @import stringr
 #' @import icd
-#' @import plyr
 #' @import dplyr
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
 #' @param idColName A column for MemberID of DxDataFile
@@ -21,6 +19,7 @@
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
 #'                          stringsAsFactors = F)
 #' groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", T)
+#'
 groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription=TRUE){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")

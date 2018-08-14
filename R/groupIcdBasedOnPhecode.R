@@ -4,9 +4,7 @@
 #'
 #' return PheWAS Phecode or description based on ICD-9-CM codes
 #'
-#' @import stringr
 #' @import icd
-#' @import plyr
 #' @import dplyr
 #' @import PheWAS
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"

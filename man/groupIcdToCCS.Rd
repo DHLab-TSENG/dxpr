@@ -32,4 +32,5 @@ DxDataFile <- data.frame(ID=c("A","A","A"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
                          stringsAsFactors = F)
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", T)
+
 }

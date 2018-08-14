@@ -10,15 +10,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    plyr,
     dplyr,
     icd,
     PheWAS,
-    data.table,
-    lubridate,
-    stringr,
-    rlist,
-    tidyr
+    data.table
 Depends: R (>= 3.4.0)
 URL: https://github.com/DHLab-CGU
 RoxygenNote: 6.1.0

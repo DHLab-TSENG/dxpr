@@ -2,10 +2,8 @@
 #'
 #' Convert codes between short and decimal forms
 #'
-#' @import stringr
 #' @import icd
-#' @import plyr
-#' @import dplyr
+#'
 #' @param icdList ICD codes
 #'
 convertIcdDecimaltoShort<-function(icdList){
