@@ -5,8 +5,8 @@
 #' return comorbidity meseaures based on ICD diagnosis codes
 #'
 #' @import icd
+#' @import reshape2
 #' @import dplyr
-#' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -18,7 +18,7 @@
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","B","B"),
-#'                          ICD=c("40201","V433","I350","I350"),
+#'                          ICD=c("40201","V433","I350","I050"),
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
 #'                          stringsAsFactors = F)
 #'
@@ -48,12 +48,13 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
 
   comorbidDf_combine <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date", "Comorbidity", "Value"))
+  comorbidDf_combine$ICD <- NULL
   if(groupByDate ==T){
-    comorbidDf_combine<-unique(comorbidDf_combine)
+    comorbidDf_combine<-comorbidDf_combine %>% group_by(ID,Date,Comorbidity) %>% unique()
   }
   comorbidDf_combine_wide <- dcast(setDT(comorbidDf_combine), ID~Comorbidity, value.var = c("Value"), sum)
 
-  all_comorbidity_name <- data.table(matrix(c(0L), nrow = nrow(DxDataFile), ncol = length(unique(comorbidMap9$Comorbidity))))
+  all_comorbidity_name <- data.frame(matrix(c(0L), nrow = nrow(DxDataFile), ncol = length(unique(comorbidMap9$Comorbidity))))
   names(all_comorbidity_name) <- unique(comorbidMap9$Comorbidity)
   all_comorbidity_name <- mutate(all_comorbidity_name, ID = DxDataFile$ID)
 
