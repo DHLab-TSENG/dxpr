@@ -2,7 +2,7 @@
 % Please edit documentation in R/groupIcdBasedOnComorbid.R
 \name{groupIcdBasedOnComorbid}
 \alias{groupIcdBasedOnComorbid}
-\title{Grouping comorbid method comorbidities (AHRQ, Charlson and Elix Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
+\title{Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
 \usage{
 groupIcdBasedOnComorbid(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = T)
@@ -18,23 +18,26 @@ groupIcdBasedOnComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity}
+\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`}
 
-\item{NumericOrBinary}{Member have one (or more) diagnostic comorbidities}
+\item{NumericOrBinary}{Member have one (or more) diagnostic comorbidities, type `N` or `B`, default is `B` (Binary)}
 
 \item{groupByDate}{Default is True.}
 }
 \description{
-This can be used to select the comorbidity methods based on ICD code in clinical diagnostic data.
+Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
 }
 \details{
 return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
-DxDataFile <- data.frame(ID=c("A","A","A"),
-                         ICD=c("6929","V433","I350"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
+DxDataFile <- data.frame(ID=c("A","A","B","B"),
+                         ICD=c("40201","V433","I350","I350"),
+                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
                          stringsAsFactors = F)
+
 groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, T)
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, T)
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, T)
 
 }
