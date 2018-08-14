@@ -32,9 +32,9 @@ return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
 DxDataFile <- data.frame(ID=c("A","A","B","B"),
-                         ICD=c("40201","V433","I350","I350"),
+                         ICD=c("40201","V433","I350","I050"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-                         stringsAsFactors = F)
+                         stringsAsFactors = FALSE)
 
 groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, T)
 groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, T)

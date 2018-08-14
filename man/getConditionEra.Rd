@@ -22,7 +22,7 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icdorCCS}{Stratified by icd or ccs, default is CCS}
 
-\item{isCCSCategoryDescription}{Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.}
+\item{isCCSDescription}{Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.}
 }
 \description{
 A Condition Era is defined as a span of time when the member is assumed to have a given condition.
@@ -37,7 +37,8 @@ return DxDataFile with new column, condition era.
 DxDataFile <- data.frame(ID=c("A","A","A"),
                          ICD=c("6929","V433","I350"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-                         stringsAsFactors = F)
+                         stringsAsFactors = FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
+getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, F)
 
 }
