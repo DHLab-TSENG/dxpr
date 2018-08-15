@@ -27,7 +27,7 @@ groupIcdBasedOnCCSLvl<-function(DxDataFile,idColName,icdColName,dateColName,icd1
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
   icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate,"ICD"]
   icd9 <- left_join(data.frame(ICD=icd9,stringsAsFactors = F),
-                    select(ccsDxICD9_fullLabel,ICD,CCS_LVL_1,CCS_LVL_1_LABEL,CCS_LVL_2,CCS_LVL_2_LABEL,CCS_LVL_3,CCS_LVL_3_LABEL,CCS_LVL_4,CCS_LVL_4_LABEL),
+                    select(ccsDxICD9,ICD,CCS_LVL_1,CCS_LVL_1_LABEL,CCS_LVL_2,CCS_LVL_2_LABEL,CCS_LVL_3,CCS_LVL_3_LABEL,CCS_LVL_4,CCS_LVL_4_LABEL),
                     by="ICD") %>% unique()
   if(CCSLevel<3){
     icd10 <- DxDataFile[DxDataFile$Date >=icd10usingDate,"ICD"]
