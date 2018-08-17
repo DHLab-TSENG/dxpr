@@ -18,15 +18,15 @@
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","B","B"),
-#'                          ICD=c("40201","V433","I350","I050"),
+#'                          ICD=c("40201","42577","I350","K289"),
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
 #'                          stringsAsFactors = FALSE)
 #'
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, T)
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, T)
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, T)
+#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
+#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 #'
-groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = T){
+groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
@@ -42,6 +42,7 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
     comorbidMap9 <- `icd9_elix`
     comorbidMap10 <- `icd9_elix`
   }
+
   icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
   icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
   comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
@@ -52,15 +53,18 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   if(groupByDate ==T){
     comorbidDf_combine<-comorbidDf_combine %>% group_by(ID,Date,Comorbidity) %>% unique()
   }
-  comorbidDf_combine_wide <- dcast(setDT(comorbidDf_combine), ID~Comorbidity, value.var = c("Value"), sum)
+  comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
+  comorbidDf_combine_wide <- comorbidDf_combine_wide[, names(comorbidDf_combine_wide) != "NA"]
 
-  all_comorbidity_name <- data.frame(matrix(c(0L), nrow = nrow(DxDataFile), ncol = length(unique(comorbidMap9$Comorbidity))))
-  names(all_comorbidity_name) <- unique(comorbidMap9$Comorbidity)
-  all_comorbidity_name <- mutate(all_comorbidity_name, ID = DxDataFile$ID)
+  all_comorbidity_measures <- matrix(c(0L), nrow = as.numeric(nrow(comorbidDf_combine_wide)), ncol = as.numeric(length(unique(comorbidMap9$Comorbidity))))
+  all_comorbidity_measures <- data.frame(all_comorbidity_measures)
 
-  combine <- right_join(all_comorbidity_name, comorbidDf_combine_wide, by = c(names(comorbidDf_combine_wide), "ID"))
+  names(all_comorbidity_measures) <- unique(comorbidMap9$Comorbidity)
+  all_comorbidity_measures <- mutate(all_comorbidity_measures, ID = comorbidDf_combine_wide$ID)
 
-  combine_Numeric <- combine[, c(31, 1:30)]
+  combine <- right_join(all_comorbidity_measures, comorbidDf_combine_wide, by = c("ID",names(comorbidDf_combine_wide)))
+
+  combine_Numeric <- combine[, c(ncol(combine), 1:(ncol(combine)-1))]
   combine_Numeric[is.na(combine_Numeric)] <- 0L
   if(toupper(deparse(substitute(NumericOrBinary))) == "B"){
     combine_Binary <-as.data.frame(combine_Numeric >= 1L)
