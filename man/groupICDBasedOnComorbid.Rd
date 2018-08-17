@@ -5,7 +5,8 @@
 \title{Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
 \usage{
 groupIcdBasedOnComorbid(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = T)
+  icd10usingDate, comorbidMethod, NumericOrBinary = B,
+  groupByDate = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -32,12 +33,12 @@ return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
 DxDataFile <- data.frame(ID=c("A","A","B","B"),
-                         ICD=c("40201","V433","I350","I050"),
+                         ICD=c("40201","42577","I350","K289"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
                          stringsAsFactors = FALSE)
 
-groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, T)
-groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, T)
-groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, T)
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 
 }

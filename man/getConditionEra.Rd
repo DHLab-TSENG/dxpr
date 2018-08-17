@@ -5,7 +5,8 @@
 \title{Get the condition era}
 \usage{
 getConditionEra(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = F)
+  icd10usingDate, gapDate = 30, icdorCCS = CCS,
+  isCCSDescription = FALSE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -38,7 +39,7 @@ DxDataFile <- data.frame(ID=c("A","A","A"),
                          ICD=c("6929","V433","I350"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
                          stringsAsFactors = FALSE)
-getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
-getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, F)
+getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
+getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 
 }

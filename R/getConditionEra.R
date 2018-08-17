@@ -23,10 +23,10 @@
 #'                          ICD=c("6929","V433","I350"),
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
 #'                          stringsAsFactors = FALSE)
-#' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, F)
-#' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, F)
+#' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
+#' getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 #'
-getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = F){
+getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = FALSE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
@@ -48,7 +48,7 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     stop("'please enter icd or ccs for 'icdorCCS'", call. = FALSE)
   }
   DxDataFile$episode <- DxDataFile$Gap > gapDate
-  DxDataFile$episode[is.na(DxDataFile$episode)] <- T
+  DxDataFile$episode[is.na(DxDataFile$episode)] <- TRUE
   if(icdorCCS == "CCS"){
     DxDataFile <- DxDataFile %>%
       group_by(ID, CCS) %>%
