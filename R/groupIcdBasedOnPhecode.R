@@ -6,7 +6,6 @@
 #'
 #' @import icd
 #' @import dplyr
-#' @import PheWAS
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
