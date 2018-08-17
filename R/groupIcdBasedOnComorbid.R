@@ -56,7 +56,7 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
   comorbidDf_combine_wide <- comorbidDf_combine_wide[, names(comorbidDf_combine_wide) != "NA"]
 
-  all_comorbidity_measures <- matrix(c(0L), nrow = as.numeric(nrow(comorbidDf_combine_wide)), ncol = as.numeric(length(unique(comorbidMap9$Comorbidity))))
+  all_comorbidity_measures <- matrix(c(0L), nrow = nrow(comorbidDf_combine_wide), ncol = length(unique(comorbidMap9$Comorbidity)))
   all_comorbidity_measures <- data.frame(all_comorbidity_measures)
 
   names(all_comorbidity_measures) <- unique(comorbidMap9$Comorbidity)
