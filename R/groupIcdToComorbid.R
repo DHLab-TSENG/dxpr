@@ -40,9 +40,8 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
     comorbidMap10 <- `icd10_charlson`
   }else if(grepl("elix", comorbidMethod)){
     comorbidMap9 <- `icd9_elix`
-    comorbidMap10 <- `icd9_elix`
+    comorbidMap10 <- `icd10_elix`
   }
-
   icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
   icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
   comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
@@ -55,10 +54,8 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   }
   comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
   comorbidDf_combine_wide <- comorbidDf_combine_wide[, names(comorbidDf_combine_wide) != "NA"]
-
-  all_comorbidity_measures <- matrix(c(0L), nrow = nrow(comorbidDf_combine_wide), ncol = length(unique(comorbidMap9$Comorbidity)))
+  all_comorbidity_measures <- matrix(nrow = nrow(comorbidDf_combine_wide), ncol = length(unique(comorbidMap9$Comorbidity)))
   all_comorbidity_measures <- data.frame(all_comorbidity_measures)
-
   names(all_comorbidity_measures) <- unique(comorbidMap9$Comorbidity)
   all_comorbidity_measures <- mutate(all_comorbidity_measures, ID = comorbidDf_combine_wide$ID)
 
