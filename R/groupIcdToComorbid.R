@@ -30,7 +30,6 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
-
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (grepl("ahrq", comorbidMethod)){
     comorbidMap9 <- `icd9_ahrq`
@@ -40,7 +39,7 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
     comorbidMap10 <- `icd10_charlson`
   }else if(grepl("elix", comorbidMethod)){
     comorbidMap9 <- `icd9_elix`
-    comorbidMap10 <- `icd9_elix`
+    comorbidMap10 <- `icd10_elix`
   }
 
   icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
@@ -54,15 +53,15 @@ groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColNa
     comorbidDf_combine<-comorbidDf_combine %>% group_by(ID,Date,Comorbidity) %>% unique()
   }
   comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
-  comorbidDf_combine_wide <- comorbidDf_combine_wide[, names(comorbidDf_combine_wide) != "NA"]
 
-  all_comorbidity_measures <- matrix(c(0L), nrow = nrow(comorbidDf_combine_wide), ncol = length(unique(comorbidMap9$Comorbidity)))
+  all_comorbidity_measures <- matrix(nrow = length(comorbidDf_combine_wide$ID), ncol = length(unique(comorbidMap9$Comorbidity)))
   all_comorbidity_measures <- data.frame(all_comorbidity_measures)
-
   names(all_comorbidity_measures) <- unique(comorbidMap9$Comorbidity)
   all_comorbidity_measures <- mutate(all_comorbidity_measures, ID = comorbidDf_combine_wide$ID)
 
-  combine <- right_join(all_comorbidity_measures, comorbidDf_combine_wide, by = c("ID",names(comorbidDf_combine_wide)))
+  JoiningBycol <- names(comorbidDf_combine_wide[ names(comorbidDf_combine_wide) != "NA"])
+  combine <- right_join(all_comorbidity_measures, comorbidDf_combine_wide,by = JoiningBycol)
+  combine <- combine[, names(combine) != "NA"]
 
   combine_Numeric <- combine[, c(ncol(combine), 1:(ncol(combine)-1))]
   combine_Numeric[is.na(combine_Numeric)] <- 0L
