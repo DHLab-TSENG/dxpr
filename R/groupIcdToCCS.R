@@ -6,6 +6,7 @@
 #'
 #' @import icd
 #' @import dplyr
+#' @importFrom stats complete.cases
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -31,7 +32,7 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   icd10 <- left_join(data.frame(ICD = icd10, stringsAsFactors = F), select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by="ICD") %>% unique()
 
   DxDataFile_combine <- full_join(icd9, icd10, by = c("ICD","CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
-  DxDataFile_combine<-DxDataFile_combine[complete.cases(DxDataFile_combine),]
+  DxDataFile_combine<-DxDataFile_combine[stats::complete.cases(DxDataFile_combine),]
   DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by="ICD")
 
   if (isCCSCategoryDescription == T) {
