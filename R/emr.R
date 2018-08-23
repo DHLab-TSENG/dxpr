@@ -29,6 +29,8 @@ NULL
 #' @name ccsDxICD9
 #' @usage data(ccsDxICD9)
 #' @format A data frame with 15072 rows and 12 variables
+#' \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+#' \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-CM
@@ -51,6 +53,7 @@ NULL
 #' @name ccsDxICD10
 #' @usage data(ccsDxICD10)
 #' @format A data frame with 72167 rows and 8 variables
+#' \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
 NULL
 
 #' AHRQ Comorbidity for ICD-9
@@ -176,4 +179,5 @@ NULL
 #' @name phecode_icd9_2
 #' @usage data(phecode_icd9_2)
 #' @format A data frame with 15558 rows and 9 variables
+#' \url{https://phewascatalog.org/phecodes}
 NULL
