@@ -4,7 +4,9 @@
 \name{ccsDxICD9}
 \alias{ccsDxICD9}
 \title{Clinical Classifications Software (CCS)  for ICD-9-CM}
-\format{A data frame with 15072 rows and 12 variables}
+\format{A data frame with 15072 rows and 12 variables
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}}
 \usage{
 data(ccsDxICD9)
 }
