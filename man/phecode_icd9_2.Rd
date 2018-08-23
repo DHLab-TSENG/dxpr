@@ -5,6 +5,9 @@
 \alias{phecode_icd9_2}
 \title{Phecode for ICD-9}
 \format{A data frame with 15558 rows and 9 variables}
+\source{
+\url{https://phewascatalog.org/phecodes}
+}
 \usage{
 data(phecode_icd9_2)
 }
