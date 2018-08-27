@@ -1,8 +1,13 @@
-#' Get the PheWAS Phecode or description of ICD-9 diagnosis codes
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "ICD",
+  "PheCode",
+  "PheCodeDescription",
+  "phecode_icd9_2"))
+#' Get the Phecode or description of ICD-9 diagnosis codes
 #'
-#' This can be used to group PheWAS Phecode or description based on ICD-9 codes in clinical diagnostic data.
+#' This can be used to group Phecode or description based on ICD-9 codes in clinical diagnostic data.
 #'
-#' return PheWAS Phecode or description based on ICD-9-CM codes
+#' return Phecode or description based on ICD-9-CM codes
 #'
 #' @import icd
 #' @import dplyr
@@ -11,7 +16,7 @@
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate icd 10 using date
-#' @param isPhecodeDescription PheWAS Phecode/ description for icd9, default is True
+#' @param isPhecodeDescription Phecode/ description for icd9, default is True
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","A"),
@@ -42,7 +47,7 @@ groupIcdBasedOnPhecode<-function(DxDataFile,idColName, icdColName, dateColName, 
 
   errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
   if(sum(errorID)>=1){
-    warning("'NA means pheWAS does not have icd10'",call. = F)
+    warning("'NA means phecode does not have icd10'",call. = F)
   }
   DxDataFile_combine_with_originalFile
 }

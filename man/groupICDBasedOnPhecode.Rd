@@ -2,7 +2,7 @@
 % Please edit documentation in R/groupIcdToPhecode.R
 \name{groupIcdBasedOnPhecode}
 \alias{groupIcdBasedOnPhecode}
-\title{Get the PheWAS Phecode or description of ICD-9 diagnosis codes}
+\title{Get the Phecode or description of ICD-9 diagnosis codes}
 \usage{
 groupIcdBasedOnPhecode(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, isPhecodeDescription = TRUE)
@@ -18,13 +18,13 @@ groupIcdBasedOnPhecode(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{isPhecodeDescription}{PheWAS Phecode/ description for icd9, default is True}
+\item{isPhecodeDescription}{Phecode/ description for icd9, default is True}
 }
 \description{
-This can be used to group PheWAS Phecode or description based on ICD-9 codes in clinical diagnostic data.
+This can be used to group Phecode or description based on ICD-9 codes in clinical diagnostic data.
 }
 \details{
-return PheWAS Phecode or description based on ICD-9-CM codes
+return Phecode or description based on ICD-9-CM codes
 }
 \examples{
 DxDataFile <- data.frame(ID=c("A","A","A"),

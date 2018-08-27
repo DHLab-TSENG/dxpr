@@ -1,3 +1,8 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "ccsDxICD9",
+  "CCS_CATEGORY",
+  "CCS_CATEGORY_DESCRIPTION",
+  "ccsDxICD10"))
 #' Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
 #' Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.

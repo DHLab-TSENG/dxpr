@@ -1,3 +1,12 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "icd9_ahrq",
+  "icd10_ahrq",
+  "icd9_charlson",
+  "icd10_charlson",
+  "icd9_elix",
+  "icd10_elix",
+  "Comorbidity",
+  "B"))
 #' Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
 #'
 #' Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.

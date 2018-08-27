@@ -1,3 +1,14 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "ccsDxICD9",
+  "ccsDxICD10",
+  "CCS_LVL_1",
+  "CCS_LVL_1_LABEL",
+  "CCS_LVL_2",
+  "CCS_LVL_2_LABEL",
+  "CCS_LVL_3",
+  "CCS_LVL_3_LABEL",
+  "CCS_LVL_4",
+  "CCS_LVL_4_LABEL"))
 #' Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
 #'  Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme. Four levels exist in the multi-level diagnosis CCS for ICD-9-CM codes, and two levels exist in the multi-level diagnosis CCS for ICD-10-CM codes

@@ -1,3 +1,8 @@
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "CCS",
+  "ID",
+  "Date",
+  "episode"))
 #' Get the condition era
 #'
 #' A Condition Era is defined as a span of time when the member is assumed to have a given condition.
