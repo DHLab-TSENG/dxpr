@@ -30,39 +30,40 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'                          ICD=c("6929","V433","I350"),
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
 #'                          stringsAsFactors = FALSE)
-#' groupIcdToCCSLvl (DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+#' groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 #'
-groupIcdToCCSLvl<-function(DxDataFile,idColName,icdColName,dateColName,icd10usingDate,CCSLevel=1,CCSLvlLabel=TRUE){
-  DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)),deparse(substitute(icdColName)),deparse(substitute(dateColName)))]
-  names(DxDataFile)<-c("ID","ICD","Date")
+groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
+  DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
-  icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate,"ICD"]
-  icd9 <- left_join(data.frame(ICD=icd9,stringsAsFactors = F),
-                    select(ccsDxICD9,ICD,CCS_LVL_1,CCS_LVL_1_LABEL,CCS_LVL_2,CCS_LVL_2_LABEL,CCS_LVL_3,CCS_LVL_3_LABEL,CCS_LVL_4,CCS_LVL_4_LABEL),
-                    by="ICD") %>% unique()
-  if(CCSLevel<3){
-    icd10 <- DxDataFile[DxDataFile$Date >=icd10usingDate,"ICD"]
-    icd10 <- left_join(data.frame(ICD=icd10,stringsAsFactors = F),
-                       select(ccsDxICD10,ICD,CCS_LVL_1,CCS_LVL_1_LABEL,CCS_LVL_2,CCS_LVL_2_LABEL),
-                       by="ICD") %>% unique()
 
-    DxDataFile_combine<-full_join(icd9,icd10,by = c("ICD","CCS_LVL_1","CCS_LVL_1_LABEL","CCS_LVL_2","CCS_LVL_2_LABEL"))
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9ToCCSLvl <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F),
+                    select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL, CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL),
+                    by = "ICD") %>% mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
+
+  if(CCSLevel < 3){
+    icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+    icd10ToCCSLvl <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F),
+                       select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL),
+                       by = "ICD") %>% mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
+    DxDataFile_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = c("ID", "ICD", "Date", "CCS_LVL_1", "CCS_LVL_1_LABEL", "CCS_LVL_2", "CCS_LVL_2_LABEL"))
   }else{
-    DxDataFile_combine<-icd9
+    DxDataFile_combine <- icd9ToCCSLvl
   }
-  DxDataFile_combine[complete.cases(DxDataFile_combine),]
-  DxDataFile_combine_with_originalFile<-left_join(DxDataFile,DxDataFile_combine,by="ICD")
 
-  if(CCSLvlLabel==T){
-    CCSLevelcol<-as.character(parse(text=paste("CCS_LVL_",CCSLevel,"_LABEL",sep="")))
+  DxDataFile_combine_with_originalFile <- left_join(DxDataFile,DxDataFile_combine, by = c("ID", "ICD", "Date"))
+
+  if(CCSLvlLabel == T){
+    CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, "_LABEL", sep = "")))
   }else{
-    CCSLevelcol<-as.character(parse(text=paste("CCS_LVL_",CCSLevel,sep="")))
+    CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, sep = "")))
   }
-  DxDataFile_combine_with_originalFile<-unlist(unname(DxDataFile_combine_with_originalFile[,CCSLevelcol]))
-
-  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
-  if(sum(errorID)>=1 && CCSLevel>=3){
-    warning("'NA means icd10 CCS multiple levels are 1~2",call. = F)
+  IcdToCCSLevel <- DxDataFile_combine_with_originalFile[, CCSLevelcol]
+  errorID <- is.na(IcdToCCSLevel)
+  if(sum(errorID) >= 1){
+    message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToCCSLevel)]), sep = "\t\n"))
+    warning("'NA' means icd10 CCS multiple levels are 1~2 or the data does not match the format", call. = F)
   }
-  DxDataFile_combine_with_originalFile
+  IcdToCCSLevel
 }

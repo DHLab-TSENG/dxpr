@@ -36,7 +36,6 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
   icdorCCS <- toupper(deparse(substitute(icdorCCS)))
-  errorID <- 0
 
   if(icdorCCS == "CCS"){
     DxDataFile <- DxDataFile %>%
@@ -66,8 +65,5 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
       mutate(Era = cumsum(episode))
   }
   DxDataFile <- select(DxDataFile, c(-"Gap", -"episode"))
-  if(sum(errorID) >= 1){
-    message(paste0("wrong format: ", DxDataFile$ICD[is.na(DxDataFile$CCS)], sep = "\t\n"))
-  }
   DxDataFile
 }

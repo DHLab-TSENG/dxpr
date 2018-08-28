@@ -31,24 +31,27 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
 
-  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate, "ICD"]
-  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate, "ICD"]
-  icd9 <- left_join(data.frame(ICD = icd9, stringsAsFactors = F), select(ccsDxICD9, ICD,CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by="ICD") %>% unique()
-  icd10 <- left_join(data.frame(ICD = icd10, stringsAsFactors = F), select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by="ICD") %>% unique()
+  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9ToCCS <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F), select(ccsDxICD9, ICD,CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by="ICD") %>%
+    mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
+  icd10ToCCS <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F), select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by="ICD") %>%
+    mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
 
-  DxDataFile_combine <- full_join(icd9, icd10, by = c("ICD","CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
-  DxDataFile_combine<-DxDataFile_combine[stats::complete.cases(DxDataFile_combine),]
-  DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by="ICD")
+  DxDataFile_combine <- full_join(icd9ToCCS, icd10ToCCS, by = c("ID", "ICD", "Date", "CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
+  #DxDataFile_combine <- DxDataFile_combine[stats::complete.cases(DxDataFile_combine),]
+  DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by = c("ID", "ICD", "Date"))
 
   if (isCCSCategoryDescription == T) {
-    DxDataFile_combine_with_originalFile <- DxDataFile_combine_with_originalFile$CCS_CATEGORY_DESCRIPTION
+    IcdToCCS <- DxDataFile_combine_with_originalFile$CCS_CATEGORY_DESCRIPTION
   } else {
-    DxDataFile_combine_with_originalFile <- DxDataFile_combine_with_originalFile$CCS_CATEGORY
+    IcdToCCS <- DxDataFile_combine_with_originalFile$CCS_CATEGORY
   }
-  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
+  errorID <- is.na(IcdToCCS)
 
   if(sum(errorID)>=1){
-    warning("NA means icd code does not match the format.",call. = F)
+    message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToCCS)]), sep = "\t\n"))
+    warning("'NA' means the data does not match the format",call. = F)
   }
-  DxDataFile_combine_with_originalFile
+  IcdToCCS
 }

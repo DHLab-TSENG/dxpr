@@ -19,35 +19,36 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param isPhecodeDescription Phecode/ description for icd9, default is True
 #' @export
 #' @examples
-#' DxDataFile <- data.frame(ID=c("A","A","A"),
-#'                          ICD=c("6929","V433","I350"),
-#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
+#' DxDataFile <- data.frame(ID = c("A", "A", "A"),
+#'                          ICD = c("6929", "V433", "I350"),
+#'                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10")),
 #'                          stringsAsFactors = FALSE)
 #' groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 #'
-groupIcdToPhecode<-function(DxDataFile,idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription=TRUE){
-  DxDataFile<-DxDataFile[ ,c(deparse(substitute(idColName)),deparse(substitute(icdColName)),deparse(substitute(dateColName)) )]
-  names(DxDataFile)<-c("ID","ICD","Date")
-  DxDataFile$ICD<-convertIcdShortToDecimal(DxDataFile$ICD)
+groupIcdToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
+  DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$ICD <- convertIcdShortToDecimal(DxDataFile$ICD)
 
-  icd10 <- DxDataFile[DxDataFile$Date >=icd10usingDate,"ICD"]
-  icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate,"ICD"]
-  icd9 <-left_join(data.frame(ICD = icd9, stringsAsFactors = F),select(phecode_icd9_2,ICD,PheCode,PheCodeDescription),by="ICD") %>% unique()
-  icd10<-left_join(data.frame(ICD = icd10, stringsAsFactors = F),select(phecode_icd9_2,ICD,PheCode,PheCodeDescription),by="ICD") %>% unique()
+  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate, ]
+  icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate, ]
+  icd9ToPhecode <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD") %>%
+    mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
+  icd10ToPhecode <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD")  %>%
+    mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
 
-  DxDataFile_combine<-full_join(icd9,icd10,by = c("ICD","PheCode", "PheCodeDescription"))
-  DxDataFile_combine_with_originalFile<-left_join(DxDataFile, DxDataFile_combine,by="ICD")
+  DxDataFile_combine <- full_join(icd9ToPhecode, icd10ToPhecode, by = c("ID", "ICD", "Date", "PheCode", "PheCodeDescription"))
+  DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by = c("ID", "ICD", "Date"))
 
-  if(isPhecodeDescription==T){
-    DxDataFile_combine_with_originalFile<-DxDataFile_combine_with_originalFile$PheCodeDescription
+  if(isPhecodeDescription == T){
+    IcdToPhecode <- DxDataFile_combine_with_originalFile$PheCodeDescription
   }else{
-    DxDataFile_combine_with_originalFile<-DxDataFile_combine_with_originalFile$PheCode
+    IcdToPhecode <- DxDataFile_combine_with_originalFile$PheCode
   }
-  DxDataFile_combine_with_originalFile<-unlist(unname(DxDataFile_combine_with_originalFile))
-
-  errorID<-is.na(DxDataFile_combine_with_originalFile[is.na(DxDataFile_combine_with_originalFile)])
-  if(sum(errorID)>=1){
-    warning("'NA means phecode does not have icd10'",call. = F)
+  errorID <- is.na(IcdToPhecode)
+  if(sum(errorID) >= 1){
+    message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToPhecode)]), sep = "\t\n"))
+    warning("'NA' means phecode does not have icd10 or the data does not match the format", call. = F)
   }
-  DxDataFile_combine_with_originalFile
+  IcdToPhecode
 }
