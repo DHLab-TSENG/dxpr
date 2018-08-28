@@ -31,11 +31,11 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
 #'                          stringsAsFactors = FALSE)
 #'
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
-#' groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
+#' groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+#' groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
+#' groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 #'
-groupIcdBasedOnComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
+groupIcdToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
