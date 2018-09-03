@@ -1,10 +1,8 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
-date: "`r Sys.Date()`"
+title: "Introduction to emr"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to emr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,52 +12,71 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(emr)
+
+DxDataFile <- data.frame(ID=c("A","A","B","B"),
+                         ICD=c("40201","42577","I350","K289"),
+                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
+                         stringsAsFactors = FALSE)
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by `ccs, comorbidities and phecodes`, and calculating `condition era`. 
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+- Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses
+- Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
+- Get the PheWAS Phecode or description of ICD-9 diagnosis codes
+- Get the condition era
 
-## Vignette Info
+## emr Info
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+cat(utils::packageDescription("emr")$Description)
 
-## Styles
+## Clinical Classifications Software (CCS)
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Single-level CCS categories and description for ICD-9 and ICD-10 codes on diagnoses.
+```
+```
+## Multi-level CCS categories and description for ICD-9 and ICD-10 codes on diagnoses.
+```
+```
+## Condition Era
+Get the condition era
+```
+```
+## Comorbidities
+The comorbidities from different sources are provided as lists.
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+## AHRQ comorbidity classification
+AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
+The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
+```
+#ahrq comorbidity measure
+icd9_ahrq$Comorbidity %>% unique
+icd10_ahrq$Comorbidity %>% unique
 
-## Figures
+```
+## Charlson comorbidity classification
+Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+```
+#Charlson comorbidity measure
+icd9_charlson$Comorbidity %>% unique
+icd10_charlson$Comorbidity %>% unique
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+```
+## Elixhauser comorbidity classification
+Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
+```
+#Elixhauser comorbidity measure
+icd9_elix$Comorbidity %>% unique
+icd10_elix$Comorbidity %>% unique
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```
+## Phecode
+Get the PheWAS Phecode or description of ICD-9 diagnosis codes
+```
+```
+## Examples
+```
+groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
