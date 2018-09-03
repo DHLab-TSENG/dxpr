@@ -45,8 +45,8 @@ groupIcdToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, ic
   }else{
     IcdToPhecode <- DxDataFile_combine_with_originalFile$PheCode
   }
-  errorID <- is.na(IcdToPhecode)
-  if(sum(errorID) >= 1){
+
+  if(anyNA(IcdToPhecode)){
     message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToPhecode)]), sep = "\t\n"))
     warning("'NA' means phecode does not have icd10 or the data does not match the format", call. = F)
   }

@@ -60,8 +60,8 @@ groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, sep = "")))
   }
   IcdToCCSLevel <- DxDataFile_combine_with_originalFile[, CCSLevelcol]
-  errorID <- is.na(IcdToCCSLevel)
-  if(sum(errorID) >= 1){
+
+  if(anyNA(IcdToCCSLevel)){
     message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToCCSLevel)]), sep = "\t\n"))
     warning("'NA' means icd10 CCS multiple levels are 1~2 or the data does not match the format", call. = F)
   }
