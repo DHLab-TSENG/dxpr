@@ -2,6 +2,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "CCS",
   "ID",
   "Date",
+  "Gap",
   "episode"))
 #' Get the condition era
 #'
@@ -57,7 +58,6 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     DxDataFile <- DxDataFile %>%
       group_by(ID, CCS) %>%
       mutate(Era = cumsum(episode))
-    errorID <- is.na(DxDataFile$CCS)
 
   }else if(icdorCCS == "ICD"){
     DxDataFile <- DxDataFile %>%

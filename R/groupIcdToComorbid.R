@@ -13,7 +13,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return comorbidity meseaures based on ICD diagnosis codes
 #'
-#' @import icd
 #' @import reshape2
 #' @import dplyr
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
@@ -50,7 +49,6 @@ groupIcdToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, i
     comorbidMap9 <- `icd9_elix`
     comorbidMap10 <- `icd10_elix`
   }
-
   icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
   icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
   comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")

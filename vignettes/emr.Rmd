@@ -77,6 +77,6 @@ Get the PheWAS Phecode or description of ICD-9 diagnosis codes
 ```
 ## Examples
 ```
-groupIcdBasedOnComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
 
