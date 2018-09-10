@@ -13,7 +13,6 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     dplyr,
-    icd,
     reshape2
 Depends: R (>= 3.4.0)
 URL: https://github.com/DHLab-CGU

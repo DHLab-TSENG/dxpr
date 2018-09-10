@@ -37,7 +37,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 groupIcdToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
+
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (grepl("ahrq", comorbidMethod)){
     comorbidMap9 <- `icd9_ahrq`
@@ -50,14 +50,17 @@ groupIcdToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, i
     comorbidMap10 <- `icd10_elix`
   }
   icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
+  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
   icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
+  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
+
   comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
   comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
 
   comorbidDf_combine <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date", "Comorbidity", "Value"))
   comorbidDf_combine$ICD <- NULL
   if(groupByDate ==T){
-    comorbidDf_combine<-comorbidDf_combine %>% group_by(ID,Date,Comorbidity) %>% unique()
+    comorbidDf_combine <- comorbidDf_combine %>% group_by(ID, Date, Comorbidity) %>% unique()
   }
   comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
 

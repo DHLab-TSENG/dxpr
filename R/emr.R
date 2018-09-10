@@ -2,7 +2,6 @@
 #'
 #' @name emr
 #' @docType package
-#' @import icd
 NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-9-CM
@@ -180,4 +179,36 @@ NULL
 #' @usage data(phecode_icd9_2)
 #' @format A data frame with 15558 rows and 9 variables
 #' @source \url{https://phewascatalog.org/phecodes}
+NULL
+
+#' Two format of ICD-9-CM: Short and Decimal
+#'
+#' A dataframe for ICD-9 format conversion
+#'
+#' \itemize{
+#'   \item Short ICD-9 Short format
+#'   \item Decimal ICD-9 Decimal format
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name icd9withTwoFormat
+#' @usage data(icd9withTwoFormat)
+#' @format A data frame with 15072 rows and 2 variables
+NULL
+
+#' Two format of ICD-10-CM: Short and Decimal
+#'
+#' A dataframe for ICD-10 format conversion
+#'
+#' \itemize{
+#'   \item Short ICD-10 Short format
+#'   \item Decimal ICD-10 Decimal format
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name icd10withTwoFormat
+#' @usage data(icd10withTwoFormat)
+#' @format A data frame with 72167 rows and 2 variables
 NULL

@@ -9,7 +9,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return Phecode or description based on ICD-9-CM codes
 #'
-#' @import icd
 #' @import dplyr
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
@@ -30,8 +29,11 @@ groupIcdToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, ic
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$ICD <- convertIcdShortToDecimal(DxDataFile$ICD)
 
-  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate, ]
-  icd9  <- DxDataFile[DxDataFile$Date < icd10usingDate, ]
+  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
+
   icd9ToPhecode <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD") %>%
     mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
   icd10ToPhecode <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD")  %>%

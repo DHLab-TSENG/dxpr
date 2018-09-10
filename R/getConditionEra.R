@@ -13,7 +13,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return DxDataFile with new column, condition era.
 #'
-#' @import icd
 #' @import dplyr
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
@@ -35,7 +34,17 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = FALSE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
+  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
+  if(nrow(icd9) <= 0){
+    DxDataFile <- icd10
+  }else if(nrow(icd9) <= 0){
+    DxDataFile <- icd9
+  }else{
+    DxDataFile <- full_join(icd9, icd10, by = c("ID", "ICD", "Date"))
+  }
   icdorCCS <- toupper(deparse(substitute(icdorCCS)))
 
   if(icdorCCS == "CCS"){

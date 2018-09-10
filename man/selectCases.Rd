@@ -5,7 +5,8 @@
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
 selectCases(greplICD, DxDataFile, idColName, icdColName, dateColName,
-  ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365)
+  ICDNumber, icd10usingDate, minimumINRofDays = 30,
+  maximumINRofDays = 365)
 }
 \arguments{
 \item{greplICD}{ICD selection rules with grepl expression}
@@ -19,6 +20,8 @@ selectCases(greplICD, DxDataFile, idColName, icdColName, dateColName,
 \item{dateColName}{A column for Date of DxDataFile}
 
 \item{ICDNumber}{a threshold of number of ICD for case selection}
+
+\item{icd10usingDate}{ICD-10 using date}
 
 \item{minimumINRofDays}{Minimum interval of Days, defaults is 30 days (one month)}
 
@@ -36,6 +39,7 @@ DxDataFile <- data.frame(ID = c("A", "A", "A", "A"),
                          stringsAsFactors = FALSE)
 greplICD <- "^I0"
 ICDNumber <- 2
-selectCases(greplICD, DxDataFile, ID, ICD, Date, ICDNumber, 30, 365)
+icd10usingDate <- "2016-01-01"
+selectCases(greplICD, DxDataFile, ID, ICD, Date, icd10usingDate, ICDNumber)
 
 }

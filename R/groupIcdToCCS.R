@@ -2,6 +2,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "ccsDxICD9",
   "CCS_CATEGORY",
   "CCS_CATEGORY_DESCRIPTION",
+  "icd10usingDate",
   "ccsDxICD10"))
 #' Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
@@ -9,7 +10,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 #'
-#' @import icd
 #' @import dplyr
 #' @importFrom stats complete.cases
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
@@ -29,10 +29,11 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = TRUE){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)
 
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
   icd9ToCCS <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F),
                          select(ccsDxICD9, ICD,CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>%
                          mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
