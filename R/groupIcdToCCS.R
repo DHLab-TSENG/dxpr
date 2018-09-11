@@ -34,12 +34,9 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
-  icd9ToCCS <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F),
-                         select(ccsDxICD9, ICD,CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>%
-                         mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
-  icd10ToCCS <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F),
-                          select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>%
-                          mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
+
+  icd9ToCCS <- left_join(icd9, select(ccsDxICD9, ICD,CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
+  icd10ToCCS <- left_join(icd10, select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
 
   DxDataFile_combine <- full_join(icd9ToCCS, icd10ToCCS, by = c("ID", "ICD", "Date", "CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
   DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by = c("ID", "ICD", "Date"))

@@ -37,16 +37,13 @@ groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd
 
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
-  icd9ToCCSLvl <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F),
-                    select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL, CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL),
-                    by = "ICD") %>% mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
-
+  icd9ToCCSLvl <- left_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL,
+                                         CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL), by = "ICD") %>% unique()
   if(CCSLevel < 3){
     icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
     icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
-    icd10ToCCSLvl <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F),
-                       select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL),
-                       by = "ICD") %>% mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
+    icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL),
+                                      by = "ICD") %>% unique()
     DxDataFile_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = c("ID", "ICD", "Date", "CCS_LVL_1", "CCS_LVL_1_LABEL", "CCS_LVL_2", "CCS_LVL_2_LABEL"))
   }else{
     DxDataFile_combine <- icd9ToCCSLvl

@@ -1,5 +1,6 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "ICD",
+  "ICDD",
   "PheCode",
   "PheCodeDescription",
   "phecode_icd9_2"))
@@ -27,19 +28,16 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 groupIcdToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile$ICD <- convertIcdShortToDecimal(DxDataFile$ICD)
 
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
-  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
+  icd10$ICDD <- convertIcdShortToDecimal(icd10$ICD, icd10)
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
-  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
+  icd9$ICDD <- convertIcdShortToDecimal(icd9$ICD, icd9)
 
-  icd9ToPhecode <- left_join(data.frame(ICD = icd9$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD") %>%
-    mutate(ID = icd9$ID) %>% mutate(Date = icd9$Date) %>% unique()
-  icd10ToPhecode <- left_join(data.frame(ICD = icd10$ICD, stringsAsFactors = F), select(phecode_icd9_2, ICD, PheCode, PheCodeDescription),by="ICD")  %>%
-    mutate(ID = icd10$ID) %>% mutate(Date = icd10$Date) %>% unique()
+  icd9ToPhecode <- left_join(icd9, select(phecode_icd9_2, ICDD, PheCode, PheCodeDescription),by="ICDD") %>% unique()
+  icd10ToPhecode <- left_join(icd10, select(phecode_icd9_2, ICDD, PheCode, PheCodeDescription),by="ICDD") %>% unique()
 
-  DxDataFile_combine <- full_join(icd9ToPhecode, icd10ToPhecode, by = c("ID", "ICD", "Date", "PheCode", "PheCodeDescription"))
+  DxDataFile_combine <- full_join(icd9ToPhecode, icd10ToPhecode, by = c("ID", "ICD", "ICDD", "Date", "PheCode", "PheCodeDescription"))
   DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by = c("ID", "ICD", "Date"))
 
   if(isPhecodeDescription == T){

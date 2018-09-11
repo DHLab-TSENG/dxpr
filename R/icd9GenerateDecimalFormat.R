@@ -1,0 +1,40 @@
+#' get ICD-9-CM Codes Decimal Forms
+#'
+#' Convert codes between short and decimal forms
+#'
+#'
+#' @param icd9 ICD-9-CM codes
+#'
+icd9GenerateDecimalFormat <- function(icd9){
+  icdNcharLong <- 4
+  icd9V <- icd9[grepl("^V", icd9$Short),]
+  icd9N <- icd9[grepl("^[0-9]+", icd9$Short),]
+  decimalstart <- icdNcharLong - 1
+  decimalstop <- icdNcharLong
+  V4 <- nchar(icd9V$Short) == icdNcharLong
+  icd9V$Decimal[V4] <- paste(substr(icd9V$Short[V4], start = 1 , stop =  decimalstart), ".",
+                             substr(icd9V$Short[V4], start= decimalstop, stop = icdNcharLong), sep = "")
+  N4 <- nchar(icd9N$Short) == icdNcharLong
+  icd9N$Decimal[N4] <- paste(substr(icd9N$Short[N4], start = 1 , stop =  decimalstart), ".",
+                             substr(icd9N$Short[N4], start= decimalstop, stop = icdNcharLong), sep = "")
+  icdNcharLong <- 5
+  decimalstart <- icdNcharLong - 2
+  decimalstop<- icdNcharLong - 1
+  V5 <- nchar(icd9V$Short) == icdNcharLong 
+  icd9V$Decimal[V5] <- paste(substr(icd9V$Short[V5], start = 1 , stop =  decimalstart), ".",
+                             substr(icd9V$Short[V5], start= decimalstop, stop = icdNcharLong), sep = "")
+  N5 <- nchar(icd9N$Short) == icdNcharLong 
+  icd9N$Decimal[N5] <- paste(substr(icd9N$Short[N5], start = 1 , stop =  decimalstart), ".",
+                             substr(icd9N$Short[N5], start= decimalstop, stop = icdNcharLong), sep = "")
+  
+  icd9E <- icd9[grepl("^E", icd9$Short),]
+  decimalstart <- icdNcharLong - 1 
+  decimalstop <- icdNcharLong
+  E5 <- nchar(icd9E$Short) == icdNcharLong
+  icd9E$Decimal[E5] <- paste(substr(icd9E$Short[E5], start = 1 , stop =  decimalstart), ".",
+                             substr(icd9E$Short[E5], start= decimalstop, stop = icdNcharLong), sep = "")
+  
+  icd9_VN <- full_join(icd9V, icd9N, by = c("Short", "Decimal"))
+  icd9_combine <- full_join(icd9E, icd9_VN, by = c("Short", "Decimal"))
+  icd9_combine
+}
