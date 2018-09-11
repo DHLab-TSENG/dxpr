@@ -27,10 +27,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'                          ICD = c("I072","I071", "I072", "I071"),
 #'                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
 #'                          stringsAsFactors = FALSE)
-#' greplICD <- "^I0"
-#' ICDNumber <- 2
-#' icd10usingDate <- "2016-01-01"
-#' selectCases(greplICD, DxDataFile, ID, ICD, Date, icd10usingDate, ICDNumber)
+#' selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
 #'
 selectCases <- function(greplICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber,icd10usingDate, minimumINRofDays = 30, maximumINRofDays = 365){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
@@ -41,14 +38,13 @@ selectCases <- function(greplICD, DxDataFile, idColName, icdColName, dateColName
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
   if(nrow(icd9) <= 0){
-    DxDataFile <- icd10
-  }else if(nrow(icd9) <= 0){
-    DxDataFile <- icd9
+    combine <- icd10
+  }else if(nrow(icd10) <= 0){
+    combine <- icd9
   }else{
-    DxDataFile <- full_join(icd9, icd10, by = c("ID", "ICD", "Date"))
+    combine <- full_join(icd9, icd10, by = c("ID", "ICD", "Date"))
   }
-
-  CaseCount <- DxDataFile %>% filter(grepl(greplICD, ICD)) %>%
+  CaseCount <- combine %>% filter(grepl(greplICD, ICD)) %>%
     arrange(ID, ICD, Date) %>%
     group_by(ID,ICD) %>%
     mutate(Gap = Date - lag(Date)) %>%

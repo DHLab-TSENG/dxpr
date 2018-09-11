@@ -37,9 +37,6 @@ DxDataFile <- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-greplICD <- "^I0"
-ICDNumber <- 2
-icd10usingDate <- "2016-01-01"
-selectCases(greplICD, DxDataFile, ID, ICD, Date, icd10usingDate, ICDNumber)
+selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
 
 }
