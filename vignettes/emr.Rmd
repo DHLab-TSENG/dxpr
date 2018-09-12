@@ -27,7 +27,7 @@ A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by 
 - Grouping comorbid method measures (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
 - Get the qualified cases which based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset
 - Get the condition era
-## Introduction
+# Introduction
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
@@ -40,7 +40,6 @@ icd9 <- ccsDxICD9$ICD
 icd9GenerateDecimalFormat(icd9)
 icd9withTwoFormat$Short[1:10]
 icd9withTwoFormat$Decimal[1:10]
-
 ```
 ICD-10
 ```
@@ -66,18 +65,18 @@ convertIcdDecimaltoShort(icd9withTwoFormat$Decimal[1:10], icd9)
 # ICD-10
 convertIcdDecimaltoShort(icd10withTwoFormat$Decimal[1:10], icd10)
 ```
-## Grouping ICD-9 and ICD-10 codes by ...
+# Grouping ICD-9 and ICD-10 codes by ...
 classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 ## Clinical Classifications Software (CCS)
 It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.
-# single-level category
+### single-level category
 ICD-9-CM: 260
 ICD-10-CM: 260
 ```
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 ```
-# multi-level
+### multi-level
 ICD-9-CM has four levels
 ICD-10-CM has two levels
 ```
@@ -95,10 +94,10 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 
 ```
 ```
-## Comorbidities
+# Comorbidities
 The comorbidities measures from different sources are provided as lists.
 
-# AHRQ comorbidity classification
+## AHRQ comorbidity classification
 AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
 The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
 ```
@@ -109,7 +108,7 @@ icd9_ahrq$Comorbidity %>% unique
 icd10_ahrq$Comorbidity %>% unique
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
-# Charlson comorbidity classification
+## Charlson comorbidity classification
 Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
 ```
 # Charlson comorbidity measure
@@ -119,7 +118,7 @@ icd9_charlson$Comorbidity %>% unique
 icd10_charlson$Comorbidity %>% unique
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
-# Elixhauser comorbidity classification
+## Elixhauser comorbidity classification
 Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
 ```
 # Elixhauser comorbidity measure
@@ -129,12 +128,12 @@ icd9_elix$Comorbidity %>% unique
 icd10_elix$Comorbidity %>% unique
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 ```
-## Selection Cases
+# Selection Cases
 This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
 ```
 selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
 ```
-## Condition Era
+# Condition Era
 Get the condition era
 ```
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
