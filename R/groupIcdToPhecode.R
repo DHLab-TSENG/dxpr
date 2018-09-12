@@ -17,6 +17,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate icd 10 using date
 #' @param isPhecodeDescription Phecode/ description for icd9, default is True
+#' @source \url{https://phewascatalog.org/phecodes}
 #' @export
 #' @examples
 #' DxDataFile <- data.frame(ID = c("A", "A", "A"),

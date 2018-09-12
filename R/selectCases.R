@@ -9,7 +9,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' This can be used to select qualified cases from factIcd data
 #' based on the ICD code searching criteria and number of ICD code
-#' per patients in the inout factIcd dataset. Return MemberID
+#' per patients in the inout factIcd dataset.
+#' Return qualified Members' data
 #'
 #' @import dplyr
 #' @param greplICD ICD selection rules with grepl expression

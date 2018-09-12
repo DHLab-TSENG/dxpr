@@ -3,6 +3,11 @@
 \name{icd9GenerateDecimalFormat}
 \alias{icd9GenerateDecimalFormat}
 \title{get ICD-9-CM Codes Decimal Forms}
+\source{
+\url{https://www.findacode.com/search/search.php}
+
+\url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+}
 \usage{
 icd9GenerateDecimalFormat(icd9)
 }
@@ -11,4 +16,5 @@ icd9GenerateDecimalFormat(icd9)
 }
 \description{
 Convert codes between short and decimal forms
+Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link.
 }

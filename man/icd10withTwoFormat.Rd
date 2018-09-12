@@ -5,6 +5,9 @@
 \alias{icd10withTwoFormat}
 \title{Two format of ICD-10-CM: Short and Decimal}
 \format{A data frame with 72167 rows and 2 variables}
+\source{
+\url{https://www.findacode.com/search/search.php}
+}
 \usage{
 data(icd10withTwoFormat)
 }
@@ -16,5 +19,8 @@ A dataframe for ICD-10 format conversion
   \item Short ICD-10 Short format
   \item Decimal ICD-10 Decimal format
 }
+}
+\seealso{
+\code{\link{icd9withTwoFormat}}
 }
 \keyword{dataframe}

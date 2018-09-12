@@ -3,6 +3,9 @@
 \name{icd10GenerateDecimalFormat}
 \alias{icd10GenerateDecimalFormat}
 \title{get ICD-10-CM Codes Decimal Forms}
+\source{
+\url{https://www.findacode.com/search/search.php}
+}
 \usage{
 icd10GenerateDecimalFormat(icd10)
 }
@@ -10,5 +13,6 @@ icd10GenerateDecimalFormat(icd10)
 \item{icd10}{ICD-10-CM codes}
 }
 \description{
-Convert codes between short and decimal forms
+Convert codes between short and decimal forms.
+Format ICD-10-CM Principal and Other Diagnosis Codes can be found at url link.
 }

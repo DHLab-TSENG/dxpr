@@ -18,4 +18,7 @@ A dataframe for ICD-10 AHRQ comorbidity mapping
   \item Value. if ICD code has comorbidity measures, value is 1
 }
 }
+\seealso{
+\code{\link{icd9_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
+}
 \keyword{dataframe}

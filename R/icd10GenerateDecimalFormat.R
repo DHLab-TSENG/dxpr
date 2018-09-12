@@ -1,9 +1,10 @@
 #' get ICD-10-CM Codes Decimal Forms
 #'
-#' Convert codes between short and decimal forms
-#'
+#' Convert codes between short and decimal forms.
+#' Format ICD-10-CM Principal and Other Diagnosis Codes can be found at url link.
 #'
 #' @param icd10 ICD-10-CM codes
+#' @source \url{https://www.findacode.com/search/search.php}
 #'
 icd10GenerateDecimalFormat <- function(icd10){
   icd10_4 <- nchar(icd10$Short) == 4
@@ -18,6 +19,5 @@ icd10GenerateDecimalFormat <- function(icd10){
   icd10_7 <- nchar(icd10$Short) == 7
   icd10$Decimal[icd10_7] <- paste(substr(icd10$Short[icd10_7], start = 1 , stop =  3), ".",
                                   substr(icd10$Short[icd10_7], start= 4, stop = 7), sep = "")
-  
   icd10
 }

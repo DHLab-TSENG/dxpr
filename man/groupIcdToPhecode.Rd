@@ -3,6 +3,9 @@
 \name{groupIcdToPhecode}
 \alias{groupIcdToPhecode}
 \title{Get the Phecode or description of ICD-9 diagnosis codes}
+\source{
+\url{https://phewascatalog.org/phecodes}
+}
 \usage{
 groupIcdToPhecode(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, isPhecodeDescription = TRUE)

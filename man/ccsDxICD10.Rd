@@ -12,7 +12,7 @@
 data(ccsDxICD10)
 }
 \description{
-A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level
+A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
 }
 \details{
 \itemize{
@@ -25,5 +25,8 @@ A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-le
   \item CCS_LVL_2. multiple ccs level two category for ICD-10
   \item CCS_LVL_2_LABEL. multiple ccs level two description for ICD-10
 }
+}
+\seealso{
+\code{\link{ccsDxICD9}}
 }
 \keyword{dataframe}

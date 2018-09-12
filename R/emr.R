@@ -6,7 +6,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-9-CM
 #'
-#' A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level
+#' A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-CM
@@ -30,11 +30,12 @@ NULL
 #' @format A data frame with 15072 rows and 12 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
+#' @seealso \code{\link{ccsDxICD10}}
 NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-CM
 #'
-#' A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level
+#' A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM
@@ -53,6 +54,7 @@ NULL
 #' @usage data(ccsDxICD10)
 #' @format A data frame with 72167 rows and 8 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
+#' @seealso \code{\link{ccsDxICD9}}
 NULL
 
 #' AHRQ Comorbidity for ICD-9
@@ -70,6 +72,7 @@ NULL
 #' @name icd9_ahrq
 #' @usage data(icd9_ahrq)
 #' @format A data frame with 14696 rows and 3 variables
+#' @seealso \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
 #' AHRQ Comorbidity for ICD-10
@@ -87,6 +90,7 @@ NULL
 #' @name icd10_ahrq
 #' @usage data(icd10_ahrq)
 #' @format A data frame with 3217 rows and 3 variables
+#' @seealso \code{\link{icd9_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
 #' Charlson Comorbidity for ICD-9
@@ -104,6 +108,7 @@ NULL
 #' @name icd9_charlson
 #' @usage data(icd9_charlson)
 #' @format A data frame with 12617 rows and 3 variables
+#' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
 #' Charlson Comorbidity for ICD-10
@@ -121,6 +126,7 @@ NULL
 #' @name icd10_charlson
 #' @usage data(icd10_charlson)
 #' @format A data frame with 3029 rows and 3 variables
+#' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
 #' Elixhauser Comorbidity for ICD-9
@@ -138,6 +144,7 @@ NULL
 #' @name icd9_elix
 #' @usage data(icd9_elix)
 #' @format A data frame with 13742 rows and 3 variables
+#' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
 NULL
 
 #' Elixhauser Comorbidity for ICD-10
@@ -155,6 +162,7 @@ NULL
 #' @name icd10_elix
 #' @usage data(icd10_elix)
 #' @format A data frame with 399 rows and 3 variables
+#' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
 NULL
 
 #' Phecode for ICD-9
@@ -195,6 +203,9 @@ NULL
 #' @name icd9withTwoFormat
 #' @usage data(icd9withTwoFormat)
 #' @format A data frame with 15072 rows and 2 variables
+#' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+#' @seealso \code{\link{icd10withTwoFormat}}
 NULL
 
 #' Two format of ICD-10-CM: Short and Decimal
@@ -211,4 +222,6 @@ NULL
 #' @name icd10withTwoFormat
 #' @usage data(icd10withTwoFormat)
 #' @format A data frame with 72167 rows and 2 variables
+#' @source \url{https://www.findacode.com/search/search.php}
+#' @seealso \code{\link{icd9withTwoFormat}}
 NULL

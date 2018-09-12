@@ -14,7 +14,7 @@
 data(ccsDxICD9)
 }
 \description{
-A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level
+A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
 }
 \details{
 \itemize{
@@ -31,5 +31,8 @@ A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-lev
   \item CCS_LVL_4. multiple ccs level four category for ICD-9
   \item CCS_LVL_4_LABEL. multiple ccs level four description for ICD-9
 }
+}
+\seealso{
+\code{\link{ccsDxICD10}}
 }
 \keyword{dataframe}

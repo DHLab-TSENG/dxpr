@@ -30,7 +30,8 @@ selectCases(greplICD, DxDataFile, idColName, icdColName, dateColName,
 \description{
 This can be used to select qualified cases from factIcd data
 based on the ICD code searching criteria and number of ICD code
-per patients in the inout factIcd dataset. Return MemberID
+per patients in the inout factIcd dataset.
+Return qualified Members' data
 }
 \examples{
 DxDataFile <- data.frame(ID = c("A", "A", "A", "A"),

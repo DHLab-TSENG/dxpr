@@ -14,69 +14,129 @@ knitr::opts_chunk$set(
 )
 library(emr)
 
-DxDataFile <- data.frame(ID=c("A","A","B","B"),
-                         ICD=c("40201","42577","I350","K289"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
+DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
+                         ICD = c("40201", "42577", "I350", "K289"),
+                         Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10", "2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-
 A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by `ccs, comorbidities and phecodes`, and calculating `condition era`. 
-
+- convert ICD code's format: Short <-> Decimal
 - Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses
-- Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
-- Get the PheWAS Phecode or description of ICD-9 diagnosis codes
+- Get the Phecode or phenotype (phecode description) of ICD-9 diagnosis codes
+- Get the categories for ICD-9 and ICD-10 codes on diagnoses, the grouping  rules are based on your standard
+- Grouping comorbid method measures (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
+- Get the qualified cases which based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset
 - Get the condition era
-
-## emr Info
-
+## Introduction
+```
 cat(utils::packageDescription("emr")$Description)
+```
+There are some information about patients' diagnoses data: members' ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc..This tool can be used to group the ICD's multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!). 
+ICD codes have two forms: decimal`E950.7` and short`E9507` format, first at all, unifing the ICD codes format.
+## Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function
+ICD-9
+```
+icd9 <- ccsDxICD9$ICD
+icd9GenerateDecimalFormat(icd9)
+icd9withTwoFormat$Short[1:10]
+icd9withTwoFormat$Decimal[1:10]
 
+```
+ICD-10
+```
+icd10 <- ccsDxICD10$ICD
+icd10GenerateDecimalFormat(icd10)
+
+icd10withTwoFormat$Short[1:10]
+icd10withTwoFormat$Decimal[1:10]
+```
+Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.
+## Convert ICD-9-CM and ICD-10-CM code Format: Short <->Decimal
+Convert ICD-CM code Short to Decimal
+```
+# ICD-9
+convertIcdShortToDecimal(icd9withTwoFormat$Short[1:10], icd9)
+# ICD-10
+convertIcdShortToDecimal(icd10withTwoFormat$Short[1:10], icd10)
+```
+Convert ICD-CM code Decimal to Short
+```
+# ICD-9
+convertIcdDecimaltoShort(icd9withTwoFormat$Decimal[1:10], icd9)
+# ICD-10
+convertIcdDecimaltoShort(icd10withTwoFormat$Decimal[1:10], icd10)
+```
+## Grouping ICD-9 and ICD-10 codes by ...
+classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 ## Clinical Classifications Software (CCS)
+It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.
+# single-level category
+ICD-9-CM: 260
+ICD-10-CM: 260
+```
+groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+```
+# multi-level
+ICD-9-CM has four levels
+ICD-10-CM has two levels
+```
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 4, TRUE)
+```
+## Phecode
+This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
+```
+groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+```
+## Creating a grouping standards
 
-## Single-level CCS categories and description for ICD-9 and ICD-10 codes on diagnoses.
 ```
 ```
-## Multi-level CCS categories and description for ICD-9 and ICD-10 codes on diagnoses.
+## Comorbidities
+The comorbidities measures from different sources are provided as lists.
+
+# AHRQ comorbidity classification
+AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
+The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
 ```
+# AHRQ comorbidity measure
+#ICD-9
+icd9_ahrq$Comorbidity %>% unique
+#ICD-10
+icd10_ahrq$Comorbidity %>% unique
+groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+```
+# Charlson comorbidity classification
+Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+```
+# Charlson comorbidity measure
+#ICD-9
+icd9_charlson$Comorbidity %>% unique
+#ICD-10
+icd10_charlson$Comorbidity %>% unique
+groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
+```
+# Elixhauser comorbidity classification
+Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
+```
+# Elixhauser comorbidity measure
+#ICD-9
+icd9_elix$Comorbidity %>% unique
+#ICD-10
+icd10_elix$Comorbidity %>% unique
+groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
+```
+## Selection Cases
+This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
+```
+selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## Condition Era
 Get the condition era
 ```
+getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
+getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ```
-## Comorbidities
-The comorbidities from different sources are provided as lists.
-
-## AHRQ comorbidity classification
-AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
-The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
-```
-#ahrq comorbidity measure
-icd9_ahrq$Comorbidity %>% unique
-icd10_ahrq$Comorbidity %>% unique
-
-```
-## Charlson comorbidity classification
-Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
-```
-#Charlson comorbidity measure
-icd9_charlson$Comorbidity %>% unique
-icd10_charlson$Comorbidity %>% unique
-
-```
-## Elixhauser comorbidity classification
-Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
-```
-#Elixhauser comorbidity measure
-icd9_elix$Comorbidity %>% unique
-icd10_elix$Comorbidity %>% unique
-
-```
-## Phecode
-Get the PheWAS Phecode or description of ICD-9 diagnosis codes
-```
-```
-## Examples
-```
-groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
-```
-
