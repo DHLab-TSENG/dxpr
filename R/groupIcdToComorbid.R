@@ -53,11 +53,28 @@ groupIcdToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, i
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
   icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
   icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
+  if(nrow(icd9) <= 0){
+    comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
 
-  comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
-  comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
-
-  comorbidDf_combine <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date", "Comorbidity", "Value"))
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      comorbidDf10$ICD <- convertIcdShortToDecimal(comorbidDf10$ICD, icd10)
+    }
+    comorbidDf_combine <- comorbidDf10
+  }else if(nrow(icd10) <= 0){
+    comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      comorbidDf9$ICD <- convertIcdShortToDecimal(comorbidDf9$ICD, icd9)
+    }
+    comorbidDf_combine <- comorbidDf9
+  }else if(nrow(icd9) > 0 & nrow(icd10) > 0){
+    comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
+    comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      comorbidDf9$ICD <- convertIcdShortToDecimal(comorbidDf9$ICD, icd9)
+      comorbidDf10$ICD <- convertIcdShortToDecimal(comorbidDf10$ICD, icd10)
+    }
+    comorbidDf_combine <- full_join(comorbidDf9, comorbidDf10, by = c(names(comorbidMap10), "ID", "ICD", "Date", "Comorbidity", "Value"))
+  }
   comorbidDf_combine$ICD <- NULL
   if(groupByDate ==T){
     comorbidDf_combine <- comorbidDf_combine %>% group_by(ID, Date, Comorbidity) %>% unique()

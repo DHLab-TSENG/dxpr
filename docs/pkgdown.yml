@@ -2,5 +2,10 @@ pandoc: 1.19.2.1
 pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
+  ChineseVersion: ChineseVersion.html
+  ChineseVersion_GetStarted: ChineseVersion_GetStarted.html
   emr: emr.html
+urls:
+  reference: https://dhlab-cgu.github.io/emr//reference
+  article: https://dhlab-cgu.github.io/emr//articles
 

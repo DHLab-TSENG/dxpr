@@ -76,15 +76,25 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/ChineseVersion.html">Chinese Version</a>
+    </li>
+    <li>
+      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version_GetStarted</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/DHLab-CGU">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -111,29 +121,11 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-conversion-icd-format" class="hasAnchor"><a href="#section-conversion-icd-format" class="anchor"></a>Conversion ICD format</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
-        
-        <td>
-          <p><code><a href="ccsDxICD10.html">ccsDxICD10</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-10-CM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ccsDxICD9.html">ccsDxICD9</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-9-CM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="convertIcdDecimaltoShort.html">convertIcdDecimaltoShort()</a></code> </p>
-        </td>
-        <td><p>Convert ICD Codes From Decimal To Short Forms</p></td>
-      </tr><tr>
         
         <td>
           <p><code><a href="convertIcdShortToDecimal.html">convertIcdShortToDecimal()</a></code> </p>
@@ -142,39 +134,83 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="emr.html">emr</a></code> </p>
+          <p><code><a href="convertIcdDecimaltoShort.html">convertIcdDecimaltoShort()</a></code> </p>
         </td>
-        <td><p>emr.</p></td>
+        <td><p>Convert ICD Codes From Decimal To Short Forms</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-generation-decimal-format-of-icd-cm-and-icd-cm-code" class="hasAnchor"><a href="#section-generation-decimal-format-of-icd-cm-and-icd-cm-code" class="anchor"></a>Generation Decimal Format of ICD-9-CM and ICD-10-CM code</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="icd9GenerateDecimalFormat.html">icd9GenerateDecimalFormat()</a></code> </p>
+        </td>
+        <td><p>get ICD-9-CM Codes Decimal Forms</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="getConditionEra.html">getConditionEra()</a></code> </p>
+          <p><code><a href="icd10GenerateDecimalFormat.html">icd10GenerateDecimalFormat()</a></code> </p>
         </td>
-        <td><p>Get the condition era</p></td>
+        <td><p>get ICD-10-CM Codes Decimal Forms</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-two-format-of-icd-cm-and-icd-cm-code-maps" class="hasAnchor"><a href="#section-two-format-of-icd-cm-and-icd-cm-code-maps" class="anchor"></a>Two format of ICD-9-CM and ICD-10-CM code maps</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="icd9withTwoFormat.html">icd9withTwoFormat</a></code> </p>
+        </td>
+        <td><p>Two format of ICD-9-CM: Short and Decimal</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="groupIcdToCCS.html">groupIcdToCCS()</a></code> </p>
+          <p><code><a href="icd10withTwoFormat.html">icd10withTwoFormat</a></code> </p>
         </td>
-        <td><p>Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.</p></td>
+        <td><p>Two format of ICD-10-CM: Short and Decimal</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-clinical-classifications-software-ccs-to-icd-cm-and-icd-cm-code-maps" class="hasAnchor"><a href="#section-clinical-classifications-software-ccs-to-icd-cm-and-icd-cm-code-maps" class="anchor"></a>Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="ccsDxICD9.html">ccsDxICD9</a></code> </p>
+        </td>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-9-CM</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="groupIcdToCCSLvl.html">groupIcdToCCSLvl()</a></code> </p>
+          <p><code><a href="ccsDxICD10.html">ccsDxICD10</a></code> </p>
         </td>
-        <td><p>Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.</p></td>
-      </tr><tr>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-10-CM</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-comorbidity-to-icd-cm-and-icd-cm-code-maps" class="hasAnchor"><a href="#section-comorbidity-to-icd-cm-and-icd-cm-code-maps" class="anchor"></a>Comorbidity  to ICD-9-CM and ICD-10-CM code maps</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
-          <p><code><a href="groupIcdToComorbid.html">groupIcdToComorbid()</a></code> </p>
+          <p><code><a href="icd9_ahrq.html">icd9_ahrq</a></code> </p>
         </td>
-        <td><p>Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="groupIcdToPhecode.html">groupIcdToPhecode()</a></code> </p>
-        </td>
-        <td><p>Get the Phecode or description of ICD-9 diagnosis codes</p></td>
+        <td><p>AHRQ Comorbidity for ICD-9</p></td>
       </tr><tr>
         
         <td>
@@ -184,27 +220,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="icd10_charlson.html">icd10_charlson</a></code> </p>
-        </td>
-        <td><p>Charlson Comorbidity for ICD-10</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="icd10_elix.html">icd10_elix</a></code> </p>
-        </td>
-        <td><p>Elixhauser Comorbidity for ICD-10</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="icd9_ahrq.html">icd9_ahrq</a></code> </p>
-        </td>
-        <td><p>AHRQ Comorbidity for ICD-9</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="icd9_charlson.html">icd9_charlson</a></code> </p>
         </td>
         <td><p>Charlson Comorbidity for ICD-9</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="icd10_charlson.html">icd10_charlson</a></code> </p>
+        </td>
+        <td><p>Charlson Comorbidity for ICD-10</p></td>
       </tr><tr>
         
         <td>
@@ -212,6 +236,20 @@
         </td>
         <td><p>Elixhauser Comorbidity for ICD-9</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="icd10_elix.html">icd10_elix</a></code> </p>
+        </td>
+        <td><p>Elixhauser Comorbidity for ICD-10</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-phecode-to-icd-cm-code-maps" class="hasAnchor"><a href="#section-phecode-to-icd-cm-code-maps" class="anchor"></a>Phecode to ICD-9-CM code maps</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="phecode_icd9_2.html">phecode_icd9_2</a></code> </p>
@@ -225,14 +263,19 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-conversion-icd-format">Conversion ICD format</a></li>
+      <li><a href="#section-generation-decimal-format-of-icd-cm-and-icd-cm-code">Generation Decimal Format of ICD-9-CM and ICD-10-CM code</a></li>
+      <li><a href="#section-two-format-of-icd-cm-and-icd-cm-code-maps">Two format of ICD-9-CM and ICD-10-CM code maps</a></li>
+      <li><a href="#section-clinical-classifications-software-ccs-to-icd-cm-and-icd-cm-code-maps">Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps</a></li>
+      <li><a href="#section-comorbidity-to-icd-cm-and-icd-cm-code-maps">Comorbidity  to ICD-9-CM and ICD-10-CM code maps</a></li>
+      <li><a href="#section-phecode-to-icd-cm-code-maps">Phecode to ICD-9-CM code maps</a></li>
     </ul>
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Yi-Ju Tseng.</p>
+  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
 </div>
 
 <div class="pkgdown">

@@ -79,15 +79,25 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/ChineseVersion.html">Chinese Version</a>
+    </li>
+    <li>
+      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version_GetStarted</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/DHLab-CGU">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -101,7 +111,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert ICD Codes From Decimal To Short Forms</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-CGU/blob/master/R/convertIcdDecimaltoShort.R'><code>R/convertIcdDecimaltoShort.R</code></a></small>
+    
     <div class="hidden name"><code>convertIcdDecimaltoShort.Rd</code></div>
     </div>
 
@@ -111,7 +121,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>convertIcdDecimaltoShort</span>(<span class='no'>icdList</span>)</pre>
+    <pre class="usage"><span class='fu'>convertIcdDecimaltoShort</span>(<span class='no'>icdList</span>, <span class='no'>icdVer</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -119,6 +129,10 @@
     <tr>
       <th>icdList</th>
       <td><p>ICD codes</p></td>
+    </tr>
+    <tr>
+      <th>icdVer</th>
+      <td><p>ICD Version: ICD-9 or ICD-10</p></td>
     </tr>
     </table>
     
@@ -135,7 +149,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Yi-Ju Tseng.</p>
+  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
 </div>
 
 <div class="pkgdown">

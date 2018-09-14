@@ -35,10 +35,29 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
 
-  icd9ToCCS <- left_join(icd9, select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
-  icd10ToCCS <- left_join(icd10, select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
+  if(nrow(icd9) <= 0){
+    icd10ToCCS <- left_join(icd10, select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
 
-  DxDataFile_combine <- full_join(icd9ToCCS, icd10ToCCS, by = c("ID", "ICD", "Date", "CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      icd10ToCCS$ICD <- convertIcdShortToDecimal(icd10ToCCS$ICD, icd10)
+    }
+    DxDataFile_combine <- icd10ToCCS
+  }else if(nrow(icd10) <= 0){
+    icd9ToCCS <- left_join(icd9, select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
+
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      icd9ToCCS$ICD <- convertIcdShortToDecimal(icd9ToCCS$ICD, icd9)
+    }
+    DxDataFile_combine <- icd9ToCCS
+  }else if(nrow(icd9) > 0 & nrow(icd10) > 0){
+    icd9ToCCS <- left_join(icd9, select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
+    icd10ToCCS <- left_join(icd10, select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD") %>% unique()
+    if(any(grepl("[.]",DxDataFile$ICD))){
+      icd9ToCCS$ICD <- convertIcdShortToDecimal(icd9ToCCS$ICD, icd9)
+      icd10ToCCS$ICD <- convertIcdShortToDecimal(icd10ToCCS$ICD, icd10)
+    }
+    DxDataFile_combine <- full_join(icd9ToCCS, icd10ToCCS, by = c("ID", "ICD", "Date", "CCS_CATEGORY", "CCS_CATEGORY_DESCRIPTION"))
+  }
   DxDataFile_combine_with_originalFile <- left_join(DxDataFile, DxDataFile_combine, by = c("ID", "ICD", "Date"))
 
   if (isCCSCategoryDescription == T) {
@@ -48,7 +67,8 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   }
   if(anyNA(IcdToCCS)){
     message(paste0("warning ICD: ", unique(DxDataFile_combine_with_originalFile$ICD[is.na(IcdToCCS)]), sep = "\t\n"))
-    warning("'NA' means the data does not match the format",call. = F)
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.',call. = F)
+
   }
   IcdToCCS
 }

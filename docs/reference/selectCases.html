@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Elixhauser Comorbidity for ICD-10 — icd10_elix • emr</title>
+<title>Select cases based on ICD code and the number of ICD codes — selectCases • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,12 @@
 
 
 
-<meta property="og:title" content="Elixhauser Comorbidity for ICD-10 — icd10_elix" />
+<meta property="og:title" content="Select cases based on ICD code and the number of ICD codes — selectCases" />
 
-<meta property="og:description" content="A dataframe for ICD-10 Elixhauser comorbidity mapping" />
+<meta property="og:description" content="This can be used to select qualified cases from factIcd data
+based on the ICD code searching criteria and number of ICD code
+per patients in the inout factIcd dataset.
+Return qualified Members' data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,47 +113,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Elixhauser Comorbidity for ICD-10</h1>
+    <h1>Select cases based on ICD code and the number of ICD codes</h1>
     
-    <div class="hidden name"><code>icd10_elix.Rd</code></div>
+    <div class="hidden name"><code>selectCases.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A dataframe for ICD-10 Elixhauser comorbidity mapping</p>
+    <p>This can be used to select qualified cases from factIcd data
+based on the ICD code searching criteria and number of ICD code
+per patients in the inout factIcd dataset.
+Return qualified Members' data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>data</span>(<span class='no'>icd10_elix</span>)</pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>A data frame with 399 rows and 3 variables</p>
+    <pre class="usage"><span class='fu'>selectCases</span>(<span class='no'>greplICD</span>, <span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
+  <span class='no'>ICDNumber</span>, <span class='no'>icd10usingDate</span>, <span class='kw'>minimumINRofDays</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>maximumINRofDays</span> <span class='kw'>=</span> <span class='fl'>365</span>)</pre>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <ul>
-<li><p>ICD. ICD-10</p></li>
-<li><p>Comorbidity. comorbidity measures for ICD-10 (CHF, Arrhythmia, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)</p></li>
-<li><p>Value. if ICD code has comorbidity measures, value is 1</p></li>
-</ul>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>greplICD</th>
+      <td><p>ICD selection rules with grepl expression</p></td>
+    </tr>
+    <tr>
+      <th>DxDataFile</th>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"</p></td>
+    </tr>
+    <tr>
+      <th>idColName</th>
+      <td><p>A column for MemberID of DxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>icdColName</th>
+      <td><p>A column for ICD of DxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>dateColName</th>
+      <td><p>A column for Date of DxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>ICDNumber</th>
+      <td><p>a threshold of number of ICD for case selection</p></td>
+    </tr>
+    <tr>
+      <th>icd10usingDate</th>
+      <td><p>ICD-10 using date</p></td>
+    </tr>
+    <tr>
+      <th>minimumINRofDays</th>
+      <td><p>Minimum interval of Days, defaults is 30 days (one month)</p></td>
+    </tr>
+    <tr>
+      <th>maximumINRofDays</th>
+      <td><p>Maximum interval of Days, defaults is 365 days (one year)</p></td>
+    </tr>
+    </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='icd9_ahrq.html'>icd9_ahrq</a></code> <code><a href='icd10_ahrq.html'>icd10_ahrq</a></code> <code><a href='icd9_charlson.html'>icd9_charlson</a></code> <code><a href='icd10_charlson.html'>icd10_charlson</a></code> <code><a href='icd9_elix.html'>icd9_elix</a></code></p></div>
-    
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>DxDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>),
+                         <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"I072"</span>,<span class='st'>"I071"</span>, <span class='st'>"I072"</span>, <span class='st'>"I071"</span>),
+                         <span class='kw'>Date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2016-03-31"</span>, <span class='st'>"2016-01-29"</span>, <span class='st'>"2016-02-10"</span>, <span class='st'>"2018-03-10"</span>)),
+                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>selectCases</span>(<span class='st'>"^I0"</span>, <span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 0 x 3
+#&gt; # Groups:   ID, ICD [0]
+#&gt; # ... with 3 variables: ID &lt;chr&gt;, ICD &lt;chr&gt;, Date &lt;date&gt;</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -38,9 +38,10 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
   icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
+
   if(nrow(icd9) <= 0){
     DxDataFile <- icd10
-  }else if(nrow(icd9) <= 0){
+  }else if(nrow(icd10) <= 0){
     DxDataFile <- icd9
   }else{
     DxDataFile <- full_join(icd9, icd10, by = c("ID", "ICD", "Date"))

@@ -50,15 +50,23 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/DHLab-CGU">
-    <span class="fa fa-github fa-lg"></span>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
      
+    <span class="caret"></span>
   </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/ChineseVersion.html">Chinese Version</a>
+    </li>
+    <li>
+      <a href="articles/ChineseVersion_GetStarted.html">Chinese Version_GetStarted</a>
+    </li>
+  </ul>
 </li>
       </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -69,26 +77,114 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    <div id="emr" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#emr" class="anchor"></a>emr</h1></div>
-<pre class="{r}"><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("DHLab-CGU/emr")</a></code></pre>
-<hr>
-<div id="emr-1" class="section level2">
+    
+<div id="emr" class="section level2">
 <h2 class="hasAnchor">
-<a href="#emr-1" class="anchor"></a># emr <img src="reference/figures/logo.png" align="right">
-</h2>
+<a href="#emr" class="anchor"></a>emr</h2>
+</div>
+<div id="introduction" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1></div>
+<p>A tool of <code>Electric Medical Record</code> for grouping with ICD-9 and ICD-10 codes by <code>ccs, comorbidities and phecodes</code>, and calculating <code>condition era</code>. There are some information about patients’ diagnoses data: members’ ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc… This tool can be used to group the ICD’s multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!).</p>
+<div id="feature" class="section level3">
+<h3 class="hasAnchor">
+<a href="#feature" class="anchor"></a>Feature</h3>
+<ul>
+<li>convert ICD code’s format: Short &lt;-&gt; Decimal</li>
+<li>Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses</li>
+<li>Get the Phecode or phenotype (phecode description) of ICD-9 diagnosis codes</li>
+<li>Get the categories for ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standard</li>
+<li>Grouping comorbid method measures (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes</li>
+<li>Get the qualified cases which based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset</li>
+<li>Get the condition era</li>
+</ul>
+</div>
+<div id="install" class="section level3">
+<h3 class="hasAnchor">
+<a href="#install" class="anchor"></a>Install</h3>
+<pre class="{r}"><code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github("DHLab-CGU/emr")</a></code></pre>
+</div>
+<div id="generate-icd-code-decimal-format-for-conversion-function" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generate-icd-code-decimal-format-for-conversion-function" class="anchor"></a>Generate ICD code Decimal Format for conversion function</h3>
+<p>ICD codes have two forms: decimal<code>E950.7</code> and short<code>E9507</code> format, first at all, unifing the ICD codes format. There are two function to generate ICD codes’ decimal format.</p>
+</div>
+<div id="convert-icd-9-cm-and-icd-10-cm-code-format-short--decimal" class="section level3">
+<h3 class="hasAnchor">
+<a href="#convert-icd-9-cm-and-icd-10-cm-code-format-short--decimal" class="anchor"></a>Convert ICD-9-CM and ICD-10-CM code Format: Short &lt;-&gt;Decimal</h3>
+<p>There are two functions to let user convert ICD code format for the following function for grouping methods. Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
+</div>
+<div id="grouping-icd-codes-by" class="section level3">
+<h3 class="hasAnchor">
+<a href="#grouping-icd-codes-by" class="anchor"></a>Grouping ICD codes by …</h3>
+<p>classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
+</div>
+<div id="clinical-classifications-software-ccs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#clinical-classifications-software-ccs" class="anchor"></a>Clinical Classifications Software (CCS)</h3>
+<p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.</p>
+<div id="single-level-category" class="section level4">
+<h4 class="hasAnchor">
+<a href="#single-level-category" class="anchor"></a>single-level category</h4>
+</div>
+<div id="multi-level" class="section level4">
+<h4 class="hasAnchor">
+<a href="#multi-level" class="anchor"></a>multi-level</h4>
 </div>
 </div>
+<div id="phecode" class="section level3">
+<h3 class="hasAnchor">
+<a href="#phecode" class="anchor"></a>Phecode</h3>
+<p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
+</div>
+<div id="creating-a-grouping-standards" class="section level3">
+<h3 class="hasAnchor">
+<a href="#creating-a-grouping-standards" class="anchor"></a>Creating a grouping standards</h3>
+</div>
+<div id="comorbidities" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comorbidities" class="anchor"></a>Comorbidities</h3>
+<p>The comorbidities measures from different sources are provided as lists.</p>
+<div id="ahrq-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#ahrq-comorbidity-classification" class="anchor"></a>AHRQ comorbidity classification</h4>
+<p>AHRQ comorbidity measure dataframe is based on <code>icd package</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same. The AHRQ comorbidity measure map format is dataframe;it is convert <code>icd9_map_ahrq</code> list into <code>icd9_ahrq</code> dataframe.The functions apply those mappings to join with user’s ICD data.</p>
+</div>
+<div id="charlson-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#charlson-comorbidity-classification" class="anchor"></a>Charlson comorbidity classification</h4>
+<p>Charlson comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_charlson, icd10_map_charlson</p>
+</div>
+<div id="elixhauser-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#elixhauser-comorbidity-classification" class="anchor"></a>Elixhauser comorbidity classification</h4>
+<p>Elixhauser comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_elix, icd10_map_elix</p>
+</div>
+</div>
+<div id="selection-cases" class="section level3">
+<h3 class="hasAnchor">
+<a href="#selection-cases" class="anchor"></a>Selection Cases</h3>
+<p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
+</div>
+<div id="condition-era" class="section level3">
+<h3 class="hasAnchor">
+<a href="#condition-era" class="anchor"></a>Condition Era</h3>
+<p>Get the condition era</p>
+</div>
+<div id="report-a-bug-at" class="section level3">
+<h3 class="hasAnchor">
+<a href="#report-a-bug-at" class="anchor"></a>Report a bug at</h3>
+<p>See the <code>GitHub issues page</code> (<a href="https://github.com/DHLab-CGU/emr/issues" class="uri">https://github.com/DHLab-CGU/emr/issues</a>) to see open issues and feature requests.</p>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/DHLab-CGU">https://​github.com/​DHLab-CGU</a>
-</li>
-<li>Report a bug at <br><a href="NA">NA</a>
+<li>Report a bug at <br><a href="https://github.com/DHLab-CGU/emr/issues">https://​github.com/​DHLab-CGU/​emr/​issues</a>
 </li>
 </ul>
 </div>
@@ -103,7 +199,8 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Yi-Ju Tseng <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Yi-Ju Tseng <br><small class="roles"> Author </small>  </li>
+<li>Hsiang-Ju Chiu <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
@@ -112,7 +209,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Yi-Ju Tseng.</p>
+  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
 </div>
 
 <div class="pkgdown">

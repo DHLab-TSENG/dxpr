@@ -1,0 +1,67 @@
+url: https://dhlab-cgu.github.io/emr/
+
+title: emr
+
+template:
+  params:
+    docsearch:
+    index_name: emr
+
+articles:
+- title: All vignettes
+  desc: ~
+  contents:
+  - '`emr`'
+  - '`ChineseVersion`'
+  - '`Chinese Version_GetStarted`'
+
+- title: Grouping ICD-9 and ICD-10 codes by ...
+  desc: ~
+  contents:
+  - '`groupIcdToCCS`'
+  - '`groupIcdToCCSLvl`'
+  - '`groupIcdToPhecode`'
+  - '`groupIcdToComorbid`'
+  - '`selectCases`'
+  - '`getConditionEra`'
+
+reference:
+
+- title: Conversion ICD format
+  desc: ~
+  contents:
+  - '`convertIcdShortToDecimal`'
+  - '`convertIcdDecimaltoShort`'
+
+- title: Generation Decimal Format of ICD-9-CM and ICD-10-CM code
+  desc: ~
+  contents:
+  - '`icd9GenerateDecimalFormat`'
+  - '`icd10GenerateDecimalFormat`'
+
+- title: Two format of ICD-9-CM and ICD-10-CM code maps
+  desc: ~
+  contents:
+  - '`icd9withTwoFormat`'
+  - '`icd10withTwoFormat`'
+
+- title: Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
+  desc: ~
+  contents:
+  - '`ccsDxICD9`'
+  - '`ccsDxICD10`'
+
+- title: Comorbidity  to ICD-9-CM and ICD-10-CM code maps
+  desc: ~
+  contents:
+  - '`icd9_ahrq`'
+  - '`icd10_ahrq`'
+  - '`icd9_charlson`'
+  - '`icd10_charlson`'
+  - '`icd9_elix`'
+  - '`icd10_elix`'
+
+- title: Phecode to ICD-9-CM code maps
+  desc: ~
+  contents:
+  - '`phecode_icd9_2`'
