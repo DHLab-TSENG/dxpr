@@ -4,12 +4,10 @@
 \alias{convertIcdShortToDecimal}
 \title{Convert ICD Codes From Short To Decimal Forms}
 \usage{
-convertIcdShortToDecimal(icdList, icdVer)
+convertIcdShortToDecimal(icdList)
 }
 \arguments{
 \item{icdList}{ICD codes}
-
-\item{icdVer}{ICD Version: ICD-9 or ICD-10}
 }
 \description{
 Convert codes between short and decimal forms
