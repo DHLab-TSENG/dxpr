@@ -1,8 +1,8 @@
 ---
-title: "Introduction to emr"
+title: "Chinese Version_GetStarted"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to emr}
+  %\VignetteIndexEntry{Chinese Version_GetStarted}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,7 +19,7 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10", "2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-# Introduction
+# Introduction嗨~
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
@@ -64,7 +64,6 @@ It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into
 
 #### single-level category
 ICD-9-CM: 260
-
 ICD-10-CM: 260
 ```
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
@@ -72,7 +71,6 @@ groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 ```
 #### multi-level
 ICD-9-CM has four levels
-
 ICD-10-CM has two levels
 ```
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)

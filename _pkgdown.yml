@@ -12,7 +12,6 @@ articles:
   desc: ~
   contents:
   - '`emr`'
-  - '`ChineseVersion`'
   - '`Chinese Version_GetStarted`'
 
 - title: Grouping ICD-9 and ICD-10 codes by ...

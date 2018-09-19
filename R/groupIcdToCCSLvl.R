@@ -34,39 +34,25 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)$Short
 
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
-  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
-  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
-  if(nrow(icd9) >= 0){
+  if(nrow(icd10) < 0){
     icd9ToCCSLvl <- left_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL,
                                            CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL), by = "ICD") %>% unique()
-    if(any(grepl("[.]",DxDataFile$ICD))){
-      icd9ToCCSLvl$ICD <- convertIcdShortToDecimal(icd9ToCCSLvl$ICD, icd9)
-    }
     DxDataFile_combine <- icd9ToCCSLvl
-
-    }else if(nrow(icd10) >= 0 & CCSLevel < 3){
-      icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL),
-                                 by = "ICD") %>% unique()
-      if(any(grepl("[.]",DxDataFile$ICD))){
-        icd10ToCCSLvl$ICD <- convertIcdShortToDecimal(icd10ToCCSLvl$ICD, icd10)
-      }
+    }else if(nrow(icd9) < 0){
+      icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
       DxDataFile_combine <- icd10ToCCSLvl
-
-      }else{
-        if(any(grepl("[.]",DxDataFile$ICD))){
-          icd9ToCCSLvl$ICD <- convertIcdShortToDecimal(icd9ToCCSLvl$ICD, icd9)
-          icd10ToCCSLvl$ICD <- convertIcdShortToDecimal(icd10ToCCSLvl$ICD, icd10)
+      }else if(nrow(icd9) >= 0 & nrow(icd10) >= 0){
+        icd9ToCCSLvl <- left_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL,
+                                               CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL), by = "ICD") %>% unique()
+        icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL),
+                                   by = "ICD") %>% unique()
+        DxDataFile_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = c("ID", "ICD", "Date", "CCS_LVL_1", "CCS_LVL_1_LABEL", "CCS_LVL_2", "CCS_LVL_2_LABEL"))
         }
-        DxDataFile_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = c("ID", "ICD", "Date",
-                                                                            "CCS_LVL_1", "CCS_LVL_1_LABEL", "CCS_LVL_2", "CCS_LVL_2_LABEL"))
-        }
-
-
   DxDataFile_combine_with_originalFile <- left_join(DxDataFile,DxDataFile_combine, by = c("ID", "ICD", "Date"))
-
   if(CCSLvlLabel == T){
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, "_LABEL", sep = "")))
   }else{
@@ -80,3 +66,4 @@ groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd
   }
   IcdToCCSLevel
 }
+

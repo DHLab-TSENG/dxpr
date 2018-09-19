@@ -34,18 +34,10 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = FALSE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)$Short
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
-  icd10$ICD <- convertIcdDecimaltoShort(icd10$ICD, icd10)
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
-  icd9$ICD <- convertIcdDecimaltoShort(icd9$ICD, icd9)
 
-  if(nrow(icd9) <= 0){
-    DxDataFile <- icd10
-  }else if(nrow(icd10) <= 0){
-    DxDataFile <- icd9
-  }else{
-    DxDataFile <- full_join(icd9, icd10, by = c("ID", "ICD", "Date"))
-  }
   icdorCCS <- toupper(deparse(substitute(icdorCCS)))
 
   if(icdorCCS == "CCS"){
@@ -74,6 +66,12 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
       group_by(ID, ICD) %>%
       mutate(Era = cumsum(episode))
   }
+
+  WrongFormat <- convertIcdDecimaltoShort(DxDataFile$ICD)$Error
+  if(length(WrongFormat) > 0 & icdorCCS == "ICD"){
+    message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+  }
   DxDataFile <- select(DxDataFile, c(-"Gap", -"episode"))
   DxDataFile
 }
+
