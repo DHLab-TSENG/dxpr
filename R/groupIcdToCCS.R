@@ -49,7 +49,7 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   WrongFormat <- convertIcdDecimaltoShort(DxDataFile$ICD)$Error
   error_ICD <- anti_join(data.frame(ICD = CCS_combine_with_originalFile$ICD[is.na(IcdToCCS)], stringsAsFactors= FALSE),
                          data.frame(ICD = WrongFormat, stringsAsFactors= FALSE), "ICD") %>% unique
-  if(length(is.na(IcdToCCS)) > 0){
+  if(anyNA(IcdToCCS)){
     if(length(WrongFormat) > 0){
       message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
     }
@@ -61,9 +61,9 @@ groupIcdToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
       }
       message("\n")
     }
-    warning('The ICD mentioned above matches to "NA" due to the format or other issues.',call. = F)
-    warning('"wrong Format" means the ICD has wrong format',call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues) ',call. = F)
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
+    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
   IcdToCCS
 }

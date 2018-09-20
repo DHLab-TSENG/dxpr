@@ -28,8 +28,5 @@ convertIcdShortToDecimal<-function(icdList){
   combine_with_error <- rbind(error, combine) %>% arrange(Number)
   combine_with_error <- combine_with_error$Decimal
 
-  # if(nrow(error) >= 1){
-  #   message(paste0("wrong Format: ", unique(error$Decimal), sep = "\t\n"))
-  # }
   return(list(Decimal = combine_with_error, Error = error$Decimal))
 }

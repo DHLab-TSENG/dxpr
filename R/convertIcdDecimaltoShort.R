@@ -33,8 +33,5 @@ convertIcdDecimaltoShort<-function(icdList){
   combine_with_error <- rbind(error, combine) %>% arrange(Number)
   combine_with_error <- combine_with_error$Short
 
-  # if(nrow(error) >= 1){
-  #   message(paste0("wrong Format: ", unique(error$Short), sep = "\t\n"))
-  # }
   return(list(Short = combine_with_error, Error = error$Short))
 }

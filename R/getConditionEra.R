@@ -34,12 +34,13 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = FALSE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  Format <- ifelse(any(grepl("[.]", DxDataFile$ICD)), "Decimal", "Short")
   DxDataFile$ICD <- convertIcdDecimaltoShort(DxDataFile$ICD)$Short
+
   icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
   icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
 
   icdorCCS <- toupper(deparse(substitute(icdorCCS)))
-
   if(icdorCCS == "CCS"){
     DxDataFile <- DxDataFile %>%
       mutate(CCS = groupIcdToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isCCSDescription)) %>%
@@ -66,10 +67,10 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
       group_by(ID, ICD) %>%
       mutate(Era = cumsum(episode))
   }
-
   WrongFormat <- convertIcdDecimaltoShort(DxDataFile$ICD)$Error
   if(length(WrongFormat) > 0 & icdorCCS == "ICD"){
     message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
   }
   DxDataFile <- select(DxDataFile, c(-"Gap", -"episode"))
   DxDataFile

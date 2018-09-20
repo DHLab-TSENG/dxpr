@@ -29,22 +29,37 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 groupIcdToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  Format <- ifelse(any(grepl("[.]", DxDataFile$ICD)), "Decimal", "Short")
   DxDataFile$ICDD <- convertIcdShortToDecimal(DxDataFile$ICD)$Decimal
 
-  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,] %>% unique()
 
-  icd9ToPhecode <- left_join(icd9, select(phecode_icd9_2, ICDD, PheCode, PheCodeDescription),by = "ICDD") %>% unique()
-  icd9ToPhecode_with_originalFile <- left_join(DxDataFile, icd9ToPhecode, by = c("ID", "ICD", "ICDD", "Date"))
+  icd9ToPhecode <- left_join(icd9, select(phecode_icd9_2, ICDD, PheCode, PheCodeDescription), by = "ICDD")
+  Phecode_combine_with_originalFile <- left_join(DxDataFile, icd9ToPhecode, by =names(DxDataFile))
 
   if(isPhecodeDescription == T){
-    IcdToPhecode <- icd9ToPhecode_with_originalFile$PheCodeDescription
+    IcdToPhecode <- Phecode_combine_with_originalFile$PheCodeDescription
   }else{
-    IcdToPhecode <- icd9ToPhecode_with_originalFile$PheCode
+    IcdToPhecode <- Phecode_combine_with_originalFile$PheCode
   }
-
+  WrongFormat <- convertIcdShortToDecimal(DxDataFile$ICD)$Error
+  error_ICD <- anti_join(data.frame(ICD = Phecode_combine_with_originalFile$ICD[is.na(IcdToPhecode)], stringsAsFactors= FALSE),
+                         data.frame(ICD = WrongFormat, stringsAsFactors= FALSE), "ICD") %>% unique
   if(anyNA(IcdToPhecode)){
-    message(paste0("warning ICD: ", unique(icd9ToPhecode_with_originalFile$ICD[is.na(IcdToPhecode)]), sep = "\t\n"))
-    warning('The ICD mentioned above matches to "NA" due to the format or other issues (phecode does not have icd10).', call. = F)
+    if(length(WrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+    }
+    if(sum(is.na(IcdToPhecode)) > length(WrongFormat)){
+      if(Format == "Short"){
+        message(paste0("warning ICD: ", convertIcdDecimaltoShort(error_ICD$ICD)$Short, sep = "\t\n"))
+      }else{
+        message(paste0("warning ICD: ", error_ICD, sep = "\t\n"))
+      }
+      message("\n")
+    }
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
+    warning('"warning ICD" means the ICD classify to wrong ICD version (phecode does not have icd10) ', call. = F)
   }
   IcdToPhecode
 }
