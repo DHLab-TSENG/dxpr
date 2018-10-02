@@ -7,6 +7,7 @@
 #' @source \url{https://www.findacode.com/search/search.php}
 #'
 icd10GenerateDecimalFormat <- function(icd10){
+  icd10 <-data.frame(Short = icd10, stringsAsFactors = FALSE)
   icd10_4 <- nchar(icd10$Short) == 4
   icd10$Decimal[icd10_4] <- paste(substr(icd10$Short[icd10_4], start = 1 , stop =  3), ".",
                                   substr(icd10$Short[icd10_4], start= 4, stop = 4), sep = "")
@@ -21,3 +22,4 @@ icd10GenerateDecimalFormat <- function(icd10){
                                   substr(icd10$Short[icd10_7], start= 4, stop = 7), sep = "")
   icd10
 }
+

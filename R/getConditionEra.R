@@ -19,7 +19,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
-#' @param gapDate Length ofcondition era, default is 30 days
+#' @param gapDate Length of condition era, default is 30 days
 #' @param icdorCCS Stratified by icd or ccs, default is CCS
 #' @param isCCSDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.
 #' @export

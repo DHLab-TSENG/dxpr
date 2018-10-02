@@ -8,9 +8,11 @@
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #'
 icd9GenerateDecimalFormat <- function(icd9){
+  icd9 <- data.frame(Short = icd9,stringsAsFactors = F)
   icdNcharLong <- 4
-  icd9V <- icd9[grepl("^V", icd9$Short),]
-  icd9N <- icd9[grepl("^[0-9]+", icd9$Short),]
+  icd9V <- data.frame(Short = icd9[grepl("^V", icd9$Short),],stringsAsFactors = F)
+  icd9N <- data.frame(Short = icd9[grepl("^[0-9]+", icd9$Short),],stringsAsFactors = F)
+
   decimalstart <- icdNcharLong - 1
   decimalstop <- icdNcharLong
   V4 <- nchar(icd9V$Short) == icdNcharLong
@@ -28,7 +30,8 @@ icd9GenerateDecimalFormat <- function(icd9){
   N5 <- nchar(icd9N$Short) == icdNcharLong
   icd9N$Decimal[N5] <- paste(substr(icd9N$Short[N5], start = 1 , stop =  decimalstart), ".",
                              substr(icd9N$Short[N5], start= decimalstop, stop = icdNcharLong), sep = "")
-  icd9E <- icd9[grepl("^E", icd9$Short),]
+
+  icd9E <- data.frame(Short = icd9[grepl("^E", icd9$Short),],stringsAsFactors = F)
   decimalstart <- icdNcharLong - 1
   decimalstop <- icdNcharLong
   E5 <- nchar(icd9E$Short) == icdNcharLong

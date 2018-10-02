@@ -19,7 +19,7 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{gapDate}{Length ofcondition era, default is 30 days}
+\item{gapDate}{Length of condition era, default is 30 days}
 
 \item{icdorCCS}{Stratified by icd or ccs, default is CCS}
 

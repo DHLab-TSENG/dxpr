@@ -1,5 +1,5 @@
 ---
-title: "Chinese Version_GetStarted"
+title: "中文版"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chinese Version_GetStarted}
@@ -19,114 +19,229 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10", "2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-# Introduction嗨~
+# 簡介
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
-### Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function
+### 分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short (供後續 ICD 格式轉換的功能使用)
 ICD-9
 ```
 icd9 <- ccsDxICD9$ICD
 icd9GenerateDecimalFormat(icd9)
-icd9withTwoFormat$Short[1:10]
-icd9withTwoFormat$Decimal[1:10]
+
+icd9_Short <- icd9withTwoFormat$Short[1:10]
+# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
+icd9_Decimal <- icd9withTwoFormat$Decimal[1:10]
+# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 ```
 ICD-10
 ```
 icd10 <- ccsDxICD10$ICD
 icd10GenerateDecimalFormat(icd10)
 
-icd10withTwoFormat$Short[1:10]
-icd10withTwoFormat$Decimal[1:10]
+icd10_Short <- icd10withTwoFormat$Short[1:10]
+# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
+icd10_Decimal <- icd10withTwoFormat$Decimal[1:10]
+# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.
 
-### Convert ICD-9-CM and ICD-10-CM code Format: Short <->Decimal
-Convert ICD-CM code Short to Decimal
+進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式
+
+### ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short <-> Decimal
+將 ICD-CM code 的格式統一由 Short 轉成 Decimal
 ```
 # ICD-9
-convertIcdShortToDecimal(icd9withTwoFormat$Short[1:10], icd9)
+convertIcdShortToDecimal(icd9_Short)$Decimal
+# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 # ICD-10
-convertIcdShortToDecimal(icd10withTwoFormat$Short[1:10], icd10)
+convertIcdShortToDecimal(icd10_Short)$Decimal
+# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-Convert ICD-CM code Decimal to Short
+將 ICD-CM code 的格式統一由 Decimal 轉成 Short
 ```
 # ICD-9
-convertIcdDecimaltoShort(icd9withTwoFormat$Decimal[1:10], icd9)
+convertIcdDecimaltoShort(icd9_Decimal)$Short
+# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 # ICD-10
-convertIcdDecimaltoShort(icd10withTwoFormat$Decimal[1:10], icd10)
+convertIcdDecimaltoShort(icd10_Decimal)$Short
+# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
-## Grouping ICD-9 and ICD-10 codes by ...
-classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 
-### Clinical Classifications Software (CCS)
-It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.
+## 將 ICD-9 及 ICD-10 code 依照不同的分類標準分類...
+將 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併為較簡化的分類, 標準化的分類以便於後續的整合統計分析使用
 
-#### single-level category
-ICD-9-CM: 260
+### 臨床分類軟體 (Clinical Classifications Software, CCS)
+係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 單一階層在 ICD-9-CM 及 ICD-10-CM 的分類一致; 多階層的分類則不同
+
+目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018
+
+####單一階層分類 (CCS Category)
+`groupIcdToCCS` 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述
+
+ICD-9-CM: 260 
+
 ICD-10-CM: 260
 ```
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+# "99"  NA    "96"  "139"
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+# "Hypertension with complications and secondary hypertension" NA  
+# "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" 
 ```
-#### multi-level
-ICD-9-CM has four levels
-ICD-10-CM has two levels
+當 CCS 分類結果為 `NA` , 會出現 `warning Message` , 可能是 ICD code 並未符合格式, 或是有其他的原因需要進行檢查確認
+以範例為例, `42577` 為錯誤的 ICD-9-CM 之格式才會出現 `NA`
+
+####多階層分類 (Multiple ccs level)
+`groupIcdToCCSLvl` 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類及分類之敘述
+
+ICD-9-CM 共 4個階層 (Level 1~4)
+
+ICD-10-CM 共 2個階層 (Level 1~2)
 ```
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+# "7" NA  "7" "9"
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 4, TRUE)
+# "7.1.2" NA      NA      NA    
 ```
+
+當 CCS 多階層分類結果為 `NA` , 會出現 `warning Message` , 可能是 ICD code 並未符合格式或其他原因; ICD-10-CM 的多階層為 1~2, 若篩選階層3或4,則 ICD-10-CM 的分類會出現 `NA`
+
+以範例為例:
+
+1) 篩選level 1: `42577` 為錯誤的ICD-9-CM之格式才會出現 `NA`
+
+2) 篩選level 3: `42577` 為錯誤的ICD-9-CM之格式才會出現 `NA` , ICD-10-CM 的分類為 `NA`
+
 ### Phecode
-This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
+由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode
+最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類
 ```
 groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 ```
-### Creating a grouping standards
-```
-```
-### Comorbidities
-The comorbidities measures from different sources are provided as lists.
+###依使用者定義的分類進行 ICD code 的分組
 
-#### AHRQ comorbidity classification
-AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
-The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
+使用者可自行定義分組類別及類別項目
+
+如下面範例, 使用者想要找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 `NA`
 ```
-# AHRQ comorbidity measure
-#ICD-9
-icd9_ahrq$Comorbidity %>% unique
-#ICD-10
+icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
+groupingTable <- data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
+                            ICD = c("I95.0","I951","I952","I110","I11.9"),
+                            stringsAsFactors = FALSE)
+```
+```{r echo = FALSE}
+data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
+                            ICD = c("I95.0","I951","I952","I110","I11.9"),
+                            stringsAsFactors = FALSE)
+```
+```
+groupIcdToCustomGrep(icdFile, groupingTable)
+#  "Hypotension"  "Hypotension"  "Hypertension" NA 
+```
+或是
+```
+grepTable <- data.frame(Group = c("Hypotension", "Hypertension"),
+                            grep_pattern = c("^I95|^I952", "^I11"),
+                            stringsAsFactors = FALSE)
+```
+```{r echo = FALSE}
+data.frame(Group = c("Hypotension", "Hypertension"),
+                            grep_pattern = c("^I95|^I952", "^I11"),
+                            stringsAsFactors = FALSE)
+```
+```
+groupIcdToCustomGrepList(icdFile, grepTable)
+# "Hypotension"  "Hypotension"  "Hypertension" NA  
+```
+###共病症 (Comorbidities)
+共病症為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀
+
+根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser
+
+####AHRQ 共病症分類
+目前使用 AHRQ 共病症測量指標的data frame是基於`icd package` (`icd9_map_ahrq 及 icd10_map_ahrq`), 使ICD code 依其相關的共病症做分類
+
+ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致, 共30種
+
+ ICD-9
+```
+# convert icd9_map_ahrq (list) to icd9_ahrq (Df)
+icd9_ahrq$Comorbidity %>% unique () 
+```
+ ICD-10
+```
+# convert icd10_map_ahrq (list) to icd10_ahrq (Df)
 icd10_ahrq$Comorbidity %>% unique
+```
+欲將 ICD 依照 AHRQ 共病症分類, 在 function `groupIcdToComorbid` 的 `comorbidMethod` 輸入 `AHRQ`
+
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
-#### Charlson comorbidity classification
-Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+#### Charlson 共病症分類
+目前使用 Charlson 共病症測量指標的 data frame 是基於`icd package` (`icd9_map_charlson 及 icd10_map_charlson`), 使 ICD code 依其相關的共病症做分類
+
+ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致, 共17種
+
+ ICD-9
 ```
-# Charlson comorbidity measure
-#ICD-9
+# convert icd9_map_charlson (list) to icd9_charlson (Df)
 icd9_charlson$Comorbidity %>% unique
-#ICD-10
+```
+ ICD-10
+```
+# convert icd10_map_charlson (list) to icd10_charlson (Df)
 icd10_charlson$Comorbidity %>% unique
+```
+欲將 ICD 依照 Charlson 共病症分類, 在 function `groupIcdToComorbid` 的`comorbidMethod` 輸入 `Charlson`
+
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
-#### Elixhauser comorbidity classification
-Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
+####Elixhauser 共病症分類
+目前使用 Charlson 共病症測量指標的 data frame 是基於`icd package` (`icd9_map_elix 及 icd10_map_elix`), 使 ICD code 依其相關的共病症做分類
+
+ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 31 種
+
+ ICD-9
 ```
-# Elixhauser comorbidity measure
-#ICD-9
+# convert icd9_map_elix (list) to icd9_charlson (Df)
 icd9_elix$Comorbidity %>% unique
-#ICD-10
+```
+ ICD-10
+```
+# convert icd10_map_elix (list) to icd10_charlson (Df)
 icd10_elix$Comorbidity %>% unique
+```
+欲將 ICD 依照 Charlson 共病症分類, 在 function `groupIcdToComorbid` 的`comorbidMethod` 輸入 `elix`
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 ```
-## Selection Cases
-This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
+## 選擇符合條件的個案數 (Select Cases)
+
+用以篩選符合特定條件之個案
+
+篩選條件如範例:
+
+1) ICD code `^I0`開頭之個案 (I070,I071,I072...) 
+
+2) 限定至少出現次數為`2`
+
+3) 搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)
+
+回傳的資料為符合條件的個案
+
 ```
-selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
+selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
+                         ICD = c("I072","I071", "I072", "I071"),
+                         Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
+                         stringsAsFactors = FALSE)
+selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
-## Condition Era
-Get the condition era
+## 疾病世代 (condition Era)
+針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 來整合處理連續性的醫療行為, 疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代
+
+依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天
 ```
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
