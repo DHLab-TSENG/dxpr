@@ -124,8 +124,7 @@ convertIcdDecimaltoShort(icd10_Decimal)$Short
 <div id="-ccs-category" class="section level4">
 <h4>單一階層分類 (CCS Category)</h4>
 <p><code>groupIcdToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述</p>
-<p>ICD-9-CM: 260</p>
-<p>ICD-10-CM: 260</p>
+<p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <pre><code>## ICD to CCS category
 groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 # &quot;99&quot;  NA    &quot;96&quot;  &quot;139&quot;
@@ -174,7 +173,10 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <p>使用者可自行定義分組類別及類別項目</p>
 <p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
 <pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
-<p>目前提供兩種方法供使用: 1) 使用者可利用<code>窮舉法</code>的方式找出符合的ICD</p>
+<p>目前提供兩種方法:</p>
+<ol style="list-style-type: decimal">
+<li><code>groupIcdToCustomGrep</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
+</ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;I95.0&quot;</span>,<span class="st">&quot;I951&quot;</span>,<span class="st">&quot;I952&quot;</span>,<span class="st">&quot;I110&quot;</span>,<span class="st">&quot;I11.9&quot;</span>),
@@ -188,7 +190,7 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <pre><code>groupIcdToCustomGrep(icdFile, groupingTable)
 #  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>使用者條件式的方式選擇ICD開頭有符合做為篩選的</li>
+<li><code>groupIcdToCustomGrepList</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
