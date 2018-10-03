@@ -31,6 +31,9 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToComorbid.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToCustomGrep.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToPhecode.html</loc>
   </url>
   <url>
@@ -68,9 +71,6 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/selectCases.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_GetStarted.html</loc>

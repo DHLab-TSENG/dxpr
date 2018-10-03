@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert ICD Codes From Decimal To Short Forms — convertIcdDecimaltoShort • emr</title>
+<title>Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards. — groupIcdToCustomGrep • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Convert ICD Codes From Decimal To Short Forms — convertIcdDecimaltoShort" />
+<meta property="og:title" content="Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards. — groupIcdToCustomGrep" />
 
-<meta property="og:description" content="Convert codes between short and decimal forms" />
+<meta property="og:description" content="This can be used to select the first diagnosis record
+based on ICD code (grepl language) in DxDataFile,
+return first diagnosis record based on factIcd Data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,35 +109,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert ICD Codes From Decimal To Short Forms</h1>
+    <h1>Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.</h1>
     
-    <div class="hidden name"><code>convertIcdDecimaltoShort.Rd</code></div>
+    <div class="hidden name"><code>groupIcdToCustomGrep.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert codes between short and decimal forms</p>
+    <p>This can be used to select the first diagnosis record
+based on ICD code (grepl language) in DxDataFile,
+return first diagnosis record based on factIcd Data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>convertIcdDecimaltoShort</span>(<span class='no'>icdList</span>)</pre>
+    <pre class="usage"><span class='fu'>groupIcdToCustomGrep</span>(<span class='no'>icdFile</span>, <span class='no'>groupingTable</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>icdList</th>
-      <td><p>ICD codes</p></td>
+      <th>icdFile</th>
+      <td><p>ICD-9 and ICD-10 codes</p></td>
+    </tr>
+    <tr>
+      <th>groupingTable</th>
+      <td><p>Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD#'</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>icdFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"I95.0"</span>, <span class='st'>"I952"</span>, <span class='st'>"I110"</span>, <span class='st'>"01091"</span>), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>groupingTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Hypotension"</span>,<span class='st'>"Hypotension"</span>, <span class='st'>"Hypertension"</span>, <span class='st'>"Hypertension"</span>),
+                            <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"I95.0"</span>,<span class='st'>"I951"</span>,<span class='st'>"I110"</span>,<span class='st'>"I11.9"</span>),
+                            <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>groupIcdToCustomGrep</span>(<span class='no'>icdFile</span>, <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; [1] "Hypotension"  NA             "Hypertension" NA            </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

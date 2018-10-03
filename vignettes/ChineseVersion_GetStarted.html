@@ -12,10 +12,48 @@
 
 
 
-<title>中文版</title>
+<title>Chinese Version_GetStarted</title>
 
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 
 
@@ -28,18 +66,19 @@
 
 
 
-<h1 class="title toc-ignore">中文版</h1>
+<h1 class="title toc-ignore">Chinese Version_GetStarted</h1>
 
 
 
-<div class="section level1">
-<h1>簡介</h1>
+<div class="section level2">
+<h2>簡介</h2>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
-<div id="-icd-9-cm-and-icd-10-cm--decimal--short--icd-" class="section level3">
-<h3>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short (供後續 ICD 格式轉換的功能使用)</h3>
+<div id="-icd-9-cm-and-icd-10-cm--decimal--short" class="section level4">
+<h4>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</h4>
+<p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdDecimaltoShort 和 convertIcdShortToDecimal</code>)</p>
 <p>ICD-9</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
-icd9GenerateDecimalFormat(icd9)
+icd9withTwoFormat &lt;- icd9GenerateDecimalFormat(icd9)
 
 icd9_Short &lt;- icd9withTwoFormat$Short[1:10]
 # c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
@@ -47,20 +86,21 @@ icd9_Decimal &lt;- icd9withTwoFormat$Decimal[1:10]
 # c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)</code></pre>
 <p>ICD-10</p>
 <pre><code>icd10 &lt;- ccsDxICD10$ICD
-icd10GenerateDecimalFormat(icd10)
+icd10withTwoFormat &lt;- icd10GenerateDecimalFormat(icd10)
 
 icd10_Short &lt;- icd10withTwoFormat$Short[1:10]
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)
 icd10_Decimal &lt;- icd10withTwoFormat$Decimal[1:10]
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
-<p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 </div>
-<div id="icd-9-cm-and-icd-10-cm-code--short---decimal" class="section level3">
-<h3>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</h3>
+<div id="icd-9-cm-and-icd-10-cm-code--short---decimal" class="section level4">
+<h4>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</h4>
+<p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-CM code 的格式統一由 Short 轉成 Decimal</p>
 <pre><code># ICD-9
 convertIcdShortToDecimal(icd9_Short)$Decimal
 # c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)
+
 # ICD-10
 convertIcdShortToDecimal(icd10_Short)$Decimal
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
@@ -68,13 +108,15 @@ convertIcdShortToDecimal(icd10_Short)$Decimal
 <pre><code># ICD-9
 convertIcdDecimaltoShort(icd9_Decimal)$Short
 # c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
+
 # ICD-10
 convertIcdDecimaltoShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
-<div id="-icd-9--icd-10-code-" class="section level2">
-<h2>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h2>
+<div id="-icd-9--icd-10-code-" class="section level3">
+<h3>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h3>
 <p>將 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併為較簡化的分類, 標準化的分類以便於後續的整合統計分析使用</p>
+</div>
 <div id="-clinical-classifications-software-ccs" class="section level3">
 <h3>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
 <p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 單一階層在 ICD-9-CM 及 ICD-10-CM 的分類一致; 多階層的分類則不同</p>
@@ -84,56 +126,77 @@ convertIcdDecimaltoShort(icd10_Decimal)$Short
 <p><code>groupIcdToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述</p>
 <p>ICD-9-CM: 260</p>
 <p>ICD-10-CM: 260</p>
-<pre><code>groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
+<pre><code>## ICD to CCS category
+groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 # &quot;99&quot;  NA    &quot;96&quot;  &quot;139&quot;
+
+## ICD to CCS description
 groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, TRUE)
 # &quot;Hypertension with complications and secondary hypertension&quot; NA  
 # &quot;Heart valve disorders&quot;                                      &quot;Gastroduodenal ulcer (except hemorrhage)&quot; </code></pre>
-<p>當 CCS 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式, 或是有其他的原因需要進行檢查確認 以範例為例, <code>42577</code> 為錯誤的 ICD-9-CM 之格式才會出現 <code>NA</code></p>
+<p>當 CCS 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 顯示為NA有兩種方向</p>
+<ol style="list-style-type: decimal">
+<li><p>可能是 ICD code 並未符合格式: 顯示wrong Format</p></li>
+<li><p>有其他的原因需要進行檢查確認: 顯示warning ICD</p></li>
+</ol>
+<p>以範例為例, <code>42577</code> 為錯誤的 ICD-9-CM 之格式才會出現 <code>NA</code> (wrong format)</p>
 </div>
 <div id="-multiple-ccs-level" class="section level4">
 <h4>多階層分類 (Multiple ccs level)</h4>
 <p><code>groupIcdToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
-<pre><code>groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 1, FALSE)
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)</code></pre>
+<pre><code>## ICD to CCS multiple level 1
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 1, FALSE)
+# &quot;7&quot; NA  &quot;7&quot; &quot;9&quot;
+
+## ICD to CCS multiple level 3
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)
+# &quot;7.1.2&quot; NA      NA      NA    </code></pre>
 <p>當 CCS 多階層分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; ICD-10-CM 的多階層為 1~2, 若篩選階層3或4,則 ICD-10-CM 的分類會出現 <code>NA</code></p>
 <p>以範例為例:</p>
 <ol style="list-style-type: decimal">
 <li><p>篩選level 1: <code>42577</code> 為錯誤的ICD-9-CM之格式才會出現 <code>NA</code></p></li>
-<li><p>篩選level 3: <code>42577</code> 為錯誤的ICD-9-CM之格式才會出現 <code>NA</code> , ICD-10-CM 的分類為 <code>NA</code></p></li>
+<li><p>篩選level 3: <code>42577</code> 為錯誤的ICD-9-CM之格式才會出現 <code>NA</code> , ICD-10-CM 的分類為 <code>NA</code> (ICD-10-CM 的多階層為 1~2)</p></li>
 </ol>
 </div>
 </div>
 <div id="phecode" class="section level3">
 <h3>Phecode</h3>
 <p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode 最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
-<pre><code>groupIcdToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)</code></pre>
+<pre><code>## ICD to Phecode
+groupIcdToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
+# &quot;401.21&quot; NA       NA       NA   </code></pre>
+<p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
 </div>
 <div id="-icd-code-" class="section level3">
 <h3>依使用者定義的分類進行 ICD code 的分組</h3>
 <p>使用者可自行定義分組類別及類別項目</p>
-<p>如下面範例, 使用者想要找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
-<pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)
-groupingTable &lt;- data.frame(Group = c(&quot;Hypotension&quot;,&quot;Hypotension&quot;,&quot;Hypotension&quot;, &quot;Hypertension&quot;, &quot;Hypertension&quot;),
-                            ICD = c(&quot;I95.0&quot;,&quot;I951&quot;,&quot;I952&quot;,&quot;I110&quot;,&quot;I11.9&quot;),
-                            stringsAsFactors = FALSE)</code></pre>
-<pre><code>#&gt;          Group   ICD
-#&gt; 1  Hypotension I95.0
-#&gt; 2  Hypotension  I951
-#&gt; 3  Hypotension  I952
-#&gt; 4 Hypertension  I110
-#&gt; 5 Hypertension I11.9</code></pre>
+<p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
+<pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
+<p>目前提供兩種方法供使用: 1) 使用者可利用<code>窮舉法</code>的方式找出符合的ICD</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
+<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
+           <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;I95.0&quot;</span>,<span class="st">&quot;I951&quot;</span>,<span class="st">&quot;I952&quot;</span>,<span class="st">&quot;I110&quot;</span>,<span class="st">&quot;I11.9&quot;</span>),
+           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt;          Group   ICD</span>
+<span class="co">#&gt; 1  Hypotension I95.0</span>
+<span class="co">#&gt; 2  Hypotension  I951</span>
+<span class="co">#&gt; 3  Hypotension  I952</span>
+<span class="co">#&gt; 4 Hypertension  I110</span>
+<span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
 <pre><code>groupIcdToCustomGrep(icdFile, groupingTable)
 #  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
-<p>或是</p>
-<pre><code>grepTable &lt;- data.frame(Group = c(&quot;Hypotension&quot;, &quot;Hypertension&quot;),
-                            grep_pattern = c(&quot;^I95|^I952&quot;, &quot;^I11&quot;),
-                            stringsAsFactors = FALSE)</code></pre>
-<pre><code>#&gt;          Group grep_pattern
-#&gt; 1  Hypotension   ^I95|^I952
-#&gt; 2 Hypertension         ^I11</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>使用者條件式的方式選擇ICD開頭有符合做為篩選的</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
+<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
+           <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;^I95|^I952&quot;</span>, <span class="st">&quot;^I11&quot;</span>),
+           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt;          Group grep_pattern</span>
+<span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
+<span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
 <pre><code>groupIcdToCustomGrepList(icdFile, grepTable)
 # &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
 </div>
@@ -181,9 +244,8 @@ icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <pre><code>groupIcdToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
 </div>
 </div>
-</div>
-<div id="-select-cases" class="section level2">
-<h2>選擇符合條件的個案數 (Select Cases)</h2>
+<div id="-select-cases" class="section level3">
+<h3>選擇符合條件的個案數 (Select Cases)</h3>
 <p>用以篩選符合特定條件之個案</p>
 <p>篩選條件如範例:</p>
 <ol style="list-style-type: decimal">
@@ -192,10 +254,14 @@ icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <li><p>搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)</p></li>
 </ol>
 <p>回傳的資料為符合條件的個案</p>
-<pre><code>selectCases(&quot;^I0&quot;, DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
+<pre><code>selectCases_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
+                         ICD = c(&quot;I072&quot;,&quot;I071&quot;, &quot;I072&quot;, &quot;I071&quot;),
+                         Date = as.Date(c(&quot;2016-03-31&quot;, &quot;2016-01-29&quot;, &quot;2016-02-10&quot;, &quot;2018-03-10&quot;)),
+                         stringsAsFactors = FALSE)
+selectCases(&quot;^I0&quot;, selectCases_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
 </div>
-<div id="-condition-era" class="section level2">
-<h2>疾病世代 (condition Era)</h2>
+<div id="-condition-era" class="section level3">
+<h3>疾病世代 (condition Era)</h3>
 <p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 來整合處理連續性的醫療行為, 疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
 <p>依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天</p>
 <pre><code>getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)

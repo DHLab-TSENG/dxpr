@@ -87,9 +87,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ChineseVersion.html">Chinese Version</a>
-    </li>
-    <li>
       <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version_GetStarted</a>
     </li>
   </ul>
@@ -167,7 +164,7 @@
                          <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"6929"</span>, <span class='st'>"V433"</span>, <span class='st'>"I350"</span>),
                          <span class='kw'>Date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>, <span class='st'>"2013-01-29"</span>, <span class='st'>"2016-03-10"</span>)),
                          <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>groupIcdToPhecode</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>warning ICD: I350	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA' means phecode does not have icd10 or the data does not match the format</span></div><div class='output co'>#&gt; [1] "939"   "395.6" NA     </div><div class='input'>
+<span class='fu'>groupIcdToPhecode</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>warning ICD: I350	</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "warning ICD" means the ICD classify to wrong ICD version (phecode does not have icd10) </span></div><div class='output co'>#&gt; [1] "939"   "395.6" NA     </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

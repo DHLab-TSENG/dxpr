@@ -12,7 +12,7 @@ articles:
   desc: ~
   contents:
   - '`emr`'
-  - '`Chinese Version_GetStarted`'
+  - '`ChineseVersion_GetStarted`'
 
 - title: Grouping ICD-9 and ICD-10 codes by ...
   desc: ~
@@ -21,6 +21,7 @@ articles:
   - '`groupIcdToCCSLvl`'
   - '`groupIcdToPhecode`'
   - '`groupIcdToComorbid`'
+  - '`groupIcdToCustomGrep`'
   - '`selectCases`'
   - '`getConditionEra`'
 
@@ -38,19 +39,19 @@ reference:
   - '`icd9GenerateDecimalFormat`'
   - '`icd10GenerateDecimalFormat`'
 
-- title: Two format of ICD-9-CM and ICD-10-CM code maps
+- title: Data - Two format of ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
   - '`icd9withTwoFormat`'
   - '`icd10withTwoFormat`'
 
-- title: Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
+- title: Data - Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
   - '`ccsDxICD9`'
   - '`ccsDxICD10`'
 
-- title: Comorbidity  to ICD-9-CM and ICD-10-CM code maps
+- title: Data - Comorbidity to ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
   - '`icd9_ahrq`'
@@ -60,7 +61,7 @@ reference:
   - '`icd9_elix`'
   - '`icd10_elix`'
 
-- title: Phecode to ICD-9-CM code maps
+- title: Data - Phecode to ICD-9-CM code maps
   desc: ~
   contents:
   - '`phecode_icd9_2`'

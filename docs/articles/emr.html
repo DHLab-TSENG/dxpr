@@ -55,9 +55,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion.html">Chinese Version</a>
-    </li>
-    <li>
       <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version_GetStarted</a>
     </li>
   </ul>
@@ -130,14 +127,16 @@ convertIcdDecimaltoShort(icd10withTwoFormat$Decimal[1:10], icd10)</code></pre>
 <div id="single-level-category" class="section level4">
 <h4 class="hasAnchor">
 <a href="#single-level-category" class="anchor"></a>single-level category</h4>
-<p>ICD-9-CM: 260 ICD-10-CM: 260</p>
+<p>ICD-9-CM: 260</p>
+<p>ICD-10-CM: 260</p>
 <pre><code>groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)</code></pre>
 </div>
 <div id="multi-level" class="section level4">
 <h4 class="hasAnchor">
 <a href="#multi-level" class="anchor"></a>multi-level</h4>
-<p>ICD-9-CM has four levels ICD-10-CM has two levels</p>
+<p>ICD-9-CM has four levels</p>
+<p>ICD-10-CM has two levels</p>
 <pre><code>groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
