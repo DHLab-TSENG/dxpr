@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses. — groupIcdToCCS • emr</title>
+<title>Two format of ICD-9-PCS: Short and Decimal — ICD_9_PCS_withTwoFormat • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses. — groupIcdToCCS" />
+<meta property="og:title" content="Two format of ICD-9-PCS: Short and Decimal — ICD_9_PCS_withTwoFormat" />
 
-<meta property="og:description" content="Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme." />
+<meta property="og:description" content="A dataframe for ICD-9 format conversion" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,71 +107,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.</h1>
+    <h1>Two format of ICD-9-PCS: Short and Decimal</h1>
     
-    <div class="hidden name"><code>groupIcdToCCS.Rd</code></div>
+    <div class="hidden name"><code>ICD_9_PCS_withTwoFormat.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.</p>
+    <p>A dataframe for ICD-9 format conversion</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>groupIcdToCCS</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='kw'>isCCSCategoryDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>ICD_9_PCS_withTwoFormat</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 3948 rows and 2 variables</p>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>DxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
-    </tr>
-    <tr>
-      <th>idColName</th>
-      <td><p>A column for MemberID of DxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdColName</th>
-      <td><p>A column for ICD of DxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>dateColName</th>
-      <td><p>A column for Date of DxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
-    </tr>
-    <tr>
-      <th>isCCSCategoryDescription</th>
-      <td><p>Clinical Classifications Software (CCS) single level categories/ description for ICD-9 or ICD-10, default is True</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://www.findacode.com/search/search.php'>https://www.findacode.com/search/search.php</a></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes</p>
+    <ul>
+<li><p>Short ICD-9 Short format</p></li>
+<li><p>Decimal ICD-9 Decimal format</p></li>
+</ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>DxDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>),
-                         <span class='kw'>ICD</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"6929"</span>,<span class='st'>"V433"</span>,<span class='st'>"I350"</span>),
-                         <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>)),
-                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>groupIcdToCCS</span> (<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

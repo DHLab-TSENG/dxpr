@@ -57,6 +57,57 @@ NULL
 #' @seealso \code{\link{ccsDxICD9}}
 NULL
 
+#' Clinical Classifications Software (CCS)  for ICD-9-PCS
+#'
+#' A dataframe for ICD-9-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-9-PCS
+#'   \item CCS_CATEGORY. single ccs category for ICD-9
+#'   \item ICD_DESCRIPTION. ICD-9 description
+#'   \item CCS_CATEGORY_DESCRIPTION. single ccs description for ICD-9
+#'   \item CCS_LVL_1. multiple ccs level one category for ICD-9
+#'   \item CCS_LVL_1_LABEL. multiple ccs level one description for ICD-9
+#'   \item CCS_LVL_2. multiple ccs level two category for ICD-9
+#'   \item CCS_LVL_2_LABEL. multiple ccs level two description for ICD-9
+#'   \item CCS_LVL_3. multiple ccs level three category for ICD-9
+#'   \item CCS_LVL_3_LABEL. multiple ccs level three description for ICD-9
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name ccsPrICD9
+#' @usage data(ccsPrICD9)
+#' @format A data frame with 3948 rows and 10 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
+#' @seealso \code{\link{ccsPrICD10}}
+NULL
+
+#' Clinical Classifications Software (CCS)  for ICD-10-PCS
+#'
+#' A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-10-PCS
+#'   \item CCS_CATEGORY. single ccs category for ICD-10
+#'   \item ICD_DESCRIPTION. ICD-10 description
+#'   \item CCS_CATEGORY_DESCRIPTION. single ccs description for ICD-10
+#'   \item CCS_LVL_1. multiple ccs level one category for ICD-10
+#'   \item CCS_LVL_1_LABEL. multiple ccs level one description for ICD-10
+#'   \item CCS_LVL_2. multiple ccs level two category for ICD-10
+#'   \item CCS_LVL_2_LABEL. multiple ccs level two description for ICD-10
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name ccsPrICD10
+#' @usage data(ccsPrICD10)
+#' @format A data frame with 79366 rows and 8 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2018_1.zip}
+#' @seealso \code{\link{ccsPrICD9}}
+NULL
+
 #' AHRQ Comorbidity for ICD-9
 #'
 #' A dataframe for ICD-9 AHRQ comorbidity mapping
@@ -200,12 +251,12 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name icd9withTwoFormat
-#' @usage data(icd9withTwoFormat)
+#' @name ICD_9_CM_withTwoFormat
+#' @usage data(ICD_9_CM_withTwoFormat)
 #' @format A data frame with 15072 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-#' @seealso \code{\link{icd10withTwoFormat}}
+#' @seealso \code{\link{ICD_10_CM_withTwoFormat}}
 NULL
 
 #' Two format of ICD-10-CM: Short and Decimal
@@ -219,9 +270,26 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name icd10withTwoFormat
-#' @usage data(icd10withTwoFormat)
+#' @name ICD_10_CM_withTwoFormat
+#' @usage data(ICD_10_CM_withTwoFormat)
 #' @format A data frame with 72167 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
-#' @seealso \code{\link{icd9withTwoFormat}}
+#' @seealso \code{\link{ICD_9_CM_withTwoFormat}}
+NULL
+
+#' Two format of ICD-9-PCS: Short and Decimal
+#'
+#' A dataframe for ICD-9 format conversion
+#'
+#' \itemize{
+#'   \item Short ICD-9 Short format
+#'   \item Decimal ICD-9 Decimal format
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name ICD_9_PCS_withTwoFormat
+#' @usage data(ICD_9_PCS_withTwoFormat)
+#' @format A data frame with 3948 rows and 2 variables
+#' @source \url{https://www.findacode.com/search/search.php}
 NULL

@@ -175,19 +175,7 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
                          <span class='kw'>ICD</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"6929"</span>,<span class='st'>"V433"</span>,<span class='st'>"I350"</span>),
                          <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>)),
                          <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>getConditionEra</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>30</span>, <span class='no'>ccs</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
-#&gt; # Groups:   ID, CCS [2]
-#&gt;   ID    ICD   Date       CCS     Era
-#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;date&gt;     &lt;chr&gt; &lt;int&gt;
-#&gt; 1 A     6929  2013-03-31 253       1
-#&gt; 2 A     V433  2013-01-29 96        1
-#&gt; 3 A     I350  2016-03-10 96        2</div><div class='input'><span class='fu'>getConditionEra</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>30</span>, <span class='no'>ICD</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 4
-#&gt; # Groups:   ID, ICD [3]
-#&gt;   ID    ICD   Date         Era
-#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;date&gt;     &lt;int&gt;
-#&gt; 1 A     6929  2013-03-31     1
-#&gt; 2 A     I350  2016-03-10     1
-#&gt; 3 A     V433  2013-01-29     1</div><div class='input'>
+<span class='fu'>getConditionEra</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>30</span>, <span class='no'>ccs</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in tbl_vars(y): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'><span class='fu'>getConditionEra</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>30</span>, <span class='no'>ICD</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -170,34 +170,7 @@
                          <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>,<span class='st'>"2016-03-10"</span>)),
                          <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>ahrq</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   ID CHF Valvular PHTN PVD HTN HTNcx Paralysis NeuroOther Pulmonary DM DMcx
-#&gt; 1  A   1        0    0   0   0     1         0          0         0  0    0
-#&gt; 2  B   0        1    0   0   0     0         0          0         0  0    0
-#&gt;   Hypothyroid Renal Liver PUD HIV Lymphoma Mets Tumor Rheumatic Coagulopathy
-#&gt; 1           0     0     0   0   0        0    0     0         0            0
-#&gt; 2           0     0     0   1   0        0    0     0         0            0
-#&gt;   Obesity WeightLoss FluidsLytes BloodLoss Anemia Alcohol Drugs Psychoses
-#&gt; 1       0          0           0         0      0       0     0         0
-#&gt; 2       0          0           0         0      0       0     0         0
-#&gt;   Depression
-#&gt; 1          0
-#&gt; 2          0</div><div class='input'><span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>charlson</span>, <span class='no'>B</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   ID    MI   CHF   PVD Stroke Dementia Pulmonary Rheumatic   PUD LiverMild
-#&gt; 1  A FALSE  TRUE FALSE  FALSE    FALSE     FALSE     FALSE FALSE     FALSE
-#&gt; 2  B FALSE FALSE FALSE  FALSE    FALSE     FALSE     FALSE  TRUE     FALSE
-#&gt;      DM  DMcx Paralysis Renal Cancer LiverSevere  Mets   HIV
-#&gt; 1 FALSE FALSE     FALSE FALSE  FALSE       FALSE FALSE FALSE
-#&gt; 2 FALSE FALSE     FALSE FALSE  FALSE       FALSE FALSE FALSE</div><div class='input'><span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>elix</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   ID CHF Arrhythmia Valvular PHTN PVD HTN HTNcx Paralysis NeuroOther Pulmonary
-#&gt; 1  A   0          0        0    0   0   0     0         0          0         0
-#&gt; 2  B   0          0        0    0   0   0     0         0          0         0
-#&gt;   DM DMcx Hypothyroid Renal Liver PUD HIV Lymphoma Mets Tumor Rheumatic
-#&gt; 1  0    0           0     0     0   0   0        0    0     0         0
-#&gt; 2  0    0           0     0     0   1   0        0    0     0         0
-#&gt;   Coagulopathy Obesity WeightLoss FluidsLytes BloodLoss Anemia Alcohol Drugs
-#&gt; 1            0       0          0           0         0      0       0     0
-#&gt; 2            0       0          0           0         0      0       0     0
-#&gt;   Psychoses Depression
-#&gt; 1         0          0
-#&gt; 2         0          0</div><div class='input'>
+<span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>ahrq</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'><span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>charlson</span>, <span class='no'>B</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'><span class='fu'>groupIcdToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>elix</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

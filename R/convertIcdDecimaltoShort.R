@@ -2,8 +2,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "Number",
   "Short",
   "Decimal",
-  "icd9withTwoFormat",
-  "icd10withTwoFormat"))
+  "ICD_9_CM_withTwoFormat",
+  "ICD_10_CM_withTwoFormat"))
 #' Convert ICD Codes From Decimal To Short Forms
 #'
 #' Convert codes between short and decimal forms
@@ -17,12 +17,12 @@ convertIcdDecimaltoShort<-function(icdList){
   icd_Short <- data.frame(Short = icdDf$ICD[!grepl("[.]",icdDf$ICD)], Number = icdDf$Number[!grepl("[.]",icdDf$ICD)],stringsAsFactors = FALSE)
   icd_Decimal <- data.frame(Decimal = icdDf$ICD[grepl("[.]",icdDf$ICD)], Number = icdDf$Number[grepl("[.]",icdDf$ICD)],stringsAsFactors = FALSE)
 
-  icd9_D <- left_join(icd_Decimal, icd9withTwoFormat, by = "Decimal")
-  icd10_D <- left_join(icd_Decimal, icd10withTwoFormat, by = "Decimal")
+  icd9_D <- left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal")
+  icd10_D <- left_join(icd_Decimal, ICD_10_CM_withTwoFormat, by = "Decimal")
   combine_D <- rbind(icd9_D[!is.na(icd9_D$Short),], icd10_D[!is.na(icd10_D$Short),])
 
-  icd9_S <- left_join(icd_Short, icd9withTwoFormat, by = "Short")
-  icd10_S <- left_join(icd_Short, icd10withTwoFormat, by = "Short")
+  icd9_S <- left_join(icd_Short, ICD_9_CM_withTwoFormat, by = "Short")
+  icd10_S <- left_join(icd_Short, ICD_10_CM_withTwoFormat, by = "Short")
   combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),], icd10_S[!is.na(icd10_S$Decimal),])
 
   combine <- rbind(combine_D,combine_S) %>% arrange(Number)

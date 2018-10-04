@@ -10,6 +10,12 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/ccsDxICD9.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD10.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD9.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDecimaltoShort.html</loc>
   </url>
   <url>
@@ -37,12 +43,6 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToPhecode.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd10GenerateDecimalFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd10withTwoFormat.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd10_ahrq.html</loc>
   </url>
   <url>
@@ -52,12 +52,6 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/icd10_elix.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd9GenerateDecimalFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd9withTwoFormat.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_ahrq.html</loc>
   </url>
   <url>
@@ -65,6 +59,24 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_elix.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_10_CM_GenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_10_CM_withTwoFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_CM_GenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_CM_withTwoFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_PCS_GenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_PCS_withTwoFormat.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>

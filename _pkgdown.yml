@@ -36,14 +36,16 @@ reference:
 - title: Generation Decimal Format of ICD-9-CM and ICD-10-CM code
   desc: ~
   contents:
-  - '`icd9GenerateDecimalFormat`'
-  - '`icd10GenerateDecimalFormat`'
+  - '`ICD_9_CM_GenerateDecimalFormat`'
+  - '`ICD_10_CM_GenerateDecimalFormat`'
+  - '`ICD_9_PCS_GenerateDecimalFormat`'
 
 - title: Data - Two format of ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
-  - '`icd9withTwoFormat`'
-  - '`icd10withTwoFormat`'
+  - '`ICD_9_CM_withTwoFormat`'
+  - '`ICD_10_CM_withTwoFormat`'
+  - '`ICD_9_PCS_withTwoFormat`'
 
 - title: Data - Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
   desc: ~

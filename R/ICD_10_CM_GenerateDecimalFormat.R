@@ -6,7 +6,7 @@
 #' @param icd10 ICD-10-CM codes
 #' @source \url{https://www.findacode.com/search/search.php}
 #'
-icd10GenerateDecimalFormat <- function(icd10){
+ICD_10_CM_GenerateDecimalFormat <- function(icd10){
   icd10 <-data.frame(Short = icd10, stringsAsFactors = FALSE)
   icd10_4 <- nchar(icd10$Short) == 4
   icd10$Decimal[icd10_4] <- paste(substr(icd10$Short[icd10_4], start = 1 , stop =  3), ".",

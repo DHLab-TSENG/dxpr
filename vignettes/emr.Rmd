@@ -29,21 +29,21 @@ conversion function : `convertIcdDecimaltoShort and convertIcdShortToDecimal`
 ICD-9
 ```
 icd9 <- ccsDxICD9$ICD
-icd9withTwoFormat <- icd9GenerateDecimalFormat(icd9)
+ICD_9_CM_withTwoFormat <- ICD_9_CM_GenerateDecimalFormat(icd9)
 
-icd9_Short <- icd9withTwoFormat$Short[1:10]
+icd9_Short <- ICD_9_CM_withTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal <- icd9withTwoFormat$Decimal[1:10]
+icd9_Decimal <- ICD_9_CM_withTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 ```
 ICD-10
 ```
 icd10 <- ccsDxICD10$ICD
-icd10withTwoFormat <- icd10GenerateDecimalFormat(icd10)
+ICD_10_CM_withTwoFormat <- ICD_10_CM_GenerateDecimalFormat(icd10)
 
-icd10_Short <- icd10withTwoFormat$Short[1:10]
+icd10_Short <- ICD_10_CM_withTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
-icd10_Decimal <- icd10withTwoFormat$Decimal[1:10]
+icd10_Decimal <- ICD_10_CM_withTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
 ### Convert ICD-9-CM and ICD-10-CM code Format: Short <-> Decimal

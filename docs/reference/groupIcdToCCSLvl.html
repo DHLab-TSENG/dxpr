@@ -164,9 +164,7 @@
                          <span class='kw'>ICD</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"6929"</span>,<span class='st'>"V433"</span>,<span class='st'>"I350"</span>),
                          <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>)),
                          <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>groupIcdToCCSLvl</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "Symptoms; signs;  ill-defined conditions"
-#&gt; [2] "Diseases of the heart"                   
-#&gt; [3] "Diseases of the heart"                   </div><div class='input'>
+<span class='fu'>groupIcdToCCSLvl</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

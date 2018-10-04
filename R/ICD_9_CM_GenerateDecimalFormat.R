@@ -7,7 +7,7 @@
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #'
-icd9GenerateDecimalFormat <- function(icd9){
+ICD_9_CM_GenerateDecimalFormat <- function(icd9){
   icd9 <- data.frame(Short = icd9,stringsAsFactors = F)
   icdNcharLong <- 4
   icd9V <- data.frame(Short = icd9[grepl("^V", icd9$Short),],stringsAsFactors = F)

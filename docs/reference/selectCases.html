@@ -170,11 +170,7 @@ Return qualified Members' data</p>
                          <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"I072"</span>,<span class='st'>"I071"</span>, <span class='st'>"I072"</span>, <span class='st'>"I071"</span>),
                          <span class='kw'>Date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2016-03-31"</span>, <span class='st'>"2016-01-29"</span>, <span class='st'>"2016-02-10"</span>, <span class='st'>"2018-03-10"</span>)),
                          <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>selectCases</span>(<span class='st'>"^I0"</span>, <span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt; # Groups:   ID, ICD [1]
-#&gt;   ID    ICD   Date      
-#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;date&gt;    
-#&gt; 1 A     I072  2016-03-31</div><div class='input'>
+<span class='fu'>selectCases</span>(<span class='st'>"^I0"</span>, <span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in left_join(icd_Decimal, ICD_9_CM_withTwoFormat, by = "Decimal"): 找不到物件 'ICD_9_CM_withTwoFormat'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
