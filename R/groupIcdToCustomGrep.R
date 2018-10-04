@@ -7,8 +7,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' based on ICD code (grepl language) in DxDataFile,
 #' return first diagnosis record based on factIcd Data
 #'
-#' @param icdFile ICD-9 and ICD-10 codes
-#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD#'
+#' @param icdFile A file of clinical diagnostic data with at least one column: ICD
+#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD
 #' @export
 #' @examples
 #' icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Getting started with emr</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Getting started with emr</h1>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
+<div id="generate-icd-9-cm-and-icd-10-cm-code-decimal-format-for-conversion-function" class="section level3">
+<h3>Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function</h3>
+<p>conversion function : <code>convertIcdDecimaltoShort and convertIcdShortToDecimal</code></p>
+<p>ICD-9</p>
+<pre><code>icd9 &lt;- ccsDxICD9$ICD
+icd9withTwoFormat &lt;- icd9GenerateDecimalFormat(icd9)
+
+icd9_Short &lt;- icd9withTwoFormat$Short[1:10]
+# c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
+icd9_Decimal &lt;- icd9withTwoFormat$Decimal[1:10]
+# c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)</code></pre>
+<p>ICD-10</p>
+<pre><code>icd10 &lt;- ccsDxICD10$ICD
+icd10withTwoFormat &lt;- icd10GenerateDecimalFormat(icd10)
+
+icd10_Short &lt;- icd10withTwoFormat$Short[1:10]
+# c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)
+icd10_Decimal &lt;- icd10withTwoFormat$Decimal[1:10]
+# c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
+</div>
+<div id="convert-icd-9-cm-and-icd-10-cm-code-format-short---decimal" class="section level3">
+<h3>Convert ICD-9-CM and ICD-10-CM code Format: Short &lt;-&gt; Decimal</h3>
+<p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
+<p>Convert ICD-CM code Short to Decimal.</p>
+<pre><code># ICD-9
+convertIcdShortToDecimal(icd9_Short)$Decimal
+# c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)
+
+# ICD-10
+convertIcdShortToDecimal(icd10_Short)$Decimal
+# c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
+<p>Convert ICD-CM code Decimal to Short.</p>
+<pre><code># ICD-9
+convertIcdDecimaltoShort(icd9_Decimal)$Short
+# c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
+
+# ICD-10
+convertIcdDecimaltoShort(icd10_Decimal)$Short
+# c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
+</div>
+<div id="grouping-icd-9-and-icd-10-codes-by" class="section level2">
+<h2>Grouping ICD-9 and ICD-10 codes by …</h2>
+<p>Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
+<div id="clinical-classifications-software-ccs" class="section level3">
+<h3>Clinical Classifications Software (CCS)</h3>
+<p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
+<div id="ccs-single-level-category" class="section level4">
+<h4>CCS single-level category</h4>
+<p><code>groupIcdToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
+<pre><code>## ICD to CCS category
+groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
+# &quot;99&quot;  NA    &quot;96&quot;  &quot;139&quot;
+
+## ICD to CCS description
+groupIcdToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, TRUE)
+# &quot;Hypertension with complications and secondary hypertension&quot; NA  
+# &quot;Heart valve disorders&quot;                                      &quot;Gastroduodenal ulcer (except hemorrhage)&quot; </code></pre>
+<p>If CCS return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues.</p>
+<ol style="list-style-type: decimal">
+<li><p>Wrong Format: means the ICD has wrong format.</p></li>
+<li><p>Warning ICD: means the ICD classify to wrong ICD version (cause the “icd10usingDate”) or other issues.</p></li>
+</ol>
+<p>for example, <code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message.</p>
+</div>
+<div id="ccs-multi-level" class="section level4">
+<h4>CCS multi-level</h4>
+<p><code>groupIcdToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p>ICD-9-CM has four levels</p>
+<p>ICD-10-CM has two levels</p>
+<pre><code>## ICD to CCS multiple level 1
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 1, FALSE)
+# &quot;7&quot; NA  &quot;7&quot; &quot;9&quot;
+
+## ICD to CCS multiple level 3
+groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)
+# &quot;7.1.2&quot; NA      NA      NA    </code></pre>
+<p>If CCSlvl return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues</p>
+<p>for example,</p>
+<ol style="list-style-type: decimal">
+<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message</p></li>
+<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message, ICD-10-CM show <code>Warning ICD</code> (cause ICD-10-CM ccs multiple levels are 1~2)</p></li>
+</ol>
+</div>
+</div>
+<div id="phecode" class="section level3">
+<h3>Phecode</h3>
+<p><code>groupIcdToPhecode</code> allows for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).</p>
+<p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
+<p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
+<pre><code>## ICD to Phecode
+groupIcdToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
+# &quot;401.21&quot; NA       NA       NA   </code></pre>
+<p>If Phecode return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.</p>
+</div>
+<div id="creating-a-grouping-standards" class="section level3">
+<h3>Creating a grouping standards</h3>
+<p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame <code>icdFile</code> whether is matched these group: Hypotension and Hypertension or not.</p>
+<pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
+<ol style="list-style-type: decimal">
+<li><code>groupIcdToCustomGrep</code>: Use method of exhaustion to find out the matched ICD.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
+<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
+           <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;I95.0&quot;</span>,<span class="st">&quot;I951&quot;</span>,<span class="st">&quot;I952&quot;</span>,<span class="st">&quot;I110&quot;</span>,<span class="st">&quot;I11.9&quot;</span>),
+           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt;          Group   ICD</span>
+<span class="co">#&gt; 1  Hypotension I95.0</span>
+<span class="co">#&gt; 2  Hypotension  I951</span>
+<span class="co">#&gt; 3  Hypotension  I952</span>
+<span class="co">#&gt; 4 Hypertension  I110</span>
+<span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
+<pre><code>groupIcdToCustomGrep(icdFile, groupingTable)
+#  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>groupIcdToCustomGrepList</code>: Use a ICD pattern to find out the fit ICD.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
+<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
+           <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;^I95|^I952&quot;</span>, <span class="st">&quot;^I11&quot;</span>),
+           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt;          Group grep_pattern</span>
+<span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
+<span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
+<pre><code>groupIcdToCustomGrepList(icdFile, grepTable)
+# &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
+</div>
+<div id="comorbidities" class="section level3">
+<h3>Comorbidities</h3>
+<p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
+<div id="ahrq-comorbidity-classification" class="section level4">
+<h4>AHRQ comorbidity classification</h4>
+<p>AHRQ comorbidity measure dataframe is based on <code>icd package</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same. The AHRQ comorbidity measure map format is dataframe;it is convert <code>icd9_map_ahrq</code> list into <code>icd9_ahrq</code> dataframe.The functions apply those mappings to join with user’s ICD data.</p>
+<p>ICD-9</p>
+<pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
+icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
+<p>ICD-10</p>
+<pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
+icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
+<pre><code>groupIcdToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, ahrq, N, TRUE)</code></pre>
+</div>
+<div id="charlson-comorbidity-classification" class="section level4">
+<h4>Charlson comorbidity classification</h4>
+<p>Charlson comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_charlson, icd10_map_charlson</p>
+<p>ICD-9</p>
+<pre><code># convert icd9_map_charlson (list) to icd9_charlson (Df)
+icd9_charlson$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10</p>
+<pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
+icd10_charlson$Comorbidity %&gt;% unique</code></pre>
+<pre><code>groupIcdToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, charlson, B, TRUE)</code></pre>
+</div>
+<div id="elixhauser-comorbidity-classification" class="section level4">
+<h4>Elixhauser comorbidity classification</h4>
+<p>Elixhauser comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_elix, icd10_map_elix</p>
+<p>ICD-9</p>
+<pre><code># convert icd9_map_elix (list) to icd9_charlson (Df)
+icd9_elix$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10</p>
+<pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
+icd10_elix$Comorbidity %&gt;% unique</code></pre>
+<pre><code>groupIcdToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
+</div>
+</div>
+</div>
+<div id="selection-cases" class="section level2">
+<h2>Selection Cases</h2>
+<p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
+<pre><code>selectCases_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
+                         ICD = c(&quot;I072&quot;,&quot;I071&quot;, &quot;I072&quot;, &quot;I071&quot;),
+                         Date = as.Date(c(&quot;2016-03-31&quot;, &quot;2016-01-29&quot;, &quot;2016-02-10&quot;, &quot;2018-03-10&quot;)),
+                         stringsAsFactors = FALSE)
+selectCases(&quot;^I0&quot;, selectCases_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
+</div>
+<div id="condition-era" class="section level2">
+<h2>Condition Era</h2>
+<p>Get the condition era</p>
+<pre><code>getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)
+getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALSE)</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

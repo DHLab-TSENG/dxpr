@@ -77,7 +77,7 @@ groupIcdToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate", ICD-10  CCS multiple levels are 1~2 or other issues)', call. = F)
+    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate"), ICD-10  CCS multiple levels are 1~2 or other issues', call. = F)
   }
   IcdToCCSLevel
 }

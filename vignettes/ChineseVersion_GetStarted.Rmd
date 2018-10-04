@@ -1,8 +1,8 @@
 ---
-title: "Chinese Version_GetStarted"
+title: "Chinese Version Get Started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Chinese Version_GetStarted}
+  %\VignetteIndexEntry{Chinese Version}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

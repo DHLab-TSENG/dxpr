@@ -1,5 +1,5 @@
 ---
-title: "Introduction to emr"
+title: "Getting started with emr"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to emr}
@@ -23,112 +23,223 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
-### Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function
+### Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function 
+conversion function : `convertIcdDecimaltoShort and convertIcdShortToDecimal`
+
 ICD-9
 ```
 icd9 <- ccsDxICD9$ICD
-icd9GenerateDecimalFormat(icd9)
-icd9withTwoFormat$Short[1:10]
-icd9withTwoFormat$Decimal[1:10]
+icd9withTwoFormat <- icd9GenerateDecimalFormat(icd9)
+
+icd9_Short <- icd9withTwoFormat$Short[1:10]
+# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
+icd9_Decimal <- icd9withTwoFormat$Decimal[1:10]
+# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 ```
 ICD-10
 ```
 icd10 <- ccsDxICD10$ICD
-icd10GenerateDecimalFormat(icd10)
+icd10withTwoFormat <- icd10GenerateDecimalFormat(icd10)
 
-icd10withTwoFormat$Short[1:10]
-icd10withTwoFormat$Decimal[1:10]
+icd10_Short <- icd10withTwoFormat$Short[1:10]
+# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
+icd10_Decimal <- icd10withTwoFormat$Decimal[1:10]
+# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.
+### Convert ICD-9-CM and ICD-10-CM code Format: Short <-> Decimal
+According to the using format of function, these conversion function can be used to convert ICD codes between types.
 
-### Convert ICD-9-CM and ICD-10-CM code Format: Short <->Decimal
-Convert ICD-CM code Short to Decimal
+Convert ICD-CM code Short to Decimal.
 ```
 # ICD-9
-convertIcdShortToDecimal(icd9withTwoFormat$Short[1:10], icd9)
+convertIcdShortToDecimal(icd9_Short)$Decimal
+# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
+
 # ICD-10
-convertIcdShortToDecimal(icd10withTwoFormat$Short[1:10], icd10)
+convertIcdShortToDecimal(icd10_Short)$Decimal
+# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-Convert ICD-CM code Decimal to Short
+Convert ICD-CM code Decimal to Short.
 ```
 # ICD-9
-convertIcdDecimaltoShort(icd9withTwoFormat$Decimal[1:10], icd9)
+convertIcdDecimaltoShort(icd9_Decimal)$Short
+# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
+
 # ICD-10
-convertIcdDecimaltoShort(icd10withTwoFormat$Decimal[1:10], icd10)
+convertIcdDecimaltoShort(icd10_Decimal)$Short
+# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
 ## Grouping ICD-9 and ICD-10 codes by ...
-classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
+Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 
 ### Clinical Classifications Software (CCS)
-It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.
+It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.
 
-#### single-level category
-ICD-9-CM: 260
+#### CCS single-level category
+`groupIcdToCCS` can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.
 
-ICD-10-CM: 260
+ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.
 ```
+## ICD to CCS category
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+# "99"  NA    "96"  "139"
+
+## ICD to CCS description
 groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+# "Hypertension with complications and secondary hypertension" NA  
+# "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" 
 ```
-#### multi-level
+If CCS return `NA`, there are two ways of `warning message`: The ICD mentioned above matches to "NA" due to the format or other issues.
+
+1) Wrong Format: means the ICD has wrong format.
+
+2) Warning ICD: means the ICD classify to wrong ICD version (cause the "icd10usingDate") or other issues.
+
+for example, `42577` is wrong format of ICD-9-CM code, will show `wrong format` message.
+
+#### CCS multi-level
+`groupIcdToCCSLvl` can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.
+
 ICD-9-CM has four levels
 
 ICD-10-CM has two levels
 ```
+## ICD to CCS multiple level 1
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+# "7" NA  "7" "9"
+
+## ICD to CCS multiple level 3
 groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 4, TRUE)
+# "7.1.2" NA      NA      NA    
 ```
+If CCSlvl return `NA`, there are two ways of `warning message`: The ICD mentioned above matches to "NA" due to the format or other issues
+
+for example,
+
+1) `42577` is wrong format of ICD-9-CM code, will show `wrong format` message
+
+2) `42577` is wrong format of ICD-9-CM code, will show `wrong format` message, ICD-10-CM show `Warning ICD` (cause ICD-10-CM ccs multiple levels are 1~2) 
+
 ### Phecode
+`groupIcdToPhecode` allows  for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).
+
 This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
+
+more detail: https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies
 ```
+## ICD to Phecode
 groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+# "401.21" NA       NA       NA   
 ```
+If Phecode return `NA`, there are two ways of `warning message`: The ICD mentioned above matches to "NA" due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.
+
 ### Creating a grouping standards
+User can identify the rule of grouping standards, and return matched ICD codes.
+For example, there is  a ICD data frame `icdFile` whether is matched these group: Hypotension and Hypertension or not.
+```
+icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
+```
+
+ 1) `groupIcdToCustomGrep`: Use method of exhaustion to find out the matched ICD.
+```{r}
+# groupingTable 
+data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
+           ICD = c("I95.0","I951","I952","I110","I11.9"),
+           stringsAsFactors = FALSE)
 ```
 ```
+groupIcdToCustomGrep(icdFile, groupingTable)
+#  "Hypotension"  "Hypotension"  "Hypertension" NA 
+```
+ 2) `groupIcdToCustomGrepList`: Use a ICD pattern to find out the fit ICD.
+```{r}
+# grepTable
+data.frame(Group = c("Hypotension", "Hypertension"),
+           grep_pattern = c("^I95|^I952", "^I11"),
+           stringsAsFactors = FALSE)
+```
+```
+groupIcdToCustomGrepList(icdFile, grepTable)
+# "Hypotension"  "Hypotension"  "Hypertension" NA  
+```
+
 ### Comorbidities
-The comorbidities measures from different sources are provided as lists.
+The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.
 
 #### AHRQ comorbidity classification
 AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
 The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
+
+ ICD-9
 ```
-# AHRQ comorbidity measure
-#ICD-9
-icd9_ahrq$Comorbidity %>% unique
-#ICD-10
+# convert icd9_map_ahrq (list) to icd9_ahrq (Df)
+icd9_ahrq$Comorbidity %>% unique () 
+```
+ ICD-10
+```
+# convert icd10_map_ahrq (list) to icd10_ahrq (Df)
 icd10_ahrq$Comorbidity %>% unique
+```
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
 #### Charlson comorbidity classification
 Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+
+ ICD-9
 ```
-# Charlson comorbidity measure
-#ICD-9
+# convert icd9_map_charlson (list) to icd9_charlson (Df)
 icd9_charlson$Comorbidity %>% unique
-#ICD-10
+```
+ ICD-10
+```
+# convert icd10_map_charlson (list) to icd10_charlson (Df)
 icd10_charlson$Comorbidity %>% unique
+```
+
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
 #### Elixhauser comorbidity classification
 Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
+
+ ICD-9
 ```
-# Elixhauser comorbidity measure
-#ICD-9
+# convert icd9_map_elix (list) to icd9_charlson (Df)
 icd9_elix$Comorbidity %>% unique
-#ICD-10
+```
+ ICD-10
+```
+# convert icd10_map_elix (list) to icd10_charlson (Df)
 icd10_elix$Comorbidity %>% unique
+```
+```
 groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 ```
 ## Selection Cases
 This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
+
+searching criteria for example, 
+
+1) ICD pattern: the ICD begining with "I0"
+
+2) The specific ICD appears at least twice
+
+3) Interval of days: 30 ~ 365 days, the days between two specific ICD codes.
+
+Return the matched Data frame.
+
 ```
-selectCases("^I0", DxDataFile, ID, ICD, Date, "2016-01-01", 2)
+selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
+                         ICD = c("I072","I071", "I072", "I071"),
+                         Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
+                         stringsAsFactors = FALSE)
+selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## Condition Era
 Get the condition era
+
+Condition Eras are built with a Persistence Window, deafault is 30 days.
 ```
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
