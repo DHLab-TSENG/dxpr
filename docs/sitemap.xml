@@ -16,10 +16,16 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD9.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDecimaltoShort.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDxDecimaltoShort.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdShortToDecimal.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDxShortToDecimal.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdPrDecimaltoShort.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdPrShortToDecimal.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/emr.html</loc>
@@ -28,19 +34,31 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/getConditionEra.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToCCS.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCCS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToCCSLvl.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCCSLvl.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToComorbid.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToComorbid.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToCustomGrep.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCustomGrep.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdToPhecode.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToPhecode.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToCCS.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToCCSLvl.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxGenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxwithTwoFormat.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd10_ahrq.html</loc>
@@ -52,6 +70,18 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/icd10_elix.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9DxGenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9DxwithTwoFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9PrGenerateDecimalFormat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9PrwithTwoFormat.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_ahrq.html</loc>
   </url>
   <url>
@@ -59,24 +89,6 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_elix.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_10_CM_GenerateDecimalFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_10_CM_withTwoFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_CM_GenerateDecimalFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_CM_withTwoFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_PCS_GenerateDecimalFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD_9_PCS_withTwoFormat.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>

@@ -88,10 +88,10 @@
 <div id="-icd-9-cm-and-icd-10-cm--decimal--short" class="section level3">
 <h3 class="hasAnchor">
 <a href="#-icd-9-cm-and-icd-10-cm--decimal--short" class="anchor"></a>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</h3>
-<p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdDecimaltoShort 和 convertIcdShortToDecimal</code>)</p>
+<p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdDxDecimaltoShort 和 convertIcdDxShortToDecimal</code>)</p>
 <p>ICD-9</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat &lt;- ICD_9_CM_GenerateDecimalFormat(icd9)
+ICD_9_CM_withTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
 
 icd9_Short &lt;- ICD_9_CM_withTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
@@ -99,7 +99,7 @@ icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
 <p>ICD-10</p>
 <pre><code>icd10 &lt;- ccsDxICD10$ICD
-ICD_10_CM_withTwoFormat &lt;- ICD_10_CM_GenerateDecimalFormat(icd10)
+ICD_10_CM_withTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
 
 icd10_Short &lt;- ICD_10_CM_withTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
@@ -112,19 +112,19 @@ icd10_Decimal &lt;- ICD_10_CM_withTwoFormat$Decimal[1:10]
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-CM code 的格式統一由 Short 轉成 Decimal</p>
 <pre><code># ICD-9
-convertIcdShortToDecimal(icd9_Short)$Decimal
+convertIcdDxShortToDecimal(icd9_Short)$Decimal
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 
 # ICD-10
-convertIcdShortToDecimal(icd10_Short)$Decimal
+convertIcdDxShortToDecimal(icd10_Short)$Decimal
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
 <p>將 ICD-CM code 的格式統一由 Decimal 轉成 Short</p>
 <pre><code># ICD-9
-convertIcdDecimaltoShort(icd9_Decimal)$Short
+convertIcdDxDecimaltoShort(icd9_Decimal)$Short
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 
 # ICD-10
-convertIcdDecimaltoShort(icd10_Decimal)$Short
+convertIcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")</code></pre>
 </div>
 <div id="-icd-9--icd-10-code-" class="section level2">
@@ -139,14 +139,14 @@ convertIcdDecimaltoShort(icd10_Decimal)$Short
 <div id="-ccs-category" class="section level4">
 <h4 class="hasAnchor">
 <a href="#-ccs-category" class="anchor"></a>單一階層分類 (CCS Category)</h4>
-<p><code>groupIcdToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述</p>
+<p><code>groupIcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <pre><code>## ICD to CCS category
-groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "99"  NA    "96"  "139"
 
 ## ICD to CCS description
-groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Hypertension with complications and secondary hypertension" NA  
 # "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" </code></pre>
 <p>當 CCS 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 顯示為NA有兩種方向</p>
@@ -159,15 +159,15 @@ groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 <div id="-multiple-ccs-level" class="section level4">
 <h4 class="hasAnchor">
 <a href="#-multiple-ccs-level" class="anchor"></a>多階層分類 (Multiple ccs level)</h4>
-<p><code>groupIcdToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類及分類之敘述</p>
+<p><code>groupIcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
 <pre><code>## ICD to CCS multiple level 1
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
+groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
 # "7" NA  "7" "9"
 
 ## ICD to CCS multiple level 3
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
+groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 # "7.1.2" NA      NA      NA    </code></pre>
 <p>當 CCS 多階層分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; ICD-10-CM 的多階層為 1~2, 若篩選階層3或4,則 ICD-10-CM 的分類會出現 <code>NA</code></p>
 <p>以範例為例:</p>
@@ -182,7 +182,7 @@ groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 <a href="#phecode" class="anchor"></a>Phecode</h3>
 <p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode 最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
 <pre><code>## ICD to Phecode
-groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "401.21" NA       NA       NA   </code></pre>
 <p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
 </div>
@@ -195,7 +195,7 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <p>目前提供兩種方法:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>groupIcdToCustomGrep</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
+<code>groupIcdDxToCustomGrep</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
@@ -207,11 +207,11 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt; 3  Hypotension  I952</span>
 <span class="co">#&gt; 4 Hypertension  I110</span>
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>groupIcdToCustomGrep(icdFile, groupingTable)
+<pre><code>groupIcdDxToCustomGrep(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>
-<code>groupIcdToCustomGrepList</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
+<code>groupIcdDxToCustomGrepList</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
@@ -220,7 +220,7 @@ groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt;          Group grep_pattern</span>
 <span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>groupIcdToCustomGrepList(icdFile, grepTable)
+<pre><code>groupIcdDxToCustomGrepList(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
 </div>
 <div id="-comorbidities" class="section level3">
@@ -239,8 +239,8 @@ icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
 icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
-<p>欲將 ICD 依照 AHRQ 共病症分類, 在 function <code>groupIcdToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
-<pre><code><a href="../reference/groupIcdToComorbid.html">groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
+<p>欲將 ICD 依照 AHRQ 共病症分類, 在 function <code>groupIcdDxToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
+<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
 </div>
 <div id="charlson-" class="section level4">
 <h4 class="hasAnchor">
@@ -253,8 +253,8 @@ icd9_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
 icd10_charlson$Comorbidity %&gt;% unique</code></pre>
-<p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>groupIcdToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
-<pre><code><a href="../reference/groupIcdToComorbid.html">groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
+<p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>groupIcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
+<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
 </div>
 <div id="elixhauser-" class="section level4">
 <h4 class="hasAnchor">
@@ -267,8 +267,8 @@ icd9_elix$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
 icd10_elix$Comorbidity %&gt;% unique</code></pre>
-<p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>groupIcdToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
-<pre><code><a href="../reference/groupIcdToComorbid.html">groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
+<p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>groupIcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
+<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
 </div>
 </div>
 </div>
@@ -283,11 +283,11 @@ icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <li><p>搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)</p></li>
 </ol>
 <p>回傳的資料為符合條件的個案</p>
-<pre><code>selectCases_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
+<pre><code>selectCasesDx_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
+selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
 </div>
 <div id="-condition-era" class="section level2">
 <h2 class="hasAnchor">

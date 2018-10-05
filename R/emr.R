@@ -251,12 +251,12 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name ICD_9_CM_withTwoFormat
-#' @usage data(ICD_9_CM_withTwoFormat)
+#' @name ICD9DxwithTwoFormat
+#' @usage data(ICD9DxwithTwoFormat)
 #' @format A data frame with 15072 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-#' @seealso \code{\link{ICD_10_CM_withTwoFormat}}
+#' @seealso \code{\link{ICD10DxwithTwoFormat}}
 NULL
 
 #' Two format of ICD-10-CM: Short and Decimal
@@ -270,11 +270,11 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name ICD_10_CM_withTwoFormat
-#' @usage data(ICD_10_CM_withTwoFormat)
+#' @name ICD10DxwithTwoFormat
+#' @usage data(ICD10DxwithTwoFormat)
 #' @format A data frame with 72167 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
-#' @seealso \code{\link{ICD_9_CM_withTwoFormat}}
+#' @seealso \code{\link{ICD9DxwithTwoFormat}}
 NULL
 
 #' Two format of ICD-9-PCS: Short and Decimal
@@ -288,8 +288,8 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name ICD_9_PCS_withTwoFormat
-#' @usage data(ICD_9_PCS_withTwoFormat)
+#' @name ICD9PrwithTwoFormat
+#' @usage data(ICD9PrwithTwoFormat)
 #' @format A data frame with 3948 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
 NULL

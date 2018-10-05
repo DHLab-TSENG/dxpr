@@ -24,12 +24,12 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
 cat(utils::packageDescription("emr")$Description)
 ```
 ### Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function 
-conversion function : `convertIcdDecimaltoShort and convertIcdShortToDecimal`
+conversion function : `convertIcdDxDecimaltoShort and convertIcdDxShortToDecimal`
 
 ICD-9
 ```
 icd9 <- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat <- ICD_9_CM_GenerateDecimalFormat(icd9)
+ICD_9_CM_withTwoFormat <- ICD9DxGenerateDecimalFormat(icd9)
 
 icd9_Short <- ICD_9_CM_withTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
@@ -39,7 +39,7 @@ icd9_Decimal <- ICD_9_CM_withTwoFormat$Decimal[1:10]
 ICD-10
 ```
 icd10 <- ccsDxICD10$ICD
-ICD_10_CM_withTwoFormat <- ICD_10_CM_GenerateDecimalFormat(icd10)
+ICD_10_CM_withTwoFormat <- ICD10DxGenerateDecimalFormat(icd10)
 
 icd10_Short <- ICD_10_CM_withTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
@@ -52,21 +52,21 @@ According to the using format of function, these conversion function can be used
 Convert ICD-CM code Short to Decimal.
 ```
 # ICD-9
-convertIcdShortToDecimal(icd9_Short)$Decimal
+convertIcdDxShortToDecimal(icd9_Short)$Decimal
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 
 # ICD-10
-convertIcdShortToDecimal(icd10_Short)$Decimal
+convertIcdDxShortToDecimal(icd10_Short)$Decimal
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
 Convert ICD-CM code Decimal to Short.
 ```
 # ICD-9
-convertIcdDecimaltoShort(icd9_Decimal)$Short
+convertIcdDxDecimaltoShort(icd9_Decimal)$Short
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 
 # ICD-10
-convertIcdDecimaltoShort(icd10_Decimal)$Short
+convertIcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
 ## Grouping ICD-9 and ICD-10 codes by ...
@@ -76,16 +76,16 @@ Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful ca
 It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.
 
 #### CCS single-level category
-`groupIcdToCCS` can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.
+`groupIcdDxToCCS` can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.
 
 ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.
 ```
 ## ICD to CCS category
-groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "99"  NA    "96"  "139"
 
 ## ICD to CCS description
-groupIcdToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Hypertension with complications and secondary hypertension" NA  
 # "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" 
 ```
@@ -98,18 +98,18 @@ If CCS return `NA`, there are two ways of `warning message`: The ICD mentioned a
 for example, `42577` is wrong format of ICD-9-CM code, will show `wrong format` message.
 
 #### CCS multi-level
-`groupIcdToCCSLvl` can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.
+`groupIcdDxToCCSLvl` can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.
 
 ICD-9-CM has four levels
 
 ICD-10-CM has two levels
 ```
 ## ICD to CCS multiple level 1
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
+groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
 # "7" NA  "7" "9"
 
 ## ICD to CCS multiple level 3
-groupIcdToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
+groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 # "7.1.2" NA      NA      NA    
 ```
 If CCSlvl return `NA`, there are two ways of `warning message`: The ICD mentioned above matches to "NA" due to the format or other issues
@@ -121,14 +121,14 @@ for example,
 2) `42577` is wrong format of ICD-9-CM code, will show `wrong format` message, ICD-10-CM show `Warning ICD` (cause ICD-10-CM ccs multiple levels are 1~2) 
 
 ### Phecode
-`groupIcdToPhecode` allows  for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).
+`groupIcdDxToPhecode` allows  for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).
 
 This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
 
 more detail: https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies
 ```
 ## ICD to Phecode
-groupIcdToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "401.21" NA       NA       NA   
 ```
 If Phecode return `NA`, there are two ways of `warning message`: The ICD mentioned above matches to "NA" due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.
@@ -140,7 +140,7 @@ For example, there is  a ICD data frame `icdFile` whether is matched these group
 icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
 ```
 
- 1) `groupIcdToCustomGrep`: Use method of exhaustion to find out the matched ICD.
+ 1) `groupIcdDxToCustomGrep`: Use method of exhaustion to find out the matched ICD.
 ```{r}
 # groupingTable 
 data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
@@ -148,10 +148,10 @@ data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", 
            stringsAsFactors = FALSE)
 ```
 ```
-groupIcdToCustomGrep(icdFile, groupingTable)
+groupIcdDxToCustomGrep(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA 
 ```
- 2) `groupIcdToCustomGrepList`: Use a ICD pattern to find out the fit ICD.
+ 2) `groupIcdDxToCustomGrepList`: Use a ICD pattern to find out the fit ICD.
 ```{r}
 # grepTable
 data.frame(Group = c("Hypotension", "Hypertension"),
@@ -159,7 +159,7 @@ data.frame(Group = c("Hypotension", "Hypertension"),
            stringsAsFactors = FALSE)
 ```
 ```
-groupIcdToCustomGrepList(icdFile, grepTable)
+groupIcdDxToCustomGrepList(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  
 ```
 
@@ -181,7 +181,7 @@ icd9_ahrq$Comorbidity %>% unique ()
 icd10_ahrq$Comorbidity %>% unique
 ```
 ```
-groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
+groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
 #### Charlson comorbidity classification
 Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
@@ -198,7 +198,7 @@ icd10_charlson$Comorbidity %>% unique
 ```
 
 ```
-groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
+groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
 #### Elixhauser comorbidity classification
 Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
@@ -214,7 +214,7 @@ icd9_elix$Comorbidity %>% unique
 icd10_elix$Comorbidity %>% unique
 ```
 ```
-groupIcdToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
+groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 ```
 ## Selection Cases
 This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
@@ -230,11 +230,11 @@ searching criteria for example,
 Return the matched Data frame.
 
 ```
-selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
+selectCasesDx_Example <- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
+selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## Condition Era
 Get the condition era
