@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Version Get Started • emr</title>
+<title>Chinese Version-Diagnosis: Get Started • emr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Chinese Version Get Started">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Chinese Version-Diagnosis: Get Started">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -55,7 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version Get Started</a>
+      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version-Diagnosis: Get Started</a>
+    </li>
+    <li>
+      <a href="../articles/ChineseVersion_Procedure.html">Chinese Version-Procedure: Get Started</a>
     </li>
   </ul>
 </li>
@@ -72,7 +75,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Chinese Version Get Started</h1>
+      <h1>Chinese Version-Diagnosis: Get Started</h1>
             
       
       
@@ -89,7 +92,7 @@
 <h3 class="hasAnchor">
 <a href="#-icd-9-cm-and-icd-10-cm--decimal--short" class="anchor"></a>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</h3>
 <p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdDxDecimaltoShort 和 convertIcdDxShortToDecimal</code>)</p>
-<p>ICD-9</p>
+<p>ICD-9-CM</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
 ICD_9_CM_withTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
 
@@ -97,7 +100,7 @@ icd9_Short &lt;- ICD_9_CM_withTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
-<p>ICD-10</p>
+<p>ICD-10-CM</p>
 <pre><code>icd10 &lt;- ccsDxICD10$ICD
 ICD_10_CM_withTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
 
@@ -130,11 +133,13 @@ convertIcdDxDecimaltoShort(icd10_Decimal)$Short
 <div id="-icd-9--icd-10-code-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#-icd-9--icd-10-code-" class="anchor"></a>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h2>
-<p>將 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併為較簡化的分類, 標準化的分類以便於後續的整合統計分析使用</p>
+<p>將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
 <div id="-clinical-classifications-software-ccs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#-clinical-classifications-software-ccs" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
-<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 單一階層在 ICD-9-CM 及 ICD-10-CM 的分類一致; 多階層的分類則不同</p>
+<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
+<p>單一階層: 較通用的分類</p>
+<p>多階層: 將診斷碼分為較精確的分組</p>
 <p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018</p>
 <div id="-ccs-category" class="section level4">
 <h4 class="hasAnchor">
@@ -180,16 +185,18 @@ groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 <div id="phecode" class="section level3">
 <h3 class="hasAnchor">
 <a href="#phecode" class="anchor"></a>Phecode</h3>
-<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode 最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
+<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode</p>
+<p>phecode分組沒有階層性, 其特色在於各分組有其對應的控制組定義, 因此控制組的選擇會排除所有跟病例組相關疾病, 完整的控制組定義使得利用醫療大數據執行病例對照研究 (case-control study)更為全面</p>
+<p>最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
 <pre><code>## ICD to Phecode
 groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "401.21" NA       NA       NA   </code></pre>
 <p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
 </div>
-<div id="-icd-code-" class="section level3">
+<div id="-groupicddxtocustomgrep" class="section level3">
 <h3 class="hasAnchor">
-<a href="#-icd-code-" class="anchor"></a>依使用者定義的分類進行 ICD code 的分組</h3>
-<p>使用者可自行定義分組類別及類別項目</p>
+<a href="#-groupicddxtocustomgrep" class="anchor"></a>自定義診斷碼分組 (groupIcdDxToCustomGrep)</h3>
+<p>因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目</p>
 <p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
 <pre><code>icdFile &lt;- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)</code></pre>
 <p>目前提供兩種方法:</p>
@@ -227,7 +234,7 @@ groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <h3 class="hasAnchor">
 <a href="#-comorbidities" class="anchor"></a>共病症 (Comorbidities)</h3>
 <p>共病症為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀</p>
-<p>根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
+<p>共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
 <div id="ahrq-" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ahrq-" class="anchor"></a>AHRQ 共病症分類</h4>
@@ -292,7 +299,8 @@ selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)</cod
 <div id="-condition-era" class="section level2">
 <h2 class="hasAnchor">
 <a href="#-condition-era" class="anchor"></a>疾病世代 (condition Era)</h2>
-<p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 來整合處理連續性的醫療行為, 疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
+<p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄</p>
+<p>疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
 <p>依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天</p>
 <pre><code>getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code></pre>

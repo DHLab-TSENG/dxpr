@@ -3,6 +3,7 @@ pkgdown: 1.1.0
 pkgdown_sha: ~
 articles:
   ChineseVersion_GetStarted: ChineseVersion_GetStarted.html
+  ChineseVersion_Procedure: ChineseVersion_Procedure.html
   emr: emr.html
 urls:
   reference: https://dhlab-cgu.github.io/emr//reference

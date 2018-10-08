@@ -108,6 +108,25 @@ NULL
 #' @seealso \code{\link{ccsPrICD9}}
 NULL
 
+#' Clinical Classifications Software (CCS)  for ICD-10-PCS
+#'
+#' A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+#'
+#' \itemize{
+#'   \item ICD_10_CM_CODE. Procedure Code
+#'   \item ICD_10_CM_CODE_DESCRIPTION. Code Description (word label for the code)
+#'   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
+#'   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name PcPrICD10
+#' @usage data(PcPrICD10)
+#' @format A data frame with 79366 rows and 4 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
+NULL
+
 #' AHRQ Comorbidity for ICD-9
 #'
 #' A dataframe for ICD-9 AHRQ comorbidity mapping

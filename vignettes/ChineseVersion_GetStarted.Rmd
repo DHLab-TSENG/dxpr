@@ -1,5 +1,5 @@
 ---
-title: "Chinese Version Get Started"
+title: "Chinese Version-Diagnosis: Get Started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Chinese Version}
@@ -26,7 +26,7 @@ cat(utils::packageDescription("emr")$Description)
 ### 分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short 
 供後續 ICD 格式轉換的功能使用 (`convertIcdDxDecimaltoShort 和 convertIcdDxShortToDecimal`) 
 
-ICD-9
+ICD-9-CM
 ```
 icd9 <- ccsDxICD9$ICD
 ICD_9_CM_withTwoFormat <- ICD9DxGenerateDecimalFormat(icd9)
@@ -36,7 +36,7 @@ icd9_Short <- ICD_9_CM_withTwoFormat$Short[1:10]
 icd9_Decimal <- ICD_9_CM_withTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 ```
-ICD-10
+ICD-10-CM
 ```
 icd10 <- ccsDxICD10$ICD
 ICD_10_CM_withTwoFormat <- ICD10DxGenerateDecimalFormat(icd10)
@@ -71,10 +71,14 @@ convertIcdDxDecimaltoShort(icd10_Decimal)$Short
 ```
 
 ## 將 ICD-9 及 ICD-10 code 依照不同的分類標準分類...
-將 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併為較簡化的分類, 標準化的分類以便於後續的整合統計分析使用
+將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用
 
 ### 臨床分類軟體 (Clinical Classifications Software, CCS)
-係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 單一階層在 ICD-9-CM 及 ICD-10-CM 的分類一致; 多階層的分類則不同
+係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準
+
+單一階層: 較通用的分類
+
+多階層: 將診斷碼分為較精確的分組
 
 目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018
 
@@ -126,6 +130,9 @@ groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 
 ### Phecode
 由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode
+
+phecode分組沒有階層性, 其特色在於各分組有其對應的控制組定義, 因此控制組的選擇會排除所有跟病例組相關疾病, 完整的控制組定義使得利用醫療大數據執行病例對照研究 (case-control study)更為全面
+
 最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類
 ```
 ## ICD to Phecode
@@ -134,9 +141,9 @@ groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 ```
 當 Phecode 分類結果為 `NA` , 會出現 `warning Message` , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 `NA`
 
-### 依使用者定義的分類進行 ICD code 的分組
+### 自定義診斷碼分組 (groupIcdDxToCustomGrep)
 
-使用者可自行定義分組類別及類別項目
+因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目
 
 範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 `NA`
 ```
@@ -169,7 +176,7 @@ groupIcdDxToCustomGrepList(icdFile, grepTable)
 ### 共病症 (Comorbidities)
 共病症為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀
 
-根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser
+共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser
 
 #### AHRQ 共病症分類
 目前使用 AHRQ 共病症測量指標的data frame是基於`icd package` (`icd9_map_ahrq 及 icd10_map_ahrq`), 使ICD code 依其相關的共病症做分類
@@ -252,7 +259,9 @@ selectCasesDx_Example <- data.frame(ID = c("A", "A", "A", "A"),
 selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## 疾病世代 (condition Era)
-針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 來整合處理連續性的醫療行為, 疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代
+針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄
+
+疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代
 
 依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天
 ```

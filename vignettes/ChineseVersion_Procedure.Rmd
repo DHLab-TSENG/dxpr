@@ -1,0 +1,34 @@
+---
+title: "Chinese Version-Procedure: Get Started"
+author: "Hsiang-Ju, Chiu"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chinese Version_Procedure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# 簡介
+```
+cat(utils::packageDescription("emr")$Description)
+```
+### 產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short 
+供後續 ICD 格式轉換的功能使用 (`convertIcdPrDecimaltoShort 和 convertIcdPrShortToDecimal`) 
+
+ICD-9-PCS
+```
+icd9 <- ccsDxICD9$ICD
+ICD_9_CM_withTwoFormat <- ICD9DxGenerateDecimalFormat(icd9)
+
+icd9_Short <- ICD_9_CM_withTwoFormat$Short[1:10]
+# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
+icd9_Decimal <- ICD_9_CM_withTwoFormat$Decimal[1:10]
+# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
+```
+
+ICD-10-PCS只有short的格式
+
+
