@@ -113,8 +113,8 @@ NULL
 #' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2015.)
 #'
 #' \itemize{
-#'   \item ICD_9_CM_CODE. ICD-9-CM procedure codes
-#'   \item ICD_9_CM_CODE_DESCRIPTION. Code Description (word label for the code)
+#'   \item ICD. ICD-9-CM procedure codes
+#'   \item ICD_DESCRIPTION. Code Description (word label for the code)
 #'   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
 #'   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
 #' }
@@ -133,8 +133,8 @@ NULL
 #' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2018.)
 #'
 #' \itemize{
-#'   \item ICD_10_CM_CODE. ICD-10-CM procedure codes
-#'   \item ICD_10_CM_CODE_DESCRIPTION. Code Description (word label for the code)
+#'   \item ICD. ICD-10-CM procedure codes
+#'   \item ICD_DESCRIPTION. Code Description (word label for the code)
 #'   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
 #'   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
 #' }

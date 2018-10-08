@@ -16,8 +16,8 @@ The Procedure Classes provide users an easy way to categorize procedure codes in
 }
 \details{
 \itemize{
-  \item ICD_9_CM_CODE. ICD-9-CM procedure codes
-  \item ICD_9_CM_CODE_DESCRIPTION. Code Description (word label for the code)
+  \item ICD. ICD-9-CM procedure codes
+  \item ICD_DESCRIPTION. Code Description (word label for the code)
   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
 }

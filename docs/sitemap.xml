@@ -55,6 +55,9 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToCCSLvl.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToProcedureClass.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxGenerateDecimalFormat.html</loc>
   </url>
   <url>
@@ -89,6 +92,12 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_elix.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PcPrICD10.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PcPrICD9.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>

@@ -85,8 +85,9 @@
 
     
     
-<div class="section level1">
-<h1>簡介</h1>
+<div id="-" class="section level1">
+<h1 class="hasAnchor">
+<a href="#-" class="anchor"></a>簡介-診斷前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
 <div id="-icd-9-cm-and-icd-10-cm--decimal--short" class="section level3">
 <h3 class="hasAnchor">
@@ -94,19 +95,19 @@
 <p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdDxDecimaltoShort 和 convertIcdDxShortToDecimal</code>)</p>
 <p>ICD-9-CM</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
+ICD9DxwithTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
 
-icd9_Short &lt;- ICD_9_CM_withTwoFormat$Short[1:10]
+icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
+icd9_Decimal &lt;- ICD9DxwithTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
 <p>ICD-10-CM</p>
 <pre><code>icd10 &lt;- ccsDxICD10$ICD
-ICD_10_CM_withTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
+ICD10DxwithTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
 
-icd10_Short &lt;- ICD_10_CM_withTwoFormat$Short[1:10]
+icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
-icd10_Decimal &lt;- ICD_10_CM_withTwoFormat$Decimal[1:10]
+icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
 </div>
 <div id="icd-9-cm-and-icd-10-cm-code--short---decimal" class="section level3">
@@ -314,7 +315,7 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="NA">簡介</a><ul class="nav nav-pills nav-stacked">
+<a href="#-">簡介-診斷前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#-icd-9--icd-10-code-">將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</a></li>
       <li><a href="#-select-cases">選擇符合條件的個案數 (Select Cases)</a></li>
       <li><a href="#-condition-era">疾病世代 (condition Era)</a></li>

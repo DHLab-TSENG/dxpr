@@ -19,7 +19,7 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10", "2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-# 簡介
+# 簡介-診斷前處理與整合方法
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
@@ -29,21 +29,21 @@ cat(utils::packageDescription("emr")$Description)
 ICD-9-CM
 ```
 icd9 <- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat <- ICD9DxGenerateDecimalFormat(icd9)
+ICD9DxwithTwoFormat <- ICD9DxGenerateDecimalFormat(icd9)
 
-icd9_Short <- ICD_9_CM_withTwoFormat$Short[1:10]
+icd9_Short <- ICD9DxwithTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal <- ICD_9_CM_withTwoFormat$Decimal[1:10]
+icd9_Decimal <- ICD9DxwithTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 ```
 ICD-10-CM
 ```
 icd10 <- ccsDxICD10$ICD
-ICD_10_CM_withTwoFormat <- ICD10DxGenerateDecimalFormat(icd10)
+ICD10DxwithTwoFormat <- ICD10DxGenerateDecimalFormat(icd10)
 
-icd10_Short <- ICD_10_CM_withTwoFormat$Short[1:10]
+icd10_Short <- ICD10DxwithTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
-icd10_Decimal <- ICD_10_CM_withTwoFormat$Decimal[1:10]
+icd10_Decimal <- ICD10DxwithTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
 ### ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short <-> Decimal

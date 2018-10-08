@@ -86,22 +86,99 @@
 
     
     
-<div class="section level1">
-<h1>簡介</h1>
+<div id="-" class="section level1">
+<h1 class="hasAnchor">
+<a href="#-" class="anchor"></a>簡介-檢查與處置錢處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
 <div id="-icd-9-pcs--decimal--short" class="section level3">
 <h3 class="hasAnchor">
 <a href="#-icd-9-pcs--decimal--short" class="anchor"></a>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</h3>
 <p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdPrDecimaltoShort 和 convertIcdPrShortToDecimal</code>)</p>
 <p>ICD-9-PCS</p>
-<pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
+<pre><code>icd9 &lt;- ccsPrICD9$ICD
+ICD9PrwithTwoFormat &lt;- ICD9PrGenerateDecimalFormat(icd9)
 
-icd9_Short &lt;- ICD_9_CM_withTwoFormat$Short[1:10]
-# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
-# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
+icd9_Short &lt;- ICD9PrwithTwoFormat$Short[1:10]
+# c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
+icd9_Decimal &lt;- ICD9PrwithTwoFormat$Decimal[1:10]
+# c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")</code></pre>
 <p>ICD-10-PCS只有short的格式</p>
+<pre><code>icd10 &lt;- ccsPrICD10$ICD[1:10]
+# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
+</div>
+<div id="icd-9-pcs--short---decimal" class="section level3">
+<h3 class="hasAnchor">
+<a href="#icd-9-pcs--short---decimal" class="anchor"></a>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</h3>
+<p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
+<p>將 ICD-PCS code 的格式統一由 Short 轉成 Decimal</p>
+<pre><code># ICD-9
+convertIcdPrShortToDecimal(icd9_Short)$Decimal
+# c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
+
+# ICD-10
+convertIcdPrShortToDecimal(icd10)$Decimal
+# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
+<p>將 ICD-PCS code 的格式統一由 Decimal 轉成 Short</p>
+<pre><code># ICD-9
+convertIcdPrDecimaltoShort(icd9_Decimal)$Short
+# c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
+
+# ICD-10
+convertIcdPrShortToDecimal(icd10)$Decimal
+# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
+</div>
+<div id="-icd-9--icd-10-code-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#-icd-9--icd-10-code-" class="anchor"></a>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h2>
+<p>將分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
+<div id="-clinical-classifications-software-ccs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#-clinical-classifications-software-ccs" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
+<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
+<p>單一階層: 較通用的分類</p>
+<p>多階層: 將診斷碼分為較精確的分組</p>
+<p>目前 ICD-9-PCS 的 CCS 版本為 2015 , ICD-10-PCS 的 CCS 版本為 2018</p>
+<div id="-ccs-category" class="section level4">
+<h4 class="hasAnchor">
+<a href="#-ccs-category" class="anchor"></a>單一階層分類 (CCS Category)</h4>
+<p><code>groupIcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述</p>
+<p>ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致: 共231種</p>
+<pre><code>## ICD to CCS category
+groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+#  "1"   "180" "1"   "1"
+
+## ICD to CCS description
+groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+# "Incision and excision of CNS"             "Other CT scan"                
+# "Incision and excision of CNS"             "Incision and excision of CNS"</code></pre>
+</div>
+<div id="-multiple-ccs-level" class="section level4">
+<h4 class="hasAnchor">
+<a href="#-multiple-ccs-level" class="anchor"></a>多階層分類 (Multiple ccs level)</h4>
+<p><code>groupIcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述</p>
+<p>ICD-9-PCS 共 3個階層 (Level 1~3)</p>
+<p>ICD-10-PCS 共 2個階層 (Level 1~2)</p>
+<pre><code>## ICD to CCS multiple level 1
+groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
+# "1.1"  "16.2" "1.1"  "1.1"
+
+## ICD to CCS multiple level 2
+groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+#  "Incision  excision of CNS"               "Computerized axial tomography (CT) scan"
+#  "Incision  excision of CNS"               "Incision  excision of CNS"    </code></pre>
+</div>
+</div>
+<div id="procedure-class" class="section level3">
+<h3 class="hasAnchor">
+<a href="#procedure-class" class="anchor"></a>Procedure Class</h3>
+<p>由美國醫療照護政策研究品質局（AHRQ）提供的HCUP Classes, 將檢查與處置碼基於其特性分組, 共ICD-PCS code分為下列四個組別:</p>
+<p>1.Minor Diagnostic: 非手術室執行之診斷類處置</p>
+<p>2.Minor Therapeutic: 非手術室執行之治療類處置</p>
+<p>3.Major Diagnostic: 需在手術室執行之診斷類處置</p>
+<p>4.Major Therapeutic: 需在手術室執行之治療類處置</p>
+<pre><code>groupIcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+# "2" "1" "4" "4"</code></pre>
+</div>
 </div>
 </div>
   </div>
@@ -111,7 +188,11 @@ icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="NA">簡介</a></li>
+<li>
+<a href="#-">簡介-檢查與處置錢處理與整合方法</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#-icd-9--icd-10-code-">將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
