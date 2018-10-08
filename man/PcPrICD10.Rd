@@ -3,7 +3,7 @@
 \docType{data}
 \name{PcPrICD10}
 \alias{PcPrICD10}
-\title{Clinical Classifications Software (CCS)  for ICD-10-PCS}
+\title{Procedure Class for ICD-10-PCS}
 \format{A data frame with 79366 rows and 4 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
@@ -12,14 +12,17 @@
 data(PcPrICD10)
 }
 \description{
-A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2018.)
 }
 \details{
 \itemize{
-  \item ICD_10_CM_CODE. Procedure Code
+  \item ICD_10_CM_CODE. ICD-10-CM procedure codes
   \item ICD_10_CM_CODE_DESCRIPTION. Code Description (word label for the code)
   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
 }
+}
+\seealso{
+\code{\link{PcPrICD9}}
 }
 \keyword{dataframe}
