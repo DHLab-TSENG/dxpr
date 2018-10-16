@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chinese Version-Procedure: Get Started • emr</title>
+<title>Get Started: Chinese Version-Procedure • emr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Chinese Version-Procedure: Get Started">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Chinese Version-Procedure">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version-Diagnosis: Get Started</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
     </li>
     <li>
-      <a href="../articles/ChineseVersion_Procedure.html">Chinese Version-Procedure: Get Started</a>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
     </li>
   </ul>
 </li>
@@ -75,7 +75,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Chinese Version-Procedure: Get Started</h1>
+      <h1>Get Started: Chinese Version-Procedure</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
       
@@ -93,7 +93,7 @@
 <div id="-icd-9-pcs--decimal--short" class="section level3">
 <h3 class="hasAnchor">
 <a href="#-icd-9-pcs--decimal--short" class="anchor"></a>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</h3>
-<p>供後續 ICD 格式轉換的功能使用 (<code>convertIcdPrDecimaltoShort 和 convertIcdPrShortToDecimal</code>)</p>
+<p>供後續 ICD 格式轉換的功能使用 (<code>IcdPrDecimaltoShort 和 IcdPrShortToDecimal</code>)</p>
 <p>ICD-9-PCS</p>
 <pre><code>icd9 &lt;- ccsPrICD9$ICD
 ICD9PrwithTwoFormat &lt;- ICD9PrGenerateDecimalFormat(icd9)
@@ -112,19 +112,19 @@ icd9_Decimal &lt;- ICD9PrwithTwoFormat$Decimal[1:10]
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-PCS code 的格式統一由 Short 轉成 Decimal</p>
 <pre><code># ICD-9
-convertIcdPrShortToDecimal(icd9_Short)$Decimal
+IcdPrShortToDecimal(icd9_Short)$Decimal
 # c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
 
 # ICD-10
-convertIcdPrShortToDecimal(icd10)$Decimal
+IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 <p>將 ICD-PCS code 的格式統一由 Decimal 轉成 Short</p>
 <pre><code># ICD-9
-convertIcdPrDecimaltoShort(icd9_Decimal)$Short
+IcdPrDecimaltoShort(icd9_Decimal)$Short
 # c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
 
 # ICD-10
-convertIcdPrShortToDecimal(icd10)$Decimal
+IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 </div>
 <div id="-icd-9--icd-10-code-" class="section level2">
@@ -141,29 +141,29 @@ convertIcdPrShortToDecimal(icd10)$Decimal
 <div id="-ccs-category" class="section level4">
 <h4 class="hasAnchor">
 <a href="#-ccs-category" class="anchor"></a>單一階層分類 (CCS Category)</h4>
-<p><code>groupIcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述</p>
+<p><code>IcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述</p>
 <p>ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致: 共231種</p>
 <pre><code>## ICD to CCS category
-groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 #  "1"   "180" "1"   "1"
 
 ## ICD to CCS description
-groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Incision and excision of CNS"             "Other CT scan"                
 # "Incision and excision of CNS"             "Incision and excision of CNS"</code></pre>
 </div>
 <div id="-multiple-ccs-level" class="section level4">
 <h4 class="hasAnchor">
 <a href="#-multiple-ccs-level" class="anchor"></a>多階層分類 (Multiple ccs level)</h4>
-<p><code>groupIcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述</p>
+<p><code>IcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述</p>
 <p>ICD-9-PCS 共 3個階層 (Level 1~3)</p>
 <p>ICD-10-PCS 共 2個階層 (Level 1~2)</p>
 <pre><code>## ICD to CCS multiple level 1
-groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
+IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
 # "1.1"  "16.2" "1.1"  "1.1"
 
 ## ICD to CCS multiple level 2
-groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 #  "Incision  excision of CNS"               "Computerized axial tomography (CT) scan"
 #  "Incision  excision of CNS"               "Incision  excision of CNS"    </code></pre>
 </div>
@@ -176,7 +176,7 @@ groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <p>2.Minor Therapeutic: 非手術室執行之治療類處置</p>
 <p>3.Major Diagnostic: 需在手術室執行之診斷類處置</p>
 <p>4.Major Therapeutic: 需在手術室執行之治療類處置</p>
-<pre><code>groupIcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+<pre><code>IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"</code></pre>
 </div>
 </div>

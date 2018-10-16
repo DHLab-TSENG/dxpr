@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version-Diagnosis: Get Started</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
     </li>
     <li>
-      <a href="../articles/ChineseVersion_Procedure.html">Chinese Version-Procedure: Get Started</a>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
     </li>
   </ul>
 </li>
@@ -92,22 +92,22 @@
 <div id="generate-icd-9-cm-and-icd-10-cm-code-decimal-format-for-conversion-function" class="section level3">
 <h3 class="hasAnchor">
 <a href="#generate-icd-9-cm-and-icd-10-cm-code-decimal-format-for-conversion-function" class="anchor"></a>Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function</h3>
-<p>conversion function : <code>convertIcdDxDecimaltoShort and convertIcdDxShortToDecimal</code></p>
+<p>conversion function : <code>IcdDxDecimaltoShort and IcdDxShortToDecimal</code></p>
 <p>ICD-9</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD_9_CM_withTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
+ICD9DxwithTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
 
-icd9_Short &lt;- ICD_9_CM_withTwoFormat$Short[1:10]
+icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal &lt;- ICD_9_CM_withTwoFormat$Decimal[1:10]
+icd9_Decimal &lt;- ICD9DxwithTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
 <p>ICD-10</p>
 <pre><code>icd10 &lt;- ccsDxICD10$ICD
-ICD_10_CM_withTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
+ICD10DxwithTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
 
-icd10_Short &lt;- ICD_10_CM_withTwoFormat$Short[1:10]
+icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
-icd10_Decimal &lt;- ICD_10_CM_withTwoFormat$Decimal[1:10]
+icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
 </div>
 <div id="convert-icd-9-cm-and-icd-10-cm-code-format-short---decimal" class="section level3">
@@ -116,19 +116,19 @@ icd10_Decimal &lt;- ICD_10_CM_withTwoFormat$Decimal[1:10]
 <p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 <p>Convert ICD-CM code Short to Decimal.</p>
 <pre><code># ICD-9
-convertIcdDxShortToDecimal(icd9_Short)$Decimal
+IcdDxShortToDecimal(icd9_Short)$Decimal
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
 
 # ICD-10
-convertIcdDxShortToDecimal(icd10_Short)$Decimal
+IcdDxShortToDecimal(icd10_Short)$Decimal
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
 <p>Convert ICD-CM code Decimal to Short.</p>
 <pre><code># ICD-9
-convertIcdDxDecimaltoShort(icd9_Decimal)$Short
+IcdDxDecimaltoShort(icd9_Decimal)$Short
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 
 # ICD-10
-convertIcdDxDecimaltoShort(icd10_Decimal)$Short
+IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")</code></pre>
 </div>
 <div id="grouping-icd-9-and-icd-10-codes-by" class="section level2">
@@ -142,14 +142,14 @@ convertIcdDxDecimaltoShort(icd10_Decimal)$Short
 <div id="ccs-single-level-category" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ccs-single-level-category" class="anchor"></a>CCS single-level category</h4>
-<p><code>groupIcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p><code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
 <pre><code>## ICD to CCS category
-groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "99"  NA    "96"  "139"
 
 ## ICD to CCS description
-groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Hypertension with complications and secondary hypertension" NA  
 # "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" </code></pre>
 <p>If CCS return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues.</p>
@@ -162,15 +162,15 @@ groupIcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 <div id="ccs-multi-level" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ccs-multi-level" class="anchor"></a>CCS multi-level</h4>
-<p><code>groupIcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p><code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
 <pre><code>## ICD to CCS multiple level 1
-groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
+IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
 # "7" NA  "7" "9"
 
 ## ICD to CCS multiple level 3
-groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
+IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 # "7.1.2" NA      NA      NA    </code></pre>
 <p>If CCSlvl return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues</p>
 <p>for example,</p>
@@ -183,11 +183,11 @@ groupIcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 <div id="phecode" class="section level3">
 <h3 class="hasAnchor">
 <a href="#phecode" class="anchor"></a>Phecode</h3>
-<p><code>groupIcdDxToPhecode</code> allows for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).</p>
+<p><code>IcdDxToPhecode</code> allows for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).</p>
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
 <pre><code>## ICD to Phecode
-groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "401.21" NA       NA       NA   </code></pre>
 <p>If Phecode return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.</p>
 </div>
@@ -198,7 +198,7 @@ groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <pre><code>icdFile &lt;- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)</code></pre>
 <ol style="list-style-type: decimal">
 <li>
-<code>groupIcdDxToCustomGrep</code>: Use method of exhaustion to find out the matched ICD.</li>
+<code>IcdDxToCustomGrep</code>: Use method of exhaustion to find out the matched ICD.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
@@ -210,11 +210,11 @@ groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt; 3  Hypotension  I952</span>
 <span class="co">#&gt; 4 Hypertension  I110</span>
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>groupIcdDxToCustomGrep(icdFile, groupingTable)
+<pre><code>IcdDxToCustomGrep(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>
-<code>groupIcdDxToCustomGrepList</code>: Use a ICD pattern to find out the fit ICD.</li>
+<code>IcdDxToCustomGrepList</code>: Use a ICD pattern to find out the fit ICD.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
@@ -223,7 +223,7 @@ groupIcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt;          Group grep_pattern</span>
 <span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>groupIcdDxToCustomGrepList(icdFile, grepTable)
+<pre><code>IcdDxToCustomGrepList(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
 </div>
 <div id="comorbidities" class="section level3">
@@ -240,7 +240,7 @@ icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
 icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
+<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
 </div>
 <div id="charlson-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
@@ -252,7 +252,7 @@ icd9_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
 icd10_charlson$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
+<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
 </div>
 <div id="elixhauser-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
@@ -264,7 +264,7 @@ icd9_elix$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
 icd10_elix$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/groupIcdDxToComorbid.html">groupIcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
+<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
 </div>
 </div>
 </div>

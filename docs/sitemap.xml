@@ -16,46 +16,10 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD9.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDxDecimaltoShort.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdDxShortToDecimal.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdPrDecimaltoShort.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/convertIcdPrShortToDecimal.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/emr.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/getConditionEra.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCCS.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCCSLvl.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToComorbid.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToCustomGrep.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdDxToPhecode.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToCCS.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToCCSLvl.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupIcdPrToProcedureClass.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxGenerateDecimalFormat.html</loc>
@@ -94,6 +58,42 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/icd9_elix.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxDecimaltoShort.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxShortToDecimal.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCCS.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCCSLvl.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToComorbid.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCustomGrep.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToPhecode.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrDecimaltoShort.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrShortToDecimal.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToCCS.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToCCSLvl.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToProcedureClass.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/PcPrICD10.html</loc>
   </url>
   <url>
@@ -106,7 +106,7 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/selectCases.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_GetStarted.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_Diagnosis.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_Procedure.html</loc>

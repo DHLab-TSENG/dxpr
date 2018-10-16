@@ -1,5 +1,5 @@
 ---
-title: "Chinese Version-Procedure: Get Started"
+title: "Get Started: Chinese Version-Procedure"
 author: "Hsiang-Ju, Chiu"
 output: rmarkdown::html_vignette
 vignette: >
@@ -25,7 +25,7 @@ PrDataFile <- data.frame(ID=c("A","A","A","B"),
 cat(utils::packageDescription("emr")$Description)
 ```
 ### 產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short 
-供後續 ICD 格式轉換的功能使用 (`convertIcdPrDecimaltoShort 和 convertIcdPrShortToDecimal`) 
+供後續 ICD 格式轉換的功能使用 (`IcdPrDecimaltoShort 和 IcdPrShortToDecimal`) 
 
 ICD-9-PCS
 ```
@@ -49,21 +49,21 @@ icd10 <- ccsPrICD10$ICD[1:10]
 將 ICD-PCS code 的格式統一由 Short 轉成 Decimal
 ```
 # ICD-9
-convertIcdPrShortToDecimal(icd9_Short)$Decimal
+IcdPrShortToDecimal(icd9_Short)$Decimal
 # c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
 
 # ICD-10
-convertIcdPrShortToDecimal(icd10)$Decimal
+IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
 ```
 將 ICD-PCS code 的格式統一由 Decimal 轉成 Short
 ```
 # ICD-9
-convertIcdPrDecimaltoShort(icd9_Decimal)$Short
+IcdPrDecimaltoShort(icd9_Decimal)$Short
 # c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
 
 # ICD-10
-convertIcdPrShortToDecimal(icd10)$Decimal
+IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
 ```
 ## 將 ICD-9 及 ICD-10 code 依照不同的分類標準分類...
@@ -79,32 +79,32 @@ convertIcdPrShortToDecimal(icd10)$Decimal
 目前 ICD-9-PCS 的 CCS 版本為 2015 , ICD-10-PCS 的 CCS 版本為 2018
 
 ####單一階層分類 (CCS Category)
-`groupIcdPrToCCS` 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述
+`IcdPrToCCS` 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述
 
 ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致: 共231種
 ```
 ## ICD to CCS category
-groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 #  "1"   "180" "1"   "1"
 
 ## ICD to CCS description
-groupIcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Incision and excision of CNS"             "Other CT scan"                
 # "Incision and excision of CNS"             "Incision and excision of CNS"
 ```
 #### 多階層分類 (Multiple ccs level)
-`groupIcdPrToCCSLvl` 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述
+`IcdPrToCCSLvl` 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述
 
 ICD-9-PCS 共 3個階層 (Level 1~3)
 
 ICD-10-PCS 共 2個階層 (Level 1~2)
 ```
 ## ICD to CCS multiple level 1
-groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
+IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
 # "1.1"  "16.2" "1.1"  "1.1"
 
 ## ICD to CCS multiple level 2
-groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 #  "Incision  excision of CNS"               "Computerized axial tomography (CT) scan"
 #  "Incision  excision of CNS"               "Incision  excision of CNS"    
 ```
@@ -119,6 +119,6 @@ groupIcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 
 4.Major Therapeutic: 需在手術室執行之治療類處置
 ```
-groupIcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"
 ```

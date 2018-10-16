@@ -33,7 +33,7 @@ selectCases <- function(greplICD, DxDataFile, idColName, icdColName, dateColName
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   Format <- ifelse(any(grepl("[.]", DxDataFile$ICD)), "Decimal", "Short")
-  DxDataFile$ICD <- convertIcdDxDecimaltoShort(DxDataFile$ICD)$Short
+  DxDataFile$ICD <- IcdDxDecimaltoShort(DxDataFile$ICD)$Short
 
   CaseCount <- DxDataFile %>% filter(grepl(greplICD, ICD)) %>%
     arrange(ID, ICD, Date) %>%
@@ -49,7 +49,7 @@ selectCases <- function(greplICD, DxDataFile, idColName, icdColName, dateColName
     filter(CaseNum >= ICDNumber) %>%
     select(ID,ICD,Date)
 
-  WrongFormat <- convertIcdDxDecimaltoShort(DxDataFile$ICD)$Error
+  WrongFormat <- IcdDxDecimaltoShort(DxDataFile$ICD)$Error
   if(length(WrongFormat) > 0){
     message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
     warning('"wrong Format" means the ICD has wrong format', call. = F)

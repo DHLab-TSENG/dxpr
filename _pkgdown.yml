@@ -12,7 +12,7 @@ articles:
   desc: ~
   contents:
   - '`emr`'
-  - '`ChineseVersion_GetStarted`'
+  - '`ChineseVersion_Diagnosis`'
   - '`ChineseVersion_Procedure`'
 
 - title: Grouping ICD-9 and ICD-10 codes by ...
