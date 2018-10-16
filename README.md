@@ -3,7 +3,7 @@
 A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by `ccs, comorbidities and phecodes`, and calculating `condition era`. 
 There are some information about patients' diagnoses data: members' ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc...
 This tool can be used to group the ICD's multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!). 
-#Get started
+# Get started
 English introduction: https://dhlab-cgu.github.io/emr/articles/emr.html
 Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_GetStarted.html
 # Feature
@@ -22,7 +22,7 @@ devtools::install_github("DHLab-CGU/emr")
 # Generate ICD code Decimal Format for conversion function
 ICD codes have two forms: decimal`E950.7` and short`E9507` format, first at all, unifing the ICD codes format.
 There are two function to generate ICD codes' decimal format.
-# Convert ICD-9-CM and ICD-10-CM code Format: Short <->Decimal
+## Convert ICD-9-CM and ICD-10-CM code Format: Short <-> Decimal
 There are two functions to let user convert ICD code format  for the following function for grouping methods.
 Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.
 # Grouping ICD codes by ...
