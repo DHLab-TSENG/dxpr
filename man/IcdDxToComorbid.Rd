@@ -3,6 +3,21 @@
 \name{IcdDxToComorbid}
 \alias{IcdDxToComorbid}
 \title{Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
+\source{
+AHRQ
+
+Charlson
+
+Elixhauser
+
+ICD-9-CM Elixhauser (2012-2015)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
+
+ICD-10-CM Elixhauser (2018)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
+}
 \usage{
 IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, comorbidMethod, NumericOrBinary = B,

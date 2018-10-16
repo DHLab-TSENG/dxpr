@@ -270,3 +270,42 @@ selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ```
+# Reference
+
+### ICD 格式: Short 和 Decimal
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### ICD 格式轉換功能 (`IcdDxDecimaltoShort 和 IcdDxShortToDecimal`)
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### 臨床分類軟體 (Clinical Classifications Software, CCS)
+
+ICD-9-CM (2012): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+
+https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
+
+ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip
+
+### Phecode
+
+ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
+
+### Comorbidities 共病症
+
+#### AHRQ
+
+#### Charlson
+
+#### Elixhauser
+
+ICD-9-CM (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+
+ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp
+
+

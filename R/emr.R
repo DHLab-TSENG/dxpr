@@ -236,6 +236,7 @@ NULL
 #' @usage data(icd9_elix)
 #' @format A data frame with 13742 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 NULL
 
 #' Elixhauser Comorbidity for ICD-10
@@ -254,6 +255,7 @@ NULL
 #' @usage data(icd10_elix)
 #' @format A data frame with 399 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 NULL
 
 #' Phecode for ICD-9

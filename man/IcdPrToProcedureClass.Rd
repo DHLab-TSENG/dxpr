@@ -3,6 +3,15 @@
 \name{IcdPrToProcedureClass}
 \alias{IcdPrToProcedureClass}
 \title{Get the Procedure Class for ICD-9 and ICD-10 codes on procedures.}
+\source{
+ICD-9-Procedure Class (2015)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
+
+ICD-10-Procedure Class (2018)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
+}
 \usage{
 IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
   icd10usingDate, isProcedureClassName = TRUE)

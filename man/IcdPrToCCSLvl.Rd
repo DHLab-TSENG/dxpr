@@ -3,6 +3,15 @@
 \name{IcdPrToCCSLvl}
 \alias{IcdPrToCCSLvl}
 \title{Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on procedures.}
+\source{
+ICD-9-PCS CCS (2015)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
+
+ICD-10-PCS CCS (2018)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
+}
 \usage{
 IcdPrToCCSLvl(PrDataFile, idColName, icdColName, dateColName,
   icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE)

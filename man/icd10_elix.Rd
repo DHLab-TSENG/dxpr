@@ -5,6 +5,9 @@
 \alias{icd10_elix}
 \title{Elixhauser Comorbidity for ICD-10}
 \format{A data frame with 399 rows and 3 variables}
+\source{
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
+}
 \usage{
 data(icd10_elix)
 }

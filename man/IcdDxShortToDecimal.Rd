@@ -3,6 +3,11 @@
 \name{IcdDxShortToDecimal}
 \alias{IcdDxShortToDecimal}
 \title{Convert ICD Codes From Short To Decimal Forms}
+\source{
+\url{https://www.findacode.com/search/search.php}
+
+\url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+}
 \usage{
 IcdDxShortToDecimal(icdList)
 }

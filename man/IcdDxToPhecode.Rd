@@ -4,6 +4,8 @@
 \alias{IcdDxToPhecode}
 \title{Get the Phecode or description of ICD-9 diagnosis codes}
 \source{
+ICD-9-Phecode (version 1.2, 2015)
+
 \url{https://phewascatalog.org/phecodes}
 }
 \usage{

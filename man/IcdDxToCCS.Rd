@@ -3,6 +3,17 @@
 \name{IcdDxToCCS}
 \alias{IcdDxToCCS}
 \title{Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.}
+\source{
+ICD-9-CM CCS (2012)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
+
+ICD-10-CM CCS (2018)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
+}
 \usage{
 IcdDxToCCS(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
   isCCSCategoryDescription = TRUE)

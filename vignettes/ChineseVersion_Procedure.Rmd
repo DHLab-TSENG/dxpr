@@ -122,3 +122,28 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"
 ```
+# Reference
+
+### ICD 格式: Short 和 Decimal
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### ICD 格式轉換功能 (`IcdPrDecimaltoShort` 和 `IcdPrShortToDecimal`)
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### 臨床分類軟體 (Clinical Classifications Software, CCS)
+
+ICD-9-PCS CCS (2015): https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv
+
+ICD-10-PCS CCS (2018): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp
+
+### Procedure Class
+
+ICD-9-Procedure Class (2015): https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv
+
+ICD-10-Procedure Class (2018): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp

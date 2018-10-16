@@ -24,6 +24,15 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param NumericOrBinary  Member have one (or more) diagnostic comorbidities, type `N` or `B`, default is `B` (Binary)
 #' @param groupByDate Default is True.
 #' @export
+#' @source AHRQ
+
+#' @source Charlson
+
+#' @source Elixhauser
+#' @source ICD-9-CM Elixhauser (2012-2015)
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
+#' @source ICD-10-CM Elixhauser (2018)
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","B","B"),
 #'                          ICD=c("40201","42577","I350","K289"),

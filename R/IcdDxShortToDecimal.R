@@ -3,8 +3,9 @@
 #' Convert codes between short and decimal forms
 #'
 #' @import dplyr
-#'
 #' @param icdList ICD codes
+#' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #'
 IcdDxShortToDecimal<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)

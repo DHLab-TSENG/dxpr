@@ -3,8 +3,9 @@
 #' Return codes with Decimal forms
 #'
 #' @import dplyr
-#'
 #' @param icdList only ICD-9-PCS codes have decimal and short forms
+#' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #'
 IcdPrShortToDecimal<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)

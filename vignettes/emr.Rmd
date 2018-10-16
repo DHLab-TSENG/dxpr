@@ -244,3 +244,39 @@ Condition Eras are built with a Persistence Window, deafault is 30 days.
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ```
+# Reference
+### ICD format: Short and Decimal
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### ICD function of conversion (`IcdDxDecimaltoShort 和 IcdDxShortToDecimal`)
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### CCS (Clinical Classifications Software)
+
+ICD-9-CM (2012): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+
+https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
+
+ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip
+
+### Phecode
+
+ICD-9-CM (version 1.2, 2015): https://phewascatalog.org/phecodes
+
+### Comorbidities
+
+#### AHRQ
+
+#### Charlson
+
+#### Elixhauser
+
+ICD-9-CM (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+
+ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp

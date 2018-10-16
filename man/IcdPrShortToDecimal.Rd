@@ -3,6 +3,11 @@
 \name{IcdPrShortToDecimal}
 \alias{IcdPrShortToDecimal}
 \title{Convert ICD-9-PCS Codes From Short To Decimal Forms}
+\source{
+\url{https://www.findacode.com/search/search.php}
+
+\url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+}
 \usage{
 IcdPrShortToDecimal(icdList)
 }
