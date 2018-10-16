@@ -4,8 +4,8 @@ A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by 
 There are some information about patients' diagnoses data: members' ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc...
 This tool can be used to group the ICD's multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!). 
 # Get started
-English introduction: https://dhlab-cgu.github.io/emr/articles/emr.html
-Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_GetStarted.html
+- English introduction: https://dhlab-cgu.github.io/emr/articles/emr.html
+- Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_GetStarted.html
 # Feature
 - convert ICD code's format: Short <-> Decimal
 - Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses
