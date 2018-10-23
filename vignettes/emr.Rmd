@@ -201,17 +201,17 @@ icd10_charlson$Comorbidity %>% unique
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
 #### Elixhauser comorbidity classification
-Elixhauser comorbidity measure dataframe is based on `icd package`: icd9_map_elix, icd10_map_elix
+Elixhauser comorbidity measure data.
 
- ICD-9
+The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
+
+ ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)
 ```
-# convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %>% unique
+icd9_elix_2015$Comorbidity %>% unique
 ```
- ICD-10
+ ICD-10-Elixhauser: Version 2019.1  (valid for FY2019 ICD-10-CM codes) 
 ```
-# convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %>% unique
+icd10_elix_2019$Comorbidity %>% unique
 ```
 ```
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
@@ -277,6 +277,6 @@ ICD-9-CM (version 1.2, 2015): https://phewascatalog.org/phecodes
 
 #### Elixhauser
 
-ICD-9-CM (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+ICD-9-Elixhauser (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
 
-ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp
+ICD-10-Elixhauser (2019): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt

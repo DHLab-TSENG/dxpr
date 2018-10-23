@@ -4,15 +4,22 @@
 \alias{ICD10DxGenerateDecimalFormat}
 \title{get ICD-10-CM Codes Decimal Forms}
 \source{
+2019-ICD-10-CM
+
+\url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
+
 \url{https://www.findacode.com/search/search.php}
 }
 \usage{
 ICD10DxGenerateDecimalFormat(icd10)
 }
 \arguments{
-\item{icd10}{ICD-10-CM codes}
+\item{icd10}{ICD-10-CM codes from dxICD10 file}
 }
 \description{
 Convert codes between short and decimal forms.
 Format ICD-10-CM Principal and Other Diagnosis Codes can be found at url link.
+}
+\details{
+return `ICD10DxwithTwoFormat` for ICD function of conversion
 }

@@ -4,7 +4,7 @@
 \name{icd9_elix}
 \alias{icd9_elix}
 \title{Elixhauser Comorbidity for ICD-9}
-\format{A data frame with 13742 rows and 3 variables}
+\format{A data frame with 1251 rows and 4 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 }
@@ -17,7 +17,8 @@ A dataframe for ICD-9 Elixhauser comorbidity mapping
 \details{
 \itemize{
   \item ICD. ICD-9
-  \item Comorbidity. comorbidity measures for ICD-9 (CHF, Arrhythmia, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
+  \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-9
+  \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
   \item Value. if ICD code has comorbidity measures, value is 1
 }
 }

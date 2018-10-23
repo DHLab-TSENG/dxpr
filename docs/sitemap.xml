@@ -16,6 +16,12 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD9.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/dxICD10.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/dxICD9.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/emr.html</loc>
   </url>
   <url>
@@ -94,13 +100,19 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToProcedureClass.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/PcPrICD10.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/pcICD10.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/PcPrICD9.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/pcICD9.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/prICD10.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/prICD9.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/selectCases.html</loc>

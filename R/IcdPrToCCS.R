@@ -17,9 +17,10 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10, default is True
 #' @export
 #' @source ICD-9-PCS CCS (2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
-#' @source ICD-10-PCS CCS (2018)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
+#' @source ICD-10-PCS CCS (2019)
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2019_1.zip}
 #' @examples
 #' PrDataFile <- data.frame(ID=c("A","A","A","B"),
 #'                          ICD=c("0101","8838","00870ZZ","00920ZZ"),

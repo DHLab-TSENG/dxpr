@@ -169,7 +169,7 @@
 <p>Elixhauser</p>
 <p>ICD-9-CM Elixhauser (2012-2015)</p>
 <p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM Elixhauser (2018)</p>
+<p>ICD-10-CM Elixhauser (2019)</p>
 <p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -199,18 +199,18 @@
 #&gt; 2  B FALSE FALSE FALSE  FALSE    FALSE     FALSE     FALSE  TRUE     FALSE
 #&gt;      DM  DMcx Paralysis Renal Cancer LiverSevere  Mets   HIV
 #&gt; 1 FALSE FALSE     FALSE FALSE  FALSE       FALSE FALSE FALSE
-#&gt; 2 FALSE FALSE     FALSE FALSE  FALSE       FALSE FALSE FALSE</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>elix</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   ID CHF Arrhythmia Valvular PHTN PVD HTN HTNcx Paralysis NeuroOther Pulmonary
-#&gt; 1  A   0          0        0    0   0   0     0         0          0         0
-#&gt; 2  B   0          0        0    0   0   0     0         0          0         0
-#&gt;   DM DMcx Hypothyroid Renal Liver PUD HIV Lymphoma Mets Tumor Rheumatic
-#&gt; 1  0    0           0     0     0   0   0        0    0     0         0
-#&gt; 2  0    0           0     0     0   1   0        0    0     0         0
-#&gt;   Coagulopathy Obesity WeightLoss FluidsLytes BloodLoss Anemia Alcohol Drugs
-#&gt; 1            0       0          0           0         0      0       0     0
-#&gt; 2            0       0          0           0         0      0       0     0
-#&gt;   Psychoses Depression
-#&gt; 1         0          0
-#&gt; 2         0          0</div><div class='input'>
+#&gt; 2 FALSE FALSE     FALSE FALSE  FALSE       FALSE FALSE FALSE</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='no'>elix</span>, <span class='no'>N</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   ID AIDS LIVER VALVE TUMOR METS LYMPH HYPOTHY DM DMCX WGHTLOSS LYTES OBESE
+#&gt; 1  A    0     0     0     0    0     0       0  0    0        0     0     0
+#&gt; 2  B    0     0     0     0    0     0       0  0    0        0     0     0
+#&gt;   BLDLOSS ANEMDEF COAG ALCOHOL DRUG PSYCH DEPRESS NEURO PARA CHF HTNCX HTN
+#&gt; 1       0       0    0       0    0     0       0     0    0   0     0   0
+#&gt; 2       0       0    0       0    0     0       0     0    0   0     0   0
+#&gt;   HTNWOCHF HTNWCHF HRENWORF HRENWRF HHRWOHRF HHRWCHF HHRWRF HHRWHRF PULMCIRC
+#&gt; 1        0       1        0       0        0       0      0       0        0
+#&gt; 2        0       0        0       0        0       0      0       0        0
+#&gt;   PERIVASC CHRNLUNG ULCER RENLFAIL HTNPREG OHTNPREG ARTH
+#&gt; 1        0        0     0        0       0        0    0
+#&gt; 2        0        0     1        0       0        0    0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

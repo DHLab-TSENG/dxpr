@@ -31,7 +31,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source Elixhauser
 #' @source ICD-9-CM Elixhauser (2012-2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-#' @source ICD-10-CM Elixhauser (2018)
+#' @source ICD-10-CM Elixhauser (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 #' @examples
 #' DxDataFile <- data.frame(ID=c("A","A","B","B"),

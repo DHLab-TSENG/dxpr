@@ -4,6 +4,10 @@
 \alias{ICD9DxGenerateDecimalFormat}
 \title{get ICD-9-CM Codes Decimal Forms}
 \source{
+2011-ICD-9-CM
+
+\url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
+
 \url{https://www.findacode.com/search/search.php}
 
 \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
@@ -12,9 +16,12 @@
 ICD9DxGenerateDecimalFormat(icd9)
 }
 \arguments{
-\item{icd9}{ICD-9-CM codes}
+\item{icd9}{ICD-9-CM codes from dxICD9 file}
 }
 \description{
 Convert codes between short and decimal forms
 Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link.
+}
+\details{
+return `ICD9DxwithTwoFormat` for ICD function of conversion
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the Procedure Class for ICD-9 and ICD-10 codes on procedures. — groupIcdPrToProcedureClass • emr</title>
+<title>ICD-10-CM — dxICD10 • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the Procedure Class for ICD-9 and ICD-10 codes on procedures. — groupIcdPrToProcedureClass" />
+<meta property="og:title" content="ICD-10-CM — dxICD10" />
 
-<meta property="og:description" content="return Procedure Class categories based on ICD-9 and ICD-10 codes" />
+<meta property="og:description" content="A dataframe for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -87,10 +87,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version-Diagnosis: Get Started</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
     </li>
     <li>
-      <a href="../articles/ChineseVersion_Procedure.html">Chinese Version-Procedure: Get Started</a>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
     </li>
   </ul>
 </li>
@@ -110,65 +110,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the Procedure Class for ICD-9 and ICD-10 codes on procedures.</h1>
+    <h1>ICD-10-CM</h1>
     
-    <div class="hidden name"><code>groupIcdPrToProcedureClass.Rd</code></div>
+    <div class="hidden name"><code>dxICD10.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>return Procedure Class categories based on ICD-9 and ICD-10 codes</p>
+    <p>A dataframe for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>groupIcdPrToProcedureClass</span>(<span class='no'>PrDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='kw'>isProcedureClassName</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>dxICD10</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 71931 rows and 2 variables</p>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>PrDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
-    </tr>
-    <tr>
-      <th>idColName</th>
-      <td><p>A column for MemberID of PrDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdColName</th>
-      <td><p>A column for ICD of PrDataFile</p></td>
-    </tr>
-    <tr>
-      <th>dateColName</th>
-      <td><p>A column for Date of PrDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
-    </tr>
-    <tr>
-      <th>isProcedureClassName</th>
-      <td><p>Procedure Class category/name for ICD-9 or ICD-10, default is True</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html'>https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <ul>
+<li><p>ICD. ICD-10-CM</p></li>
+<li><p>ICD_DESCRIPTION. ICD-10-CM description</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='dxICD9.html'>dxICD9</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>PrDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>),
-                         <span class='kw'>ICD</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"0101"</span>,<span class='st'>"8838"</span>,<span class='st'>"00870ZZ"</span>,<span class='st'>"00920ZZ"</span>),
-                         <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>,<span class='st'>"2016-03-10"</span>)),
-                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>groupIcdPrToProcedureClass</span>(<span class='no'>PrDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2" "1" "4" "4"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

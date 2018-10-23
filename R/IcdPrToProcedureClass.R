@@ -1,6 +1,6 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "PcPrICD9",
-  "PcPrICD10"))
+  "pcICD9",
+  "pcICD10"))
 #' Get the Procedure Class for ICD-9 and ICD-10 codes on procedures.
 #'
 #'
@@ -35,8 +35,8 @@ IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName
   icd9 <- PrDataFile[PrDataFile$Date < icd10usingDate,] %>% unique()
   icd10 <- PrDataFile[PrDataFile$Date >= icd10usingDate,] %>% unique()
 
-  icd9ToPC <- left_join(icd9, PcPrICD9, by = "ICD")
-  icd10ToPC <- left_join(icd10, PcPrICD10, by = "ICD")
+  icd9ToPC <- left_join(icd9, pcICD9, by = "ICD")
+  icd10ToPC <- left_join(icd10, pcICD10, by = "ICD")
   PC_combine <- rbind(icd9ToPC, icd10ToPC)
 
   PC_combine_with_originalFile <- left_join(PrDataFile, PC_combine, by = c("ID", "ICD", "Date"))

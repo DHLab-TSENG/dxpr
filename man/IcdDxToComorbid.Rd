@@ -14,7 +14,7 @@ ICD-9-CM Elixhauser (2012-2015)
 
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 
-ICD-10-CM Elixhauser (2018)
+ICD-10-CM Elixhauser (2019)
 
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 }

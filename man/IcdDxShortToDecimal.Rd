@@ -7,6 +7,10 @@
 \url{https://www.findacode.com/search/search.php}
 
 \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+
+\url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
+
+\url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 }
 \usage{
 IcdDxShortToDecimal(icdList)

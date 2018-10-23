@@ -3,8 +3,11 @@
 #' Convert codes between short and decimal forms
 #' Format ICD-9-PCS Principal and Other Diagnosis Codes can be found at url link.
 #'
-#' @param icd9 ICD-9-PCS codes
+#' return `ICD9PrwithTwoFormat` for ICD function of conversion
+#' @param icd9 ICD-9-PCS codes from prICD9 file
+#' @source 2014-ICD-9-PCS
 #' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #'
 ICD9PrGenerateDecimalFormat <- function(icd9){
   icd9 <- data.frame(Short = icd9,stringsAsFactors = F)
@@ -17,3 +20,4 @@ ICD9PrGenerateDecimalFormat <- function(icd9){
                                   substr(icd9$Short[icd9_4], start= 3, stop = 4), sep = "")
   icd9
 }
+

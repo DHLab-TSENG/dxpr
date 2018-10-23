@@ -10,9 +10,9 @@ ICD-9-CM CCS (2012)
 
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 
-ICD-10-CM CCS (2018)
+ICD-10-CM CCS (2019)
 
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 }
 \usage{
 IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,

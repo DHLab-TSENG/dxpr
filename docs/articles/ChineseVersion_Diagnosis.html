@@ -268,14 +268,12 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <div id="elixhauser-" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser-" class="anchor"></a>Elixhauser 共病症分類</h4>
-<p>目前使用 Charlson 共病症測量指標的 data frame 是基於<code>icd package</code> (<code>icd9_map_elix 及 icd10_map_elix</code>), 使 ICD code 依其相關的共病症做分類</p>
-<p>ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 31 種</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %&gt;% unique</code></pre>
+<p>Elixhauser database共病症測量指標為HCUP (Healthcare Cost and Utilization Project)發展的共病症資料庫之一, 使 ICD code 依其相關的共病症做分類</p>
+<p>ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 29 種</p>
+<p>ICD-9-Elixhauser: 版本為3.7 (ICD-9-CM codes October 1, 2011)</p>
+<pre><code>icd9_elix_2015$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10-Elixhauser: 版本為2019.1 (FY2019 ICD-10-CM codes)</p>
+<pre><code>icd10_elix_2019$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
 <pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
 </div>
@@ -349,8 +347,8 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <div id="elixhauser" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser" class="anchor"></a>Elixhauser</h4>
-<p>ICD-9-CM (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>

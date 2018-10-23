@@ -257,13 +257,12 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <div id="elixhauser-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser-comorbidity-classification" class="anchor"></a>Elixhauser comorbidity classification</h4>
-<p>Elixhauser comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_elix, icd10_map_elix</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %&gt;% unique</code></pre>
+<p>Elixhauser comorbidity measure data.</p>
+<p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
+<p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
+<pre><code>icd9_elix_2015$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10-Elixhauser: Version 2019.1 (valid for FY2019 ICD-10-CM codes)</p>
+<pre><code>icd10_elix_2019$Comorbidity %&gt;% unique</code></pre>
 <pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
 </div>
 </div>
@@ -335,8 +334,8 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <div id="elixhauser" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser" class="anchor"></a>Elixhauser</h4>
-<p>ICD-9-CM (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>

@@ -1,5 +1,6 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-"ICD9PrwithTwoFormat"))
+"ICD9PrwithTwoFormat",
+"prICD10"))
 #' Convert ICD-9-PCS Codes From Decimal To Short Forms
 #'
 #' Return codes with short forms
@@ -8,6 +9,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdList only ICD-9-PCS codes have decimal and short forms
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
 #'
 IcdPrDecimaltoShort<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
@@ -16,7 +18,7 @@ IcdPrDecimaltoShort<-function(icdList){
 
   icd9_D <- left_join(icd_Decimal, ICD9PrwithTwoFormat, by = "Decimal")
   icd9_S <- left_join(icd_Short, ICD9PrwithTwoFormat, by = "Short")
-  icd10_S <- semi_join(icd9_S[is.na(icd9_S$Decimal),], select(ccsPrICD10,ICD), by = c("Short" = "ICD"))
+  icd10_S <- semi_join(icd9_S[is.na(icd9_S$Decimal),], select(prICD10,ICD), by = c("Short" = "ICD"))
   combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),],icd10_S)
   combine <- rbind(icd9_D[!is.na(icd9_D$Short),],combine_S) %>% arrange(Number)
 

@@ -227,13 +227,12 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 </div>
 <div id="elixhauser-comorbidity-classification" class="section level4">
 <h4>Elixhauser comorbidity classification</h4>
-<p>Elixhauser comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_elix, icd10_map_elix</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %&gt;% unique</code></pre>
+<p>Elixhauser comorbidity measure data.</p>
+<p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
+<p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
+<pre><code>icd9_elix_2015$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10-Elixhauser: Version 2019.1 (valid for FY2019 ICD-10-CM codes)</p>
+<pre><code>icd10_elix_2019$Comorbidity %&gt;% unique</code></pre>
 <pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
 </div>
 </div>
@@ -264,38 +263,38 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 </div>
 <div id="reference" class="section level1">
 <h1>Reference</h1>
-<div id="icd-format-short-and-decimal" class="section level2">
-<h2>ICD format: Short and Decimal</h2>
+<div id="icd-format-short-and-decimal" class="section level3">
+<h3>ICD format: Short and Decimal</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="icd--icddxdecimaltoshort--icddxshorttodecimal" class="section level2">
-<h2>ICD 格式轉換功能 (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h2>
+<div id="icd-function-of-conversion-icddxdecimaltoshort--icddxshorttodecimal" class="section level3">
+<h3>ICD function of conversion (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="-clinical-classifications-software-ccs" class="section level2">
-<h2>臨床分類軟體 (Clinical Classifications Software, CCS)</h2>
+<div id="ccs-clinical-classifications-software" class="section level3">
+<h3>CCS (Clinical Classifications Software)</h3>
 <p>ICD-9-CM (2012): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip</a></p>
 </div>
-<div id="phecode-1" class="section level2">
-<h2>Phecode</h2>
+<div id="phecode-1" class="section level3">
+<h3>Phecode</h3>
 <p>ICD-9-CM (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
 </div>
-<div id="comorbidities-" class="section level2">
-<h2>Comorbidities 共病症</h2>
-<div id="ahrq" class="section level3">
-<h3>AHRQ</h3>
+<div id="comorbidities-1" class="section level3">
+<h3>Comorbidities</h3>
+<div id="ahrq" class="section level4">
+<h4>AHRQ</h4>
 </div>
-<div id="charlson" class="section level3">
-<h3>Charlson</h3>
+<div id="charlson" class="section level4">
+<h4>Charlson</h4>
 </div>
-<div id="elixhauser" class="section level3">
-<h3>Elixhauser</h3>
-<p>ICD-9-CM (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
+<div id="elixhauser" class="section level4">
+<h4>Elixhauser</h4>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>

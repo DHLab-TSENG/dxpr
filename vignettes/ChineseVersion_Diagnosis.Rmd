@@ -221,19 +221,17 @@ icd10_charlson$Comorbidity %>% unique
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
 ```
 #### Elixhauser 共病症分類
-目前使用 Charlson 共病症測量指標的 data frame 是基於`icd package` (`icd9_map_elix 及 icd10_map_elix`), 使 ICD code 依其相關的共病症做分類
+Elixhauser database共病症測量指標為HCUP (Healthcare Cost and Utilization Project)發展的共病症資料庫之一, 使 ICD code 依其相關的共病症做分類
 
-ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 31 種
+ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 29 種
 
- ICD-9
+ ICD-9-Elixhauser: 版本為3.7 (ICD-9-CM codes October 1, 2011)
 ```
-# convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %>% unique
+icd9_elix_2015$Comorbidity %>% unique
 ```
- ICD-10
+ ICD-10-Elixhauser: 版本為2019.1  (FY2019 ICD-10-CM codes) 
 ```
-# convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %>% unique
+icd10_elix_2019$Comorbidity %>% unique
 ```
 欲將 ICD 依照 Charlson 共病症分類, 在 function `IcdDxToComorbid` 的`comorbidMethod` 輸入 `elix`
 ```
@@ -304,8 +302,6 @@ ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
 
 #### Elixhauser
 
-ICD-9-CM (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+ICD-9-Elixhauser (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
 
-ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp
-
-
+ICD-10-Elixhauser (2019): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt

@@ -4,15 +4,15 @@
 \name{ccsDxICD10}
 \alias{ccsDxICD10}
 \title{Clinical Classifications Software (CCS)  for ICD-10-CM}
-\format{A data frame with 72167 rows and 8 variables}
+\format{A data frame with 72446 rows and 8 variables}
 \source{
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 }
 \usage{
 data(ccsDxICD10)
 }
 \description{
-A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 }
 \details{
 \itemize{

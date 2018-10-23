@@ -4,6 +4,78 @@
 #' @docType package
 NULL
 
+#' ICD-9-CM
+#'
+#' A dataframe for ICD-9-CM, containing ICD-9-CM code and ICD description(Updated for codes valid through FY 2011.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-9-CM
+#'   \item ICD_DESCRIPTION. ICD-9-CM description
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name dxICD9
+#' @usage data(dxICD10)
+#' @format A data frame with 14567 rows and 2 variables
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
+#' @seealso \code{\link{dxICD10}}
+NULL
+
+#' ICD-10-CM
+#'
+#' A dataframe for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-10-CM
+#'   \item ICD_DESCRIPTION. ICD-10-CM description
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name dxICD10
+#' @usage data(dxICD10)
+#' @format A data frame with 71931 rows and 2 variables
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
+#' @seealso \code{\link{dxICD9}}
+NULL
+
+#' ICD-9-PCS
+#'
+#' A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-9-PCS
+#'   \item ICD_DESCRIPTION. ICD-9-PCS description
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name prICD9
+#' @usage data(prICD9)
+#' @format A data frame with 3882 rows and 2 variables
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
+#' @seealso \code{\link{prICD10}}
+NULL
+
+#' ICD-10-PCS
+#'
+#' A dataframe for ICD-10-PCS, containing ICD-10-PCS code and ICD description(Updated for codes valid through FY 2019.)
+#'
+#' \itemize{
+#'   \item ICD. ICD-10-PCS
+#'   \item ICD_DESCRIPTION. ICD-10-PCS description
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name prICD10
+#' @usage data(prICD10)
+#' @format A data frame with 78880 rows and 2 variables
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
+#' @seealso \code{\link{prICD9}}
+NULL
+
 #' Clinical Classifications Software (CCS)  for ICD-9-CM
 #'
 #' A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
@@ -35,7 +107,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-CM
 #'
-#' A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+#' A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM
@@ -52,8 +124,8 @@ NULL
 #' @keywords dataframe
 #' @name ccsDxICD10
 #' @usage data(ccsDxICD10)
-#' @format A data frame with 72167 rows and 8 variables
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip}
+#' @format A data frame with 72446 rows and 8 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @seealso \code{\link{ccsDxICD9}}
 NULL
 
@@ -79,14 +151,12 @@ NULL
 #' @name ccsPrICD9
 #' @usage data(ccsPrICD9)
 #' @format A data frame with 3948 rows and 10 variables
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 #' @seealso \code{\link{ccsPrICD10}}
 NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-PCS
 #'
-#' A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2018.)
+#' A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-PCS
@@ -103,8 +173,8 @@ NULL
 #' @keywords dataframe
 #' @name ccsPrICD10
 #' @usage data(ccsPrICD10)
-#' @format A data frame with 79366 rows and 8 variables
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2018_1.zip}
+#' @format A data frame with 79758 rows and 8 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2019_1.zip}
 #' @seealso \code{\link{ccsPrICD9}}
 NULL
 
@@ -121,16 +191,17 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name PcPrICD9
-#' @usage data(PcPrICD9)
+#' @name pcICD9
+#' @usage data(pcICD9)
 #' @format A data frame with 3948 rows and 4 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
-#' @seealso \code{\link{PcPrICD10}}
+#' @seealso \code{\link{pcICD10}}
 NULL
+
 
 #' Procedure Class for ICD-10-PCS
 #'
-#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2018.)
+#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM procedure codes
@@ -141,11 +212,11 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name PcPrICD10
-#' @usage data(PcPrICD10)
-#' @format A data frame with 79366 rows and 4 variables
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
-#' @seealso \code{\link{PcPrICD9}}
+#' @name pcICD10
+#' @usage data(pcICD10)
+#' @format A data frame with 79758 rows and 4 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/pc_icd10pcs_2019_1.zip}
+#' @seealso \code{\link{pcICD9}}
 NULL
 
 #' AHRQ Comorbidity for ICD-9
@@ -226,7 +297,8 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
-#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, Arrhythmia, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
+#'   \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-9
+#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
 #'   \item Value. if ICD code has comorbidity measures, value is 1
 #' }
 #'
@@ -234,7 +306,7 @@ NULL
 #' @keywords dataframe
 #' @name icd9_elix
 #' @usage data(icd9_elix)
-#' @format A data frame with 13742 rows and 3 variables
+#' @format A data frame with 1251 rows and 4 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 NULL
@@ -245,7 +317,8 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
-#'   \item Comorbidity. comorbidity measures for ICD-10 (CHF, Arrhythmia, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
+#'   \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-10
+#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
 #'   \item Value. if ICD code has comorbidity measures, value is 1
 #' }
 #'
@@ -253,7 +326,7 @@ NULL
 #' @keywords dataframe
 #' @name icd10_elix
 #' @usage data(icd10_elix)
-#' @format A data frame with 399 rows and 3 variables
+#' @format A data frame with 3493 rows and 4 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 NULL
@@ -282,7 +355,7 @@ NULL
 #' @source \url{https://phewascatalog.org/phecodes}
 NULL
 
-#' Two format of ICD-9-CM: Short and Decimal
+#' Two format of ICD-9-CM (2011): Short and Decimal
 #'
 #' A dataframe for ICD-9 format conversion
 #'
@@ -295,13 +368,14 @@ NULL
 #' @keywords dataframe
 #' @name ICD9DxwithTwoFormat
 #' @usage data(ICD9DxwithTwoFormat)
-#' @format A data frame with 15072 rows and 2 variables
+#' @format A data frame with 14567 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #' @seealso \code{\link{ICD10DxwithTwoFormat}}
 NULL
 
-#' Two format of ICD-10-CM: Short and Decimal
+#' Two format of ICD-10-CM (2019): Short and Decimal
 #'
 #' A dataframe for ICD-10 format conversion
 #'
@@ -314,8 +388,8 @@ NULL
 #' @keywords dataframe
 #' @name ICD10DxwithTwoFormat
 #' @usage data(ICD10DxwithTwoFormat)
-#' @format A data frame with 72167 rows and 2 variables
-#' @source \url{https://www.findacode.com/search/search.php}
+#' @format A data frame with 71931 rows and 2 variables
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #' @seealso \code{\link{ICD9DxwithTwoFormat}}
 NULL
 
@@ -332,6 +406,7 @@ NULL
 #' @keywords dataframe
 #' @name ICD9PrwithTwoFormat
 #' @usage data(ICD9PrwithTwoFormat)
-#' @format A data frame with 3948 rows and 2 variables
+#' @format A data frame with 3882 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
+#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 NULL

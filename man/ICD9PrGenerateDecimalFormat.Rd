@@ -4,15 +4,22 @@
 \alias{ICD9PrGenerateDecimalFormat}
 \title{get ICD-9-PCS Codes Decimal Forms}
 \source{
+2014-ICD-9-PCS
+
 \url{https://www.findacode.com/search/search.php}
+
+\url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 }
 \usage{
 ICD9PrGenerateDecimalFormat(icd9)
 }
 \arguments{
-\item{icd9}{ICD-9-PCS codes}
+\item{icd9}{ICD-9-PCS codes from prICD9 file}
 }
 \description{
 Convert codes between short and decimal forms
 Format ICD-9-PCS Principal and Other Diagnosis Codes can be found at url link.
+}
+\details{
+return `ICD9PrwithTwoFormat` for ICD function of conversion
 }

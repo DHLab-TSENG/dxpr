@@ -3,10 +3,12 @@
 \docType{data}
 \name{ICD9DxwithTwoFormat}
 \alias{ICD9DxwithTwoFormat}
-\title{Two format of ICD-9-CM: Short and Decimal}
-\format{A data frame with 15072 rows and 2 variables}
+\title{Two format of ICD-9-CM (2011): Short and Decimal}
+\format{A data frame with 14567 rows and 2 variables}
 \source{
 \url{https://www.findacode.com/search/search.php}
+
+\url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 
 \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 }

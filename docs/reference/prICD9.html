@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get ICD-9-CM Codes Decimal Forms — ICD_9_CM_GenerateDecimalFormat • emr</title>
+<title>ICD-9-PCS — prICD9 • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="get ICD-9-CM Codes Decimal Forms — ICD_9_CM_GenerateDecimalFormat" />
+<meta property="og:title" content="ICD-9-PCS — prICD9" />
 
-<meta property="og:description" content="Convert codes between short and decimal forms
-Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link." />
+<meta property="og:description" content="A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -88,7 +87,10 @@ Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link." /
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ChineseVersion_GetStarted.html">Chinese Version Get Started</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
+    </li>
+    <li>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
     </li>
   </ul>
 </li>
@@ -108,42 +110,51 @@ Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link." /
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get ICD-9-CM Codes Decimal Forms</h1>
+    <h1>ICD-9-PCS</h1>
     
-    <div class="hidden name"><code>ICD_9_CM_GenerateDecimalFormat.Rd</code></div>
+    <div class="hidden name"><code>prICD9.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert codes between short and decimal forms
-Format ICD-9-CM Principal and Other Diagnosis Codes can be found at url link.</p>
+    <p>A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ICD_9_CM_GenerateDecimalFormat</span>(<span class='no'>icd9</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>icd9</th>
-      <td><p>ICD-9-CM codes</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>prICD9</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 3882 rows and 2 variables</p>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://www.findacode.com/search/search.php'>https://www.findacode.com/search/search.php</a></p>
-<p><a href='https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf'>https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
+    <p><a href='https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html'>https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <ul>
+<li><p>ICD. ICD-9-PCS</p></li>
+<li><p>ICD_DESCRIPTION. ICD-9-PCS description</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='prICD10.html'>prICD10</a></code></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#format">Format</a></li>
+
       <li><a href="#source">Source</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>
