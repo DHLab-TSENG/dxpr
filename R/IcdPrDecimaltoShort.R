@@ -19,7 +19,7 @@ IcdPrDecimaltoShort<-function(icdList){
   icd9_D <- left_join(icd_Decimal, ICD9PrwithTwoFormat, by = "Decimal")
   icd9_S <- left_join(icd_Short, ICD9PrwithTwoFormat, by = "Short")
   icd10_S <- semi_join(icd9_S[is.na(icd9_S$Decimal),], select(prICD10,ICD), by = c("Short" = "ICD"))
-  combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),],icd10_S)
+  combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),],icd10_S) %>% unique
   combine <- rbind(icd9_D[!is.na(icd9_D$Short),],combine_S) %>% arrange(Number)
 
   error <- anti_join(data.frame(Short = icdDf$ICD, Number = icdDf$Number, stringsAsFactors = FALSE),

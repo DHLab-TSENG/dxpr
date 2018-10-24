@@ -306,7 +306,7 @@ NULL
 #' @keywords dataframe
 #' @name icd9_elix
 #' @usage data(icd9_elix)
-#' @format A data frame with 1251 rows and 4 variables
+#' @format A data frame with 1474 rows and 4 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 NULL

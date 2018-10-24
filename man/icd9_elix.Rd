@@ -4,7 +4,7 @@
 \name{icd9_elix}
 \alias{icd9_elix}
 \title{Elixhauser Comorbidity for ICD-9}
-\format{A data frame with 1251 rows and 4 variables}
+\format{A data frame with 1474 rows and 4 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 }

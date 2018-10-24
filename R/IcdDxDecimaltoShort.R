@@ -22,11 +22,11 @@ IcdDxDecimaltoShort<-function(icdList){
 
   icd9_D <- left_join(icd_Decimal, ICD9DxwithTwoFormat, by = "Decimal")
   icd10_D <- left_join(icd_Decimal, ICD10DxwithTwoFormat, by = "Decimal")
-  combine_D <- rbind(icd9_D[!is.na(icd9_D$Short),], icd10_D[!is.na(icd10_D$Short),])
+  combine_D <- rbind(icd9_D[!is.na(icd9_D$Short),], icd10_D[!is.na(icd10_D$Short),]) %>% unique
 
   icd9_S <- left_join(icd_Short, ICD9DxwithTwoFormat, by = "Short")
   icd10_S <- left_join(icd_Short, ICD10DxwithTwoFormat, by = "Short")
-  combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),], icd10_S[!is.na(icd10_S$Decimal),])
+  combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),], icd10_S[!is.na(icd10_S$Decimal),]) %>% unique
 
   combine <- rbind(combine_D,combine_S) %>% arrange(Number)
 
@@ -38,3 +38,4 @@ IcdDxDecimaltoShort<-function(icdList){
 
   return(list(Short = combine_with_error, Error = error$Short))
 }
+
