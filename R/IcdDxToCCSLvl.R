@@ -37,45 +37,42 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  Format <- ifelse(any(grepl("[.]", DxDataFile$ICD)), "Decimal", "Short")
-  DxDataFile$ICD <- IcdDxDecimaltoShort(DxDataFile$ICD)$Short
+  DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
+  DxDataFile_allShort <-DxDataFile
+  DxDataFile_allShort$ICD <- IcdDxDecimaltoShort(DxDataFile_allShort$ICD)$Short
 
-  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
-  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
+  icd9 <- DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) < icd10usingDate,]
+  icd10 <- DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) >= icd10usingDate,]
 
   if(CCSLevel <= 2){
-    icd9ToCCSLvl <- left_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
-    icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
-    CCSLvl_combine <- rbind(icd9ToCCSLvl, icd10ToCCSLvl)
+    icd9ToCCSLvl <- inner_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD")
+    icd10ToCCSLvl <- inner_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD")
+    CCSLvl_combine <- left_join(DxDataFile_allShort,
+                                rbind(icd9ToCCSLvl, icd10ToCCSLvl),
+                                by = names(DxDataFile_allShort))
   }else{
-    icd9ToCCSLvl <- left_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL,
-                                           CCS_LVL_3, CCS_LVL_3_LABEL, CCS_LVL_4, CCS_LVL_4_LABEL), by = "ICD") %>% unique()
-    icd10ToCCSLvl <- left_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
-
-    CCSLvl_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl))
+    icd9ToCCSLvl <- inner_join(icd9, ccsDxICD9, by = "ICD")
+    icd10ToCCSLvl <- inner_join(icd10, ccsDxICD10, by = "ICD")
+    CCSLvl_combine <- left_join(DxDataFile_allShort,
+                                full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl)),
+                                by = names(DxDataFile_allShort))
   }
-  CCSLvl_combine_with_originalFile <- left_join(DxDataFile,CCSLvl_combine, by = names(DxDataFile))
-
   if(CCSLvlLabel == T){
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, "_LABEL", sep = "")))
   }else{
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, sep = "")))
   }
-  IcdToCCSLevel <- CCSLvl_combine_with_originalFile[, CCSLevelcol]
+  IcdToCCSLevel <- CCSLvl_combine[, CCSLevelcol]
 
   WrongFormat <- IcdDxDecimaltoShort(DxDataFile$ICD)$Error
-  error_ICD <- anti_join(data.frame(ICD = CCSLvl_combine_with_originalFile$ICD[is.na(IcdToCCSLevel)], stringsAsFactors= FALSE),
-                         data.frame(ICD = WrongFormat, stringsAsFactors= FALSE), "ICD") %>% unique
+  error_ICD <- anti_join(DxDataFile[is.na(IcdToCCSLevel),], WrongFormat, "Number")
+
   if(anyNA(IcdToCCSLevel)){
     if(length(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
     }
-    if(sum(is.na(IcdToCCSLevel)) > length(WrongFormat)){
-      if(Format == "Decimal"){
-        message(paste0("warning ICD: ", IcdDxShortToDecimal(error_ICD$ICD)$Decimal, sep = "\t\n"))
-      }else{
-        message(paste0("warning ICD: ", error_ICD, sep = "\t\n"))
-      }
+    if(sum(is.na(IcdToCCSLevel)) > nrow(WrongFormat)){
+      message(paste0("warning ICD: ",unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
