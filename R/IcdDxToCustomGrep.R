@@ -8,7 +8,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' return first diagnosis record based on factIcd Data
 #'
 #' @param icdFile A file of clinical diagnostic data with at least one column: ICD
-#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD
+#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD
 #' @export
 #' @examples
 #' icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
