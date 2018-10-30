@@ -35,35 +35,37 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-  DxDataFile_allShort <-DxDataFile
-  DxDataFile_allShort$ICD <- IcdDxDecimaltoShort(DxDataFile_allShort$ICD)$Short
+  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
+  DxDataFile$Short <- Conversion$Short
 
-  icd9ToCCS <- inner_join(DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) < icd10usingDate,],
-                          select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD")
-  icd10ToCCS <- inner_join(DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) >= icd10usingDate,],
-                           select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD")
+  icd9ToCCS <- inner_join(DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,],
+                          select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
+  icd10ToCCS <- inner_join(DxDataFile[as.Date(DxDataFile$Date) >= icd10usingDate,],
+                           select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
 
-  CCS_combine <- left_join(DxDataFile_allShort, rbind(icd9ToCCS, icd10ToCCS), by = names(DxDataFile_allShort))
+  CCS_combine <- left_join(DxDataFile, rbind(icd9ToCCS, icd10ToCCS), by = names(DxDataFile))
 
   if (isCCSCategoryDescription == T) {
     IcdToCCS <- CCS_combine$CCS_CATEGORY_DESCRIPTION
   }else {
     IcdToCCS <- CCS_combine$CCS_CATEGORY
   }
-  WrongFormat <- IcdDxDecimaltoShort(DxDataFile$ICD)$Error
-  error_ICD <- anti_join(DxDataFile[is.na(IcdToCCS),], WrongFormat, "Number")
+  WrongFormat <- Conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = DxDataFile$ICD[is.na(IcdToCCS)],stringsAsFactors = F), WrongFormat, "ICD")
 
   if(anyNA(IcdToCCS)){
     if(length(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
+      message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
     }
     if(sum(is.na(IcdToCCS)) > nrow(WrongFormat)){
-      message(paste0("warning ICD: ", unique(error_ICD$ICD), sep = "\t\n"))
+      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
   IcdToCCS
 }
+
+

@@ -6,7 +6,7 @@ This tool can be used to group the ICD's multitude of codes into a smaller numbe
 
 # Get started
 - English introduction: https://dhlab-cgu.github.io/emr/articles/emr.html
-- Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_GetStarted.html
+- Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_Diagnosis.html
 
 # Feature
 - convert ICD code's format: Short <-> Decimal
