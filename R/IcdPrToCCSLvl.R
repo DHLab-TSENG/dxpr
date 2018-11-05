@@ -28,50 +28,45 @@
 IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
   PrDataFile <- PrDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(PrDataFile) <- c("ID", "ICD", "Date")
-  Format <- ifelse(any(grepl("[.]", PrDataFile$ICD)), "Decimal", "Short")
-  PrDataFile$ICD <- IcdPrDecimaltoShort(PrDataFile$ICD)$Short
+  PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
+  Conversion <- IcdPrDecimaltoShort(PrDataFile$ICD)
+  PrDataFile$Short <- Conversion$Short
 
-  icd9 <- PrDataFile[PrDataFile$Date < icd10usingDate,]
-  icd10 <- PrDataFile[PrDataFile$Date >= icd10usingDate,]
+  icd9 <- PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,]
+  icd10 <- PrDataFile[as.Date(PrDataFile$Date) >= icd10usingDate,]
 
   if(CCSLevel <= 2){
-    icd9ToCCSLvl <- left_join(icd9, select(ccsPrICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
-    icd10ToCCSLvl <- left_join(icd10, select(ccsPrICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
+    icd9ToCCSLvl <- left_join(icd9, select(ccsPrICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = c("Short"="ICD"))
+    icd10ToCCSLvl <- left_join(icd10, select(ccsPrICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = c("Short"="ICD"))
     CCSLvl_combine <- rbind(icd9ToCCSLvl, icd10ToCCSLvl)
   }else{
     icd9ToCCSLvl <- left_join(icd9, select(ccsPrICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL,
-                                           CCS_LVL_3, CCS_LVL_3_LABEL), by = "ICD") %>% unique()
-    icd10ToCCSLvl <- left_join(icd10, select(ccsPrICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD") %>% unique()
+                                           CCS_LVL_3, CCS_LVL_3_LABEL), by = c("Short"="ICD"))
+    icd10ToCCSLvl <- left_join(icd10, select(ccsPrICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = c("Short"="ICD"))
 
-    CCSLvl_combine <- full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl))
+    CCSLvl_combine <- left_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl))
   }
-  CCSLvl_combine_with_originalFile <- left_join(PrDataFile,CCSLvl_combine, by = names(PrDataFile))
 
   if(CCSLvlLabel == T){
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, "_LABEL", sep = "")))
   }else{
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, sep = "")))
   }
-  IcdToCCSLevel <- CCSLvl_combine_with_originalFile[, CCSLevelcol]
+  IcdToCCSLevel <- CCSLvl_combine[, CCSLevelcol]
 
   WrongFormat <- IcdPrDecimaltoShort(PrDataFile$ICD)$Error
-  error_ICD <- anti_join(data.frame(ICD = CCSLvl_combine_with_originalFile$ICD[is.na(IcdToCCSLevel)], stringsAsFactors= FALSE),
-                         data.frame(ICD = WrongFormat, stringsAsFactors= FALSE), "ICD") %>% unique
+  error_ICD <- anti_join(data.frame(ICD = PrDataFile$ICD[is.na(IcdToCCSLevel)], stringsAsFactors= FALSE),WrongFormat, "ICD")
   if(anyNA(IcdToCCSLevel)){
-    if(length(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+    if(nrow(WrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
     }
-    if(sum(is.na(IcdToCCSLevel)) > length(WrongFormat)){
-      if(Format == "Decimal"){
-        message(paste0("warning ICD: ", IcdPrShortToDecimal(error_ICD$ICD)$Decimal, sep = "\t\n"))
-      }else{
-        message(paste0("warning ICD: ", error_ICD, sep = "\t\n"))
-      }
+    if(sum(is.na(IcdToCCSLevel)) > nrow(WrongFormat)){
+      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate"), ICD-10  CCS multiple levels are 1~2 or other issues', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate"), ICD-10  CCS multiple levels are 1~2 or other issues', call. = F)
   }
   IcdToCCSLevel
 }

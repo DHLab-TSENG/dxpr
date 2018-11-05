@@ -86,13 +86,13 @@
 
     
     
-<div id="-" class="section level1">
-<h1 class="hasAnchor">
-<a href="#-" class="anchor"></a>簡介-檢查與處置錢處理與整合方法</h1>
+<div class="section level1">
+<h1>檢查與處置錢處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
-<div id="-icd-9-pcs--decimal--short" class="section level3">
+<div id="icd-pcs-code-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#-icd-9-pcs--decimal--short" class="anchor"></a>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</h3>
+<a href="#icd-pcs-code-" class="anchor"></a>ICD-PCS-CODE 格式對照</h3>
+<p>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</p>
 <p>供後續 ICD 格式轉換的功能使用 (<code>IcdPrDecimaltoShort 和 IcdPrShortToDecimal</code>)</p>
 <p>ICD-9-PCS</p>
 <pre><code>icd9 &lt;- ccsPrICD9$ICD
@@ -106,11 +106,12 @@ icd9_Decimal &lt;- ICD9PrwithTwoFormat$Decimal[1:10]
 <pre><code>icd10 &lt;- ccsPrICD10$ICD[1:10]
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 </div>
-<div id="icd-9-pcs--short---decimal" class="section level3">
+<div id="icd-pcs-code-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-9-pcs--short---decimal" class="anchor"></a>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</h3>
+<a href="#icd-pcs-code-" class="anchor"></a>ICD-PCS code 格式轉換</h3>
+<p>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
-<p>將 ICD-PCS code 的格式統一由 Short 轉成 Decimal</p>
+<p>將 ICD-PCS code 的格式統一轉成 Decimal</p>
 <pre><code># ICD-9
 IcdPrShortToDecimal(icd9_Short)$Decimal
 # c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
@@ -118,7 +119,7 @@ IcdPrShortToDecimal(icd9_Short)$Decimal
 # ICD-10
 IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
-<p>將 ICD-PCS code 的格式統一由 Decimal 轉成 Short</p>
+<p>將 ICD-PCS code 的格式統一轉成 Short</p>
 <pre><code># ICD-9
 IcdPrDecimaltoShort(icd9_Decimal)$Short
 # c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
@@ -127,21 +128,20 @@ IcdPrDecimaltoShort(icd9_Decimal)$Short
 IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 </div>
-<div id="-icd-9--icd-10-code-" class="section level2">
+<div id="icd-pcs-code-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#-icd-9--icd-10-code-" class="anchor"></a>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h2>
-<p>將分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
-<div id="-clinical-classifications-software-ccs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#-clinical-classifications-software-ccs" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
-<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
+<a href="#icd-pcs-code-" class="anchor"></a>ICD-PCS-code 整合分類</h2>
+<p>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
+<p>目前分類標準: CCS及 Procedure Class, 以下將分別介紹之</p>
+<div class="section level3">
+<h3>一、臨床分類軟體</h3>
+<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
 <p>單一階層: 較通用的分類</p>
 <p>多階層: 將診斷碼分為較精確的分組</p>
-<p>目前 ICD-9-PCS 的 CCS 版本為 2015 , ICD-10-PCS 的 CCS 版本為 2018</p>
-<div id="-ccs-category" class="section level4">
-<h4 class="hasAnchor">
-<a href="#-ccs-category" class="anchor"></a>單一階層分類 (CCS Category)</h4>
-<p><code>IcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類及分類之敘述</p>
+<p>目前 ICD-9-PCS 的 CCS 版本為 2015 , ICD-10-PCS 的 CCS 版本為 2019</p>
+<div class="section level4">
+<h4>1) 單一階層分類</h4>
+<p><code>IcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致: 共231種</p>
 <pre><code>## ICD to CCS category
 IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
@@ -152,10 +152,9 @@ IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "Incision and excision of CNS"             "Other CT scan"                
 # "Incision and excision of CNS"             "Incision and excision of CNS"</code></pre>
 </div>
-<div id="-multiple-ccs-level" class="section level4">
-<h4 class="hasAnchor">
-<a href="#-multiple-ccs-level" class="anchor"></a>多階層分類 (Multiple ccs level)</h4>
-<p><code>IcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類及分類之敘述</p>
+<div class="section level4">
+<h4>2) 多階層分類</h4>
+<p><code>IcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類 (Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-PCS 共 3個階層 (Level 1~3)</p>
 <p>ICD-10-PCS 共 2個階層 (Level 1~2)</p>
 <pre><code>## ICD to CCS multiple level 1
@@ -170,7 +169,7 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 </div>
 <div id="procedure-class" class="section level3">
 <h3 class="hasAnchor">
-<a href="#procedure-class" class="anchor"></a>Procedure Class</h3>
+<a href="#procedure-class" class="anchor"></a>二、Procedure Class</h3>
 <p>由美國醫療照護政策研究品質局（AHRQ）提供的HCUP Classes, 將檢查與處置碼基於其特性分組, 共ICD-PCS code分為下列四個組別:</p>
 <p>1.Minor Diagnostic: 非手術室執行之診斷類處置</p>
 <p>2.Minor Therapeutic: 非手術室執行之治療類處置</p>
@@ -180,10 +179,9 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 # "2" "1" "4" "4"</code></pre>
 </div>
 </div>
-</div>
-<div id="reference" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h1>
+<div id="reference" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reference" class="anchor"></a>Reference</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd--short--decimal" class="anchor"></a>ICD 格式: Short 和 Decimal</h3>
@@ -196,17 +194,18 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="-clinical-classifications-software-ccs-1" class="section level3">
+<div id="-clinical-classifications-software-ccs" class="section level3">
 <h3 class="hasAnchor">
-<a href="#-clinical-classifications-software-ccs-1" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
+<a href="#-clinical-classifications-software-ccs" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
 <p>ICD-9-PCS CCS (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
-<p>ICD-10-PCS CCS (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+<p>ICD-10-PCS CCS (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
 </div>
 <div id="procedure-class-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#procedure-class-1" class="anchor"></a>Procedure Class</h3>
 <p>ICD-9-Procedure Class (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
-<p>ICD-10-Procedure Class (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+<p>ICD-10-Procedure Class (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+</div>
 </div>
 </div>
   </div>
@@ -217,11 +216,11 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#-">簡介-檢查與處置錢處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#-icd-9--icd-10-code-">將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</a></li>
+<a href="NA">檢查與處置錢處理與整合方法</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#icd-pcs-code-">ICD-PCS-code 整合分類</a></li>
+      <li><a href="#reference">Reference</a></li>
       </ul>
 </li>
-      <li><a href="#reference">Reference</a></li>
       </ul>
 </div>
       </div>

@@ -9,7 +9,7 @@ IcdDxToCustomGrep(icdFile, groupingTable)
 \arguments{
 \item{icdFile}{A file of clinical diagnostic data with at least one column: ICD}
 
-\item{groupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD}
+\item{groupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD}
 }
 \description{
 This can be used to select the first diagnosis record

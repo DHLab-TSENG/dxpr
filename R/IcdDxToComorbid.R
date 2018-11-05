@@ -46,8 +46,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  Format <- ifelse(any(grepl("[.]", DxDataFile$ICD)), "Decimal", "Short")
-  DxDataFile$ICD <- IcdDxDecimaltoShort(DxDataFile$ICD)$Short
+  DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
+  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
+  DxDataFile$Short <- Conversion$Short
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (grepl("ahrq", comorbidMethod)){
@@ -60,11 +61,9 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     comorbidMap9 <- `icd9_elix`
     comorbidMap10 <- `icd10_elix`
   }
-  icd9 <- data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,])
-  icd10 <- data.frame(DxDataFile[DxDataFile$Date >= icd10usingDate,])
 
-  comorbidDf9 <- left_join(icd9, comorbidMap9,by = "ICD")
-  comorbidDf10 <- left_join(icd10, comorbidMap10, by = "ICD")
+  comorbidDf9 <- left_join(data.frame(DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,]), comorbidMap9,by = "ICD")
+  comorbidDf10 <- left_join(data.frame(DxDataFile[as.Date(DxDataFile$Date) >= icd10usingDate,]), comorbidMap10, by = "ICD")
   comorbidDf_combine <- rbind(comorbidDf9, comorbidDf10)
 
   comorbidDf_combine$ICD <- NULL
@@ -83,6 +82,10 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
 
   combine_Numeric <- combine[, c(ncol(combine), 1:(ncol(combine)-1))]
   combine_Numeric[is.na(combine_Numeric)] <- 0L
+  WrongFormat <- Conversion$Error
+  if(nrow(WrongFormat) > 0){
+    message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
+  }
   if(toupper(deparse(substitute(NumericOrBinary))) == "B"){
     combine_Binary <-as.data.frame(combine_Numeric >= 1L)
     combine_Binary$ID <- unique(DxDataFile$ID)
@@ -91,9 +94,5 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     return(combine_Numeric)
   }else{
     stop("'please enter N or B for 'comorbidMethod'", call. = FALSE)
-  }
-  WrongFormat <- IcdDxDecimaltoShort(DxDataFile$ICD)$Error
-  if(length(WrongFormat) > 0){
-    message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
   }
 }

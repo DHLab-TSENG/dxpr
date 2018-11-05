@@ -30,42 +30,35 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = TRUE){
   PrDataFile <- PrDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
-  Format <- ifelse(any(grepl("[.]", PrDataFile$ICD)), "Decimal", "Short")
   names(PrDataFile) <- c("ID", "ICD", "Date")
-  PrDataFile$ICD <- IcdPrDecimaltoShort(PrDataFile$ICD)$Short
+  PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
+  Conversion <- IcdPrDecimaltoShort(PrDataFile$ICD)
+  PrDataFile$Short <- Conversion$Short
 
-  icd10 <- PrDataFile[PrDataFile$Date >= icd10usingDate,] %>% unique()
-  icd9 <- PrDataFile[PrDataFile$Date < icd10usingDate,] %>% unique()
-
-  icd9ToCCS <- left_join(icd9, select(ccsPrICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD")
-  icd10ToCCS <- left_join(icd10, select(ccsPrICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = "ICD")
+  icd9ToCCS <- left_join(PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,],
+                         select(ccsPrICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
+  icd10ToCCS <- left_join(PrDataFile[as.Date(PrDataFile$Date) >= icd10usingDate,],
+                          select(ccsPrICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
   CCS_combine <- rbind(icd9ToCCS, icd10ToCCS)
 
-  CCS_combine_with_originalFile <- left_join(PrDataFile, CCS_combine, by = c("ID", "ICD", "Date"))
-
   if (isCCSCategoryDescription == T) {
-    IcdToCCS <- CCS_combine_with_originalFile$CCS_CATEGORY_DESCRIPTION
+    IcdToCCS <- CCS_combine$CCS_CATEGORY_DESCRIPTION
   } else {
-    IcdToCCS <- CCS_combine_with_originalFile$CCS_CATEGORY
+    IcdToCCS <- CCS_combine$CCS_CATEGORY
   }
-  WrongFormat <- IcdPrDecimaltoShort(PrDataFile$ICD)$Error
-  error_ICD <- anti_join(data.frame(ICD = CCS_combine_with_originalFile$ICD[is.na(IcdToCCS)], stringsAsFactors= FALSE),
-                         data.frame(ICD = WrongFormat, stringsAsFactors= FALSE), "ICD") %>% unique
+  WrongFormat <- Conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = CCS_combine$ICD[is.na(IcdToCCS)], stringsAsFactors= FALSE),WrongFormat, "ICD")
   if(anyNA(IcdToCCS)){
-    if(length(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat), sep = "\t\n"))
+    if(nrow(WrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
     }
-    if(sum(is.na(IcdToCCS)) > length(WrongFormat)){
-      if(Format == "Decimal"){
-        message(paste0("warning ICD: ", IcdPrShortToDecimal(error_ICD$ICD)$Decimal, sep = "\t\n"))
-      }else{
-        message(paste0("warning ICD: ", error_ICD, sep = "\t\n"))
-      }
+    if(sum(is.na(IcdToCCS)) > nrow(WrongFormat)){
+      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
   IcdToCCS
 }

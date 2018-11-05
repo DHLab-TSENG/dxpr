@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+devtools::install_github("DHLab-CGU/emr")
 library(emr)
 
 DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
@@ -207,11 +208,11 @@ The Elixhauser Comorbidity Software is one in a family of databases and software
 
  ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)
 ```
-icd9_elix_2015$Comorbidity %>% unique
+icd9_elix$Comorbidity %>% unique
 ```
  ICD-10-Elixhauser: Version 2019.1  (valid for FY2019 ICD-10-CM codes) 
 ```
-icd10_elix_2019$Comorbidity %>% unique
+icd10_elix$Comorbidity %>% unique
 ```
 ```
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)

@@ -17,15 +17,15 @@ ICD9DxGenerateDecimalFormat <- function(icd9){
   icd9E <- data.frame(Short = icd9[grepl("^E", icd9$Short),],stringsAsFactors = F)
   icdNcharLong <- 3
   N3 <- nchar(icd9N$Short) == icdNcharLong
-  icd9N$Decimal[N3] <- ""
+  icd9N$Decimal[N3] <- icd9N$Short[N3]
   V3 <- nchar(icd9V$Short) == icdNcharLong
-  icd9V$Decimal[V3] <- ""
+  icd9V$Decimal[V3] <- icd9V$Short[V3]
 
   icdNcharLong <- 4
   decimalstart <- icdNcharLong - 1
   decimalstop <- icdNcharLong
   E4 <- nchar(icd9E$Short) == icdNcharLong
-  icd9E$Decimal[E4] <- ""
+  icd9E$Decimal[E4] <- icd9E$Short[E4]
 
   V4 <- nchar(icd9V$Short) == icdNcharLong
   icd9V$Decimal[V4] <- paste(substr(icd9V$Short[V4], start = 1 , stop =  decimalstart), ".",

@@ -15,44 +15,65 @@ articles:
   - '`ChineseVersion_Diagnosis`'
   - '`ChineseVersion_Procedure`'
 
+reference:
+
 - title: Grouping ICD-9 and ICD-10 codes by ...
   desc: ~
   contents:
-  - '`groupIcdToCCS`'
-  - '`groupIcdToCCSLvl`'
-  - '`groupIcdToPhecode`'
-  - '`groupIcdToComorbid`'
-  - '`groupIcdToCustomGrep`'
+  - '`IcdDxToCCS`'
+  - '`IcdDxToCCSLvl`'
+  - '`IcdDxToPhecode`'
+  - '`IcdDxToComorbid`'
+  - '`IcdDxToCustomGrep`'
+  - '`IcdPrToCCS`'
+  - '`IcdPrToCCSLvl`'
+  - '`IcdPrToProcedureClass`'
   - '`selectCases`'
   - '`getConditionEra`'
-
-reference:
 
 - title: Conversion ICD format
   desc: ~
   contents:
-  - '`convertIcdShortToDecimal`'
-  - '`convertIcdDecimaltoShort`'
+  - '`IcdDxShortToDecimal`'
+  - '`IcdDxDecimaltoShort`'
+  - '`IcdPrShortToDecimal`'
+  - '`IcdPrDecimaltoShort`'
 
 - title: Generation Decimal Format of ICD-9-CM and ICD-10-CM code
   desc: ~
   contents:
-  - '`ICD_9_CM_GenerateDecimalFormat`'
-  - '`ICD_10_CM_GenerateDecimalFormat`'
-  - '`ICD_9_PCS_GenerateDecimalFormat`'
+  - '`ICD9DxGenerateDecimalFormat`'
+  - '`ICD10DxGenerateDecimalFormat`'
+  - '`ICD9PrGenerateDecimalFormat`'
 
 - title: Data - Two format of ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
-  - '`ICD_9_CM_withTwoFormat`'
-  - '`ICD_10_CM_withTwoFormat`'
-  - '`ICD_9_PCS_withTwoFormat`'
+  - '`ICD9DxwithTwoFormat`'
+  - '`ICD10DxwithTwoFormat`'
+  - '`ICD9PrwithTwoFormat`'
 
 - title: Data - Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
   desc: ~
   contents:
   - '`ccsDxICD9`'
   - '`ccsDxICD10`'
+
+- title: Data - Clinical Classifications Software (CCS) to ICD-9-PCS and ICD-10-PCS code maps
+  desc: ~
+  contents:
+  - '`ccsPrICD9`'
+  - '`ccsPrICD10`'
+
+- title: Data - ICD-9 and ICD-10 CM/PCS/Procedure Class code maps
+  desc: ~
+  contents:
+  - '`dxICD9`'
+  - '`dxICD10`'
+  - '`prICD9`'
+  - '`prICD10`'
+  - '`pcICD9`'
+  - '`pcICD10`'
 
 - title: Data - Comorbidity to ICD-9-CM and ICD-10-CM code maps
   desc: ~

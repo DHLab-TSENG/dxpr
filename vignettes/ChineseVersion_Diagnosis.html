@@ -72,11 +72,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<div id="-" class="section level1">
-<h1>簡介-診斷前處理與整合方法</h1>
+<div class="section level1">
+<h1>診斷前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
-<div id="-icd-9-cm-and-icd-10-cm--decimal--short" class="section level3">
-<h3>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</h3>
+<div id="icd-cm-code-" class="section level3">
+<h3>ICD-CM-CODE 格式對照</h3>
+<p>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</p>
 <p>供後續 ICD 格式轉換的功能使用 (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</p>
 <p>ICD-9-CM</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
@@ -95,8 +96,9 @@ icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
 icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
 </div>
-<div id="icd-9-cm-and-icd-10-cm-code--short---decimal" class="section level3">
-<h3>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</h3>
+<div id="icd-cm-code-" class="section level3">
+<h3>ICD-CM code 格式轉換</h3>
+<p>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-CM code 的格式統一由 Short 轉成 Decimal</p>
 <pre><code># ICD-9
@@ -115,18 +117,19 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
-<div id="-icd-9--icd-10-code-" class="section level2">
-<h2>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類…</h2>
-<p>將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
-<div id="-clinical-classifications-software-ccs" class="section level3">
-<h3>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
-<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
+<div id="icd-cm-code-" class="section level2">
+<h2>ICD-CM-code 整合分類</h2>
+<p>ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
+<p>目前分類標準有: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
+<div class="section level3">
+<h3>一、臨床分類軟體</h3>
+<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
 <p>單一階層: 較通用的分類</p>
 <p>多階層: 將診斷碼分為較精確的分組</p>
 <p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018</p>
-<div id="-ccs-category" class="section level4">
-<h4>單一階層分類 (CCS Category)</h4>
-<p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類及分類之敘述</p>
+<div class="section level4">
+<h4>1)單一階層分類</h4>
+<p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <pre><code>## ICD to CCS category
 IcdDxToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
@@ -143,9 +146,9 @@ IcdDxToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, TRUE)
 </ol>
 <p>以範例為例, <code>42577</code> 為錯誤的 ICD-9-CM 之格式才會出現 <code>NA</code> (wrong format)</p>
 </div>
-<div id="-multiple-ccs-level" class="section level4">
-<h4>多階層分類 (Multiple ccs level)</h4>
-<p><code>IcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類及分類之敘述</p>
+<div class="section level4">
+<h4>2)多階層分類</h4>
+<p><code>IcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類(Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
 <pre><code>## ICD to CCS multiple level 1
@@ -173,9 +176,9 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 # &quot;401.21&quot; NA       NA       NA   </code></pre>
 <p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
 </div>
-<div id="-icddxtocustomgrep" class="section level3">
-<h3>自定義診斷碼分組 (IcdDxToCustomGrep)</h3>
-<p>因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目</p>
+<div class="section level3">
+<h3>自定義診斷碼分組</h3>
+<p>因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目: IcdDxToCustomGrep</p>
 <p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
 <pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
 <p>目前提供兩種方法:</p>
@@ -207,12 +210,12 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <pre><code>IcdDxToCustomGrepList(icdFile, grepTable)
 # &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
 </div>
-<div id="-comorbidities" class="section level3">
-<h3>共病症 (Comorbidities)</h3>
-<p>共病症為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀</p>
+<div class="section level3">
+<h3>共病症</h3>
+<p>共病症(Comorbidities)為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀</p>
 <p>共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
-<div id="ahrq-" class="section level4">
-<h4>AHRQ 共病症分類</h4>
+<div id="ahrq" class="section level4">
+<h4>1) AHRQ</h4>
 <p>目前使用 AHRQ 共病症測量指標的data frame是基於<code>icd package</code> (<code>icd9_map_ahrq 及 icd10_map_ahrq</code>), 使ICD code 依其相關的共病症做分類</p>
 <p>ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致, 共30種</p>
 <p>ICD-9</p>
@@ -224,8 +227,8 @@ icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 AHRQ 共病症分類, 在 function <code>IcdDxToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
 <pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, ahrq, N, TRUE)</code></pre>
 </div>
-<div id="charlson-" class="section level4">
-<h4>Charlson 共病症分類</h4>
+<div id="charlson" class="section level4">
+<h4>2) Charlson</h4>
 <p>目前使用 Charlson 共病症測量指標的 data frame 是基於<code>icd package</code> (<code>icd9_map_charlson 及 icd10_map_charlson</code>), 使 ICD code 依其相關的共病症做分類</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致, 共17種</p>
 <p>ICD-9</p>
@@ -237,24 +240,22 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
 <pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, charlson, B, TRUE)</code></pre>
 </div>
-<div id="elixhauser-" class="section level4">
-<h4>Elixhauser 共病症分類</h4>
-<p>目前使用 Charlson 共病症測量指標的 data frame 是基於<code>icd package</code> (<code>icd9_map_elix 及 icd10_map_elix</code>), 使 ICD code 依其相關的共病症做分類</p>
-<p>ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 31 種</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_elix (list) to icd9_charlson (Df)
-icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_elix (list) to icd10_charlson (Df)
-icd10_elix$Comorbidity %&gt;% unique</code></pre>
+<div id="elixhauser" class="section level4">
+<h4>3) Elixhauser</h4>
+<p>Elixhauser database共病症測量指標為HCUP (Healthcare Cost and Utilization Project)發展的共病症資料庫之一, 使 ICD code 依其相關的共病症做分類</p>
+<p>ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 29 種</p>
+<p>ICD-9-Elixhauser: 版本為3.7 (ICD-9-CM codes October 1, 2011)</p>
+<pre><code>icd9_elix$Comorbidity %&gt;% unique</code></pre>
+<p>ICD-10-Elixhauser: 版本為2019.1 (FY2019 ICD-10-CM codes)</p>
+<pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
 <pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
 </div>
 </div>
 </div>
-<div id="-select-cases" class="section level2">
-<h2>選擇符合條件的個案數 (Select Cases)</h2>
-<p>用以篩選符合特定條件之個案</p>
+<div class="section level2">
+<h2>選擇符合條件的個案數</h2>
+<p>用以篩選符合特定條件之個案: Select Cases</p>
 <p>篩選條件如範例:</p>
 <ol style="list-style-type: decimal">
 <li><p>ICD code <code>^I0</code>開頭之個案 (I070,I071,I072…)</p></li>
@@ -268,8 +269,8 @@ icd10_elix$Comorbidity %&gt;% unique</code></pre>
                          stringsAsFactors = FALSE)
 selectCasesDx(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
 </div>
-<div id="-condition-era" class="section level2">
-<h2>疾病世代 (condition Era)</h2>
+<div class="section level2">
+<h2>疾病世代</h2>
 <p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄</p>
 <p>疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
 <p>依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天</p>
@@ -279,38 +280,38 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 </div>
 <div id="reference" class="section level1">
 <h1>Reference</h1>
-<div id="icd--short--decimal" class="section level2">
-<h2>ICD 格式: Short 和 Decimal</h2>
+<div id="icd--short--decimal" class="section level3">
+<h3>ICD 格式: Short 和 Decimal</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="icd--icddxdecimaltoshort--icddxshorttodecimal" class="section level2">
-<h2>ICD 格式轉換功能 (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h2>
+<div id="icd--icddxdecimaltoshort--icddxshorttodecimal" class="section level3">
+<h3>ICD 格式轉換功能 (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="-clinical-classifications-software-ccs-1" class="section level2">
-<h2>臨床分類軟體 (Clinical Classifications Software, CCS)</h2>
+<div id="-clinical-classifications-software-ccs" class="section level3">
+<h3>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
 <p>ICD-9-CM (2012): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip</a></p>
 </div>
-<div id="phecode-1" class="section level2">
-<h2>Phecode</h2>
-<p>ICD-9-CM (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
+<div id="phecode-1" class="section level3">
+<h3>Phecode</h3>
+<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
 </div>
-<div id="comorbidities-" class="section level2">
-<h2>Comorbidities 共病症</h2>
-<div id="ahrq" class="section level3">
-<h3>AHRQ</h3>
+<div id="comorbidities-" class="section level3">
+<h3>Comorbidities 共病症</h3>
+<div id="ahrq-1" class="section level4">
+<h4>AHRQ</h4>
 </div>
-<div id="charlson" class="section level3">
-<h3>Charlson</h3>
+<div id="charlson-1" class="section level4">
+<h4>Charlson</h4>
 </div>
-<div id="elixhauser" class="section level3">
-<h3>Elixhauser</h3>
-<p>ICD-9-CM (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
+<div id="elixhauser-1" class="section level4">
+<h4>Elixhauser</h4>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>

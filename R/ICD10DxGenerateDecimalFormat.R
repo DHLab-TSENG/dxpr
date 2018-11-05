@@ -12,7 +12,7 @@
 ICD10DxGenerateDecimalFormat <- function(icd10){
   icd10 <-data.frame(Short = icd10, stringsAsFactors = FALSE)
   icd10_3 <- nchar(icd10$Short) == 3
-  icd10$Decimal[icd10_3] <- ""
+  icd10$Decimal[icd10_3] <- icd10$Short[icd10_3]
 
   icd10_4 <- nchar(icd10$Short) == 4
   icd10$Decimal[icd10_4] <- paste(substr(icd10$Short[icd10_4], start = 1 , stop =  3), ".",

@@ -29,6 +29,3 @@ IcdPrShortToDecimal<-function(icdList){
 
   return(list(Decimal = combine_with_error, Error = error$Decimal))
 }
-
-
-

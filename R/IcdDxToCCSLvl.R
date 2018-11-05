@@ -38,24 +38,24 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-  DxDataFile_allShort <-DxDataFile
-  DxDataFile_allShort$ICD <- IcdDxDecimaltoShort(DxDataFile_allShort$ICD)$Short
+  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
+  DxDataFile$Short <- Conversion$Short
 
-  icd9 <- DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) < icd10usingDate,]
-  icd10 <- DxDataFile_allShort[as.Date(DxDataFile_allShort$Date) >= icd10usingDate,]
+  icd9 <- DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,]
+  icd10 <- DxDataFile[as.Date(DxDataFile$Date) >= icd10usingDate,]
 
   if(CCSLevel <= 2){
-    icd9ToCCSLvl <- inner_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD")
-    icd10ToCCSLvl <- inner_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = "ICD")
-    CCSLvl_combine <- left_join(DxDataFile_allShort,
+    icd9ToCCSLvl <- inner_join(icd9, select(ccsDxICD9, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = c("Short"="ICD"))
+    icd10ToCCSLvl <- inner_join(icd10, select(ccsDxICD10, ICD, CCS_LVL_1, CCS_LVL_1_LABEL, CCS_LVL_2, CCS_LVL_2_LABEL), by = c("Short"="ICD"))
+    CCSLvl_combine <- left_join(DxDataFile,
                                 rbind(icd9ToCCSLvl, icd10ToCCSLvl),
-                                by = names(DxDataFile_allShort))
+                                by = names(DxDataFile))
   }else{
-    icd9ToCCSLvl <- inner_join(icd9, ccsDxICD9, by = "ICD")
-    icd10ToCCSLvl <- inner_join(icd10, ccsDxICD10, by = "ICD")
-    CCSLvl_combine <- left_join(DxDataFile_allShort,
-                                full_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl)),
-                                by = names(DxDataFile_allShort))
+    icd9ToCCSLvl <- inner_join(icd9, ccsDxICD9, by = c("Short"="ICD"))
+    icd10ToCCSLvl <- inner_join(icd10, ccsDxICD10, by = c("Short"="ICD"))
+    CCSLvl_combine <- left_join(DxDataFile,
+                                right_join(icd9ToCCSLvl, icd10ToCCSLvl, by = names(icd10ToCCSLvl)),
+                                by = names(DxDataFile))
   }
   if(CCSLvlLabel == T){
     CCSLevelcol <- as.character(parse(text = paste("CCS_LVL_", CCSLevel, "_LABEL", sep = "")))
@@ -64,21 +64,20 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   }
   IcdToCCSLevel <- CCSLvl_combine[, CCSLevelcol]
 
-  WrongFormat <- IcdDxDecimaltoShort(DxDataFile$ICD)$Error
-  error_ICD <- anti_join(DxDataFile[is.na(IcdToCCSLevel),], WrongFormat, "Number")
+  WrongFormat <- Conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = CCSLvl_combine$ICD[is.na(IcdToCCSLevel)],stringsAsFactors = F), WrongFormat, "ICD")
 
   if(anyNA(IcdToCCSLevel)){
-    if(length(WrongFormat) > 0){
+    if(nrow(WrongFormat) > 0){
       message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
     }
     if(sum(is.na(IcdToCCSLevel)) > nrow(WrongFormat)){
-      message(paste0("warning ICD: ",unique(error_ICD$ICD), sep = "\t\n"))
+      message(paste0("wrong ICD version: ",unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"warning ICD" means the ICD classify to wrong ICD version (cause the "icd10usingDate"), ICD-10  CCS multiple levels are 1~2 or other issues', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate"), ICD-10  CCS multiple levels are 1~2 or other issues', call. = F)
   }
   IcdToCCSLevel
 }
-
