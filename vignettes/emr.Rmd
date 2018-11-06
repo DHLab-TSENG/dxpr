@@ -70,8 +70,8 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
-## Grouping ICD-9 and ICD-10 codes by ...
-Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
+## Grouping ICD-CM codes by ...
+Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 
 ### Clinical Classifications Software (CCS)
 It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.
@@ -141,7 +141,7 @@ For example, there is  a ICD data frame `icdFile` whether is matched these group
 icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
 ```
 
- 1) `IcdDxToCustomGrep`: Use method of exhaustion to find out the matched ICD.
+ 1) `IcdDxToCustom`: Use method of exhaustion to find out the matched ICD.
 ```{r}
 # groupingTable 
 data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
@@ -149,10 +149,10 @@ data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", 
            stringsAsFactors = FALSE)
 ```
 ```
-IcdDxToCustomGrep(icdFile, groupingTable)
+IcdDxToCustom(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA 
 ```
- 2) `IcdDxToCustomGrepList`: Use a ICD pattern to find out the fit ICD.
+ 2) `IcdDxToCustomGrep`: Use a ICD pattern to find out the fit ICD.
 ```{r}
 # grepTable
 data.frame(Group = c("Hypotension", "Hypertension"),
@@ -160,7 +160,7 @@ data.frame(Group = c("Hypotension", "Hypertension"),
            stringsAsFactors = FALSE)
 ```
 ```
-IcdDxToCustomGrepList(icdFile, grepTable)
+IcdDxToCustomGrep(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  
 ```
 
@@ -260,15 +260,15 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 
 ### CCS (Clinical Classifications Software)
 
-ICD-9-CM (2012): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+ICD-9-CM (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
 
 https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
-ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip
+ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
 
 ### Phecode
 
-ICD-9-CM (version 1.2, 2015): https://phewascatalog.org/phecodes
+ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
 
 ### Comorbidities
 

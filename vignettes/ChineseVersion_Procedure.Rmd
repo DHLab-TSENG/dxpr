@@ -129,7 +129,7 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"
 ```
-## Reference
+## 參考資料
 
 ### ICD 格式: Short 和 Decimal
 
@@ -145,7 +145,9 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 
 ### 臨床分類軟體 (Clinical Classifications Software, CCS)
 
-ICD-9-PCS CCS (2015): https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv
+ICD-9-PCS CCS (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+
+https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
 ICD-10-PCS CCS (2019): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp
 

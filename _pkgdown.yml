@@ -24,7 +24,7 @@ reference:
   - '`IcdDxToCCSLvl`'
   - '`IcdDxToPhecode`'
   - '`IcdDxToComorbid`'
-  - '`IcdDxToCustomGrep`'
+  - '`IcdDxToCustom`'
   - '`IcdPrToCCS`'
   - '`IcdPrToCCSLvl`'
   - '`IcdPrToProcedureClass`'

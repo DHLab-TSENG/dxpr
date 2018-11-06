@@ -15,9 +15,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' groupingTable <- data.frame(Group = c("Hypotension","Hypotension", "Hypertension", "Hypertension"),
 #'                             ICD = c("I95.0","I951","I110","I11.9"),
 #'                             stringsAsFactors = FALSE)
-#' IcdDxToCustomGrep(icdFile, groupingTable)
+#' IcdDxToCustom(icdFile, groupingTable)
 #'
-IcdDxToCustomGrep <- function(icdFile, groupingTable){
+IcdDxToCustom <- function(icdFile, groupingTable){
   icdFile$ICD <- IcdDxDecimaltoShort(icdFile$ICD)$Short
   groupingTable$ICD <- IcdDxDecimaltoShort(groupingTable$ICD)$Short
 

@@ -151,6 +151,8 @@ NULL
 #' @name ccsPrICD9
 #' @usage data(ccsPrICD9)
 #' @format A data frame with 3948 rows and 10 variables
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 #' @seealso \code{\link{ccsPrICD10}}
 NULL
 

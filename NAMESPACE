@@ -3,7 +3,7 @@
 export(IcdDxToCCS)
 export(IcdDxToCCSLvl)
 export(IcdDxToComorbid)
-export(IcdDxToCustomGrep)
+export(IcdDxToCustom)
 export(IcdDxToPhecode)
 export(IcdPrToCCS)
 export(IcdPrToCCSLvl)

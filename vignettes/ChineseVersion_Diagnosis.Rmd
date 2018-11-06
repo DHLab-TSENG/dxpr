@@ -160,7 +160,7 @@ icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactor
 ```
 目前提供兩種方法:
 
- 1) `IcdDxToCustomGrep`: 使用`窮舉法`的方式找出符合的ICD
+ 1) `IcdDxToCustom`: 使用`窮舉法`的方式找出符合的ICD
 ```{r}
 # groupingTable 
 data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
@@ -168,10 +168,10 @@ data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", 
            stringsAsFactors = FALSE)
 ```
 ```
-IcdDxToCustomGrep(icdFile, groupingTable)
+IcdDxToCustom(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA 
 ```
- 2) `IcdDxToCustomGrepList`: 選擇`ICD開頭`有符合做為篩選的條件
+ 2) `IcdDxToCustomGrep`: 選擇`ICD開頭`有符合做為篩選的條件
 ```{r}
 # grepTable
 data.frame(Group = c("Hypotension", "Hypertension"),
@@ -179,7 +179,7 @@ data.frame(Group = c("Hypotension", "Hypertension"),
            stringsAsFactors = FALSE)
 ```
 ```
-IcdDxToCustomGrepList(icdFile, grepTable)
+IcdDxToCustomGrep(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  
 ```
 ###四、共病症
@@ -275,7 +275,7 @@ selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ```
-## Reference
+## 參考資料
 
 ### ICD 格式: Short 和 Decimal
 
@@ -291,11 +291,11 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 
 ### 臨床分類軟體 (Clinical Classifications Software, CCS)
 
-ICD-9-CM (2012): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+ICD-9-CM (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
 
 https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
-ICD-10-CM (2018): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip
+ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
 
 ### Phecode
 
