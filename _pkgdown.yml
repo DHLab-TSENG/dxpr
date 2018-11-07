@@ -25,6 +25,7 @@ reference:
   - '`IcdDxToPhecode`'
   - '`IcdDxToComorbid`'
   - '`IcdDxToCustom`'
+  - '`IcdDxToCustomGrep`'
   - '`IcdPrToCCS`'
   - '`IcdPrToCCSLvl`'
   - '`IcdPrToProcedureClass`'

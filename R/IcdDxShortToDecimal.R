@@ -9,29 +9,23 @@
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #'
+
 IcdDxShortToDecimal<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
-  icd_Short <- data.frame(Short = icdDf$ICD[!grepl("[.]",icdDf$ICD)], Number = icdDf$Number[!grepl("[.]",icdDf$ICD)],stringsAsFactors = FALSE)
-  icd_Decimal <- data.frame(Decimal = icdDf$ICD[grepl("[.]",icdDf$ICD)], Number = icdDf$Number[grepl("[.]",icdDf$ICD)],stringsAsFactors = FALSE)
+  icd_Decimal <- icdDf[grepl("[.]",icdDf$ICD),]
+  icd_Short <- icdDf[!grepl("[.]",icdDf$ICD),]
 
-  icd9_D <- left_join(icd_Decimal, ICD9DxwithTwoFormat, by = "Decimal")
-  icd10_D <- left_join(icd_Decimal, ICD10DxwithTwoFormat, by = "Decimal")
-  combine_D <- rbind(icd9_D[!is.na(icd9_D$Short),], icd10_D[!is.na(icd10_D$Short),]) %>% unique
+  DtoD <- semi_join(icd_Decimal, ICD9DxwithTwoFormat, by = c("ICD" = "Decimal"))
+  StoD <- inner_join(icd_Short, ICD9DxwithTwoFormat, by = c("ICD" = "Short"))
 
-  icd9_S <- left_join(icd_Short, ICD9DxwithTwoFormat, by = "Short")
-  icd10_S <- left_join(icd_Short, ICD10DxwithTwoFormat, by = "Short")
-  combine_S <- rbind(icd9_S[!is.na(icd9_S$Decimal),], icd10_S[!is.na(icd10_S$Decimal),]) %>% unique
+  DtoD_wrongFormat <- anti_join(icd_Decimal, DtoD, by = c("ICD","Number"))
+  StoD_wrongFormat <- anti_join(icd_Short, StoD, by = c("ICD","Number"))
 
-  combine <- rbind(combine_D,combine_S) %>% arrange(Number)
+  allDecimalFormat <- rbind(DtoD, select(StoD, Number, ICD = Decimal))
 
-  error <- anti_join(data.frame(Decimal = icdDf$ICD, Number = icdDf$Number, stringsAsFactors = FALSE),
-                     select(combine, Decimal, Number),
-                     c("Number")) %>% mutate(Short = NA)
+  wrongFormat <- rbind(DtoD_wrongFormat, StoD_wrongFormat) %>% arrange(Number)
+  combine_with_error <- rbind(wrongFormat, allDecimalFormat) %>% arrange(Number)
 
-  combine_with_error <- rbind(error, combine) %>% arrange(Number)
-  combine_with_error <- combine_with_error$Decimal
-
-  return(list(Decimal = combine_with_error, Error = error$Decimal))
+  return(list(Decimal = combine_with_error$ICD,
+              Error = wrongFormat))
 }
-
-
