@@ -231,11 +231,11 @@ searching criteria for example,
 Return the matched Data frame.
 
 ```
-selectCasesDx_Example <- data.frame(ID = c("A", "A", "A", "A"),
+selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
+selectCases("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## Condition Era
 Get the condition era

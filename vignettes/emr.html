@@ -113,9 +113,9 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
-<div id="grouping-icd-9-and-icd-10-codes-by" class="section level2">
-<h2>Grouping ICD-9 and ICD-10 codes by …</h2>
-<p>Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
+<div id="grouping-icd-cm-codes-by" class="section level2">
+<h2>Grouping ICD-CM codes by …</h2>
+<p>Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
 <div id="clinical-classifications-software-ccs" class="section level3">
 <h3>Clinical Classifications Software (CCS)</h3>
 <p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
@@ -173,7 +173,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame <code>icdFile</code> whether is matched these group: Hypotension and Hypertension or not.</p>
 <pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
 <ol style="list-style-type: decimal">
-<li><code>IcdDxToCustomGrep</code>: Use method of exhaustion to find out the matched ICD.</li>
+<li><code>IcdDxToCustom</code>: Use method of exhaustion to find out the matched ICD.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
@@ -185,10 +185,10 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt; 3  Hypotension  I952</span>
 <span class="co">#&gt; 4 Hypertension  I110</span>
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, groupingTable)
+<pre><code>IcdDxToCustom(icdFile, groupingTable)
 #  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><code>IcdDxToCustomGrepList</code>: Use a ICD pattern to find out the fit ICD.</li>
+<li><code>IcdDxToCustomGrep</code>: Use a ICD pattern to find out the fit ICD.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
@@ -197,7 +197,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt;          Group grep_pattern</span>
 <span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrepList(icdFile, grepTable)
+<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
 # &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
 </div>
 <div id="comorbidities" class="section level3">
@@ -230,9 +230,9 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
 <p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
-<pre><code>icd9_elix_2015$Comorbidity %&gt;% unique</code></pre>
+<pre><code>icd9_elix$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10-Elixhauser: Version 2019.1 (valid for FY2019 ICD-10-CM codes)</p>
-<pre><code>icd10_elix_2019$Comorbidity %&gt;% unique</code></pre>
+<pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
 </div>
 </div>
@@ -247,11 +247,11 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <li><p>Interval of days: 30 ~ 365 days, the days between two specific ICD codes.</p></li>
 </ol>
 <p>Return the matched Data frame.</p>
-<pre><code>selectCasesDx_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
+<pre><code>selectCases_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
                          ICD = c(&quot;I072&quot;,&quot;I071&quot;, &quot;I072&quot;, &quot;I071&quot;),
                          Date = as.Date(c(&quot;2016-03-31&quot;, &quot;2016-01-29&quot;, &quot;2016-02-10&quot;, &quot;2018-03-10&quot;)),
                          stringsAsFactors = FALSE)
-selectCasesDx(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
+selectCases(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
 </div>
 <div id="condition-era" class="section level2">
 <h2>Condition Era</h2>
@@ -275,13 +275,13 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 </div>
 <div id="ccs-clinical-classifications-software" class="section level3">
 <h3>CCS (Clinical Classifications Software)</h3>
-<p>ICD-9-CM (2012): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
+<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip</a></p>
+<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
 </div>
 <div id="phecode-1" class="section level3">
 <h3>Phecode</h3>
-<p>ICD-9-CM (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
+<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
 </div>
 <div id="comorbidities-1" class="section level3">
 <h3>Comorbidities</h3>

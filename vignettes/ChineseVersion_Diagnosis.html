@@ -100,7 +100,7 @@ icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 <h3>ICD-CM code 格式轉換</h3>
 <p>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
-<p>將 ICD-CM code 的格式統一由 Short 轉成 Decimal</p>
+<p>將 ICD-CM code 的格式統一轉成 Decimal</p>
 <pre><code># ICD-9
 IcdDxShortToDecimal(icd9_Short)$Decimal
 # c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)
@@ -108,7 +108,7 @@ IcdDxShortToDecimal(icd9_Short)$Decimal
 # ICD-10
 IcdDxShortToDecimal(icd10_Short)$Decimal
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
-<p>將 ICD-CM code 的格式統一由 Decimal 轉成 Short</p>
+<p>將 ICD-CM code 的格式統一轉成 Short</p>
 <pre><code># ICD-9
 IcdDxDecimaltoShort(icd9_Decimal)$Short
 # c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
@@ -120,7 +120,7 @@ IcdDxDecimaltoShort(icd10_Decimal)$Short
 <div id="icd-cm-code-" class="section level2">
 <h2>ICD-CM-code 整合分類</h2>
 <p>ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
-<p>目前分類標準有: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
+<p>目前分類標準: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
 <div class="section level3">
 <h3>一、臨床分類軟體</h3>
 <p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
@@ -128,7 +128,7 @@ IcdDxDecimaltoShort(icd10_Decimal)$Short
 <p>多階層: 將診斷碼分為較精確的分組</p>
 <p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018</p>
 <div class="section level4">
-<h4>1)單一階層分類</h4>
+<h4>1) 單一階層分類</h4>
 <p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <pre><code>## ICD to CCS category
@@ -147,7 +147,7 @@ IcdDxToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, TRUE)
 <p>以範例為例, <code>42577</code> 為錯誤的 ICD-9-CM 之格式才會出現 <code>NA</code> (wrong format)</p>
 </div>
 <div class="section level4">
-<h4>2)多階層分類</h4>
+<h4>2) 多階層分類</h4>
 <p><code>IcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類(Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
@@ -167,7 +167,7 @@ IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)
 </div>
 </div>
 <div id="phecode" class="section level3">
-<h3>Phecode</h3>
+<h3>二、Phecode</h3>
 <p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode</p>
 <p>phecode分組沒有階層性, 其特色在於各分組有其對應的控制組定義, 因此控制組的選擇會排除所有跟病例組相關疾病, 完整的控制組定義使得利用醫療大數據執行病例對照研究 (case-control study)更為全面</p>
 <p>最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
@@ -177,13 +177,13 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
 </div>
 <div class="section level3">
-<h3>自定義診斷碼分組</h3>
+<h3>三、自定義診斷碼分組</h3>
 <p>因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目: IcdDxToCustomGrep</p>
 <p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
 <pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
 <p>目前提供兩種方法:</p>
 <ol style="list-style-type: decimal">
-<li><code>IcdDxToCustomGrep</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
+<li><code>IcdDxToCustom</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
@@ -195,10 +195,10 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt; 3  Hypotension  I952</span>
 <span class="co">#&gt; 4 Hypertension  I110</span>
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, groupingTable)
+<pre><code>IcdDxToCustom(icdFile, groupingTable)
 #  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><code>IcdDxToCustomGrepList</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
+<li><code>IcdDxToCustomGrep</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
@@ -207,11 +207,11 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt;          Group grep_pattern</span>
 <span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrepList(icdFile, grepTable)
+<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
 # &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
 </div>
 <div class="section level3">
-<h3>共病症</h3>
+<h3>四、共病症</h3>
 <p>共病症(Comorbidities)為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀</p>
 <p>共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
 <div id="ahrq" class="section level4">
@@ -254,7 +254,7 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 </div>
 </div>
 <div class="section level2">
-<h2>選擇符合條件的個案數</h2>
+<h2>篩選符合條件的個案數</h2>
 <p>用以篩選符合特定條件之個案: Select Cases</p>
 <p>篩選條件如範例:</p>
 <ol style="list-style-type: decimal">
@@ -263,11 +263,11 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <li><p>搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)</p></li>
 </ol>
 <p>回傳的資料為符合條件的個案</p>
-<pre><code>selectCasesDx_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
+<pre><code>selectCases_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
                          ICD = c(&quot;I072&quot;,&quot;I071&quot;, &quot;I072&quot;, &quot;I071&quot;),
                          Date = as.Date(c(&quot;2016-03-31&quot;, &quot;2016-01-29&quot;, &quot;2016-02-10&quot;, &quot;2018-03-10&quot;)),
                          stringsAsFactors = FALSE)
-selectCasesDx(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
+selectCases(&quot;^I0&quot;, selectCases_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
 </div>
 <div class="section level2">
 <h2>疾病世代</h2>
@@ -277,9 +277,8 @@ selectCasesDx(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-
 <pre><code>getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALSE)</code></pre>
 </div>
-</div>
-<div id="reference" class="section level1">
-<h1>Reference</h1>
+<div class="section level2">
+<h2>參考資料</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3>ICD 格式: Short 和 Decimal</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
@@ -292,9 +291,9 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 </div>
 <div id="-clinical-classifications-software-ccs" class="section level3">
 <h3>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
-<p>ICD-9-CM (2012): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
+<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
-<p>ICD-10-CM (2018): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2018_1.zip</a></p>
+<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
 </div>
 <div id="phecode-1" class="section level3">
 <h3>Phecode</h3>
@@ -312,6 +311,7 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 <h4>Elixhauser</h4>
 <p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+</div>
 </div>
 </div>
 </div>

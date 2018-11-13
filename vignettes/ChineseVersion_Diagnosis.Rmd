@@ -259,11 +259,11 @@ IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 回傳的資料為符合條件的個案
 
 ```
-selectCasesDx_Example <- data.frame(ID = c("A", "A", "A", "A"),
+selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)
+selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
 ## 疾病世代
 針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄

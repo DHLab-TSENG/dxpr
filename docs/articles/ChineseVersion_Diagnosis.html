@@ -202,7 +202,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <p>目前提供兩種方法:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>IcdDxToCustomGrep</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
+<code>IcdDxToCustom</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
@@ -214,11 +214,11 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt; 3  Hypotension  I952</span>
 <span class="co">#&gt; 4 Hypertension  I110</span>
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, groupingTable)
+<pre><code>IcdDxToCustom(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>
-<code>IcdDxToCustomGrepList</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
+<code>IcdDxToCustomGrep</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
@@ -227,7 +227,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt;          Group grep_pattern</span>
 <span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrepList(icdFile, grepTable)
+<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
 </div>
 <div class="section level3">
@@ -286,11 +286,11 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <li><p>搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)</p></li>
 </ol>
 <p>回傳的資料為符合條件的個案</p>
-<pre><code>selectCasesDx_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
+<pre><code>selectCases_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
                          ICD = c("I072","I071", "I072", "I071"),
                          Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
                          stringsAsFactors = FALSE)
-selectCasesDx("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
+selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
 </div>
 <div class="section level2">
 <h2>疾病世代</h2>
