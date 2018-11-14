@@ -17,7 +17,7 @@ articles:
 
 reference:
 
-- title: Grouping ICD-9 and ICD-10 codes by ...
+- title: Grouping ICD-CM-code
   desc: ~
   contents:
   - '`IcdDxToCCS`'
@@ -26,47 +26,71 @@ reference:
   - '`IcdDxToComorbid`'
   - '`IcdDxToCustom`'
   - '`IcdDxToCustomGrep`'
+
+- title: Grouping ICD-PCS-codes
+  desc: ~
+  contents:
   - '`IcdPrToCCS`'
   - '`IcdPrToCCSLvl`'
   - '`IcdPrToProcedureClass`'
-  - '`selectCases`'
-  - '`getConditionEra`'
 
-- title: Conversion ICD format
+- title: Select event
   desc: ~
   contents:
-  - '`IcdDxShortToDecimal`'
-  - '`IcdDxDecimaltoShort`'
-  - '`IcdPrShortToDecimal`'
-  - '`IcdPrDecimaltoShort`'
+  - '`selectCases`'
 
-- title: Generation Decimal Format of ICD-9-CM and ICD-10-CM code
+- title: Calculate condition era
+  desc: ~
+  contents:
+  - '`getConditionEra`'
+
+- title: Generation ICD-CM code Decimal Format
   desc: ~
   contents:
   - '`ICD9DxGenerateDecimalFormat`'
   - '`ICD10DxGenerateDecimalFormat`'
+
+- title: Conversion ICD-CM code format
+  desc: ~
+  contents:
+  - '`IcdDxShortToDecimal`'
+  - '`IcdDxDecimaltoShort`'
+
+- title: Generation ICD-PCS code Decimal Format
+  desc: ~
+  contents:
   - '`ICD9PrGenerateDecimalFormat`'
 
-- title: Data - Two format of ICD-9-CM and ICD-10-CM code maps
+- title: Conversion ICD-PCS code format
+  desc: ~
+  contents:
+  - '`IcdPrShortToDecimal`'
+  - '`IcdPrDecimaltoShort`'
+
+- title: Data - ICD-CM-code Two Format maps
   desc: ~
   contents:
   - '`ICD9DxwithTwoFormat`'
   - '`ICD10DxwithTwoFormat`'
+
+- title: Data - ICD-PCS-code Two Format maps
+  desc: ~
+  contents:
   - '`ICD9PrwithTwoFormat`'
 
-- title: Data - Clinical Classifications Software (CCS) to ICD-9-CM and ICD-10-CM code maps
+- title: Data - ICD-CM-code to CCS maps
   desc: ~
   contents:
   - '`ccsDxICD9`'
   - '`ccsDxICD10`'
 
-- title: Data - Clinical Classifications Software (CCS) to ICD-9-PCS and ICD-10-PCS code maps
+- title: Data - ICD-PCS-code to CCS maps
   desc: ~
   contents:
   - '`ccsPrICD9`'
   - '`ccsPrICD10`'
 
-- title: Data - ICD-9 and ICD-10 CM/PCS/Procedure Class code maps
+- title: Data - ICD code (CM/PCS/Procedure Class)  maps
   desc: ~
   contents:
   - '`dxICD9`'
@@ -76,7 +100,7 @@ reference:
   - '`pcICD9`'
   - '`pcICD10`'
 
-- title: Data - Comorbidity to ICD-9-CM and ICD-10-CM code maps
+- title: Data - ICD-CM-code to Comorbidity maps
   desc: ~
   contents:
   - '`icd9_ahrq`'
@@ -86,7 +110,7 @@ reference:
   - '`icd9_elix`'
   - '`icd10_elix`'
 
-- title: Data - Phecode to ICD-9-CM code maps
+- title: Data - ICD-9-CM code to Phecode maps
   desc: ~
   contents:
   - '`phecode_icd9_2`'

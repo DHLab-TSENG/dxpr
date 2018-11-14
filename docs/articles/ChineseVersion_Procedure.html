@@ -86,8 +86,9 @@
 
     
     
-<div class="section level1">
-<h1>檢查與處置錢處理與整合方法</h1>
+<div id="i--" class="section level1">
+<h1 class="hasAnchor">
+<a href="#i--" class="anchor"></a>I. 檢查與處置前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
 <div id="icd-pcs-code-" class="section level3">
 <h3 class="hasAnchor">
@@ -128,9 +129,9 @@ IcdPrDecimaltoShort(icd9_Decimal)$Short
 IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 </div>
-<div id="icd-pcs-code-" class="section level2">
+<div id="ii--icd-pcs-code-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#icd-pcs-code-" class="anchor"></a>ICD-PCS-code 整合分類</h2>
+<a href="#ii--icd-pcs-code-" class="anchor"></a>II. ICD-PCS-code 整合分類</h2>
 <p>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
 <p>目前分類標準: CCS及 Procedure Class, 以下將分別介紹之</p>
 <div class="section level3">
@@ -179,8 +180,9 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 # "2" "1" "4" "4"</code></pre>
 </div>
 </div>
-<div class="section level2">
-<h2>參考資料</h2>
+<div id="iii--" class="section level2">
+<h2 class="hasAnchor">
+<a href="#iii--" class="anchor"></a>III. 參考資料</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd--short--decimal" class="anchor"></a>ICD 格式: Short 和 Decimal</h3>
@@ -216,9 +218,9 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="NA">檢查與處置錢處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#icd-pcs-code-">ICD-PCS-code 整合分類</a></li>
-      <li><a href="NA">參考資料</a></li>
+<a href="#i--">I. 檢查與處置前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#ii--icd-pcs-code-">II. ICD-PCS-code 整合分類</a></li>
+      <li><a href="#iii--">III. 參考資料</a></li>
       </ul>
 </li>
       </ul>

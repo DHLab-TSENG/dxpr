@@ -21,7 +21,9 @@ PrDataFile <- data.frame(ID=c("A","A","A","B"),
                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-# 檢查與處置錢處理與整合方法
+
+# I. 檢查與處置前處理與整合方法
+
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
@@ -71,7 +73,8 @@ IcdPrDecimaltoShort(icd9_Decimal)$Short
 IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
 ```
-## ICD-PCS-code 整合分類
+
+## II. ICD-PCS-code 整合分類
 將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用
 
 目前分類標準: CCS及 Procedure Class, 以下將分別介紹之 
@@ -129,7 +132,8 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"
 ```
-## 參考資料
+
+## III. 參考資料
 
 ### ICD 格式: Short 和 Decimal
 

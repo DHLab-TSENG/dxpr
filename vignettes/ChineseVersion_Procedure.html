@@ -34,8 +34,8 @@
 
 
 
-<div class="section level1">
-<h1>檢查與處置錢處理與整合方法</h1>
+<div id="i.-" class="section level1">
+<h1>I. 檢查與處置前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
 <div id="icd-pcs-code-" class="section level3">
 <h3>ICD-PCS-CODE 格式對照</h3>
@@ -74,8 +74,8 @@ IcdPrDecimaltoShort(icd9_Decimal)$Short
 IcdPrShortToDecimal(icd10)$Decimal
 # c(&quot;00800ZZ&quot;, &quot;00803ZZ&quot;, &quot;00804ZZ&quot;, &quot;00870ZZ&quot;, &quot;00873ZZ&quot;, &quot;00874ZZ&quot;, &quot;00880ZZ&quot;, &quot;00883ZZ&quot;, &quot;00884ZZ&quot;, &quot;008F0ZZ&quot;)</code></pre>
 </div>
-<div id="icd-pcs-code-" class="section level2">
-<h2>ICD-PCS-code 整合分類</h2>
+<div id="ii.-icd-pcs-code-" class="section level2">
+<h2>II. ICD-PCS-code 整合分類</h2>
 <p>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
 <p>目前分類標準: CCS及 Procedure Class, 以下將分別介紹之</p>
 <div class="section level3">
@@ -123,8 +123,8 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 2, TRUE)
 # &quot;2&quot; &quot;1&quot; &quot;4&quot; &quot;4&quot;</code></pre>
 </div>
 </div>
-<div class="section level2">
-<h2>參考資料</h2>
+<div id="iii.-" class="section level2">
+<h2>III. 參考資料</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3>ICD 格式: Short 和 Decimal</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>

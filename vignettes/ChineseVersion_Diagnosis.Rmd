@@ -22,7 +22,9 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10", "2016-03-10")),
                          stringsAsFactors = FALSE)
 ```
-# 診斷前處理與整合方法
+
+# I. 診斷前處理與整合方法
+
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
@@ -76,8 +78,7 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
-
-## ICD-CM-code 整合分類
+## II. ICD-CM-code 整合分類
 ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用
 
 目前分類標準: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之
@@ -160,7 +161,7 @@ icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactor
 ```
 目前提供兩種方法:
 
- 1) `IcdDxToCustom`: 使用`窮舉法`的方式找出符合的ICD
+#### 1) `IcdDxToCustom`: 使用`窮舉法`的方式找出符合的ICD
 ```{r}
 # groupingTable 
 data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", "Hypertension"),
@@ -171,7 +172,7 @@ data.frame(Group = c("Hypotension","Hypotension","Hypotension", "Hypertension", 
 IcdDxToCustom(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA 
 ```
- 2) `IcdDxToCustomGrep`: 選擇`ICD開頭`有符合做為篩選的條件
+#### 2) `IcdDxToCustomGrep`: 選擇`ICD開頭`有符合做為篩選的條件
 ```{r}
 # grepTable
 data.frame(Group = c("Hypotension", "Hypertension"),
@@ -244,7 +245,7 @@ icd10_elix$Comorbidity %>% unique
 ```
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
 ```
-##篩選符合條件的個案數
+## III. 篩選符合條件的個案數
 
 用以篩選符合特定條件之個案: Select Cases
 
@@ -265,7 +266,7 @@ selectCases_Example <- data.frame(ID = c("A", "A", "A", "A"),
                          stringsAsFactors = FALSE)
 selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
 ```
-## 疾病世代
+## IV. 疾病世代
 針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄
 
 疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代
@@ -275,7 +276,7 @@ selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ```
-## 參考資料
+## V. 參考資料
 
 ### ICD 格式: Short 和 Decimal
 

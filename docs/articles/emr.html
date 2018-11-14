@@ -85,9 +85,9 @@
 
     
     
-<div id="introduction" class="section level1">
+<div id="i--introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<a href="#i--introduction" class="anchor"></a>I. Introduction</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
 <div id="generate-icd-9-cm-and-icd-10-cm-code-decimal-format-for-conversion-function" class="section level3">
 <h3 class="hasAnchor">
@@ -131,17 +131,17 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")</code></pre>
 </div>
-<div id="grouping-icd-cm-codes-by" class="section level2">
+<div id="ii--grouping-icd-cm-codes-by" class="section level2">
 <h2 class="hasAnchor">
-<a href="#grouping-icd-cm-codes-by" class="anchor"></a>Grouping ICD-CM codes by …</h2>
+<a href="#ii--grouping-icd-cm-codes-by" class="anchor"></a>II. Grouping ICD-CM codes by …</h2>
 <p>Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
-<div id="clinical-classifications-software-ccs" class="section level3">
+<div id="a--clinical-classifications-software-ccs" class="section level3">
 <h3 class="hasAnchor">
-<a href="#clinical-classifications-software-ccs" class="anchor"></a>Clinical Classifications Software (CCS)</h3>
+<a href="#a--clinical-classifications-software-ccs" class="anchor"></a>A. Clinical Classifications Software (CCS)</h3>
 <p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
-<div id="ccs-single-level-category" class="section level4">
+<div id="a--ccs-single-level-category" class="section level4">
 <h4 class="hasAnchor">
-<a href="#ccs-single-level-category" class="anchor"></a>CCS single-level category</h4>
+<a href="#a--ccs-single-level-category" class="anchor"></a>a. CCS single-level category</h4>
 <p><code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
 <pre><code>## ICD to CCS category
@@ -159,9 +159,9 @@ IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 </ol>
 <p>for example, <code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message.</p>
 </div>
-<div id="ccs-multi-level" class="section level4">
+<div id="b--ccs-multi-level" class="section level4">
 <h4 class="hasAnchor">
-<a href="#ccs-multi-level" class="anchor"></a>CCS multi-level</h4>
+<a href="#b--ccs-multi-level" class="anchor"></a>b. CCS multi-level</h4>
 <p><code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
@@ -180,9 +180,9 @@ IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 </ol>
 </div>
 </div>
-<div id="phecode" class="section level3">
+<div id="b--phecode" class="section level3">
 <h3 class="hasAnchor">
-<a href="#phecode" class="anchor"></a>Phecode</h3>
+<a href="#b--phecode" class="anchor"></a>B. Phecode</h3>
 <p><code>IcdDxToPhecode</code> allows for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).</p>
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
@@ -191,15 +191,14 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 # "401.21" NA       NA       NA   </code></pre>
 <p>If Phecode return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.</p>
 </div>
-<div id="creating-a-grouping-standards" class="section level3">
+<div id="c--creating-a-grouping-standards" class="section level3">
 <h3 class="hasAnchor">
-<a href="#creating-a-grouping-standards" class="anchor"></a>Creating a grouping standards</h3>
+<a href="#c--creating-a-grouping-standards" class="anchor"></a>C. Creating a grouping standards</h3>
 <p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame <code>icdFile</code> whether is matched these group: Hypotension and Hypertension or not.</p>
 <pre><code>icdFile &lt;- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)</code></pre>
-<ol style="list-style-type: decimal">
-<li>
-<code>IcdDxToCustom</code>: Use method of exhaustion to find out the matched ICD.</li>
-</ol>
+<div id="a--icddxtocustom-use-method-of-exhaustion-to-find-out-the-matched-icd-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a--icddxtocustom-use-method-of-exhaustion-to-find-out-the-matched-icd-" class="anchor"></a>a. <code>IcdDxToCustom</code>: Use method of exhaustion to find out the matched ICD.</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"I95.0"</span>,<span class="st">"I951"</span>,<span class="st">"I952"</span>,<span class="st">"I110"</span>,<span class="st">"I11.9"</span>),
@@ -212,10 +211,10 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
 <pre><code>IcdDxToCustom(icdFile, groupingTable)
 #  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>
-<code>IcdDxToCustomGrep</code>: Use a ICD pattern to find out the fit ICD.</li>
-</ol>
+</div>
+<div id="b--icddxtocustomgrep-use-a-icd-pattern-to-find-out-the-fit-icd-" class="section level4">
+<h4 class="hasAnchor">
+<a href="#b--icddxtocustomgrep-use-a-icd-pattern-to-find-out-the-fit-icd-" class="anchor"></a>b. <code>IcdDxToCustomGrep</code>: Use a ICD pattern to find out the fit ICD.</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
            <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">"^I95|^I952"</span>, <span class="st">"^I11"</span>),
@@ -226,13 +225,14 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <pre><code>IcdDxToCustomGrep(icdFile, grepTable)
 # "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
 </div>
-<div id="comorbidities" class="section level3">
+</div>
+<div id="d--comorbidities" class="section level3">
 <h3 class="hasAnchor">
-<a href="#comorbidities" class="anchor"></a>Comorbidities</h3>
+<a href="#d--comorbidities" class="anchor"></a>D. Comorbidities</h3>
 <p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
-<div id="ahrq-comorbidity-classification" class="section level4">
+<div id="a--ahrq-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
-<a href="#ahrq-comorbidity-classification" class="anchor"></a>AHRQ comorbidity classification</h4>
+<a href="#a--ahrq-comorbidity-classification" class="anchor"></a>a. AHRQ comorbidity classification</h4>
 <p>AHRQ comorbidity measure dataframe is based on <code>icd package</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same. The AHRQ comorbidity measure map format is dataframe;it is convert <code>icd9_map_ahrq</code> list into <code>icd9_ahrq</code> dataframe.The functions apply those mappings to join with user’s ICD data.</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
@@ -242,9 +242,9 @@ icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
 icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
 <pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
 </div>
-<div id="charlson-comorbidity-classification" class="section level4">
+<div id="b--charlson-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
-<a href="#charlson-comorbidity-classification" class="anchor"></a>Charlson comorbidity classification</h4>
+<a href="#b--charlson-comorbidity-classification" class="anchor"></a>b. Charlson comorbidity classification</h4>
 <p>Charlson comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_charlson, icd10_map_charlson</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_charlson (list) to icd9_charlson (Df)
@@ -254,9 +254,9 @@ icd9_charlson$Comorbidity %&gt;% unique</code></pre>
 icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
 </div>
-<div id="elixhauser-comorbidity-classification" class="section level4">
+<div id="c--elixhauser-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
-<a href="#elixhauser-comorbidity-classification" class="anchor"></a>Elixhauser comorbidity classification</h4>
+<a href="#c--elixhauser-comorbidity-classification" class="anchor"></a>c. Elixhauser comorbidity classification</h4>
 <p>Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
 <p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
@@ -267,9 +267,9 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 </div>
 </div>
 </div>
-<div id="selection-cases" class="section level2">
+<div id="iii--selection-cases" class="section level2">
 <h2 class="hasAnchor">
-<a href="#selection-cases" class="anchor"></a>Selection Cases</h2>
+<a href="#iii--selection-cases" class="anchor"></a>III. Selection Cases</h2>
 <p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
 <p>searching criteria for example,</p>
 <ol style="list-style-type: decimal">
@@ -284,18 +284,18 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
                          stringsAsFactors = FALSE)
 selectCases("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
 </div>
-<div id="condition-era" class="section level2">
+<div id="iv--condition-era" class="section level2">
 <h2 class="hasAnchor">
-<a href="#condition-era" class="anchor"></a>Condition Era</h2>
+<a href="#iv--condition-era" class="anchor"></a>IV. Condition Era</h2>
 <p>Get the condition era</p>
 <p>Condition Eras are built with a Persistence Window, deafault is 30 days.</p>
 <pre><code>getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code></pre>
 </div>
 </div>
-<div id="reference" class="section level1">
+<div id="v--reference" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h1>
+<a href="#v--reference" class="anchor"></a>V. Reference</h1>
 <div id="icd-format-short-and-decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd-format-short-and-decimal" class="anchor"></a>ICD format: Short and Decimal</h3>
@@ -315,14 +315,14 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
 </div>
-<div id="phecode-1" class="section level3">
+<div id="phecode" class="section level3">
 <h3 class="hasAnchor">
-<a href="#phecode-1" class="anchor"></a>Phecode</h3>
+<a href="#phecode" class="anchor"></a>Phecode</h3>
 <p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
 </div>
-<div id="comorbidities-1" class="section level3">
+<div id="comorbidities" class="section level3">
 <h3 class="hasAnchor">
-<a href="#comorbidities-1" class="anchor"></a>Comorbidities</h3>
+<a href="#comorbidities" class="anchor"></a>Comorbidities</h3>
 <div id="ahrq" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ahrq" class="anchor"></a>AHRQ</h4>
@@ -347,13 +347,13 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#introduction">Introduction</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#grouping-icd-cm-codes-by">Grouping ICD-CM codes by …</a></li>
-      <li><a href="#selection-cases">Selection Cases</a></li>
-      <li><a href="#condition-era">Condition Era</a></li>
+<a href="#i--introduction">I. Introduction</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#ii--grouping-icd-cm-codes-by">II. Grouping ICD-CM codes by …</a></li>
+      <li><a href="#iii--selection-cases">III. Selection Cases</a></li>
+      <li><a href="#iv--condition-era">IV. Condition Era</a></li>
       </ul>
 </li>
-      <li><a href="#reference">Reference</a></li>
+      <li><a href="#v--reference">V. Reference</a></li>
       </ul>
 </div>
       </div>

@@ -72,8 +72,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<div class="section level1">
-<h1>診斷前處理與整合方法</h1>
+<div id="i.-" class="section level1">
+<h1>I. 診斷前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
 <div id="icd-cm-code-" class="section level3">
 <h3>ICD-CM-CODE 格式對照</h3>
@@ -117,8 +117,8 @@ IcdDxDecimaltoShort(icd9_Decimal)$Short
 IcdDxDecimaltoShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
-<div id="icd-cm-code-" class="section level2">
-<h2>ICD-CM-code 整合分類</h2>
+<div id="ii.-icd-cm-code-" class="section level2">
+<h2>II. ICD-CM-code 整合分類</h2>
 <p>ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
 <p>目前分類標準: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
 <div class="section level3">
@@ -182,9 +182,8 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
 <pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
 <p>目前提供兩種方法:</p>
-<ol style="list-style-type: decimal">
-<li><code>IcdDxToCustom</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</li>
-</ol>
+<div id="icddxtocustom-icd" class="section level4">
+<h4>1) <code>IcdDxToCustom</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;I95.0&quot;</span>,<span class="st">&quot;I951&quot;</span>,<span class="st">&quot;I952&quot;</span>,<span class="st">&quot;I110&quot;</span>,<span class="st">&quot;I11.9&quot;</span>),
@@ -197,9 +196,9 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
 <pre><code>IcdDxToCustom(icdFile, groupingTable)
 #  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li><code>IcdDxToCustomGrep</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</li>
-</ol>
+</div>
+<div id="icddxtocustomgrep-icd" class="section level4">
+<h4>2) <code>IcdDxToCustomGrep</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 <span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
            <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;^I95|^I952&quot;</span>, <span class="st">&quot;^I11&quot;</span>),
@@ -209,6 +208,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
 <span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
 <pre><code>IcdDxToCustomGrep(icdFile, grepTable)
 # &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3>四、共病症</h3>
@@ -253,8 +253,8 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2>篩選符合條件的個案數</h2>
+<div id="iii.-" class="section level2">
+<h2>III. 篩選符合條件的個案數</h2>
 <p>用以篩選符合特定條件之個案: Select Cases</p>
 <p>篩選條件如範例:</p>
 <ol style="list-style-type: decimal">
@@ -269,16 +269,16 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
                          stringsAsFactors = FALSE)
 selectCases(&quot;^I0&quot;, selectCases_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
 </div>
-<div class="section level2">
-<h2>疾病世代</h2>
+<div id="iv.-" class="section level2">
+<h2>IV. 疾病世代</h2>
 <p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄</p>
 <p>疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
 <p>依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天</p>
 <pre><code>getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)
 getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALSE)</code></pre>
 </div>
-<div class="section level2">
-<h2>參考資料</h2>
+<div id="v.-" class="section level2">
+<h2>V. 參考資料</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3>ICD 格式: Short 和 Decimal</h3>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
