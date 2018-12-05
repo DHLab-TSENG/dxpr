@@ -71,11 +71,11 @@ IcdDxShortToDecimal(icd10_Short)$Decimal
 將 ICD-CM code 的格式統一轉成 Short
 ```
 # ICD-9
-IcdDxDecimaltoShort(icd9_Decimal)$Short
+IcdDxDecimalToShort(icd9_Decimal)$Short
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 
 # ICD-10
-IcdDxDecimaltoShort(icd10_Decimal)$Short
+IcdDxDecimalToShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
 ## II. ICD-CM-code 整合分類
@@ -90,7 +90,7 @@ ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-
 
 多階層: 將診斷碼分為較精確的分組
 
-目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018
+目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2019
 
 ####1) 單一階層分類
 `IcdDxToCCS` 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述
@@ -279,6 +279,12 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
 ## V. 參考資料
 
 ### ICD 格式: Short 和 Decimal
+
+ICD-9-CM code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
+
+ICD-10-CM code (2019): https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html
+
+https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html
 
 https://www.findacode.com/search/search.php
 

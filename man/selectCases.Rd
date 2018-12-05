@@ -4,11 +4,11 @@
 \alias{selectCases}
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
-selectCases(greplICD, DxDataFile, idColName, icdColName, dateColName,
+selectCases(grepICD, DxDataFile, idColName, icdColName, dateColName,
   ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365)
 }
 \arguments{
-\item{greplICD}{ICD selection rules with grepl expression}
+\item{grepICD}{ICD selection rules with grepl expression}
 
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
 

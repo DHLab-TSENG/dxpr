@@ -8,21 +8,44 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' return first diagnosis record based on factIcd Data
 #'
 #' @import dplyr
-#' @param icdFile A file of clinical diagnostic data with at least one column: ICD
+#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
+#' @param idColName A column for MemberID of DxDataFile
+#' @param icdColName A column for ICD of DxDataFile
+#' @param dateColName A column for Date of DxDataFile
 #' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD
 #' @export
 #' @examples
-#' icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
-#' groupingTable <- data.frame(Group = c("Hypotension","Hypotension", "Hypertension", "Hypertension"),
-#'                             ICD = c("I95.0","I951","I110","I11.9"),
+#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
 #'                             stringsAsFactors = FALSE)
-#' IcdDxToCustom(icdFile, groupingTable)
+#' IcdDxToCustom(testDxFile, ID, ICD, Date, groupingTable)
 #'
-IcdDxToCustom <- function(icdFile, groupingTable){
-  icdFile$ICD <- IcdDxDecimaltoShort(icdFile$ICD)$Short
-  groupingTable$ICD <- IcdDxDecimaltoShort(groupingTable$ICD)$Short
+IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, groupingTable){
+  customICD <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  names(customICD) <- c("ID", "ICD", "Date")
+  customICD$Date <- as.Date(customICD$Date)
+  conversionCustomICD <- IcdDxDecimalToShort(customICD$ICD)
+  customICD$Short <- conversionCustomICD$Short
+  groupingTable$ICD <- IcdDxDecimalToShort(groupingTable$ICD)$Short
 
-  GroupDf <- left_join(icdFile, groupingTable, by = "ICD")$Group
+  groupedICD <- left_join(customICD, groupingTable, by = c("Short" = "ICD"))
 
-  GroupDf
+  groupedICDLong <- groupedICD[!is.na(groupedICD$group),] %>%
+    group_by(ID,group) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n())
+
+  wrongFormat <- conversionCustomICD$Error
+
+  if(nrow(wrongFormat) > 0){
+    message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
+    message("\n")
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
+  }
+  return(list(groupedIcd = groupedICD$group,
+              groupedData_Long = groupedICDLong,
+              wrongFormat = wrongFormat))
 }

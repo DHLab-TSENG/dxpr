@@ -16,7 +16,7 @@ ICD-10-CM CCS (2019)
 }
 \usage{
 IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE)
+  icd10usingDate, CCSLevel = 2, CCSLvlLabel = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"}
@@ -40,10 +40,7 @@ Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosi
 return Multi-leve Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 }
 \examples{
-DxDataFile <- data.frame(ID=c("A","A","A"),
-                         ICD=c("6929","V433","I350"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-                         stringsAsFactors = FALSE)
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
+
+IcdDxToCCSLvl(testDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 
 }

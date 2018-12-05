@@ -1,10 +1,14 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "greplICD",
+  "grepICD",
   "ICDNumber",
   "minimumINRofDays",
   "maximumINRofDays",
   "InTimeINR",
-  "CaseNum"))
+  "firstCaseDate",
+  "endCaseDate",
+  "period",
+  "MostCommonICD",
+  "MostCommonICDCount"))
 #' Select cases based on ICD code and the number of ICD codes
 #'
 #' This can be used to select qualified cases from factIcd data
@@ -13,7 +17,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' Return qualified Members' data
 #'
 #' @import dplyr
-#' @param greplICD ICD selection rules with grepl expression
+#' @param grepICD ICD selection rules with grepl expression
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -29,31 +33,27 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'                          stringsAsFactors = FALSE)
 #' selectCases("^I0", DxDataFile, ID, ICD, Date, 2)
 #'
-selectCases <- function(greplICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365){
+selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
+  names(DxDataFile) <- c("ID", "MostCommonICD", "Date")
+  DxDataFile$Date <- as.Date(DxDataFile$Date)
   DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
-  DxDataFile$Short <- Conversion$Short
 
-  CaseCount <- DxDataFile %>% filter(grepl(greplICD, ICD)) %>%
-    arrange(ID, ICD, Date) %>%
-    group_by(ID,ICD) %>%
-    mutate(Gap = Date - lag(Date)) %>%
-    mutate(InTimeINR = Gap >= minimumINRofDays & Gap < maximumINRofDays)
+  Count <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),] %>%
+    group_by(ID) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              Count = n(),
+              InTimeINR = period >= minimumINRofDays & period < maximumINRofDays) %>%
+    filter(Count >= ICDNumber & InTimeINR ==TRUE) %>%
+    select (-InTimeINR)
 
-  CaseCount$InTimeINR[is.na(CaseCount$InTimeINR)] <- TRUE
+  CaseICD <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),] %>%
+    group_by(ID,MostCommonICD) %>%
+    summarise(MostCommonICDCount = n()) %>%
+    arrange(ID,desc(MostCommonICDCount)) %>% slice(1)
 
-  CaseCountInTimeINR <- CaseCount %>% filter(InTimeINR == T) %>%
-    group_by(ID, ICD) %>%
-    mutate(CaseNum = cumsum(InTimeINR)) %>%
-    filter(CaseNum >= ICDNumber) %>%
-    select(ID,ICD,Date)
-
-  WrongFormat <- Conversion$Error
-  if(nrow(WrongFormat) > 0){
-    message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
-    warning('"wrong Format" means the ICD has wrong format', call. = F)
-  }
-  CaseCountInTimeINR
+  CaseCount <- left_join(Count,CaseICD,"ID")
+  CaseCount
 }

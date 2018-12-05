@@ -32,10 +32,7 @@ This can be used to group Phecode or description based on ICD-9 codes in clinica
 return Phecode or description based on ICD-9-CM codes
 }
 \examples{
-DxDataFile <- data.frame(ID = c("A", "A", "A"),
-                         ICD = c("6929", "V433", "I350"),
-                         Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10")),
-                         stringsAsFactors = FALSE)
-IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+
+IcdDxToPhecode(testDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 
 }

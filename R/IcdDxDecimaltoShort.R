@@ -15,7 +15,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #'
-IcdDxDecimaltoShort<-function(icdList){
+IcdDxDecimalToShort<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
   icd_Decimal <- icdDf[grepl("[.]",icdDf$ICD),]
   icd_Short <- anti_join(icdDf,icd_Decimal,"Number")
@@ -24,7 +24,7 @@ IcdDxDecimaltoShort<-function(icdList){
                 inner_join(icd_Decimal, ICD10DxwithTwoFormat, by = c("ICD" = "Decimal")))
 
   StoS <- rbind(semi_join(icd_Short, ICD9DxwithTwoFormat, by = c("ICD" = "Short")),
-                     semi_join(icd_Short, ICD10DxwithTwoFormat, by = c("ICD" = "Short"))) %>% unique
+                semi_join(icd_Short, ICD10DxwithTwoFormat, by = c("ICD" = "Short"))) %>% unique
 
   allShortFormat <- rbind(StoS, select(DtoS, Number, ICD = Short))
 

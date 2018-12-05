@@ -5,15 +5,13 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "icd10_charlson",
   "icd9_elix",
   "icd10_elix",
-  "Comorbidity",
-  "B"))
+  "Comorbidity"))
 #' Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
 #'
 #' Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
 #'
 #' return comorbidity meseaures based on ICD diagnosis codes
 #'
-#' @import reshape2
 #' @import dplyr
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
@@ -21,8 +19,6 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
 #' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`
-#' @param NumericOrBinary  Member have one (or more) diagnostic comorbidities, type `N` or `B`, default is `B` (Binary)
-#' @param groupByDate Default is True.
 #' @export
 #' @source AHRQ
 
@@ -34,21 +30,18 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source ICD-10-CM Elixhauser (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 #' @examples
-#' DxDataFile <- data.frame(ID=c("A","A","B","B"),
-#'                          ICD=c("40201","42577","I350","K289"),
-#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-#'                          stringsAsFactors = FALSE)
 #'
-#' IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
-#' IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
-#' IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
+#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", charlson)
+#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", elix)
+#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 #'
-IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, NumericOrBinary = B, groupByDate = TRUE){
+IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$Date <- as.Date(DxDataFile$Date)
   DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
-  DxDataFile$Short <- Conversion$Short
+  conversion <- IcdDxDecimalToShort(DxDataFile$ICD)
+  DxDataFile$Short <- conversion$Short
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (grepl("ahrq", comorbidMethod)){
@@ -60,39 +53,38 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   }else if(grepl("elix", comorbidMethod)){
     comorbidMap9 <- `icd9_elix`
     comorbidMap10 <- `icd10_elix`
-  }
-
-  comorbidDf9 <- left_join(data.frame(DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,]), comorbidMap9,by = "ICD")
-  comorbidDf10 <- left_join(data.frame(DxDataFile[as.Date(DxDataFile$Date) >= icd10usingDate,]), comorbidMap10, by = "ICD")
-  comorbidDf_combine <- rbind(comorbidDf9, comorbidDf10)
-
-  comorbidDf_combine$ICD <- NULL
-  if(groupByDate ==T){
-    comorbidDf_combine <- comorbidDf_combine %>% group_by(ID, Date, Comorbidity) %>% unique()
-  }
-  comorbidDf_combine_wide <- dcast(comorbidDf_combine, ID~Comorbidity, value.var = c("Value"), sum)
-
-  all_comorbidity_measures <- data.frame(matrix(nrow = length(comorbidDf_combine_wide$ID), ncol = length(unique(comorbidMap9$Comorbidity))))
-  names(all_comorbidity_measures) <- unique(comorbidMap9$Comorbidity)
-  all_comorbidity_measures <- mutate(all_comorbidity_measures, ID = comorbidDf_combine_wide$ID)
-
-  JoiningBycol <- names(comorbidDf_combine_wide[ names(comorbidDf_combine_wide) != "NA"])
-  combine <- right_join(all_comorbidity_measures, comorbidDf_combine_wide,by = JoiningBycol)
-  combine <- combine[, names(combine) != "NA"]
-
-  combine_Numeric <- combine[, c(ncol(combine), 1:(ncol(combine)-1))]
-  combine_Numeric[is.na(combine_Numeric)] <- 0L
-  WrongFormat <- Conversion$Error
-  if(nrow(WrongFormat) > 0){
-    message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
-  }
-  if(toupper(deparse(substitute(NumericOrBinary))) == "B"){
-    combine_Binary <-as.data.frame(combine_Numeric >= 1L)
-    combine_Binary$ID <- unique(DxDataFile$ID)
-    return(combine_Binary)
-  }else if(toupper(deparse(substitute(NumericOrBinary))) == "N"){
-    return(combine_Numeric)
   }else{
-    stop("'please enter N or B for 'comorbidMethod'", call. = FALSE)
+    stop("'please enter AHRQ, Charlson or Elix for 'comorbidMethod'", call. = FALSE)
   }
+
+  IcdToComorbid <- rbind(left_join(data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,]),
+                                   select(comorbidMap9,ICD,Comorbidity),by = c("Short"="ICD")),
+                         left_join(data.frame(DxDataFile[DxDataFile$Date  >= icd10usingDate,]),
+                                   select(comorbidMap10,ICD,Comorbidity), by = c("Short"="ICD"))) %>% arrange(Number) %>% unique
+
+  IcdToComorbidLong <- IcdToComorbid[!is.na(IcdToComorbid$Comorbidity),] %>%
+    group_by(ID,Comorbidity) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n())
+
+  wrongFormat <- conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = IcdToComorbid$ICD[is.na(IcdToComorbid$Comorbidity)],stringsAsFactors = F), wrongFormat, "ICD")
+  if(anyNA(IcdToComorbid)){
+    if(nrow(wrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
+    }
+    if(sum(is.na(IcdToComorbid)) > nrow(wrongFormat)){
+      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
+      message("\n")
+    }
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+  }
+  return(list(groupedIcd = IcdToComorbid,
+              groupedData_Long = IcdToComorbidLong,
+              wrongICD = wrongFormat,
+              errorICD = error_ICD))
 }

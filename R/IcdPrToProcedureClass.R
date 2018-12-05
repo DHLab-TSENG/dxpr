@@ -29,14 +29,13 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isProcedureClassName = TRUE){
   PrDataFile <- PrDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(PrDataFile) <- c("ID", "ICD", "Date")
+  PrDataFile$Date <- as.Date(PrDataFile$Date)
   PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
-  Conversion <- IcdPrDecimaltoShort(PrDataFile$ICD)
+  Conversion <- IcdPrDecimalToShort(PrDataFile$ICD)
   PrDataFile$Short <- Conversion$Short
 
-
-  icd9ToPC <- left_join(PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,], pcICD9, by = "ICD")
-  icd10ToPC <- left_join(PrDataFile[as.Date(PrDataFile$Date) >= icd10usingDate,], pcICD10, by = "ICD")
-  PC_combine <- rbind(icd9ToPC, icd10ToPC)
+  PC_combine <- rbind(left_join(PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,], pcICD9, by = "ICD"),
+                      left_join(PrDataFile[as.Date(PrDataFile$Date) >= icd10usingDate,], pcICD10, by = "ICD")) %>% arrange(Number)
 
   if (isProcedureClassName == T) {
     IcdToPC <- PC_combine$PROCEDURE_CLASS

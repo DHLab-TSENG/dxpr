@@ -3,7 +3,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "CCS_CATEGORY",
   "CCS_CATEGORY_DESCRIPTION",
   "icd10usingDate",
-  "ccsDxICD10"))
+  "ccsDxICD10",
+  "isCCSCategoryDescription"))
 #' Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
 #' Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.
@@ -25,38 +26,42 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source ICD-10-CM CCS (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @examples
-#' DxDataFile <- data.frame(ID=c("A","A","A"),
-#'                          ICD=c("6929","V433","I350"),
-#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-#'                          stringsAsFactors = FALSE)
-#' IcdDxToCCS(DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 #'
-IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = TRUE){
+#' IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+#'
+IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = T){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-  Conversion <- IcdDxDecimaltoShort(DxDataFile$ICD)
-  DxDataFile$Short <- Conversion$Short
-
-  icd9ToCCS <- left_join(DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,],
-                         select(ccsDxICD9, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
-  icd10ToCCS <- left_join(DxDataFile[as.Date(DxDataFile$Date) >= icd10usingDate,],
-                          select(ccsDxICD10, ICD, CCS_CATEGORY, CCS_CATEGORY_DESCRIPTION), by = c("Short"="ICD"))
-  CCS_combine <- rbind(icd9ToCCS, icd10ToCCS)
+  DxDataFile$Date <- as.Date(DxDataFile$Date)
+  DxDataFile$Number <- 1:nrow(DxDataFile)
+  conversion <- IcdDxDecimalToShort(DxDataFile$ICD)
+  DxDataFile$Short <- conversion$Short
 
   if (isCCSCategoryDescription == T) {
-    IcdToCCS <- CCS_combine$CCS_CATEGORY_DESCRIPTION
+    ccs_col <- "CCS_CATEGORY_DESCRIPTION"
   }else {
-    IcdToCCS <- CCS_combine$CCS_CATEGORY
+    ccs_col <- "CCS_CATEGORY"
   }
-  WrongFormat <- Conversion$Error
-  error_ICD <- anti_join(data.frame(ICD = DxDataFile$ICD[is.na(IcdToCCS)],stringsAsFactors = F), WrongFormat, "ICD")
+  IcdToCCS <- rbind(left_join(DxDataFile[DxDataFile$Date < icd10usingDate,],
+                              select_(ccsDxICD9, "ICD", ccs_col), by = c("Short"="ICD")),
+                    left_join(DxDataFile[DxDataFile$Date >= icd10usingDate,],
+                              select_(ccsDxICD10, "ICD",ccs_col), by = c("Short"="ICD"))) %>% arrange(Number)
+
+  IcdToCCSLong <- IcdToCCS[!is.na(IcdToCCS[,ccs_col]),] %>%
+    group_by_("ID",ccs_col) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n())
+
+  wrongFormat <- conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = IcdToCCS$ICD[is.na(IcdToCCS[,ccs_col])],stringsAsFactors = F), wrongFormat, "ICD")
 
   if(anyNA(IcdToCCS)){
-    if(nrow(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
+    if(nrow(wrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
     }
-    if(sum(is.na(IcdToCCS)) > nrow(WrongFormat)){
+    if(sum(is.na(IcdToCCS)) > nrow(wrongFormat)){
       message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
@@ -64,6 +69,6 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
     warning('"wrong Format" means the ICD has wrong format', call. = F)
     warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  return(IcdToCCS)
+  return(list(groupedIcd = IcdToCCS[,ccs_col],
+              groupedData_Long = IcdToCCSLong))
 }
-

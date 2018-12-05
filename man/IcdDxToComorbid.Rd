@@ -20,8 +20,7 @@ ICD-10-CM Elixhauser (2019)
 }
 \usage{
 IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, comorbidMethod, NumericOrBinary = B,
-  groupByDate = TRUE)
+  icd10usingDate, comorbidMethod)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -35,10 +34,6 @@ IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
 \item{icd10usingDate}{Icd 10 using date}
 
 \item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`}
-
-\item{NumericOrBinary}{Member have one (or more) diagnostic comorbidities, type `N` or `B`, default is `B` (Binary)}
-
-\item{groupByDate}{Default is True.}
 }
 \description{
 Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
@@ -47,13 +42,9 @@ Get comorbidities using the comorbidity methods based on ICD code in clinical di
 return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
-DxDataFile <- data.frame(ID=c("A","A","B","B"),
-                         ICD=c("40201","42577","I350","K289"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-                         stringsAsFactors = FALSE)
 
-IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
-IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)
-IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)
+IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", charlson)
+IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", elix)
+IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 
 }

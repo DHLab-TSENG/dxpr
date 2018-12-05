@@ -29,7 +29,7 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
   PrDataFile <- PrDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(PrDataFile) <- c("ID", "ICD", "Date")
   PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
-  Conversion <- IcdPrDecimaltoShort(PrDataFile$ICD)
+  Conversion <- IcdPrDecimalToShort(PrDataFile$ICD)
   PrDataFile$Short <- Conversion$Short
 
   icd9 <- PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,]
@@ -54,7 +54,7 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
   }
   IcdToCCSLevel <- CCSLvl_combine[, CCSLevelcol]
 
-  WrongFormat <- IcdPrDecimaltoShort(PrDataFile$ICD)$Error
+  WrongFormat <- Conversion$Error
   error_ICD <- anti_join(data.frame(ICD = PrDataFile$ICD[is.na(IcdToCCSLevel)], stringsAsFactors= FALSE),WrongFormat, "ICD")
   if(anyNA(IcdToCCSLevel)){
     if(nrow(WrongFormat) > 0){

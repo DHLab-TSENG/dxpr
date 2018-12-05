@@ -21,43 +21,48 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://phewascatalog.org/phecodes}
 #' @export
 #' @examples
-#' DxDataFile <- data.frame(ID = c("A", "A", "A"),
-#'                          ICD = c("6929", "V433", "I350"),
-#'                          Date = as.Date(c("2013-03-31", "2013-01-29", "2016-03-10")),
-#'                          stringsAsFactors = FALSE)
-#' IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
+#'
+#' IcdDxToPhecode(testDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 #'
 IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+  DxDataFile$Date <- as.Date(DxDataFile$Date)
   DxDataFile <- DxDataFile %>% mutate(Number =  1:nrow(DxDataFile))
-
-  icd9 <- DxDataFile[as.Date(DxDataFile$Date) < icd10usingDate,]
-  Conversion <- IcdDxShortToDecimal(icd9$ICD)
-  icd9$ICDD <- Conversion$Decimal
-
-  Phecode_combine <- full_join(DxDataFile, left_join(icd9, select(phecode_icd9_2, ICDD, PheCode, PheCodeDescription), "ICDD"),
-                               by = c("ID", "ICD", "Date", "Number"))
+  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  conversion <- IcdDxShortToDecimal(icd9$ICD)
+  icd9$Decimal <- conversion$Decimal
 
   if(isPhecodeDescription == T){
-    IcdToPhecode <- Phecode_combine$PheCodeDescription
+    phecodeCol <- "PheCodeDescription"
   }else{
-    IcdToPhecode <- Phecode_combine$PheCode
+    phecodeCol <- "PheCode"
   }
+  IcdToPhecode <- left_join(DxDataFile, left_join(icd9, select_(phecode_icd9_2, "ICDD", phecodeCol), by = c("Decimal" = "ICDD")),
+                            by = names(DxDataFile))
 
-  WrongFormat <- Conversion$Error
-  error_ICD <- anti_join(data.frame(ICD = DxDataFile$ICD[is.na(IcdToPhecode)], stringsAsFactors= FALSE), WrongFormat, "ICD")
+  IcdToPhecodeLong <- IcdToPhecode[!is.na(IcdToPhecode[,phecodeCol]),] %>%
+    group_by_("ID",phecodeCol) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n())
+
+  wrongFormat <- conversion$Error
+  error_ICD <- anti_join(data.frame(ICD = IcdToPhecode$ICD[is.na(IcdToPhecode[,phecodeCol])],stringsAsFactors = F), wrongFormat, "ICD")
+
   if(anyNA(IcdToPhecode)){
-    if(nrow(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
+    if(nrow(wrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
     }
-    if(sum(is.na(IcdToPhecode)) > nrow(WrongFormat)){
+    if(sum(is.na(IcdToPhecode)) > nrow(wrongFormat)){
       message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
       message("\n")
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"wrong ICD version" means the ICD classify to wrong ICD version (phecode does not have icd10), or the icd does not have phecode ', call. = F)
+    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  IcdToPhecode
+  return(list(groupedIcd = IcdToPhecode[,phecodeCol],
+              groupedData_Long = IcdToPhecodeLong))
 }

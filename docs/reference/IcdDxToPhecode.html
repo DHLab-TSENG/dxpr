@@ -164,11 +164,1250 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>DxDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>),
-                         <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"6929"</span>, <span class='st'>"V433"</span>, <span class='st'>"I350"</span>),
-                         <span class='kw'>Date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>, <span class='st'>"2013-01-29"</span>, <span class='st'>"2016-03-10"</span>)),
-                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>IcdDxToPhecode</span>(<span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD version: I350	</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (phecode does not have icd10), or the icd does not have phecode </span></div><div class='output co'>#&gt; [1] "939"   "395.6" NA     </div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='fu'>IcdDxToPhecode</span>(<span class='no'>testDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>wrong Format: 12345	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: V45.4	</span>
+#&gt; <span class='message'>wrong ICD version: V58.69	</span>
+#&gt; <span class='message'>wrong ICD version: V16.0	</span>
+#&gt; <span class='message'>wrong ICD version: V72.84	</span>
+#&gt; <span class='message'>wrong ICD version: V72.60	</span>
+#&gt; <span class='message'>wrong ICD version: V72.63	</span>
+#&gt; <span class='message'>wrong ICD version: V44.0	</span>
+#&gt; <span class='message'>wrong ICD version: V70.0	</span>
+#&gt; <span class='message'>wrong ICD version: V65.42	</span>
+#&gt; <span class='message'>wrong ICD version: E917.9	</span>
+#&gt; <span class='message'>wrong ICD version: V72.31	</span>
+#&gt; <span class='message'>wrong ICD version: V78.0	</span>
+#&gt; <span class='message'>wrong ICD version: E812.0	</span>
+#&gt; <span class='message'>wrong ICD version: 999.33	</span>
+#&gt; <span class='message'>wrong ICD version: V72.62	</span>
+#&gt; <span class='message'>wrong ICD version: V17.3	</span>
+#&gt; <span class='message'>wrong ICD version: V58.83	</span>
+#&gt; <span class='message'>wrong ICD version: V07.8	</span>
+#&gt; <span class='message'>wrong ICD version: V15.81	</span>
+#&gt; <span class='message'>wrong ICD version: V72.81	</span>
+#&gt; <span class='message'>wrong ICD version: V45.89	</span>
+#&gt; <span class='message'>wrong ICD version: V58.30	</span>
+#&gt; <span class='message'>wrong ICD version: V58.81	</span>
+#&gt; <span class='message'>wrong ICD version: V18.0	</span>
+#&gt; <span class='message'>wrong ICD version: V45.79	</span>
+#&gt; <span class='message'>wrong ICD version: V76.10	</span>
+#&gt; <span class='message'>wrong ICD version: V76.44	</span>
+#&gt; <span class='message'>wrong ICD version: V76.12	</span>
+#&gt; <span class='message'>wrong ICD version: V76.51	</span>
+#&gt; <span class='message'>wrong ICD version: V17.49	</span>
+#&gt; <span class='message'>wrong ICD version: V77.91	</span>
+#&gt; <span class='message'>wrong ICD version: V77.99	</span>
+#&gt; <span class='message'>wrong ICD version: V65.40	</span>
+#&gt; <span class='message'>wrong ICD version: V79.1	</span>
+#&gt; <span class='message'>wrong ICD version: V49.83	</span>
+#&gt; <span class='message'>wrong ICD version: E849.7	</span>
+#&gt; <span class='message'>wrong ICD version: V78.1	</span>
+#&gt; <span class='message'>wrong ICD version: V58.31	</span>
+#&gt; <span class='message'>wrong ICD version: V58.44	</span>
+#&gt; <span class='message'>wrong ICD version: V72.61	</span>
+#&gt; <span class='message'>wrong ICD version: V65.41	</span>
+#&gt; <span class='message'>wrong ICD version: V57.89	</span>
+#&gt; <span class='message'>wrong ICD version: V55.1	</span>
+#&gt; <span class='message'>wrong ICD version: V57.1	</span>
+#&gt; <span class='message'>wrong ICD version: V58.89	</span>
+#&gt; <span class='message'>wrong ICD version: V43.65	</span>
+#&gt; <span class='message'>wrong ICD version: E849.5	</span>
+#&gt; <span class='message'>wrong ICD version: V49.84	</span>
+#&gt; <span class='message'>wrong ICD version: E929.1	</span>
+#&gt; <span class='message'>wrong ICD version: D64.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z82.49	</span>
+#&gt; <span class='message'>wrong ICD version: M79.674	</span>
+#&gt; <span class='message'>wrong ICD version: E46	</span>
+#&gt; <span class='message'>wrong ICD version: I11.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z22.52	</span>
+#&gt; <span class='message'>wrong ICD version: Z21	</span>
+#&gt; <span class='message'>wrong ICD version: I10	</span>
+#&gt; <span class='message'>wrong ICD version: Z23	</span>
+#&gt; <span class='message'>wrong ICD version: B18.2	</span>
+#&gt; <span class='message'>wrong ICD version: E11.9	</span>
+#&gt; <span class='message'>wrong ICD version: E53.9	</span>
+#&gt; <span class='message'>wrong ICD version: F17.200	</span>
+#&gt; <span class='message'>wrong ICD version: M79.673	</span>
+#&gt; <span class='message'>wrong ICD version: I25.10	</span>
+#&gt; <span class='message'>wrong ICD version: R51	</span>
+#&gt; <span class='message'>wrong ICD version: M25.562	</span>
+#&gt; <span class='message'>wrong ICD version: R92.8	</span>
+#&gt; <span class='message'>wrong ICD version: Z72.0	</span>
+#&gt; <span class='message'>wrong ICD version: R73.02	</span>
+#&gt; <span class='message'>wrong ICD version: C34.90	</span>
+#&gt; <span class='message'>wrong ICD version: M79.1	</span>
+#&gt; <span class='message'>wrong ICD version: M99.04	</span>
+#&gt; <span class='message'>wrong ICD version: M54.2	</span>
+#&gt; <span class='message'>wrong ICD version: M99.01	</span>
+#&gt; <span class='message'>wrong ICD version: R13.10	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.5	</span>
+#&gt; <span class='message'>wrong ICD version: F41.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.9	</span>
+#&gt; <span class='message'>wrong ICD version: I95.1	</span>
+#&gt; <span class='message'>wrong ICD version: E87.6	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.220	</span>
+#&gt; <span class='message'>wrong ICD version: M76.62	</span>
+#&gt; <span class='message'>wrong ICD version: F32.9	</span>
+#&gt; <span class='message'>wrong ICD version: G93.49	</span>
+#&gt; <span class='message'>wrong ICD version: E53.8	</span>
+#&gt; <span class='message'>wrong ICD version: Z11.3	</span>
+#&gt; <span class='message'>wrong ICD version: F17.210	</span>
+#&gt; <span class='message'>wrong ICD version: I48.0	</span>
+#&gt; <span class='message'>wrong ICD version: K31.9	</span>
+#&gt; <span class='message'>wrong ICD version: M25.551	</span>
+#&gt; <span class='message'>wrong ICD version: K57.90	</span>
+#&gt; <span class='message'>wrong ICD version: Z87.891	</span>
+#&gt; <span class='message'>wrong ICD version: E11.29	</span>
+#&gt; <span class='message'>wrong ICD version: G47.30	</span>
+#&gt; <span class='message'>wrong ICD version: I82.890	</span>
+#&gt; <span class='message'>wrong ICD version: M34.0	</span>
+#&gt; <span class='message'>wrong ICD version: E55.9	</span>
+#&gt; <span class='message'>wrong ICD version: G57.92	</span>
+#&gt; <span class='message'>wrong ICD version: B20	</span>
+#&gt; <span class='message'>wrong ICD version: R06.00	</span>
+#&gt; <span class='message'>wrong ICD version: J44.9	</span>
+#&gt; <span class='message'>wrong ICD version: K21.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z86.718	</span>
+#&gt; <span class='message'>wrong ICD version: I65.23	</span>
+#&gt; <span class='message'>wrong ICD version: M99.03	</span>
+#&gt; <span class='message'>wrong ICD version: I82.90	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.12	</span>
+#&gt; <span class='message'>wrong ICD version: Z51.81	</span>
+#&gt; <span class='message'>wrong ICD version: H53.8	</span>
+#&gt; <span class='message'>wrong ICD version: M35.01	</span>
+#&gt; <span class='message'>wrong ICD version: K22.9	</span>
+#&gt; <span class='message'>wrong ICD version: G31.83	</span>
+#&gt; <span class='message'>wrong ICD version: I51.7	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.01	</span>
+#&gt; <span class='message'>wrong ICD version: B19.20	</span>
+#&gt; <span class='message'>wrong ICD version: M79.662	</span>
+#&gt; <span class='message'>wrong ICD version: M25.351	</span>
+#&gt; <span class='message'>wrong ICD version: J30.81	</span>
+#&gt; <span class='message'>wrong ICD version: Z94.4	</span>
+#&gt; <span class='message'>wrong ICD version: L85.1	</span>
+#&gt; <span class='message'>wrong ICD version: L89.509	</span>
+#&gt; <span class='message'>wrong ICD version: M54.9	</span>
+#&gt; <span class='message'>wrong ICD version: M47.9	</span>
+#&gt; <span class='message'>wrong ICD version: A63.0	</span>
+#&gt; <span class='message'>wrong ICD version: L81.4	</span>
+#&gt; <span class='message'>wrong ICD version: J18.9	</span>
+#&gt; <span class='message'>wrong ICD version: E11.621	</span>
+#&gt; <span class='message'>wrong ICD version: N52.8	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.11	</span>
+#&gt; <span class='message'>wrong ICD version: C22.0	</span>
+#&gt; <span class='message'>wrong ICD version: R53.83	</span>
+#&gt; <span class='message'>wrong ICD version: I85.00	</span>
+#&gt; <span class='message'>wrong ICD version: R68.84	</span>
+#&gt; <span class='message'>wrong ICD version: W10.8XXA	</span>
+#&gt; <span class='message'>wrong ICD version: Z86.010	</span>
+#&gt; <span class='message'>wrong ICD version: K75.9	</span>
+#&gt; <span class='message'>wrong ICD version: K82.8	</span>
+#&gt; <span class='message'>wrong ICD version: E78.4	</span>
+#&gt; <span class='message'>wrong ICD version: W01.0XXA	</span>
+#&gt; <span class='message'>wrong ICD version: K59.00	</span>
+#&gt; <span class='message'>wrong ICD version: K72.90	</span>
+#&gt; <span class='message'>wrong ICD version: E66.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z87.39	</span>
+#&gt; <span class='message'>wrong ICD version: E21.0	</span>
+#&gt; <span class='message'>wrong ICD version: M79.671	</span>
+#&gt; <span class='message'>wrong ICD version: I25.2	</span>
+#&gt; <span class='message'>wrong ICD version: M10.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.899	</span>
+#&gt; <span class='message'>wrong ICD version: Z09	</span>
+#&gt; <span class='message'>wrong ICD version: M62.830	</span>
+#&gt; <span class='message'>wrong ICD version: R89.4	</span>
+#&gt; <span class='message'>wrong ICD version: F33.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.41	</span>
+#&gt; <span class='message'>wrong ICD version: R26.2	</span>
+#&gt; <span class='message'>wrong ICD version: N52.9	</span>
+#&gt; <span class='message'>wrong ICD version: O99.340	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.31	</span>
+#&gt; <span class='message'>wrong ICD version: A49.02	</span>
+#&gt; <span class='message'>wrong ICD version: E87.0	</span>
+#&gt; <span class='message'>wrong ICD version: A41.9	</span>
+#&gt; <span class='message'>wrong ICD version: E13.9	</span>
+#&gt; <span class='message'>wrong ICD version: I83.009	</span>
+#&gt; <span class='message'>wrong ICD version: R07.89	</span>
+#&gt; <span class='message'>wrong ICD version: I87.311	</span>
+#&gt; <span class='message'>wrong ICD version: Z96.642	</span>
+#&gt; <span class='message'>wrong ICD version: B19.10	</span>
+#&gt; <span class='message'>wrong ICD version: D50.9	</span>
+#&gt; <span class='message'>wrong ICD version: L21.9	</span>
+#&gt; <span class='message'>wrong ICD version: J45.909	</span>
+#&gt; <span class='message'>wrong ICD version: E78.5	</span>
+#&gt; <span class='message'>wrong ICD version: S61.210A	</span>
+#&gt; <span class='message'>wrong ICD version: I48.91	</span>
+#&gt; <span class='message'>wrong ICD version: K31.89	</span>
+#&gt; <span class='message'>wrong ICD version: F51.01	</span>
+#&gt; <span class='message'>wrong ICD version: G89.4	</span>
+#&gt; <span class='message'>wrong ICD version: G44.89	</span>
+#&gt; <span class='message'>wrong ICD version: M51.37	</span>
+#&gt; <span class='message'>wrong ICD version: R73.01	</span>
+#&gt; <span class='message'>wrong ICD version: G47.00	</span>
+#&gt; <span class='message'>wrong ICD version: R10.32	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.891	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.21	</span>
+#&gt; <span class='message'>wrong ICD version: G60.8	</span>
+#&gt; <span class='message'>wrong ICD version: G25.81	</span>
+#&gt; <span class='message'>wrong ICD version: E86.0	</span>
+#&gt; <span class='message'>wrong ICD version: K29.70	</span>
+#&gt; <span class='message'>wrong ICD version: C18.5	</span>
+#&gt; <span class='message'>wrong ICD version: Z11.59	</span>
+#&gt; <span class='message'>wrong ICD version: F11.20	</span>
+#&gt; <span class='message'>wrong ICD version: D72.1	</span>
+#&gt; <span class='message'>wrong ICD version: D69.6	</span>
+#&gt; <span class='message'>wrong ICD version: R47.01	</span>
+#&gt; <span class='message'>wrong ICD version: F41.8	</span>
+#&gt; <span class='message'>wrong ICD version: G89.29	</span>
+#&gt; <span class='message'>wrong ICD version: H01.139	</span>
+#&gt; <span class='message'>wrong ICD version: R94.5	</span>
+#&gt; <span class='message'>wrong ICD version: E03.9	</span>
+#&gt; <span class='message'>wrong ICD version: G93.41	</span>
+#&gt; <span class='message'>wrong ICD version: R91.1	</span>
+#&gt; <span class='message'>wrong ICD version: M96.1	</span>
+#&gt; <span class='message'>wrong ICD version: Z91.14	</span>
+#&gt; <span class='message'>wrong ICD version: J45.998	</span>
+#&gt; <span class='message'>wrong ICD version: M50.32	</span>
+#&gt; <span class='message'>wrong ICD version: E07.9	</span>
+#&gt; <span class='message'>wrong ICD version: N25.81	</span>
+#&gt; <span class='message'>wrong ICD version: L57.0	</span>
+#&gt; <span class='message'>wrong ICD version: I85.10	</span>
+#&gt; <span class='message'>wrong ICD version: G90.9	</span>
+#&gt; <span class='message'>wrong ICD version: L20.89	</span>
+#&gt; <span class='message'>wrong ICD version: Z78.0	</span>
+#&gt; <span class='message'>wrong ICD version: R80.9	</span>
+#&gt; <span class='message'>wrong ICD version: N40.0	</span>
+#&gt; <span class='message'>wrong ICD version: M79.605	</span>
+#&gt; <span class='message'>wrong ICD version: Z99.2	</span>
+#&gt; <span class='message'>wrong ICD version: S39.011A	</span>
+#&gt; <span class='message'>wrong ICD version: R73.09	</span>
+#&gt; <span class='message'>wrong ICD version: M99.07	</span>
+#&gt; <span class='message'>wrong ICD version: R07.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.6	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.4	</span>
+#&gt; <span class='message'>wrong ICD version: D89.9	</span>
+#&gt; <span class='message'>wrong ICD version: M62.49	</span>
+#&gt; <span class='message'>wrong ICD version: M76.891	</span>
+#&gt; <span class='message'>wrong ICD version: K74.60	</span>
+#&gt; <span class='message'>wrong ICD version: E78.2	</span>
+#&gt; <span class='message'>wrong ICD version: H35.62	</span>
+#&gt; <span class='message'>wrong ICD version: Z00.01	</span>
+#&gt; <span class='message'>wrong ICD version: N40.1	</span>
+#&gt; <span class='message'>wrong ICD version: E66.01	</span>
+#&gt; <span class='message'>wrong ICD version: F15.10	</span>
+#&gt; <span class='message'>wrong ICD version: I25.118	</span>
+#&gt; <span class='message'>wrong ICD version: Z83.3	</span>
+#&gt; <span class='message'>wrong ICD version: M79.672	</span>
+#&gt; <span class='message'>wrong ICD version: M16.10	</span>
+#&gt; <span class='message'>wrong ICD version: R29.810	</span>
+#&gt; <span class='message'>wrong ICD version: M99.02	</span>
+#&gt; <span class='message'>wrong ICD version: R09.82	</span>
+#&gt; <span class='message'>wrong ICD version: C61	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.32	</span>
+#&gt; <span class='message'>wrong ICD version: E72.9	</span>
+#&gt; <span class='message'>wrong ICD version: I81	</span>
+#&gt; <span class='message'>wrong ICD version: E83.40	</span>
+#&gt; <span class='message'>wrong ICD version: M17.4	</span>
+#&gt; <span class='message'>wrong ICD version: M54.5	</span>
+#&gt; <span class='message'>wrong ICD version: D21.21	</span>
+#&gt; <span class='message'>wrong ICD version: F20.9	</span>
+#&gt; <span class='message'>wrong ICD version: E03.8	</span>
+#&gt; <span class='message'>wrong ICD version: J30.2	</span>
+#&gt; <span class='message'>wrong ICD version: C34.91	</span>
+#&gt; <span class='message'>wrong ICD version: D63.8	</span>
+#&gt; <span class='message'>wrong ICD version: I50.9	</span>
+#&gt; <span class='message'>wrong ICD version: M48.06	</span>
+#&gt; <span class='message'>wrong ICD version: M79.7	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.1	</span>
+#&gt; <span class='message'>wrong ICD version: F17.211	</span>
+#&gt; <span class='message'>wrong ICD version: R79.89	</span>
+#&gt; <span class='message'>wrong ICD version: K74.69	</span>
+#&gt; <span class='message'>wrong ICD version: A69.20	</span>
+#&gt; <span class='message'>wrong ICD version: L08.9	</span>
+#&gt; <span class='message'>wrong ICD version: A53.0	</span>
+#&gt; <span class='message'>wrong ICD version: K11.9	</span>
+#&gt; <span class='message'>wrong ICD version: H43.392	</span>
+#&gt; <span class='message'>wrong ICD version: R17	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.3	</span>
+#&gt; <span class='message'>wrong ICD version: R16.1	</span>
+#&gt; <span class='message'>wrong ICD version: Z88.2	</span>
+#&gt; <span class='message'>wrong ICD version: F50.9	</span>
+#&gt; <span class='message'>wrong ICD version: L82.1	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.528	</span>
+#&gt; <span class='message'>wrong ICD version: R73.9	</span>
+#&gt; <span class='message'>wrong ICD version: I87.393	</span>
+#&gt; <span class='message'>wrong ICD version: R21	</span>
+#&gt; <span class='message'>wrong ICD version: H25.13	</span>
+#&gt; <span class='message'>wrong ICD version: D22.72	</span>
+#&gt; <span class='message'>wrong ICD version: M54.14	</span>
+#&gt; <span class='message'>wrong ICD version: J33.8	</span>
+#&gt; <span class='message'>wrong ICD version: Z00.00	</span>
+#&gt; <span class='message'>wrong ICD version: L57.8	</span>
+#&gt; <span class='message'>wrong ICD version: R76.0	</span>
+#&gt; <span class='message'>wrong ICD version: R10.12	</span>
+#&gt; <span class='message'>wrong ICD version: G47.33	</span>
+#&gt; <span class='message'>wrong ICD version: M25.552	</span>
+#&gt; <span class='message'>wrong ICD version: N39.0	</span>
+#&gt; <span class='message'>wrong ICD version: R94.31	</span>
+#&gt; <span class='message'>wrong ICD version: R60.0	</span>
+#&gt; <span class='message'>wrong ICD version: M43.06	</span>
+#&gt; <span class='message'>wrong ICD version: R10.9	</span>
+#&gt; <span class='message'>wrong ICD version: L40.9	</span>
+#&gt; <span class='message'>wrong ICD version: R74.8	</span>
+#&gt; <span class='message'>wrong ICD version: M43.8X7	</span>
+#&gt; <span class='message'>wrong ICD version: Z91.11	</span>
+#&gt; <span class='message'>wrong ICD version: Z48.811	</span>
+#&gt; <span class='message'>wrong ICD version: Y99.8	</span>
+#&gt; <span class='message'>wrong ICD version: M62.40	</span>
+#&gt; <span class='message'>wrong ICD version: M17.0	</span>
+#&gt; <span class='message'>wrong ICD version: S31.109D	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.24	</span>
+#&gt; <span class='message'>wrong ICD version: Z95.5	</span>
+#&gt; <span class='message'>wrong ICD version: Z90.81	</span>
+#&gt; <span class='message'>wrong ICD version: R26.89	</span>
+#&gt; <span class='message'>wrong ICD version: E78.0	</span>
+#&gt; <span class='message'>wrong ICD version: M51.16	</span>
+#&gt; <span class='message'>wrong ICD version: E66.3	</span>
+#&gt; <span class='message'>wrong ICD version: F31.9	</span>
+#&gt; <span class='message'>wrong ICD version: M46.1	</span>
+#&gt; <span class='message'>wrong ICD version: E11.51	</span>
+#&gt; <span class='message'>wrong ICD version: I47.2	</span>
+#&gt; <span class='message'>wrong ICD version: N18.3	</span>
+#&gt; <span class='message'>wrong ICD version: D23.70	</span>
+#&gt; <span class='message'>wrong ICD version: R74.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z71.89	</span>
+#&gt; <span class='message'>wrong ICD version: R10.13	</span>
+#&gt; <span class='message'>wrong ICD version: R26.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.05	</span>
+#&gt; <span class='message'>wrong ICD version: N25.0	</span>
+#&gt; <span class='message'>wrong ICD version: F11.10	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.9	</span>
+#&gt; <span class='message'>wrong ICD version: A04.7	</span>
+#&gt; <span class='message'>wrong ICD version: M47.22	</span>
+#&gt; <span class='message'>wrong ICD version: Z98.89	</span>
+#&gt; <span class='message'>wrong ICD version: I70.0	</span>
+#&gt; <span class='message'>wrong ICD version: K44.9	</span>
+#&gt; <span class='message'>wrong ICD version: E11.8	</span>
+#&gt; <span class='message'>wrong ICD version: E66.09	</span>
+#&gt; <span class='message'>wrong ICD version: M77.52	</span>
+#&gt; <span class='message'>wrong ICD version: M70.62	</span>
+#&gt; <span class='message'>wrong ICD version: L82.0	</span>
+#&gt; <span class='message'>wrong ICD version: I42.9	</span>
+#&gt; <span class='message'>wrong ICD version: I67.1	</span>
+#&gt; <span class='message'>wrong ICD version: L53.9	</span>
+#&gt; <span class='message'>wrong ICD version: N89.8	</span>
+#&gt; <span class='message'>wrong ICD version: M51.9	</span>
+#&gt; <span class='message'>wrong ICD version: R30.0	</span>
+#&gt; <span class='message'>wrong ICD version: J95.89	</span>
+#&gt; <span class='message'>wrong ICD version: Z01.84	</span>
+#&gt; <span class='message'>wrong ICD version: N18.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.228	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.21	</span>
+#&gt; <span class='message'>wrong ICD version: S43.429A	</span>
+#&gt; <span class='message'>wrong ICD version: J32.9	</span>
+#&gt; <span class='message'>wrong ICD version: R03.0	</span>
+#&gt; <span class='message'>wrong ICD version: R91.8	</span>
+#&gt; <span class='message'>wrong ICD version: E08.610	</span>
+#&gt; <span class='message'>wrong ICD version: E78.9	</span>
+#&gt; <span class='message'>wrong ICD version: M83.9	</span>
+#&gt; <span class='message'>wrong ICD version: K76.6	</span>
+#&gt; <span class='message'>wrong ICD version: C78.02	</span>
+#&gt; <span class='message'>wrong ICD version: R29.3	</span>
+#&gt; <span class='message'>wrong ICD version: K83.8	</span>
+#&gt; <span class='message'>wrong ICD version: M19.90	</span>
+#&gt; <span class='message'>wrong ICD version: Q61.02	</span>
+#&gt; <span class='message'>wrong ICD version: M54.16	</span>
+#&gt; <span class='message'>wrong ICD version: Z47.1	</span>
+#&gt; <span class='message'>wrong ICD version: K04.7	</span>
+#&gt; <span class='message'>wrong ICD version: T82.7XXA	</span>
+#&gt; <span class='message'>wrong ICD version: G89.21	</span>
+#&gt; <span class='message'>wrong ICD version: Z28.3	</span>
+#&gt; <span class='message'>wrong ICD version: K64.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z86.19	</span>
+#&gt; <span class='message'>wrong ICD version: M13.0	</span>
+#&gt; <span class='message'>wrong ICD version: K63.5	</span>
+#&gt; <span class='message'>wrong ICD version: D12.5	</span>
+#&gt; <span class='message'>wrong ICD version: J30.9	</span>
+#&gt; <span class='message'>wrong ICD version: R31.0	</span>
+#&gt; <span class='message'>wrong ICD version: R82.90	</span>
+#&gt; <span class='message'>wrong ICD version: D64.89	</span>
+#&gt; <span class='message'>wrong ICD version: M51.36	</span>
+#&gt; <span class='message'>wrong ICD version: E06.9	</span>
+#&gt; <span class='message'>wrong ICD version: K76.9	</span>
+#&gt; <span class='message'>wrong ICD version: S72.8X9A	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.1	</span>
+#&gt; <span class='message'>wrong ICD version: E88.9	</span>
+#&gt; <span class='message'>wrong ICD version: I86.4	</span>
+#&gt; <span class='message'>wrong ICD version: I87.2	</span>
+#&gt; <span class='message'>wrong ICD version: D64.81	</span>
+#&gt; <span class='message'>wrong ICD version: M32.14	</span>
+#&gt; <span class='message'>wrong ICD version: G93.0	</span>
+#&gt; <span class='message'>wrong ICD version: R06.02	</span>
+#&gt; <span class='message'>wrong ICD version: R78.81	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.37	</span>
+#&gt; <span class='message'>wrong ICD version: I67.82	</span>
+#&gt; <span class='message'>wrong ICD version: K22.70	</span>
+#&gt; <span class='message'>wrong ICD version: C22.8	</span>
+#&gt; <span class='message'>wrong ICD version: E27.8	</span>
+#&gt; <span class='message'>wrong ICD version: Z87.898	</span>
+#&gt; <span class='message'>wrong ICD version: R94.01	</span>
+#&gt; <span class='message'>wrong ICD version: Z96.651	</span>
+#&gt; <span class='message'>wrong ICD version: G43.909	</span>
+#&gt; <span class='message'>wrong ICD version: E11.65	</span>
+#&gt; <span class='message'>wrong ICD version: F07.81	</span>
+#&gt; <span class='message'>wrong ICD version: R42	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.29	</span>
+#&gt; <span class='message'>wrong ICD version: J96.00	</span>
+#&gt; <span class='message'>wrong ICD version: H35.372	</span>
+#&gt; <span class='message'>wrong ICD version: E78.6	</span>
+#&gt; <span class='message'>wrong ICD version: I25.5	</span>
+#&gt; <span class='message'>wrong ICD version: Z99.3	</span>
+#&gt; <span class='message'>wrong ICD version: Z80.8	</span>
+#&gt; <span class='message'>wrong ICD version: G89.3	</span>
+#&gt; <span class='message'>wrong ICD version: Z86.73	</span>
+#&gt; <span class='message'>wrong ICD version: R18.8	</span>
+#&gt; <span class='message'>wrong ICD version: S76.319D	</span>
+#&gt; <span class='message'>wrong ICD version: K80.20	</span>
+#&gt; <span class='message'>wrong ICD version: F10.129	</span>
+#&gt; <span class='message'>wrong ICD version: M71.38	</span>
+#&gt; <span class='message'>wrong ICD version: Z41.8	</span>
+#&gt; <span class='message'>wrong ICD version: M79.675	</span>
+#&gt; <span class='message'>wrong ICD version: C79.51	</span>
+#&gt; <span class='message'>wrong ICD version: M70.70	</span>
+#&gt; <span class='message'>wrong ICD version: M87.851	</span>
+#&gt; <span class='message'>wrong ICD version: K21.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z71.3	</span>
+#&gt; <span class='message'>wrong ICD version: E87.70	</span>
+#&gt; <span class='message'>wrong ICD version: Z92.89	</span>
+#&gt; <span class='message'>wrong ICD version: K25.9	</span>
+#&gt; <span class='message'>wrong ICD version: C78.6	</span>
+#&gt; <span class='message'>wrong ICD version: M22.42	</span>
+#&gt; <span class='message'>wrong ICD version: I35.1	</span>
+#&gt; <span class='message'>wrong ICD version: M54.6	</span>
+#&gt; <span class='message'>wrong ICD version: I95.89	</span>
+#&gt; <span class='message'>wrong ICD version: N19	</span>
+#&gt; <span class='message'>wrong ICD version: B86	</span>
+#&gt; <span class='message'>wrong ICD version: H52.4	</span>
+#&gt; <span class='message'>wrong ICD version: E11.40	</span>
+#&gt; <span class='message'>wrong ICD version: R35.1	</span>
+#&gt; <span class='message'>wrong ICD version: G62.9	</span>
+#&gt; <span class='message'>wrong ICD version: R09.02	</span>
+#&gt; <span class='message'>wrong ICD version: C80.1	</span>
+#&gt; <span class='message'>wrong ICD version: L98.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.22	</span>
+#&gt; <span class='message'>wrong ICD version: B96.89	</span>
+#&gt; <span class='message'>wrong ICD version: C49.9	</span>
+#&gt; <span class='message'>wrong ICD version: M81.0	</span>
+#&gt; <span class='message'>wrong ICD version: F10.10	</span>
+#&gt; <span class='message'>wrong ICD version: R01.1	</span>
+#&gt; <span class='message'>wrong ICD version: I67.89	</span>
+#&gt; <span class='message'>wrong ICD version: R63.4	</span>
+#&gt; <span class='message'>wrong ICD version: K51.50	</span>
+#&gt; <span class='message'>wrong ICD version: G56.00	</span>
+#&gt; <span class='message'>wrong ICD version: M77.11	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.828	</span>
+#&gt; <span class='message'>wrong ICD version: J30.1	</span>
+#&gt; <span class='message'>wrong ICD version: F90.9	</span>
+#&gt; <span class='message'>wrong ICD version: R05	</span>
+#&gt; <span class='message'>wrong ICD version: E87.3	</span>
+#&gt; <span class='message'>wrong ICD version: E21.3	</span>
+#&gt; <span class='message'>wrong ICD version: D22.9	</span>
+#&gt; <span class='message'>wrong ICD version: B35.1	</span>
+#&gt; <span class='message'>wrong ICD version: M51.26	</span>
+#&gt; <span class='message'>wrong ICD version: Z01.818	</span>
+#&gt; <span class='message'>wrong ICD version: R60.9	</span>
+#&gt; <span class='message'>wrong ICD version: R23.8	</span>
+#&gt; <span class='message'>wrong ICD version: R06.2	</span>
+#&gt; <span class='message'>wrong ICD version: F41.1	</span>
+#&gt; <span class='message'>wrong ICD version: G61.0	</span>
+#&gt; <span class='message'>wrong ICD version: K80.80	</span>
+#&gt; <span class='message'>wrong ICD version: E63.1	</span>
+#&gt; <span class='message'>wrong ICD version: R06.09	</span>
+#&gt; <span class='message'>wrong ICD version: K76.89	</span>
+#&gt; <span class='message'>wrong ICD version: E87.8	</span>
+#&gt; <span class='message'>wrong ICD version: D66	</span>
+#&gt; <span class='message'>wrong ICD version: M19.071	</span>
+#&gt; <span class='message'>wrong ICD version: I70.229	</span>
+#&gt; <span class='message'>wrong ICD version: N20.0	</span>
+#&gt; <span class='message'>wrong ICD version: M06.9	</span>
+#&gt; <span class='message'>wrong ICD version: I15.8	</span>
+#&gt; <span class='message'>wrong ICD version: B17.10	</span>
+#&gt; <span class='message'>wrong ICD version: E87.2	</span>
+#&gt; <span class='message'>wrong ICD version: B07.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.23	</span>
+#&gt; <span class='message'>wrong ICD version: R63.0	</span>
+#&gt; <span class='message'>wrong ICD version: M17.9	</span>
+#&gt; <span class='message'>wrong ICD version: M99.06	</span>
+#&gt; <span class='message'>wrong ICD version: D12.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z80.3	</span>
+#&gt; <span class='message'>wrong ICD version: I12.0	</span>
+#&gt; <span class='message'>wrong ICD version: M46.06	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.42	</span>
+#&gt; <span class='message'>wrong ICD version: Z86.2	</span>
+#&gt; <span class='message'>wrong ICD version: R60.1	</span>
+#&gt; <span class='message'>wrong ICD version: F12.20	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.51	</span>
+#&gt; <span class='message'>wrong ICD version: Z64.1	</span>
+#&gt; <span class='message'>wrong ICD version: M35.3	</span>
+#&gt; <span class='message'>wrong ICD version: K75.81	</span>
+#&gt; <span class='message'>wrong ICD version: Z83.71	</span>
+#&gt; <span class='message'>wrong ICD version: E11.42	</span>
+#&gt; <span class='message'>wrong ICD version: N28.1	</span>
+#&gt; <span class='message'>wrong ICD version: G44.009	</span>
+#&gt; <span class='message'>wrong ICD version: I65.21	</span>
+#&gt; <span class='message'>wrong ICD version: E10.51	</span>
+#&gt; <span class='message'>wrong ICD version: G14	</span>
+#&gt; <span class='message'>wrong ICD version: M15.0	</span>
+#&gt; <span class='message'>wrong ICD version: K65.9	</span>
+#&gt; <span class='message'>wrong ICD version: I49.5	</span>
+#&gt; <span class='message'>wrong ICD version: M21.6X2	</span>
+#&gt; <span class='message'>wrong ICD version: M11.20	</span>
+#&gt; <span class='message'>wrong ICD version: R01.0	</span>
+#&gt; <span class='message'>wrong ICD version: F31.63	</span>
+#&gt; <span class='message'>wrong ICD version: Z53.8	</span>
+#&gt; <span class='message'>wrong ICD version: K92.1	</span>
+#&gt; <span class='message'>wrong ICD version: E87.79	</span>
+#&gt; <span class='message'>wrong ICD version: Z74.3	</span>
+#&gt; <span class='message'>wrong ICD version: Z74.01	</span>
+#&gt; <span class='message'>wrong ICD version: T17.308A	</span>
+#&gt; <span class='message'>wrong ICD version: R14.0	</span>
+#&gt; <span class='message'>wrong ICD version: M31.30	</span>
+#&gt; <span class='message'>wrong ICD version: B34.8	</span>
+#&gt; <span class='message'>wrong ICD version: B07.8	</span>
+#&gt; <span class='message'>wrong ICD version: K29.50	</span>
+#&gt; <span class='message'>wrong ICD version: H53.481	</span>
+#&gt; <span class='message'>wrong ICD version: E83.42	</span>
+#&gt; <span class='message'>wrong ICD version: E87.1	</span>
+#&gt; <span class='message'>wrong ICD version: A60.00	</span>
+#&gt; <span class='message'>wrong ICD version: K92.2	</span>
+#&gt; <span class='message'>wrong ICD version: N20.9	</span>
+#&gt; <span class='message'>wrong ICD version: K57.30	</span>
+#&gt; <span class='message'>wrong ICD version: L97.512	</span>
+#&gt; <span class='message'>wrong ICD version: M75.112	</span>
+#&gt; <span class='message'>wrong ICD version: Z30.2	</span>
+#&gt; <span class='message'>wrong ICD version: I11.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z01.810	</span>
+#&gt; <span class='message'>wrong ICD version: J01.40	</span>
+#&gt; <span class='message'>wrong ICD version: M65.811	</span>
+#&gt; <span class='message'>wrong ICD version: R47.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.82	</span>
+#&gt; <span class='message'>wrong ICD version: C60.0	</span>
+#&gt; <span class='message'>wrong ICD version: J98.11	</span>
+#&gt; <span class='message'>wrong ICD version: M25.652	</span>
+#&gt; <span class='message'>wrong ICD version: M99.05	</span>
+#&gt; <span class='message'>wrong ICD version: M25.512	</span>
+#&gt; <span class='message'>wrong ICD version: M10.071	</span>
+#&gt; <span class='message'>wrong ICD version: I71.4	</span>
+#&gt; <span class='message'>wrong ICD version: K02.9	</span>
+#&gt; <span class='message'>wrong ICD version: I86.1	</span>
+#&gt; <span class='message'>wrong ICD version: M20.12	</span>
+#&gt; <span class='message'>wrong ICD version: S27.399A	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.26	</span>
+#&gt; <span class='message'>wrong ICD version: G43.709	</span>
+#&gt; <span class='message'>wrong ICD version: M19.049	</span>
+#&gt; <span class='message'>wrong ICD version: N28.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z79.83	</span>
+#&gt; <span class='message'>wrong ICD version: C22.7	</span>
+#&gt; <span class='message'>wrong ICD version: K81.9	</span>
+#&gt; <span class='message'>wrong ICD version: D68.51	</span>
+#&gt; <span class='message'>wrong ICD version: N18.6	</span>
+#&gt; <span class='message'>wrong ICD version: S81.801D	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.36	</span>
+#&gt; <span class='message'>wrong ICD version: G44.209	</span>
+#&gt; <span class='message'>wrong ICD version: I34.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z88.6	</span>
+#&gt; <span class='message'>wrong ICD version: J96.20	</span>
+#&gt; <span class='message'>wrong ICD version: K31.84	</span>
+#&gt; <span class='message'>wrong ICD version: Z85.810	</span>
+#&gt; <span class='message'>wrong ICD version: R74.0	</span>
+#&gt; <span class='message'>wrong ICD version: S50.862A	</span>
+#&gt; <span class='message'>wrong ICD version: M25.50	</span>
+#&gt; <span class='message'>wrong ICD version: R93.0	</span>
+#&gt; <span class='message'>wrong ICD version: Y92.008	</span>
+#&gt; <span class='message'>wrong ICD version: G43.919	</span>
+#&gt; <span class='message'>wrong ICD version: R41.82	</span>
+#&gt; <span class='message'>wrong ICD version: D61.818	</span>
+#&gt; <span class='message'>wrong ICD version: I48.2	</span>
+#&gt; <span class='message'>wrong ICD version: F34.1	</span>
+#&gt; <span class='message'>wrong ICD version: R97.2	</span>
+#&gt; <span class='message'>wrong ICD version: C71.9	</span>
+#&gt; <span class='message'>wrong ICD version: F10.20	</span>
+#&gt; <span class='message'>wrong ICD version: E10.621	</span>
+#&gt; <span class='message'>wrong ICD version: F19.10	</span>
+#&gt; <span class='message'>wrong ICD version: M46.00	</span>
+#&gt; <span class='message'>wrong ICD version: M07.60	</span>
+#&gt; <span class='message'>wrong ICD version: Z68.27	</span>
+#&gt; <span class='message'>wrong ICD version: K73.9	</span>
+#&gt; <span class='message'>wrong ICD version: F11.90	</span>
+#&gt; <span class='message'>wrong ICD version: Z88.0	</span>
+#&gt; <span class='message'>wrong ICD version: R65.21	</span>
+#&gt; <span class='message'>wrong ICD version: R10.829	</span>
+#&gt; <span class='message'>wrong ICD version: K50.90	</span>
+#&gt; <span class='message'>wrong ICD version: M85.80	</span>
+#&gt; <span class='message'>wrong ICD version: C78.01	</span>
+#&gt; <span class='message'>wrong ICD version: M66.872	</span>
+#&gt; <span class='message'>wrong ICD version: G47.09	</span>
+#&gt; <span class='message'>wrong ICD version: M75.42	</span>
+#&gt; <span class='message'>wrong ICD version: S22.43XA	</span>
+#&gt; <span class='message'>wrong ICD version: G91.1	</span>
+#&gt; <span class='message'>wrong ICD version: I51.9	</span>
+#&gt; <span class='message'>wrong ICD version: H52.223	</span>
+#&gt; <span class='message'>wrong ICD version: S82.209A	</span>
+#&gt; <span class='message'>wrong ICD version: J02.9	</span>
+#&gt; <span class='message'>wrong ICD version: I77.6	</span>
+#&gt; <span class='message'>wrong ICD version: I71.02	</span>
+#&gt; <span class='message'>wrong ICD version: K13.0	</span>
+#&gt; <span class='message'>wrong ICD version: N17.9	</span>
+#&gt; <span class='message'>wrong ICD version: J44.1	</span>
+#&gt; <span class='message'>wrong ICD version: E08.8	</span>
+#&gt; <span class='message'>wrong ICD version: N34.2	</span>
+#&gt; <span class='message'>wrong ICD version: F60.3	</span>
+#&gt; <span class='message'>wrong ICD version: I25.810	</span>
+#&gt; <span class='message'>wrong ICD version: R22.41	</span>
+#&gt; <span class='message'>wrong ICD version: I70.213	</span>
+#&gt; <span class='message'>wrong ICD version: M19.041	</span>
+#&gt; <span class='message'>wrong ICD version: F43.23	</span>
+#&gt; <span class='message'>wrong ICD version: M06.4	</span>
+#&gt; <span class='message'>wrong ICD version: C95.90	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.83	</span>
+#&gt; <span class='message'>wrong ICD version: K50.80	</span>
+#&gt; <span class='message'>wrong ICD version: Z71.9	</span>
+#&gt; <span class='message'>wrong ICD version: D07.5	</span>
+#&gt; <span class='message'>wrong ICD version: M25.442	</span>
+#&gt; <span class='message'>wrong ICD version: H61.21	</span>
+#&gt; <span class='message'>wrong ICD version: Y92.099	</span>
+#&gt; <span class='message'>wrong ICD version: H35.413	</span>
+#&gt; <span class='message'>wrong ICD version: M54.15	</span>
+#&gt; <span class='message'>wrong ICD version: M25.511	</span>
+#&gt; <span class='message'>wrong ICD version: B07.9	</span>
+#&gt; <span class='message'>wrong ICD version: T45.1X5S	</span>
+#&gt; <span class='message'>wrong ICD version: M70.50	</span>
+#&gt; <span class='message'>wrong ICD version: S74.02XA	</span>
+#&gt; <span class='message'>wrong ICD version: L27.1	</span>
+#&gt; <span class='message'>wrong ICD version: Z15.89	</span>
+#&gt; <span class='message'>wrong ICD version: G40.89	</span>
+#&gt; <span class='message'>wrong ICD version: D48.5	</span>
+#&gt; <span class='message'>wrong ICD version: O99.323	</span>
+#&gt; <span class='message'>wrong ICD version: M53.3	</span>
+#&gt; <span class='message'>wrong ICD version: I50.32	</span>
+#&gt; <span class='message'>wrong ICD version: J06.9	</span>
+#&gt; <span class='message'>wrong ICD version: R69	</span>
+#&gt; <span class='message'>wrong ICD version: R93.5	</span>
+#&gt; <span class='message'>wrong ICD version: R19.7	</span>
+#&gt; <span class='message'>wrong ICD version: Z95.1	</span>
+#&gt; <span class='message'>wrong ICD version: F11.21	</span>
+#&gt; <span class='message'>wrong ICD version: C22.9	</span>
+#&gt; <span class='message'>wrong ICD version: R56.9	</span>
+#&gt; <span class='message'>wrong ICD version: E87.5	</span>
+#&gt; <span class='message'>wrong ICD version: N95.1	</span>
+#&gt; <span class='message'>wrong ICD version: R68.82	</span>
+#&gt; <span class='message'>wrong ICD version: G40.909	</span>
+#&gt; <span class='message'>wrong ICD version: N05.9	</span>
+#&gt; <span class='message'>wrong ICD version: M24.131	</span>
+#&gt; <span class='message'>wrong ICD version: O99.612	</span>
+#&gt; <span class='message'>wrong ICD version: D38.0	</span>
+#&gt; <span class='message'>wrong ICD version: S29.012A	</span>
+#&gt; <span class='message'>wrong ICD version: J90	</span>
+#&gt; <span class='message'>wrong ICD version: I27.81	</span>
+#&gt; <span class='message'>wrong ICD version: R93.4	</span>
+#&gt; <span class='message'>wrong ICD version: M62.81	</span>
+#&gt; <span class='message'>wrong ICD version: S86.019A	</span>
+#&gt; <span class='message'>wrong ICD version: F90.1	</span>
+#&gt; <span class='message'>wrong ICD version: M46.47	</span>
+#&gt; <span class='message'>wrong ICD version: Z99.81	</span>
+#&gt; <span class='message'>wrong ICD version: F60.2	</span>
+#&gt; <span class='message'>wrong ICD version: M47.812	</span>
+#&gt; <span class='message'>wrong ICD version: J39.8	</span>
+#&gt; <span class='message'>wrong ICD version: K66.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z63.8	</span>
+#&gt; <span class='message'>wrong ICD version: I73.89	</span>
+#&gt; <span class='message'>wrong ICD version: C17.0	</span>
+#&gt; <span class='message'>wrong ICD version: M79.609	</span>
+#&gt; <span class='message'>wrong ICD version: R20.2	</span>
+#&gt; <span class='message'>wrong ICD version: D12.4	</span>
+#&gt; <span class='message'>wrong ICD version: Z95.2	</span>
+#&gt; <span class='message'>wrong ICD version: E83.30	</span>
+#&gt; <span class='message'>wrong ICD version: I06.1	</span>
+#&gt; <span class='message'>wrong ICD version: E89.0	</span>
+#&gt; <span class='message'>wrong ICD version: T84.621A	</span>
+#&gt; <span class='message'>wrong ICD version: I67.2	</span>
+#&gt; <span class='message'>wrong ICD version: N18.2	</span>
+#&gt; <span class='message'>wrong ICD version: Z13.89	</span>
+#&gt; <span class='message'>wrong ICD version: E88.01	</span>
+#&gt; <span class='message'>wrong ICD version: M51.27	</span>
+#&gt; <span class='message'>wrong ICD version: M25.569	</span>
+#&gt; <span class='message'>wrong ICD version: E88.09	</span>
+#&gt; <span class='message'>wrong ICD version: L60.0	</span>
+#&gt; <span class='message'>wrong ICD version: E83.52	</span>
+#&gt; <span class='message'>wrong ICD version: F13.20	</span>
+#&gt; <span class='message'>wrong ICD version: M51.34	</span>
+#&gt; <span class='message'>wrong ICD version: I82.413	</span>
+#&gt; <span class='message'>wrong ICD version: K31.819	</span>
+#&gt; <span class='message'>wrong ICD version: F02.80	</span>
+#&gt; <span class='message'>wrong ICD version: C30.0	</span>
+#&gt; <span class='message'>wrong ICD version: D62	</span>
+#&gt; <span class='message'>wrong ICD version: I25.9	</span>
+#&gt; <span class='message'>wrong ICD version: C73	</span>
+#&gt; <span class='message'>wrong ICD version: M79.89	</span>
+#&gt; <span class='message'>wrong ICD version: Q66.51	</span>
+#&gt; <span class='message'>wrong ICD version: K72.00	</span>
+#&gt; <span class='message'>wrong ICD version: R52	</span>
+#&gt; <span class='message'>wrong ICD version: R50.9	</span>
+#&gt; <span class='message'>wrong ICD version: K76.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z91.5	</span>
+#&gt; <span class='message'>wrong ICD version: M25.559	</span>
+#&gt; <span class='message'>wrong ICD version: Z16.12	</span>
+#&gt; <span class='message'>wrong ICD version: K20.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z92.21	</span>
+#&gt; <span class='message'>wrong ICD version: I27.0	</span>
+#&gt; <span class='message'>wrong ICD version: Z81.1	</span>
+#&gt; <span class='message'>wrong ICD version: Z59.0	</span>
+#&gt; <span class='message'>wrong ICD version: M79.641	</span>
+#&gt; <span class='message'>wrong ICD version: K26.4	</span>
+#&gt; <span class='message'>wrong ICD version: Z12.39	</span>
+#&gt; <span class='message'>wrong ICD version: I25.111	</span>
+#&gt; <span class='message'>wrong ICD version: M32.9	</span>
+#&gt; <span class='message'>wrong ICD version: M75.52	</span>
+#&gt; <span class='message'>wrong ICD version: D12.3	</span>
+#&gt; <span class='message'>wrong ICD version: Z80.0	</span>
+#&gt; <span class='message'>wrong ICD version: S33.110A	</span>
+#&gt; <span class='message'>wrong ICD version: I34.8	</span>
+#&gt; <span class='message'>wrong ICD version: E11.49	</span>
+#&gt; <span class='message'>wrong ICD version: S88.112A	</span>
+#&gt; <span class='message'>wrong ICD version: Z30.40	</span>
+#&gt; <span class='message'>wrong ICD version: R31.9	</span>
+#&gt; <span class='message'>wrong ICD version: Z11.51	</span>
+#&gt; <span class='message'>wrong ICD version: T45.1X5A	</span>
+#&gt; <span class='message'>wrong ICD version: M47.816	</span>
+#&gt; <span class='message'>wrong ICD version: H34.832	</span>
+#&gt; <span class='message'>wrong ICD version: Z32.00	</span>
+#&gt; <span class='message'>wrong ICD version: M62.838	</span>
+#&gt; <span class='message'>wrong ICD version: R07.0	</span>
+#&gt; <span class='message'>wrong ICD version: E11.21	</span>
+#&gt; <span class='message'>wrong ICD version: I35.0	</span>
+#&gt; <span class='message'>wrong ICD version: R00.0	</span>
+#&gt; <span class='message'>wrong ICD version: N39.41	</span>
+#&gt; <span class='message'>wrong ICD version: 42761	</span>
+#&gt; <span class='message'>wrong ICD version: 123.45	</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedIcd
+#&gt;    [1] "427.61" "081"    "599.5"  "070.3"  "531.4"  "261.4"  "276.42" "250.2" 
+#&gt;    [9] "428.1"  "272.1"  "070.3"  "530.2"  "338.2"  "276.42" "316"    "250.6" 
+#&gt;   [17] "250.6"  "250.6"  "250.2"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6" 
+#&gt;   [25] "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6" 
+#&gt;   [33] "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6"  "250.6" 
+#&gt;   [41] "250.6"  "338.2"  "585.33" "414"    "411.4"  "411.4"  "411.4"  "327.4" 
+#&gt;   [49] "285"    "285"    "555.2"  "530.1"  "769"    "401.1"  "769"    "296.2" 
+#&gt;   [57] "296.2"  "296.2"  "296.2"  "296.2"  "296.2"  "269"    "296.2"  "456"   
+#&gt;   [65] "296.2"  "696.42" "696.42" "696.42" "696.42" "696.42" "696.42" "696.42"
+#&gt;   [73] "696.42" "696.42" "280.1"  "280.1"  "280.1"  "401.1"  "401.1"  "401.1" 
+#&gt;   [81] "401.1"  "537"    "356"    "250.3"  "745"    "318"    "317.11" "530.11"
+#&gt;   [89] "296.2"  "316"    "599.5"  "573.2"  "070.4"  "251.1"  "136"    NA      
+#&gt;   [97] NA       "496"    "573.3"  "276.14" "782.3"  "285.2"  "458.1"  "136"   
+#&gt;  [105] "136"    "344"    "344"    "344"    "344"    "344"    "344"    "560.4" 
+#&gt;  [113] "560.4"  "560.4"  "796"    "560.4"  "560.4"  "560.4"  "560.4"  "560.4" 
+#&gt;  [121] "605"    "272.1"  "573.2"  "318"    "300.11" "300.11" "514"    NA      
+#&gt;  [129] NA       NA       NA       "318"    NA       "562.1"  "535.8"  "250.24"
+#&gt;  [137] "743.11" "782.3"  "318"    "250.2"  "394.7"  "110.11" "274.11" "571.81"
+#&gt;  [145] "070.3"  "244.4"  "994.21" "571.8"  "571.8"  "411.4"  "772.3"  "772.3" 
+#&gt;  [153] "452"    "344"    "798"    NA       "344"    "496"    "272.1"  "411.4" 
+#&gt;  [161] "344"    "427.21" "136"    "285"    "773"    "411.4"  "599.5"  "585.33"
+#&gt;  [169] "585.33" "585.33" "272.1"  "272.1"  "272.1"  "272.1"  "316"    "585.31"
+#&gt;  [177] "585.31" "296.2"  "585.31" "585.31" "585.31" "585.31" "585.31" "585.31"
+#&gt;  [185] "585.31" "585.31" "285"    "585.31" "585.31" "585.31" "741.3"  "741.3" 
+#&gt;  [193] "741.3"  "741.3"  "741.3"  "741.3"  "292.1"  "401.1"  "318"    "318"   
+#&gt;  [201] "579.2"  "070.3"  "579.2"  "585.31" "285"    "572"    "415"    "573.2" 
+#&gt;  [209] "573.2"  "573.2"  "743.11" "743.11" "136"    "070.3"  "401.1"  "716.9" 
+#&gt;  [217] "401.1"  "208"    "401.1"  NA       "270.32" "216.1"  "411.2"  "136"   
+#&gt;  [225] "573.3"  "250.2"  "411.4"  "411.4"  "411.4"  "411.4"  "628"    "741.3" 
+#&gt;  [233] "571.5"  "427.3"  NA       "949"    "530.11" "244.4"  "416"    "512.8" 
+#&gt;  [241] "296.2"  "766"    "605"    "457.3"  "611.1"  "287.3"  "278.11" "136"   
+#&gt;  [249] "1002"   "1010"   "285"    "495"    "386.9"  "578.2"  "272.1"  "070.3" 
+#&gt;  [257] "070.3"  "250.24" "250.24" "561.1"  "574.3"  "427.21" "208"    "572"   
+#&gt;  [265] "572"    NA       NA       NA       "401.1"  "763"    "530.2"  "530.2" 
+#&gt;  [273] "531.3"  "578.2"  "276.6"  "276.6"  "276.6"  "318"    "578.2"  "509.1" 
+#&gt;  [281] "509.1"  "509.1"  "509.1"  "509.1"  "509.1"  "509.1"  "537"    "316"   
+#&gt;  [289] "401.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1" 
+#&gt;  [297] "585.1"  "585.1"  "571.8"  "155"    "278.1"  "070.3"  "702.1"  "785"   
+#&gt;  [305] "599.4"  "601.1"  "070.3"  "588.2"  "401.3"  "401.3"  "573"    "789"   
+#&gt;  [313] "743.21" "790.6"  "790.6"  "276.14" "790.6"  NA       "318"    "070.3" 
+#&gt;  [321] "318"    "070.3"  "296.2"  "296.2"  "296.2"  "185"    "272.11" NA      
+#&gt;  [329] "286.7"  "530.15" "741.3"  "428.4"  "296.2"  "296.2"  "790.6"  "790.6" 
+#&gt;  [337] NA       "411.4"  "569"    "615"    "615"    "615"    "296.2"  "296.2" 
+#&gt;  [345] "789"    "174.11" "174.11" "765"    "070.9"  "789"    "070.3"  "260"   
+#&gt;  [353] "785"    NA       "611.1"  "442.8"  "442.8"  "530.11" "317.11" NA      
+#&gt;  [361] NA       "705.8"  "278.1"  "317.11" "573.2"  NA       "443.9"  "380.4" 
+#&gt;  [369] "565"    "300.1"  "571.51" "278.1"  "512.8"  "250.2"  "317"    "296.2" 
+#&gt;  [377] "585.32" "585.32" "949"    "585.32" "585.32" "317.11" "401.1"  "701.1" 
+#&gt;  [385] "443.9"  NA       NA       "416"    "428.1"  "681"    "740.9"  "386.9" 
+#&gt;  [393] "427.21" "284.1"  "772.2"  "272.1"  "318"    "726.1"  "726.1"  "070.3" 
+#&gt;  [401] "769"    "769"    "275.3"  "769"    "070.3"  "765"    "495"    "401.1" 
+#&gt;  [409] "401.1"  "250.6"  "401.1"  NA       NA       "272.1"  "318"    "355.1" 
+#&gt;  [417] "595"    "595"    "595"    "798"    "476"    NA       "278.1"  "760"   
+#&gt;  [425] "722.6"  "365.2"  "585.1"  "418"    "851"    "726"    "530.11" NA      
+#&gt;  [433] "458.9"  "458.9"  "458.9"  "458.9"  "798"    "798"    "798"    NA      
+#&gt;  [441] "318"    "771.1"  "317.1"  "591"    "275.51" "275.51" "317.1"  "591"   
+#&gt;  [449] "275.51" "275.51" "591"    "401.1"  "761"    "285.21" "285.21" "296.2" 
+#&gt;  [457] NA       NA       "425.1"  NA       "401.1"  "260.2"  "198"    "428.1" 
+#&gt;  [465] "401.1"  "401.1"  NA       NA       NA       "041"    "550.2"  "977"   
+#&gt;  [473] "197"    "070.3"  "585.4"  NA       "480.1"  "480.1"  "480.1"  "242.1" 
+#&gt;  [481] NA       NA       NA       "318"    "427.21" "427.21" "571.5"  "041"   
+#&gt;  [489] "041"    "041"    "041"    "681.5"  "041"    "041"    "514"    NA      
+#&gt;  [497] "450"    "041.11" NA       "285"    "450"    "295.1"  "208"    "411.4" 
+#&gt;  [505] "1010"   "1010"   "1010"   "1010"   "1010"   "289.9"  "289.9"  "289.9" 
+#&gt;  [513] "1010"   "572"    "1010"   "1010"   "1010"   "1010"   "1010"   "1010"  
+#&gt;  [521] "1010"   "250.2"  "296.2"  "041.11" "250.2"  "070.3"  "070.3"  "070.3" 
+#&gt;  [529] "355.1"  "355.1"  "853"    "355.1"  "772.3"  "530.2"  "785"    "350.1" 
+#&gt;  [537] "070.3"  "244.4"  "401.1"  "769"    "769"    "401.1"  "720.1"  "769"   
+#&gt;  [545] "261.4"  "272.13" "619.1"  "303.4"  "495.1"  "274.1"  "530.11" NA      
+#&gt;  [553] NA       NA       "136"    "136"    "401.1"  "278.1"  "070.3"  "070.3" 
+#&gt;  [561] "535.8"  "269"    "411.4"  "1005"   "1005"   "1005"   "1005"   "1005"  
+#&gt;  [569] "1005"   "573"    "1005"   "317.1"  NA       "316"    "316"    "316"   
+#&gt;  [577] "316"    "316"    "316"    "316"    "287.32" "316"    "401.1"  "318"   
+#&gt;  [585] "318"    "415.2"  "401.22" "535.9"  "428.1"  "740.9"  "740.9"  "740.9" 
+#&gt;  [593] "740.9"  "740.9"  "740.9"  "740.9"  "740.9"  "740.9"  "740.9"  "740.9" 
+#&gt;  [601] "760"    "401.1"  "726.4"  "070.3"  "286.2"  "286.2"  "286.2"  "286.2" 
+#&gt;  [609] "286.2"  "286.2"  "769"    "290.3"  "290.3"  "275.3"  "275.3"  "275.53"
+#&gt;  [617] "275.53" "530.11" "318"    "411.4"  "355.1"  "588.2"  "290.3"  "290.3" 
+#&gt;  [625] "741"    "591"    "418"    "454.1"  "401.1"  "571.51" "452.2"  "573.2" 
+#&gt;  [633] "530.9"  "136"    "300.1"  "591"    "155.1"  "287.32" "287.32" "769"   
+#&gt;  [641] "586"    "287.32" "573.7"  "769"    "070.3"  "743.21" "743.21" "743.21"
+#&gt;  [649] "743.21" "274.1"  "535.8"  "530.11" "318"    "627.2"  "272.12" "571.51"
+#&gt;  [657] NA       "318"    "244.4"  "591"    "070.3"  NA       "401.1"  "428.4" 
+#&gt;  [665] NA       "070.3"  "348.8"  "260.6"  "860"    "860"    NA       NA      
+#&gt;  [673] "418"    "496"    NA       "588.2"  "278.11" "070.3"  "496"    "070.3" 
+#&gt;  [681] NA       "495"    "496"    "537"    "798"    "599.6"  "318"    "316"   
+#&gt;  [689] "571.51" "727.1"  "579.2"  "296"    "244.4"  "452.2"  "281.9"  "1010"  
+#&gt;  [697] "969"    "591"    "070.3"  "591"    "174.11" "285.21" "605"    "790.6" 
+#&gt;  [705] "790.6"  "790.6"  "790.6"  "790.6"  "790.6"  "296.2"  "745"    "211"   
+#&gt;  [713] "790.6"  "318"    "275.1"  "727.1"  "401.1"  "571.51" "276.1"  "276.1" 
+#&gt;  [721] "276.1"  "401.1"  "401.1"  "401.1"  "401.1"  "250.2"  "588.2"  "276.41"
+#&gt;  [729] "585.31" "585.31" "537"    "070"    "733.6"  NA       "396"    "550.2" 
+#&gt;  [737] NA       "769"    "070.3"  "070.3"  "300.1"  "276.14" NA       "318"   
+#&gt;  [745] "276.41" "401.1"  "1010"   NA       "939"    "939"    NA       "070.3" 
+#&gt;  [753] "587"    "530.11" "452.2"  "781"    "765"    "278.1"  "278.1"  "278.1" 
+#&gt;  [761] "296.2"  "333"    "317"    "949"    NA       NA       "531.4"  NA      
+#&gt;  [769] "495"    NA       "070.3"  "317.11" "317.11" "317.11" "317.11" "317.11"
+#&gt;  [777] "317.11" "317.11" "317.11" "415.21" "317.11" "317.11" "317.11" "317.11"
+#&gt;  [785] "136"    NA       "244.4"  "275.3"  "189.21" "260"    "070.3"  "401.1" 
+#&gt;  [793] NA       "586.2"  "573"    "585.3"  "271.3"  "276.41" "596.5"  "276.41"
+#&gt;  [801] "530.2"  "276.4"  "571.51" "585.1"  "151"    "208"    "440"    "480.1" 
+#&gt;  [809] "722.6"  "530.2"  "585.31" "585.31" "585.31" "585.31" "585.31" "585.31"
+#&gt;  [817] "495"    "070.3"  "585.31" "585.31" "585.31" "714.1"  "714.1"  "714.1" 
+#&gt;  [825] "585.31" NA       "250.2"  "281.9"  "594.1"  "250.2"  NA       "512.8" 
+#&gt;  [833] NA       "401.1"  "296.2"  "785"    "290.3"  "785"    "250.2"  "401.1" 
+#&gt;  [841] "550.5"  "316"    "745"    "745"    "745"    "745"    "745"    "745"   
+#&gt;  [849] "745"    "745"    "745"    "427.7"  "745"    "760"    "530.11" "763"   
+#&gt;  [857] "070.3"  "401.1"  "070.3"  "741"    "465.4"  "317.11" "317.11" "317.11"
+#&gt;  [865] "411.4"  "285"    "300.1"  "287.3"  "280.2"  "702.1"  "250.2"  "495"   
+#&gt;  [873] NA       "401.1"  "401.3"  "530.11" "327.3"  "571.51" "571.51" "571.51"
+#&gt;  [881] NA       "250.22" "573.6"  "769"    "070.3"  "764"    "769"    "627.3" 
+#&gt;  [889] "070.9"  "571.51" "571.51" "571.51" "571.51" "735.21" "773"    "428.2" 
+#&gt;  [897] "1010"   "300.11" "740.9"  "585.31" "284"    "356"    "840"    "1010"  
+#&gt;  [905] "1010"   "350.2"  "278.1"  "386.2"  "386.2"  "537"    "514"    NA      
+#&gt;  [913] "571.8"  "803.1"  "790.6"  NA       "769"    "769"    "769"    "769"   
+#&gt;  [921] NA       NA       "356"    "356"    "244.4"  "276.11" "276.11" "276.11"
+#&gt;  [929] "276.11" "272.1"  "275.11" "250.1"  "272.1"  "250.3"  "785"    "785"   
+#&gt;  [937] "785"    "785"    "785"    "244.4"  "1009"   "1009"   "1009"   "296.2" 
+#&gt;  [945] "785"    "785"    NA       "250.2"  "250.2"  "250.2"  "316"    "760"   
+#&gt;  [953] "741.3"  "741.3"  "591"    "530.11" "401.21" "401.21" "401.21" "401.21"
+#&gt;  [961] "401.21" "401.21" "401.21" "401.21" "401.21" "401.21" "401.21" "276.5" 
+#&gt;  [969] "296.2"  "285"    "401.1"  NA       NA       "571.51" "571.81" "770"   
+#&gt;  [977] "741.4"  NA       "599.5"  "770"    "591"    "260"    "260"    "260"   
+#&gt;  [985] "198.3"  "443.9"  "539"    "949"    "585.31" NA       "875"    "443.9" 
+#&gt;  [993] NA       "530.9"  "773"    "281.12" NA       NA       "318"    "070.3" 
+#&gt; [1001] "537"    "317.11" "317.11" "276.14" "339"    "070"    "318"    NA      
+#&gt; [1009] "585.3"  "496"    "571.81" "327.32" "318"    "745"    NA       "1010"  
+#&gt; [1017] "495"    "338.2"  "395.2"  "722.6"  "1010"   "316"    "318"    "1010"  
+#&gt; [1025] "1010"   "257.1"  "401.1"  "530.11" "1010"   "722.1"  "070.3"  "722.6" 
+#&gt; [1033] "276.6"  "276.6"  "276.6"  "250.42" "286.7"  "261.41" "070.3"  "496"   
+#&gt; [1041] "1010"   "512.9"  "070.3"  NA       "155.1"  "605"    "317.11" "288.2" 
+#&gt; [1049] "430.2"  "285"    "288.2"  "276.12" "285.1"  "1015"   "588.2"  "789"   
+#&gt; [1057] "286.7"  "465.4"  "286.7"  "745"    "401.1"  "743.21" "272.1"  "401.1" 
+#&gt; [1065] "070.3"  "350.2"  "740.1"  "572"    "745"    "572"    "272.11" "070.3" 
+#&gt; [1073] "740.1"  "740.1"  "318"    "563"    "573.7"  "344"    "571.5"  "600"   
+#&gt; [1081] "272.1"  NA       "760"    "578.9"  "769"    "769"    "285"    "285"   
+#&gt; [1089] "317"    "317"    "939"    "939"    "338.2"  "401.1"  "285"    NA      
+#&gt; [1097] "740.9"  "401.21" "401.21" "296.2"  "272.12" "790"    NA       NA      
+#&gt; [1105] "573.3"  "250.2"  "250.2"  "480"    "480"    "480"    "480"    "571.81"
+#&gt; [1113] "277.7"  "585.2"  "411.4"  "571.81" "571.81" "250.2"  "250.2"  "250.2" 
+#&gt; [1121] "571.81" NA       NA       NA       "251.1"  "495"    "411.2"  NA      
+#&gt; [1129] "782.3"  "276.11" "348.8"  "585.3"  "530.2"  NA       "041.12" "573.2" 
+#&gt; [1137] NA       "327.3"  "276.11" "496"    "250.2"  "070.3"  "496"    "070.3" 
+#&gt; [1145] "198"    "260"    "272.1"  "260"    "260"    "260"    "260"    "571.51"
+#&gt; [1153] "411.4"  NA       "318"    "401.1"  "483"    "507"    "588.2"  "550.5" 
+#&gt; [1161] "250.2"  "588.2"  "588.2"  "588.2"  "588.2"  "588.2"  "588.2"  "250.2" 
+#&gt; [1169] "588.2"  "588.2"  "588.2"  "588.2"  "588.2"  "411.2"  "1010"   "588.2" 
+#&gt; [1177] "1010"   "136"    "740.9"  "250.24" NA       "476"    NA       "530.11"
+#&gt; [1185] "573.2"  "585.31" "401.1"  "701"    "720"    "386.9"  "327.4"  "318"   
+#&gt; [1193] "454"    "300.1"  "427.9"  "350.2"  "350.2"  "350.2"  "427.21" "427.21"
+#&gt; [1201] "475"    "427.21" "427.21" "530.2"  "585.31" "585.31" "585.31" "585.31"
+#&gt; [1209] "585.31" "585.31" "585.31" "585.31" "585.31" "585.31" "585.31" "585.31"
+#&gt; [1217] NA       "401.1"  "296.2"  "428.4"  "296.2"  "296.2"  "296.2"  "296.2" 
+#&gt; [1225] "296.2"  "296.2"  "261.2"  "261.2"  "261.2"  "261.2"  "790.6"  "600"   
+#&gt; [1233] "356"    "567"    "317.11" "290.1"  "272.11" "496.1"  "155.1"  "318"   
+#&gt; [1241] "572"    "585.1"  "287.3"  "286.2"  "537.1"  "789"    "770"    "296.2" 
+#&gt; [1249] "278.11" "278.11" "272.13" "070.9"  "365"    "433.31" "276.12" "702.2" 
+#&gt; [1257] "495.2"  "250.2"  "117"    "278.11" "512.8"  "070.3"  NA       "280.1" 
+#&gt; [1265] "280.1"  "250.2"  "280.1"  "280.1"  "250.2"  "280.1"  "318"    "512.7" 
+#&gt; [1273] "070.2"  "586.2"  "316"    "316"    "316"    "316"    "316"    "316"   
+#&gt; [1281] "316"    "316"    "425.2"  "425.2"  "425.2"  "425.2"  "425.2"  "425.2" 
+#&gt; [1289] "411.3"  "425.2"  "573.6"  "573.7"  "401.1"  "530.11" "401.1"  "402"   
+#&gt; [1297] "261.4"  "789"    "054"    "250.2"  "272.1"  "276.14" "293"    "250.2" 
+#&gt; [1305] "261.4"  "070.3"  "507"    "532"    "573.3"  "773"    "592.2"  "425.1" 
+#&gt; [1313] "278"    "433.31" "276.8"  "250.2"  "278.1"  "401.1"  NA       "564.1" 
+#&gt; [1321] NA       "509.1"  "509.1"  "509.1"  "509.1"  "509.1"  "509.1"  "509.1" 
+#&gt; [1329] "507"    NA       "401.1"  "287.3"  "317"    "297"    "155.1"  "327.4" 
+#&gt; [1337] "411.4"  "285.22" "296.2"  "284.1"  "284.1"  "572"    "285"    "1001"  
+#&gt; [1345] "1001"   NA       "716.9"  "285"    "506"    "401.1"  NA       "567"   
+#&gt; [1353] "136"    "512.7"  "579.2"  "740.11" "318"    "433.21" "433.21" "1010"  
+#&gt; [1361] "496"    "496"    "401.1"  "496"    "276.11" "317.11" "276.41" "250.2" 
+#&gt; [1369] "276.14" "1015"   "401.1"  "276.11" "276.11" "136"    NA       NA      
+#&gt; [1377] "276.41" "070.3"  "070.3"  "727.1"  "585.31" "428.1"  "286.4"  NA      
+#&gt; [1385] NA       NA       "401.1"  NA       "318"    "605"    "773"    "773"   
+#&gt; [1393] "773"    "773"    "773"    "773"    "773"    "773"    "401.1"  "244.4" 
+#&gt; [1401] "735"    "110.11" "785"    "172.2"  "244.4"  "275.11" "715.1"  "280.1" 
+#&gt; [1409] NA       NA       NA       "585.1"  "395.2"  "318"    "285.21" "285.21"
+#&gt; [1417] "285.21" "765"    "285"    "512.8"  "244.4"  "427.8"  "599.5"  "401.1" 
+#&gt; [1425] "764"    "764"    "743.11" "208"    "856"    "316"    "395.1"  "571.51"
+#&gt; [1433] "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "401.1"  "401.1"  "593.2" 
+#&gt; [1441] "593.2"  "572"    "687.1"  "428.3"  "785"    "773"    "591"    NA      
+#&gt; [1449] "340"    "564"    "318"    "790.6"  "681.5"  "572"    "070.3"  "317.11"
+#&gt; [1457] "433.31" "585.31" "789"    "296.2"  "350.1"  "585.31" "585.31" "585.31"
+#&gt; [1465] "585.31" "585.31" "585.31" "585.31" "585.31" "789"    "585.31" "585.31"
+#&gt; [1473] "585.31" "585.31" "585.31" NA       "296.2"  "070.2"  "649"    "735"   
+#&gt; [1481] "600"    "070.3"  "306.9"  "250.2"  "300.1"  "564"    "585.32" "994.21"
+#&gt; [1489] "994.21" "994.21" "427.1"  "530.2"  "530.2"  "759"    NA       "507"   
+#&gt; [1497] "507"    "507"    "433.21" "285"    "433.21" "433.21" "575.8"  "401.1" 
+#&gt; [1505] "530.11" "301"    "070.2"  "070.2"  "070.2"  "401.22" "296.1"  "571.8" 
+#&gt; [1513] "572"    "276.12" "401.1"  "070.3"  "585.31" "070.3"  "250.24" "401.1" 
+#&gt; [1521] "401.1"  "401.22" "585.31" "386.2"  "386.2"  "250.2"  "571.51" "250.2" 
+#&gt; [1529] "480"    "530.2"  "475.9"  "475.9"  "585.31" "585.31" "327.4"  "070.2" 
+#&gt; [1537] "585.32" "455"    "244.4"  "244.4"  NA       "289"    "550.2"  "790.6" 
+#&gt; [1545] "276.1"  "316"    "427.21" "573.6"  "260.3"  "743.9"  "681.5"  "681.5" 
+#&gt; [1553] "681.5"  "285.1"  "285.1"  "285.1"  "585.3"  "585.3"  "457.3"  "136"   
+#&gt; [1561] "1010"   "1010"   "272.1"  "1010"   "1010"   "411.4"  "071"    "964.1" 
+#&gt; [1569] "964.1"  "840.3"  "1010"   "1010"   "280.1"  "071"    "280.1"  "280.1" 
+#&gt; [1577] "573.7"  "272.1"  "735"    "735"    "433.31" "742.8"  "250.24" "803"   
+#&gt; [1585] "300.1"  "571.8"  "401.1"  "591"    "591"    "605"    "571.8"  "250.24"
+#&gt; [1593] "507"    "571.8"  "428.1"  "318"    "070.3"  "579.2"  "573.2"  "278.11"
+#&gt; [1601] "296.22" "278.11" "278.11" "278.11" "428.2"  "428.2"  "428.1"  "428.1" 
+#&gt; [1609] "428.1"  "427.9"  "070.3"  "496"    "496"    "508"    "292.4"  "244.4" 
+#&gt; [1617] "530.11" "250.2"  "285.2"  "496"    NA       NA       "070.3"  "455"   
+#&gt; [1625] "041.11" "402"    "318"    "577.3"  "285"    "427.12" "411.4"  "401.1" 
+#&gt; [1633] "702.1"  "260"    "327.4"  "456"    "571.81" "772.3"  "772.3"  "195"   
+#&gt; [1641] NA       NA       "772.3"  NA       NA       NA       NA       "790.6" 
+#&gt; [1649] "530.3"  "577.2"  "577.2"  "317.1"  "577.2"  "577.2"  "564.1"  "503"   
+#&gt; [1657] "769"    "327.4"  "427.12" "208"    "070.3"  NA       "588.2"  "769"   
+#&gt; [1665] "769"    "769"    "769"    "769"    "287.3"  "530.2"  "204"    "588.2" 
+#&gt; [1673] "588.2"  "588.2"  "427.12" "455"    "588.2"  "588.2"  "588.2"  "327.32"
+#&gt; [1681] "366"    "244.4"  "070.3"  "284.1"  "536.8"  "316"    "285.2"  "136"   
+#&gt; [1689] "803.1"  "244.4"  "573.7"  "850"    "535.9"  "338.2"  "536.8"  "696.41"
+#&gt; [1697] "585.1"  "850"    NA       "327.32" "798.1"  "681"    "772.3"  "772.3" 
+#&gt; [1705] "772.3"  "772.3"  "772.3"  "317"    "571.81" NA       "316"    "316"   
+#&gt; [1713] "316"    "279.7"  "316"    "316"    "316"    "316"    "585.3"  "198.2" 
+#&gt; [1721] "571.81" "782.3"  NA       "250.2"  "272.11" "571.5"  "588.2"  "588.2" 
+#&gt; [1729] NA       "1010"   "401.1"  "070.3"  "070.3"  "572"    "110.13" "287.3" 
+#&gt; [1737] "287.3"  "571.51" "275.3"  "275.3"  "250.2"  "769"    "318"    "318"   
+#&gt; [1745] "401.1"  "530.11" "530.11" "507"    "507"    "507"    "318"    NA      
+#&gt; [1753] "197"    "200"    "707.2"  "318"    "401.1"  "401.1"  "578.2"  "572"   
+#&gt; [1761] "785"    "272.1"  "745"    "197"    "480"    "318"    "571.5"  "480"   
+#&gt; [1769] "532"    "532"    "532"    "480"    NA       "509.8"  "070.3"  "802"   
+#&gt; [1777] "276.41" "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "496"   
+#&gt; [1785] "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "585.1"  "278.1" 
+#&gt; [1793] "276.41" "317.11" "509.1"  "1010"   "530.11" "250.2"  "327.31" "327.31"
+#&gt; [1801] "261.4"  "1010"   "276.12" "272.1"  "173"    NA       "585.31" "585.31"
+#&gt; [1809] "272.13" "070.3"  "070.3"  "070.3"  "300.1"  "366"    "567"    "317.1" 
+#&gt; [1817] "418"    "530.11" "961.1"  "250.2"  "572"    "198"    "401.1"  "318"   
+#&gt; [1825] "272.1"  "070.3"  "327.3"  "760"    "136"    "572"    "286.2"  "244.4" 
+#&gt; [1833] "571.51" "455"    "562.1"  "318"    "318"    "318"    "761"    "318"   
+#&gt; [1841] "318"    "272.1"  NA       "402"    NA       "318"    "338.2"  "530.2" 
+#&gt; [1849] "318"    "276.41" "530.11" "327.4"  "327.4"  "250.41" "483"    "509.1" 
+#&gt; [1857] "735"    "430"    "430"    "430"    "707.2"  "276.6"  "769"    "401.1" 
+#&gt; [1865] "272.12" "070.3"  NA       NA       "401.1"  "585.1"  "401.1"  "401.1" 
+#&gt; [1873] "767"    "1010"   "789"    "769"    "798"    "798"    "1010"   "473"   
+#&gt; [1881] "745"    "070.3"  "250.2"  "250.2"  "401.1"  "287.3"  "401.22" "763"   
+#&gt; [1889] "401.1"  "745"    "272.1"  "571.51" "807"    "807"    "740.9"  "250.2" 
+#&gt; [1897] "250.2"  "250.2"  "571.51" "1010"   "537"    "537"    NA       NA      
+#&gt; [1905] NA       NA       NA       NA       "350.3"  "350.3"  "350.3"  "350.3" 
+#&gt; [1913] "350.3"  "350.3"  "350.3"  "070.3"  "070.3"  "783"    "250.2"  NA      
+#&gt; [1921] "716.9"  "275.53" "261.4"  "136"    "318"    "070.3"  "250.2"  "530.2" 
+#&gt; [1929] "411.2"  "411.4"  "411.4"  "250.2"  "411.4"  "1010"   "1010"   "285.2" 
+#&gt; [1937] "285.2"  "198"    "070.3"  "300.1"  "300.1"  "318"    "318"    "318"   
+#&gt; [1945] "698"    "698"    "720"    "605"    "038.1"  "038.1"  "038.1"  "508"   
+#&gt; [1953] "280.1"  "184.2"  "280.1"  "280.1"  "508"    NA       "272.1"  "698"   
+#&gt; [1961] "571.5"  "433.8"  "272.1"  "563"    "389"    NA       NA       "740.11"
+#&gt; [1969] "278.11" "327.32" "530.11" NA       "365"    "763"    "300.1"  "761"   
+#&gt; [1977] "585.3"  "585.3"  "585.3"  "585.3"  "585.3"  "585.3"  "276.1"  "571.8" 
+#&gt; [1985] "296.1"  "851"    "798"    "261.2"  "773"    "317"    "427.21" "789"   
+#&gt; [1993] "789"    "789"    "789"    "789"    "789"    "789"    "789"    "782.3" 
+#&gt; [2001] "782.3"  NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2009] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2017] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2025] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2033] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2041] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2049] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2057] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2065] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2073] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2081] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2089] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2097] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2105] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2113] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2121] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2129] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2137] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2145] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2153] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2161] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2169] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2177] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2185] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2193] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2201] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2209] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2217] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2225] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2233] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2241] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2249] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2257] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2265] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2273] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2281] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2289] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2297] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2305] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2313] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2321] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2329] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2337] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2345] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2353] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2361] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2369] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2377] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2385] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2393] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2401] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2409] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2417] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2425] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2433] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2441] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2449] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2457] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2465] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2473] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2481] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2489] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2497] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2505] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2513] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2521] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2529] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2537] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2545] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2553] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2561] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2569] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2577] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2585] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2593] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2601] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2609] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2617] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2625] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2633] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2641] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2649] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2657] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2665] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2673] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2681] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2689] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2697] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2705] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2713] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2721] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2729] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2737] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2745] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2753] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2761] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2769] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2777] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2785] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2793] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2801] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2809] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2817] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2825] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2833] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2841] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2849] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2857] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2865] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2873] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2881] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2889] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2897] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2905] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2913] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2921] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2929] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2937] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2945] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2953] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2961] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2969] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2977] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2985] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [2993] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3001] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3009] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3017] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3025] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3033] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3041] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3049] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3057] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3065] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3073] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3081] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3089] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3097] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3105] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3113] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3121] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3129] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3137] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3145] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3153] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3161] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3169] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3177] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3185] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3193] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3201] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3209] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3217] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3225] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3233] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3241] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3249] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3257] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3265] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3273] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3281] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3289] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3297] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3305] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3313] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3321] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3329] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3337] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3345] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3353] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3361] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3369] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3377] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3385] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3393] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3401] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3409] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3417] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3425] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3433] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3441] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3449] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3457] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3465] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3473] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3481] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3489] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3497] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3505] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3513] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3521] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3529] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3537] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3545] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3553] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3561] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3569] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3577] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3585] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3593] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3601] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3609] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3617] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3625] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3633] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3641] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3649] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3657] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3665] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3673] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3681] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3689] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3697] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3705] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3713] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3721] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3729] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3737] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3745] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3753] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3761] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3769] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3777] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3785] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3793] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3801] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3809] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3817] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3825] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3833] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3841] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3849] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3857] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3865] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3873] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3881] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3889] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3897] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3905] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3913] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3921] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3929] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3937] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3945] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3953] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3961] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3969] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3977] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3985] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [3993] NA       NA       NA       NA       NA       NA       NA       NA      
+#&gt; [4001] NA       NA       NA       NA       NA      
+#&gt; 
+#&gt; $groupedData_Long
+#&gt; # A tibble: 704 x 6
+#&gt; # Groups:   ID [?]
+#&gt;    ID    PheCode firstCaseDate endCaseDate period     count
+#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;        &lt;date&gt;      &lt;time&gt;     &lt;int&gt;
+#&gt;  1 A     038.1   2013-03-03    2013-03-03  "  0 days"     1
+#&gt;  2 A     041     2013-03-04    2013-03-11  "  7 days"     2
+#&gt;  3 A     041.12  2013-06-20    2013-06-20  "  0 days"     1
+#&gt;  4 A     070     2013-06-27    2013-06-27  "  0 days"     1
+#&gt;  5 A     070.2   2013-04-02    2013-06-01  " 60 days"     2
+#&gt;  6 A     070.3   2013-02-02    2013-06-27  145 days      26
+#&gt;  7 A     070.9   2013-05-25    2013-06-13  " 19 days"     3
+#&gt;  8 A     071     2013-04-26    2013-04-26  "  0 days"     1
+#&gt;  9 A     1001    2013-06-17    2013-06-17  "  0 days"     1
+#&gt; 10 A     1005    2013-05-17    2013-06-03  " 17 days"     3
+#&gt; # ... with 694 more rows
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

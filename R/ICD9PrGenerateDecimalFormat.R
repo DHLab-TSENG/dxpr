@@ -17,7 +17,7 @@ ICD9PrGenerateDecimalFormat <- function(icd9){
                                 substr(icd9$Short[icd9_3], start= 3, stop = 3), sep = "")
   icd9_4 <- nchar(icd9$Short) == 4
   icd9$Decimal[icd9_4] <- paste(substr(icd9$Short[icd9_4], start = 1 , stop =  2), ".",
-                                  substr(icd9$Short[icd9_4], start= 3, stop = 4), sep = "")
+                                substr(icd9$Short[icd9_4], start= 3, stop = 4), sep = "")
   icd9
 }
 

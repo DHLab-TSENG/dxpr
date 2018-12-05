@@ -66,11 +66,11 @@ IcdPrShortToDecimal(icd10)$Decimal
 將 ICD-PCS code 的格式統一轉成 Short
 ```
 # ICD-9
-IcdPrDecimaltoShort(icd9_Decimal)$Short
+IcdPrDecimalToShort(icd9_Decimal)$Short
 # c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
 
 # ICD-10
-IcdPrShortToDecimal(icd10)$Decimal
+IcdPrDecimalToShort(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
 ```
 
@@ -136,6 +136,10 @@ IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 ## III. 參考資料
 
 ### ICD 格式: Short 和 Decimal
+
+ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
+
+ICD-10-PCS code (2019):https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html
 
 https://www.findacode.com/search/search.php
 

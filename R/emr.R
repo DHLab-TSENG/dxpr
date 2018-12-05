@@ -412,3 +412,20 @@ NULL
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 NULL
+
+#' Test File of ICD-CM codes for grouping method
+#'
+#' A test file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
+#'
+#' \itemize{
+#'   \item ID  MemberID
+#'   \item ICD ICD-9 and ICD-10-CM codes
+#'   \item Date diagnosis date
+#' }
+#'
+#' @docType data
+#' @keywords dataframe
+#' @name testDxFile
+#' @usage data(testDxFile)
+#' @format A data frame with 4002 rows and 3 variables
+NULL

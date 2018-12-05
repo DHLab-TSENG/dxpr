@@ -122,11 +122,11 @@ IcdPrShortToDecimal(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 <p>將 ICD-PCS code 的格式統一轉成 Short</p>
 <pre><code># ICD-9
-IcdPrDecimaltoShort(icd9_Decimal)$Short
+IcdPrDecimalToShort(icd9_Decimal)$Short
 # c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
 
 # ICD-10
-IcdPrShortToDecimal(icd10)$Decimal
+IcdPrDecimalToShort(icd10)$Decimal
 # c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")</code></pre>
 </div>
 <div id="ii--icd-pcs-code-" class="section level2">
@@ -186,6 +186,8 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <div id="icd--short--decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd--short--decimal" class="anchor"></a>ICD 格式: Short 和 Decimal</h3>
+<p>ICD-9-PCS code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-PCS code (2019):<a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>

@@ -63,11 +63,11 @@ IcdDxShortToDecimal(icd10_Short)$Decimal
 Convert ICD-CM code Decimal to Short.
 ```
 # ICD-9
-IcdDxDecimaltoShort(icd9_Decimal)$Short
+IcdDxDecimalToShort(icd9_Decimal)$Short
 # c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
 
 # ICD-10
-IcdDxDecimaltoShort(icd10_Decimal)$Short
+IcdDxDecimalToShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
 ## II. Grouping ICD-CM codes by ...

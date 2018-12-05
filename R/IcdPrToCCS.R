@@ -32,7 +32,7 @@ IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usin
   PrDataFile <- PrDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(PrDataFile) <- c("ID", "ICD", "Date")
   PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
-  Conversion <- IcdPrDecimaltoShort(PrDataFile$ICD)
+  Conversion <- IcdPrDecimalToShort(PrDataFile$ICD)
   PrDataFile$Short <- Conversion$Short
 
   icd9ToCCS <- left_join(PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,],

@@ -11,7 +11,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
 #'
-IcdPrDecimaltoShort<-function(icdList){
+IcdPrDecimalToShort<-function(icdList){
   icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
   icd_Decimal <- icdDf[grepl("[.]",icdDf$ICD),]
   icd_Short <- anti_join(icdDf,icd_Decimal,"Number")

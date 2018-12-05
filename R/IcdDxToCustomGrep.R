@@ -1,5 +1,7 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "grepTable"))
+  "grepTable",
+  "grepIcd",
+  "group"))
 #' Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.
 #'
 #' This can be used to select the first diagnosis record
@@ -7,24 +9,43 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' return first diagnosis record based on factIcd Data
 #'
 #' @import dplyr
-#' @param icdFile ICD-9 and ICD-10 codes
+#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
+#' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
-#' @param grepTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, GrepICD#'
+#' @param dateColName A column for Date of DxDataFile
+#' @param grepTable grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: group, grepIcd
 #' @export
 #' @examples
-#' icdFile <- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)
-#' grepTable <- data.frame(Group = c("Hypotension", "Hypertension"),
-#'                             grep_pattern = c("^I95|^I952", "^I11"),
-#'                             stringsAsFactors = FALSE)
-#' IcdDxToCustomGrep(icdFile, ICD, grepTable)
 #'
-IcdDxToCustomGrep <- function(icdFile, icdColName, grepTable){
-  icdFile <- icdFile[, c(deparse(substitute(icdColName)))]
-  names(icdFile) <- "ICD"
-  icdFile$Group<-""
+#' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
+#'                         grepIcd = c("^427|^I48"),
+#'                         stringsAsFactors = FALSE)
+#' IcdToCustomGrep(testDxFile, ID, ICD, Date, grepTable)
+#'
+IcdToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, grepTable){
+  grepIcd <-   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  names(grepIcd) <- c("ID", "ICD", "Date")
+  grepIcd$Date <- as.Date(grepIcd$Date)
+  grepIcd$group<-""
 
   for (rule in 1:nrow(grepTable)){
-    icdFile$Group<-ifelse(grepl(grepTable$grep_pattern[rule],icdFile$ICD), grepTable$Group[rule], icdFile$Group)
+    grepIcd$group<-ifelse(grepl(grepTable$grepIcd[rule],grepIcd$ICD), grepTable$group[rule], grepIcd$group)
   }
-  return(icdFile$Group)
+  grepIcdLong <- grepIcd[nchar(grepIcd$group)>0,] %>%
+    group_by(ID, group) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n())
+  wrongFormat <- IcdDxDecimalToShort(grepIcd$ICD)$Error
+
+  if(nrow(wrongFormat) > 0){
+    message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
+    message("\n")
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"wrong Format" means the ICD has wrong format', call. = F)
+  }
+  return(list(groupedIcd = grepIcd$group,
+              groupedData_Long = grepIcdLong,
+              wrongICD = wrongFormat))
 }
