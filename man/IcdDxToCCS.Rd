@@ -4,7 +4,7 @@
 \alias{IcdDxToCCS}
 \title{Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.}
 \source{
-ICD-9-CM CCS (2012)
+ICD-9-CM CCS (2015)
 
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 
@@ -39,6 +39,7 @@ return Clinical Classifications Software (CCS) categories or description based o
 }
 \examples{
 
-IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedDf
+IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedData_Long
 
 }

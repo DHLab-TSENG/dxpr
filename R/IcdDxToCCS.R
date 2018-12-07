@@ -20,14 +20,15 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icd10usingDate ICD-10 using date
 #' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10, default is True
 #' @export
-#' @source ICD-9-CM CCS (2012)
+#' @source ICD-9-CM CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 #' @source ICD-10-CM CCS (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @examples
 #'
-#' IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedDf
+#' IcdDxToCCS(testDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedData_Long
 #'
 IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = T){
   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
@@ -69,6 +70,6 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
     warning('"wrong Format" means the ICD has wrong format', call. = F)
     warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  return(list(groupedIcd = IcdToCCS[,ccs_col],
+  return(list(groupedDf = IcdToCCS,
               groupedData_Long = IcdToCCSLong))
 }

@@ -5,7 +5,7 @@
 \title{grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
 \usage{
 groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, groupedICDMethod, isDescription = T, CCSLevel = 2,
+  icd10usingDate, groupedICDMethod, isDescription = T,
   CustomGroupingTable, numericOrBinary = N)
 }
 \arguments{
@@ -19,15 +19,13 @@ groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{groupedICDMethod}{Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, `customGroup`}
+\item{groupedICDMethod}{Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, or `customGroup`}
 
-\item{isDescription}{Clinical Classifications Software (CCS) categories/description for ICD-9 or ICD-10, default is True}
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is True}
 
-\item{CCSLevel}{Clinical Classifications Software (CCS) multiple level}
+\item{CustomGroupingTable}{Table is for groupedICDMethod:`grepICD` and `customGroup`}
 
-\item{CustomGroupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD}
-
-\item{numericOrBinary}{Member have one (or more) diagnostic comorbidities, type `N` or `B`, default is `B` (Binary)}
+\item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)}
 }
 \description{
 Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
@@ -43,9 +41,11 @@ grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
                         grepIcd = c("^427|^I48"),
                         stringsAsFactors = FALSE)
 groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ccs)
-groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ccslvl)
+groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
 groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", phecode)
-groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", groupedICDMethod = elix)
+groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ahrq)
+groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", charlson)
+groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", elix)
 groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", grepicd,
                       CustomGroupingTable = grepTable)
 groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", customgroup,

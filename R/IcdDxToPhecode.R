@@ -39,7 +39,7 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
     phecodeCol <- "PheCode"
   }
   IcdToPhecode <- left_join(DxDataFile, left_join(icd9, select_(phecode_icd9_2, "ICDD", phecodeCol), by = c("Decimal" = "ICDD")),
-                            by = names(DxDataFile))
+                            by = names(DxDataFile)) %>% arrange(Number)
 
   IcdToPhecodeLong <- IcdToPhecode[!is.na(IcdToPhecode[,phecodeCol]),] %>%
     group_by_("ID",phecodeCol) %>%
@@ -63,6 +63,6 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
     warning('"wrong Format" means the ICD has wrong format', call. = F)
     warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  return(list(groupedIcd = IcdToPhecode[,phecodeCol],
+  return(list(groupedDf = IcdToPhecode,
               groupedData_Long = IcdToPhecodeLong))
 }

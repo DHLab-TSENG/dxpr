@@ -3,7 +3,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "ID",
   "Date",
   "Gap",
-  "episode"))
+  "episode",
+  "Era"))
 #' Get the condition era
 #'
 #' A Condition Era is defined as a span of time when the member is assumed to have a given condition.
@@ -20,56 +21,85 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
 #' @param gapDate Length of condition era, default is 30 days
-#' @param icdorCCS Stratified by icd or ccs, default is CCS
-#' @param isCCSDescription  Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.
+#' @param conditionSelect Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, or `customGroup`, default is CCS
+#' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is True
+#' @param CustomGroupingTable Table is for groupedICDMethod:`grepICD` and `customGroup`
 #' @export
 #' @examples
-#' DxDataFile <- data.frame(ID=c("A","A","A"),
-#'                          ICD=c("6929","V433","I350"),
-#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-#'                          stringsAsFactors = FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
+#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+#'                             stringsAsFactors = FALSE)
+#' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
+#'                         grepIcd = c("^427|^I48"),
+#'                         stringsAsFactors = FALSE)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, grepicd,
+#'                 CustomGroupingTable = grepTable)
+#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, customgroup,
+#'                 CustomGroupingTable = groupingTable)
 #'
-#'
-getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, icdorCCS = CCS, isCCSDescription = FALSE){
+getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, conditionSelect = CCS, isDescription = TRUE,CustomGroupingTable){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile$Date <- as.Date(DxDataFile$Date)
-  Conversion <- IcdDxDecimalToShort(DxDataFile$ICD)
-  DxDataFile$Short <- Conversion$Short
 
-  icd10 <- DxDataFile[DxDataFile$Date >= icd10usingDate,]
-  icd9 <- DxDataFile[DxDataFile$Date < icd10usingDate,]
+  conditionSelect <- toupper(deparse(substitute(conditionSelect)))
+  if(conditionSelect == "CCS"){
+    DxDataFile <- IcdDxToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)$groupedDf
+  }else if(grepl("CCSLVL", conditionSelect)){
+    CCSLevel <- as.numeric(sub("[A-Za-z]+","",conditionSelect))
+    DxDataFile <- IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, icd10usingDate, CCSLevel, isDescription)$groupedDf
+  }else if(conditionSelect == "PHECODE"){
+    DxDataFile <- IcdDxToPhecode(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)$groupedDf
+  }else if(conditionSelect == "AHRQ"){
+    DxDataFile <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, ahrq)$groupedDf
+  }else if(conditionSelect == "CHARLSON"){
+    DxDataFile <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson)$groupedDf
+  }else if(conditionSelect == "ELIX"){
+    DxDataFile <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)$groupedDf
+  }else if(conditionSelect == "GREPICD"){
+    DxDataFile <- IcdToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)$groupedDf
+  }else if(conditionSelect == "CUSTOMGROUP"){
+    DxDataFile <- IcdDxToCustom(DxDataFile, ID, ICD, Date, CustomGroupingTable)$groupedDf
+  }else if(conditionSelect == "ICD"){
+    conversion <- IcdDxDecimalToShort(DxDataFile$ICD)
+    DxDataFile$Short <- conversion$Short
+    wrongFormat <- conversion$Error
 
-  icdorCCS <- toupper(deparse(substitute(icdorCCS)))
-  if(icdorCCS == "CCS"){
-    DxDataFile <- DxDataFile %>%
-      mutate(CCS = IcdDxToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isCCSDescription)$groupedIcd) %>%
-      arrange(ID, CCS, Date) %>%
-      group_by(ID, CCS) %>%
-      mutate(Gap = Date - lag(Date))
-  }else if(icdorCCS == "ICD"){
-    DxDataFile <- DxDataFile %>%
-      arrange(ID, ICD, Date) %>%
-      group_by(ID, ICD) %>%
-      mutate(Gap = Date - lag(Date))
+    if(nrow(wrongFormat) > 0){
+      message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
+      message("\n")
+      warning('"wrong Format" means the ICD has wrong format', call. = F)
+    }
   }else{
-    stop("'please enter icd or ccs for 'icdorCCS'", call. = FALSE)
+    stop("'please enter icd or ccs for 'conditionSelect'", call. = FALSE)
   }
-  DxDataFile$episode <- DxDataFile$Gap > gapDate
-  DxDataFile$episode[is.na(DxDataFile$episode)] <- TRUE
 
-  DxDataFile <- DxDataFile %>%
-    group_by_("ID", icdorCCS) %>%
-    mutate(Era = cumsum(episode))
-
-  WrongFormat <- Conversion$Error
-  if(nrow(WrongFormat) > 0 & icdorCCS == "ICD"){
-    message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
-    message("\n")
-    warning('"wrong Format" means the ICD has wrong format', call. = F)
+  if(conditionSelect == "ICD"){
+    conditionSelect <-  "ICD"
+  }else{
+    conditionSelect <- names(DxDataFile)[ncol(DxDataFile)]
   }
-  DxDataFile <- select(DxDataFile, c(-"Gap", -"episode",-"Short"))
-  DxDataFile
+  conditionEra <- DxDataFile[(nchar(DxDataFile[,conditionSelect])>0 & !is.na(DxDataFile[,conditionSelect])),] %>%
+    group_by_("ID", conditionSelect) %>%
+    arrange_("ID", conditionSelect, "Date") %>%
+    mutate(Gap = Date - lag(Date),
+           episode = Gap >gapDate)
+
+  conditionEra$episode[is.na(conditionEra$episode)] <- TRUE
+
+  conditionEra <- conditionEra %>%
+    mutate(Era = cumsum(episode)) %>%
+    summarise(firstCaseDate = min(Date),
+              endCaseDate = max(Date),
+              period = endCaseDate - firstCaseDate,
+              count = n(),
+              Era = max(Era))
+  conditionEra
 }

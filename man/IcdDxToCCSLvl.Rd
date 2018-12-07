@@ -29,7 +29,7 @@ IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{CCSLevel}{Clinical Classifications Software (CCS) multiple level}
+\item{CCSLevel}{Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels}
 
 \item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True}
 }

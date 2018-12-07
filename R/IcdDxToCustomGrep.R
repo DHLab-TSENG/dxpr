@@ -13,7 +13,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param grepTable grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: group, grepIcd
+#' @param grepTable grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group", "grepIcd"
 #' @export
 #' @examples
 #'
@@ -45,7 +45,6 @@ IcdToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, grep
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
   }
-  return(list(groupedIcd = grepIcd$group,
-              groupedData_Long = grepIcdLong,
-              wrongICD = wrongFormat))
+  return(list(groupedDf = grepIcd,
+              groupedData_Long = grepIcdLong))
 }

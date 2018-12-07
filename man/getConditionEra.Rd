@@ -5,8 +5,8 @@
 \title{Get the condition era}
 \usage{
 getConditionEra(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, gapDate = 30, icdorCCS = CCS,
-  isCCSDescription = FALSE)
+  icd10usingDate, gapDate = 30, conditionSelect = CCS,
+  isDescription = TRUE, CustomGroupingTable)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -21,9 +21,11 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{gapDate}{Length of condition era, default is 30 days}
 
-\item{icdorCCS}{Stratified by icd or ccs, default is CCS}
+\item{conditionSelect}{Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, or `customGroup`, default is CCS}
 
-\item{isCCSDescription}{Clinical Classifications Software (CCS) single level categories (False) and description (True) for ICD-9 or ICD-10, default is False.}
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is True}
+
+\item{CustomGroupingTable}{Table is for groupedICDMethod:`grepICD` and `customGroup`}
 }
 \description{
 A Condition Era is defined as a span of time when the member is assumed to have a given condition.
@@ -35,13 +37,22 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
 return DxDataFile with new column, condition era.
 }
 \examples{
-
-DxDataFile <- data.frame(ID=c("A","A","A"),
-                         ICD=c("6929","V433","I350"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10")),
-                         stringsAsFactors = FALSE)
-getConditionEra(testDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
-getConditionEra(testDxFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)
-
+groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+                            stringsAsFactors = FALSE)
+grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
+                        grepIcd = c("^427|^I48"),
+                        stringsAsFactors = FALSE)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, grepicd,
+                CustomGroupingTable = grepTable)
+getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, customgroup,
+                CustomGroupingTable = groupingTable)
 
 }

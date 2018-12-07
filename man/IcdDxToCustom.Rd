@@ -16,7 +16,7 @@ IcdDxToCustom(DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{groupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD}
+\item{groupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"}
 }
 \description{
 This can be used to select the first diagnosis record

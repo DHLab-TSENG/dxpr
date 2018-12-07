@@ -12,7 +12,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: Group, ICD
+#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"
 #' @export
 #' @examples
 #' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
@@ -45,7 +45,6 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, groupi
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
   }
-  return(list(groupedIcd = groupedICD$group,
-              groupedData_Long = groupedICDLong,
-              wrongFormat = wrongFormat))
+  return(list(groupedDf = groupedICD,
+              groupedData_Long = groupedICDLong))
 }

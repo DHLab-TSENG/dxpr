@@ -17,7 +17,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate Icd 10 using date
+#' @param icd10usingDate ICD 10 using date
 #' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`
 #' @export
 #' @source AHRQ
@@ -60,7 +60,7 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   IcdToComorbid <- rbind(left_join(data.frame(DxDataFile[DxDataFile$Date < icd10usingDate,]),
                                    select(comorbidMap9,ICD,Comorbidity),by = c("Short"="ICD")),
                          left_join(data.frame(DxDataFile[DxDataFile$Date  >= icd10usingDate,]),
-                                   select(comorbidMap10,ICD,Comorbidity), by = c("Short"="ICD"))) %>% arrange(Number) %>% unique
+                                   select(comorbidMap10,ICD,Comorbidity), by = c("Short"="ICD"))) %>% arrange(Number)
 
   IcdToComorbidLong <- IcdToComorbid[!is.na(IcdToComorbid$Comorbidity),] %>%
     group_by(ID,Comorbidity) %>%
@@ -83,8 +83,6 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     warning('"wrong Format" means the ICD has wrong format', call. = F)
     warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  return(list(groupedIcd = IcdToComorbid,
-              groupedData_Long = IcdToComorbidLong,
-              wrongICD = wrongFormat,
-              errorICD = error_ICD))
+  return(list(groupedDf = IcdToComorbid,
+              groupedData_Long = IcdToComorbidLong))
 }

@@ -19,7 +19,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate icd 10 using date
-#' @param CCSLevel Clinical Classifications Software (CCS) multiple level
+#' @param CCSLevel Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels
 #' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True
 #' @export
 #' @source ICD-9-CM CCS (2012)
@@ -51,7 +51,7 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
                                    select_(ccsDxICD10, "ICD", CCSLvlCol), by = c("Short"="ICD"))) %>% arrange(Number)
   }else{
     IcdToCCSLvl <- left_join(DxDataFile, left_join(DxDataFile[DxDataFile$Date < icd10usingDate,], select_(ccsDxICD9, "ICD", CCSLvlCol), by = c("Short"="ICD")),
-                             by = names(DxDataFile))
+                             by = names(DxDataFile)) %>% arrange(Number)
   }
 
   IcdToCCSLvlLong <- IcdToCCSLvl[!is.na(IcdToCCSLvl[,CCSLvlCol]),] %>%
@@ -75,6 +75,6 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
     warning('"wrong Format" means the ICD has wrong format', call. = F)
     warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
-  return(list(groupedIcd = IcdToCCSLvl[, CCSLvlCol],
+  return(list(groupedDf = IcdToCCSLvl,
               groupedData_Long = IcdToCCSLvlLong))
 }

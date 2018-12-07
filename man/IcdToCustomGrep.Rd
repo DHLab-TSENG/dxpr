@@ -15,7 +15,7 @@ IcdToCustomGrep(DxDataFile, idColName, icdColName, dateColName, grepTable)
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{grepTable}{grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: group, grepIcd}
+\item{grepTable}{grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group", "grepIcd"}
 }
 \description{
 This can be used to select the first diagnosis record

@@ -31,7 +31,7 @@ IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{icd10usingDate}{Icd 10 using date}
+\item{icd10usingDate}{ICD 10 using date}
 
 \item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`}
 }
