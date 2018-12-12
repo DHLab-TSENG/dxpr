@@ -31,9 +31,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 #' @examples
 #'
-#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", charlson)
-#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", elix)
-#' IcdDxToComorbid(testDxFile, ID, ICD, Date, "2015-10-01", ahrq)
+#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
+#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 #'
 IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
@@ -70,19 +70,13 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
               count = n())
 
   wrongFormat <- conversion$Error
-  error_ICD <- anti_join(data.frame(ICD = IcdToComorbid$ICD[is.na(IcdToComorbid$Comorbidity)],stringsAsFactors = F), wrongFormat, "ICD")
-  if(anyNA(IcdToComorbid)){
-    if(nrow(wrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
-    }
-    if(sum(is.na(IcdToComorbid)) > nrow(wrongFormat)){
-      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
-      message("\n")
-    }
+  if(nrow(wrongFormat) > 0){
+    message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
+    message("\n")
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
   }
+
   return(list(groupedDf = IcdToComorbid,
               groupedData_Long = IcdToComorbidLong))
 }

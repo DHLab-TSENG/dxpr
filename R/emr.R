@@ -425,7 +425,7 @@ NULL
 #'
 #' @docType data
 #' @keywords dataframe
-#' @name testDxFile
-#' @usage data(testDxFile)
+#' @name sampleDxFile
+#' @usage data(sampleDxFile)
 #' @format A data frame with 4002 rows and 3 variables
 NULL

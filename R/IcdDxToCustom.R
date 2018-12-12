@@ -18,7 +18,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
 #'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
 #'                             stringsAsFactors = FALSE)
-#' IcdDxToCustom(testDxFile, ID, ICD, Date, groupingTable)
+#' IcdDxToCustom(sampleDxFile, ID, ICD, Date, groupingTable)
 #'
 IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, groupingTable){
   customICD <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]

@@ -22,7 +22,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @export
 #' @examples
 #'
-#' IcdDxToPhecode(testDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+#' IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 #'
 IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
   DxDataFile <- DxDataFile[ ,c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]

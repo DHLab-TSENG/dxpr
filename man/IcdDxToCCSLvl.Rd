@@ -41,6 +41,6 @@ return Multi-leve Clinical Classifications Software (CCS) categories or descript
 }
 \examples{
 
-IcdDxToCCSLvl(testDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 
 }

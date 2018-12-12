@@ -27,6 +27,6 @@ return first diagnosis record based on factIcd Data
 grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
                         grepIcd = c("^427|^I48"),
                         stringsAsFactors = FALSE)
-IcdToCustomGrep(testDxFile, ID, ICD, Date, grepTable)
+IcdToCustomGrep(sampleDxFile, ID, ICD, Date, grepTable)
 
 }

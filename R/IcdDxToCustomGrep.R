@@ -20,7 +20,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
 #'                         grepIcd = c("^427|^I48"),
 #'                         stringsAsFactors = FALSE)
-#' IcdToCustomGrep(testDxFile, ID, ICD, Date, grepTable)
+#' IcdToCustomGrep(sampleDxFile, ID, ICD, Date, grepTable)
 #'
 IcdToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, grepTable){
   grepIcd <-   DxDataFile <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]

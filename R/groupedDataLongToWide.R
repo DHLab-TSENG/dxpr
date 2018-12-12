@@ -18,7 +18,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
-#' @param groupedICDMethod  Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, or `customGroup`
+#' @param groupedICDMethod  Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`
 #' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is True
 #' @param CustomGroupingTable Table is for groupedICDMethod:`grepICD` and `customGroup`
 #' @param numericOrBinary  Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)
@@ -30,15 +30,15 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
 #'                         grepIcd = c("^427|^I48"),
 #'                         stringsAsFactors = FALSE)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ccs)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", phecode)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", ahrq)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", charlson)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", elix)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", grepicd,
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", phecode)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customGrepIcdGroup,
 #'                       CustomGroupingTable = grepTable)
-#' groupedDataLongToWide(testDxFile, ID, ICD, Date, "2015-10-01", customgroup,
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
 #'                       CustomGroupingTable = groupingTable)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupedICDMethod, isDescription = T, CustomGroupingTable, numericOrBinary=N){
@@ -58,12 +58,12 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson)
   }else if(grepl("elix", groupedICDMethod)){
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)
-  }else if(grepl("grepicd", groupedICDMethod)){
+  }else if(grepl("customgrepicdgroup", groupedICDMethod)){
     groupedData <- IcdToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)
-  }else if(grepl("customgroup", groupedICDMethod)){
+  }else if(grepl("customicdgroup", groupedICDMethod)){
     groupedData <- IcdDxToCustom(DxDataFile, ID, ICD, Date, CustomGroupingTable)
   }else{
-    stop("'please enter `ccs`,`ccslvl`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, `customGroup` for 'groupedICDMethod'", call. = FALSE)
+    stop("'please enter `ccs`,`ccslvl`, `phecode`, `ahrq`, `charlson`, `elix` `customgrepicdgroup`, `customicdgroup` for 'groupedICDMethod'", call. = FALSE)
   }
   longFormat <- groupedData$groupedData_Long
   wideNumericDt <- dcast(longFormat, ID~eval(parse(text = paste(names(longFormat)[2]))), value.var = c("count"))

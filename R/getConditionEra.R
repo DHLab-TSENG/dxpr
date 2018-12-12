@@ -21,7 +21,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
 #' @param gapDate Length of condition era, default is 30 days
-#' @param conditionSelect Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `grepICD`, or `customGroup`, default is CCS
+#' @param conditionSelect Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`, default is CCS
 #' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is True
 #' @param CustomGroupingTable Table is for groupedICDMethod:`grepICD` and `customGroup`
 #' @export
@@ -32,16 +32,16 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
 #'                         grepIcd = c("^427|^I48"),
 #'                         stringsAsFactors = FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, grepicd,
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup,
 #'                 CustomGroupingTable = grepTable)
-#' getConditionEra(testDxFile, ID, ICD, Date, "2015-10-01", 30, customgroup,
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customIcdgroup,
 #'                 CustomGroupingTable = groupingTable)
 #'
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, conditionSelect = CCS, isDescription = TRUE,CustomGroupingTable){
@@ -63,9 +63,9 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     DxDataFile <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson)$groupedDf
   }else if(conditionSelect == "ELIX"){
     DxDataFile <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)$groupedDf
-  }else if(conditionSelect == "GREPICD"){
+  }else if(conditionSelect == "CUSTOMGREPICDGROUP"){
     DxDataFile <- IcdToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)$groupedDf
-  }else if(conditionSelect == "CUSTOMGROUP"){
+  }else if(conditionSelect == "CUSTOMICDGROUP"){
     DxDataFile <- IcdDxToCustom(DxDataFile, ID, ICD, Date, CustomGroupingTable)$groupedDf
   }else if(conditionSelect == "ICD"){
     conversion <- IcdDxDecimalToShort(DxDataFile$ICD)
@@ -78,7 +78,7 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
       warning('"wrong Format" means the ICD has wrong format', call. = F)
     }
   }else{
-    stop("'please enter icd or ccs for 'conditionSelect'", call. = FALSE)
+    stop("'please enter `ccs`,`ccslvl`, `phecode`, `ahrq`, `charlson`, `elix` `customgrepicdgroup`, `customicdgroup` for 'conditionSelect'", call. = FALSE)
   }
 
   if(conditionSelect == "ICD"){

@@ -29,7 +29,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @examples
 #'
-#' IcdDxToCCSLvl(testDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+#' IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 #'
 IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 2, CCSLvlLabel = TRUE){
   DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]

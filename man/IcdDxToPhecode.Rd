@@ -33,6 +33,6 @@ return Phecode or description based on ICD-9-CM codes
 }
 \examples{
 
-IcdDxToPhecode(testDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 
 }

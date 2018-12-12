@@ -8,7 +8,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' Convert codes between short and decimal forms
 #'
-#' @import dplyr
+#' @import data.table
 #' @param icdList ICD codes
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
@@ -16,23 +16,26 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #'
 IcdDxDecimalToShort<-function(icdList){
-  icdDf <- data.frame(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
-  icd_Decimal <- icdDf[grepl("[.]",icdDf$ICD),]
-  icd_Short <- anti_join(icdDf,icd_Decimal,"Number")
+  icdDf <- data.table(ICD = icdList, Number = 1:length(icdList),stringsAsFactors = FALSE)
+  icd_Decimal <- icdDf[grep("[.]",icdDf$ICD),]
+  icd_Short <- icdDf[!icd_Decimal, on = .(Number)]
 
-  DtoS <- rbind(inner_join(icd_Decimal, ICD9DxwithTwoFormat, by = c("ICD" = "Decimal")),
-                inner_join(icd_Decimal, ICD10DxwithTwoFormat, by = c("ICD" = "Decimal")))
+  DtoS <- rbind(merge(icd_Decimal, ICD9DxwithTwoFormat, by.x = "ICD",by.y = "Decimal", nomatch = 0),
+                merge(icd_Decimal, ICD10DxwithTwoFormat, by.x = "ICD",by.y = "Decimal", nomatch = 0))
+  DtoS <- DtoS[,c(2,3)]
+  setnames(DtoS,"Short","ICD")
+  StoS <- unique(rbind(merge(icd_Short, ICD9DxwithTwoFormat, by.x = "ICD",by.y = "Short", nomatch = 0),
+                       merge(icd_Short, ICD10DxwithTwoFormat, by.x = "ICD",by.y = "Short", nomatch = 0)))
 
-  StoS <- rbind(semi_join(icd_Short, ICD9DxwithTwoFormat, by = c("ICD" = "Short")),
-                semi_join(icd_Short, ICD10DxwithTwoFormat, by = c("ICD" = "Short"))) %>% unique
+  allShortFormat <- rbind(StoS[,Number, ICD], DtoS[,Number, ICD])
 
-  allShortFormat <- rbind(StoS, select(DtoS, Number, ICD = Short))
+  DtoS_wrongFormat <- icd_Decimal[!DtoS,on = .(Number)]
+  StoS_wrongFormat <- icd_Short[!StoS,on = .(Number)]
 
-  DtoS_wrongFormat <- anti_join(icd_Decimal, DtoS, by = c("ICD","Number"))
-  StoS_wrongFormat <- anti_join(icd_Short, StoS, by = c("ICD","Number"))
-
-  wrongFormat <- rbind(DtoS_wrongFormat, StoS_wrongFormat) %>% arrange(Number)
-  combine_with_error <- rbind(wrongFormat, allShortFormat) %>% arrange(Number)
+  wrongFormat <- rbind(DtoS_wrongFormat, StoS_wrongFormat)
+  wrongFormat <- unique(wrongFormat[order(Number)])
+  combine_with_error <- rbind(wrongFormat, allShortFormat)
+  combine_with_error <- unique(combine_with_error[order(Number)])
 
   return(list(Short = combine_with_error$ICD,
               Error = wrongFormat))
