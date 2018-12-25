@@ -4,7 +4,7 @@
 \name{ICD10DxwithTwoFormat}
 \alias{ICD10DxwithTwoFormat}
 \title{Two format of ICD-10-CM (2019): Short and Decimal}
-\format{A data frame with 71931 rows and 2 variables}
+\format{A data table with 71931 rows and 2 variables}
 \source{
 \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 }
@@ -23,4 +23,4 @@ A dataframe for ICD-10 format conversion
 \seealso{
 \code{\link{ICD9DxwithTwoFormat}}
 }
-\keyword{dataframe}
+\keyword{datatable}

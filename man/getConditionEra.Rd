@@ -37,12 +37,6 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
 return DxDataFile with new column, condition era.
 }
 \examples{
-groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
-                            stringsAsFactors = FALSE)
-grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
-                        grepIcd = c("^427|^I48"),
-                        stringsAsFactors = FALSE)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
@@ -50,9 +44,5 @@ getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
 getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup,
-                CustomGroupingTable = grepTable)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customIcdgroup,
-                CustomGroupingTable = groupingTable)
 
 }

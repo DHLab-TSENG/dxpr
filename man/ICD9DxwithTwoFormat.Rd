@@ -4,7 +4,7 @@
 \name{ICD9DxwithTwoFormat}
 \alias{ICD9DxwithTwoFormat}
 \title{Two format of ICD-9-CM (2011): Short and Decimal}
-\format{A data frame with 14567 rows and 2 variables}
+\format{A data table with 14567 rows and 2 variables}
 \source{
 \url{https://www.findacode.com/search/search.php}
 
@@ -27,4 +27,4 @@ A dataframe for ICD-9 format conversion
 \seealso{
 \code{\link{ICD10DxwithTwoFormat}}
 }
-\keyword{dataframe}
+\keyword{datatable}

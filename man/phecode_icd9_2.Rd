@@ -4,7 +4,7 @@
 \name{phecode_icd9_2}
 \alias{phecode_icd9_2}
 \title{Phecode for ICD-9}
-\format{A data frame with 15558 rows and 9 variables}
+\format{A data table with 15558 rows and 9 variables}
 \source{
 \url{https://phewascatalog.org/phecodes}
 }
@@ -27,4 +27,4 @@ A dataframe for ICD-9 Phecode mapping
   \item IgnoreBool. this icd9 code is ignored in analysis if this valus is 1.
 }
 }
-\keyword{dataframe}
+\keyword{datatable}

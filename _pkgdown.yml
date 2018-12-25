@@ -39,6 +39,11 @@ reference:
   contents:
   - '`selectCases`'
 
+- title: Split Data by index date
+  desc: ~
+  contents:
+  - '`splitDataByDate`'
+
 - title: Calculate condition era
   desc: ~
   contents:

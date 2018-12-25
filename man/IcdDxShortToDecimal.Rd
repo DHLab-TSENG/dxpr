@@ -13,11 +13,20 @@
 \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 }
 \usage{
-IcdDxShortToDecimal(icdList)
+IcdDxShortToDecimal(DxDataFile, icdColName, dateColName, icd10usingDate)
 }
 \arguments{
-\item{icdList}{ICD codes}
+\item{DxDataFile}{A file of clinical diagnostic data with at least 2 columns: "ICD", "Date"}
+
+\item{icdColName}{A column for ICD of DxDataFile}
+
+\item{dateColName}{A column for Date of DxDataFile}
+
+\item{icd10usingDate}{icd 10 using date}
 }
 \description{
 Convert codes between short and decimal forms
+}
+\examples{
+IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
 }

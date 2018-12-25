@@ -1,50 +1,40 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "icdFile",
-  "groupingTable"))
+  "CustomGroupingTable"))
 #' Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.
 #'
 #' This can be used to select the first diagnosis record
 #' based on ICD code (grepl language) in DxDataFile,
 #' return first diagnosis record based on factIcd Data
 #'
-#' @import dplyr
+#' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param groupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"
+#' @param icd10usingDate ICD-10 using date
+#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"
 #' @export
-#' @examples
-#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
-#'                             stringsAsFactors = FALSE)
-#' IcdDxToCustom(sampleDxFile, ID, ICD, Date, groupingTable)
+# @examples
+# groupingTable <- data.table(group = rep("Cardiac dysrhythmias",6),
+#                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"))
+# IcdDxToCustom(sampleDxFile, ID, ICD, Date,
+#               CustomGroupingTable = groupingTable)
 #'
-IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, groupingTable){
-  customICD <- DxDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CustomGroupingTable){
+  customICD <- as.data.table(DxDataFile)
+  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+  customICD <- customICD[,DataCol,with = FALSE]
   names(customICD) <- c("ID", "ICD", "Date")
-  customICD$Date <- as.Date(customICD$Date)
-  conversionCustomICD <- IcdDxDecimalToShort(customICD$ICD)
-  customICD$Short <- conversionCustomICD$Short
-  groupingTable$ICD <- IcdDxDecimalToShort(groupingTable$ICD)$Short
+  customICD[,"Date"] <- as.Date(customICD[,Date])
 
-  groupedICD <- left_join(customICD, groupingTable, by = c("Short" = "ICD"))
+  groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD")
 
-  groupedICDLong <- groupedICD[!is.na(groupedICD$group),] %>%
-    group_by(ID,group) %>%
-    summarise(firstCaseDate = min(Date),
-              endCaseDate = max(Date),
-              period = endCaseDate - firstCaseDate,
-              count = n())
+  groupedICDLong <- groupedICD[!is.na(group),
+                               list(firstCaseDate = min(Date),
+                                    endCaseDate = max(Date),
+                                    count = .N),
+                               by = list(ID, group)][,period := (endCaseDate - firstCaseDate),]
 
-  wrongFormat <- conversionCustomICD$Error
-
-  if(nrow(wrongFormat) > 0){
-    message(paste0("wrong Format: ", unique(wrongFormat$ICD), sep = "\t\n"))
-    message("\n")
-    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
-    warning('"wrong Format" means the ICD has wrong format', call. = F)
-  }
   return(list(groupedDf = groupedICD,
               groupedData_Long = groupedICDLong))
 }

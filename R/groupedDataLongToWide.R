@@ -12,7 +12,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return comorbidity meseaures based on ICD diagnosis codes
 #'
-#' @import reshape2
+#' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
@@ -24,26 +24,30 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param numericOrBinary  Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)
 #' @export
 #' @examples
-#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
-#'                             stringsAsFactors = FALSE)
-#' grepTable <- data.frame(group = c("Cardiac dysrhythmias"),
-#'                         grepIcd = c("^427|^I48"),
-#'                         stringsAsFactors = FALSE)
+# groupingTable <- data.table(group = rep("Cardiac dysrhythmias",6),
+#                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+#                             stringsAsFactors = FALSE)
+# grepTable <- data.table(group = c("Cardiac dysrhythmias"),
+#                         grepIcd = c("^427|^I48"),
+#                         stringsAsFactors = FALSE)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", phecode)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customGrepIcdGroup,
-#'                       CustomGroupingTable = grepTable)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
-#'                       CustomGroupingTable = groupingTable)
+# groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customGrepIcdGroup,
+#                       CustomGroupingTable = grepTable)
+# groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
+#                       CustomGroupingTable = groupingTable)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupedICDMethod, isDescription = T, CustomGroupingTable, numericOrBinary=N){
-  DxDataFile <- DxDataFile[ , c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
+  DxDataFile <- as.data.table(DxDataFile)
+  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
+
+
   groupedICDMethod <- tolower(deparse(substitute(groupedICDMethod)))
   if(grepl("ccs", groupedICDMethod)){
     groupedData <- IcdDxToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)
@@ -59,7 +63,7 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   }else if(grepl("elix", groupedICDMethod)){
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)
   }else if(grepl("customgrepicdgroup", groupedICDMethod)){
-    groupedData <- IcdToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)
+    groupedData <- IcdDxToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)
   }else if(grepl("customicdgroup", groupedICDMethod)){
     groupedData <- IcdDxToCustom(DxDataFile, ID, ICD, Date, CustomGroupingTable)
   }else{
@@ -67,6 +71,7 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   }
   longFormat <- groupedData$groupedData_Long
   wideNumericDt <- dcast(longFormat, ID~eval(parse(text = paste(names(longFormat)[2]))), value.var = c("count"))
+
   wideNumericDt[is.na(wideNumericDt)] <- 0L
   if(toupper(deparse(substitute(numericOrBinary))) == "B"){
     wideBinaryDt <-as.data.frame(wideNumericDt >= 1L)

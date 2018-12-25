@@ -4,7 +4,7 @@
 \name{ccsDxICD9}
 \alias{ccsDxICD9}
 \title{Clinical Classifications Software (CCS)  for ICD-9-CM}
-\format{A data frame with 15072 rows and 12 variables}
+\format{A data table with 15072 rows and 12 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 
@@ -35,4 +35,4 @@ A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-lev
 \seealso{
 \code{\link{ccsDxICD10}}
 }
-\keyword{dataframe}
+\keyword{datatable}

@@ -96,10 +96,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ccsDxICD9
 #' @usage data(ccsDxICD9)
-#' @format A data frame with 15072 rows and 12 variables
+#' @format A data table with 15072 rows and 12 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 #' @seealso \code{\link{ccsDxICD10}}
@@ -121,10 +121,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ccsDxICD10
 #' @usage data(ccsDxICD10)
-#' @format A data frame with 72446 rows and 8 variables
+#' @format A data table with 72446 rows and 8 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @seealso \code{\link{ccsDxICD9}}
 NULL
@@ -150,7 +150,7 @@ NULL
 #' @keywords dataframe
 #' @name ccsPrICD9
 #' @usage data(ccsPrICD9)
-#' @format A data frame with 3948 rows and 10 variables
+#' @format A data table with 3948 rows and 10 variables
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
 #' @seealso \code{\link{ccsPrICD10}}
@@ -232,10 +232,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd9_ahrq
 #' @usage data(icd9_ahrq)
-#' @format A data frame with 14696 rows and 3 variables
+#' @format A data table with 14696 rows and 3 variables
 #' @seealso \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -250,10 +250,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd10_ahrq
 #' @usage data(icd10_ahrq)
-#' @format A data frame with 3217 rows and 3 variables
+#' @format A data table with 3217 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -268,10 +268,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd9_charlson
 #' @usage data(icd9_charlson)
-#' @format A data frame with 12617 rows and 3 variables
+#' @format A data table with 12617 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -286,10 +286,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd10_charlson
 #' @usage data(icd10_charlson)
-#' @format A data frame with 3029 rows and 3 variables
+#' @format A data table with 3029 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -305,10 +305,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd9_elix
 #' @usage data(icd9_elix)
-#' @format A data frame with 1474 rows and 4 variables
+#' @format A data table with 1474 rows and 4 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 NULL
@@ -325,10 +325,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name icd10_elix
 #' @usage data(icd10_elix)
-#' @format A data frame with 3493 rows and 4 variables
+#' @format A data table with 3493 rows and 4 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 NULL
@@ -350,10 +350,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name phecode_icd9_2
 #' @usage data(phecode_icd9_2)
-#' @format A data frame with 15558 rows and 9 variables
+#' @format A data table with 15558 rows and 9 variables
 #' @source \url{https://phewascatalog.org/phecodes}
 NULL
 
@@ -367,10 +367,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ICD9DxwithTwoFormat
 #' @usage data(ICD9DxwithTwoFormat)
-#' @format A data frame with 14567 rows and 2 variables
+#' @format A data table with 14567 rows and 2 variables
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
@@ -387,10 +387,10 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ICD10DxwithTwoFormat
 #' @usage data(ICD10DxwithTwoFormat)
-#' @format A data frame with 71931 rows and 2 variables
+#' @format A data table with 71931 rows and 2 variables
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #' @seealso \code{\link{ICD9DxwithTwoFormat}}
 NULL
@@ -424,8 +424,8 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name sampleDxFile
 #' @usage data(sampleDxFile)
-#' @format A data frame with 4002 rows and 3 variables
+#' @format A data table with 4002 rows and 3 variables
 NULL

@@ -4,7 +4,7 @@
 \name{sampleDxFile}
 \alias{sampleDxFile}
 \title{Test File of ICD-CM codes for grouping method}
-\format{A data frame with 4002 rows and 3 variables}
+\format{A data table with 4002 rows and 3 variables}
 \usage{
 data(sampleDxFile)
 }
@@ -18,4 +18,4 @@ A test file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calcu
   \item Date diagnosis date
 }
 }
-\keyword{dataframe}
+\keyword{datatable}

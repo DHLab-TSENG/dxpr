@@ -4,7 +4,7 @@
 \name{icd9_charlson}
 \alias{icd9_charlson}
 \title{Charlson Comorbidity for ICD-9}
-\format{A data frame with 12617 rows and 3 variables}
+\format{A data table with 12617 rows and 3 variables}
 \usage{
 data(icd9_charlson)
 }
@@ -21,4 +21,4 @@ A dataframe for ICD-9 Charlson comorbidity mapping
 \seealso{
 \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 }
-\keyword{dataframe}
+\keyword{datatable}

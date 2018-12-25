@@ -4,7 +4,7 @@
 \name{icd9_ahrq}
 \alias{icd9_ahrq}
 \title{AHRQ Comorbidity for ICD-9}
-\format{A data frame with 14696 rows and 3 variables}
+\format{A data table with 14696 rows and 3 variables}
 \usage{
 data(icd9_ahrq)
 }
@@ -21,4 +21,4 @@ A dataframe for ICD-9 AHRQ comorbidity mapping
 \seealso{
 \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 }
-\keyword{dataframe}
+\keyword{datatable}

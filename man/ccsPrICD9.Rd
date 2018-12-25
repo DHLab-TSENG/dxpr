@@ -4,7 +4,7 @@
 \name{ccsPrICD9}
 \alias{ccsPrICD9}
 \title{Clinical Classifications Software (CCS)  for ICD-9-PCS}
-\format{A data frame with 3948 rows and 10 variables}
+\format{A data table with 3948 rows and 10 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 

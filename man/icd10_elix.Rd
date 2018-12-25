@@ -4,7 +4,7 @@
 \name{icd10_elix}
 \alias{icd10_elix}
 \title{Elixhauser Comorbidity for ICD-10}
-\format{A data frame with 3493 rows and 4 variables}
+\format{A data table with 3493 rows and 4 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 }
@@ -25,4 +25,4 @@ A dataframe for ICD-10 Elixhauser comorbidity mapping
 \seealso{
 \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
 }
-\keyword{dataframe}
+\keyword{datatable}
