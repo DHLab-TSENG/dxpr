@@ -6,7 +6,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #'
 #' return Procedure Class categories based on ICD-9 and ICD-10 codes
 #'
-#' @import dplyr
+#' @import data.table
 #' @importFrom stats complete.cases
 #' @param PrDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
 #' @param idColName A column for MemberID of PrDataFile
@@ -20,42 +20,25 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source ICD-10-Procedure Class (2018)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
 #' @examples
-#' PrDataFile <- data.frame(ID=c("A","A","A","B"),
-#'                          ICD=c("0101","8838","00870ZZ","00920ZZ"),
-#'                          Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-#'                          stringsAsFactors = FALSE)
-#' IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+#'
+#' IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isProcedureClassName = TRUE){
-  PrDataFile <- PrDataFile[, c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))]
-  names(PrDataFile) <- c("ID", "ICD", "Date")
-  PrDataFile$Date <- as.Date(PrDataFile$Date)
-  PrDataFile <- PrDataFile %>% mutate(Number =  1:nrow(PrDataFile))
-  Conversion <- IcdPrDecimalToShort(PrDataFile$ICD)
-  PrDataFile$Short <- Conversion$Short
-
-  PC_combine <- rbind(left_join(PrDataFile[as.Date(PrDataFile$Date) < icd10usingDate,], pcICD9, by = "ICD"),
-                      left_join(PrDataFile[as.Date(PrDataFile$Date) >= icd10usingDate,], pcICD10, by = "ICD")) %>% arrange(Number)
+  PrDataFile <- as.data.table(PrDataFile)
+  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+  PrDataFile <- PrDataFile[,DataCol,with = FALSE]
+  names(PrDataFile) <- c("ID","ICD", "Date")
+  PrDataFile[,"Date"] <- as.Date(PrDataFile[,Date])
+  PrDataFile[,Number:=1:nrow(PrDataFile)]
+  PrDataFile[,Short:=IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)$ICD]
 
   if (isProcedureClassName == T) {
-    IcdToPC <- PC_combine$PROCEDURE_CLASS
+    PC_col <- "PROCEDURE_CLASS"
   } else {
-    IcdToPC <- PC_combine$PROCEDURE_CLASS_NAME
+    PC_col <- "PROCEDURE_CLASS_NAME"
   }
-  WrongFormat <- Conversion$Error
-  error_ICD <- anti_join(data.frame(ICD = PrDataFile$ICD[is.na(IcdToPC)], stringsAsFactors= FALSE),WrongFormat,"ICD")
+  IcdToPC <- rbind(merge(PrDataFile[Date < icd10usingDate],pcICD9[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
+                   merge(PrDataFile[Date >= icd10usingDate],pcICD10[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
 
-  if(anyNA(IcdToPC)){
-    if(nrow(WrongFormat) > 0){
-      message(paste0("wrong Format: ", unique(WrongFormat$ICD), sep = "\t\n"))
-    }
-    if(sum(is.na(IcdToPC)) > nrow(WrongFormat)){
-      message(paste0("wrong ICD version: ", unique(error_ICD$ICD), sep = "\t\n"))
-      message("\n")
-    }
-    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
-    warning('"wrong Format" means the ICD has wrong format', call. = F)
-    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
-  }
   IcdToPC
 }

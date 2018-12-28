@@ -12,7 +12,7 @@
 data(icd9_elix)
 }
 \description{
-A dataframe for ICD-9 Elixhauser comorbidity mapping
+A datatable for ICD-9 Elixhauser comorbidity mapping
 }
 \details{
 \itemize{

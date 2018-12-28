@@ -12,7 +12,7 @@
 data(ccsPrICD10)
 }
 \description{
-A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
+A datatable for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 }
 \details{
 \itemize{
@@ -29,4 +29,4 @@ A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-l
 \seealso{
 \code{\link{ccsPrICD9}}
 }
-\keyword{dataframe}
+\keyword{datatable}

@@ -16,7 +16,7 @@
 data(ICD9DxwithTwoFormat)
 }
 \description{
-A dataframe for ICD-9 format conversion
+A datatable for ICD-9 format conversion
 }
 \details{
 \itemize{

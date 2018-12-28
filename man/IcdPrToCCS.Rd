@@ -38,10 +38,7 @@ Clinical Classifications Software (CCS) for ICD-9 and ICD-10 procedure codes in 
 return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 }
 \examples{
-PrDataFile <- data.frame(ID=c("A","A","A","B"),
-                         ICD=c("0101","8838","00870ZZ","00920ZZ"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-                         stringsAsFactors = FALSE)
-IcdPrToCCS(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
+
+IcdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 }

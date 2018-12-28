@@ -12,7 +12,7 @@
 data(phecode_icd9_2)
 }
 \description{
-A dataframe for ICD-9 Phecode mapping
+A datatable for ICD-9 Phecode mapping
 }
 \details{
 \itemize{

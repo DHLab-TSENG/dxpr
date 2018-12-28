@@ -39,7 +39,6 @@ return Clinical Classifications Software (CCS) categories or description based o
 }
 \examples{
 
-IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedDf
-IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedData_Long
+IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 }

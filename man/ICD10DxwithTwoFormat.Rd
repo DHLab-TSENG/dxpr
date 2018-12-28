@@ -12,7 +12,7 @@
 data(ICD10DxwithTwoFormat)
 }
 \description{
-A dataframe for ICD-10 format conversion
+A datatable for ICD-10 format conversion
 }
 \details{
 \itemize{

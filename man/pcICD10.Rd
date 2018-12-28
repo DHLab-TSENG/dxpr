@@ -25,4 +25,4 @@ The Procedure Classes provide users an easy way to categorize procedure codes in
 \seealso{
 \code{\link{pcICD9}}
 }
-\keyword{dataframe}
+\keyword{datatable}

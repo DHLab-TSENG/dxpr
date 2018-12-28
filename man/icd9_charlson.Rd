@@ -9,7 +9,7 @@
 data(icd9_charlson)
 }
 \description{
-A dataframe for ICD-9 Charlson comorbidity mapping
+A datatable for ICD-9 Charlson comorbidity mapping
 }
 \details{
 \itemize{

@@ -9,7 +9,7 @@
 data(icd10_ahrq)
 }
 \description{
-A dataframe for ICD-10 AHRQ comorbidity mapping
+A datatable for ICD-10 AHRQ comorbidity mapping
 }
 \details{
 \itemize{

@@ -27,8 +27,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @examples
 #'
-#' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedDf
-#' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)$groupedData_Long
+#' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = T){
   DxDataFile <- as.data.table(DxDataFile)

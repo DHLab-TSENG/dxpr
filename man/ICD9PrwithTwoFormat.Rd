@@ -14,7 +14,7 @@
 data(ICD9PrwithTwoFormat)
 }
 \description{
-A dataframe for ICD-9 format conversion
+A datatable for ICD-9 format conversion
 }
 \details{
 \itemize{
@@ -22,4 +22,4 @@ A dataframe for ICD-9 format conversion
   \item Decimal ICD-9 Decimal format
 }
 }
-\keyword{dataframe}
+\keyword{datatable}

@@ -12,7 +12,7 @@
 data(prICD9)
 }
 \description{
-A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
+A datatable for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
 }
 \details{
 \itemize{
@@ -23,4 +23,4 @@ A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated
 \seealso{
 \code{\link{prICD10}}
 }
-\keyword{dataframe}
+\keyword{datatable}

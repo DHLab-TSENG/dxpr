@@ -6,7 +6,7 @@ NULL
 
 #' ICD-9-CM
 #'
-#' A dataframe for ICD-9-CM, containing ICD-9-CM code and ICD description(Updated for codes valid through FY 2011.)
+#' A datatable for ICD-9-CM, containing ICD-9-CM code and ICD description(Updated for codes valid through FY 2011.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-CM
@@ -14,7 +14,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name dxICD9
 #' @usage data(dxICD10)
 #' @format A data frame with 14567 rows and 2 variables
@@ -24,7 +24,7 @@ NULL
 
 #' ICD-10-CM
 #'
-#' A dataframe for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM
@@ -32,7 +32,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name dxICD10
 #' @usage data(dxICD10)
 #' @format A data frame with 71931 rows and 2 variables
@@ -42,7 +42,7 @@ NULL
 
 #' ICD-9-PCS
 #'
-#' A dataframe for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
+#' A datatable for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-PCS
@@ -50,7 +50,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name prICD9
 #' @usage data(prICD9)
 #' @format A data frame with 3882 rows and 2 variables
@@ -60,7 +60,7 @@ NULL
 
 #' ICD-10-PCS
 #'
-#' A dataframe for ICD-10-PCS, containing ICD-10-PCS code and ICD description(Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-PCS, containing ICD-10-PCS code and ICD description(Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-PCS
@@ -68,7 +68,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name prICD10
 #' @usage data(prICD10)
 #' @format A data frame with 78880 rows and 2 variables
@@ -78,7 +78,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-9-CM
 #'
-#' A dataframe for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
+#' A datatable for ICD-9-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-CM
@@ -107,7 +107,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-CM
 #'
-#' A dataframe for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-CM CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM
@@ -131,7 +131,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-9-PCS
 #'
-#' A dataframe for ICD-9-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
+#' A datatable for ICD-9-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-PCS
@@ -147,7 +147,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ccsPrICD9
 #' @usage data(ccsPrICD9)
 #' @format A data table with 3948 rows and 10 variables
@@ -158,7 +158,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-PCS
 #'
-#' A dataframe for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-PCS
@@ -172,7 +172,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ccsPrICD10
 #' @usage data(ccsPrICD10)
 #' @format A data frame with 79758 rows and 8 variables
@@ -192,7 +192,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name pcICD9
 #' @usage data(pcICD9)
 #' @format A data frame with 3948 rows and 4 variables
@@ -213,7 +213,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name pcICD10
 #' @usage data(pcICD10)
 #' @format A data frame with 79758 rows and 4 variables
@@ -223,7 +223,7 @@ NULL
 
 #' AHRQ Comorbidity for ICD-9
 #'
-#' A dataframe for ICD-9 AHRQ comorbidity mapping
+#' A datatable for ICD-9 AHRQ comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
@@ -241,7 +241,7 @@ NULL
 
 #' AHRQ Comorbidity for ICD-10
 #'
-#' A dataframe for ICD-10 AHRQ comorbidity mapping
+#' A datatable for ICD-10 AHRQ comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
@@ -259,7 +259,7 @@ NULL
 
 #' Charlson Comorbidity for ICD-9
 #'
-#' A dataframe for ICD-9 Charlson comorbidity mapping
+#' A datatable for ICD-9 Charlson comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
@@ -277,7 +277,7 @@ NULL
 
 #' Charlson Comorbidity for ICD-10
 #'
-#' A dataframe for ICD-10 Charlson comorbidity mapping
+#' A datatable for ICD-10 Charlson comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
@@ -295,7 +295,7 @@ NULL
 
 #' Elixhauser Comorbidity for ICD-9
 #'
-#' A dataframe for ICD-9 Elixhauser comorbidity mapping
+#' A datatable for ICD-9 Elixhauser comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
@@ -315,7 +315,7 @@ NULL
 
 #' Elixhauser Comorbidity for ICD-10
 #'
-#' A dataframe for ICD-10 Elixhauser comorbidity mapping
+#' A datatable for ICD-10 Elixhauser comorbidity mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
@@ -335,7 +335,7 @@ NULL
 
 #' Phecode for ICD-9
 #'
-#' A dataframe for ICD-9 Phecode mapping
+#' A datatable for ICD-9 Phecode mapping
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
@@ -359,7 +359,7 @@ NULL
 
 #' Two format of ICD-9-CM (2011): Short and Decimal
 #'
-#' A dataframe for ICD-9 format conversion
+#' A datatable for ICD-9 format conversion
 #'
 #' \itemize{
 #'   \item Short ICD-9 Short format
@@ -379,7 +379,7 @@ NULL
 
 #' Two format of ICD-10-CM (2019): Short and Decimal
 #'
-#' A dataframe for ICD-10 format conversion
+#' A datatable for ICD-10 format conversion
 #'
 #' \itemize{
 #'   \item Short ICD-10 Short format
@@ -397,7 +397,7 @@ NULL
 
 #' Two format of ICD-9-PCS: Short and Decimal
 #'
-#' A dataframe for ICD-9 format conversion
+#' A datatable for ICD-9 format conversion
 #'
 #' \itemize{
 #'   \item Short ICD-9 Short format
@@ -405,7 +405,7 @@ NULL
 #' }
 #'
 #' @docType data
-#' @keywords dataframe
+#' @keywords datatable
 #' @name ICD9PrwithTwoFormat
 #' @usage data(ICD9PrwithTwoFormat)
 #' @format A data frame with 3882 rows and 2 variables
@@ -413,9 +413,9 @@ NULL
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 NULL
 
-#' Test File of ICD-CM codes for grouping method
+#' Sample File of ICD-CM codes for grouping method
 #'
-#' A test file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
+#' A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
 #'
 #' \itemize{
 #'   \item ID  MemberID
@@ -427,5 +427,22 @@ NULL
 #' @keywords datatable
 #' @name sampleDxFile
 #' @usage data(sampleDxFile)
-#' @format A data table with 4002 rows and 3 variables
+#' @format A data table with 4010 rows and 3 variables
+NULL
+
+#' Sample File of ICD-PCS codes for grouping method
+#'
+#' A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
+#'
+#' \itemize{
+#'   \item ID  MemberID
+#'   \item ICD ICD-9 and ICD-10-PCS codes
+#'   \item Date diagnosis date
+#' }
+#'
+#' @docType data
+#' @keywords datatable
+#' @name samplePrFile
+#' @usage data(samplePrFile)
+#' @format A data table with 4010 rows and 3 variables
 NULL

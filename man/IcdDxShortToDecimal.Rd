@@ -28,5 +28,6 @@ IcdDxShortToDecimal(DxDataFile, icdColName, dateColName, icd10usingDate)
 Convert codes between short and decimal forms
 }
 \examples{
-IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
+sampleDxFile$Decimal <- IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$ICD
+
 }
