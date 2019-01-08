@@ -110,11 +110,11 @@ IcdDxShortToDecimal(icd10_Short)$Decimal
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
 <p>將 ICD-CM code 的格式統一轉成 Short</p>
 <pre><code># ICD-9
-IcdDxDecimaltoShort(icd9_Decimal)$Short
+IcdDxDecimalToShort(icd9_Decimal)$Short
 # c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
 
 # ICD-10
-IcdDxDecimaltoShort(icd10_Decimal)$Short
+IcdDxDecimalToShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
 <div id="ii.-icd-cm-code-" class="section level2">
@@ -126,7 +126,7 @@ IcdDxDecimaltoShort(icd10_Decimal)$Short
 <p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
 <p>單一階層: 較通用的分類</p>
 <p>多階層: 將診斷碼分為較精確的分組</p>
-<p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2018</p>
+<p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2019</p>
 <div class="section level4">
 <h4>1) 單一階層分類</h4>
 <p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
@@ -281,6 +281,9 @@ getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALS
 <h2>V. 參考資料</h2>
 <div id="icd--short--decimal" class="section level3">
 <h3>ICD 格式: Short 和 Decimal</h3>
+<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>

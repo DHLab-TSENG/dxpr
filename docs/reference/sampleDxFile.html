@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AHRQ Comorbidity for ICD-9 — icd9_ahrq • emr</title>
+<title>Sample File of ICD-CM codes for grouping method — sampleDxFile • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="AHRQ Comorbidity for ICD-9 — icd9_ahrq" />
+<meta property="og:title" content="Sample File of ICD-CM codes for grouping method — sampleDxFile" />
 
-<meta property="og:description" content="A datatable for ICD-9 AHRQ comorbidity mapping" />
+<meta property="og:description" content="A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -110,34 +110,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>AHRQ Comorbidity for ICD-9</h1>
+    <h1>Sample File of ICD-CM codes for grouping method</h1>
     
-    <div class="hidden name"><code>icd9_ahrq.Rd</code></div>
+    <div class="hidden name"><code>sampleDxFile.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A datatable for ICD-9 AHRQ comorbidity mapping</p>
+    <p>A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>data</span>(<span class='no'>icd9_ahrq</span>)</pre>
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>sampleDxFile</span>)</pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data table with 14696 rows and 3 variables</p>
+    <p>A data table with 4010 rows and 3 variables</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <ul>
-<li><p>ICD. ICD-9</p></li>
-<li><p>Comorbidity. comorbidity measures for ICD-9 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)</p></li>
-<li><p>Value. if ICD code has comorbidity measures, value is 1</p></li>
+<li><p>ID  MemberID</p></li>
+<li><p>ICD ICD-9 and ICD-10-CM codes</p></li>
+<li><p>Date diagnosis date</p></li>
 </ul>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='icd10_ahrq.html'>icd10_ahrq</a></code> <code><a href='icd9_charlson.html'>icd9_charlson</a></code> <code><a href='icd10_charlson.html'>icd10_charlson</a></code> <code><a href='icd9_elix.html'>icd9_elix</a></code> <code><a href='icd10_elix.html'>icd10_elix</a></code></p></div>
     
 
   </div>
@@ -148,8 +144,6 @@
       <li><a href="#format">Format</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

@@ -121,14 +121,26 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>IcdPrShortToDecimal</span>(<span class='no'>icdList</span>)</pre>
+    <pre class="usage"><span class='fu'>IcdPrShortToDecimal</span>(<span class='no'>PrDataFile</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>icd10usingDate</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>icdList</th>
-      <td><p>only ICD-9-PCS codes have decimal and short forms</p></td>
+      <th>PrDataFile</th>
+      <td><p>A file of clinical diagnostic data with at least 2 columns: "ICD", "Date"</p></td>
+    </tr>
+    <tr>
+      <th>icdColName</th>
+      <td><p>A column for ICD of DxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>dateColName</th>
+      <td><p>A column for Date of DxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>icd10usingDate</th>
+      <td><p>icd 10 using date</p></td>
     </tr>
     </table>
     
@@ -139,6 +151,10 @@
 <p><a href='https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html'>https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>samplePrFile</span>$<span class='no'>Decimal</span> <span class='kw'>&lt;-</span> <span class='fu'>IcdPrShortToDecimal</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)$<span class='no'>ICD</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("33456 (1)", "kerker (1)", "12345 (1)", "54321 (1)", "AB123 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,7 +162,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#source">Source</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

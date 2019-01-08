@@ -56,7 +56,7 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     icd9DWrongVer <- icd9DNA[!is.na(Short), list(count = .N),by = ICD]
     icd10DWrongVer <- icd10DNA[!is.na(Short), list(count = .N),by = ICD]
     if(nrow(icd9DWrongVer)>0){
-      wrongVersionMsg_D <-icd9DWrongVer
+      wrongVersionMsg_D <- icd9DWrongVer
       wrongVersion_D <- icd9DNA[!is.na(Short),-"Short"]
       if(nrow(icd10DWrongVer)>0){
         wrongVersionMsg_D <- rbind(wrongVersionMsg_D,icd10DWrongVer)

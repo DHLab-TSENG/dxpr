@@ -162,11 +162,19 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>PrDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"A"</span>,<span class='st'>"B"</span>),
-                         <span class='kw'>ICD</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"0101"</span>,<span class='st'>"8838"</span>,<span class='st'>"00870ZZ"</span>,<span class='st'>"00920ZZ"</span>),
-                         <span class='kw'>Date</span><span class='kw'>=</span><span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2013-03-31"</span>,<span class='st'>"2013-01-29"</span>,<span class='st'>"2016-03-10"</span>,<span class='st'>"2016-03-10"</span>)),
-                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>IcdPrToProcedureClass</span>(<span class='no'>PrDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2016-01-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "2" "1" "4" "4"</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='fu'>IcdPrToProcedureClass</span>(<span class='no'>samplePrFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("33456 (1)", "kerker (1)", "12345 (1)", "54321 (1)", "AB123 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;         Short ID     ICD       Date Number PROCEDURE_CLASS
+#&gt;    1:    0001  C    0001 2007-06-19    564               2
+#&gt;    2:    0003  B   00.03 2008-09-10   1712               2
+#&gt;    3:    0009  C   00.09 2007-06-02   1761               2
+#&gt;    4:    0012  A    0012 2009-02-23    904               2
+#&gt;    5:    0012  A   00.12 2009-01-30   1270               2
+#&gt;   ---                                                     
+#&gt; 4006: 021X0JQ  B 021X0JQ 2020-12-30   2016               4
+#&gt; 4007: 021X0JQ  C 021X0JQ 2019-07-11   3814               4
+#&gt; 4008:   12345  B   12345 2017-07-26   3852            &lt;NA&gt;
+#&gt; 4009:   54321  B   54321 2019-05-01   3939            &lt;NA&gt;
+#&gt; 4010:   AB123  B   AB123 2020-12-06   2829            &lt;NA&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

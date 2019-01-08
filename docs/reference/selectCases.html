@@ -169,13 +169,10 @@ Return qualified Members' data</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>DxDataFile</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>),
-                         <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"I072"</span>,<span class='st'>"I071"</span>, <span class='st'>"I072"</span>, <span class='st'>"I071"</span>),
-                         <span class='kw'>Date</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='fu'>c</span>(<span class='st'>"2016-03-31"</span>, <span class='st'>"2016-01-29"</span>, <span class='st'>"2016-02-10"</span>, <span class='st'>"2018-03-10"</span>)),
-                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>selectCases</span>(<span class='st'>"^I0"</span>, <span class='no'>DxDataFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 0 x 7
-#&gt; # ... with 7 variables: ID &lt;chr&gt;, firstCaseDate &lt;date&gt;, endCaseDate &lt;date&gt;,
-#&gt; #   period &lt;time&gt;, Count &lt;int&gt;, MostCommonICD &lt;chr&gt;, MostCommonICDCount &lt;int&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'>
+<span class='fu'>selectCases</span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;    ID firstCaseDate endCaseDate count   period MostCommonICD MostCommonICDCount
+#&gt; 1:  A    2008-05-03  2009-03-02     2 303 days         785.1                  1
+#&gt; 2:  B    2008-01-19  2008-04-07     2  79 days        785.52                  1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
