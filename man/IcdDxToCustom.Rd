@@ -5,7 +5,7 @@
 \title{Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.}
 \usage{
 IcdDxToCustom(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, CustomGroupingTable)
+  CustomGroupingTable)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -16,12 +16,19 @@ IcdDxToCustom(DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{icd10usingDate}{ICD-10 using date}
-
 \item{CustomGroupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"}
 }
 \description{
 This can be used to select the first diagnosis record
 based on ICD code (grepl language) in DxDataFile,
 return first diagnosis record based on factIcd Data
+}
+\examples{
+head(sampleDxFile)
+groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+                            stringsAsFactors = FALSE)
+IcdDxToCustom(sampleDxFile, ID, ICD, Date,
+              CustomGroupingTable = groupingTable)
+
 }

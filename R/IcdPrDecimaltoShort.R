@@ -17,7 +17,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
 #' @export
 #' @examples
-#'
+#' head(samplePrFile)
 #' samplePrFile$Short <- IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")$ICD
 #'
 IcdPrDecimalToShort<-function(PrDataFile, icdColName, dateColName, icd10usingDate){
@@ -121,22 +121,22 @@ IcdPrDecimalToShort<-function(PrDataFile, icdColName, dateColName, icd10usingDat
   allShortFormat <- rbind(StoS, DtoS)
 
   if(nrow(allShortFormat) < nrow(PrDataFile)){
-    message(paste0("wrong ICD Format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
+    message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
     if(!is.null(nrow(allWrongFormatMsg))){
       message(head(allWrongFormatMsg,10))
       if(!is.null(nrow(icd10DWrongFormat))){
-        message("ICD-10-PCS Codes do not have 'Decimal' Format")
+        message("ICD-10-PCS codes do not have 'Decimal' Format")
       }
       message(("\t"))
     }
     if(!is.null(nrow(wrongVersion))){
-      message(paste0("wrong ICD version: total ",nrow(wrongVersionMsg)," ICD codes (the number of occurrences is in brackets)"))
+      message(paste0("Wrong ICD version: total ",nrow(wrongVersionMsg)," ICD codes (the number of occurrences is in brackets)"))
       message(head(wrongVersionMsg, 10))
       message(("\t"))
     }
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
-    warning('"wrong ICD Format" means the ICD has wrong format', call. = F)
-    warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+    warning('"Wrong ICD format" means the ICD has wrong format', call. = F)
+    warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
 
     combine_with_error <- rbind(allWrongICD, allShortFormat)[order(Number),-"Number"]
     return(combine_with_error)

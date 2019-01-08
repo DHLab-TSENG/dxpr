@@ -26,7 +26,7 @@ IcdPrShortToDecimal(PrDataFile, icdColName, dateColName, icd10usingDate)
 Return codes with Decimal forms
 }
 \examples{
-
+head(samplePrFile)
 samplePrFile$Decimal <- IcdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")$ICD
 
 }

@@ -32,7 +32,7 @@ This can be used to group Phecode or description based on ICD-9 codes in clinica
 return Phecode or description based on ICD-9-CM codes
 }
 \examples{
-
+head(sampleDxFile)
 IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 
 }

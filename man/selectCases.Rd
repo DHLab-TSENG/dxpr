@@ -31,7 +31,7 @@ per patients in the inout factIcd dataset.
 Return qualified Members' data
 }
 \examples{
-
+head(sampleDxFile)
 selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
 
 }

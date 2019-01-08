@@ -33,7 +33,7 @@ IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
 return Procedure Class categories based on ICD-9 and ICD-10 codes
 }
 \examples{
-
+head(samplePrFile)
 IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 }

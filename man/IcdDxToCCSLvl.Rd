@@ -40,7 +40,7 @@ Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosi
 return Multi-leve Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 }
 \examples{
-
+head(sampleDxFile)
 IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 
 }

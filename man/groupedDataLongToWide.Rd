@@ -34,11 +34,12 @@ Get comorbidities using the comorbidity methods based on ICD code in clinical di
 return comorbidity meseaures based on ICD diagnosis codes
 }
 \examples{
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs)
+groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+                            stringsAsFactors = FALSE)
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", phecode)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
+                      CustomGroupingTable = groupingTable,N)
 
 }

@@ -20,7 +20,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source ICD-10-Procedure Class (2018)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
 #' @examples
-#'
+#' head(samplePrFile)
 #' IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isProcedureClassName = TRUE){
@@ -39,6 +39,6 @@ IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName
   }
   IcdToPC <- rbind(merge(PrDataFile[Date < icd10usingDate],pcICD9[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                    merge(PrDataFile[Date >= icd10usingDate],pcICD10[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
-
+  IcdToPC <- IcdToPC[order(Number)][,eval(parse(text = paste(PC_col)))]
   IcdToPC
 }

@@ -15,9 +15,9 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param IndexDate An exact date of diagnosis for a period of observation.
 #' @param window Length of condition era, default is 30 days
 #' @export
-# @examples
-#'
-# splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
+#' @examples
+#' head(sampleDxFile)
+#' splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
 #'
 splitDataByDate <- function(DxDataFile,idColName,icdColName,dateColName,IndexDate, window = 30){
   DxDataFile <- as.data.table(DxDataFile)
@@ -25,6 +25,7 @@ splitDataByDate <- function(DxDataFile,idColName,icdColName,dateColName,IndexDat
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+  DxDataFile[,Number:=1:nrow(DxDataFile)]
   After <- DxDataFile[Date >= IndexDate,][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
   After$Window <- (as.integer(After$Gap) %/% window) + 1
 
@@ -32,6 +33,7 @@ splitDataByDate <- function(DxDataFile,idColName,icdColName,dateColName,IndexDat
   Before$Window <- (as.integer(Before$Gap) %/% window) + 1
 
   splitedData <- rbind(After,Before)
+  splitedData <- splitedData[order(Number)]
   splitedData$Gap <- NULL
   splitedData
 }

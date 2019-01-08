@@ -21,23 +21,18 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param CustomGroupingTable Table is for groupedICDMethod:`grepICD` and `customGroup`
 #' @export
 #' @examples
-# groupingTable <- data.table(group = rep("Cardiac dysrhythmias",6),
-#                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"))#'
-# grepTable <- data.table(group = c("Cardiac dysrhythmias"),
-#                         grepIcd = c("^427|^I48"))
+#' head(sampleDxFile)
 #' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccslvl3, FALSE)
 #' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
 #' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ahrq)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, charlson)
 #' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
-# getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup,
-#                 CustomGroupingTable = grepTable)
-# getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customIcdgroup,
-#                 CustomGroupingTable = groupingTable)
+#' grepTable <- data.frame(group = "Cardiac dysrhythmias",
+#'                         grepIcd = "^427|^I48",
+#'                         stringsAsFactors = FALSE)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup,
+#'                 CustomGroupingTable = grepTable)
 #'
-getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, conditionSelect = CCS, isDescription = TRUE,CustomGroupingTable){
+getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, gapDate = 30, conditionSelect = CCS, isDescription = TRUE, CustomGroupingTable){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]

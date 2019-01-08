@@ -11,24 +11,27 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate ICD-10 using date
 #' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"
 #' @export
-# @examples
-# groupingTable <- data.table(group = rep("Cardiac dysrhythmias",6),
-#                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"))
-# IcdDxToCustom(sampleDxFile, ID, ICD, Date,
-#               CustomGroupingTable = groupingTable)
+#' @examples
+#' head(sampleDxFile)
+#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+#'                             stringsAsFactors = FALSE)
+#' IcdDxToCustom(sampleDxFile, ID, ICD, Date,
+#'               CustomGroupingTable = groupingTable)
 #'
-IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CustomGroupingTable){
+IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, CustomGroupingTable){
   customICD <- as.data.table(DxDataFile)
+  CustomGroupingTable <- as.data.table(CustomGroupingTable)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   customICD <- customICD[,DataCol,with = FALSE]
   names(customICD) <- c("ID", "ICD", "Date")
   customICD[,"Date"] <- as.Date(customICD[,Date])
+  customICD[,Number:=1:nrow(customICD)]
 
   groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD")
-
+  groupedICD <- groupedICD[order(Number)]
   groupedICDLong <- groupedICD[!is.na(group),
                                list(firstCaseDate = min(Date),
                                     endCaseDate = max(Date),

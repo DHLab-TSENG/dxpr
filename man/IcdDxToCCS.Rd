@@ -38,7 +38,7 @@ Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in 
 return Clinical Classifications Software (CCS) categories or description based on ICD-9 and ICD-10 codes
 }
 \examples{
-
+head(sampleDxFile)
 IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 }

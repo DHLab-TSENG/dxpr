@@ -26,7 +26,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source ICD-10-CM CCS (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
 #' @examples
-#'
+#' head(sampleDxFile)
 #' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = T){
@@ -45,8 +45,8 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   }
   IcdToCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                     merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
-
-  IcdToCCSLong <- IcdToCCS[order(Number)&!is.na(eval(parse(text = paste(ccs_col)))),
+  IcdToCCS <- IcdToCCS[order(Number)]
+  IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
                            list(firstCaseDate = min(Date),
                                 endCaseDate = max(Date),
                                 count = .N),

@@ -21,7 +21,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @source \url{https://phewascatalog.org/phecodes}
 #' @export
 #' @examples
-#'
+#' head(sampleDxFile)
 #' IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 #'
 IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
@@ -39,8 +39,8 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
   }
   IcdToPhecode <- rbind(merge(DxDataFile[Date < icd10usingDate,], phecode_icd9_2[,c(phecodeCol,"ICDD"), with = F], by = "ICDD", all.x = T),
                         merge(DxDataFile[Date >= icd10usingDate,], phecode_icd9_2[,c(phecodeCol,"ICDD"), with = F], by = "ICDD", all.x = T))
-
-  IcdToPhecodeLong <- IcdToPhecode[order(Number)&!is.na(eval(parse(text = paste(phecodeCol)))),
+  IcdToPhecode <- IcdToPhecode[order(Number)]
+  IcdToPhecodeLong <- IcdToPhecode[!is.na(eval(parse(text = paste(phecodeCol)))),
                                    list(firstCaseDate = min(Date),
                                         endCaseDate = max(Date),
                                         count = .N),

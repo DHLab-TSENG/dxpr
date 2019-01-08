@@ -27,7 +27,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param maximumINRofDays Maximum interval of Days, defaults is 365 days (one year)
 #' @export
 #' @examples
-#'
+#' head(sampleDxFile)
 #' selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
 #'
 selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365){
@@ -36,7 +36,6 @@ selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName,
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "MostCommonICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
 
 
   Count <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),
@@ -47,6 +46,5 @@ selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName,
                         list(MostCommonICDCount = .N), by = list(ID,MostCommonICD)][order(MostCommonICDCount,decreasing = T),][!duplicated(ID),]
 
   CaseCount <- merge(Count,CaseICD[,list(ID,MostCommonICD,MostCommonICDCount)],"ID")
-
   CaseCount
 }

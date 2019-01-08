@@ -24,22 +24,13 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param numericOrBinary  Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)
 #' @export
 #' @examples
-# groupingTable <- data.table(group = rep("Cardiac dysrhythmias",6),
-#                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
-#                             stringsAsFactors = FALSE)
-# grepTable <- data.table(group = c("Cardiac dysrhythmias"),
-#                         grepIcd = c("^427|^I48"),
-#                         stringsAsFactors = FALSE)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs)
+#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
+#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+#'                             stringsAsFactors = FALSE)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", phecode)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-# groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customGrepIcdGroup,
-#                       CustomGroupingTable = grepTable)
-# groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
-#                       CustomGroupingTable = groupingTable)
+#' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
+#'                       CustomGroupingTable = groupingTable,N)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupedICDMethod, isDescription = T, CustomGroupingTable, numericOrBinary=N){
   DxDataFile <- as.data.table(DxDataFile)

@@ -23,3 +23,12 @@ This can be used to select the first diagnosis record
 based on ICD code (grepl language) in DxDataFile,
 return first diagnosis record based on factIcd Data
 }
+\examples{
+head(sampleDxFile)
+grepTable <- data.frame(group = "Cardiac dysrhythmias",
+                        grepIcd = "^427|^I48",
+                        stringsAsFactors = FALSE)
+IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date,
+                  CustomGroupingTable = grepTable)
+
+}

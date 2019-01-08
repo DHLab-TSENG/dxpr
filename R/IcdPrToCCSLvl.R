@@ -19,7 +19,7 @@
 #' @source ICD-10-PCS CCS (2019)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2019_1.zip}
 #' @examples
-#'
+#' head(samplePrFile)
 #' IcdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 #'
 IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
@@ -44,6 +44,6 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
     IcdToCCSLvl <- merge(merge(PrDataFile[Date < icd10usingDate],ccsPrICD9[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                          PrDataFile[Date >= icd10usingDate], by = names(PrDataFile), all = T)
   }
-
+  IcdToCCSLvl <- IcdToCCSLvl[order(Number)][,eval(parse(text = paste(CCSLvlCol)))]
   IcdToCCSLvl
 }

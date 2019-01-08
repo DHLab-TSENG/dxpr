@@ -26,3 +26,8 @@ based on the ICD code searching criteria and number of ICD code
 per patients in the inout factIcd dataset.
 Return qualified Members' data
 }
+\examples{
+head(sampleDxFile)
+splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
+
+}

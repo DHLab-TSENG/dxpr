@@ -14,6 +14,7 @@
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
 #' @export
 #' @examples
+#' head(sampleDxFile)
 #' sampleDxFile$Decimal <- IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$ICD
 #'
 IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingDate){
@@ -148,18 +149,18 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
 
   if(nrow(allDecimalFormat) < nrow(DxDataFile)){
     if(nrow(allWrongFormat)>0){
-      message(paste0("wrong ICD Format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
+      message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
       message(head(allWrongFormatMsg,10))
       message(("\t"))
     }
     if(nrow(allWrongVersion)>0){
-      message(paste0("wrong ICD version: total ",nrow(allWrongVersionMsg)," ICD codes (the number of occurrences is in brackets)"))
+      message(paste0("Wrong ICD version: total ",nrow(allWrongVersionMsg)," ICD codes (the number of occurrences is in brackets)"))
       message(head(allWrongVersionMsg, 10))
       message(("\t"))
     }
-      warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
-      warning('"wrong Format" means the ICD has wrong format', call. = F)
-      warning('"wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
+    warning('"Wrong ICD format" means the ICD has wrong format', call. = F)
+    warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
     combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),-"Number"]
     return(combine_with_error)
   }else{
