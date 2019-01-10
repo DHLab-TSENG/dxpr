@@ -169,288 +169,81 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 13 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("E78.0 (8)", "M79.1 (8)", "Z22.52 (7)", "A04.7 (6)", "Z98.89 (4)", "E78.4 (3)", "M50.32 (2)", "123.45 (1)", "H34.832 (1)", "M48.06 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
 #&gt;       Short ID    ICD       Date Number Comorbidity
-#&gt;    1:  0380  B  038.0 2007-09-12   1949        &lt;NA&gt;
-#&gt;    2:  0380  C  038.0 2008-07-27   1950        &lt;NA&gt;
-#&gt;    3:  0380  A  038.0 2009-02-13   1951        &lt;NA&gt;
-#&gt;    4: 04111  C 041.11 2008-05-29    498        &lt;NA&gt;
-#&gt;    5: 04111  B 041.11 2008-01-20    524        &lt;NA&gt;
-#&gt;   ---                                              
-#&gt; 4006: Z9981  A Z99.81 2020-08-10   3653        &lt;NA&gt;
-#&gt; 4007: Z9981  A Z99.81 2019-12-19   3845        &lt;NA&gt;
-#&gt; 4008: Z9981  B Z99.81 2020-09-05   3846        &lt;NA&gt;
-#&gt; 4009: Z9981  C Z99.81 2018-06-11   3847        &lt;NA&gt;
-#&gt; 4010: Z9981  A Z99.81 2019-12-16   3848        &lt;NA&gt;
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+#&gt;  ---                                               
+#&gt; 166:  E03.0  B  E03.0 2014-10-01    166        &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01    167        &lt;NA&gt;
+#&gt; 168: A01.05  B A01.05 2014-10-01    168        &lt;NA&gt;
+#&gt; 169:   E030  C   E030 2015-10-01    169        &lt;NA&gt;
+#&gt; 170:  A0105  A  A0105 2014-10-01    170        &lt;NA&gt;
+#&gt; 
+#&gt; $groupedData_Long
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
+#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days
+#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+#&gt;       Short ID    ICD       Date Number Comorbidity
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+#&gt;  ---                                               
+#&gt; 166:  E03.0  B  E03.0 2014-10-01    166        &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01    167        &lt;NA&gt;
+#&gt; 168: A01.05  B A01.05 2014-10-01    168        &lt;NA&gt;
+#&gt; 169:   E030  C   E030 2015-10-01    169    HTNWOCHF
+#&gt; 170:  A0105  A  A0105 2014-10-01    170        &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  C   LiverMild    2007-06-23  2021-09-02    53 5185 days
-#&gt;  2:  A   LiverMild    2007-04-27  2022-05-16    64 5498 days
-#&gt;  3:  B   LiverMild    2007-06-05  2022-02-11    58 5365 days
-#&gt;  4:  A      Cancer    2008-09-21  2020-06-08     9 4278 days
-#&gt;  5:  C      Cancer    2007-06-19  2021-07-27    13 5152 days
-#&gt;  6:  B      Cancer    2007-07-22  2021-11-04    11 5219 days
-#&gt;  7:  A        Mets    2007-07-13  2020-04-01     5 4646 days
-#&gt;  8:  B        Mets    2009-01-08  2020-01-30     5 4039 days
-#&gt;  9:  C        Mets    2008-10-06  2020-08-01     4 4317 days
-#&gt; 10:  B          DM    2007-05-21  2022-01-23    34 5361 days
-#&gt; 11:  A          DM    2007-06-22  2022-03-07    28 5372 days
-#&gt; 12:  C          DM    2007-08-02  2021-10-28    25 5201 days
-#&gt; 13:  C        DMcx    2007-08-18  2020-12-17     9 4870 days
-#&gt; 14:  A        DMcx    2007-10-15  2021-06-30     7 5007 days
-#&gt; 15:  B        DMcx    2007-10-30  2021-05-24    12 4955 days
-#&gt; 16:  C    Dementia    2007-05-11  2007-05-11     1    0 days
-#&gt; 17:  A   Paralysis    2007-04-24  2008-01-12     5  263 days
-#&gt; 18:  B   Paralysis    2007-11-10  2009-02-01     3  449 days
-#&gt; 19:  C   Paralysis    2008-10-05  2008-12-16     2   72 days
-#&gt; 20:  A       Renal    2007-05-12  2022-02-08    40 5386 days
-#&gt; 21:  A          MI    2007-08-24  2019-05-28     3 4295 days
-#&gt; 22:  B          MI    2008-05-14  2020-08-18     2 4479 days
-#&gt; 23:  C          MI    2007-05-06  2021-06-19     3 5158 days
-#&gt; 24:  A   Pulmonary    2007-10-01  2022-02-05    16 5241 days
-#&gt; 25:  C         CHF    2007-06-12  2022-06-24    13 5491 days
-#&gt; 26:  A         CHF    2007-07-13  2021-07-24    10 5125 days
-#&gt; 27:  B         CHF    2007-07-01  2021-09-25    14 5200 days
-#&gt; 28:  B      Stroke    2008-01-21  2021-04-12     7 4830 days
-#&gt; 29:  A      Stroke    2007-07-16  2021-10-07     5 5197 days
-#&gt; 30:  C      Stroke    2007-08-29  2018-10-31     5 4081 days
-#&gt; 31:  C         PVD    2008-11-27  2021-06-19     2 4587 days
-#&gt; 32:  A         PVD    2007-08-22  2022-04-28     5 5363 days
-#&gt; 33:  B         PVD    2008-02-05  2019-05-04     4 4106 days
-#&gt; 34:  B LiverSevere    2007-07-15  2021-04-22    20 5030 days
-#&gt; 35:  A LiverSevere    2007-08-24  2021-11-23    15 5205 days
-#&gt; 36:  C LiverSevere    2007-06-01  2020-03-27    18 4683 days
-#&gt; 37:  B   Pulmonary    2007-05-21  2021-08-09    22 5194 days
-#&gt; 38:  C   Pulmonary    2007-11-07  2020-04-09    12 4537 days
-#&gt; 39:  C         PUD    2008-11-14  2018-03-29     2 3422 days
-#&gt; 40:  B         PUD    2008-01-28  2019-08-27     3 4229 days
-#&gt; 41:  C       Renal    2007-04-21  2021-09-17    34 5263 days
-#&gt; 42:  B       Renal    2007-05-28  2022-05-07    37 5458 days
-#&gt; 43:  C   Rheumatic    2008-06-07  2021-08-30     4 4832 days
-#&gt; 44:  A   Rheumatic    2008-11-06  2021-03-30     4 4527 days
-#&gt; 45:  B   Rheumatic    2009-01-31  2021-03-15     4 4426 days
-#&gt; 46:  B         HIV    2017-01-19  2017-01-19     1    0 days
-#&gt; 47:  A         HIV    2022-05-04  2022-05-04     1    0 days
-#&gt; 48:  A    Dementia    2020-08-26  2020-08-26     1    0 days
-#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 13 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("E78.0 (8)", "M79.1 (8)", "Z22.52 (7)", "A04.7 (6)", "Z98.89 (4)", "E78.4 (3)", "M50.32 (2)", "123.45 (1)", "H34.832 (1)", "M48.06 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
+#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
+#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
+#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
+#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days
+#&gt;  6:  A    PULMCIRC    2018-03-14  2019-08-15     3  519 days
+#&gt;  7:  C     HYPOTHY    2021-01-09  2021-01-09     1    0 days
+#&gt;  8:  B        METS    2021-06-24  2021-06-24     1    0 days
+#&gt;  9:  C       NEURO    2019-10-16  2019-10-16     1    0 days
+#&gt; 10:  C    HTNWOCHF    2015-10-01  2015-10-01     1    0 days
+#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
 #&gt;       Short ID    ICD       Date Number Comorbidity
-#&gt;    1:  0380  B  038.0 2007-09-12   1949        &lt;NA&gt;
-#&gt;    2:  0380  C  038.0 2008-07-27   1950        &lt;NA&gt;
-#&gt;    3:  0380  A  038.0 2009-02-13   1951        &lt;NA&gt;
-#&gt;    4: 04111  C 041.11 2008-05-29    498        &lt;NA&gt;
-#&gt;    5: 04111  B 041.11 2008-01-20    524        &lt;NA&gt;
-#&gt;   ---                                              
-#&gt; 4006: Z9981  A Z99.81 2020-08-10   3653        &lt;NA&gt;
-#&gt; 4007: Z9981  A Z99.81 2019-12-19   3845        &lt;NA&gt;
-#&gt; 4008: Z9981  B Z99.81 2020-09-05   3846        &lt;NA&gt;
-#&gt; 4009: Z9981  C Z99.81 2018-06-11   3847        &lt;NA&gt;
-#&gt; 4010: Z9981  A Z99.81 2019-12-16   3848        &lt;NA&gt;
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+#&gt;  ---                                               
+#&gt; 166:  E03.0  B  E03.0 2014-10-01    166        &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01    167        &lt;NA&gt;
+#&gt; 168: A01.05  B A01.05 2014-10-01    168        &lt;NA&gt;
+#&gt; 169:   E030  C   E030 2015-10-01    169 Hypothyroid
+#&gt; 170:  A0105  A  A0105 2014-10-01    170        &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
-#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  C       LIVER    2007-06-01  2019-03-07    39 4297 days
-#&gt;  2:  A       LIVER    2007-04-27  2022-01-16    44 5378 days
-#&gt;  3:  B       LIVER    2007-06-05  2021-08-04    48 5174 days
-#&gt;  4:  A       TUMOR    2008-09-21  2009-04-23     3  214 days
-#&gt;  5:  C       TUMOR    2007-06-19  2018-03-29     5 3936 days
-#&gt;  6:  B       TUMOR    2007-07-22  2019-08-27     5 4419 days
-#&gt;  7:  A        METS    2007-07-13  2021-11-20     7 5244 days
-#&gt;  8:  B        METS    2009-01-08  2021-06-24     5 4550 days
-#&gt;  9:  C        METS    2008-10-06  2022-03-22    11 4915 days
-#&gt; 10:  B     HYPOTHY    2008-09-11  2022-02-11    36 4901 days
-#&gt; 11:  A     HYPOTHY    2007-08-21  2022-05-16    40 5382 days
-#&gt; 12:  C     HYPOTHY    2007-10-08  2021-09-02    31 5078 days
-#&gt; 13:  B          DM    2007-05-21  2021-05-24    33 5117 days
-#&gt; 14:  A          DM    2007-10-28  2021-06-30    17 4994 days
-#&gt; 15:  C          DM    2007-08-13  2021-10-28    24 5190 days
-#&gt; 16:  C        DMCX    2007-08-02  2021-04-25    10 5015 days
-#&gt; 17:  A        DMCX    2007-06-22  2022-02-15    12 5352 days
-#&gt; 18:  B        DMCX    2007-10-30  2020-11-04     7 4754 days
-#&gt; 19:  C    WGHTLOSS    2008-04-18  2009-03-13     5  329 days
-#&gt; 20:  A    WGHTLOSS    2007-07-24  2009-02-15     4  572 days
-#&gt; 21:  B    WGHTLOSS    2007-11-16  2008-06-21     4  218 days
-#&gt; 22:  B       LYTES    2007-08-22  2020-01-30    25 4544 days
-#&gt; 23:  C       LYTES    2007-08-14  2020-08-01    16 4736 days
-#&gt; 24:  A       LYTES    2007-07-16  2020-04-01    16 4643 days
-#&gt; 25:  A       OBESE    2007-08-06  2009-06-22     9  686 days
-#&gt; 26:  C       OBESE    2007-07-06  2009-04-26     8  660 days
-#&gt; 27:  B       OBESE    2007-06-19  2008-12-29     4  559 days
-#&gt; 28:  B     BLDLOSS    2008-12-30  2008-12-30     1    0 days
-#&gt; 29:  C     ANEMDEF    2007-06-27  2021-08-30    21 5178 days
-#&gt; 30:  A     ANEMDEF    2007-08-24  2021-03-30    23 4967 days
-#&gt; 31:  B     ANEMDEF    2007-07-30  2021-03-15    23 4977 days
-#&gt; 32:  C        COAG    2007-06-29  2020-07-01    11 4751 days
-#&gt; 33:  B        COAG    2007-12-25  2022-05-02    15 5242 days
-#&gt; 34:  A        COAG    2007-07-27  2021-10-25    13 5204 days
-#&gt; 35:  B     ALCOHOL    2008-10-21  2020-01-24     4 4112 days
-#&gt; 36:  C     ALCOHOL    2008-01-05  2018-05-20     5 3788 days
-#&gt; 37:  A        DRUG    2007-08-07  2009-05-18    11  650 days
-#&gt; 38:  B        DRUG    2007-06-17  2009-04-23    10  676 days
-#&gt; 39:  A       PSYCH    2008-11-11  2008-11-11     1    0 days
-#&gt; 40:  B       PSYCH    2007-07-08  2019-10-10     5 4477 days
-#&gt; 41:  A     ALCOHOL    2007-06-16  2022-01-05     8 5317 days
-#&gt; 42:  C        DRUG    2007-05-13  2009-03-25    13  682 days
-#&gt; 43:  B     DEPRESS    2007-05-31  2022-01-23    24 5351 days
-#&gt; 44:  C     DEPRESS    2007-08-30  2021-07-12    17 5065 days
-#&gt; 45:  A     DEPRESS    2007-07-09  2022-03-07    28 5355 days
-#&gt; 46:  A        PARA    2007-04-24  2022-04-28     8 5483 days
-#&gt; 47:  B        PARA    2007-11-10  2019-05-04     5 4193 days
-#&gt; 48:  C        PARA    2008-10-05  2021-06-19     3 4640 days
-#&gt; 49:  C       VALVE    2008-10-06  2018-06-19     4 3543 days
-#&gt; 50:  C       HTNCX    2007-10-21  2007-10-21     1    0 days
-#&gt; 51:  A       HTNCX    2008-03-03  2008-03-03     1    0 days
-#&gt; 52:  B       HTNCX    2007-10-24  2007-10-24     1    0 days
-#&gt; 53:  C         HTN    2007-02-04  2009-05-05    27  821 days
-#&gt; 54:  B         HTN    2007-06-13  2009-05-09    29  696 days
-#&gt; 55:  A         HTN    2007-08-29  2009-04-25    18  605 days
-#&gt; 56:  C    HTNWOCHF    2007-06-19  2021-01-25    10 4969 days
-#&gt; 57:  A    HTNWOCHF    2007-04-28  2020-06-11    11 4793 days
-#&gt; 58:  B    HTNWOCHF    2008-05-12  2021-02-20     9 4667 days
-#&gt; 59:  A    HRENWORF    2007-06-24  2007-06-24     1    0 days
-#&gt; 60:  B    HRENWORF    2008-01-14  2008-01-14     1    0 days
-#&gt; 61:  C    HRENWORF    2007-06-05  2007-06-05     1    0 days
-#&gt; 62:  A     HRENWRF    2008-08-17  2022-01-24    25 4908 days
-#&gt; 63:  C    PULMCIRC    2009-03-14  2020-05-10     3 4075 days
-#&gt; 64:  A    PULMCIRC    2009-02-10  2019-11-17     5 3932 days
-#&gt; 65:  B       VALVE    2008-03-14  2017-09-02     2 3459 days
-#&gt; 66:  C         CHF    2007-06-12  2020-07-01    12 4768 days
-#&gt; 67:  B         CHF    2007-07-28  2021-09-25    18 5173 days
-#&gt; 68:  A         CHF    2007-09-04  2022-02-05    15 5268 days
-#&gt; 69:  C    PERIVASC    2007-10-12  2019-04-29     5 4217 days
-#&gt; 70:  B    PERIVASC    2008-02-05  2020-09-21     7 4612 days
-#&gt; 71:  A    PERIVASC    2007-08-22  2020-02-28     3 4573 days
-#&gt; 72:  B    CHRNLUNG    2007-05-21  2022-04-12    18 5440 days
-#&gt; 73:  C    CHRNLUNG    2007-11-07  2020-09-06    12 4687 days
-#&gt; 74:  A    CHRNLUNG    2007-10-01  2009-05-10     6  587 days
-#&gt; 75:  A    RENLFAIL    2007-05-12  2020-06-08    35 4776 days
-#&gt; 76:  C    RENLFAIL    2007-04-21  2021-09-17    36 5263 days
-#&gt; 77:  B    RENLFAIL    2007-05-28  2022-03-03    37 5393 days
-#&gt; 78:  C        ARTH    2008-06-07  2008-11-15     2  161 days
-#&gt; 79:  A        ARTH    2008-11-06  2008-11-06     1    0 days
-#&gt; 80:  B        ARTH    2009-01-31  2009-01-31     1    0 days
-#&gt; 81:  A       NEURO    2007-08-18  2021-12-29    11 5247 days
-#&gt; 82:  B        AIDS    2017-01-19  2021-11-01     5 1747 days
-#&gt; 83:  A        AIDS    2019-11-25  2022-05-04     4  891 days
-#&gt; 84:  A       VALVE    2018-04-12  2018-04-12     1    0 days
-#&gt; 85:  C       NEURO    2017-07-24  2022-02-22    10 1674 days
-#&gt; 86:  B       NEURO    2017-08-05  2020-10-14     9 1166 days
-#&gt; 87:  A       LYMPH    2018-02-15  2022-06-08    19 1574 days
-#&gt; 88:  C       LYMPH    2017-09-08  2021-09-18    18 1471 days
-#&gt; 89:  B       LYMPH    2017-11-24  2022-02-03    16 1532 days
-#&gt; 90:  C        AIDS    2019-05-26  2021-08-08     4  805 days
-#&gt; 91:  B       ULCER    2019-12-06  2019-12-06     1    0 days
-#&gt; 92:  B     HRENWRF    2017-06-12  2022-05-07    31 1790 days
-#&gt; 93:  C     HRENWRF    2017-05-05  2021-09-11    22 1590 days
-#&gt; 94:  B     HTNWCHF    2019-03-28  2020-08-13     2  504 days
-#&gt; 95:  C     HTNWCHF    2019-02-02  2020-12-27     2  694 days
-#&gt; 96:  A       ULCER    2018-11-26  2020-07-11     4  593 days
-#&gt; 97:  C       ULCER    2018-10-14  2020-11-14     2  762 days
-#&gt; 98:  C     BLDLOSS    2022-06-24  2022-06-24     1    0 days
-#&gt; 99:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
-#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 13 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("E78.0 (8)", "M79.1 (8)", "Z22.52 (7)", "A04.7 (6)", "Z98.89 (4)", "E78.4 (3)", "M50.32 (2)", "123.45 (1)", "H34.832 (1)", "M48.06 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
-#&gt;       Short ID    ICD       Date Number Comorbidity
-#&gt;    1:  0380  B  038.0 2007-09-12   1949        &lt;NA&gt;
-#&gt;    2:  0380  C  038.0 2008-07-27   1950        &lt;NA&gt;
-#&gt;    3:  0380  A  038.0 2009-02-13   1951        &lt;NA&gt;
-#&gt;    4: 04111  C 041.11 2008-05-29    498        &lt;NA&gt;
-#&gt;    5: 04111  B 041.11 2008-01-20    524        &lt;NA&gt;
-#&gt;   ---                                              
-#&gt; 4015: Z9981  A Z99.81 2020-08-10   3653        &lt;NA&gt;
-#&gt; 4016: Z9981  A Z99.81 2019-12-19   3845        &lt;NA&gt;
-#&gt; 4017: Z9981  B Z99.81 2020-09-05   3846        &lt;NA&gt;
-#&gt; 4018: Z9981  C Z99.81 2018-06-11   3847        &lt;NA&gt;
-#&gt; 4019: Z9981  A Z99.81 2019-12-16   3848        &lt;NA&gt;
-#&gt; 
-#&gt; $groupedData_Long
-#&gt;     ID  Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  C        Liver    2007-06-01  2021-09-02    67 5207 days
-#&gt;  2:  A        Liver    2007-04-27  2022-05-16    76 5498 days
-#&gt;  3:  B        Liver    2007-06-05  2022-02-11    77 5365 days
-#&gt;  4:  A        Tumor    2008-09-21  2020-06-08     9 4278 days
-#&gt;  5:  C        Tumor    2007-06-19  2021-07-27    11 5152 days
-#&gt;  6:  B        Tumor    2007-07-22  2021-11-04    12 5219 days
-#&gt;  7:  A         Mets    2007-07-13  2020-04-01     6 4646 days
-#&gt;  8:  B         Mets    2009-01-08  2020-01-30     5 4039 days
-#&gt;  9:  C         Mets    2008-10-06  2020-08-01     4 4317 days
-#&gt; 10:  B  Hypothyroid    2008-09-11  2021-02-20    13 4545 days
-#&gt; 11:  A  Hypothyroid    2007-08-21  2020-06-11    14 4678 days
-#&gt; 12:  C  Hypothyroid    2007-10-08  2021-08-23     8 5068 days
-#&gt; 13:  B           DM    2007-05-21  2022-01-23    29 5361 days
-#&gt; 14:  A           DM    2007-10-28  2022-03-07    26 5244 days
-#&gt; 15:  C           DM    2007-08-13  2021-07-12    19 5082 days
-#&gt; 16:  C         DMcx    2007-08-02  2021-10-28    15 5201 days
-#&gt; 17:  A         DMcx    2007-06-22  2021-06-30    10 5122 days
-#&gt; 18:  B         DMcx    2007-10-30  2021-05-24    18 4955 days
-#&gt; 19:  C   WeightLoss    2008-04-18  2018-06-19     6 3714 days
-#&gt; 20:  A   WeightLoss    2007-07-24  2018-04-12     5 3915 days
-#&gt; 21:  B   WeightLoss    2007-11-16  2017-09-02     5 3578 days
-#&gt; 22:  B  FluidsLytes    2007-08-22  2022-02-03    37 5279 days
-#&gt; 23:  C  FluidsLytes    2007-08-14  2021-09-18    31 5149 days
-#&gt; 24:  A  FluidsLytes    2007-07-16  2022-06-08    33 5441 days
-#&gt; 25:  A      Obesity    2007-08-06  2021-12-29    19 5259 days
-#&gt; 26:  C      Obesity    2007-07-06  2022-02-22    18 5345 days
-#&gt; 27:  B      Obesity    2007-06-19  2020-10-14    13 4866 days
-#&gt; 28:  B    BloodLoss    2008-12-30  2008-12-30     1    0 days
-#&gt; 29:  C       Anemia    2007-06-27  2019-07-11    18 4397 days
-#&gt; 30:  A       Anemia    2007-08-24  2022-01-05    20 5248 days
-#&gt; 31:  B       Anemia    2007-07-30  2020-12-17    23 4889 days
-#&gt; 32:  C Coagulopathy    2007-06-29  2020-09-06    11 4818 days
-#&gt; 33:  B Coagulopathy    2007-12-25  2022-04-12    11 5222 days
-#&gt; 34:  A Coagulopathy    2007-07-27  2009-06-10     4  684 days
-#&gt; 35:  B      Alcohol    2008-10-21  2021-11-01     5 4759 days
-#&gt; 36:  C      Alcohol    2008-01-05  2021-08-08     7 4964 days
-#&gt; 37:  A        Drugs    2007-08-07  2022-02-15    17 5306 days
-#&gt; 38:  B        Drugs    2007-06-17  2020-11-04    15 4889 days
-#&gt; 39:  A    Psychoses    2008-11-11  2020-02-28     2 4126 days
-#&gt; 40:  B    Psychoses    2007-07-08  2020-09-21     7 4824 days
-#&gt; 41:  A      Alcohol    2007-06-16  2022-02-12     9 5355 days
-#&gt; 42:  C        Drugs    2007-05-13  2021-04-25    20 5096 days
-#&gt; 43:  B   Depression    2007-05-31  2022-05-02    22 5450 days
-#&gt; 44:  C   Depression    2007-08-30  2020-07-01    14 4689 days
-#&gt; 45:  A   Depression    2007-07-09  2021-10-25    24 5222 days
-#&gt; 46:  A    Paralysis    2007-04-24  2008-01-12     5  263 days
-#&gt; 47:  B    Paralysis    2007-11-10  2009-02-01     3  449 days
-#&gt; 48:  C    Paralysis    2008-10-05  2008-12-16     2   72 days
-#&gt; 49:  C     Valvular    2008-10-06  2020-11-14     5 4422 days
-#&gt; 50:  C        HTNcx    2007-06-05  2020-12-27    10 4954 days
-#&gt; 51:  A        HTNcx    2007-04-28  2020-05-23    11 4774 days
-#&gt; 52:  B        HTNcx    2007-10-24  2022-05-07    10 5309 days
-#&gt; 53:  C          HTN    2007-02-04  2021-09-11    48 5333 days
-#&gt; 54:  B          HTN    2007-06-13  2021-10-28    57 5251 days
-#&gt; 55:  A          HTN    2007-08-29  2022-01-24    39 5262 days
-#&gt; 56:  A        Renal    2007-05-12  2020-05-23    37 4760 days
-#&gt; 57:  C         PHTN    2009-03-14  2009-03-14     1    0 days
-#&gt; 58:  A         PHTN    2009-02-10  2009-02-10     1    0 days
-#&gt; 59:  B     Valvular    2008-03-14  2019-12-06     2 4284 days
-#&gt; 60:  C          CHF    2007-06-12  2022-06-24     9 5491 days
-#&gt; 61:  B          CHF    2007-07-28  2021-09-25    11 5173 days
-#&gt; 62:  A          CHF    2007-09-04  2021-07-24     6 5072 days
-#&gt; 63:  C          PVD    2007-10-12  2021-06-19     3 4999 days
-#&gt; 64:  B          PVD    2008-02-05  2019-05-04     5 4106 days
-#&gt; 65:  A          PVD    2007-08-22  2022-04-28     5 5363 days
-#&gt; 66:  B    Pulmonary    2007-05-21  2021-08-09    21 5194 days
-#&gt; 67:  C    Pulmonary    2007-11-07  2020-04-09    12 4537 days
-#&gt; 68:  A    Pulmonary    2007-10-01  2022-02-05    15 5241 days
-#&gt; 69:  C        Renal    2007-04-21  2021-09-17    32 5263 days
-#&gt; 70:  B        Renal    2007-05-28  2022-05-07    36 5458 days
-#&gt; 71:  C    Rheumatic    2008-06-07  2021-08-30     7 4832 days
-#&gt; 72:  A    Rheumatic    2008-11-06  2021-03-30     6 4527 days
-#&gt; 73:  B    Rheumatic    2009-01-31  2021-03-15     4 4426 days
-#&gt; 74:  A   NeuroOther    2007-08-18  2021-11-20     4 5208 days
-#&gt; 75:  B          HIV    2017-01-19  2017-01-19     1    0 days
-#&gt; 76:  A          HIV    2022-05-04  2022-05-04     1    0 days
-#&gt; 77:  C    Psychoses    2017-05-09  2019-04-29     3  720 days
-#&gt; 78:  C   NeuroOther    2018-12-27  2022-03-22    10 1181 days
-#&gt; 79:  B   NeuroOther    2020-06-01  2021-06-24     5  388 days
-#&gt; 80:  B         PHTN    2017-12-10  2019-10-10     2  669 days
-#&gt; 81:  A     Valvular    2018-11-26  2020-07-11     4  593 days
-#&gt; 82:  B          PUD    2019-08-27  2019-08-27     1    0 days
-#&gt; 83:  C          PUD    2018-03-29  2018-03-29     1    0 days
-#&gt;     ID  Comorbidity firstCaseDate endCaseDate count    period
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days
+#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days
+#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
+#&gt; 6:  C     Obesity    2019-10-16  2019-10-16     1    0 days
+#&gt; 7:  C Hypothyroid    2015-10-01  2015-10-01     1    0 days
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

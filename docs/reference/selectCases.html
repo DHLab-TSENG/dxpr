@@ -169,10 +169,15 @@ Return qualified Members' data</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>selectCases</span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;    ID firstCaseDate endCaseDate count   period MostCommonICD MostCommonICDCount
-#&gt; 1:  A    2008-05-03  2009-03-02     2 303 days         785.1                  1
-#&gt; 2:  B    2008-01-19  2008-04-07     2  79 days        785.52                  1</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>selectCases</span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;    ID firstCaseDate endCaseDate count   period MostCommonICD MostCommonICDCount
+#&gt; 1:  A    2008-05-03  2009-03-02     3 303 days         785.1                  2
+#&gt; 2:  B    2008-01-19  2008-04-07     3  79 days         785.1                  2</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

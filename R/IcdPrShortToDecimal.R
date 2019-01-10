@@ -26,22 +26,22 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
   icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = T)
   icd10D <- icd_Decimal[Date >= icd10usingDate]
   DtoDNA <- rbind(icd9D[is.na(Short),-"Short"], icd10D)
-  if(nrow(DtoDNA)>0){
-    icd9DWrongFormat <- icd9D[is.na(Short), list(count = .N),by = ICD]
-    icd10DWrongFormat <- icd10D[, list(count = .N),by = ICD]
-    if(nrow(icd9DWrongFormat)>0){
-      wrongFormatMsg_D <- icd9DWrongFormat
+  if(!is.null(nrow(DtoDNA))){
+    icd9DwrongFormat <- icd9D[is.na(Short), list(count = .N),by = ICD]
+    icd10DwrongFormat <- icd10D[, list(count = .N),by = ICD]
+    if(!is.null(nrow(icd9DwrongFormat))){
+      wrongFormatMsg_D <- icd9DwrongFormat
       wrongFormat_D <- icd9D[is.na(Short),-"Short"]
-      if(nrow(icd10DWrongFormat)>0){
-        wrongFormatMsg_D <- rbind(wrongFormatMsg_D,icd10DWrongFormat)
+      if(!is.null(nrow(icd10DwrongFormat))){
+        wrongFormatMsg_D <- rbind(wrongFormatMsg_D,icd10DwrongFormat)
         wrongFormat_D <- rbind(wrongFormat_D,icd10D)
       }
-    }else if(nrow(icd10DWrongFormat)>0){
-      wrongFormatMsg_D <- icd10DWrongFormat
+    }else if(!is.null(nrow(icd10DwrongFormat))){
+      wrongFormatMsg_D <- icd10DwrongFormat
       wrongFormat_D <- icd10D
     }
   }else{
-    icd10DWrongFormat <- NA
+    icd10DwrongFormat <- NA
     wrongFormatMsg_D <- NA
     wrongFormat_D <- NA
   }
@@ -50,20 +50,20 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
   icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = T)
   icd10S <- merge(icd_Short[Date >= icd10usingDate], prICD10, by =  "ICD", all.x = T)
   StoDNA <- rbind(icd9S[is.na(Decimal),-"Decimal"],icd10S[is.na(ICD_DESCRIPTION),-"ICD_DESCRIPTION"])
-  if(nrow(StoDNA)>0){
+  if(!is.null(nrow(StoDNA))){
     icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], prICD10, by = "ICD", all.x = T)
     icd10SNA <- merge(icd10S[is.na(ICD_DESCRIPTION),-"ICD_DESCRIPTION"],ICD9PrwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = T)
-    icd9SWrongFormat <- icd9SNA[is.na(ICD_DESCRIPTION), list(count = .N),by = ICD]
-    icd10SWrongFormat <- icd10SNA[is.na(Decimal), list(count = .N),by = ICD]
-    if(nrow(icd9SWrongFormat)>0){
-      wrongFormatMsg_S <- icd9SWrongFormat
+    icd9SwrongFormat <- icd9SNA[is.na(ICD_DESCRIPTION), list(count = .N),by = ICD]
+    icd10SwrongFormat <- icd10SNA[is.na(Decimal), list(count = .N),by = ICD]
+    if(!is.null(nrow(icd9SwrongFormat))){
+      wrongFormatMsg_S <- icd9SwrongFormat
       wrongFormat_S <- icd9SNA[is.na(ICD_DESCRIPTION),-"ICD_DESCRIPTION"]
-      if(nrow(icd10SWrongFormat)>0){
-        wrongFormatMsg_S<- rbind(wrongFormatMsg_S,icd10SWrongFormat)
+      if(!is.null(nrow(icd10SwrongFormat))){
+        wrongFormatMsg_S<- rbind(wrongFormatMsg_S,icd10SwrongFormat)
         wrongFormat_S <- rbind(wrongFormat_S,icd10SNA[is.na(Decimal),-"Decimal"])
       }
-    }else if(nrow(icd10SWrongFormat)>0){
-      wrongFormatMsg_S<- icd10SWrongFormat
+    }else if(!is.null(nrow(icd10SwrongFormat))){
+      wrongFormatMsg_S<- icd10SwrongFormat
       wrongFormat_S <- icd10SNA[is.na(Decimal),-"Decimal"]
     }else{
       wrongFormatMsg_S<-NA
@@ -71,15 +71,15 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     }
     icd9SWrongVer <- icd9SNA[!is.na(ICD_DESCRIPTION), list(count = .N) ,by = ICD]
     icd10SWrongVer <- icd10SNA[!is.na(Decimal), list(count = .N) ,by = ICD]
-    if(nrow(icd9SWrongVer)>0){
+    if(!is.null(nrow(icd9SWrongVer))){
       wrongVersionMsg <-icd9SWrongVer[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
       wrongVersion <- icd9SNA[!is.na(ICD_DESCRIPTION),-"ICD_DESCRIPTION"]
-      if(nrow(icd10SWrongVer)>0){
+      if(!is.null(nrow(icd10SWrongVer))){
         icd10SWrongVer <- icd10SWrongVer[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
         wrongVersionMsg <- rbind(wrongVersionMsg,icd10SWrongVer)
         wrongVersion <- rbind(wrongVersion,icd10SNA[is.na(Decimal),-"Decimal"])
       }
-    }else if(nrow(icd10SWrongVer)>0){
+    }else if(!is.null(nrow(icd10SWrongVer))){
       wrongVersionMsg <- icd10SWrongVer[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
       wrongVersion <- icd10SNA[!is.na(Decimal),-"Decimal"]
     }else{
@@ -88,23 +88,23 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     }
   }
   if(!is.null(nrow(wrongFormat_D))){
-    allwrongFormatMsg <- wrongFormatMsg_D[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
     allWrongFormat <- wrongFormat_D
+    allWrongFormatMsg <- wrongFormatMsg_D[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
     if(!is.null(nrow(wrongFormat_S))){
-      wrongFormatMsg_S<- wrongFormatMsg_S[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
-      allwrongFormatMsg<- rbind(wrongFormatMsg_D,wrongFormatMsg_S)
+      wrongFormatMsg_S <- wrongFormatMsg_S[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
+      allWrongFormatMsg<- rbind(allWrongFormatMsg,wrongFormatMsg_S)
       allWrongFormat <- rbind(allWrongFormat,wrongFormat_S)
     }
   }else if(!is.null(nrow(wrongFormat_S)) & is.null(nrow(wrongFormat_D))){
-    allWrongFormatMsg<- wrongFormatMsg_S[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
     allWrongFormat <- wrongFormat_S
+    allWrongFormatMsg<- wrongFormatMsg_S[order(count,decreasing = T), list(wrongFormat= paste0(ICD," (",count,")","")),]
   }else{
     allWrongFormat <- NA
   }
   if(!is.null(nrow(allWrongFormat))){
     allWrongICD <- allWrongFormat
     if(!is.null(nrow(wrongVersion))){
-      allWrongICD <- rbind(allWrongFormat,wrongVersion)
+      allWrongICD <- rbind(allWrongICD, wrongVersion)
     }
   }else if(!is.null(nrow(wrongVersion))){
     allWrongICD <- wrongVersion
@@ -121,7 +121,7 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
     if(!is.null(nrow(allWrongFormatMsg))){
       message(head(allWrongFormatMsg,10))
-      if(!is.null(nrow(icd10DWrongFormat))){
+      if(!is.null(nrow(icd10DwrongFormat))){
         message("ICD-10-PCS codes do not have 'Decimal' format")
       }
       message(("\t"))

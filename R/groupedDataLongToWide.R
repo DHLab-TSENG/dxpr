@@ -6,11 +6,11 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "ahrq",
   "charlson",
   "elix"))
-#' grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
+#' Grouped data format conversion
 #'
-#' Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
+#' convert long format to wide format
 #'
-#' return comorbidity meseaures based on ICD diagnosis codes
+#' return numeric or binary wide format
 #'
 #' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"

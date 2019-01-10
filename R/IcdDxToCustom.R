@@ -11,7 +11,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"
+#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group" and "ICD"
 #' @export
 #' @examples
 #' head(sampleDxFile)

@@ -126,7 +126,7 @@ return first diagnosis record based on factIcd Data</p>
     </div>
 
     <pre class="usage"><span class='fu'>IcdDxToCustom</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='no'>CustomGroupingTable</span>)</pre>
+  <span class='no'>CustomGroupingTable</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,22 +148,59 @@ return first diagnosis record based on factIcd Data</p>
       <td><p>A column for Date of DxDataFile</p></td>
     </tr>
     <tr>
-      <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
-    </tr>
-    <tr>
       <th>CustomGroupingTable</th>
-      <td><p>Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group" and "ICD"</p></td>
+      <td><p>Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group" and "ICD"</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>groupingTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Cardiac dysrhythmias"</span>,<span class='fl'>6</span>),
+                            <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"427.1"</span>,<span class='st'>"427.2"</span>,<span class='st'>"427.31"</span>,<span class='st'>"427.61"</span>,<span class='st'>"427.81"</span>,<span class='st'>"427.89"</span>),
+                            <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>IcdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+              <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDf
+#&gt;        ICD ID       Date Number                group
+#&gt;  1: 427.61  A 2009-02-16     11 Cardiac dysrhythmias
+#&gt;  2: 427.31  C 2007-06-20     12 Cardiac dysrhythmias
+#&gt;  3: 427.89  C 2008-01-23     13 Cardiac dysrhythmias
+#&gt;  4: 427.31  A 2007-09-19     14 Cardiac dysrhythmias
+#&gt;  5: 427.31  C 2008-09-11     15 Cardiac dysrhythmias
+#&gt;  6: 427.31  B 2008-06-28     16 Cardiac dysrhythmias
+#&gt;  7: 427.31  C 2007-06-29     17 Cardiac dysrhythmias
+#&gt;  8: 427.31  B 2007-09-17     20 Cardiac dysrhythmias
+#&gt;  9: 427.31  C 2007-10-12     21 Cardiac dysrhythmias
+#&gt; 10: 427.31  B 2008-03-14     22 Cardiac dysrhythmias
+#&gt; 11: 427.31  C 2008-02-20     23 Cardiac dysrhythmias
+#&gt; 12: 427.81  C 2009-02-08     24 Cardiac dysrhythmias
+#&gt; 13:  427.2  C 2008-02-16     25 Cardiac dysrhythmias
+#&gt; 14: 427.31  B 2007-07-16     26 Cardiac dysrhythmias
+#&gt; 15:  427.1  A 2007-07-27     28 Cardiac dysrhythmias
+#&gt; 16:  427.1  C 2008-03-01     29 Cardiac dysrhythmias
+#&gt; 17:  427.1  A 2008-12-27     30 Cardiac dysrhythmias
+#&gt; 18: 427.31  B 2009-02-25     31 Cardiac dysrhythmias
+#&gt; 
+#&gt; $groupedData_Long
+#&gt;    ID                group firstCaseDate endCaseDate count   period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

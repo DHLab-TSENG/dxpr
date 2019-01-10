@@ -164,34 +164,65 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>IcdDxToPhecode</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 13 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("E78.0 (8)", "M79.1 (8)", "Z22.52 (7)", "A04.7 (6)", "Z98.89 (4)", "E78.4 (3)", "M50.32 (2)", "123.45 (1)", "H34.832 (1)", "M48.06 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
-#&gt;         ICDD ID    ICD       Date Number PheCode
-#&gt;    1:  038.0  B  038.0 2007-09-12   1949   038.1
-#&gt;    2:  038.0  C  038.0 2008-07-27   1950   038.1
-#&gt;    3:  038.0  A  038.0 2009-02-13   1951   038.1
-#&gt;    4: 041.11  C 041.11 2008-05-29    498  041.11
-#&gt;    5: 041.11  B 041.11 2008-01-20    524  041.11
-#&gt;   ---                                           
-#&gt; 4006: Z99.81  A Z99.81 2020-08-10   3653    &lt;NA&gt;
-#&gt; 4007: Z99.81  A Z99.81 2019-12-19   3845    &lt;NA&gt;
-#&gt; 4008: Z99.81  B Z99.81 2020-09-05   3846    &lt;NA&gt;
-#&gt; 4009: Z99.81  C Z99.81 2018-06-11   3847    &lt;NA&gt;
-#&gt; 4010: Z99.81  A Z99.81 2019-12-16   3848    &lt;NA&gt;
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToPhecode</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+#&gt;        ICDD ID    ICD       Date Number PheCode
+#&gt;   1:  553.3  C  553.3 2008-04-03      1   550.2
+#&gt;   2:  553.3  A  553.3 2008-05-01      2   550.2
+#&gt;   3: 553.20  A 553.20 2009-02-23      3   550.5
+#&gt;   4: 553.20  B 553.20 2007-08-29      4   550.5
+#&gt;   5:  553.3  A  553.3 2008-06-27      5   550.2
+#&gt;  ---                                           
+#&gt; 166:  E03.0  B  E03.0 2014-10-01    166    &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01    167    &lt;NA&gt;
+#&gt; 168: A01.05  B A01.05 2014-10-01    168    &lt;NA&gt;
+#&gt; 169:  E03.0  C   E030 2015-10-01    169    &lt;NA&gt;
+#&gt; 170:  A0105  A  A0105 2014-10-01    170    &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
-#&gt;      ID PheCode firstCaseDate endCaseDate count  period
-#&gt;   1:  B   038.1    2007-09-12  2007-09-12     1  0 days
-#&gt;   2:  C   038.1    2008-07-27  2008-07-27     1  0 days
-#&gt;   3:  A   038.1    2009-02-13  2009-02-13     1  0 days
-#&gt;   4:  C  041.11    2008-05-29  2008-05-29     1  0 days
-#&gt;   5:  B  041.11    2008-01-20  2008-02-16     2 27 days
-#&gt;  ---                                                   
-#&gt; 700:  B   457.3    2007-11-18  2007-11-18     1  0 days
-#&gt; 701:  C   250.3    2007-10-21  2007-10-21     1  0 days
-#&gt; 702:  A   250.3    2008-10-29  2008-10-29     1  0 days
-#&gt; 703:  C   216.1    2008-05-31  2008-05-31     1  0 days
-#&gt; 704:  B     197    2008-12-24  2008-12-24     1  0 days
+#&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
+#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
+#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
+#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
+#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
+#&gt;  6:  A     483    2009-06-09  2009-06-09     1   0 days
+#&gt;  7:  A  427.61    2009-02-16  2009-02-16     1   0 days
+#&gt;  8:  C  427.21    2007-06-20  2008-09-11     5 449 days
+#&gt;  9:  C   427.3    2008-01-23  2008-01-23     1   0 days
+#&gt; 10:  A  427.21    2007-09-19  2007-09-19     1   0 days
+#&gt; 11:  B  427.21    2007-07-16  2009-02-25     5 590 days
+#&gt; 12:  C   427.7    2008-12-31  2008-12-31     2   0 days
+#&gt; 13:  A   427.9    2009-03-02  2009-03-02     2   0 days
+#&gt; 14:  C   427.8    2009-02-08  2009-02-08     1   0 days
+#&gt; 15:  C   427.1    2008-02-16  2008-02-16     1   0 days
+#&gt; 16:  B   427.9    2008-04-07  2008-04-07     2   0 days
+#&gt; 17:  A  427.12    2007-07-27  2008-12-27     2 519 days
+#&gt; 18:  C  427.12    2008-03-01  2008-03-01     1   0 days
+#&gt; 19:  A  585.33    2007-08-21  2007-08-28     2   7 days
+#&gt; 20:  C  585.33    2007-09-26  2007-09-26     1   0 days
+#&gt; 21:  B  585.33    2008-07-23  2008-07-23     1   0 days
+#&gt; 22:  B  585.31    2007-05-28  2009-03-05    21 647 days
+#&gt; 23:  C  585.31    2007-04-21  2009-04-21    20 731 days
+#&gt; 24:  A  585.31    2007-05-12  2009-01-17    19 616 days
+#&gt; 25:  B  585.32    2007-07-25  2008-04-28     3 278 days
+#&gt; 26:  C  585.32    2008-01-28  2009-04-06     2 434 days
+#&gt; 27:  A   585.4    2007-08-08  2007-08-08     1   0 days
+#&gt; 28:  C     587    2008-08-26  2008-08-26     1   0 days
+#&gt; 29:  A   585.3    2007-09-27  2008-11-04     6 404 days
+#&gt; 30:  A  585.32    2009-04-26  2009-04-26     1   0 days
+#&gt; 31:  C   585.3    2007-08-28  2009-05-26     4 637 days
+#&gt; 32:  B   585.3    2007-07-10  2009-03-04     2 603 days
+#&gt; 33:  C  994.21    2008-03-30  2008-09-06     2 160 days
+#&gt; 34:  C     396    2007-12-12  2007-12-12     1   0 days
+#&gt; 35:  A  994.21    2008-05-03  2008-05-03     1   0 days
+#&gt; 36:  B  994.21    2008-01-19  2008-01-19     1   0 days
+#&gt;     ID PheCode firstCaseDate endCaseDate count   period
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

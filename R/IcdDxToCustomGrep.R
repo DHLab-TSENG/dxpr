@@ -10,7 +10,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c("CustomGroupingTable", "g
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param CustomGroupingTable grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe: "group", "grepIcd"
+#' @param CustomGroupingTable grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group", "grepIcd"
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -27,7 +27,7 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
   GrepedIcd <- GrepedIcd[,DataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
   GrepedIcd[,"Date"] <- as.Date(GrepedIcd[, Date])
-  GrepedIcd[,Number:=1:nrow(GrepedIcd)]
+  GrepedIcd[, Number:=1:nrow(GrepedIcd)]
   GrepedIcd[, group:=""]
 
   for (rule in 1:nrow(CustomGroupingTable)){

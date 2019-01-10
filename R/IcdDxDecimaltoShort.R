@@ -35,19 +35,19 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
   icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = T)
   icd10D <- merge(icd_Decimal[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = T)
   DtoSNA <- rbind(icd9D[is.na(Short),-"Short"], icd10D[is.na(Short),-"Short"])
-  if(nrow(DtoSNA)>0){
+  if(!is.null(nrow(DtoSNA))){
     icd9DNA <- merge(icd9D[is.na(Short),-"Short"],ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = T)
     icd10DNA <- merge(icd10D[is.na(Short),-"Short"],ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = T)
     icd9DwrongFormat <- icd9DNA[is.na(Short), list(count = .N),by = ICD]
     icd10DwrongFormat <- icd10DNA[is.na(Short), list(count = .N),by = ICD]
-    if(nrow(icd9DwrongFormat)>0){
+    if(!is.null(nrow(icd9DwrongFormat))){
       wrongFormatMsg_D <- icd9DwrongFormat
       wrongFormat_D <- icd9DNA[is.na(Short),-"Short"]
-      if(nrow(icd10DwrongFormat)>0){
+      if(!is.null(nrow(icd10DwrongFormat))){
         wrongFormatMsg_D <- rbind(wrongFormatMsg_D,icd10DwrongFormat)
         wrongFormat_D <- rbind(wrongFormat_D, icd10DNA[is.na(Short),-"Short"])
       }
-    }else if(nrow(icd10DwrongFormat)>0){
+    }else if(!is.null(nrow(icd10DwrongFormat))){
       wrongFormatMsg_D <- icd10DwrongFormat
       wrongFormat_D <- icd10DNA[is.na(Short),-"Short"]
     }else{
@@ -56,14 +56,14 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     }
     icd9DWrongVer <- icd9DNA[!is.na(Short), list(count = .N),by = ICD]
     icd10DWrongVer <- icd10DNA[!is.na(Short), list(count = .N),by = ICD]
-    if(nrow(icd9DWrongVer)>0){
+    if(!is.null(nrow(icd9DWrongVer))){
       wrongVersionMsg_D <- icd9DWrongVer
       wrongVersion_D <- icd9DNA[!is.na(Short),-"Short"]
-      if(nrow(icd10DWrongVer)>0){
+      if(!is.null(nrow(icd10DWrongVer))){
         wrongVersionMsg_D <- rbind(wrongVersionMsg_D,icd10DWrongVer)
         wrongVersion_D <- rbind(wrongVersion_D,icd10DNA[!is.na(Short),-"Short"])
       }
-    }else if(nrow(icd10DWrongVer)>0){
+    }else if(!is.null(nrow(icd10DWrongVer))){
       wrongVersionMsg_D <- icd10DWrongVer
       wrongVersion_D <- icd10DNA[!is.na(Short),-"Short"]
     }
@@ -75,19 +75,19 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
   icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = T)
   icd10S <- merge(icd_Short[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = T)
   StoSNA <- rbind(icd9S[is.na(Decimal),-"Decimal"],icd10S[is.na(Decimal),-"Decimal"])
-  if(nrow(StoSNA)>0){
+  if(!is.null(nrow(StoSNA))){
     icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = T)
     icd10SNA <- merge(icd10S[is.na(Decimal),-"Decimal"], ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = T)
     icd9SwrongFormat <- icd9SNA[is.na(Decimal), list(count = .N),by = ICD]
     icd10SwrongFormat <- icd10SNA[is.na(Decimal), list(count = .N),by = ICD]
-    if(nrow(icd9SwrongFormat)>0){
+    if(!is.null(nrow(icd9SwrongFormat))){
       wrongFormatMsg_S <- icd9SwrongFormat
       wrongFormat_S <- icd9SNA[is.na(Decimal),-"Decimal"]
-      if(nrow(icd10SwrongFormat)>0){
+      if(!is.null(nrow(icd10SwrongFormat))){
         wrongFormatMsg_S<- rbind(wrongFormatMsg_S,icd10SwrongFormat)
         wrongFormat_S <- rbind(wrongFormat_S,icd10SNA[is.na(Decimal),-"Decimal"])
       }
-    }else if(nrow(icd10SwrongFormat)>0){
+    }else if(!is.null(nrow(icd10SwrongFormat))){
       wrongFormatMsg_S<- icd10SwrongFormat
       wrongFormat_S <- icd10SNA[is.na(Decimal),-"Decimal"]
     }else{
@@ -96,14 +96,14 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     }
     icd9SWrongVer <- icd9SNA[!is.na(Decimal), list(count = .N),by = ICD]
     icd10SWrongVer <- icd10SNA[!is.na(Decimal), list(count = .N),by = ICD]
-    if(nrow(icd9SWrongVer)>0){
+    if(!is.null(nrow(icd9SWrongVer))){
       wrongVersionMsg_S <-icd9SWrongVer
       wrongVersion_S <- icd9SNA[!is.na(Decimal),-"Decimal"]
-      if(nrow(icd10SWrongVer)>0){
+      if(!is.null(nrow(icd10SWrongVer))){
         wrongVersionMsg_S <- rbind(wrongVersionMsg_S,icd10SWrongVer)
         wrongVersion_S <- rbind(wrongVersion_S,icd10SNA[!is.na(Decimal),-"Decimal"])
       }
-    }else if(nrow(icd10SWrongVer)>0){
+    }else if(!is.null(nrow(icd10SWrongVer))){
       wrongVersionMsg_S <- icd10SWrongVer
       wrongVersion_S <- icd10SNA[!is.na(Decimal),-"Decimal"]
     }else{
@@ -175,4 +175,3 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     return(allShortFormat[order(Number),-"Number"])
   }
 }
-

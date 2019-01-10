@@ -81,4 +81,3 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
 
   conditionEra
 }
-

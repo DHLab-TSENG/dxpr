@@ -167,58 +167,73 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>wrong ICD Format: total 13 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("E78.0 (8)", "M79.1 (8)", "Z22.52 (7)", "A04.7 (6)", "Z98.89 (4)", "E78.4 (3)", "M50.32 (2)", "123.45 (1)", "H34.832 (1)", "M48.06 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong Format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
-#&gt;       Short ID    ICD       Date Number
-#&gt;    1:  0380  B  038.0 2007-09-12   1949
-#&gt;    2:  0380  C  038.0 2008-07-27   1950
-#&gt;    3:  0380  A  038.0 2009-02-13   1951
-#&gt;    4: 04111  C 041.11 2008-05-29    498
-#&gt;    5: 04111  B 041.11 2008-01-20    524
-#&gt;   ---                                  
-#&gt; 4006: Z9981  A Z99.81 2020-08-10   3653
-#&gt; 4007: Z9981  A Z99.81 2019-12-19   3845
-#&gt; 4008: Z9981  B Z99.81 2020-09-05   3846
-#&gt; 4009: Z9981  C Z99.81 2018-06-11   3847
-#&gt; 4010: Z9981  A Z99.81 2019-12-16   3848
-#&gt;                                 CCS_CATEGORY_DESCRIPTION
-#&gt;    1:                       Septicemia (except in labor)
-#&gt;    2:                       Septicemia (except in labor)
-#&gt;    3:                       Septicemia (except in labor)
-#&gt;    4:              Bacterial infection; unspecified site
-#&gt;    5:              Bacterial infection; unspecified site
-#&gt;   ---                                                   
-#&gt; 4006: Respiratory failure; insufficiency; arrest (adult)
-#&gt; 4007: Respiratory failure; insufficiency; arrest (adult)
-#&gt; 4008: Respiratory failure; insufficiency; arrest (adult)
-#&gt; 4009: Respiratory failure; insufficiency; arrest (adult)
-#&gt; 4010: Respiratory failure; insufficiency; arrest (adult)
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+#&gt;       Short ID    ICD       Date Number           CCS_CATEGORY_DESCRIPTION
+#&gt;   1:   5533  C  553.3 2008-04-03      1                   Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01      2                   Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23      3                   Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29      4                   Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27      5                   Abdominal hernia
+#&gt;  ---                                                                      
+#&gt; 166:  E03.0  B  E03.0 2014-10-01    166                               &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01    167 External cause codes:  Unspecified
+#&gt; 168: A01.05  B A01.05 2014-10-01    168                               &lt;NA&gt;
+#&gt; 169:   E030  C   E030 2015-10-01    169                  Thyroid disorders
+#&gt; 170:  A0105  A  A0105 2014-10-01    170                               &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
-#&gt;      ID                      CCS_CATEGORY_DESCRIPTION firstCaseDate endCaseDate
-#&gt;   1:  B                  Septicemia (except in labor)    2007-09-12  2020-06-16
-#&gt;   2:  C                  Septicemia (except in labor)    2008-07-27  2019-02-09
-#&gt;   3:  A                  Septicemia (except in labor)    2009-02-13  2021-05-21
-#&gt;   4:  C         Bacterial infection; unspecified site    2008-05-29  2020-06-10
-#&gt;   5:  B         Bacterial infection; unspecified site    2007-09-03  2020-03-26
-#&gt;  ---                                                                           
-#&gt; 455:  B             Cancer of kidney and renal pelvis    2019-04-14  2019-04-14
-#&gt; 456:  B           Other non-epithelial cancer of skin    2018-12-12  2018-12-12
-#&gt; 457:  A Suicide and intentional self-inflicted injury    2017-11-29  2021-06-21
-#&gt; 458:  B Suicide and intentional self-inflicted injury    2019-01-24  2019-05-27
-#&gt; 459:  C Suicide and intentional self-inflicted injury    2018-11-10  2019-04-16
-#&gt;      count    period
-#&gt;   1:     2 4661 days
-#&gt;   2:     3 3849 days
-#&gt;   3:     3 4480 days
-#&gt;   4:     5 4395 days
-#&gt;   5:    10 4588 days
-#&gt;  ---                
-#&gt; 455:     1    0 days
-#&gt; 456:     1    0 days
-#&gt; 457:     2 1300 days
-#&gt; 458:     2  123 days
-#&gt; 459:     2  157 days
+#&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
+#&gt;  1:  C                                            Abdominal hernia
+#&gt;  2:  A                                            Abdominal hernia
+#&gt;  3:  B                                            Abdominal hernia
+#&gt;  4:  B                                            Acute bronchitis
+#&gt;  5:  A                                            Acute bronchitis
+#&gt;  6:  A                                        Cardiac dysrhythmias
+#&gt;  7:  C                                        Cardiac dysrhythmias
+#&gt;  8:  B                                        Cardiac dysrhythmias
+#&gt;  9:  A                                      Chronic kidney disease
+#&gt; 10:  C                                      Chronic kidney disease
+#&gt; 11:  B                                      Chronic kidney disease
+#&gt; 12:  C                                                       Shock
+#&gt; 13:  C                                       Heart valve disorders
+#&gt; 14:  A                                                       Shock
+#&gt; 15:  B                                                       Shock
+#&gt; 16:  C                                        Other liver diseases
+#&gt; 17:  A                                Residual codes; unclassified
+#&gt; 18:  B Other hereditary and degenerative nervous system conditions
+#&gt; 19:  C       Other nutritional; endocrine; and metabolic disorders
+#&gt; 20:  A                          External cause codes:  Unspecified
+#&gt; 21:  C                                           Thyroid disorders
+#&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
+#&gt;     firstCaseDate endCaseDate count    period
+#&gt;  1:    2008-04-03  2018-12-28     2 3921 days
+#&gt;  2:    2008-05-01  2018-12-28     4 3893 days
+#&gt;  3:    2007-08-29  2019-11-10     2 4456 days
+#&gt;  4:    2008-04-29  2008-04-29     1    0 days
+#&gt;  5:    2009-06-09  2009-06-09     1    0 days
+#&gt;  6:    2007-07-27  2022-02-20    12 5322 days
+#&gt;  7:    2007-06-20  2021-09-16    19 5202 days
+#&gt;  8:    2007-07-16  2020-10-11    13 4836 days
+#&gt;  9:    2007-05-12  2022-02-08    33 5386 days
+#&gt; 10:    2007-04-21  2021-09-17    33 5263 days
+#&gt; 11:    2007-05-28  2022-03-18    34 5408 days
+#&gt; 12:    2008-03-30  2008-09-06     2  160 days
+#&gt; 13:    2007-12-12  2007-12-12     1    0 days
+#&gt; 14:    2008-05-03  2008-05-03     1    0 days
+#&gt; 15:    2008-01-19  2008-01-19     1    0 days
+#&gt; 16:    2021-01-09  2021-01-09     1    0 days
+#&gt; 17:    2020-04-29  2020-04-29     1    0 days
+#&gt; 18:    2021-06-24  2021-06-24     1    0 days
+#&gt; 19:    2019-10-16  2019-10-16     1    0 days
+#&gt; 20:    2014-10-01  2014-10-01     1    0 days
+#&gt; 21:    2015-10-01  2015-10-01     1    0 days
+#&gt;     firstCaseDate endCaseDate count    period
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

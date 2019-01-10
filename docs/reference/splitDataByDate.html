@@ -160,12 +160,34 @@ Return qualified Members' data</p>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
+#&gt; 1:  C  553.3 2008-04-03
+#&gt; 2:  A  553.3 2008-05-01
+#&gt; 3:  A 553.20 2009-02-23
+#&gt; 4:  B 553.20 2007-08-29
+#&gt; 5:  A  553.3 2008-06-27
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,<span class='st'>"2015-10-01"</span>,<span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date Number timeTag Window
+#&gt;   1:  C  553.3 2008-04-03      1       B     92
+#&gt;   2:  A  553.3 2008-05-01      2       B     91
+#&gt;   3:  A 553.20 2009-02-23      3       B     81
+#&gt;   4:  B 553.20 2007-08-29      4       B     99
+#&gt;   5:  A  553.3 2008-06-27      5       B     89
+#&gt;  ---                                           
+#&gt; 166:  B  E03.0 2014-10-01    166       B     13
+#&gt; 167:  A   E030 2014-10-01    167       B     13
+#&gt; 168:  B A01.05 2014-10-01    168       B     13
+#&gt; 169:  C   E030 2015-10-01    169       A      1
+#&gt; 170:  A  A0105 2014-10-01    170       B     13</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

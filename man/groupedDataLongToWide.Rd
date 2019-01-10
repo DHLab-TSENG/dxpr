@@ -2,7 +2,7 @@
 % Please edit documentation in R/groupedDataLongToWide.R
 \name{groupedDataLongToWide}
 \alias{groupedDataLongToWide}
-\title{grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes}
+\title{Grouped data format conversion}
 \usage{
 groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, groupedICDMethod, isDescription = T,
@@ -28,10 +28,10 @@ groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
 \item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)}
 }
 \description{
-Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
+convert long format to wide format
 }
 \details{
-return comorbidity meseaures based on ICD diagnosis codes
+return numeric or binary wide format
 }
 \examples{
 groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),

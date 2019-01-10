@@ -44,6 +44,11 @@ reference:
   contents:
   - '`splitDataByDate`'
 
+- title: Data format Conversion
+  desc: ~
+  contents:
+  - '`groupedDataLongToWide`'
+
 - title: Calculate condition era
   desc: ~
   contents:
