@@ -93,10 +93,10 @@
 <div id="icd-cm-code-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd-cm-code-" class="anchor"></a>ICD-CM-CODE 格式對照</h3>
-<p>分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal 和 Short</p>
-<p>供後續 ICD 格式轉換的功能使用 (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</p>
+<p>本套件將CMS所提供的ICD編碼視為ICD編碼的標準依據，並依照CMS (Centers for Medicare &amp; Medicaid Services)訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal</p>
+<p>供後續 ICD 格式轉換的功能使用 (<code>IcdDxDecimalToShort 和 IcdDxShortToDecimal</code>)</p>
 <p>ICD-9-CM</p>
-<pre><code>icd9 &lt;- ccsDxICD9$ICD
+<pre><code>icd9_Short &lt;- dxICD9$ICD
 ICD9DxwithTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
 
 icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
@@ -104,7 +104,7 @@ icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
 icd9_Decimal &lt;- ICD9DxwithTwoFormat$Decimal[1:10]
 # c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
 <p>ICD-10-CM</p>
-<pre><code>icd10 &lt;- ccsDxICD10$ICD
+<pre><code>icd10 &lt;- dxICD10$ICD
 ICD10DxwithTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
 
 icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
@@ -114,126 +114,234 @@ icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 </div>
 <div id="icd-cm-code-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-cm-code-" class="anchor"></a>ICD-CM code 格式轉換</h3>
-<p>ICD-9-CM and ICD-10-CM code 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
-<p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
+<a href="#icd-cm-code-" class="anchor"></a>ICD-CM code 統一格式</h3>
+<p>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</p>
+<p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS的分組表中的ICD診斷碼格式（表一），將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
+<p>雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式</p>
+<p>表一 標準化分組之ICD格式</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>ICD format</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Clinical Classifications Software</td>
+<td>short format</td>
+</tr>
+<tr class="even">
+<td>Comorbidity</td>
+<td>short format</td>
+</tr>
+<tr class="odd">
+<td>Phecode</td>
+<td>decimal format</td>
+</tr>
+</tbody>
+</table>
+<p>為在疾病分組時區別診斷編碼ICD-9-CM與ICD-10-CM，本套件依據診斷日期區分所使用的ICD版本，其時間切割點可依使用者需求設定，如使用者分析台灣的醫療資料，此日期可設定為2016年1月1日，如使用者分析的是美國的醫療資料，則可將日期設定為2015年10月1號。</p>
+<p>以下範例皆以<code>sampleDxFile</code>作為範例, 區分ICD-9/ICD-10-CM code的使用日期為: 2015年10月1號</p>
 <p>將 ICD-CM code 的格式統一轉成 Decimal</p>
-<pre><code># ICD-9
-IcdDxShortToDecimal(icd9_Short)$Decimal
-# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
-
-# ICD-10
-IcdDxShortToDecimal(icd10_Short)$Decimal
-# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
+<pre><code># Short to decimal
+decimal &lt;- IcdDxShortToDecimal(sampleDxFile, ICD,Date, "2015/10/01")$ICD
+head(decimal)
+# c("553.3", "553.3", "553.20", "553.20", "553.3", "K44.9")
+</code></pre>
 <p>將 ICD-CM code 的格式統一轉成 Short</p>
-<pre><code># ICD-9
-IcdDxDecimalToShort(icd9_Decimal)$Short
-# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-
-# ICD-10
-IcdDxDecimalToShort(icd10_Decimal)$Short
-# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")</code></pre>
+<pre><code># Decimal to short
+short &lt;- IcdDxDecimalToShort(sampleDxFile, ICD,Date, "2015/10/01")$ICD
+head(short)
+# c("5533", "5533", "55320", "55320", "5533", "K449")
+</code></pre>
+<p>Warning message</p>
+<p>當ICD編碼發生轉換錯誤時，會提供warning message提醒使用者<code>格式錯誤 (Wrong format)</code>或是<code>版本分類錯誤 (Wrong version)</code>， 避免輸入的ICD編碼錯誤而影響後續臨床疾病分組錯誤或是無法分組的情形。</p>
+<p>以下為判斷ICD編碼錯誤之流程圖，將以short 轉為 decimal 作為範例</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/amamagg/image/master/msg4.jpg" alt="warning message"><p class="caption">warning message</p>
+</div>
+<p>1)將資料依照格式分為short及decimal兩部分</p>
+<p>2-1)short的組別依照ICD-9及ICD-10分組進行第一次<code>格式轉換</code></p>
+<p>ICD-9: C, E</p>
+<p>ICD-10: A</p>
+<p>2-2)decimal的組別依照ICD-9及ICD-10分組進行第一次<code>確認格式正確性</code></p>
+<p>ICD-9: B</p>
+<p>ICD-10: D</p>
+<p>3)第二步驟結束後，若有NA的個案將挑出來 (D, E)，進行第二次的<code>格式轉換或確認正確性</code>。若結果為<code>NA</code>．則表示該ICD編碼錯誤；反之結果<code>不是NA</code>，則表示該ICD為版本錯誤</p>
+<p>如範例, D和E為ICD-9 code, 因此將與<code>ICD10DxwithTwoFormat</code>進行第二次的確認及轉換</p>
+<p>D 結果不是NA, 表示D的ICD版本錯誤</p>
+<p>E 結果為NA, 表示E的ICD編碼錯誤</p>
+<p>以範例<code>sampleDxFile</code>的warning message進行說明,</p>
+<pre><code>IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$ICD
+#&gt; Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)
+#&gt; 123.45 (1)
+#&gt;  
+#&gt; Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)
+#&gt; c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")
+#&gt;  
+#&gt; Warning: The ICD mentioned above matches to "NA" due to the format or other issues.
+#&gt; Warning: "Wrong ICD format" means the ICD has wrong format
+#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</code></pre>
+<p>ICD編碼錯誤: 共一種ICD (括號內為該ICD出現次數)</p>
+<p>123.45 (1)</p>
+<p>ICD版本錯誤: 共四種ICD (括號內為該ICD出現次數)</p>
+<p>c(“A01.05 (1)”, “E03.0 (1)”, “A0105 (1)”, “42761 (1)”)</p>
 </div>
 <div id="ii--icd-cm-code-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ii--icd-cm-code-" class="anchor"></a>II. ICD-CM-code 整合分類</h2>
-<p>ICD-CM-code 依照不同的分類標準分類: 將分散的 ICD-9-CM 及 ICD-10-CM 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
-<p>目前分類標準: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
+<p>將ICD診斷碼依國際標準轉換為有臨床意義的疾病分組功能，包括CCS階層式編碼轉換、PheWAS分群編碼、共病症（AHRQ, Charlson, Elixhauser Comorbidity）分組以及自定義診斷分組，可將分散的ICD-9-CM與ICD-10-CM基於臨床意義整合成較大的群組，以供後續分析使用。</p>
+<p>目前四大類標準化分組方法: CCS, phecode, Comorbidity,以及自定義診斷碼分組, 以下將分別介紹之</p>
+<p>經過四種標準化處理後, 可得兩種回傳的結果</p>
+<ol style="list-style-type: decimal">
+<li><p><code>groupedDf</code>: 將ICD診斷碼依國際標準轉換為有臨床意義的疾病分組, 可用來計算疾病世代 (condition era)</p></li>
+<li><p><code>groupedData_Long</code>: 將同一個ID的病患其相同標準化分組的多筆資料會統整成一筆資料的長表，取診斷資料中最早診斷的時間為first case date，診斷資料中最後記錄的時間為end case date，並計算其週期（period）內相差的天數，以及週期內共有幾筆診斷紀錄（count）。 另可將其資料轉為適合進行統計分析之資料型態的寬表。長表資料型態如下</p></li>
+</ol>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/amamagg/image/master/Data_Long.jpg" alt="Long Table"><p class="caption">Long Table</p>
+</div>
 <div class="section level3">
 <h3>一、臨床分類軟體</h3>
-<p>係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群, 其階層是診斷分類可依使用需求調整分類標準</p>
+<p>美國Healthcare Cost and Utilization Project（HCUP）發展出一套診斷與處置的臨床分組標準Clinical Classifications Software（CCS），供資料分析人員參考。CCS將每個ICD-9-CM與ICD-10-CM編碼依照臨床意義作單層式或階層式的診斷分類。</p>
+<p>基於此機制，分散的診斷碼可以以其臨床意義作進一步的整合。</p>
 <p>單一階層: 較通用的分類</p>
 <p>多階層: 將診斷碼分為較精確的分組</p>
-<p>目前 ICD-9-CM 的 CCS 版本為 2015 , ICD-10-CM 的 CCS 版本為 2019</p>
-<div class="section level4">
-<h4>1) 單一階層分類</h4>
+<p>其階層式診斷分類可依使用需求調整分類標準</p>
+<div id="ccs" class="section level4">
+<h4 class="hasAnchor">
+<a href="#ccs" class="anchor"></a>1) CCS單一階層分類</h4>
 <p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
-<pre><code>## ICD to CCS category
-IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
-# "99"  NA    "96"  "139"
+<pre><code>## ICD to CCS description
+CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+head(CCS_category$groupedDf,5)
+#&gt;       Short ID    ICD       Date Number           CCS_CATEGORY_DESCRIPTION
+#&gt;   1:   5533  C  553.3 2008-04-03      1                   Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01      2                   Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23      3                   Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29      4                   Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27      5                   Abdominal hernia
 
-## ICD to CCS description
-IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
-# "Hypertension with complications and secondary hypertension" NA  
-# "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" </code></pre>
-<p>當 CCS 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 顯示為NA有兩種方向</p>
-<ol style="list-style-type: decimal">
-<li><p>可能是 ICD code 並未符合格式: 顯示wrong Format</p></li>
-<li><p>有其他的原因需要進行檢查確認: 顯示warning ICD</p></li>
-</ol>
-<p>以範例為例, <code>42577</code> 為錯誤的 ICD-9-CM 之格式才會出現 <code>NA</code> (wrong format)</p>
+head(CCS_category$groupedData_Long,5)
+#&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period
+#&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days
+#&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days
+#&gt;  3:  B           Abdominal hernia     2007-08-29  2019-11-10     2 4456 days
+#&gt;  4:  B           Acute bronchitis     2008-04-29  2008-04-29     1    0 days
+#&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days
+
+## ICD to CCS category
+CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)</code></pre>
 </div>
-<div class="section level4">
-<h4>2) 多階層分類</h4>
+<div id="ccs" class="section level4">
+<h4 class="hasAnchor">
+<a href="#ccs" class="anchor"></a>2) CCS多階層分類</h4>
 <p><code>IcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類(Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
-<pre><code>## ICD to CCS multiple level 1
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
-# "7" NA  "7" "9"
+<pre><code>## ICD to CCS multiple level 2 description
+CCSlvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",2, TRUE)
+head(CCS_category$groupedDf,5)
+#&gt;       Short ID    ICD       Date Number
+#&gt;   1:   5533  C  553.3 2008-04-03      1
+#&gt;   2:   5533  A  553.3 2008-05-01      2
+#&gt;   3:  55320  A 553.20 2009-02-23      3
+#&gt;   4:  55320  B 553.20 2007-08-29      4
+#&gt;   5:   5533  A  553.3 2008-06-27      5
 
-## ICD to CCS multiple level 3
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
-# "7.1.2" NA      NA      NA    </code></pre>
-<p>當 CCS 多階層分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; ICD-10-CM 的多階層為 1~2, 若篩選階層3或4,則 ICD-10-CM 的分類會出現 <code>NA</code></p>
-<p>以範例為例:</p>
-<ol style="list-style-type: decimal">
-<li><p>篩選level 1: <code>42577</code> 為錯誤的ICD-9-CM之格式才會出現 <code>NA</code></p></li>
-<li><p>篩選level 3: <code>42577</code> 為錯誤的ICD-9-CM之格式才會出現 <code>NA</code> , ICD-10-CM 的分類為 <code>NA</code> (ICD-10-CM 的多階層為 1~2)</p></li>
-</ol>
+head(CCS_category$groupedData_Long,5)
+#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period
+#&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days
+#&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days
+#&gt;  3:  B                                      Abdominal hernia    2007-08-29  2019-11-10     2  4456 days
+#&gt;  4:  B                                Respiratory infections    2008-04-29  2008-04-29     1     0 days
+#&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days
+
+## ICD to CCS multiple level 3 category
+CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",3, FALSE)</code></pre>
 </div>
 </div>
 <div id="phecode" class="section level3">
 <h3 class="hasAnchor">
 <a href="#phecode" class="anchor"></a>二、Phecode</h3>
-<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具中, 用來將 ICD-CM code 做整併分類,其分類稱為 phecode</p>
-<p>phecode分組沒有階層性, 其特色在於各分組有其對應的控制組定義, 因此控制組的選擇會排除所有跟病例組相關疾病, 完整的控制組定義使得利用醫療大數據執行病例對照研究 (case-control study)更為全面</p>
+<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具, PheWAS套件使用自訂的phecode定義ICD-9-CM code的編碼分組，約一萬多筆的ICD-9-CM code診斷碼分為共1,866種較大的phecode分類，ICD-9-CM和phecode為多對多的配對關係。</p>
 <p>最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
 <pre><code>## ICD to Phecode
-IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
-# "401.21" NA       NA       NA   </code></pre>
-<p>當 Phecode 分類結果為 <code>NA</code> , 會出現 <code>warning Message</code> , 可能是 ICD code 並未符合格式或其他原因; 輸入ICD-10-CM code也會出現 <code>NA</code></p>
+phecode &lt;- IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+head(phecode$groupedDf,5)
+#&gt;        ICDD ID    ICD       Date Number PheCode
+#&gt;   1:  553.3  C  553.3 2008-04-03      1   550.2
+#&gt;   2:  553.3  A  553.3 2008-05-01      2   550.2
+#&gt;   3: 553.20  A 553.20 2009-02-23      3   550.5
+#&gt;   4: 553.20  B 553.20 2007-08-29      4   550.5
+#&gt;   5:  553.3  A  553.3 2008-06-27      5   550.2
+head(phecode$groupedData_Long,5)
+#&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
+#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
+#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
+#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
+#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
+</code></pre>
 </div>
 <div class="section level3">
 <h3>三、自定義診斷碼分組</h3>
-<p>因應臨床研究需求, 使用者可自行定義診斷分組類別及類別項目: IcdDxToCustomGrep</p>
-<p>範例如下, 欲找出符合高血壓及低血壓分類的 ICD code , 給予其對應的表格, 則會回傳有符合的分組, 未符合則回傳 <code>NA</code></p>
-<pre><code>icdFile &lt;- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)</code></pre>
-<p>目前提供兩種方法:</p>
+<p>因應臨床研究需求，emr提供進階使用者自行定義診斷分組類別及類別項目，使用者可選擇窮舉法或是以字串比對方式訂定篩選的分組類別及類別項目進行後續的分群，本套件採多樣的分組方式以維持診斷醫療大數據分析的彈性。</p>
+<p>範例如下，若使用者欲找出符合心律異常（Cardiac dysrhythmias）案例，使用ICD-10編碼為I47.* ~ I49.* 及 ICD-9-CM編碼為427.*</p>
+<p>根據上述定義，本套件可輸出符合定義之診斷紀錄。自定義診斷分組提供兩種分組方法供使用者選擇，找出符合條件的ICD。</p>
 <div id="icddxtocustom-icd" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icddxtocustom-icd" class="anchor"></a>1) <code>IcdDxToCustom</code>: 使用<code>窮舉法</code>的方式找出符合的ICD</h4>
+<p>使用者欲找出歸類為Cardiac dysrhythmias的診斷碼，需要輸入所有想要尋找的ICD完整編碼（427.1, 427.2, 42761…），進行比對的資料須要完全符合才會歸類為Cardiac dysrhythmias</p>
+<p>符合條件使用者定義之Cardiac dysrhythmias分組（groupingTable），另外不符合條件的紀錄則顯示<code>NA</code>。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
-           <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"I95.0"</span>,<span class="st">"I951"</span>,<span class="st">"I952"</span>,<span class="st">"I110"</span>,<span class="st">"I11.9"</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group   ICD</span>
-<span class="co">#&gt; 1  Hypotension I95.0</span>
-<span class="co">#&gt; 2  Hypotension  I951</span>
-<span class="co">#&gt; 3  Hypotension  I952</span>
-<span class="co">#&gt; 4 Hypertension  I110</span>
-<span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustom(icdFile, groupingTable)
-#  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
+groupingTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">"Cardiac dysrhythmias"</span>,<span class="dv">6</span>),
+                            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"427.1"</span>,<span class="st">"427.2"</span>,<span class="st">"427.31"</span>,<span class="st">"427.61"</span>,<span class="st">"427.81"</span>,<span class="st">"427.89"</span>),
+                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGroup &lt;- IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+CustomGroup$groupedDf[10:15]
+#&gt;     ICD   ID       Date Number                group
+#&gt; 1:  466.0  A 2009-06-09     10                 &lt;NA&gt;
+#&gt; 2: 427.61  A 2009-02-16     11 Cardiac dysrhythmias
+#&gt; 3: 427.31  C 2007-06-20     12 Cardiac dysrhythmias
+#&gt; 4: 427.89  C 2008-01-23     13 Cardiac dysrhythmias
+#&gt; 5: 427.31  A 2007-09-19     14 Cardiac dysrhythmias
+#&gt; 6: 427.31  C 2008-09-11     15 Cardiac dysrhythmias
+CustomGroup$groupedData_Long
+#&gt;    ID                group firstCaseDate endCaseDate count   period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days</code></pre>
 </div>
 <div id="icddxtocustomgrep-icd" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icddxtocustomgrep-icd" class="anchor"></a>2) <code>IcdDxToCustomGrep</code>: 選擇<code>ICD開頭</code>有符合做為篩選的條件</h4>
+<p>使用字串比對的方式，使用者輸入想要尋找的ICD編碼字串比對之正規表示式（427* , I47 * …），進行局部的比對，當資料開頭為427* （ICD-9-CM）或是I47 *（ICD-10-CM）即符合使用者定義之條件Cardiac dysrhythmias分組。</p>
+<p>符合條件使用者定義之Cardiac dysrhythmias分組（groupingTable），另外不符合條件的紀錄則顯示空值。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
-           <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">"^I95|^I952"</span>, <span class="st">"^I11"</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group grep_pattern</span>
-<span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
-<span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
-# "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
+grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="st">"Cardiac dysrhythmias"</span>,
+                        <span class="dt">grepIcd =</span> <span class="st">"^427|^I48"</span>,
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGrepGroup &lt;- IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date,CustomGroupingTable = grepTable)
+CustomGrepGroup$groupedDf[10:15]
+#&gt;    ID    ICD       Date Number                group
+#&gt; 1:  A  466.0 2009-06-09     10                     
+#&gt; 2:  A 427.61 2009-02-16     11 Cardiac dysrhythmias
+#&gt; 3:  C 427.31 2007-06-20     12 Cardiac dysrhythmias
+#&gt; 4:  C 427.89 2008-01-23     13 Cardiac dysrhythmias
+#&gt; 5:  A 427.31 2007-09-19     14 Cardiac dysrhythmias
+#&gt; 6:  C 427.31 2008-09-11     15 Cardiac dysrhythmias
+
+CustomGrepGroup$groupedData_Long
+#&gt;    ID                group firstCaseDate endCaseDate count    period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days</code></pre>
 </div>
 </div>
 <div class="section level3">
 <h3>四、共病症</h3>
-<p>共病症(Comorbidities)為病患於主診斷之外, 其他已存在, 且會對主診斷疾病產生影響的疾病症狀</p>
+<p>Elixhauser Comorbidity為Dr. Elixhauser與其團隊在1998年提出基於標準ICD診斷碼的共病症分類分組標準，於2017年基於Elixhauser Comorbidity 更進一步設計AHRQ Elixhauser Comorbidity Index，此index為單一的風險評估分數，可用於再入院與死亡的風險評估，有研究指出AHRQ Elixhauser Comorbidity Index比Charlson Index更能預測骨科手術的術後死亡。</p>
+<p>共病症(Comorbidities)為病患於主診斷之外, 其他已存在且會對主診斷疾病產生影響的疾病症狀</p>
 <p>共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
 <div id="ahrq" class="section level4">
 <h4 class="hasAnchor">
@@ -242,12 +350,28 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <p>ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致, 共30種</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
-icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
+icd9_ahrq$Comorbidity %&gt;% unique</code></pre>
 <p>ICD-10</p>
 <pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
 icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 AHRQ 共病症分類, 在 function <code>IcdDxToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
+<pre><code>AHRQ &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
+head(AHRQ$groupedDf,5)
+#&gt;       Short ID    ICD       Date Number Comorbidity
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+
+head(AHRQ$groupedData_Long,5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days
+#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days
+#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
+</code></pre>
 </div>
 <div id="charlson" class="section level4">
 <h4 class="hasAnchor">
@@ -261,51 +385,110 @@ icd9_charlson$Comorbidity %&gt;% unique</code></pre>
 <pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
 icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
+<pre><code>Charlson &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+head(Charlson$groupedDf,5)
+#&gt;       Short ID    ICD       Date Number Comorbidity
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+
+head(Charlson$groupedData_Long,5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
+#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days</code></pre>
 </div>
 <div id="elixhauser" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser" class="anchor"></a>3) Elixhauser</h4>
 <p>Elixhauser database共病症測量指標為HCUP (Healthcare Cost and Utilization Project)發展的共病症資料庫之一, 使 ICD code 依其相關的共病症做分類</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致, 共 29 種</p>
-<p>ICD-9-Elixhauser: 版本為3.7 (ICD-9-CM codes October 1, 2011)</p>
+<p>ICD-9-Elixhauser:</p>
 <pre><code>icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10-Elixhauser: 版本為2019.1 (FY2019 ICD-10-CM codes)</p>
+<p>ICD-10-Elixhauser:</p>
 <pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
+<pre><code>ELIX &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
+head(ELIX$groupedDf,5)
+#&gt;       Short ID    ICD       Date Number Comorbidity
+#&gt;   1:   5533  C  553.3 2008-04-03      1        &lt;NA&gt;
+#&gt;   2:   5533  A  553.3 2008-05-01      2        &lt;NA&gt;
+#&gt;   3:  55320  A 553.20 2009-02-23      3        &lt;NA&gt;
+#&gt;   4:  55320  B 553.20 2007-08-29      4        &lt;NA&gt;
+#&gt;   5:   5533  A  553.3 2008-06-27      5        &lt;NA&gt;
+
+head(ELIX$groupedData_Long,5)
+#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
+#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
+#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
+#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
+#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days</code></pre>
 </div>
 </div>
 </div>
 <div id="iii--" class="section level2">
 <h2 class="hasAnchor">
-<a href="#iii--" class="anchor"></a>III. 篩選符合條件的個案數</h2>
-<p>用以篩選符合特定條件之個案: Select Cases</p>
-<p>篩選條件如範例:</p>
+<a href="#iii--" class="anchor"></a>III. 篩選符合條件的個案</h2>
+<p>將醫療大數據診斷資訊進行標準化處理與整合後，將依據使用者所設立的條件篩選符合條件的資料。為選取符合特定條件之診斷資料，目前有三種條件進行篩選：</p>
 <ol style="list-style-type: decimal">
-<li><p>ICD code <code>^I0</code>開頭之個案 (I070,I071,I072…)</p></li>
-<li><p>限定至少出現次數為<code>2</code></p></li>
-<li><p>搜尋範圍:至少間隔一個月並小於一年的時間內 (預設的時間範圍)</p></li>
+<li>設定一組ICD（窮舉法）或正規表示式字串比對語法（785.*）</li>
+<li>設定搜尋範圍：預設範圍時間為至少間隔一個月至一年時間內的資料</li>
+<li>ICD次數：限制符合前述條件的ICD須至少出現的次數，預設至少出現兩次</li>
 </ol>
-<p>回傳的資料為符合條件的個案</p>
-<pre><code>selectCases_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
-                         ICD = c("I072","I071", "I072", "I071"),
-                         Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
-                         stringsAsFactors = FALSE)
-selectCases("^I0", selectCases_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
+<p>最後回傳符合條件的個案資料。符合條件的個案將整合為一筆資料，</p>
+<p>內容包含符合條件的資料總數（count），第一筆資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD and most common ICD count）。</p>
+<p>篩選個案的功能和疾病世代的概念類似，適用於一般疾病（限制搜尋範圍）或慢性病（沒有限制搜尋範圍）的計算。</p>
+<pre><code>selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
+#&gt;    ID firstCaseDate endCaseDate count   period MostCommonICD MostCommonICDCount
+#&gt; 1:  A    2008-05-03  2009-03-02     3 303 days         785.1                  2
+#&gt; 2:  B    2008-01-19  2008-04-07     3  79 days         785.1                  2</code></pre>
 </div>
-<div id="iv--" class="section level2">
+<div id="iv--index-date" class="section level2">
 <h2 class="hasAnchor">
-<a href="#iv--" class="anchor"></a>IV. 疾病世代</h2>
-<p>針對分散的醫療紀錄整合機制, Dr.Ryan 提出疾病世代 (Condition Era) 的概念, 用以整合處理連續性的醫療行為, 將分散的醫療紀錄整合為單一病程發展紀錄</p>
-<p>疾病世代的概念是針對疾病定義持續期 (GapDate) 長度, 若診斷與診斷間間隔小於GapDate, 則兩個診斷視為同一個疾病世代</p>
-<p>依據 CCS 或 ICD 作為診斷的分類, 計算病患之疾病世代, 其持續期長度預設值為30天</p>
-<pre><code>getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
-getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code></pre>
+<a href="#iv--index-date" class="anchor"></a>IV. 以事件區分指標日期（index date）區分事件前後的醫療紀錄</h2>
+<p>醫學研究常需要觀察事件發生前後的改變，因此需要一個指標時間（index date）來記錄事件的發生，在使用指標時間切割後，TimeTag欄位可顯示此紀錄為事件前或是事件後（before and after），使用者可依此欄位選擇事件發生前／後的資料。</p>
+<p>另外本套見也提供週期（window）計算功能，週期長度和指標日期由使用者自行設立。</p>
+<pre><code>splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
+#&gt;      ID    ICD       Date Number timeTag Window
+#&gt;   1:  C  553.3 2008-04-03      1       B     92
+#&gt;   2:  A  553.3 2008-05-01      2       B     91
+#&gt;   3:  A 553.20 2009-02-23      3       B     81
+#&gt;   4:  B 553.20 2007-08-29      4       B     99
+#&gt;   5:  A  553.3 2008-06-27      5       B     89</code></pre>
+</div>
+<div id="v--" class="section level2">
+<h2 class="hasAnchor">
+<a href="#v--" class="anchor"></a>V. 疾病世代</h2>
+<p>在診斷紀錄整合機制方面，本計畫針對分散的診斷紀錄使用Dr. Ryan提出疾病世代（Condition era）概念整合處理連續性的醫療行為，將分散的醫療紀錄整合為單一病程發展紀錄，以利後續醫療大數據分析使用。</p>
+<p>疾病世代的概念是針對疾病定義持續期（gap）長度，若診斷與診斷間間隔小於gap，則兩個診斷視為同一個疾病世代。</p>
+<p>疾病世代的診斷分類可依據ICD、CCS、Phecode、comorbidity和自定義分類組別，計算病患之疾病世代，其持續期長度預設值為30天。</p>
+<pre><code>getConditionEra(sampleDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
+#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period
+#&gt;  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days
+#&gt;  2:  B          158    2007-05-28  2022-03-18    34  14 5408 days
+#&gt;  3:  C          106    2007-06-20  2021-09-16    19  14 5202 days
+#&gt;  4:  A          158    2007-05-12  2022-02-08    33  12 5386 days
+#&gt;  5:  B          106    2007-07-16  2020-10-11    13  10 4836 days
+
+grepTable &lt;- data.frame(group = "Cardiac dysrhythmias",
+                        grepIcd = "^427|^I48",
+                        stringsAsFactors = FALSE)
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup, CustomGroupingTable = grepTable)
+#&gt;    ID                group firstCaseDate endCaseDate count Era    period
+#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days
+#&gt; 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</code></pre>
 </div>
 <div id="v--" class="section level2">
 <h2 class="hasAnchor">
 <a href="#v--" class="anchor"></a>V. 參考資料</h2>
+<p>本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。</p>
+<p>Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。</p>
+<p>Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。</p>
 <div id="icd--short--decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd--short--decimal" class="anchor"></a>ICD 格式: Short 和 Decimal</h3>
@@ -347,8 +530,8 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <div id="elixhauser-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#elixhauser-1" class="anchor"></a>Elixhauser</h4>
-<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+<p>ICD-9-Elixhauser ver:3.7 (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser ver: 2019.1 (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>
@@ -363,8 +546,9 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <li>
 <a href="#i--">I. 診斷前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#ii--icd-cm-code-">II. ICD-CM-code 整合分類</a></li>
-      <li><a href="#iii--">III. 篩選符合條件的個案數</a></li>
-      <li><a href="#iv--">IV. 疾病世代</a></li>
+      <li><a href="#iii--">III. 篩選符合條件的個案</a></li>
+      <li><a href="#iv--index-date">IV. 以事件區分指標日期（index date）區分事件前後的醫療紀錄</a></li>
+      <li><a href="#v--">V. 疾病世代</a></li>
       <li><a href="#v--">V. 參考資料</a></li>
       </ul>
 </li>

@@ -166,25 +166,18 @@ return first diagnosis record based on factIcd Data</p>
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>IcdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
               <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDf
-#&gt;        ICD ID       Date Number                group
-#&gt;  1: 427.61  A 2009-02-16     11 Cardiac dysrhythmias
-#&gt;  2: 427.31  C 2007-06-20     12 Cardiac dysrhythmias
-#&gt;  3: 427.89  C 2008-01-23     13 Cardiac dysrhythmias
-#&gt;  4: 427.31  A 2007-09-19     14 Cardiac dysrhythmias
-#&gt;  5: 427.31  C 2008-09-11     15 Cardiac dysrhythmias
-#&gt;  6: 427.31  B 2008-06-28     16 Cardiac dysrhythmias
-#&gt;  7: 427.31  C 2007-06-29     17 Cardiac dysrhythmias
-#&gt;  8: 427.31  B 2007-09-17     20 Cardiac dysrhythmias
-#&gt;  9: 427.31  C 2007-10-12     21 Cardiac dysrhythmias
-#&gt; 10: 427.31  B 2008-03-14     22 Cardiac dysrhythmias
-#&gt; 11: 427.31  C 2008-02-20     23 Cardiac dysrhythmias
-#&gt; 12: 427.81  C 2009-02-08     24 Cardiac dysrhythmias
-#&gt; 13:  427.2  C 2008-02-16     25 Cardiac dysrhythmias
-#&gt; 14: 427.31  B 2007-07-16     26 Cardiac dysrhythmias
-#&gt; 15:  427.1  A 2007-07-27     28 Cardiac dysrhythmias
-#&gt; 16:  427.1  C 2008-03-01     29 Cardiac dysrhythmias
-#&gt; 17:  427.1  A 2008-12-27     30 Cardiac dysrhythmias
-#&gt; 18: 427.31  B 2009-02-25     31 Cardiac dysrhythmias
+#&gt;         ICD ID       Date Number group
+#&gt;   1:  553.3  C 2008-04-03      1  &lt;NA&gt;
+#&gt;   2:  553.3  A 2008-05-01      2  &lt;NA&gt;
+#&gt;   3: 553.20  A 2009-02-23      3  &lt;NA&gt;
+#&gt;   4: 553.20  B 2007-08-29      4  &lt;NA&gt;
+#&gt;   5:  553.3  A 2008-06-27      5  &lt;NA&gt;
+#&gt;  ---                                  
+#&gt; 166:  E03.0  B 2014-10-01    166  &lt;NA&gt;
+#&gt; 167:   E030  A 2014-10-01    167  &lt;NA&gt;
+#&gt; 168: A01.05  B 2014-10-01    168  &lt;NA&gt;
+#&gt; 169:   E030  C 2015-10-01    169  &lt;NA&gt;
+#&gt; 170:  A0105  A 2014-10-01    170  &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;    ID                group firstCaseDate endCaseDate count   period
