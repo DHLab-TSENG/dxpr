@@ -178,6 +178,7 @@ c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")
 其階層式診斷分類可依使用需求調整分類標準
 
 **1) CCS單一階層分類**
+
 `IcdDxToCCS` 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述
 
 ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種
@@ -205,6 +206,7 @@ CCS_description <- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 ```
 
 **2) CCS多階層分類**
+
 `IcdDxToCCSLvl` 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類(Multiple ccs level)及分類之敘述
 
 ICD-9-CM 共 4個階層 (Level 1~4)
@@ -265,8 +267,12 @@ head(phecode$groupedData_Long,5)
 根據上述定義，本套件可輸出符合定義之診斷紀錄。自定義診斷分組提供兩種分組方法供使用者選擇，找出符合條件的ICD。
 
 
-1) **IcdDxToCustom**: 使用**窮舉法**的方式找出符合的ICD
+
+
+**1) IcdDxToCustom** 使用**窮舉法**的方式找出符合的ICD
+
 使用者欲找出歸類為Cardiac dysrhythmias的診斷碼，需要輸入所有想要尋找的ICD完整編碼（427.1, 427.2, 42761…），進行比對的資料須要完全符合才會歸類為Cardiac dysrhythmias
+
 
 符合條件使用者定義之Cardiac dysrhythmias分組（groupingTable），另外不符合條件的紀錄則顯示`NA`。
 
@@ -292,9 +298,11 @@ CustomGroup$groupedData_Long
 #> 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
 #> 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days
 ```
-2) **IcdDxToCustomGrep**: 選擇**字串比對**進行篩選
+**2) IcdDxToCustomGrep** 選擇**字串比對**進行篩選
 
 使用字串比對的方式，使用者輸入想要尋找的ICD編碼字串比對之正規表示式（427* , I47 * …），進行局部的比對，當資料開頭為427* （ICD-9-CM）或是I47 *（ICD-10-CM）即符合使用者定義之條件Cardiac dysrhythmias分組。
+
+
 
 符合條件使用者定義之Cardiac dysrhythmias分組（groupingTable），另外不符合條件的紀錄則顯示空值。
 
@@ -324,7 +332,9 @@ CustomGrepGroup$groupedData_Long
 ###四、共病症
 Elixhauser Comorbidity為Dr. Elixhauser與其團隊在1998年提出基於標準ICD診斷碼的共病症分類分組標準，於2017年基於Elixhauser Comorbidity 更進一步設計AHRQ Elixhauser Comorbidity Index，此index為單一的風險評估分數，可用於再入院與死亡的風險評估，有研究指出AHRQ Elixhauser Comorbidity Index比Charlson Index更能預測骨科手術的術後死亡。
 
+
 共病症(Comorbidities)為病患於主診斷之外, 其他已存在且會對主診斷疾病產生影響的疾病症狀
+
 
 共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser
 
@@ -484,21 +494,21 @@ groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs,numericOrBi
 ```
 表五 標準化分組結果轉為二分法（binary）寬表
 
-|ID|Abdominal hernia|Acute bronchitis|Cardiac dysrhythmias |	….. (共260種)|
+|ID|Abdominal hernia|Acute bronchitis|Cardiac dysrhythmias |	….. (共136種)|
 |--|---|------|---|-------|
-|A|true|true|true| |	
-|B|true|true|true|	|
-|C|true|false|true|	|
+|A|true|true|true| …..|	
+|B|true|true|true|	…..|
+|C|true|false|true|	…..|
 ```
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs,numericOrBinary = N)
 ```
 表六 標準化分組結果轉為數量（numeric）寬表
 
-|ID|Abdominal hernia|Acute bronchitis|Cardiac dysrhythmias |	….. (共260種)|
+|ID|Abdominal hernia|Acute bronchitis|Cardiac dysrhythmias |	….. (共136種)|
 |--|---|------|---|-------|
-|A|4|1|12| |	
-|B|2|1|13|	|
-|C|2|0|19|	|
+|A|4|1|12| …..|	
+|B|2|1|13|	…..|
+|C|2|0|19|	…..|
 
 ## VI. 疾病世代
 在診斷紀錄整合機制方面，本計畫針對分散的診斷紀錄使用Dr. Ryan提出疾病世代（Condition era）概念整合處理連續性的醫療行為，將分散的醫療紀錄整合為單一病程發展紀錄，以利後續醫療大數據分析使用。
