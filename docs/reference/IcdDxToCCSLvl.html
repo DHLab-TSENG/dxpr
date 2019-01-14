@@ -178,30 +178,18 @@
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
 #&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCSLvl</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
-#&gt;       Short ID    ICD       Date Number
-#&gt;   1:   5533  C  553.3 2008-04-03      1
-#&gt;   2:   5533  A  553.3 2008-05-01      2
-#&gt;   3:  55320  A 553.20 2009-02-23      3
-#&gt;   4:  55320  B 553.20 2007-08-29      4
-#&gt;   5:   5533  A  553.3 2008-06-27      5
-#&gt;  ---                                   
-#&gt; 166:  E03.0  B  E03.0 2014-10-01    166
-#&gt; 167:   E030  A   E030 2014-10-01    167
-#&gt; 168: A01.05  B A01.05 2014-10-01    168
-#&gt; 169:   E030  C   E030 2015-10-01    169
-#&gt; 170:  A0105  A  A0105 2014-10-01    170
-#&gt;                                CCS_LVL_2_LABEL
-#&gt;   1:                          Abdominal hernia
-#&gt;   2:                          Abdominal hernia
-#&gt;   3:                          Abdominal hernia
-#&gt;   4:                          Abdominal hernia
-#&gt;   5:                          Abdominal hernia
-#&gt;  ---                                          
-#&gt; 166:                                      &lt;NA&gt;
-#&gt; 167: Residual codes; unclassified; all E codes
-#&gt; 168:                                      &lt;NA&gt;
-#&gt; 169:                         Thyroid disorders
-#&gt; 170:                                      &lt;NA&gt;
+#&gt;       Short ID    ICD       Date                           CCS_LVL_2_LABEL
+#&gt;   1:   5533  C  553.3 2008-04-03                          Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01                          Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23                          Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29                          Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27                          Abdominal hernia
+#&gt;  ---                                                                      
+#&gt; 166:  E03.0  B  E03.0 2014-10-01                                      &lt;NA&gt;
+#&gt; 167:   E030  A   E030 2014-10-01 Residual codes; unclassified; all E codes
+#&gt; 168: A01.05  B A01.05 2014-10-01                                      &lt;NA&gt;
+#&gt; 169:   E030  C   E030 2015-10-01                         Thyroid disorders
+#&gt; 170:  A0105  A  A0105 2014-10-01                                      &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate

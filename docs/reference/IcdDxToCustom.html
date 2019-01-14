@@ -166,18 +166,18 @@ return first diagnosis record based on factIcd Data</p>
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>IcdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
               <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDf
-#&gt;         ICD ID       Date Number group
-#&gt;   1:  553.3  C 2008-04-03      1  &lt;NA&gt;
-#&gt;   2:  553.3  A 2008-05-01      2  &lt;NA&gt;
-#&gt;   3: 553.20  A 2009-02-23      3  &lt;NA&gt;
-#&gt;   4: 553.20  B 2007-08-29      4  &lt;NA&gt;
-#&gt;   5:  553.3  A 2008-06-27      5  &lt;NA&gt;
-#&gt;  ---                                  
-#&gt; 166:  E03.0  B 2014-10-01    166  &lt;NA&gt;
-#&gt; 167:   E030  A 2014-10-01    167  &lt;NA&gt;
-#&gt; 168: A01.05  B 2014-10-01    168  &lt;NA&gt;
-#&gt; 169:   E030  C 2015-10-01    169  &lt;NA&gt;
-#&gt; 170:  A0105  A 2014-10-01    170  &lt;NA&gt;
+#&gt;         ICD ID       Date group
+#&gt;   1:  553.3  C 2008-04-03  &lt;NA&gt;
+#&gt;   2:  553.3  A 2008-05-01  &lt;NA&gt;
+#&gt;   3: 553.20  A 2009-02-23  &lt;NA&gt;
+#&gt;   4: 553.20  B 2007-08-29  &lt;NA&gt;
+#&gt;   5:  553.3  A 2008-06-27  &lt;NA&gt;
+#&gt;  ---                           
+#&gt; 166:  E03.0  B 2014-10-01  &lt;NA&gt;
+#&gt; 167:   E030  A 2014-10-01  &lt;NA&gt;
+#&gt; 168: A01.05  B 2014-10-01  &lt;NA&gt;
+#&gt; 169:   E030  C 2015-10-01  &lt;NA&gt;
+#&gt; 170:  A0105  A 2014-10-01  &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;    ID                group firstCaseDate endCaseDate count   period

@@ -61,7 +61,7 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   IcdToComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate],comorbidMap9[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T),
                          merge(DxDataFile[Date >=icd10usingDate],comorbidMap10[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T))
 
-  IcdToComorbid <- IcdToComorbid[order(Number)]
+  IcdToComorbid <- IcdToComorbid[order(Number),-"Number"]
   IcdToComorbidLong <- IcdToComorbid[!is.na(Comorbidity),
                                      list(firstCaseDate = min(Date),
                                           endCaseDate = max(Date),

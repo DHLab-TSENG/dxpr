@@ -45,7 +45,7 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   }
   IcdToCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                     merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
-  IcdToCCS <- IcdToCCS[order(Number)]
+  IcdToCCS <- IcdToCCS[order(Number),-"Number"]
   IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
                            list(firstCaseDate = min(Date),
                                 endCaseDate = max(Date),

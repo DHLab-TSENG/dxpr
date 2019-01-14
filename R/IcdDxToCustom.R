@@ -31,7 +31,7 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
   customICD[,Number:=1:nrow(customICD)]
 
   groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)
-  groupedICD <- groupedICD[order(Number)]
+  groupedICD <- groupedICD[order(Number),-"Number"]
   groupedICDLong <- groupedICD[!is.na(group),
                                list(firstCaseDate = min(Date),
                                     endCaseDate = max(Date),

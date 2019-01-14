@@ -53,7 +53,7 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
     IcdToCCSLvl <- merge(merge(DxDataFile[Date < icd10usingDate],ccsDxICD9[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                          DxDataFile[Date >= icd10usingDate], by = names(DxDataFile), all = T)
   }
-  IcdToCCSLvl <- IcdToCCSLvl[order(Number)]
+  IcdToCCSLvl <- IcdToCCSLvl[order(Number),-"Number"]
   IcdToCCSLvlLong <- IcdToCCSLvl[!is.na(eval(parse(text = paste(CCSLvlCol)))),
                                  list(firstCaseDate = min(Date),
                                       endCaseDate = max(Date),

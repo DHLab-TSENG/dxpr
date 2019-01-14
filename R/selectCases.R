@@ -37,14 +37,20 @@ selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName,
   names(DxDataFile) <- c("ID", "MostCommonICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
 
+  CaseID <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),]
+  selectCase <- merge(DxDataFile,CaseID[,"ID"][!duplicated(ID)],by = "ID", nomatch = T)
 
-  Count <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),
-                      list(firstCaseDate = min(Date), endCaseDate = max(Date),count = .N),
-                      by = ID][,period := (endCaseDate - firstCaseDate),][,InTimeINR := period >= minimumINRofDays & period < maximumINRofDays,][count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
+  Count <- CaseID[,
+                  list(firstCaseDate = min(Date),
+                       endCaseDate = max(Date),
+                       count = .N),
+                  by = ID][, period := (endCaseDate - firstCaseDate),][,InTimeINR := period >= minimumINRofDays & period < maximumINRofDays,][count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
 
-  CaseICD <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),
-                        list(MostCommonICDCount = .N), by = list(ID,MostCommonICD)][order(MostCommonICDCount,decreasing = T),][!duplicated(ID),]
-
+  CaseICD <- CaseID[,
+                    list(MostCommonICDCount = .N),
+                    by = list(ID,MostCommonICD)][order(MostCommonICDCount,decreasing = T),][!duplicated(ID),]
   CaseCount <- merge(Count,CaseICD[,list(ID,MostCommonICD,MostCommonICDCount)],"ID")
-  CaseCount
+
+  return(list(selectCase = selectCase,
+              selectCase_Long = CaseCount))
 }

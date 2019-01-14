@@ -39,7 +39,7 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
   }
   IcdToPhecode <- rbind(merge(DxDataFile[Date < icd10usingDate,], phecode_icd9_2[,c(phecodeCol,"ICDD"), with = F], by = "ICDD", all.x = T),
                         merge(DxDataFile[Date >= icd10usingDate,], phecode_icd9_2[,c(phecodeCol,"ICDD"), with = F], by = "ICDD", all.x = T))
-  IcdToPhecode <- IcdToPhecode[order(Number)]
+  IcdToPhecode <- IcdToPhecode[order(Number),-"Number"]
   IcdToPhecodeLong <- IcdToPhecode[!is.na(eval(parse(text = paste(phecodeCol)))),
                                    list(firstCaseDate = min(Date),
                                         endCaseDate = max(Date),
