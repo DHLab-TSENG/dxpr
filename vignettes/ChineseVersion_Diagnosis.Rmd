@@ -332,9 +332,7 @@ CustomGrepGroup$groupedData_Long
 ###四、共病症
 Elixhauser Comorbidity為Dr. Elixhauser與其團隊在1998年提出基於標準ICD診斷碼的共病症分類分組標準，於2017年基於Elixhauser Comorbidity 更進一步設計AHRQ Elixhauser Comorbidity Index，此index為單一的風險評估分數，可用於再入院與死亡的風險評估，有研究指出AHRQ Elixhauser Comorbidity Index比Charlson Index更能預測骨科手術的術後死亡。
 
-
 共病症(Comorbidities)為病患於主診斷之外, 其他已存在且會對主診斷疾病產生影響的疾病症狀
-
 
 共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser
 
@@ -358,13 +356,13 @@ icd10_ahrq$Comorbidity %>% unique
 
 ```
 AHRQ <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
-head(AHRQ$groupedDf,5)
-#>       Short ID    ICD       Date Comorbidity
-#>   1:   5533  C  553.3 2008-04-03        <NA>
-#>   2:   5533  A  553.3 2008-05-01        <NA>
-#>   3:  55320  A 553.20 2009-02-23        <NA>
-#>   4:  55320  B 553.20 2007-08-29        <NA>
-#>   5:   5533  A  553.3 2008-06-27        <NA>
+AHRQ$groupedDf[160:164]
+#>    Short ID    ICD       Date Comorbidity
+#> 1: K7460  C K74.60 2021-01-09       Liver
+#> 2:  Z720  A  Z72.0 2020-04-29        <NA>
+#> 3: G2581  B G25.81 2021-06-24  NeuroOther
+#> 4: Z6832  C Z68.32 2019-10-16     Obesity
+#> 5: 42761  A  42761 2020-03-16        <NA>
 
 head(AHRQ$groupedData_Long,5)
 #>    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -395,13 +393,13 @@ icd10_charlson$Comorbidity %>% unique
 
 ```
 Charlson <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-head(Charlson$groupedDf,5)
-#>       Short ID    ICD       Date Comorbidity
-#>   1:   5533  C  553.3 2008-04-03        <NA>
-#>   2:   5533  A  553.3 2008-05-01        <NA>
-#>   3:  55320  A 553.20 2009-02-23        <NA>
-#>   4:  55320  B 553.20 2007-08-29        <NA>
-#>   5:   5533  A  553.3 2008-06-27        <NA>
+Charlson$groupedDf[160:164]
+#>    Short ID    ICD       Date Comorbidity
+#> 1: K7460  C K74.60 2021-01-09   LiverMild
+#> 2:  Z720  A  Z72.0 2020-04-29        <NA>
+#> 3: G2581  B G25.81 2021-06-24        <NA>
+#> 4: Z6832  C Z68.32 2019-10-16        <NA>
+#> 5: 42761  A  42761 2020-03-16        <NA>
 
 head(Charlson$groupedData_Long,5)
 #>    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -427,13 +425,13 @@ icd10_elix$Comorbidity %>% unique
 欲將 ICD 依照 Charlson 共病症分類, 在 function `IcdDxToComorbid` 的`comorbidMethod` 輸入 `elix`
 ```
 ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-head(ELIX$groupedDf,5)
-#>       Short ID    ICD       Date Comorbidity
-#>   1:   5533  C  553.3 2008-04-03        <NA>
-#>   2:   5533  A  553.3 2008-05-01        <NA>
-#>   3:  55320  A 553.20 2009-02-23        <NA>
-#>   4:  55320  B 553.20 2007-08-29        <NA>
-#>   5:   5533  A  553.3 2008-06-27        <NA>
+ELIX$groupedDf[160:164]
+#>    Short ID    ICD       Date Comorbidity
+#> 1: K7460  C K74.60 2021-01-09     HYPOTHY
+#> 2:  Z720  A  Z72.0 2020-04-29        <NA>
+#> 3: G2581  B G25.81 2021-06-24        METS
+#> 4: Z6832  C Z68.32 2019-10-16       NEURO
+#> 5: 42761  A  42761 2020-03-16        <NA>
 
 head(ELIX$groupedData_Long,5)
 #>     ID Comorbidity firstCaseDate endCaseDate count    period

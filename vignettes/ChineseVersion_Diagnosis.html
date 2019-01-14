@@ -372,13 +372,13 @@ icd9_ahrq$Comorbidity %&gt;% unique</code></pre>
 icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 AHRQ 共病症分類, 在 function <code>IcdDxToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
 <pre><code>AHRQ &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, ahrq)
-head(AHRQ$groupedDf,5)
-#&gt;       Short ID    ICD       Date Comorbidity
-#&gt;   1:   5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:   5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3:  55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4:  55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:   5533  A  553.3 2008-06-27        &lt;NA&gt;
+AHRQ$groupedDf[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09       Liver
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24  NeuroOther
+#&gt; 4: Z6832  C Z68.32 2019-10-16     Obesity
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
 
 head(AHRQ$groupedData_Long,5)
 #&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -399,13 +399,13 @@ icd9_charlson$Comorbidity %&gt;% unique</code></pre>
 icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
 <pre><code>Charlson &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, charlson)
-head(Charlson$groupedDf,5)
-#&gt;       Short ID    ICD       Date Comorbidity
-#&gt;   1:   5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:   5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3:  55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4:  55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:   5533  A  553.3 2008-06-27        &lt;NA&gt;
+Charlson$groupedDf[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09   LiverMild
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        &lt;NA&gt;
+#&gt; 4: Z6832  C Z68.32 2019-10-16        &lt;NA&gt;
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
 
 head(Charlson$groupedData_Long,5)
 #&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -422,13 +422,13 @@ head(Charlson$groupedData_Long,5)
 <pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
 <p>欲將 ICD 依照 Charlson 共病症分類, 在 function <code>IcdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
 <pre><code>ELIX &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, elix)
-head(ELIX$groupedDf,5)
-#&gt;       Short ID    ICD       Date Comorbidity
-#&gt;   1:   5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:   5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3:  55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4:  55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:   5533  A  553.3 2008-06-27        &lt;NA&gt;
+ELIX$groupedDf[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09     HYPOTHY
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        METS
+#&gt; 4: Z6832  C Z68.32 2019-10-16       NEURO
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
 
 head(ELIX$groupedData_Long,5)
 #&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
