@@ -33,7 +33,8 @@ IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{ICD 10 using date}
 
-\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`}
+\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).}
 }
 \description{
 Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.

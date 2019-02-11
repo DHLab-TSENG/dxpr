@@ -1,14 +1,12 @@
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "grepICD",
   "ICDNumber",
-  "minimumINRofDays",
-  "maximumINRofDays",
+  "INRofDayRange",
   "InTimeINR",
   "firstCaseDate",
   "endCaseDate",
   "period",
-  "MostCommonICD",
-  "MostCommonICDCount"))
+  "MostCommonICDCount","selectedCase"))
 #' Select cases based on ICD code and the number of ICD codes
 #'
 #' This can be used to select qualified cases from factIcd data
@@ -23,34 +21,34 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param ICDNumber a threshold of number of ICD for case selection
-#' @param minimumINRofDays Minimum interval of Days, defaults is 30 days (one month)
-#' @param maximumINRofDays Maximum interval of Days, defaults is 365 days (one year)
+#' @param INRofDayRange Determines what is the interval of days of interest for performing the case selection. By default it is set to from 30 to 365 days.
+#' @param selectedCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.
 #' @export
 #' @examples
 #' head(sampleDxFile)
 #' selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
 #'
-selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365){
+selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, INRofDayRange = c(30, 365),selectedCaseType = "selected"){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "MostCommonICD", "Date")
+  names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+  nonSelectedCaseType <- paste0("non",selectedCaseType,sep = "")
 
-  CaseID <- DxDataFile[grepl(grepICD, DxDataFile$MostCommonICD),]
-  selectCase <- merge(DxDataFile,CaseID[,"ID"][!duplicated(ID)],by = "ID", nomatch = T)
+  Case <- DxDataFile[grepl(grepICD, DxDataFile$ICD),]
+  Control <- DxDataFile[!Case, on = "ID"][,selectedCase := nonSelectedCaseType][,-c("ICD","Date")]
+  Count <- Case[,list(firstCaseDate = min(Date),
+                      endCaseDate = max(Date),
+                      Count = .N),
+                by = ID][, period := (endCaseDate - firstCaseDate),][,InTimeINR := period >= INRofDayRange[1] & period < INRofDayRange[2],][Count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
 
-  Count <- CaseID[,
-                  list(firstCaseDate = min(Date),
-                       endCaseDate = max(Date),
-                       count = .N),
-                  by = ID][, period := (endCaseDate - firstCaseDate),][,InTimeINR := period >= minimumINRofDays & period < maximumINRofDays,][count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
+  MostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)]
 
-  CaseICD <- CaseID[,
-                    list(MostCommonICDCount = .N),
-                    by = list(ID,MostCommonICD)][order(MostCommonICDCount,decreasing = T),][!duplicated(ID),]
-  CaseCount <- merge(Count,CaseICD[,list(ID,MostCommonICD,MostCommonICDCount)],"ID")
+  CaseCount <- merge(Count,MostICDCount,"ID")[,selectedCase := selectedCaseType]
+  setnames(CaseCount,"ICD","MostCommonICD")
 
-  return(list(selectCase = selectCase,
-              selectCase_Long = CaseCount))
+  allData <- merge(CaseCount,Control,by = c("ID","selectedCase"),all=T)[!duplicated(ID),][order(MostCommonICDCount,decreasing = T),]
+
+  allData
 }

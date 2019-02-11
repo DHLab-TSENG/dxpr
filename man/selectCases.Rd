@@ -5,7 +5,7 @@
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
 selectCases(grepICD, DxDataFile, idColName, icdColName, dateColName,
-  ICDNumber, minimumINRofDays = 30, maximumINRofDays = 365)
+  ICDNumber, INRofDayRange = c(30, 365), selectedCaseType = "selected")
 }
 \arguments{
 \item{grepICD}{ICD selection rules with grepl expression}
@@ -20,9 +20,9 @@ selectCases(grepICD, DxDataFile, idColName, icdColName, dateColName,
 
 \item{ICDNumber}{a threshold of number of ICD for case selection}
 
-\item{minimumINRofDays}{Minimum interval of Days, defaults is 30 days (one month)}
+\item{INRofDayRange}{Determines what is the interval of days of interest for performing the case selection. By default it is set to from 30 to 365 days.}
 
-\item{maximumINRofDays}{Maximum interval of Days, defaults is 365 days (one year)}
+\item{selectedCaseType}{Aggregation  of selected cases name. By default it is set to \code{"selected"}.}
 }
 \description{
 This can be used to select qualified cases from factIcd data

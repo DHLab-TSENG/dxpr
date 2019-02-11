@@ -18,7 +18,8 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate ICD 10 using date
-#' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`
+#' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+#' it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).
 #' @export
 #' @source AHRQ
 

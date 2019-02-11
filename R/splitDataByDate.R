@@ -13,7 +13,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param IndexDate An exact date of diagnosis for a period of observation.
-#' @param window Length of condition era, default is 30 days
+#' @param window Length of condition era. By default it is set to \code{30}.
 #' @export
 #' @examples
 #' head(sampleDxFile)

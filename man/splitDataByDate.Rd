@@ -18,7 +18,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName, IndexDate,
 
 \item{IndexDate}{An exact date of diagnosis for a period of observation.}
 
-\item{window}{Length of condition era, default is 30 days}
+\item{window}{Length of condition era. By default it is set to \code{30}.}
 }
 \description{
 This can be used to select qualified cases from factIcd data

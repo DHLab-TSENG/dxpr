@@ -139,7 +139,17 @@ ICD版本錯誤: 共四種ICD (括號內為該ICD出現次數)
 
 c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")
 
+若想要看到全部的錯誤，可選擇list: Error，將顯示錯誤的ICD編碼、出現次數、在檔案中編碼被判斷為何種版本、錯誤的類別及建議該如何修正
+```
+IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$Error
 
+#>       ICD count IcdVersionInFile     WrongType Suggestion
+#> 1: 123.45     1           ICD 10  Wrong format           
+#> 2: A01.05     1            ICD 9 Wrong version           
+#> 3:  E03.0     1            ICD 9 Wrong version           
+#> 4:  A0105     1            ICD 9 Wrong version           
+#> 5:  42761     1           ICD 10 Wrong version 
+```
 ## II. ICD-CM-code 標準化分組
 
 將ICD診斷碼依國際標準轉換為有臨床意義的疾病分組功能，包括CCS階層式編碼轉換、PheWAS分群編碼、共病症（AHRQ, Charlson, Elixhauser Comorbidity）分組以及自定義診斷分組，可將分散的ICD-9-CM與ICD-10-CM基於臨床意義整合成較大的群組，以供後續分析使用。

@@ -13,7 +13,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of PrDataFile
 #' @param dateColName A column for Date of PrDataFile
 #' @param icd10usingDate ICD-10 using date
-#' @param isProcedureClassName  Procedure Class category/name for ICD-9 or ICD-10, default is True
+#' @param isProcedureClassName  Procedure Class category/name for ICD-9 or ICD-10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-Procedure Class (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}

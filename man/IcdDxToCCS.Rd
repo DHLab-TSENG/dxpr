@@ -29,7 +29,7 @@ IcdDxToCCS(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{icd10usingDate}{ICD-10 using date}
 
-\item{isCCSCategoryDescription}{Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10, default is True}
+\item{isCCSCategoryDescription}{Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.}
 }
 \description{
 Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.

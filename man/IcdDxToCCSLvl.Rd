@@ -16,7 +16,7 @@ ICD-10-CM CCS (2019)
 }
 \usage{
 IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, CCSLevel = 2, CCSLvlLabel = TRUE)
+  icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"}
@@ -29,9 +29,9 @@ IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{CCSLevel}{Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels}
+\item{CCSLevel}{By default it is set to \code{1}. Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels}
 
-\item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True}
+\item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.}
 }
 \description{
 Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme. Four levels exist in the multi-level diagnosis CCS for ICD-9-CM codes, and two levels exist in the multi-level diagnosis CCS for ICD-10-CM codes

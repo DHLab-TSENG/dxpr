@@ -29,9 +29,9 @@ IcdPrToCCSLvl(PrDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{CCSLevel}{Clinical Classifications Software (CCS) multiple level}
+\item{CCSLevel}{By default it is set to \code{1}.Clinical Classifications Software (CCS) multiple level}
 
-\item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True}
+\item{CCSLvlLabel}{Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.}
 }
 \description{
 Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 procedure codes in clinical procedures data is a procedure categorization scheme. Four levels exist in the multi-level procedure CCS for ICD-9-CM codes, and two levels exist in the multi-level procedure CCS for ICD-10-CM codes

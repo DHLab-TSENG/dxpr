@@ -23,7 +23,7 @@ IcdDxToPhecode(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{isPhecodeDescription}{Phecode/ description for icd9, default is True}
+\item{isPhecodeDescription}{Phecode/ description for icd9. By default it is set to \code{True}.}
 }
 \description{
 This can be used to group Phecode or description based on ICD-9 codes in clinical diagnostic data.

@@ -10,8 +10,8 @@
 #' @param icdColName A column for ICD of PrDataFile
 #' @param dateColName A column for Date of PrDataFile
 #' @param icd10usingDate icd 10 using date
-#' @param CCSLevel Clinical Classifications Software (CCS) multiple level
-#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True
+#' @param CCSLevel By default it is set to \code{1}.Clinical Classifications Software (CCS) multiple level
+#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-PCS CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
