@@ -43,7 +43,9 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
   DxDataFile[,Number:=1:nrow(DxDataFile)]
-  DxDataFile$Short <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)$ICD
+
+  Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
+  DxDataFile[,Short:= Conversion$ICD]
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (grepl("ahrq", comorbidMethod)){
@@ -70,6 +72,7 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
                                      by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDf = IcdToComorbid,
-              groupedData_Long = IcdToComorbidLong))
+              groupedData_Long = IcdToComorbidLong,
+              Error = Conversion$Error))
 }
 

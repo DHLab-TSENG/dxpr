@@ -128,7 +128,7 @@ Return qualified Members' data</p>
     </div>
 
     <pre class="usage"><span class='fu'>selectCases</span>(<span class='no'>grepICD</span>, <span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>ICDNumber</span>, <span class='kw'>minimumINRofDays</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>maximumINRofDays</span> <span class='kw'>=</span> <span class='fl'>365</span>)</pre>
+  <span class='no'>ICDNumber</span>, <span class='kw'>INRofDayRange</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>30</span>, <span class='fl'>365</span>), <span class='kw'>selectedCaseType</span> <span class='kw'>=</span> <span class='st'>"selected"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,12 +158,12 @@ Return qualified Members' data</p>
       <td><p>a threshold of number of ICD for case selection</p></td>
     </tr>
     <tr>
-      <th>minimumINRofDays</th>
-      <td><p>Minimum interval of Days, defaults is 30 days (one month)</p></td>
+      <th>INRofDayRange</th>
+      <td><p>Determines what is the interval of days of interest for performing the case selection. By default it is set to from 30 to 365 days.</p></td>
     </tr>
     <tr>
-      <th>maximumINRofDays</th>
-      <td><p>Maximum interval of Days, defaults is 365 days (one year)</p></td>
+      <th>selectedCaseType</th>
+      <td><p>Aggregation  of selected cases name. By default it is set to <code>"selected"</code>.</p></td>
     </tr>
     </table>
     
@@ -175,25 +175,14 @@ Return qualified Members' data</p>
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>selectCases</span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; $selectCase
-#&gt;      ID MostCommonICD       Date
-#&gt;   1:  A         553.3 2008-05-01
-#&gt;   2:  A        553.20 2009-02-23
-#&gt;   3:  A         553.3 2008-06-27
-#&gt;   4:  A         K44.9 2018-12-28
-#&gt;   5:  A         466.0 2009-06-09
-#&gt;  ---                            
-#&gt; 166:  C        785.52 2008-09-06
-#&gt; 167:  C        K74.60 2021-01-09
-#&gt; 168:  C        Z68.32 2019-10-16
-#&gt; 169:  C        123.45 2020-09-20
-#&gt; 170:  C          E030 2015-10-01
-#&gt; 
-#&gt; $selectCase_Long
-#&gt;    ID firstCaseDate endCaseDate count   period MostCommonICD MostCommonICDCount
-#&gt; 1:  A    2008-05-03  2009-03-02     3 303 days         785.1                  2
-#&gt; 2:  B    2008-01-19  2008-04-07     3  79 days         785.1                  2
-#&gt; </div><div class='input'>
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>selectCases</span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt;    ID selectedCase firstCaseDate endCaseDate Count   period MostCommonICD
+#&gt; 1:  A     selected    2008-05-03  2009-03-02     3 303 days         785.1
+#&gt; 2:  B     selected    2008-01-19  2008-04-07     3  79 days         785.1
+#&gt; 3:  C  nonselected          &lt;NA&gt;        &lt;NA&gt;    NA  NA days          &lt;NA&gt;
+#&gt;    MostCommonICDCount
+#&gt; 1:                  2
+#&gt; 2:                  2
+#&gt; 3:                 NA</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

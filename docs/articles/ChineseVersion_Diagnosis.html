@@ -114,7 +114,7 @@ icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 </div>
 <div id="icd-cm-code-" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-cm-code-" class="anchor"></a>ICD-CM code 統一格式</h3>
+<a href="#icd-cm-code-" class="anchor"></a>ICD-CM code 格式轉換</h3>
 <p><strong>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
 <p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如<strong>表一</strong>，將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
 <p>雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式</p>
@@ -186,6 +186,15 @@ head(short)
 <p>123.45 (1)</p>
 <p>ICD版本錯誤: 共四種ICD (括號內為該ICD出現次數)</p>
 <p>c(“A01.05 (1)”, “E03.0 (1)”, “A0105 (1)”, “42761 (1)”)</p>
+<p>若想要看到全部的錯誤，可選擇list: Error，將顯示錯誤的ICD編碼、出現次數、在檔案中編碼被判斷為何種版本、錯誤的類別及建議該如何修正</p>
+<pre><code>IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$Error
+
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version </code></pre>
 </div>
 <div id="ii--icd-cm-code-" class="section level2">
 <h2 class="hasAnchor">

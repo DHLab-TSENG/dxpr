@@ -130,32 +130,33 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     wrongVersionMsg_S <-NA
     wrongVersion_S <- NA
   }
+
   if(!is.null(nrow(wrongFormat_D))){
     allWrongFormat <- wrongFormat_D
-    allWrongFormatMsg <- wrongFormatMsg_D[,WrongType:="Wrong format"]
+    allWrongFormatMsg <- wrongFormatMsg_D[,WrongType:="Wrong format"][order(count,decreasing = T),]
     if(!is.null(nrow(wrongFormat_S))){
       allWrongFormat <- rbind(allWrongFormat,wrongFormat_S)
       wrongFormatMsg_S <- wrongFormatMsg_S[,WrongType:="Wrong format"]
-      allWrongFormatMsg<- rbind(allWrongFormatMsg,wrongFormatMsg_S)
+      allWrongFormatMsg<- rbind(allWrongFormatMsg,wrongFormatMsg_S)[order(count,decreasing = T),]
     }
   }else if(!is.null(nrow(wrongFormat_S))){
     allWrongFormat <- wrongFormat_S
-    allWrongFormatMsg<- wrongFormatMsg_S[,WrongType:="Wrong format"]
+    allWrongFormatMsg<- wrongFormatMsg_S[,WrongType:="Wrong format"][order(count,decreasing = T),]
   }else{
     allWrongFormat <- NA
     allWrongFormatMsg <- NA
   }
   if(!is.null(nrow(wrongVersion_D))){
     allWrongVersion <- wrongVersion_D
-    allWrongVersionMsg <- wrongVersionMsg_D[,WrongType:="Wrong version"]
+    allWrongVersionMsg <- wrongVersionMsg_D[,WrongType:="Wrong version"][order(count,decreasing = T),]
     if(!is.null(nrow(wrongVersion_S))){
       allWrongVersion <- rbind(allWrongVersion, wrongVersion_S)
       wrongVersionMsg_S <- wrongVersionMsg_S[,WrongType:="Wrong version"]
-      allWrongVersionMsg<- rbind(allWrongVersionMsg, wrongVersionMsg_S)
+      allWrongVersionMsg<- rbind(allWrongVersionMsg, wrongVersionMsg_S)[order(count,decreasing = T),]
     }
   }else if(!is.null(nrow(wrongVersion_S))){
     allWrongVersion <- wrongVersion_S
-    allWrongVersionMsg<- wrongVersionMsg_S[,WrongType:="Wrong version"]
+    allWrongVersionMsg<- wrongVersionMsg_S[,WrongType:="Wrong version"][order(count,decreasing = T),]
   }else{
     allWrongVersion <- NA
     allWrongVersionMsg <- NA
@@ -175,10 +176,17 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     allWrongICDMsg <- NA
   }
   if(!anyNA(wrongFormatMsg_S) | !anyNA(wrongFormatMsg_D)){
-    ICD9wrongFormat <- allWrongICDMsg[grepl("format",allWrongICDMsg$WrongType) & grepl("9",allWrongICDMsg$IcdVersionInFile),]
-    all_noICD9wrongFormat <- allWrongICDMsg[!ICD9wrongFormat,on = c("ICD","IcdVersionInFile")][,Suggestion :=""]
-    ICD9wrongFormatMsg <- ICD9wrongFormat[,Suggestion :=paste0(ICD9wrongFormat[,ICD],"9")]
-    allWrongICDMsg <- rbind(all_noICD9wrongFormat,ICD9wrongFormatMsg)[order(count,decreasing = TRUE)]
+    ICD9wrongFormatMsg <- allWrongICDMsg[grepl("format",allWrongICDMsg$WrongType) & grepl("9",allWrongICDMsg$IcdVersionInFile),]
+    ICD9wrongFormatMsg <- ICD9wrongFormatMsg[,Suggestion :=paste0(ICD9wrongFormatMsg[,ICD],"9")]
+
+    ICD9wrongFormatSuggested <- rbind(merge(ICD9wrongFormatMsg[grepl("[.]",ICD9wrongFormatMsg$Suggestion),],
+                                            ICD9DxwithTwoFormat,by.x = "Suggestion",by.y = "Decimal",nomatch = T)[,-"Short"],
+                                      merge(ICD9wrongFormatMsg[!grepl("[.]",ICD9wrongFormatMsg$Suggestion),],
+                                            ICD9DxwithTwoFormat,by.x = "Suggestion",by.y = "Short",nomatch = T)[,-"Decimal"])
+
+    noSuggestedWrongFormat <- allWrongICDMsg[!ICD9wrongFormatSuggested,on = c("ICD","IcdVersionInFile")][,Suggestion :=""]
+
+    allWrongICDMsg <- rbind(noSuggestedWrongFormat,ICD9wrongFormatSuggested)[order(count,decreasing = TRUE)]
   }
   DtoS <- rbind(icd9D[!is.na(Short),-"ICD"], icd10D[!is.na(Short),-"ICD"])
   setnames(DtoS,"Short","ICD")

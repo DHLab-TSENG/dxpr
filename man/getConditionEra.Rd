@@ -19,13 +19,14 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{gapDate}{Length of condition era, default is 30 days}
+\item{gapDate}{Length of condition era,By default it is set to 30 days \code{"30"}.}
 
-\item{conditionSelect}{Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`, default is CCS}
+\item{conditionSelect}{Four Stratified method can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}),
+grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
 
-\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is True}
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes. By default it is set to \code{True}.}
 
-\item{CustomGroupingTable}{Table is for groupedICDMethod:`grepICD` and `customGroup`}
+\item{CustomGroupingTable}{Table is for groupedICDMethod}
 }
 \description{
 A Condition Era is defined as a span of time when the member is assumed to have a given condition.

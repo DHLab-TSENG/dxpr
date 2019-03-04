@@ -50,7 +50,7 @@ icd10_Short <- ICD10DxwithTwoFormat$Short[1:10]
 icd10_Decimal <- ICD10DxwithTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-### ICD-CM code 統一格式
+### ICD-CM code 格式轉換
 
 **ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short <-> Decimal**
 

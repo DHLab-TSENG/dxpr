@@ -149,7 +149,7 @@
     </tr>
     <tr>
       <th>isCCSCategoryDescription</th>
-      <td><p>Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10, default is True</p></td>
+      <td><p>Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to <code>True</code>.</p></td>
     </tr>
     </table>
     
@@ -234,6 +234,14 @@
 #&gt; 20:    2014-10-01  2014-10-01     1    0 days
 #&gt; 21:    2015-10-01  2015-10-01     1    0 days
 #&gt;     firstCaseDate endCaseDate count    period
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

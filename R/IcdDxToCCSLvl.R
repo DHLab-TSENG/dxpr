@@ -38,7 +38,9 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
   DxDataFile[,Number:=1:nrow(DxDataFile)]
-  DxDataFile$Short <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)$ICD
+
+  Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
+  DxDataFile[,Short:= Conversion$ICD]
 
   if(CCSLvlLabel == T){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")
@@ -61,5 +63,6 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
                                  by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDf = IcdToCCSLvl,
-              groupedData_Long = IcdToCCSLvlLong))
+              groupedData_Long = IcdToCCSLvlLong,
+              Error = Conversion$Error))
 }

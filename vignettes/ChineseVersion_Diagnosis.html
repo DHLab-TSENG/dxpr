@@ -97,7 +97,7 @@ icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
 </div>
 <div id="icd-cm-code-" class="section level3">
-<h3>ICD-CM code 統一格式</h3>
+<h3>ICD-CM code 格式轉換</h3>
 <p><strong>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
 <p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如<strong>表一</strong>，將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
 <p>雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式</p>

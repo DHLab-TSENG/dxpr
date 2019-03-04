@@ -36,7 +36,8 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
   DxDataFile[,Number:=1:nrow(DxDataFile)]
-  DxDataFile[,Short:=IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)$ICD]
+  Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
+  DxDataFile[,Short:= Conversion$ICD]
 
   if (isCCSCategoryDescription == T) {
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
@@ -53,5 +54,6 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
                            by = c("ID",ccs_col)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDf = IcdToCCS,
-              groupedData_Long = IcdToCCSLong))
+              groupedData_Long = IcdToCCSLong,
+              Error = Conversion$Error))
 }

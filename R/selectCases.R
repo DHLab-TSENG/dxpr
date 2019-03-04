@@ -28,7 +28,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(sampleDxFile)
 #' selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
 #'
-selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, INRofDayRange = c(30, 365),selectedCaseType = "selected"){
+selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, INRofDayRange = c(30, 365), selectedCaseType = "selected"){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
@@ -38,17 +38,19 @@ selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName,
 
   Case <- DxDataFile[grepl(grepICD, DxDataFile$ICD),]
   Control <- DxDataFile[!Case, on = "ID"][,selectedCase := nonSelectedCaseType][,-c("ICD","Date")]
-  Count <- Case[,list(firstCaseDate = min(Date),
-                      endCaseDate = max(Date),
-                      Count = .N),
-                by = ID][, period := (endCaseDate - firstCaseDate),][,InTimeINR := period >= INRofDayRange[1] & period < INRofDayRange[2],][Count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
 
-  MostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)]
+  Count <- Case[,list(firstCaseDate = min(Date),endCaseDate = max(Date),Count = .N),
+                by = ID][, period := (endCaseDate - firstCaseDate),]
 
-  CaseCount <- merge(Count,MostICDCount,"ID")[,selectedCase := selectedCaseType]
-  setnames(CaseCount,"ICD","MostCommonICD")
+  CaseCount <- Count[,InTimeINR := period >= INRofDayRange[1] & period < INRofDayRange[2],][Count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
+  ControlCount <- Count[!CaseCount, on = "ID"][,-"InTimeINR"]
 
-  allData <- merge(CaseCount,Control,by = c("ID","selectedCase"),all=T)[!duplicated(ID),][order(MostCommonICDCount,decreasing = T),]
+  CaseMostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
+  selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[,selectedCase := selectedCaseType]
+  setnames(selectedCase,"ICD","MostCommonICD")
+  nonSelectedCase <- merge(Control,ControlCount,"ID",all = T)[,selectedCase := nonSelectedCaseType][,list(ID,selectedCase)]
+
+  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all=T)[!duplicated(ID),][order(MostCommonICDCount,decreasing = T),]
 
   allData
 }

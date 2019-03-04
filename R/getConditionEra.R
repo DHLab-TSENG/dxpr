@@ -15,10 +15,11 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
-#' @param gapDate Length of condition era, default is 30 days
-#' @param conditionSelect Four Stratified method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`, default is CCS
-#' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is True
-#' @param CustomGroupingTable Table is for groupedICDMethod:`grepICD` and `customGroup`
+#' @param gapDate Length of condition era,By default it is set to 30 days \code{"30"}.
+#' @param conditionSelect  Four Stratified method can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}),
+#'  grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
+#' @param isDescription  CCS/Phecode categories or description for ICD-CM codes. By default it is set to \code{True}.
+#' @param CustomGroupingTable Table is for groupedICDMethod
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -71,7 +72,7 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
 
   conditionEra <- GroupedData[nchar(eval(parse(text = paste(conditionSelect)))) >0  & !is.na(eval(parse(text = paste(conditionSelect))))][order(ID,eval(parse(text = paste(conditionSelect))),Date)][,NextDate := c(Date[-1],NA),by = c("ID",conditionSelect)][,diffDay := NextDate-Date]
   conditionEra$Gap <- c(NA,conditionEra$diffDay[1:(nrow(conditionEra)-1)])
-  conditionEra <- conditionEra[,episode := Gap >gapDate][is.na(episode),episode :=TRUE][,list(episodecount = cumsum(episode),
+  conditionEra <- conditionEra[,episode := Gap > gapDate][is.na(episode),episode :=TRUE][,list(episodecount = cumsum(episode),
                                                                                               firstCaseDate = min(Date),
                                                                                               endCaseDate = max(Date),
                                                                                               count = .N),by = c("ID",conditionSelect)]

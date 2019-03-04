@@ -73,8 +73,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="i.-introduction" class="section level1">
 <h1>I. Introduction</h1>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
-<div id="generate-icd-9-cm-and-icd-10-cm-code-decimal-format-for-conversion-function" class="section level3">
-<h3>Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function</h3>
+<div id="generate-icd-cm-code-decimal-format-for-conversion-function" class="section level3">
+<h3>Generate ICD-CM code Decimal Format for conversion function</h3>
 <p>conversion function : <code>IcdDxDecimaltoShort and IcdDxShortToDecimal</code></p>
 <p>ICD-9</p>
 <pre><code>icd9 &lt;- ccsDxICD9$ICD
@@ -93,8 +93,8 @@ icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
 icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
 # c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
 </div>
-<div id="convert-icd-9-cm-and-icd-10-cm-code-format-short---decimal" class="section level3">
-<h3>Convert ICD-9-CM and ICD-10-CM code Format: Short &lt;-&gt; Decimal</h3>
+<div id="convert-icd-cm-code-format" class="section level3">
+<h3>Convert ICD-CM code Format</h3>
 <p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 <p>Convert ICD-CM code Short to Decimal.</p>
 <pre><code># ICD-9
@@ -113,8 +113,8 @@ IcdDxDecimalToShort(icd9_Decimal)$Short
 IcdDxDecimalToShort(icd10_Decimal)$Short
 # c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
 </div>
-<div id="ii.-grouping-icd-cm-codes-by" class="section level2">
-<h2>II. Grouping ICD-CM codes by …</h2>
+<div id="ii.-grouping-icd-cm-codes" class="section level2">
+<h2>II. Grouping ICD-CM codes</h2>
 <p>Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
 <div id="a.-clinical-classifications-software-ccs" class="section level3">
 <h3>A. Clinical Classifications Software (CCS)</h3>

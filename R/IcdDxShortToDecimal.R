@@ -15,7 +15,7 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' sampleDxFile$Decimal <- IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")$ICD
+#' IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
 #'
 IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingDate){
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))

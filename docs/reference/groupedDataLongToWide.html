@@ -123,7 +123,8 @@
 
     <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
   <span class='no'>icd10usingDate</span>, <span class='no'>groupedICDMethod</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='no'>T</span>,
-  <span class='no'>CustomGroupingTable</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>)</pre>
+  <span class='no'>CustomGroupingTable</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>, <span class='kw'>selectedCases</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='no'>selectedCaseFile</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,19 +151,28 @@
     </tr>
     <tr>
       <th>groupedICDMethod</th>
-      <td><p>Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`</p></td>
+      <td><p>Four grouping method can be chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), phecode (<code>'phecode'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>),
+grepICD or customICD (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>CCS/Phecode categories or description for ICD-CM codes, default is True</p></td>
+      <td><p>CCS/Phecode categories or description for ICD-CM codes, default is <code>'TRUE'</code>.</p></td>
     </tr>
     <tr>
       <th>CustomGroupingTable</th>
-      <td><p>Table is for groupedICDMethod:`grepICD` and `customGroup`</p></td>
+      <td><p>Table is for groupedICDMethod</p></td>
     </tr>
     <tr>
       <th>numericOrBinary</th>
-      <td><p>Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)</p></td>
+      <td><p>Members have same diagnostic categories, type `N` or `B`, default is Binary <code>'B'</code>.</p></td>
+    </tr>
+    <tr>
+      <th>selectedCases</th>
+      <td><p>Select cases based on ICD code and the number of ICD codes, default is <code>'FALSE'</code>.</p></td>
+    </tr>
+    <tr>
+      <th>selectedCaseFile</th>
+      <td><p>Table is for selectedCases.</p></td>
     </tr>
     </table>
     
@@ -175,65 +185,18 @@
     <pre class="examples"><div class='input'><span class='no'>groupingTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Cardiac dysrhythmias"</span>,<span class='fl'>6</span>),
                             <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"427.1"</span>,<span class='st'>"427.2"</span>,<span class='st'>"427.31"</span>,<span class='st'>"427.61"</span>,<span class='st'>"427.81"</span>,<span class='st'>"427.89"</span>),
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ccslvl2</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;    ID Abdominal hernia Acute bronchitis Cardiac dysrhythmias
-#&gt; 1:  A                4                1                   12
-#&gt; 2:  B                2                1                   13
-#&gt; 3:  C                2                0                   19
-#&gt;    Chronic kidney disease External cause codes:  Unspecified
-#&gt; 1:                     33                                  1
-#&gt; 2:                     34                                  0
-#&gt; 3:                     33                                  0
-#&gt;    Heart valve disorders
-#&gt; 1:                     0
-#&gt; 2:                     0
-#&gt; 3:                     1
-#&gt;    Other hereditary and degenerative nervous system conditions
-#&gt; 1:                                                           0
-#&gt; 2:                                                           1
-#&gt; 3:                                                           0
-#&gt;    Other liver diseases Other nutritional; endocrine; and metabolic disorders
-#&gt; 1:                    0                                                     0
-#&gt; 2:                    0                                                     0
-#&gt; 3:                    1                                                     1
-#&gt;    Residual codes; unclassified Shock Thyroid disorders
-#&gt; 1:                            1     1                 0
-#&gt; 2:                            0     1                 0
-#&gt; 3:                            0     2                 1</div><div class='input'><span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>phecode</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;    ID Abnormal heart sounds Acute bronchitis and bronchiolitis
-#&gt; 1:  A                     0                                  1
-#&gt; 2:  B                     0                                  1
-#&gt; 3:  C                     1                                  0
-#&gt;    Atrial fibrillation Chronic Kidney Disease, Stage III
-#&gt; 1:                   1                                 2
-#&gt; 2:                   5                                 1
-#&gt; 3:                   5                                 1
-#&gt;    Chronic kidney disease, Stage I or II Chronic renal failure [CKD]
-#&gt; 1:                                     1                           6
-#&gt; 2:                                     0                           2
-#&gt; 3:                                     0                           4
-#&gt;    Diaphragmatic hernia End stage renal disease Kidney replaced by transpant
-#&gt; 1:                    2                       1                            0
-#&gt; 2:                    0                       3                            0
-#&gt; 3:                    1                       2                            1
-#&gt;    Other specified cardiac dysrhythmias Palpitations
-#&gt; 1:                                    0            2
-#&gt; 2:                                    0            2
-#&gt; 3:                                    1            0
-#&gt;    Paroxysmal tachycardia, unspecified Paroxysmal ventricular tachycardia
-#&gt; 1:                                   0                                  2
-#&gt; 2:                                   0                                  0
-#&gt; 3:                                   1                                  1
-#&gt;    Renal dialysis Septic shock Sinoatrial node dysfunction (Bradycardia)
-#&gt; 1:             19            1                                         0
-#&gt; 2:             21            1                                         0
-#&gt; 3:             20            2                                         1
-#&gt;    Supraventricular premature beats Tachycardia NOS Ventral hernia
-#&gt; 1:                                1               0              1
-#&gt; 2:                                0               0              1
-#&gt; 3:                                0               2              0</div><div class='input'><span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>customIcdGroup</span>,
-                      <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>,<span class='no'>N</span>)</div><div class='output co'>#&gt;    ID Cardiac dysrhythmias
+<span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                      <span class='no'>customIcdGroup</span>,
+                      <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt;    ID Cardiac dysrhythmias
 #&gt; 1:  A                    4
 #&gt; 2:  B                    5
-#&gt; 3:  C                    9</div><div class='input'>
+#&gt; 3:  C                    9</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)
+<span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                      <span class='no'>ahrq</span>, <span class='kw'>selectedCases</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                      <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span>  <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;    ID Hypothyroid Liver NeuroOther Obesity Renal selectedCase
+#&gt; 1:  A           0     0          0       0    31     selected
+#&gt; 2:  B           0     0          1       0    33     selected
+#&gt; 3:  C           1     1          0       1    31  nonselected</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -6,7 +6,8 @@
 \usage{
 groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, groupedICDMethod, isDescription = T,
-  CustomGroupingTable, numericOrBinary = N)
+  CustomGroupingTable, numericOrBinary = N, selectedCases = F,
+  selectedCaseFile)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -19,13 +20,18 @@ groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{groupedICDMethod}{Four grouping method can be chosen: CCS (or CCS levels), phecode (only for icd-9), comorbidities, grepICD or customICD , type `ccs`,`ccslvl1`,`ccslvl2`,`ccslvl3`,`ccslvl4`, `phecode`, `ahrq`, `charlson`, `elix` `customGrepIcdGroup`, or `customIcdGroup`}
+\item{groupedICDMethod}{Four grouping method can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}),
+grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables.}
 
-\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is True}
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
 
-\item{CustomGroupingTable}{Table is for groupedICDMethod:`grepICD` and `customGroup`}
+\item{CustomGroupingTable}{Table is for groupedICDMethod}
 
-\item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is `B` (Binary)}
+\item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.}
+
+\item{selectedCases}{Select cases based on ICD code and the number of ICD codes, default is \code{'FALSE'}.}
+
+\item{selectedCaseFile}{Table is for selectedCases.}
 }
 \description{
 convert long format to wide format
@@ -37,9 +43,12 @@ return numeric or binary wide format
 groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
                             stringsAsFactors = FALSE)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccslvl2)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", phecode)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", customIcdGroup,
-                      CustomGroupingTable = groupingTable,N)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                      customIcdGroup,
+                      CustomGroupingTable = groupingTable)
+selectedCaseFile <- selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                      ahrq, selectedCases = TRUE,
+                      selectedCaseFile =  selectedCaseFile)
 
 }

@@ -122,7 +122,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>IcdDxToCCSLvl</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='kw'>CCSLevel</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>CCSLvlLabel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='no'>icd10usingDate</span>, <span class='kw'>CCSLevel</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>CCSLvlLabel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,11 +149,11 @@
     </tr>
     <tr>
       <th>CCSLevel</th>
-      <td><p>Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels</p></td>
+      <td><p>By default it is set to <code>1</code>. Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels</p></td>
     </tr>
     <tr>
       <th>CCSLvlLabel</th>
-      <td><p>Clinical Classifications Software (CCS) multiple level categories/description for icd9/10, default is True</p></td>
+      <td><p>Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to <code>True</code>.</p></td>
     </tr>
     </table>
     
@@ -234,6 +234,14 @@
 #&gt; 18:  2019-10-16     1    0 days
 #&gt; 19:  2014-10-01     1    0 days
 #&gt; 20:  2015-10-01     1    0 days
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

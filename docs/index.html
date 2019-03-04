@@ -82,14 +82,13 @@
 <h2 class="hasAnchor">
 <a href="#emr" class="anchor"></a>emr</h2>
 </div>
-<div id="introduction" class="section level1">
+<div id="i--introduction" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1></div>
+<a href="#i--introduction" class="anchor"></a>I. Introduction</h1></div>
 <p>A tool of <code>Electric Medical Record</code> for grouping with ICD-9 and ICD-10 codes by <code>ccs, comorbidities and phecodes</code>, and calculating <code>condition era</code>. There are some information about patients’ diagnoses data: members’ ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc… This tool can be used to group the ICD’s multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!).</p>
-</div>
-<div id="get-started" class="section level1">
-<h1 class="hasAnchor">
-<a href="#get-started" class="anchor"></a>Get started</h1>
+<div id="get-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#get-started" class="anchor"></a>Get started</h2>
 <ul>
 <li>English introduction: <a href="https://dhlab-cgu.github.io/emr/articles/emr.html" class="uri">https://dhlab-cgu.github.io/emr/articles/emr.html</a>
 </li>
@@ -97,9 +96,9 @@
 </li>
 </ul>
 </div>
-<div id="feature" class="section level1">
-<h1 class="hasAnchor">
-<a href="#feature" class="anchor"></a>Feature</h1>
+<div id="feature" class="section level2">
+<h2 class="hasAnchor">
+<a href="#feature" class="anchor"></a>Feature</h2>
 <ul>
 <li>convert ICD code’s format: Short &lt;-&gt; Decimal</li>
 <li>Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses</li>
@@ -110,89 +109,90 @@
 <li>Get the condition era</li>
 </ul>
 </div>
-<div id="install" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install" class="anchor"></a>Install</h1>
-<pre class="{r}"><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("DHLab-CGU/emr")</a></code></pre>
-</div>
-<div id="generate-icd-code-decimal-format-for-conversion-function" class="section level1">
-<h1 class="hasAnchor">
-<a href="#generate-icd-code-decimal-format-for-conversion-function" class="anchor"></a>Generate ICD code Decimal Format for conversion function</h1>
-<p>ICD codes have two forms: decimal<code>E950.7</code> and short<code>E9507</code> format, first at all, unifing the ICD codes format. There are two function to generate ICD codes’ decimal format.</p>
-<div id="convert-icd-9-cm-and-icd-10-cm-code-format-short---decimal" class="section level2">
+<div id="install" class="section level2">
 <h2 class="hasAnchor">
-<a href="#convert-icd-9-cm-and-icd-10-cm-code-format-short---decimal" class="anchor"></a>Convert ICD-9-CM and ICD-10-CM code Format: Short &lt;-&gt; Decimal</h2>
+<a href="#install" class="anchor"></a>Install</h2>
+<pre class="{r}"><code><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github("DHLab-CGU/emr")</a></code></pre>
+<div id="generate-icd-cm-code-decimal-format-for-conversion-function" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generate-icd-cm-code-decimal-format-for-conversion-function" class="anchor"></a>Generate ICD-CM code Decimal Format for conversion function</h3>
+<p>ICD codes have two forms: decimal<code>E950.7</code> and short<code>E9507</code> format, first at all, unifing the ICD codes format. There are two function to generate ICD codes’ decimal format.</p>
+</div>
+<div id="convert-icd-cm-code-format" class="section level3">
+<h3 class="hasAnchor">
+<a href="#convert-icd-cm-code-format" class="anchor"></a>Convert ICD-CM code Format</h3>
 <p>There are two functions to let user convert ICD code format for the following function for grouping methods. Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 </div>
 </div>
-<div id="grouping-icd-codes-by" class="section level1">
-<h1 class="hasAnchor">
-<a href="#grouping-icd-codes-by" class="anchor"></a>Grouping ICD codes by …</h1>
-<p>classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
-</div>
-<div id="clinical-classifications-software-ccs" class="section level1">
-<h1 class="hasAnchor">
-<a href="#clinical-classifications-software-ccs" class="anchor"></a>Clinical Classifications Software (CCS)</h1>
-<p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.</p>
-<div id="single-level-category" class="section level2">
+<div id="ii--grouping-icd-cm-codes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#single-level-category" class="anchor"></a>single-level category</h2>
+<a href="#ii--grouping-icd-cm-codes" class="anchor"></a>II. Grouping ICD-CM codes</h2>
+<p>classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
+<div id="a--clinical-classifications-software-ccs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a--clinical-classifications-software-ccs" class="anchor"></a>A. Clinical Classifications Software (CCS)</h3>
+<p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.</p>
+<div id="a--ccs-single-level-category" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a--ccs-single-level-category" class="anchor"></a>a. CCS single-level category</h4>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
 </div>
-<div id="multi-level" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multi-level" class="anchor"></a>multi-level</h2>
+<div id="b--ccs-multi-level" class="section level4">
+<h4 class="hasAnchor">
+<a href="#b--ccs-multi-level" class="anchor"></a>b. CCS multi-level</h4>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
 </div>
 </div>
-<div id="phecode" class="section level1">
-<h1 class="hasAnchor">
-<a href="#phecode" class="anchor"></a>Phecode</h1>
+<div id="b--phecode" class="section level3">
+<h3 class="hasAnchor">
+<a href="#b--phecode" class="anchor"></a>B. Phecode</h3>
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 </div>
-<div id="creating-a-grouping-standards" class="section level1">
-<h1 class="hasAnchor">
-<a href="#creating-a-grouping-standards" class="anchor"></a>Creating a grouping standards</h1>
+<div id="c--creating-a-grouping-standards" class="section level3">
+<h3 class="hasAnchor">
+<a href="#c--creating-a-grouping-standards" class="anchor"></a>C. Creating a grouping standards</h3>
 <p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame icdFile whether is matched these group: Hypotension and Hypertension or not.</p>
 </div>
-<div id="comorbidities" class="section level1">
-<h1 class="hasAnchor">
-<a href="#comorbidities" class="anchor"></a>Comorbidities</h1>
+<div id="d--comorbidities" class="section level3">
+<h3 class="hasAnchor">
+<a href="#d--comorbidities" class="anchor"></a>D. Comorbidities</h3>
 <p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
-<div id="ahrq-comorbidity-classification" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ahrq-comorbidity-classification" class="anchor"></a>AHRQ comorbidity classification</h2>
-<p>AHRQ comorbidity measure dataframe is based on <code>icd package</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.</p>
+<div id="a--ahrq-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a--ahrq-comorbidity-classification" class="anchor"></a>a. AHRQ comorbidity classification</h4>
+<p>AHRQ comorbidity measure dataframe is based on <code>icd9_elix_2015</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.</p>
 <p>The AHRQ comorbidity measure map format is dataframe;it is convert <code>icd9_map_ahrq</code> list into <code>icd9_ahrq</code> dataframe.The functions apply those mappings to join with user’s ICD data.</p>
 </div>
-<div id="charlson-comorbidity-classification" class="section level2">
-<h2 class="hasAnchor">
-<a href="#charlson-comorbidity-classification" class="anchor"></a>Charlson comorbidity classification</h2>
+<div id="b--charlson-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#b--charlson-comorbidity-classification" class="anchor"></a>b. Charlson comorbidity classification</h4>
 <p>Charlson comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_charlson, icd10_map_charlson</p>
 </div>
-<div id="elixhauser-comorbidity-classification" class="section level2">
-<h2 class="hasAnchor">
-<a href="#elixhauser-comorbidity-classification" class="anchor"></a>Elixhauser comorbidity classification</h2>
-<p>Elixhauser comorbidity measure dataframe icd9_elix_2015, icd10_elix_2019.</p>
+<div id="c--elixhauser-comorbidity-classification" class="section level4">
+<h4 class="hasAnchor">
+<a href="#c--elixhauser-comorbidity-classification" class="anchor"></a>c. Elixhauser comorbidity classification</h4>
+<p>Elixhauser comorbidity measure data table icd9_elix_2015, icd10_elix_2019.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
 </div>
 </div>
-<div id="selection-cases" class="section level1">
-<h1 class="hasAnchor">
-<a href="#selection-cases" class="anchor"></a>Selection Cases</h1>
+</div>
+<div id="iii--selection-cases" class="section level2">
+<h2 class="hasAnchor">
+<a href="#iii--selection-cases" class="anchor"></a>III. Selection Cases</h2>
 <p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
 </div>
-<div id="condition-era" class="section level1">
-<h1 class="hasAnchor">
-<a href="#condition-era" class="anchor"></a>Condition Era</h1>
+<div id="iv--condition-era" class="section level2">
+<h2 class="hasAnchor">
+<a href="#iv--condition-era" class="anchor"></a>IV. Condition Era</h2>
 <p>A Condition Era is defined as a span of time when the member is assumed to have a given condition.</p>
 <p>Condition Eras are periods of Condition Occurrence. Combining individual Condition Occurrences into a single Condition Era based on ICD code in clinical diagnostic data. Condition Eras are built with a Persistence Window,deafault is 30 days, meaning, if no occurence of the same member id happens within 30 days of any one occurrence, it will be considered the end date of the last condition occurrence.</p>
 </div>
-<div id="report-a-bug-at" class="section level1">
-<h1 class="hasAnchor">
-<a href="#report-a-bug-at" class="anchor"></a>Report a bug at</h1>
+<div id="report-a-bug-at" class="section level2">
+<h2 class="hasAnchor">
+<a href="#report-a-bug-at" class="anchor"></a>Report a bug at</h2>
 <p>See the <code>GitHub issues page</code> (<a href="https://github.com/DHLab-CGU/emr/issues" class="uri">https://github.com/DHLab-CGU/emr/issues</a>) to see open issues and feature requests.</p>
+</div>
 </div>
 
   </div>

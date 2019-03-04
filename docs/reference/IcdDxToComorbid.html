@@ -149,7 +149,8 @@
     </tr>
     <tr>
       <th>comorbidMethod</th>
-      <td><p>Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity, type `ahrq`,`charlson`, or`elix`</p></td>
+      <td><p>Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>).</p></td>
     </tr>
     </table>
     
@@ -195,6 +196,14 @@
 #&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
 #&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
 #&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
 #&gt;       Short ID    ICD       Date Comorbidity
 #&gt;   1:   5533  C  553.3 2008-04-03        &lt;NA&gt;
@@ -221,6 +230,14 @@
 #&gt;  8:  B        METS    2021-06-24  2021-06-24     1    0 days
 #&gt;  9:  C       NEURO    2019-10-16  2019-10-16     1    0 days
 #&gt; 10:  C    HTNWOCHF    2015-10-01  2015-10-01     1    0 days
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
 #&gt;       Short ID    ICD       Date Comorbidity
 #&gt;   1:   5533  C  553.3 2008-04-03        &lt;NA&gt;
@@ -244,6 +261,14 @@
 #&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
 #&gt; 6:  C     Obesity    2019-10-16  2019-10-16     1    0 days
 #&gt; 7:  C Hypothyroid    2015-10-01  2015-10-01     1    0 days
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

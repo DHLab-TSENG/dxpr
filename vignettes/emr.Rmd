@@ -24,7 +24,7 @@ DxDataFile <- data.frame(ID = c("A", "A", "B", "B"),
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
-### Generate ICD-9-CM and ICD-10-CM code Decimal Format for conversion function 
+### Generate ICD-CM code Decimal Format for conversion function 
 conversion function : `IcdDxDecimaltoShort and IcdDxShortToDecimal`
 
 ICD-9
@@ -47,7 +47,7 @@ icd10_Short <- ICD10DxwithTwoFormat$Short[1:10]
 icd10_Decimal <- ICD10DxwithTwoFormat$Decimal[1:10]
 # c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")
 ```
-### Convert ICD-9-CM and ICD-10-CM code Format: Short <-> Decimal
+### Convert ICD-CM code Format
 According to the using format of function, these conversion function can be used to convert ICD codes between types.
 
 Convert ICD-CM code Short to Decimal.
@@ -70,7 +70,7 @@ IcdDxDecimalToShort(icd9_Decimal)$Short
 IcdDxDecimalToShort(icd10_Decimal)$Short
 # c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
 ```
-## II. Grouping ICD-CM codes by ...
+## II. Grouping ICD-CM codes
 Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
 
 ### A. Clinical Classifications Software (CCS)

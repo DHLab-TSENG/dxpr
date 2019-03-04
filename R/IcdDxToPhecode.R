@@ -30,7 +30,8 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
   DxDataFile[,Number:=1:nrow(DxDataFile)]
-  DxDataFile$ICDD <- IcdDxShortToDecimal(DxDataFile,ICD,Date,icd10usingDate)$ICD
+  Conversion <- IcdDxShortToDecimal(DxDataFile,ICD,Date,icd10usingDate)
+  DxDataFile[,ICDD:= Conversion$ICD]
 
   if(isPhecodeDescription == T){
     phecodeCol <- "PheCodeDescription"
@@ -47,5 +48,6 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
                                    by = c("ID",phecodeCol)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDf = IcdToPhecode,
-              groupedData_Long = IcdToPhecodeLong))
+              groupedData_Long = IcdToPhecodeLong,
+              Error = Conversion$Error))
 }

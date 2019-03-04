@@ -149,7 +149,7 @@
     </tr>
     <tr>
       <th>isPhecodeDescription</th>
-      <td><p>Phecode/ description for icd9, default is True</p></td>
+      <td><p>Phecode/ description for icd9. By default it is set to <code>True</code>.</p></td>
     </tr>
     </table>
     
@@ -223,6 +223,14 @@
 #&gt; 35:  A  994.21    2008-05-03  2008-05-03     1   0 days
 #&gt; 36:  B  994.21    2008-01-19  2008-01-19     1   0 days
 #&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt; 
+#&gt; $Error
+#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
+#&gt; 1: 123.45     1           ICD 10  Wrong format           
+#&gt; 2: A01.05     1            ICD 9 Wrong version           
+#&gt; 3:  E03.0     1            ICD 9 Wrong version           
+#&gt; 4:  A0105     1            ICD 9 Wrong version           
+#&gt; 5:  42761     1           ICD 10 Wrong version           
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
