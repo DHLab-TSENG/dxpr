@@ -159,37 +159,31 @@
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxShortToDecimal</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
-#&gt;   [1] "553.3"  "553.3"  "553.20" "553.20" "553.3"  "K44.9"  "K44.9"  "K44.9" 
-#&gt;   [9] "466.0"  "466.0"  "427.61" "427.31" "427.89" "427.31" "427.31" "427.31"
-#&gt;  [17] "427.31" "785.0"  "785.1"  "427.31" "427.31" "427.31" "427.31" "427.81"
-#&gt;  [25] "427.2"  "427.31" "785.1"  "427.1"  "427.1"  "427.1"  "427.31" "I48.0" 
-#&gt;  [33] "I48.91" "I47.2"  "I48.91" "I48.91" "I49.5"  "I48.91" "I48.91" "I48.2" 
-#&gt;  [41] "I48.2"  "I48.91" "I48.91" "I48.0"  "I48.91" "I48.91" "I48.91" "I48.91"
-#&gt;  [49] "I48.91" "I48.91" "R00.0"  "585.3"  "585.3"  "585.3"  "585.3"  "V45.11"
-#&gt;  [57] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt;  [65] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "585.6"  "585.6"  "585.6" 
-#&gt;  [73] "585.6"  "585.2"  "V42.0"  "585.9"  "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt;  [81] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt;  [89] "585.9"  "585.9"  "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt;  [97] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt; [105] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11"
-#&gt; [113] "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "V45.11" "585.6"  "V56.0" 
-#&gt; [121] "V45.11" "V56.0"  "V56.0"  "585.6"  "585.9"  "585.9"  "585.9"  "V45.11"
-#&gt; [129] "V45.11" "585.9"  "585.9"  "585.9"  "585.9"  "585.9"  "585.9"  "Z99.2" 
-#&gt; [137] "N18.3"  "N18.3"  "N18.9"  "Z99.2"  "N18.9"  "N18.6"  "N18.3"  "N18.3" 
-#&gt; [145] "Z99.2"  "N18.2"  "N18.2"  "N18.2"  "N18.3"  "N18.3"  "N18.2"  "785.52"
-#&gt; [153] "785.2"  "785.0"  "785.1"  "785.52" "785.52" "785.52" "785.1"  "K74.60"
-#&gt; [161] "Z72.0"  "G25.81" "Z68.32" "42761"  "123.45" "E03.0"  "E030"   "A01.05"
-#&gt; [169] "E03.0"  "A0105" 
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxShortToDecimal</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
+#&gt;         ICD
+#&gt;   1:  553.3
+#&gt;   2:  553.3
+#&gt;   3: 553.20
+#&gt;   4: 553.20
+#&gt;   5:  553.3
+#&gt;  ---       
+#&gt; 171:  75.52
+#&gt; 172: 785.52
+#&gt; 173:    001
+#&gt; 174:   7552
+#&gt; 175:  755.2
 #&gt; 
 #&gt; $Error
 #&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1: 123.45     1           ICD 10  Wrong format           
-#&gt; 2: A01.05     1            ICD 9 Wrong version           
-#&gt; 3:  E03.0     1            ICD 9 Wrong version           
-#&gt; 4:  A0105     1            ICD 9 Wrong version           
-#&gt; 5:  42761     1           ICD 10 Wrong version           
+#&gt; 1:  75.52     1            ICD 9  Wrong format           
+#&gt; 2: 123.45     1           ICD 10  Wrong format           
+#&gt; 3: A01.05     1            ICD 9 Wrong version           
+#&gt; 4:  E03.0     1            ICD 9 Wrong version           
+#&gt; 5:  A0105     1            ICD 9 Wrong version           
+#&gt; 6:  42761     1           ICD 10 Wrong version           
+#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
+#&gt; 8:    001     1            ICD 9  Wrong format       0019
+#&gt; 9:   7552     1            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

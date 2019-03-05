@@ -45,6 +45,7 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   names(DxDataFile) <- c("ID", "ICD", "Date")
 
   groupedICDMethod <- tolower(deparse(substitute(groupedICDMethod)))
+  numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
   if(grepl("ccs", groupedICDMethod)){
     groupedData <- IcdDxToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)
   }else if(grepl("ccslvl", groupedICDMethod)){
@@ -69,22 +70,22 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   wideDt <- dcast(longFormat, ID~eval(parse(text = paste(names(longFormat)[2]))), value.var = c("count"))
   wideDt[is.na(wideDt)] <- 0L
 
-  if(toupper(deparse(substitute(numericOrBinary))) == "B"){
+  if(numericOrBinary == "B"){
     wideDt_N <-as.data.frame(wideDt >= 1L)
     wideDt_N$ID <- wideDt$ID
-  }else if(toupper(deparse(substitute(numericOrBinary))) != "B" && toupper(deparse(substitute(numericOrBinary))) != "N"){
+  }else if(numericOrBinary != "B" && numericOrBinary != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
 
   if(selectedCases == T){
-    if(toupper(deparse(substitute(numericOrBinary))) == "B"){
+    if(numericOrBinary == "B"){
       wideDt_selected <- merge(wideDt_N, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
     }else{
       wideDt_selected <- merge(wideDt, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
     }
     return(wideDt_selected)
   }else{
-    if(toupper(deparse(substitute(numericOrBinary))) == "B"){
+    if(numericOrBinary == "B"){
       return(wideDt_N)
     }else{
       return(wideDt)

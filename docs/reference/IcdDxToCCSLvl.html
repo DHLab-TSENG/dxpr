@@ -177,19 +177,19 @@
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCSLvl</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 1 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>123.45 (1)</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
-#&gt;       Short ID    ICD       Date                           CCS_LVL_2_LABEL
-#&gt;   1:   5533  C  553.3 2008-04-03                          Abdominal hernia
-#&gt;   2:   5533  A  553.3 2008-05-01                          Abdominal hernia
-#&gt;   3:  55320  A 553.20 2009-02-23                          Abdominal hernia
-#&gt;   4:  55320  B 553.20 2007-08-29                          Abdominal hernia
-#&gt;   5:   5533  A  553.3 2008-06-27                          Abdominal hernia
-#&gt;  ---                                                                      
-#&gt; 166:  E03.0  B  E03.0 2014-10-01                                      &lt;NA&gt;
-#&gt; 167:   E030  A   E030 2014-10-01 Residual codes; unclassified; all E codes
-#&gt; 168: A01.05  B A01.05 2014-10-01                                      &lt;NA&gt;
-#&gt; 169:   E030  C   E030 2015-10-01                         Thyroid disorders
-#&gt; 170:  A0105  A  A0105 2014-10-01                                      &lt;NA&gt;
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCSLvl</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDf
+#&gt;      Short ID    ICD       Date                          CCS_LVL_2_LABEL
+#&gt;   1:  5533  C  553.3 2008-04-03                         Abdominal hernia
+#&gt;   2:  5533  A  553.3 2008-05-01                         Abdominal hernia
+#&gt;   3: 55320  A 553.20 2009-02-23                         Abdominal hernia
+#&gt;   4: 55320  B 553.20 2007-08-29                         Abdominal hernia
+#&gt;   5:  5533  A  553.3 2008-06-27                         Abdominal hernia
+#&gt;  ---                                                                    
+#&gt; 171: 75.52  D  75.52 2006-05-03                                     &lt;NA&gt;
+#&gt; 172: 78552  A 785.52 2006-05-03 Symptoms; signs;  ill-defined conditions
+#&gt; 173:   001  B    001 2006-05-03                                     &lt;NA&gt;
+#&gt; 174:  7552  D   7552 2006-05-03                                     &lt;NA&gt;
+#&gt; 175: 755.2  D  755.2 2006-05-03                                     &lt;NA&gt;
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate
@@ -205,7 +205,7 @@
 #&gt; 10:  C                        Diseases of the urinary system    2007-04-21
 #&gt; 11:  B                        Diseases of the urinary system    2007-05-28
 #&gt; 12:  C              Symptoms; signs;  ill-defined conditions    2008-03-30
-#&gt; 13:  A              Symptoms; signs;  ill-defined conditions    2008-05-03
+#&gt; 13:  A              Symptoms; signs;  ill-defined conditions    2006-05-03
 #&gt; 14:  B              Symptoms; signs;  ill-defined conditions    2008-01-19
 #&gt; 15:  C                                         Liver disease    2021-01-09
 #&gt; 16:  A        Residual codes; unclassified; all E codes  and    2020-04-29
@@ -226,7 +226,7 @@
 #&gt; 10:  2021-09-17    33 5263 days
 #&gt; 11:  2022-03-18    34 5408 days
 #&gt; 12:  2008-09-06     2  160 days
-#&gt; 13:  2008-05-03     1    0 days
+#&gt; 13:  2008-05-03     2  731 days
 #&gt; 14:  2008-01-19     1    0 days
 #&gt; 15:  2021-01-09     1    0 days
 #&gt; 16:  2020-04-29     1    0 days
@@ -237,11 +237,15 @@
 #&gt; 
 #&gt; $Error
 #&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1: 123.45     1           ICD 10  Wrong format           
-#&gt; 2: A01.05     1            ICD 9 Wrong version           
-#&gt; 3:  E03.0     1            ICD 9 Wrong version           
-#&gt; 4:  A0105     1            ICD 9 Wrong version           
-#&gt; 5:  42761     1           ICD 10 Wrong version           
+#&gt; 1:  75.52     1            ICD 9  Wrong format           
+#&gt; 2: 123.45     1           ICD 10  Wrong format           
+#&gt; 3: A01.05     1            ICD 9 Wrong version           
+#&gt; 4:  E03.0     1            ICD 9 Wrong version           
+#&gt; 5:  A0105     1            ICD 9 Wrong version           
+#&gt; 6:  42761     1           ICD 10 Wrong version           
+#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
+#&gt; 8:    001     1            ICD 9  Wrong format       0019
+#&gt; 9:   7552     1            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

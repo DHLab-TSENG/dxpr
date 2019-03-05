@@ -168,11 +168,19 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
     allWrongICDMsg <- NA
   }
   if(!anyNA(wrongFormatMsg_S) | !anyNA(wrongFormatMsg_D)){
-    ICD9wrongFormat <- allWrongICDMsg[grepl("format",allWrongICDMsg$WrongType) & grepl("9",allWrongICDMsg$IcdVersionInFile),]
-    all_noICD9wrongFormat <- allWrongICDMsg[!ICD9wrongFormat,on = c("ICD","IcdVersionInFile")][,Suggestion :=""]
-    ICD9wrongFormatMsg <- ICD9wrongFormat[,Suggestion :=paste0(ICD9wrongFormat[,ICD],"9")]
-    allWrongICDMsg <- rbind(all_noICD9wrongFormat,ICD9wrongFormatMsg)[order(count,decreasing = TRUE)]
+    ICD9wrongFormatMsg <- allWrongICDMsg[grepl("format",allWrongICDMsg$WrongType) & grepl("9",allWrongICDMsg$IcdVersionInFile),]
+    ICD9wrongFormatMsg <- ICD9wrongFormatMsg[,Suggestion :=paste0(ICD9wrongFormatMsg[,ICD],"9")]
+
+    ICD9wrongFormatSuggested <- rbind(merge(ICD9wrongFormatMsg[grepl("[.]",ICD9wrongFormatMsg$Suggestion),],
+                                            ICD9DxwithTwoFormat,by.x = "Suggestion",by.y = "Decimal",nomatch = T)[,-"Short"],
+                                      merge(ICD9wrongFormatMsg[!grepl("[.]",ICD9wrongFormatMsg$Suggestion),],
+                                            ICD9DxwithTwoFormat,by.x = "Suggestion",by.y = "Short",nomatch = T)[,-"Decimal"])
+
+    noSuggestedWrongFormat <- allWrongICDMsg[!ICD9wrongFormatSuggested,on = c("ICD","IcdVersionInFile")][,Suggestion :=""]
+
+    allWrongICDMsg <- rbind(noSuggestedWrongFormat,ICD9wrongFormatSuggested)[order(count,decreasing = TRUE)]
   }
+
   StoD <- rbind(icd9S[!is.na(Decimal),-"ICD"],icd10S[!is.na(Decimal),-"ICD"])
   setnames(StoD,"Decimal","ICD")
   DtoD <- rbind(icd9D[!is.na(Short),-"Short"], icd10D[!is.na(Short),-"Short"])
@@ -192,11 +200,10 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
     warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
     warning('"Wrong ICD format" means the ICD has wrong format', call. = F)
     warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
-    combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),ICD]
+    combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),"ICD"]
     return(list(ICD = combine_with_error,
                 Error = allWrongICDMsg))
   }else{
     return(list(ICD = allDecimalFormat[order(Number),ICD]))
   }
 }
-

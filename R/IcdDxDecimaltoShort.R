@@ -22,7 +22,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' sampleDxFile$Short <- IcdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")$ICD
+#' IcdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
 #'
 IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDate){
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
