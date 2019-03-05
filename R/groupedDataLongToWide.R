@@ -70,16 +70,24 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   wideDt[is.na(wideDt)] <- 0L
 
   if(toupper(deparse(substitute(numericOrBinary))) == "B"){
-    wideDt <-as.data.frame(wideDt >= 1L)
-    wideDt$ID <- wideDt$ID
+    wideDt_N <-as.data.frame(wideDt >= 1L)
+    wideDt_N$ID <- wideDt$ID
   }else if(toupper(deparse(substitute(numericOrBinary))) != "B" && toupper(deparse(substitute(numericOrBinary))) != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
 
   if(selectedCases == T){
-    wideDt_selected <- merge(wideDt, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
+    if(toupper(deparse(substitute(numericOrBinary))) == "B"){
+      wideDt_selected <- merge(wideDt_N, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
+    }else{
+      wideDt_selected <- merge(wideDt, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
+    }
     return(wideDt_selected)
   }else{
-    return(wideDt)
+    if(toupper(deparse(substitute(numericOrBinary))) == "B"){
+      return(wideDt_N)
+    }else{
+      return(wideDt)
+    }
   }
 }
