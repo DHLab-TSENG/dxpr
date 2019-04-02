@@ -28,6 +28,8 @@ Return qualified Members' data
 }
 \examples{
 head(sampleDxFile)
-splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
+splitDataByDate(sampleDxFile, ID, ICD, Date,
+                IndexDate = "2008-01-01",
+                window = 30)
 
 }

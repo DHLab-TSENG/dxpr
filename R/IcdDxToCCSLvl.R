@@ -1,12 +1,3 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "CCS_LVL_1",
-  "CCS_LVL_1_LABEL",
-  "CCS_LVL_2",
-  "CCS_LVL_2_LABEL",
-  "CCS_LVL_3",
-  "CCS_LVL_3_LABEL",
-  "CCS_LVL_4",
-  "CCS_LVL_4_LABEL"))
 #' Get the Multi-level Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
 #'  Multi-leve Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme. Four levels exist in the multi-level diagnosis CCS for ICD-9-CM codes, and two levels exist in the multi-level diagnosis CCS for ICD-10-CM codes
@@ -20,7 +11,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate icd 10 using date
 #' @param CCSLevel By default it is set to \code{1}. Clinical Classifications Software (CCS) multiple level:1~4, CCS for ICD-10-CM only has 1~2 multiple levels
-#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.
+#' @param isDescription Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-CM CCS (2012)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
@@ -31,7 +22,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(sampleDxFile)
 #' IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 #'
-IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
+IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, isDescription = TRUE){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
@@ -42,7 +33,7 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
   DxDataFile[,Short:= Conversion$ICD]
 
-  if(CCSLvlLabel == T){
+  if(isDescription == T){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")
   }else{
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel)

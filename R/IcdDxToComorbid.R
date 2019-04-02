@@ -48,13 +48,13 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   DxDataFile[,Short:= Conversion$ICD]
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
-  if (grepl("ahrq", comorbidMethod)){
+  if (comorbidMethod == "ahrq"){
     comorbidMap9 <- `icd9_ahrq`
     comorbidMap10 <- `icd10_ahrq`
-  }else if(grepl("charlson", comorbidMethod)){
+  }else if(comorbidMethod == "charlson"){
     comorbidMap9 <- `icd9_charlson`
     comorbidMap10 <- `icd10_charlson`
-  }else if(grepl("elix", comorbidMethod)){
+  }else if(comorbidMethod == "elix"){
     comorbidMap9 <- `icd9_elix`
     comorbidMap10 <- `icd10_elix`
   }else{
@@ -75,4 +75,3 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
               groupedData_Long = IcdToComorbidLong,
               Error = Conversion$Error))
 }
-

@@ -122,9 +122,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='no'>groupedICDMethod</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='no'>T</span>,
-  <span class='no'>CustomGroupingTable</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>, <span class='kw'>selectedCases</span> <span class='kw'>=</span> <span class='no'>F</span>,
-  <span class='no'>selectedCaseFile</span>)</pre>
+  <span class='no'>icd10usingDate</span>, <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccs</span>, <span class='no'>CustomGroupingTable</span>,
+  <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>, <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,29 +149,24 @@
       <td><p>Icd 10 using date</p></td>
     </tr>
     <tr>
-      <th>groupedICDMethod</th>
-      <td><p>Four grouping method can be chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), phecode (<code>'phecode'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>),
-grepICD or customICD (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables.</p></td>
+      <th>groupDataType</th>
+      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), phecode (<code>'phecode'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), grepICD or customICD (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables, default it is set to <code>"ccs"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>CustomGroupingTable</th>
+      <td><p>Table is for groupDataType</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
       <td><p>CCS/Phecode categories or description for ICD-CM codes, default is <code>'TRUE'</code>.</p></td>
     </tr>
     <tr>
-      <th>CustomGroupingTable</th>
-      <td><p>Table is for groupedICDMethod</p></td>
-    </tr>
-    <tr>
       <th>numericOrBinary</th>
       <td><p>Members have same diagnostic categories, type `N` or `B`, default is Binary <code>'B'</code>.</p></td>
     </tr>
     <tr>
-      <th>selectedCases</th>
-      <td><p>Select cases based on ICD code and the number of ICD codes, default is <code>'FALSE'</code>.</p></td>
-    </tr>
-    <tr>
       <th>selectedCaseFile</th>
-      <td><p>Table is for selectedCases.</p></td>
+      <td><p>Table for selectedCases. Default is <code>'NULL'</code></p></td>
     </tr>
     </table>
     
@@ -187,16 +181,45 @@ grepICD or customICD (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'<
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
                       <span class='no'>customIcdGroup</span>,
-                      <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt;    ID Cardiac dysrhythmias
-#&gt; 1:  A                    4
-#&gt; 2:  B                    5
-#&gt; 3:  C                    9</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='st'>"^785"</span>, <span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='fl'>2</span>)
-<span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
-                      <span class='no'>ahrq</span>, <span class='kw'>selectedCases</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                      <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span>  <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;    ID Hypothyroid Liver NeuroOther Obesity Renal selectedCase
-#&gt; 1:  A           0     0          0       0    31  nonselected
-#&gt; 2:  B           0     0          1       0    33     selected
-#&gt; 3:  C           1     1          0       1    31  nonselected</div><div class='input'>
+                      <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt;   ID Cardiac dysrhythmias
+#&gt; 1  A                 TRUE
+#&gt; 2  B                 TRUE
+#&gt; 3  C                 TRUE
+#&gt; 4  D                FALSE</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                                <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
+                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
+                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the heart"</span>,
+                                <span class='kw'>ICDNumber</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                      <span class='st'>"2015-10-01"</span>, <span class='no'>ccslvl2</span>, <span class='no'>N</span>)<span class='co'>#,selectedCaseFile =  selectedCaseFile)</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;   ID Abdominal hernia Diseases of the heart Diseases of the urinary system
+#&gt; 1  A             TRUE                  TRUE                           TRUE
+#&gt; 2  B             TRUE                  TRUE                           TRUE
+#&gt; 3  C             TRUE                  TRUE                           TRUE
+#&gt; 4  D            FALSE                 FALSE                          FALSE
+#&gt;   Hereditary and degenerative nervous system conditions Liver disease
+#&gt; 1                                                 FALSE         FALSE
+#&gt; 2                                                  TRUE         FALSE
+#&gt; 3                                                 FALSE          TRUE
+#&gt; 4                                                 FALSE         FALSE
+#&gt;   Other nutritional; endocrine; and metabolic disorders
+#&gt; 1                                                 FALSE
+#&gt; 2                                                 FALSE
+#&gt; 3                                                  TRUE
+#&gt; 4                                                 FALSE
+#&gt;   Residual codes; unclassified; all E codes
+#&gt; 1                                      TRUE
+#&gt; 2                                     FALSE
+#&gt; 3                                     FALSE
+#&gt; 4                                     FALSE
+#&gt;   Residual codes; unclassified; all E codes  and Respiratory infections
+#&gt; 1                                           TRUE                   TRUE
+#&gt; 2                                          FALSE                   TRUE
+#&gt; 3                                          FALSE                  FALSE
+#&gt; 4                                          FALSE                  FALSE
+#&gt;   Symptoms; signs;  ill-defined conditions Thyroid disorders
+#&gt; 1                                     TRUE             FALSE
+#&gt; 2                                     TRUE             FALSE
+#&gt; 3                                     TRUE              TRUE
+#&gt; 4                                    FALSE             FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

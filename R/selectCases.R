@@ -1,12 +1,3 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "grepICD",
-  "ICDNumber",
-  "INRofDayRange",
-  "InTimeINR",
-  "firstCaseDate",
-  "endCaseDate",
-  "period",
-  "MostCommonICDCount","selectedCase"))
 #' Select cases based on ICD code and the number of ICD codes
 #'
 #' This can be used to select qualified cases from factIcd data
@@ -15,42 +6,67 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' Return qualified Members' data
 #'
 #' @import data.table
-#' @param grepICD ICD selection rules with grepl expression
+#' @param caseCondition ICD selection rules with grepl expression
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
+#' @param icd10usingDate Icd 10 using date
+#' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
+#' @param CustomGroupingTable Table is for groupDataType
+#' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.
 #' @param ICDNumber a threshold of number of ICD for case selection
-#' @param INRofDayRange Determines what is the interval of days of interest for performing the case selection. By default it is set to from 30 to 365 days.
-#' @param selectedCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.
+#' @param INRofDayRange Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.
+#' @param selectCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
+#' selectCases(sampleDxFile, ID, ICD, Date,
+#'             groupDataType = ccslvl2,
+#'             icd10usingDate = "2015/10/01",
+#'             caseCondition = "Diseases of the heart",
+#'             ICDNumber = 2)
 #'
-selectCases <- function(grepICD, DxDataFile, idColName, icdColName, dateColName, ICDNumber, INRofDayRange = c(30, 365), selectedCaseType = "selected"){
+selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, ICDNumber, INRofDayRange = c(30, 365), selectCaseType = "Selected"){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  nonSelectedCaseType <- paste0("non",selectedCaseType,sep = "")
 
-  Case <- DxDataFile[grepl(grepICD, DxDataFile$ICD),]
-  Control <- DxDataFile[!Case, on = "ID"][,selectedCase := nonSelectedCaseType][,-c("ICD","Date")]
+  groupDataType <- tolower(deparse(substitute(groupDataType)))
+  groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
+                                   icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+  if(groupDataType == "ICD"){
+    groupDataType <- "ICD"
+  }else{
+    groupedData <- groupedData$groupedDf
+    groupDataType <- names(groupedData)[ncol(groupedData)]
+  }
 
-  Count <- Case[,list(firstCaseDate = min(Date),endCaseDate = max(Date),Count = .N),
-                by = ID][, period := (endCaseDate - firstCaseDate),]
+  Case <- groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))]),][order(ID,Date)]
+  Case <- Case[!duplicated(Case)][,NextDate := c(Date[-1],NA),by = "ID"][is.na(NextDate),NextDate := Date][,diffDay := NextDate-Date][,Out := FALSE][diffDay > INRofDayRange[2],Out := TRUE][,OutCount:=cumsum(Out),by = "ID"][!Out == TRUE,]
 
-  CaseCount <- Count[,InTimeINR := period >= INRofDayRange[1] & period < INRofDayRange[2],][Count >= ICDNumber & InTimeINR ==TRUE,][,-"InTimeINR"]
-  ControlCount <- Count[!CaseCount, on = "ID"][,-"InTimeINR"]
+  if(nrow(Case) > 0){
+    CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)),by = c("ID","OutCount")][,InTimeINR := Gap >= INRofDayRange[1] & Gap < INRofDayRange[2],][is.na(InTimeINR),InTimeINR := FALSE][,list(count = cumsum(InTimeINR), firstCaseDate = min(Date), endCaseDate = max(NextDate),period = Gap),by = c("ID","OutCount")][order(ID, count, decreasing = T)][!duplicated(ID),][count >= ICDNumber,][,selectedCase := "selected"][,-"OutCount"]
 
-  CaseMostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
-  selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[,selectedCase := selectedCaseType]
-  setnames(selectedCase,"ICD","MostCommonICD")
-  nonSelectedCase <- merge(Control,ControlCount,"ID",all = T)[,selectedCase := nonSelectedCaseType][,list(ID,selectedCase)]
+    CaseMostICDCount <- Case[InTimeINR ==TRUE,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
+    selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[!duplicated(ID),]
+    setnames(selectedCase,"ICD","MostCommonICD")
+  }else{
+    nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := "nonSelected"][!duplicated(ID),][order(ID),]
+    return(nonSelectedCase)
+    # stop(paste0("This dataset does not have the relative caseCondition: ",caseCondition), call. = FALSE)
+  }
 
-  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all=T)[!duplicated(ID),][order(MostCommonICDCount,decreasing = T),]
+  nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := "nonSelected"][!duplicated(ID),]
+
+  if(length(unique(Case$ID))>length(unique(selectedCase$ID))){
+    semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := "selected*"]
+    nonSelectedCase <- rbind(nonSelectedCase,semiCase)
+  }
+
+  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all=T)[order(MostCommonICDCount,decreasing = T),]
 
   allData
 }

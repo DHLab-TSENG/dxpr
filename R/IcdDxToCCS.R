@@ -3,8 +3,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "CCS_CATEGORY",
   "CCS_CATEGORY_DESCRIPTION",
   "icd10usingDate",
-  "ccsDxICD10",
-  "isCCSCategoryDescription"))
+  "ccsDxICD10"))
 #' Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses.
 #'
 #' Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.
@@ -18,7 +17,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate ICD-10 using date
-#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.
+#' @param isDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-CM CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
@@ -29,7 +28,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(sampleDxFile)
 #' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
-IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = T){
+IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
@@ -39,7 +38,7 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
   DxDataFile[,Short:= Conversion$ICD]
 
-  if (isCCSCategoryDescription == T) {
+  if (isDescription == T) {
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
   }else {
     ccs_col <- "CCS_CATEGORY"

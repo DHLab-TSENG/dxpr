@@ -1,5 +1,4 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "greplICD","timeTag"))
+
 #' Select cases based on ICD code and the number of ICD codes
 #'
 #' This can be used to select qualified cases from factIcd data
@@ -17,23 +16,55 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' splitDataByDate(sampleDxFile, ID, ICD, Date,"2015-10-01",30)
+#' splitDataByDate(sampleDxFile, ID, ICD, Date,
+#'                 IndexDate = "2008-01-01",
+#'                 window = 30)
 #'
-splitDataByDate <- function(DxDataFile,idColName,icdColName,dateColName,IndexDate, window = 30){
+splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, IndexDate, window = 30){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+
+
   DxDataFile[,Number:=1:nrow(DxDataFile)]
-  After <- DxDataFile[Date >= IndexDate,][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
+  After <- DxDataFile[Date >= as.Date(IndexDate),][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
   After$Window <- (as.integer(After$Gap) %/% window) + 1
 
-  Before <- DxDataFile[Date < IndexDate,][order(Date,decreasing = T),][,timeTag := "B"][,Gap := as.Date(IndexDate) - Date]
+  Before <- DxDataFile[Date < as.Date(IndexDate),][order(Date,decreasing = T),][,timeTag := "B"][,Gap := as.Date(IndexDate) - Date]
   Before$Window <- (as.integer(Before$Gap) %/% window) + 1
 
-  splitedData <- rbind(After,Before)
-  splitedData <- splitedData[order(Number)]
-  splitedData$Gap <- NULL
+  splitedData <- rbind(After,Before)[order(Number)][,-c("Number","Gap")]
+
   splitedData
 }
+
+# splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, IndexDate, window = 30){
+#   DxDataFile <- as.data.table(DxDataFile)
+#   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+#   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+#   names(DxDataFile) <- c("ID", "ICD", "Date")
+#   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+#
+#   groupDataType <- tolower(deparse(substitute(groupDataType)))
+#   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
+#                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+#   if(groupDataType == "ICD"){
+#     groupDataType <- "ICD"
+#   }else{
+#     groupedData <- groupedData$groupedDf
+#     groupDataType <- names(groupedData)[ncol(groupedData)]
+#   }
+#
+#   groupedData[,Number:=1:nrow(groupedData)]
+#   After <- groupedData[Date >= as.Date(IndexDate),][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
+#   After$Window <- (as.integer(After$Gap) %/% window) + 1
+#
+#   Before <- groupedData[Date < as.Date(IndexDate),][order(Date,decreasing = T),][,timeTag := "B"][,Gap := as.Date(IndexDate) - Date]
+#   Before$Window <- (as.integer(Before$Gap) %/% window) + 1
+#
+#   splitedData <- rbind(After,Before)[order(Number)][,-c("Number","Gap")]
+#
+#   splitedData
+# }

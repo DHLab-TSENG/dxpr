@@ -14,7 +14,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of PrDataFile
 #' @param dateColName A column for Date of PrDataFile
 #' @param icd10usingDate ICD-10 using date
-#' @param isCCSCategoryDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.
+#' @param isDescription  Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-PCS CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
@@ -25,7 +25,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(samplePrFile)
 #' IcdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
-IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isCCSCategoryDescription = TRUE){
+IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
   PrDataFile <- as.data.table(PrDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   PrDataFile <- PrDataFile[,DataCol,with = FALSE]
@@ -34,7 +34,7 @@ IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usin
   PrDataFile[,Number:=1:nrow(PrDataFile)]
   PrDataFile[,Short:=IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)$ICD]
 
-  if (isCCSCategoryDescription == T) {
+  if (isDescription == T) {
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
   } else {
     ccs_col <- "CCS_CATEGORY"

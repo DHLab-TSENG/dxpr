@@ -1,10 +1,4 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "Number",
-  "Short",
-  "Decimal",
-  "ICD9DxwithTwoFormat",
-  "ICD10DxwithTwoFormat",
-  "count","WrongType","IcdVersionInFile","Suggestion"))
+
 #' Convert ICD Codes From Decimal To Short Forms
 #'
 #' Convert codes between short and decimal forms

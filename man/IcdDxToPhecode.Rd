@@ -10,7 +10,7 @@ ICD-9-Phecode (version 1.2, 2015)
 }
 \usage{
 IcdDxToPhecode(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, isPhecodeDescription = TRUE)
+  icd10usingDate, isDescription = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -23,7 +23,7 @@ IcdDxToPhecode(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{icd 10 using date}
 
-\item{isPhecodeDescription}{Phecode/ description for icd9. By default it is set to \code{True}.}
+\item{isDescription}{Phecode/ description for icd9. By default it is set to \code{True}.}
 }
 \description{
 This can be used to group Phecode or description based on ICD-9 codes in clinical diagnostic data.

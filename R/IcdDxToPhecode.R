@@ -1,9 +1,4 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "ICD",
-  "ICDD",
-  "PheCode",
-  "PheCodeDescription",
-  "phecode_icd9_2"))
+
 #' Get the Phecode or description of ICD-9 diagnosis codes
 #'
 #' This can be used to group Phecode or description based on ICD-9 codes in clinical diagnostic data.
@@ -16,7 +11,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate icd 10 using date
-#' @param isPhecodeDescription Phecode/ description for icd9. By default it is set to \code{True}.
+#' @param isDescription Phecode/ description for icd9. By default it is set to \code{True}.
 #' @source ICD-9-Phecode (version 1.2, 2015)
 #' @source \url{https://phewascatalog.org/phecodes}
 #' @export
@@ -24,7 +19,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(sampleDxFile)
 #' IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 #'
-IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isPhecodeDescription = TRUE){
+IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
@@ -33,7 +28,7 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
   Conversion <- IcdDxShortToDecimal(DxDataFile,ICD,Date,icd10usingDate)
   DxDataFile[,ICDD:= Conversion$ICD]
 
-  if(isPhecodeDescription == T){
+  if(isDescription == T){
     phecodeCol <- "PheCodeDescription"
   }else{
     phecodeCol <- "PheCode"

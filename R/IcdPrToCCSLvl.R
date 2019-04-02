@@ -11,7 +11,7 @@
 #' @param dateColName A column for Date of PrDataFile
 #' @param icd10usingDate icd 10 using date
 #' @param CCSLevel By default it is set to \code{1}.Clinical Classifications Software (CCS) multiple level
-#' @param CCSLvlLabel Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.
+#' @param isDescription Clinical Classifications Software (CCS) multiple level categories/description for icd9/10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-PCS CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
@@ -22,7 +22,7 @@
 #' head(samplePrFile)
 #' IcdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 #'
-IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, CCSLvlLabel = TRUE){
+IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, CCSLevel = 1, isDescription = TRUE){
   PrDataFile <- as.data.table(PrDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   PrDataFile <- PrDataFile[,DataCol,with = FALSE]
@@ -31,7 +31,7 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
   PrDataFile[,Number:=1:nrow(PrDataFile)]
   PrDataFile[,Short:=IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)$ICD]
 
-  if(CCSLvlLabel == T){
+  if(isDescription == T){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")
   }else{
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel)

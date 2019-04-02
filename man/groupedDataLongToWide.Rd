@@ -5,9 +5,8 @@
 \title{Grouped data format conversion}
 \usage{
 groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, groupedICDMethod, isDescription = T,
-  CustomGroupingTable, numericOrBinary = N, selectedCases = F,
-  selectedCaseFile)
+  icd10usingDate, groupDataType = ccs, CustomGroupingTable,
+  isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -20,18 +19,15 @@ groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{groupedICDMethod}{Four grouping method can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}),
-grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables.}
+\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
+
+\item{CustomGroupingTable}{Table is for groupDataType}
 
 \item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
 
-\item{CustomGroupingTable}{Table is for groupedICDMethod}
-
 \item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.}
 
-\item{selectedCases}{Select cases based on ICD code and the number of ICD codes, default is \code{'FALSE'}.}
-
-\item{selectedCaseFile}{Table is for selectedCases.}
+\item{selectedCaseFile}{Table for selectedCases. Default is \code{'NULL'}}
 }
 \description{
 convert long format to wide format
@@ -46,9 +42,12 @@ groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
                       customIcdGroup,
                       CustomGroupingTable = groupingTable)
-selectedCaseFile <- selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
-                      ahrq, selectedCases = TRUE,
-                      selectedCaseFile =  selectedCaseFile)
+selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+                                icd10usingDate = "2015/10/01",
+                                groupDataType = ccslvl2,
+                                caseCondition = "Diseases of the heart",
+                                ICDNumber = 2)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
+                      "2015-10-01", ccslvl2, N)#,selectedCaseFile =  selectedCaseFile)
 
 }

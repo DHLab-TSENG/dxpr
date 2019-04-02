@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Select cases based on ICD code and the number of ICD codes — splitDataByDate • emr</title>
+<title>Select code classification method — groupMethodSelect • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="Select cases based on ICD code and the number of ICD codes — splitDataByDate" />
+<meta property="og:title" content="Select code classification method — groupMethodSelect" />
 
-<meta property="og:description" content="This can be used to select qualified cases from factIcd data
-based on the ICD code searching criteria and number of ICD code
-per patients in the inout factIcd dataset.
-Return qualified Members' data" />
+<meta property="og:description" content="return grouped data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,22 +110,19 @@ Return qualified Members' data" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Select cases based on ICD code and the number of ICD codes</h1>
+    <h1>Select code classification method</h1>
     
-    <div class="hidden name"><code>splitDataByDate.Rd</code></div>
+    <div class="hidden name"><code>groupMethodSelect.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This can be used to select qualified cases from factIcd data
-based on the ICD code searching criteria and number of ICD code
-per patients in the inout factIcd dataset.
-Return qualified Members' data</p>
+    <p>return grouped data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>IndexDate</span>,
-  <span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+    <pre class="usage"><span class='fu'>groupMethodSelect</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
+  <span class='no'>icd10usingDate</span>, <span class='no'>groupMethod</span>, <span class='no'>CustomGroupingTable</span>, <span class='no'>isDescription</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,46 +144,30 @@ Return qualified Members' data</p>
       <td><p>A column for Date of DxDataFile</p></td>
     </tr>
     <tr>
-      <th>IndexDate</th>
-      <td><p>An exact date of diagnosis for a period of observation.</p></td>
+      <th>icd10usingDate</th>
+      <td><p>Icd 10 using date</p></td>
     </tr>
     <tr>
-      <th>window</th>
-      <td><p>Length of condition era. By default it is set to <code>30</code>.</p></td>
+      <th>groupMethod</th>
+      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), phecode (<code>'phecode'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), grepICD or customICD (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables.</p></td>
+    </tr>
+    <tr>
+      <th>CustomGroupingTable</th>
+      <td><p>Table is for groupDataType</p></td>
+    </tr>
+    <tr>
+      <th>isDescription</th>
+      <td><p>CCS/Phecode categories or description for ICD-CM codes, default is <code>'TRUE'</code>.</p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                <span class='kw'>IndexDate</span> <span class='kw'>=</span> <span class='st'>"2008-01-01"</span>,
-                <span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date timeTag Window
-#&gt;   1:  C  553.3 2008-04-03       A      4
-#&gt;   2:  A  553.3 2008-05-01       A      5
-#&gt;   3:  A 553.20 2009-02-23       A     14
-#&gt;   4:  B 553.20 2007-08-29       B      5
-#&gt;   5:  A  553.3 2008-06-27       A      6
-#&gt;  ---                                    
-#&gt; 171:  D  75.52 2006-05-03       B     21
-#&gt; 172:  A 785.52 2006-05-03       B     21
-#&gt; 173:  B    001 2006-05-03       B     21
-#&gt; 174:  D   7552 2006-05-03       B     21
-#&gt; 175:  D  755.2 2006-05-03       B     21</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

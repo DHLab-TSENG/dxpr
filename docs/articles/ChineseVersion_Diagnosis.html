@@ -259,8 +259,8 @@ head(short)
 <p><code>IcdDxToCCS</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <pre><code>## ICD to CCS description
-CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
-head(CCS_category$groupedDf,5)
+CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+head(CCS_description$groupedDf,5)
 #&gt;       Short ID    ICD       Date           CCS_CATEGORY_DESCRIPTION
 #&gt;   1:   5533  C  553.3 2008-04-03                   Abdominal hernia
 #&gt;   2:   5533  A  553.3 2008-05-01                   Abdominal hernia
@@ -268,7 +268,7 @@ head(CCS_category$groupedDf,5)
 #&gt;   4:  55320  B 553.20 2007-08-29                   Abdominal hernia
 #&gt;   5:   5533  A  553.3 2008-06-27                   Abdominal hernia
 
-head(CCS_category$groupedData_Long,5)
+head(CCS_description$groupedData_Long,5)
 #&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period
 #&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days
 #&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days
@@ -277,14 +277,14 @@ head(CCS_category$groupedData_Long,5)
 #&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days
 
 ## ICD to CCS category
-CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)</code></pre>
+CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)</code></pre>
 <p><strong>2) CCS多階層分類</strong></p>
 <p><code>IcdDxToCCSLvl</code> 可取得 ICD-9-CM 及 ICD-10-CM 相對應的 CCS 多階層分類(Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-CM 共 4個階層 (Level 1~4)</p>
 <p>ICD-10-CM 共 2個階層 (Level 1~2)</p>
 <pre><code>## ICD to CCS multiple level 2 description
-CCSlvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",2, TRUE)
-head(CCS_category$groupedDf,5)
+CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",2, TRUE)
+head(CCSlvl_description$groupedDf,5)
 #&gt;       Short ID    ICD       Date      CCS_LVL_2_LABEL
 #&gt;   1:   5533  C  553.3 2008-04-03     Abdominal hernia
 #&gt;   2:   5533  A  553.3 2008-05-01     Abdominal hernia
@@ -292,7 +292,7 @@ head(CCS_category$groupedDf,5)
 #&gt;   4:  55320  B 553.20 2007-08-29     Abdominal hernia
 #&gt;   5:   5533  A  553.3 2008-06-27     Abdominal hernia
 
-head(CCS_category$groupedData_Long,5)
+head(CCSlvl_description$groupedData_Long,5)
 #&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period
 #&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days
 #&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days
@@ -301,7 +301,7 @@ head(CCS_category$groupedData_Long,5)
 #&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days
 
 ## ICD to CCS multiple level 3 category
-CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",3, FALSE)</code></pre>
+CCSLvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01",3, FALSE)</code></pre>
 </div>
 <div id="phecode" class="section level3">
 <h3 class="hasAnchor">

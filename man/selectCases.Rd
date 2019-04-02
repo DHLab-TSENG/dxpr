@@ -4,12 +4,12 @@
 \alias{selectCases}
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
-selectCases(grepICD, DxDataFile, idColName, icdColName, dateColName,
-  ICDNumber, INRofDayRange = c(30, 365), selectedCaseType = "selected")
+selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
+  groupDataType = ICD, CustomGroupingTable, isDescription = TRUE,
+  caseCondition, ICDNumber, INRofDayRange = c(30, 365),
+  selectCaseType = "Selected")
 }
 \arguments{
-\item{grepICD}{ICD selection rules with grepl expression}
-
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
 
 \item{idColName}{A column for MemberID of DxDataFile}
@@ -18,11 +18,21 @@ selectCases(grepICD, DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
+\item{icd10usingDate}{Icd 10 using date}
+
+\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
+
+\item{CustomGroupingTable}{Table is for groupDataType}
+
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
+
+\item{caseCondition}{ICD selection rules with grepl expression}
+
 \item{ICDNumber}{a threshold of number of ICD for case selection}
 
-\item{INRofDayRange}{Determines what is the interval of days of interest for performing the case selection. By default it is set to from 30 to 365 days.}
+\item{INRofDayRange}{Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.}
 
-\item{selectedCaseType}{Aggregation  of selected cases name. By default it is set to \code{"selected"}.}
+\item{selectCaseType}{Aggregation  of selected cases name. By default it is set to \code{"selected"}.}
 }
 \description{
 This can be used to select qualified cases from factIcd data
@@ -32,6 +42,10 @@ Return qualified Members' data
 }
 \examples{
 head(sampleDxFile)
-selectCases("^785", sampleDxFile, ID, ICD, Date, 2)
+selectCases(sampleDxFile, ID, ICD, Date,
+            groupDataType = ccslvl2,
+            icd10usingDate = "2015/10/01",
+            caseCondition = "Diseases of the heart",
+            ICDNumber = 2)
 
 }

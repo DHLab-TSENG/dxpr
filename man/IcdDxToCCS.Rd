@@ -16,7 +16,7 @@ ICD-10-CM CCS (2019)
 }
 \usage{
 IcdDxToCCS(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
-  isCCSCategoryDescription = T)
+  isDescription = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -29,7 +29,7 @@ IcdDxToCCS(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{icd10usingDate}{ICD-10 using date}
 
-\item{isCCSCategoryDescription}{Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.}
+\item{isDescription}{Clinical Classifications Software (CCS) single level categories/description for ICD-9 or ICD-10. By default it is set to \code{True}.}
 }
 \description{
 Clinical Classifications Software (CCS) for ICD-9 and ICD-10 diagnosis codes in clinical diagnostic data is a diagnosis categorization scheme.

@@ -5,8 +5,8 @@
 \title{Get the condition era}
 \usage{
 getConditionEra(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, gapDate = 30, conditionSelect = CCS,
-  isDescription = TRUE, CustomGroupingTable)
+  icd10usingDate, groupDataType = ccs, CustomGroupingTable,
+  isDescription = TRUE, gapDate = 30)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -19,14 +19,13 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{Icd 10 using date}
 
+\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
+
+\item{CustomGroupingTable}{Table is for groupDataType}
+
+\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
+
 \item{gapDate}{Length of condition era,By default it is set to 30 days \code{"30"}.}
-
-\item{conditionSelect}{Four Stratified method can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}),
-grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
-
-\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes. By default it is set to \code{True}.}
-
-\item{CustomGroupingTable}{Table is for groupedICDMethod}
 }
 \description{
 A Condition Era is defined as a span of time when the member is assumed to have a given condition.
@@ -39,14 +38,12 @@ return DxDataFile with new column, condition era.
 }
 \examples{
 head(sampleDxFile)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ccs, FALSE)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, ICD)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, phecode, FALSE)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, elix)
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCS)
 grepTable <- data.frame(group = "Cardiac dysrhythmias",
                         grepIcd = "^427|^I48",
                         stringsAsFactors = FALSE)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup,
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                groupDataType = customGrepIcdGroup,
                 CustomGroupingTable = grepTable)
 
 }

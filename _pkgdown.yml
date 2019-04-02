@@ -124,3 +124,9 @@ reference:
   desc: ~
   contents:
   - '`phecode_icd9_2`'
+
+- title: Data - sample file
+  desc: ~
+  contents:
+  - '`sampleDxFile`'
+  - '`samplePrFile`'

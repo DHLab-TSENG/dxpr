@@ -446,3 +446,17 @@ NULL
 #' @usage data(samplePrFile)
 #' @format A data table with 4010 rows and 3 variables
 NULL
+
+if(getRversion() >= "2.15.1") utils::globalVariables(c(
+  "InTimeINR","firstCaseDate","endCaseDate","period","MostCommonICDCount",
+  "selectedCase",
+  "groupDataType",
+  "isDescription",
+  "B",
+  "ahrq","charlson","elix",
+  "Out","OutCount",
+  "Number","Short","Decimal","ICD9DxwithTwoFormat","ICD10DxwithTwoFormat",
+  "phecode_icd9_2","ICDD",
+  "count","WrongType","IcdVersionInFile","Suggestion",
+  "ccs","ID","ICD","Date","Gap","NextDate","diffDay","episodecount","episode","Era",
+  "greplICD","timeTag"))
