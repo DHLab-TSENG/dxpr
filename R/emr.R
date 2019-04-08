@@ -448,15 +448,11 @@ NULL
 NULL
 
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "InTimeINR","firstCaseDate","endCaseDate","period","MostCommonICDCount",
-  "selectedCase",
-  "groupDataType",
-  "isDescription",
-  "B",
-  "ahrq","charlson","elix",
-  "Out","OutCount",
-  "Number","Short","Decimal","ICD9DxwithTwoFormat","ICD10DxwithTwoFormat",
-  "phecode_icd9_2","ICDD",
+  "InTimeINR", "firstCaseDate", "endCaseDate", "period", "MostCommonICDCount",
+  "selectedCase", "groupDataType", "isDescription", "B", "ahrq", "charlson", "elix", "group",
+  "Out", "OutCount", "Number", "Short", "Decimal",
+  "ICD9DxwithTwoFormat", "ICD10DxwithTwoFormat", "ccsDxICD9", "ccsDxICD10",
+  "phecode_icd9_2", "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
   "count","WrongType","IcdVersionInFile","Suggestion",
-  "ccs","ID","ICD","Date","Gap","NextDate","diffDay","episodecount","episode","Era",
-  "greplICD","timeTag"))
+  "ccs", "ID", "ICD", "ICDD", "Comorbidity", "Date","Gap", "NextDate", "diffDay", "episodecount", "episode", "Era", "icd10usingDate",
+  "CustomGroupingTable", "greplICD", "timeTag"))

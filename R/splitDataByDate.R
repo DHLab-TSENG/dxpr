@@ -40,31 +40,3 @@ splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, Inde
   splitedData
 }
 
-# splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, IndexDate, window = 30){
-#   DxDataFile <- as.data.table(DxDataFile)
-#   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-#   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-#   names(DxDataFile) <- c("ID", "ICD", "Date")
-#   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-#
-#   groupDataType <- tolower(deparse(substitute(groupDataType)))
-#   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
-#                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
-#   if(groupDataType == "ICD"){
-#     groupDataType <- "ICD"
-#   }else{
-#     groupedData <- groupedData$groupedDf
-#     groupDataType <- names(groupedData)[ncol(groupedData)]
-#   }
-#
-#   groupedData[,Number:=1:nrow(groupedData)]
-#   After <- groupedData[Date >= as.Date(IndexDate),][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
-#   After$Window <- (as.integer(After$Gap) %/% window) + 1
-#
-#   Before <- groupedData[Date < as.Date(IndexDate),][order(Date,decreasing = T),][,timeTag := "B"][,Gap := as.Date(IndexDate) - Date]
-#   Before$Window <- (as.integer(Before$Gap) %/% window) + 1
-#
-#   splitedData <- rbind(After,Before)[order(Number)][,-c("Number","Gap")]
-#
-#   splitedData
-# }

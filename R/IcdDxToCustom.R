@@ -1,5 +1,4 @@
-if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "CustomGroupingTable"))
+#'
 #' Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.
 #'
 #' This can be used to select the first diagnosis record

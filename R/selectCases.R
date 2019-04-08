@@ -56,7 +56,6 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := "nonSelected"][!duplicated(ID),][order(ID),]
     return(nonSelectedCase)
-    # stop(paste0("This dataset does not have the relative caseCondition: ",caseCondition), call. = FALSE)
   }
 
   nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := "nonSelected"][!duplicated(ID),]

@@ -1,4 +1,4 @@
-
+#'
 #' Grouped data format conversion
 #'
 #' convert long format to wide format

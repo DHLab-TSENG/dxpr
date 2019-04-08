@@ -1,4 +1,3 @@
-
 #' Get the condition era
 #'
 #' A Condition Era is defined as a span of time when the member is assumed to have a given condition.

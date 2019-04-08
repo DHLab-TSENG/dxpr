@@ -1,3 +1,4 @@
+#'
 #' Convert ICD Codes From Short To Decimal Forms
 #'
 #' Convert codes between short and decimal forms
