@@ -157,7 +157,15 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p>AHRQ</p>
+<p>ICD-9-CM Elixhauser (2012-2015)</p>
+<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-CM Elixhauser (2019)</p>
+<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
 <p>Charlson</p>
+<p>ICD-9-CM Charlson (2006)</p>
+<p><a href='http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt'>http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
+<p>ICD-10-CM Charlson (2006)</p>
+<p><a href='http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt'>http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
 <p>Elixhauser</p>
 <p>ICD-9-CM Elixhauser (2012-2015)</p>
 <p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
@@ -192,10 +200,10 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 
 #&gt; $groupedData_Long
 #&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
-#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
-#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
-#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days
+#&gt; 1:  A          RD    2007-05-12  2022-02-08    33 5386 days
+#&gt; 2:  C          RD    2007-04-21  2021-09-17    33 5263 days
+#&gt; 3:  B          RD    2007-05-28  2022-03-18    34 5408 days
+#&gt; 4:  C      MILDLD    2021-01-09  2021-01-09     1    0 days
 #&gt; 
 #&gt; $Error
 #&gt;       ICD count IcdVersionInFile     WrongType Suggestion

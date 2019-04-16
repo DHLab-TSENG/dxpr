@@ -227,15 +227,15 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
-#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures for ICD-9 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
+#'   \item Description. comorbidity measures
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd9_ahrq
 #' @usage data(icd9_ahrq)
-#' @format A data table with 14696 rows and 3 variables
+#' @format A data table with 1487 rows and 3 variables
 #' @seealso \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -245,15 +245,14 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
-#'   \item Comorbidity. comorbidity measures for ICD-10 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures  for ICD-10 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd10_ahrq
 #' @usage data(icd10_ahrq)
-#' @format A data table with 3217 rows and 3 variables
+#' @format A data table with 3217 rows and 2 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -263,15 +262,15 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
-#'   \item Comorbidity. comorbidity measures for ICD-9 (MI, CHF, PVD, Stroke, Dementia, Pulmonary, Rheumatic, PUD, LiverMild, DM, DMcx, Paralysis, Renal, Cancer, LiverSevere, Mets, HIV)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures for ICD-9 (MI, CHF, PVD, CEVD, DEM, COPD, Rheum, PUD, MILDLD, DIAB_NC, DIAB_C, PARA, RD, CANCER, MSLD, METS, HIV)
+#'   \item Description. comorbidity measures
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd9_charlson
 #' @usage data(icd9_charlson)
-#' @format A data table with 12617 rows and 3 variables
+#' @format A data table with 1241 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -281,15 +280,15 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
-#'   \item Comorbidity. comorbidity measures for ICD-10 (MI, CHF, PVD, Stroke, Dementia, Pulmonary, Rheumatic, PUD, LiverMild, DM, DMcx, Paralysis, Renal, Cancer, LiverSevere, Mets, HIV)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures for ICD-10 (MI, CHF, PVD, CEVD, DEM, COPD, Rheum, PUD, MILDLD, DIAB_NC, DIAB_C, PARA, RD, CANCER, MSLD, METS, HIV))
+#'   \item Description. comorbidity measures
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd10_charlson
 #' @usage data(icd10_charlson)
-#' @format A data table with 3029 rows and 3 variables
+#' @format A data table with 2804 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -299,16 +298,15 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-9
-#'   \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-9
-#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
+#'   \item Description. comorbidity measures
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd9_elix
 #' @usage data(icd9_elix)
-#' @format A data table with 1474 rows and 4 variables
+#' @format A data table with 1474 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd10_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 NULL
@@ -319,16 +317,15 @@ NULL
 #'
 #' \itemize{
 #'   \item ICD. ICD-10
-#'   \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-10
-#'   \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
-#'   \item Value. if ICD code has comorbidity measures, value is 1
+#'   \item Comorbidity. comorbidity abbreviation measures for ICD-10 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
+#'   \item Description. comorbidity measures
 #' }
 #'
 #' @docType data
 #' @keywords datatable
 #' @name icd10_elix
 #' @usage data(icd10_elix)
-#' @format A data table with 3493 rows and 4 variables
+#' @format A data table with 3493 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd10_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 NULL

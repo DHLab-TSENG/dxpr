@@ -4,7 +4,7 @@
 \name{icd10_ahrq}
 \alias{icd10_ahrq}
 \title{AHRQ Comorbidity for ICD-10}
-\format{A data table with 3217 rows and 3 variables}
+\format{A data table with 3217 rows and 2 variables}
 \usage{
 data(icd10_ahrq)
 }
@@ -14,8 +14,7 @@ A datatable for ICD-10 AHRQ comorbidity mapping
 \details{
 \itemize{
   \item ICD. ICD-10
-  \item Comorbidity. comorbidity measures for ICD-10 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
-  \item Value. if ICD code has comorbidity measures, value is 1
+  \item Comorbidity. comorbidity abbreviation measures  for ICD-10 (CHF, Valvular, PHTN, PVD, HTN, HTNcx, Paralysis, NeuroOther, Pulmonary, DM, DMcx, Hypothyroid, Renal, Liver, PUD, HIV, Lymphoma, Mets, Tumor, Rheumatic, Coagulopathy, Obesity, WeightLoss, FluidsLytes, BloodLoss, Anemia, Alcohol, Drugs, Psychoses, Depression)
 }
 }
 \seealso{

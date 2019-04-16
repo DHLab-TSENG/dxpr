@@ -5,10 +5,10 @@
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
 splitDataByDate(DxDataFile, idColName, icdColName, dateColName, IndexDate,
-  window = 30)
+  windowGap = 30)
 }
 \arguments{
-\item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
+\item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"}
 
 \item{idColName}{A column for MemberID of DxDataFile}
 
@@ -18,7 +18,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName, IndexDate,
 
 \item{IndexDate}{An exact date of diagnosis for a period of observation.}
 
-\item{window}{Length of condition era. By default it is set to \code{30}.}
+\item{windowGap}{gap length of window. By default it is set to \code{30}.}
 }
 \description{
 This can be used to select qualified cases from factIcd data
@@ -30,6 +30,6 @@ Return qualified Members' data
 head(sampleDxFile)
 splitDataByDate(sampleDxFile, ID, ICD, Date,
                 IndexDate = "2008-01-01",
-                window = 30)
+                windowGap = 30)
 
 }

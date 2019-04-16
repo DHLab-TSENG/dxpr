@@ -233,7 +233,7 @@ IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
 <div id="a--ahrq-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
 <a href="#a--ahrq-comorbidity-classification" class="anchor"></a>a. AHRQ comorbidity classification</h4>
-<p>AHRQ comorbidity measure dataframe is based on <code>icd package</code>, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same. The AHRQ comorbidity measure map format is dataframe;it is convert <code>icd9_map_ahrq</code> list into <code>icd9_ahrq</code> dataframe.The functions apply those mappings to join with user’s ICD data.</p>
+<p>AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
 icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
@@ -245,7 +245,7 @@ icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
 <div id="b--charlson-comorbidity-classification" class="section level4">
 <h4 class="hasAnchor">
 <a href="#b--charlson-comorbidity-classification" class="anchor"></a>b. Charlson comorbidity classification</h4>
-<p>Charlson comorbidity measure dataframe is based on <code>icd package</code>: icd9_map_charlson, icd10_map_charlson</p>
+<p>Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_charlson (list) to icd9_charlson (Df)
 icd9_charlson$Comorbidity %&gt;% unique</code></pre>
@@ -326,10 +326,14 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
 <div id="ahrq" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ahrq" class="anchor"></a>AHRQ</h4>
+<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 <div id="charlson" class="section level4">
 <h4 class="hasAnchor">
 <a href="#charlson" class="anchor"></a>Charlson</h4>
+<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
+<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
 </div>
 <div id="elixhauser" class="section level4">
 <h4 class="hasAnchor">

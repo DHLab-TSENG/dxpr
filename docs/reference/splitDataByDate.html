@@ -128,14 +128,14 @@ Return qualified Members' data</p>
     </div>
 
     <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>IndexDate</span>,
-  <span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+  <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>DxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
@@ -154,8 +154,8 @@ Return qualified Members' data</p>
       <td><p>An exact date of diagnosis for a period of observation.</p></td>
     </tr>
     <tr>
-      <th>window</th>
-      <td><p>Length of condition era. By default it is set to <code>30</code>.</p></td>
+      <th>windowGap</th>
+      <td><p>gap length of window. By default it is set to <code>30</code>.</p></td>
     </tr>
     </table>
     
@@ -169,7 +169,7 @@ Return qualified Members' data</p>
 #&gt; 5:  A  553.3 2008-06-27
 #&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                 <span class='kw'>IndexDate</span> <span class='kw'>=</span> <span class='st'>"2008-01-01"</span>,
-                <span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date timeTag Window
+                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date timeTag window
 #&gt;   1:  C  553.3 2008-04-03       A      4
 #&gt;   2:  A  553.3 2008-05-01       A      5
 #&gt;   3:  A 553.20 2009-02-23       A     14

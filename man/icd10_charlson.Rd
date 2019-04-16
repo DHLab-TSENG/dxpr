@@ -4,7 +4,7 @@
 \name{icd10_charlson}
 \alias{icd10_charlson}
 \title{Charlson Comorbidity for ICD-10}
-\format{A data table with 3029 rows and 3 variables}
+\format{A data table with 2804 rows and 3 variables}
 \usage{
 data(icd10_charlson)
 }
@@ -14,8 +14,8 @@ A datatable for ICD-10 Charlson comorbidity mapping
 \details{
 \itemize{
   \item ICD. ICD-10
-  \item Comorbidity. comorbidity measures for ICD-10 (MI, CHF, PVD, Stroke, Dementia, Pulmonary, Rheumatic, PUD, LiverMild, DM, DMcx, Paralysis, Renal, Cancer, LiverSevere, Mets, HIV)
-  \item Value. if ICD code has comorbidity measures, value is 1
+  \item Comorbidity. comorbidity abbreviation measures for ICD-10 (MI, CHF, PVD, CEVD, DEM, COPD, Rheum, PUD, MILDLD, DIAB_NC, DIAB_C, PARA, RD, CANCER, MSLD, METS, HIV))
+  \item Description. comorbidity measures
 }
 }
 \seealso{

@@ -48,6 +48,6 @@ selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
                                 caseCondition = "Diseases of the heart",
                                 ICDNumber = 2)
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                      "2015-10-01", ccslvl2, N)#,selectedCaseFile =  selectedCaseFile)
+                      "2015-10-01", ccslvl2, N, selectedCaseFile = selectedCaseFile)
 
 }

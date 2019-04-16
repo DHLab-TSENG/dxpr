@@ -15,9 +15,15 @@
 #' it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).
 #' @export
 #' @source AHRQ
-
+#' @source ICD-9-CM Elixhauser (2012-2015)
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
+#' @source ICD-10-CM Elixhauser (2019)
+#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
 #' @source Charlson
-
+#' @source ICD-9-CM Charlson (2006)
+#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
+#' @source ICD-10-CM Charlson (2006)
+#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
 #' @source Elixhauser
 #' @source ICD-9-CM Elixhauser (2012-2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}

@@ -167,8 +167,7 @@ IcdDxToCustomGrep(icdFile, grepTable)
 The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.
 
 #### a. AHRQ comorbidity classification
-AHRQ comorbidity measure dataframe is based on `icd package`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
-The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
+AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index
 
  ICD-9
 ```
@@ -184,7 +183,7 @@ icd10_ahrq$Comorbidity %>% unique
 IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)
 ```
 #### b. Charlson comorbidity classification
-Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+Charlson comorbidity measure dataset is based on Quan's translations of the Charlson Comorbidity Index
 
  ICD-9
 ```
@@ -273,7 +272,15 @@ ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
 
 #### AHRQ
 
+ICD-9-AHRQ (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+
+ICD-10-AHRQ (2019): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt
+
 #### Charlson
+
+ICD-9-Charlson: http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt
+
+ICD-10-Charlson: http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt
 
 #### Elixhauser
 

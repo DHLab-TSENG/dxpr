@@ -51,15 +51,13 @@ User can identify the rule of grouping standards, and return matched ICD codes. 
 The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.
 
 #### a. AHRQ comorbidity classification
-AHRQ comorbidity measure dataframe is based on `icd9_elix_2015`, the names of the comorbidities derived from ICD-9 and ICD-10 codes are the same.
-
-The AHRQ comorbidity measure map format is dataframe;it is convert `icd9_map_ahrq` list into `icd9_ahrq` dataframe.The functions apply those mappings to join with user's ICD data.
+AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index
 
 #### b. Charlson comorbidity classification
-Charlson comorbidity measure dataframe is based on `icd package`: icd9_map_charlson, icd10_map_charlson
+Charlson comorbidity measure dataframe is based on Quan's translations of the Charlson Comorbidity Index
 
 #### c. Elixhauser comorbidity classification
-Elixhauser comorbidity measure data table icd9_elix_2015, icd10_elix_2019.
+Elixhauser comorbidity measure data table icd9_elix, icd10_elix.
 
 The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
 

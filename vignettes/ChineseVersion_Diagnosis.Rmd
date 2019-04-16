@@ -348,7 +348,7 @@ Elixhauser Comorbidity為Dr. Elixhauser與其團隊在1998年提出基於標準I
 
 **1) AHRQ**
 
-目前使用 AHRQ 共病症測量指標的data frame是基於`icd package` (`icd9_map_ahrq 及 icd10_map_ahrq`), 使ICD code 依其相關的共病症做分類
+AHRQ database共病症測量指標是基於Elixhauser共病症測量指標, 使ICD code 依其相關的共病症做分類
 
 ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致, 共30種
 
@@ -385,7 +385,7 @@ head(AHRQ$groupedData_Long,5)
 ```
 **2) Charlson**
 
-目前使用 Charlson 共病症測量指標的 data frame 是基於`icd package` (`icd9_map_charlson 及 icd10_map_charlson`), 使 ICD code 依其相關的共病症做分類
+Charlson database共病症測量指標的是基於Halfon和 Quan's的版本, 使 ICD code 依其相關的共病症做分類
 
 ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致, 共17種
 
@@ -585,7 +585,16 @@ ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
 
 #### AHRQ
 
+ICD-9-AHRQ (2012-2015): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references
+
+ICD-10-AHRQ (2019): https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt
+
 #### Charlson
+
+ICD-9-Charlson: http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt
+
+ICD-10-Charlson: http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt
+
 
 #### Elixhauser
 

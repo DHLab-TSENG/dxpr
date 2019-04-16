@@ -183,7 +183,8 @@ IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDat
     allWrongICDMsg <- rbind(noSuggestedWrongFormat,ICD9wrongFormatSuggested)[order(count,decreasing = TRUE)]
   }
   DtoS <- rbind(icd9D[!is.na(Short),-"ICD"], icd10D[!is.na(Short),-"ICD"])
-  setnames(DtoS,"Short","ICD")
+
+    setnames(DtoS,"Short","ICD")
   StoS <- rbind(icd9S[!is.na(Decimal),-"Decimal"],icd10S[!is.na(Decimal),-"Decimal"])
   allShortFormat <- rbind(StoS, DtoS)
 

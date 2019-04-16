@@ -4,7 +4,7 @@
 \name{icd9_elix}
 \alias{icd9_elix}
 \title{Elixhauser Comorbidity for ICD-9}
-\format{A data table with 1474 rows and 4 variables}
+\format{A data table with 1474 rows and 3 variables}
 \source{
 \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 }
@@ -17,9 +17,8 @@ A datatable for ICD-9 Elixhauser comorbidity mapping
 \details{
 \itemize{
   \item ICD. ICD-9
-  \item Comorbidity_abbr. comorbidity measures abbreviation for ICD-9
-  \item Comorbidity. comorbidity measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
-  \item Value. if ICD code has comorbidity measures, value is 1
+  \item Comorbidity. comorbidity abbreviation measures for ICD-9 (CHF, VALVE, PULMCIRC, PERIVASC, HTN_C (using HTN, HTNCX), PARA, NEURO, CHRNLUNG, DM, DMcx, HYPOTHY, RENLFAIL, LIVER, ULCER, AIDS, Lymph, METS, TUMOR, ARTH, Tumor, COAG, OBESE, WGHTLOSS, LYTES, BLDLOSS, ANEMDEF, ALCOHOL, DRUG, PSYCH, DEPESS)
+  \item Description. comorbidity measures
 }
 }
 \seealso{

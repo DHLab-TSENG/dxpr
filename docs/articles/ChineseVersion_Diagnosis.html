@@ -381,7 +381,7 @@ CustomGrepGroup$groupedData_Long
 <p>共病症(Comorbidities)為病患於主診斷之外, 其他已存在且會對主診斷疾病產生影響的疾病症狀</p>
 <p>共病症分群基於ICD診斷碼進行標準化分組, 根據不同測量方法對共病症的定義分別介紹之: AHRQ, Charlson及Elixhauser</p>
 <p><strong>1) AHRQ</strong></p>
-<p>目前使用 AHRQ 共病症測量指標的data frame是基於<code>icd package</code> (<code>icd9_map_ahrq 及 icd10_map_ahrq</code>), 使ICD code 依其相關的共病症做分類</p>
+<p>AHRQ database共病症測量指標是基於Elixhauser共病症測量指標, 使ICD code 依其相關的共病症做分類</p>
 <p>ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致, 共30種</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (data frame)
@@ -408,7 +408,7 @@ head(AHRQ$groupedData_Long,5)
 #&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
 </code></pre>
 <p><strong>2) Charlson</strong></p>
-<p>目前使用 Charlson 共病症測量指標的 data frame 是基於<code>icd package</code> (<code>icd9_map_charlson 及 icd10_map_charlson</code>), 使 ICD code 依其相關的共病症做分類</p>
+<p>Charlson database共病症測量指標的是基於Halfon和 Quan’s的版本, 使 ICD code 依其相關的共病症做分類</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致, 共17種</p>
 <p>ICD-9</p>
 <pre><code># convert icd9_map_charlson (list) to icd9_charlson (data frame)
@@ -646,10 +646,14 @@ getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGrou
 <div id="ahrq" class="section level4">
 <h4 class="hasAnchor">
 <a href="#ahrq" class="anchor"></a>AHRQ</h4>
+<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 <div id="charlson" class="section level4">
 <h4 class="hasAnchor">
 <a href="#charlson" class="anchor"></a>Charlson</h4>
+<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
+<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
 </div>
 <div id="elixhauser" class="section level4">
 <h4 class="hasAnchor">

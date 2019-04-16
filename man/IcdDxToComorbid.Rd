@@ -6,7 +6,23 @@
 \source{
 AHRQ
 
+ICD-9-CM Elixhauser (2012-2015)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
+
+ICD-10-CM Elixhauser (2019)
+
+\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
+
 Charlson
+
+ICD-9-CM Charlson (2006)
+
+\url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
+
+ICD-10-CM Charlson (2006)
+
+\url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
 
 Elixhauser
 
