@@ -38,7 +38,7 @@ return DxDataFile with new column, condition era.
 }
 \examples{
 head(sampleDxFile)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCS)
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCSlvl2)
 grepTable <- data.frame(group = "Cardiac dysrhythmias",
                         grepIcd = "^427|^I48",
                         stringsAsFactors = FALSE)

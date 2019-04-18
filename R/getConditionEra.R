@@ -20,7 +20,7 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCS)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCSlvl2)
 #' grepTable <- data.frame(group = "Cardiac dysrhythmias",
 #'                         grepIcd = "^427|^I48",
 #'                         stringsAsFactors = FALSE)
@@ -40,21 +40,21 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
   if(groupDataType != "icd"){
-    groupedData <- groupedData$groupedDf
+    groupedData <- groupedData$groupedDT
   }
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
 
-  count <- groupedData[nchar(eval(parse(text = paste(groupDataType)))) > 0  & !is.na(eval(parse(text = paste(groupDataType))))][order(ID,eval(parse(text = paste(groupDataType))),Date)][,NextDate := c(Date[-1],NA),by = groupByCol][is.na(NextDate),NextDate := Date][,diffDay := NextDate- Date]
+  count <- groupedData[nchar(eval(parse(text = paste(groupDataType)))) > 0  & !is.na(eval(parse(text = paste(groupDataType))))][order(eval(parse(text = paste(groupByCol))),Date)][,NextDate := c(Date[-1],NA),by = groupByCol][is.na(NextDate),NextDate := Date][,Gap := NextDate- Date]
 
-  count$Gap <- c(NA,count$diffDay[1:(nrow(count)-1)])
-
-  conditionEra <- count[,episode := Gap > gapDate][is.na(episode),episode :=TRUE][,list(episodecount = cumsum(episode),
+  conditionEra <- count[,episode := Gap > gapDate][is.na(episode),episode :=TRUE][,list(episodeCount = cumsum(episode)+1,
                                                                                         firstCaseDate = min(Date),
                                                                                         endCaseDate = max(Date),
-                                                                                        count = .N),by = groupByCol][order(episodecount,decreasing = T),][,period := endCaseDate - firstCaseDate,][,-"episodecount"]
+                                                                                        count = .N),by = groupByCol][,era := max(episodeCount),by = groupByCol][,period := endCaseDate - firstCaseDate,][,-"episodeCount"]
 
   conditionEra <- unique(conditionEra)
 
   conditionEra
 }
+
+

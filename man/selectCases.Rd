@@ -42,7 +42,8 @@ Return qualified Members' data
 }
 \examples{
 head(sampleDxFile)
-selectCases(sampleDxFile, ID, ICD, Date,
+selectCases(DxDataFile = sampleDxFile,
+            ID, ICD, Date,
             groupDataType = ccslvl2,
             icd10usingDate = "2015/10/01",
             caseCondition = "Diseases of the heart",

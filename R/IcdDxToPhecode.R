@@ -42,7 +42,7 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
                                         count = .N),
                                    by = c("ID",phecodeCol)][,period := (endCaseDate - firstCaseDate),]
 
-  return(list(groupedDf = IcdToPhecode,
+  return(list(groupedDT = IcdToPhecode,
               groupedData_Long = IcdToPhecodeLong,
               Error = Conversion$Error))
 }

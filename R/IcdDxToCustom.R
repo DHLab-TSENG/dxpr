@@ -37,6 +37,6 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
                                     count = .N),
                                by = list(ID, group)][,period := (endCaseDate - firstCaseDate),]
 
-  return(list(groupedDf = groupedICD,
+  return(list(groupedDT = groupedICD,
               groupedData_Long = groupedICDLong))
 }

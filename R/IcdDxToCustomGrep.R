@@ -39,6 +39,6 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
                                   endCaseDate = max(Date),
                                   count = .N),by = list(ID,group)][,period := (endCaseDate - firstCaseDate),]
 
-  return(list(groupedDf = GrepedIcd,
+  return(list(groupedDT = GrepedIcd,
               groupedData_Long = GrepedIcdLong))
 }
