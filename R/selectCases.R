@@ -63,7 +63,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
   nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonSelectCaseType][!duplicated(ID),]
 
   if(length(unique(Case$ID)) > length(unique(selectedCase$ID))){
-    semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := semiSelectCaseType]
+    semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := semiSelectCaseType][!duplicated(ID),]
     nonSelectedCase <- rbind(nonSelectedCase,semiCase)
   }
 

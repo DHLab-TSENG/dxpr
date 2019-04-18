@@ -6,7 +6,7 @@
 \usage{
 getConditionEra(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, groupDataType = ccs, CustomGroupingTable,
-  isDescription = TRUE, gapDate = 30)
+  isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -26,6 +26,8 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 \item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
 
 \item{gapDate}{Length of condition era,By default it is set to 30 days \code{"30"}.}
+
+\item{selectedCaseFile}{Table for selectedCases. Default is \code{'NULL'}}
 }
 \description{
 A Condition Era is defined as a span of time when the member is assumed to have a given condition.
@@ -38,7 +40,14 @@ return DxDataFile with new column, condition era.
 }
 \examples{
 head(sampleDxFile)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCSlvl2)
+selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+                                icd10usingDate = "2015/10/01",
+                                groupDataType = ccslvl2,
+                                caseCondition = "Diseases of the heart",
+                                ICDNumber = 5)
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                groupDataType = CCSlvl2,
+                selectedCaseFile = selectedCaseFile)
 grepTable <- data.frame(group = "Cardiac dysrhythmias",
                         grepIcd = "^427|^I48",
                         stringsAsFactors = FALSE)

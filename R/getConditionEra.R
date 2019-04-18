@@ -17,10 +17,18 @@
 #' @param CustomGroupingTable Table is for groupDataType
 #' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.
 #' @param gapDate Length of condition era,By default it is set to 30 days \code{"30"}.
+#' @param selectedCaseFile Table for selectedCases. Default is \code{'NULL'}
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = CCSlvl2)
+#' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+#'                                 icd10usingDate = "2015/10/01",
+#'                                 groupDataType = ccslvl2,
+#'                                 caseCondition = "Diseases of the heart",
+#'                                 ICDNumber = 5)
+#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+#'                 groupDataType = CCSlvl2,
+#'                 selectedCaseFile = selectedCaseFile)
 #' grepTable <- data.frame(group = "Cardiac dysrhythmias",
 #'                         grepIcd = "^427|^I48",
 #'                         stringsAsFactors = FALSE)
@@ -28,7 +36,7 @@
 #'                 groupDataType = customGrepIcdGroup,
 #'                 CustomGroupingTable = grepTable)
 #'
-getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, gapDate = 30){
+getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL){
 
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
@@ -53,7 +61,9 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
                                                                                         count = .N),by = groupByCol][,era := max(episodeCount),by = groupByCol][,period := endCaseDate - firstCaseDate,][,-"episodeCount"]
 
   conditionEra <- unique(conditionEra)
-
+  if(!is.null(selectedCaseFile)){
+    conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
+  }
   conditionEra
 }
 
