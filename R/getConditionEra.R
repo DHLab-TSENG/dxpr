@@ -44,10 +44,10 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
 
-  groupDataType <- tolower(deparse(substitute(groupDataType)))
+  groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
-  if(groupDataType != "icd"){
+  if(groupDataType != "ICD"){
     groupedData <- groupedData$groupedDT
   }
   groupDataType <- names(groupedData)[ncol(groupedData)]
@@ -61,10 +61,10 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
                                                                                         count = .N),by = groupByCol][,era := max(episodeCount),by = groupByCol][,period := endCaseDate - firstCaseDate,][,-"episodeCount"]
 
   conditionEra <- unique(conditionEra)
+
   if(!is.null(selectedCaseFile)){
     conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
   }
+  conditionEra <- conditionEra[order(eval(parse(text = paste(groupByCol)))),]
   conditionEra
 }
-
-

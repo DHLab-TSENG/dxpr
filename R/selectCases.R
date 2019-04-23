@@ -37,11 +37,11 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
   nonSelectCaseType <- paste0("non",selectCaseType)
   semiSelectCaseType <- paste0(selectCaseType,"*")
 
-  groupDataType <- tolower(deparse(substitute(groupDataType)))
+  groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
 
-  if(groupDataType != "icd"){
+  if(groupDataType != "ICD"){
     groupedData <- groupedData$groupedDT
   }
   groupDataType <- names(groupedData)[ncol(groupedData)]

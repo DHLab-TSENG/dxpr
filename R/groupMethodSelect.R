@@ -19,24 +19,24 @@ groupMethodSelect <- function(DxDataFile,idColName, icdColName, dateColName, icd
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
 
-  if(groupMethod == "ccs"){
+  if(groupMethod == "CCS"){
     groupedData <- IcdDxToCCS(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)
-  }else if(grepl("ccslvl" ,groupMethod)){
+  }else if(grepl("CCSLVL" ,groupMethod)){
     CCSLevel <- as.numeric(sub("[A-Za-z]+","",groupMethod))
     groupedData <- IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, icd10usingDate, CCSLevel, isDescription)
-  }else if(groupMethod == "phecode"){
+  }else if(groupMethod == "PHECODE"){
     groupedData <- IcdDxToPhecode(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)
-  }else if(groupMethod == "ahrq"){
+  }else if(groupMethod == "AHRQ"){
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, ahrq)
-  }else if(groupMethod == "charlson"){
+  }else if(groupMethod == "CHARLSON"){
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson)
-  }else if(groupMethod == "elix"){
+  }else if(groupMethod == "ELIX"){
     groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)
-  }else if(groupMethod == "customgrepicdgroup"){
+  }else if(groupMethod == "CUSTOMGREPICDGROUP"){
     groupedData <- IcdDxToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)
-  }else if(groupMethod == "customicdgroup"){
+  }else if(groupMethod == "CUSTOMICDGROUP"){
     groupedData <- IcdDxToCustom(DxDataFile, ID, ICD, Date, CustomGroupingTable)
-  }else if(groupMethod == "icd"){
+  }else if(groupMethod == "ICD"){
     groupedData <- DxDataFile[, Short :=IcdDxDecimalToShort(DxDataFile, ICD, Date, icd10usingDate)$ICD]
   }else{
     stop("'please enter `ccs`,`ccslvl`, `phecode`, `ahrq`, `charlson`, `elix` `customgrepicdgroup`, `customicdgroup` for 'groupMethod'", call. = FALSE)

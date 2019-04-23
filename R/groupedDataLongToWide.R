@@ -22,7 +22,7 @@
 #'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
 #'                             stringsAsFactors = FALSE)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                       customIcdGroup,
+#'                       groupDataType = customIcdGroup,
 #'                       CustomGroupingTable = groupingTable)
 #' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 #'                                 icd10usingDate = "2015/10/01",
@@ -30,7 +30,9 @@
 #'                                 caseCondition = "Diseases of the heart",
 #'                                 ICDNumber = 2)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                       "2015-10-01", ccslvl2, N, selectedCaseFile = selectedCaseFile)
+#'                       "2015-10-01", ccslvl2,
+#'                       numericOrBinary = N,
+#'                       selectedCaseFile = selectedCaseFile)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B,selectedCaseFile = NULL){
   DxDataFile <- as.data.table(DxDataFile)
@@ -38,38 +40,40 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
 
-  groupDataType <- tolower(deparse(substitute(groupDataType)))
+  groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
-  if(groupDataType != "icd"){
+  if(groupDataType != "ICD"){
     groupedData <- groupedData$groupedData_Long
-    groupDataType <- names(groupedData)[2]
+  }else{
+    groupedData <- groupedData[,list(firstCaseDate = min(Date),endCaseDate = max(Date),count = .N),by = c("ID","Short")][,period := (endCaseDate - firstCaseDate),]
   }
-  wideDt <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
-  if(length(wideDt$ID) != length(DxDataFile$ID)){
-    wideDt <- merge(wideDt, DxDataFile[!duplicated(ID),"ID"], all = T)
+
+  groupedData_wide <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
+
+  if(length(groupedData_wide$ID) != length(DxDataFile$ID)){
+    OtherPatientID <- DxDataFile[!groupedData_wide, on = "ID"][!duplicated(ID),ID]
+    OtherPatientDt <- data.table(matrix(ncol = ncol(groupedData_wide),nrow = length(OtherPatientID)))
+    names(OtherPatientDt) <- names(groupedData_wide)
+    OtherPatientDt[,"ID"] <- OtherPatientID
+    wideData <- rbind(groupedData_wide, OtherPatientDt)
   }
-  wideDt[is.na(wideDt)] <- 0L
+  wideData[is.na(wideData)] <- 0L
+
   numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
   if(numericOrBinary == "B"){
-    wideDt_N <-as.data.frame(wideDt >= 1L)
-    wideDt_N$ID <- wideDt$ID
+    wideData_B <- as.data.frame(wideData >= 1L)
+    wideData_B$ID <- wideData$ID
+    wideData <- wideData_B
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
 
   if(!is.null(selectedCaseFile)){
-    if(numericOrBinary == "B"){
-      wideDt_selected <- merge(wideDt_N, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
-    }else{
-      wideDt_selected <- merge(wideDt, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
-    }
-    return(wideDt_selected)
+    wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
+    return(wideData_selected)
   }else{
-    if(numericOrBinary == "B"){
-      return(wideDt_N)
-    }else{
-      return(wideDt)
-    }
+    return(wideData)
   }
 }
+
