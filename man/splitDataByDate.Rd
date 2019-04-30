@@ -4,8 +4,8 @@
 \alias{splitDataByDate}
 \title{Select cases based on ICD code and the number of ICD codes}
 \usage{
-splitDataByDate(DxDataFile, idColName, icdColName, dateColName, IndexDate,
-  windowGap = 30)
+splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
+  indexDateFile, windowGap = 30)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"}
@@ -16,7 +16,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName, IndexDate,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{IndexDate}{An exact date of diagnosis for a period of observation.}
+\item{indexDateFile}{An exact date of diagnosis for a period of observation.}
 
 \item{windowGap}{gap length of window. By default it is set to \code{30}.}
 }
@@ -28,8 +28,11 @@ Return qualified Members' data
 }
 \examples{
 head(sampleDxFile)
+indexDateTable <- data.frame(ID = c("A","B","C","D"),
+                             indexDate = c("2006-05-03", "2006-05-03",
+                                           "2008-03-30", "2006-05-03"),
+                             stringsAsFactors = FALSE)
 splitDataByDate(sampleDxFile, ID, ICD, Date,
-                IndexDate = "2008-01-01",
+                indexDateFile = indexDateTable,
                 windowGap = 30)
-
 }

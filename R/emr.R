@@ -452,4 +452,5 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "phecode_icd9_2", "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
   "count","WrongType","IcdVersionInFile","Suggestion",
   "ccs", "ID", "ICD", "ICDD", "Comorbidity", "Date","Gap", "NextDate", "diffDay", "episodeCount", "episode", "era", "icd10usingDate",
-  "CustomGroupingTable", "greplICD", "timeTag"))
+  "CustomGroupingTable", "greplICD", "timeTag","indexDateTable","window","indexDate",
+  "firstRecordDate","endRecordDate"))

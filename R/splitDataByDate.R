@@ -11,32 +11,28 @@
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param IndexDate An exact date of diagnosis for a period of observation.
+#' @param indexDateFile An exact date of diagnosis for a period of observation.
 #' @param windowGap gap length of window. By default it is set to \code{30}.
 #' @export
 #' @examples
 #' head(sampleDxFile)
+#' indexDateTable <- data.frame(ID = c("A","B","C","D"),
+#'                              indexDate = c("2006-05-03", "2006-05-03",
+#'                                            "2008-03-30", "2006-05-03"),
+#'                              stringsAsFactors = FALSE)
 #' splitDataByDate(sampleDxFile, ID, ICD, Date,
-#'                 IndexDate = "2008-01-01",
+#'                 indexDateFile = indexDateTable,
 #'                 windowGap = 30)
-#'
-splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, IndexDate, windowGap = 30){
+splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, indexDateFile, windowGap = 30){
   DxDataFile <- as.data.table(DxDataFile)
+  indexDateFile <- as.data.table(indexDateFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+  DxDataFile[,"Date"] <- as.Date(DxDataFile$Date)
 
-
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
-  After <- DxDataFile[Date >= as.Date(IndexDate),][,timeTag := "A"][,Gap := Date - as.Date(IndexDate)]
-  After$window <- (as.integer(After$Gap) %/% windowGap) + 1
-
-  Before <- DxDataFile[Date < as.Date(IndexDate),][order(Date,decreasing = T),][,timeTag := "B"][,Gap := as.Date(IndexDate) - Date]
-  Before$window <- (as.integer(Before$Gap) %/% windowGap) + 1
-
-  splitedData <- rbind(After,Before)[order(Number)][,-c("Number","Gap")]
+  splitedData <- merge(DxDataFile,indexDateTable,
+                       all.x = T)[,Gap := Date - as.Date(indexDate)][Gap >= 0, timeTag := "A"][Gap < 0, timeTag := "B"][,window := abs((as.integer(Gap) %/% windowGap)),][timeTag == "A", window := window +1,][order(ID,Date), -"Gap"]
 
   splitedData
 }
-

@@ -6,7 +6,7 @@
 \usage{
 selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
   groupDataType = ICD, CustomGroupingTable, isDescription = TRUE,
-  caseCondition, ICDNumber, INRofDayRange = c(30, 365),
+  caseCondition, caseCount, INRofDayRange = c(30, 365),
   selectCaseType = "Selected")
 }
 \arguments{
@@ -28,7 +28,7 @@ selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{caseCondition}{ICD selection rules with grepl expression}
 
-\item{ICDNumber}{a threshold of number of ICD for case selection}
+\item{caseCount}{a threshold of number of ICD for case selection}
 
 \item{INRofDayRange}{Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.}
 
@@ -47,6 +47,6 @@ selectCases(DxDataFile = sampleDxFile,
             groupDataType = ccslvl2,
             icd10usingDate = "2015/10/01",
             caseCondition = "Diseases of the heart",
-            ICDNumber = 2)
+            caseCount = 2)
 
 }

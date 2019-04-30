@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards. — IcdDxToCustomGrep • emr</title>
+<title>patients' first and last record date. — patientRecordDate • emr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards. — IcdDxToCustomGrep" />
+<meta property="og:title" content="patients' first and last record date. — patientRecordDate" />
 
-<meta property="og:description" content="This can be used to select the first diagnosis record
-based on ICD code (grepl language) in DxDataFile,
-return first diagnosis record based on factIcd Data" />
+<meta property="og:description" content="patients' first and last record date." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,28 +110,25 @@ return first diagnosis record based on factIcd Data" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.</h1>
+    <h1>patients' first and last record date.</h1>
     
-    <div class="hidden name"><code>IcdDxToCustomGrep.Rd</code></div>
+    <div class="hidden name"><code>patientRecordDate.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This can be used to select the first diagnosis record
-based on ICD code (grepl language) in DxDataFile,
-return first diagnosis record based on factIcd Data</p>
+    <p>patients' first and last record date.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>IcdDxToCustomGrep</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>CustomGroupingTable</span>)</pre>
+    <pre class="usage"><span class='fu'>patientRecordDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>DxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
@@ -147,10 +142,6 @@ return first diagnosis record based on factIcd Data</p>
       <th>dateColName</th>
       <td><p>A column for Date of DxDataFile</p></td>
     </tr>
-    <tr>
-      <th>CustomGroupingTable</th>
-      <td><p>grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group", "grepIcd"</p></td>
-    </tr>
     </table>
     
 
@@ -161,30 +152,11 @@ return first diagnosis record based on factIcd Data</p>
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Cardiac dysrhythmias"</span>,
-                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^427|^I48"</span>,
-                        <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>IcdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                  <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; $groupedDT
-#&gt;      ID    ICD       Date group
-#&gt;   1:  C  553.3 2008-04-03      
-#&gt;   2:  A  553.3 2008-05-01      
-#&gt;   3:  A 553.20 2009-02-23      
-#&gt;   4:  B 553.20 2007-08-29      
-#&gt;   5:  A  553.3 2008-06-27      
-#&gt;  ---                           
-#&gt; 171:  D  75.52 2006-05-03      
-#&gt; 172:  A 785.52 2006-05-03      
-#&gt; 173:  B    001 2006-05-03      
-#&gt; 174:  D   7552 2006-05-03      
-#&gt; 175:  D  755.2 2006-05-03      
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;    ID                group firstCaseDate endCaseDate count    period
-#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days
-#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days
-#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days
-#&gt; </div><div class='input'>
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>)</div><div class='output co'>#&gt;    ID firstRecordDate endRecordDate
+#&gt; 1:  D      2006-05-03    2006-05-03
+#&gt; 2:  A      2006-05-03    2022-02-20
+#&gt; 3:  B      2006-05-03    2022-03-18
+#&gt; 4:  C      2007-04-21    2021-09-17</div><div class='input'>                
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

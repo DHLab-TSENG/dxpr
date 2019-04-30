@@ -15,7 +15,7 @@
 #' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
 #' @param CustomGroupingTable Table is for groupDataType
 #' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.
-#' @param ICDNumber a threshold of number of ICD for case selection
+#' @param caseCount a threshold of number of ICD for case selection
 #' @param INRofDayRange Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.
 #' @param selectCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.
 #' @export
@@ -26,9 +26,9 @@
 #'             groupDataType = ccslvl2,
 #'             icd10usingDate = "2015/10/01",
 #'             caseCondition = "Diseases of the heart",
-#'             ICDNumber = 2)
+#'             caseCount = 2)
 #'
-selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, ICDNumber, INRofDayRange = c(30, 365), selectCaseType = "Selected"){
+selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, INRofDayRange = c(30, 365), selectCaseType = "Selected"){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
@@ -51,7 +51,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
   Case <- Case[!duplicated(Case)][,NextDate := c(Date[-1],NA),by = "ID"][is.na(NextDate),NextDate := Date][,diffDay := NextDate-Date][,Out := FALSE][diffDay > INRofDayRange[2],Out := TRUE][,OutCount:=cumsum(Out),by = "ID"][!Out == TRUE,]
 
   if(nrow(Case) > 0){
-    CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)),by = c("ID","OutCount")][,InTimeINR := Gap >= INRofDayRange[1] & Gap < INRofDayRange[2],][is.na(InTimeINR),InTimeINR := FALSE][,list(count = cumsum(InTimeINR), firstCaseDate = min(Date), endCaseDate = max(NextDate),period = Gap),by = c("ID","OutCount")][order(ID, count, decreasing = T)][!duplicated(ID),][count >= ICDNumber,][,selectedCase := selectCaseType][,-"OutCount"]
+    CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)),by = c("ID","OutCount")][,InTimeINR := Gap >= INRofDayRange[1] & Gap < INRofDayRange[2],][is.na(InTimeINR),InTimeINR := FALSE][,list(count = cumsum(InTimeINR), firstCaseDate = min(Date), endCaseDate = max(NextDate),period = Gap),by = c("ID","OutCount")][order(ID, count, decreasing = T)][!duplicated(ID),][count >= caseCount,][,selectedCase := selectCaseType][,-"OutCount"]
 
     CaseMostICDCount <- Case[InTimeINR ==TRUE,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
     selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[!duplicated(ID),]

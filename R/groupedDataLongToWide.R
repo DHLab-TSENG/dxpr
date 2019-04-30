@@ -28,7 +28,7 @@
 #'                                 icd10usingDate = "2015/10/01",
 #'                                 groupDataType = ccslvl2,
 #'                                 caseCondition = "Diseases of the heart",
-#'                                 ICDNumber = 2)
+#'                                 caseCount = 2)
 #' groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                       "2015-10-01", ccslvl2,
 #'                       numericOrBinary = N,
@@ -44,7 +44,7 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
   if(groupDataType != "ICD"){
-    groupedData <- groupedData$groupedData_Long
+    groupedData <- groupedData$summarised_groupedDT
   }else{
     groupedData <- groupedData[,list(firstCaseDate = min(Date),endCaseDate = max(Date),count = .N),by = c("ID","Short")][,period := (endCaseDate - firstCaseDate),]
   }
@@ -76,4 +76,3 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
     return(wideData)
   }
 }
-

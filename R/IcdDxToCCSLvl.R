@@ -55,6 +55,6 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
                                  by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDT = IcdToCCSLvl,
-              groupedData_Long = IcdToCCSLvlLong,
+              summarised_groupedDT = IcdToCCSLvlLong,
               Error = Conversion$Error))
 }

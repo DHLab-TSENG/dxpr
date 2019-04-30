@@ -127,8 +127,8 @@ Return qualified Members' data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>IndexDate</span>,
-  <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+    <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
+  <span class='no'>indexDateFile</span>, <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,7 +150,7 @@ Return qualified Members' data</p>
       <td><p>A column for Date of DxDataFile</p></td>
     </tr>
     <tr>
-      <th>IndexDate</th>
+      <th>indexDateFile</th>
       <td><p>An exact date of diagnosis for a period of observation.</p></td>
     </tr>
     <tr>
@@ -167,21 +167,13 @@ Return qualified Members' data</p>
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                <span class='kw'>IndexDate</span> <span class='kw'>=</span> <span class='st'>"2008-01-01"</span>,
-                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date timeTag window
-#&gt;   1:  C  553.3 2008-04-03       A      4
-#&gt;   2:  A  553.3 2008-05-01       A      5
-#&gt;   3:  A 553.20 2009-02-23       A     14
-#&gt;   4:  B 553.20 2007-08-29       B      5
-#&gt;   5:  A  553.3 2008-06-27       A      6
-#&gt;  ---                                    
-#&gt; 171:  D  75.52 2006-05-03       B     21
-#&gt; 172:  A 785.52 2006-05-03       B     21
-#&gt; 173:  B    001 2006-05-03       B     21
-#&gt; 174:  D   7552 2006-05-03       B     21
-#&gt; 175:  D  755.2 2006-05-03       B     21</div><div class='input'>
-</div></pre>
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>indexDateTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>),
+                             <span class='kw'>indexDate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"2006-05-03"</span>, <span class='st'>"2006-05-03"</span>,
+                                           <span class='st'>"2008-03-30"</span>, <span class='st'>"2006-05-03"</span>),
+                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
+                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt; <span class='error'>Error in is.data.table(y): 找不到物件 'indexDateTable'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

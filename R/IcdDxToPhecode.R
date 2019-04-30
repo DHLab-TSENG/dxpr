@@ -43,6 +43,6 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
                                    by = c("ID",phecodeCol)][,period := (endCaseDate - firstCaseDate),]
 
   return(list(groupedDT = IcdToPhecode,
-              groupedData_Long = IcdToPhecodeLong,
+              summarised_groupedDT = IcdToPhecodeLong,
               Error = Conversion$Error))
 }

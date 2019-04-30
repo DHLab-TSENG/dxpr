@@ -23,11 +23,11 @@
 #' head(sampleDxFile)
 #' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 #'                                 icd10usingDate = "2015/10/01",
-#'                                 groupDataType = ccslvl2,
-#'                                 caseCondition = "Diseases of the heart",
-#'                                 ICDNumber = 5)
+#'                                 groupDataType = ccslvl3,
+#'                                 caseCondition = "Shock",
+#'                                 caseCount = 2)
 #' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                 groupDataType = CCSlvl2,
+#'                 groupDataType = CCSlvl3,
 #'                 selectedCaseFile = selectedCaseFile)
 #' grepTable <- data.frame(group = "Cardiac dysrhythmias",
 #'                         grepIcd = "^427|^I48",
@@ -65,6 +65,6 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   if(!is.null(selectedCaseFile)){
     conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
   }
-  conditionEra <- conditionEra[order(eval(parse(text = paste(groupByCol)))),]
+  conditionEra <- conditionEra[order(ID),]
   conditionEra
 }

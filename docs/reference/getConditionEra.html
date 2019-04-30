@@ -190,60 +190,54 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
 #&gt; 5:  A  553.3 2008-06-27
 #&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                                 <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
-                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
-                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the heart"</span>,
-                                <span class='kw'>ICDNumber</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
-                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl2</span>,
-                <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate
-#&gt;  1:  A                                      Abdominal hernia    2008-05-01
-#&gt;  2:  B                                      Abdominal hernia    2007-08-29
-#&gt;  3:  C                                      Abdominal hernia    2008-04-03
-#&gt;  4:  A                                 Diseases of the heart    2007-07-27
-#&gt;  5:  B                                 Diseases of the heart    2007-07-16
-#&gt;  6:  C                                 Diseases of the heart    2007-06-20
-#&gt;  7:  A                        Diseases of the urinary system    2007-05-12
-#&gt;  8:  B                        Diseases of the urinary system    2007-05-28
-#&gt;  9:  C                        Diseases of the urinary system    2007-04-21
-#&gt; 10:  B Hereditary and degenerative nervous system conditions    2021-06-24
-#&gt; 11:  C                                         Liver disease    2021-01-09
-#&gt; 12:  C Other nutritional; endocrine; and metabolic disorders    2019-10-16
-#&gt; 13:  A             Residual codes; unclassified; all E codes    2014-10-01
-#&gt; 14:  A        Residual codes; unclassified; all E codes  and    2020-04-29
-#&gt; 15:  A                                Respiratory infections    2009-06-09
-#&gt; 16:  B                                Respiratory infections    2008-04-29
-#&gt; 17:  A              Symptoms; signs;  ill-defined conditions    2006-05-03
-#&gt; 18:  B              Symptoms; signs;  ill-defined conditions    2008-01-19
-#&gt; 19:  C              Symptoms; signs;  ill-defined conditions    2008-03-30
-#&gt; 20:  C                                     Thyroid disorders    2015-10-01
-#&gt;     endCaseDate count era    period selectedCase
-#&gt;  1:  2018-12-28     4   4 3893 days    Selected*
-#&gt;  2:  2019-11-10     2   2 4456 days    Selected*
-#&gt;  3:  2018-12-28     2   2 3921 days     Selected
-#&gt;  4:  2022-02-20    12   9 5322 days    Selected*
-#&gt;  5:  2020-10-11    13  10 4836 days    Selected*
-#&gt;  6:  2021-09-16    20  15 5202 days     Selected
-#&gt;  7:  2022-02-08    33  12 5386 days    Selected*
-#&gt;  8:  2022-03-18    34  14 5408 days    Selected*
-#&gt;  9:  2021-09-17    33  16 5263 days     Selected
-#&gt; 10:  2021-06-24     1   1    0 days    Selected*
-#&gt; 11:  2021-01-09     1   1    0 days     Selected
-#&gt; 12:  2019-10-16     1   1    0 days     Selected
-#&gt; 13:  2014-10-01     1   1    0 days    Selected*
-#&gt; 14:  2020-04-29     1   1    0 days    Selected*
-#&gt; 15:  2009-06-09     1   1    0 days    Selected*
-#&gt; 16:  2008-04-29     1   1    0 days    Selected*
-#&gt; 17:  2008-05-03     2   2  731 days    Selected*
-#&gt; 18:  2008-01-19     1   1    0 days    Selected*
-#&gt; 19:  2008-09-06     2   2  160 days     Selected
-#&gt; 20:  2015-10-01     1   1    0 days     Selected</div><div class='input'><span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Cardiac dysrhythmias"</span>,
+                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl3</span>,
+                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Shock"</span>,
+                                <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl3</span>,
+                <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;     ID                           CCS_LVL_3_LABEL firstCaseDate endCaseDate
+#&gt;  1:  A                          Acute bronchitis    2009-06-09  2009-06-09
+#&gt;  2:  A                      Cardiac dysrhythmias    2007-07-27  2009-03-02
+#&gt;  3:  A                    Chronic kidney disease    2007-05-12  2009-04-26
+#&gt;  4:  A                      Diaphragmatic hernia    2008-05-01  2008-06-27
+#&gt;  5:  A                    Other abdominal hernia    2009-02-23  2009-02-23
+#&gt;  6:  A Residual codes; unclassified; all E codes    2014-10-01  2014-10-01
+#&gt;  7:  A                                     Shock    2006-05-03  2008-05-03
+#&gt;  8:  B                          Acute bronchitis    2008-04-29  2008-04-29
+#&gt;  9:  B                      Cardiac dysrhythmias    2007-07-16  2009-02-25
+#&gt; 10:  B                    Chronic kidney disease    2007-05-28  2009-03-05
+#&gt; 11:  B                    Other abdominal hernia    2007-08-29  2007-08-29
+#&gt; 12:  B                                     Shock    2008-01-19  2008-01-19
+#&gt; 13:  C                      Cardiac dysrhythmias    2007-06-20  2009-02-08
+#&gt; 14:  C                    Chronic kidney disease    2007-04-21  2009-05-26
+#&gt; 15:  C                      Diaphragmatic hernia    2008-04-03  2008-04-03
+#&gt; 16:  C                     Heart valve disorders    2007-12-12  2007-12-12
+#&gt; 17:  C                                     Shock    2008-03-30  2008-09-06
+#&gt;     count era   period selectedCase
+#&gt;  1:     1   1   0 days    Selected*
+#&gt;  2:     6   4 584 days    Selected*
+#&gt;  3:    29   8 715 days    Selected*
+#&gt;  4:     2   2  57 days    Selected*
+#&gt;  5:     1   1   0 days    Selected*
+#&gt;  6:     1   1   0 days    Selected*
+#&gt;  7:     2   2 731 days    Selected*
+#&gt;  8:     1   1   0 days    Selected*
+#&gt;  9:     7   5 590 days    Selected*
+#&gt; 10:    27   9 647 days    Selected*
+#&gt; 11:     1   1   0 days    Selected*
+#&gt; 12:     1   1   0 days    Selected*
+#&gt; 13:    11   6 599 days     Selected
+#&gt; 14:    28  11 766 days     Selected
+#&gt; 15:     1   1   0 days     Selected
+#&gt; 16:     1   1   0 days     Selected
+#&gt; 17:     2   2 160 days     Selected</div><div class='input'><span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Cardiac dysrhythmias"</span>,
                         <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^427|^I48"</span>,
                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
                 <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
                 <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt;    ID                group firstCaseDate endCaseDate count era    period
-#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
 #&gt; 2:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days
-#&gt; 3:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days</div><div class='input'>
+#&gt; 3:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
