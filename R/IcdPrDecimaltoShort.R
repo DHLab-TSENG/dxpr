@@ -18,7 +18,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @export
 #' @examples
 #' head(samplePrFile)
-#' samplePrFile$Short <- IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")$ICD
+#' IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
 #'
 IcdPrDecimalToShort<-function(PrDataFile, icdColName, dateColName, icd10usingDate){
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))

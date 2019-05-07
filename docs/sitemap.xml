@@ -34,9 +34,6 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/groupMethodSelect.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxGenerateDecimalFormat.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxwithTwoFormat.html</loc>
   </url>
   <url>
@@ -49,13 +46,7 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/icd10_elix.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9DxGenerateDecimalFormat.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/ICD9DxwithTwoFormat.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9PrGenerateDecimalFormat.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/ICD9PrwithTwoFormat.html</loc>
@@ -119,6 +110,9 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/plot_errorICD.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/prICD10.html</loc>

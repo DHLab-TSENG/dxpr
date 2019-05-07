@@ -2,7 +2,7 @@
 % Please edit documentation in R/splitDataByDate.R
 \name{splitDataByDate}
 \alias{splitDataByDate}
-\title{Select cases based on ICD code and the number of ICD codes}
+\title{split data based on index date}
 \usage{
 splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
   indexDateFile, windowGap = 30)
@@ -21,10 +21,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
 \item{windowGap}{gap length of window. By default it is set to \code{30}.}
 }
 \description{
-This can be used to select qualified cases from factIcd data
-based on the ICD code searching criteria and number of ICD code
-per patients in the inout factIcd dataset.
-Return qualified Members' data
+split data based on index date
 }
 \examples{
 head(sampleDxFile)

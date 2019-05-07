@@ -1,10 +1,5 @@
 
-#' Select cases based on ICD code and the number of ICD codes
-#'
-#' This can be used to select qualified cases from factIcd data
-#' based on the ICD code searching criteria and number of ICD code
-#' per patients in the inout factIcd dataset.
-#' Return qualified Members' data
+#' split data based on index date
 #'
 #' @import data.table
 #' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"

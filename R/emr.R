@@ -453,4 +453,5 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "count","WrongType","IcdVersionInFile","Suggestion",
   "ccs", "ID", "ICD", "ICDD", "Comorbidity", "Date","Gap", "NextDate", "diffDay", "episodeCount", "episode", "era", "icd10usingDate",
   "CustomGroupingTable", "greplICD", "timeTag","indexDateTable","window","indexDate",
-  "firstRecordDate","endRecordDate"))
+  "firstRecordDate","endRecordDate", "WrongICDType", "errorFile", "ICDVersion", "groupICD",
+  "ICDGroup","groupCount","maxICD","MostICDinGroup","CumCount","ICDPercinGroup","CumCountPerc"))

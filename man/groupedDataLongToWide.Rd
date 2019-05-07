@@ -42,6 +42,7 @@ groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
                       groupDataType = customIcdGroup,
                       CustomGroupingTable = groupingTable)
+
 selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,

@@ -81,4 +81,3 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
 
   allData
 }
-

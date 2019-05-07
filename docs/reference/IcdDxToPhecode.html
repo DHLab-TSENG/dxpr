@@ -170,7 +170,7 @@
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToPhecode</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToPhecode</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
 #&gt;        ICDD ID    ICD       Date PheCode
 #&gt;   1:  553.3  C  553.3 2008-04-03   550.2
 #&gt;   2:  553.3  A  553.3 2008-05-01   550.2
@@ -178,65 +178,78 @@
 #&gt;   4: 553.20  B 553.20 2007-08-29   550.5
 #&gt;   5:  553.3  A  553.3 2008-06-27   550.2
 #&gt;  ---                                    
-#&gt; 171:  75.52  D  75.52 2006-05-03    &lt;NA&gt;
-#&gt; 172: 785.52  A 785.52 2006-05-03  994.21
-#&gt; 173:    001  B    001 2006-05-03     008
-#&gt; 174:   7552  D   7552 2006-05-03    &lt;NA&gt;
-#&gt; 175:  755.2  D  755.2 2006-05-03   755.4
+#&gt; 271:    650  D    650 2018-10-02     650
+#&gt; 272:    650  A    650 2018-10-02     650
+#&gt; 273:    650  B    650 2018-10-02     650
+#&gt; 274:    F42  C    F42 2018-10-02    &lt;NA&gt;
+#&gt; 275:  Z9.90  D  Z9.90 2018-10-02    &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;     ID PheCode firstCaseDate endCaseDate count   period
-#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
-#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
-#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
-#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
-#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
-#&gt;  6:  A     483    2009-06-09  2009-06-09     1   0 days
-#&gt;  7:  A  427.61    2009-02-16  2009-02-16     1   0 days
-#&gt;  8:  C  427.21    2007-06-20  2008-09-11     5 449 days
-#&gt;  9:  C   427.3    2008-01-23  2008-01-23     1   0 days
-#&gt; 10:  A  427.21    2007-09-19  2007-09-19     1   0 days
-#&gt; 11:  B  427.21    2007-07-16  2009-02-25     5 590 days
-#&gt; 12:  C   427.7    2008-12-31  2008-12-31     2   0 days
-#&gt; 13:  A   427.9    2009-03-02  2009-03-02     2   0 days
-#&gt; 14:  C   427.8    2009-02-08  2009-02-08     1   0 days
-#&gt; 15:  C   427.1    2008-02-16  2008-02-16     1   0 days
-#&gt; 16:  B   427.9    2008-04-07  2008-04-07     2   0 days
-#&gt; 17:  A  427.12    2007-07-27  2008-12-27     2 519 days
-#&gt; 18:  C  427.12    2008-03-01  2008-03-01     1   0 days
-#&gt; 19:  A  585.33    2007-08-21  2007-08-28     2   7 days
-#&gt; 20:  C  585.33    2007-09-26  2007-09-26     1   0 days
-#&gt; 21:  B  585.33    2008-07-23  2008-07-23     1   0 days
-#&gt; 22:  B  585.31    2007-05-28  2009-03-05    21 647 days
-#&gt; 23:  C  585.31    2007-04-21  2009-04-21    20 731 days
-#&gt; 24:  A  585.31    2007-05-12  2009-01-17    19 616 days
-#&gt; 25:  B  585.32    2007-07-25  2008-04-28     3 278 days
-#&gt; 26:  C  585.32    2008-01-28  2009-04-06     2 434 days
-#&gt; 27:  A   585.4    2007-08-08  2007-08-08     1   0 days
-#&gt; 28:  C     587    2008-08-26  2008-08-26     1   0 days
-#&gt; 29:  A   585.3    2007-09-27  2008-11-04     6 404 days
-#&gt; 30:  A  585.32    2009-04-26  2009-04-26     1   0 days
-#&gt; 31:  C   585.3    2007-08-28  2009-05-26     4 637 days
-#&gt; 32:  B   585.3    2007-07-10  2009-03-04     2 603 days
-#&gt; 33:  C  994.21    2008-03-30  2008-09-06     2 160 days
-#&gt; 34:  C     396    2007-12-12  2007-12-12     1   0 days
-#&gt; 35:  A  994.21    2006-05-03  2008-05-03     2 731 days
-#&gt; 36:  B  994.21    2008-01-19  2008-01-19     1   0 days
-#&gt; 37:  B     008    2006-05-03  2006-05-03     1   0 days
-#&gt; 38:  D   755.4    2006-05-03  2006-05-03     1   0 days
-#&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt;     ID PheCode firstCaseDate endCaseDate count    period
+#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1    0 days
+#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2   57 days
+#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1    0 days
+#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1    0 days
+#&gt;  5:  B     483    2008-04-29  2008-04-29     1    0 days
+#&gt;  6:  A     483    2009-06-09  2009-06-09     1    0 days
+#&gt;  7:  A  427.61    2009-02-16  2009-02-16     1    0 days
+#&gt;  8:  C  427.21    2007-06-20  2008-09-11     5  449 days
+#&gt;  9:  C   427.3    2008-01-23  2008-01-23     1    0 days
+#&gt; 10:  A  427.21    2007-09-19  2007-09-19     1    0 days
+#&gt; 11:  B  427.21    2007-07-16  2009-02-25     5  590 days
+#&gt; 12:  C   427.7    2008-12-31  2008-12-31     2    0 days
+#&gt; 13:  A   427.9    2009-03-02  2009-03-02     2    0 days
+#&gt; 14:  C   427.8    2009-02-08  2009-02-08     1    0 days
+#&gt; 15:  C   427.1    2008-02-16  2008-02-16     1    0 days
+#&gt; 16:  B   427.9    2008-04-07  2008-04-07     2    0 days
+#&gt; 17:  A  427.12    2007-07-27  2008-12-27     2  519 days
+#&gt; 18:  C  427.12    2008-03-01  2008-03-01     1    0 days
+#&gt; 19:  A  585.33    2007-08-21  2007-08-28     2    7 days
+#&gt; 20:  C  585.33    2007-09-26  2007-09-26     1    0 days
+#&gt; 21:  B  585.33    2008-07-23  2008-07-23     1    0 days
+#&gt; 22:  B  585.31    2007-05-28  2009-03-05    21  647 days
+#&gt; 23:  C  585.31    2007-04-21  2009-04-21    20  731 days
+#&gt; 24:  A  585.31    2007-05-12  2009-01-17    19  616 days
+#&gt; 25:  B  585.32    2007-07-25  2008-04-28     3  278 days
+#&gt; 26:  C  585.32    2008-01-28  2009-04-06     2  434 days
+#&gt; 27:  A   585.4    2007-08-08  2007-08-08     1    0 days
+#&gt; 28:  C     587    2008-08-26  2008-08-26     1    0 days
+#&gt; 29:  A   585.3    2007-09-27  2008-11-04     6  404 days
+#&gt; 30:  A  585.32    2009-04-26  2009-04-26     1    0 days
+#&gt; 31:  C   585.3    2007-08-28  2009-05-26     4  637 days
+#&gt; 32:  B   585.3    2007-07-10  2009-03-04     2  603 days
+#&gt; 33:  C  994.21    2008-03-30  2008-09-06     2  160 days
+#&gt; 34:  C     396    2007-12-12  2007-12-12     1    0 days
+#&gt; 35:  A  994.21    2006-05-03  2008-05-03     2  731 days
+#&gt; 36:  B  994.21    2008-01-19  2008-01-19     1    0 days
+#&gt; 37:  B     008    2006-05-03  2013-10-02     3 2709 days
+#&gt; 38:  D   755.4    2006-05-03  2013-10-02     2 2709 days
+#&gt; 39:  C   755.4    2013-10-02  2013-10-02     1    0 days
+#&gt; 40:  C     008    2013-10-02  2013-10-02     2    0 days
+#&gt; 41:  C     650    2018-10-02  2018-10-02     1    0 days
+#&gt; 42:  D     650    2018-10-02  2018-10-02     1    0 days
+#&gt; 43:  A     650    2018-10-02  2018-10-02     1    0 days
+#&gt; 44:  B     650    2018-10-02  2018-10-02     1    0 days
+#&gt;     ID PheCode firstCaseDate endCaseDate count    period
 #&gt; 
 #&gt; $Error
-#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1:  75.52     1            ICD 9  Wrong format           
-#&gt; 2: 123.45     1           ICD 10  Wrong format           
-#&gt; 3: A01.05     1            ICD 9 Wrong version           
-#&gt; 4:  E03.0     1            ICD 9 Wrong version           
-#&gt; 5:  A0105     1            ICD 9 Wrong version           
-#&gt; 6:  42761     1           ICD 10 Wrong version           
-#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
-#&gt; 8:    001     1            ICD 9  Wrong format       0019
-#&gt; 9:   7552     1            ICD 9  Wrong format      75529
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

@@ -12,7 +12,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    data.table
+    data.table,
+    ggplot2
 Depends: R (>= 3.4.0)
 URL: https://dhlab-cgu.github.io/emr/
 BugReports: https://github.com/DHLab-CGU/emr/issues

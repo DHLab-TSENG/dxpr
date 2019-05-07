@@ -121,7 +121,27 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-grouping-icd-cm-code" class="hasAnchor"><a href="#section-grouping-icd-cm-code" class="anchor"></a>Grouping ICD-CM-code</h2>
+          <h2 id="section-i-code-standarization" class="hasAnchor"><a href="#section-i-code-standarization" class="anchor"></a>I. Code standarization</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="IcdDxShortToDecimal.html">IcdDxShortToDecimal()</a></code> </p>
+        </td>
+        <td><p>Convert ICD Codes From Short To Decimal Forms</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="IcdDxDecimalToShort.html">IcdDxDecimalToShort()</a></code> </p>
+        </td>
+        <td><p>Convert ICD Codes From Decimal To Short Forms</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-ii-data-integration" class="hasAnchor"><a href="#section-ii-data-integration" class="anchor"></a>II. Data integration</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -161,15 +181,79 @@
           <p><code><a href="IcdDxToCustomGrep.html">IcdDxToCustomGrep()</a></code> </p>
         </td>
         <td><p>Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="selectCases.html">selectCases()</a></code> </p>
+        </td>
+        <td><p>Select cases based on ICD code and the number of ICD codes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="splitDataByDate.html">splitDataByDate()</a></code> </p>
+        </td>
+        <td><p>split data based on index date</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="patientRecordDate.html">patientRecordDate()</a></code> </p>
+        </td>
+        <td><p>patients' first and last record date.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getConditionEra.html">getConditionEra()</a></code> </p>
+        </td>
+        <td><p>Get the condition era</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-grouping-icd-pcs-codes" class="hasAnchor"><a href="#section-grouping-icd-pcs-codes" class="anchor"></a>Grouping ICD-PCS-codes</h2>
+          <h2 id="section-iii-eda-preparation" class="hasAnchor"><a href="#section-iii-eda-preparation" class="anchor"></a>III. EDA preparation</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="groupedDataLongToWide.html">groupedDataLongToWide()</a></code> </p>
+        </td>
+        <td><p>Grouped data format conversion</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-iv-visualization" class="hasAnchor"><a href="#section-iv-visualization" class="anchor"></a>IV. Visualization</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="plot_errorICD.html">plot_errorICD()</a></code> </p>
+        </td>
+        <td><p>Pareto Plot of error ICD Codes</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-icd-pcs-function" class="hasAnchor"><a href="#section-icd-pcs-function" class="anchor"></a>ICD-PCS function</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="IcdPrShortToDecimal.html">IcdPrShortToDecimal()</a></code> </p>
+        </td>
+        <td><p>Convert ICD-9-PCS Codes From Short To Decimal Forms</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="IcdPrDecimalToShort.html">IcdPrDecimalToShort()</a></code> </p>
+        </td>
+        <td><p>Convert ICD-9-PCS Codes From Decimal To Short Forms</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="IcdPrToCCS.html">IcdPrToCCS()</a></code> </p>
@@ -191,211 +275,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-select-event" class="hasAnchor"><a href="#section-select-event" class="anchor"></a>Select event</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="selectCases.html">selectCases()</a></code> </p>
-        </td>
-        <td><p>Select cases based on ICD code and the number of ICD codes</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-split-data-by-index-date" class="hasAnchor"><a href="#section-split-data-by-index-date" class="anchor"></a>Split Data by index date</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="splitDataByDate.html">splitDataByDate()</a></code> </p>
-        </td>
-        <td><p>Select cases based on ICD code and the number of ICD codes</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-format-conversion" class="hasAnchor"><a href="#section-data-format-conversion" class="anchor"></a>Data format Conversion</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="groupedDataLongToWide.html">groupedDataLongToWide()</a></code> </p>
-        </td>
-        <td><p>Grouped data format conversion</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-calculate-condition-era" class="hasAnchor"><a href="#section-calculate-condition-era" class="anchor"></a>Calculate condition era</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="getConditionEra.html">getConditionEra()</a></code> </p>
-        </td>
-        <td><p>Get the condition era</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-generation-icd-cm-code-decimal-format" class="hasAnchor"><a href="#section-generation-icd-cm-code-decimal-format" class="anchor"></a>Generation ICD-CM code Decimal Format</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ICD9DxGenerateDecimalFormat.html">ICD9DxGenerateDecimalFormat()</a></code> </p>
-        </td>
-        <td><p>get ICD-9-CM Codes Decimal Forms</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ICD10DxGenerateDecimalFormat.html">ICD10DxGenerateDecimalFormat()</a></code> </p>
-        </td>
-        <td><p>get ICD-10-CM Codes Decimal Forms</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-conversion-icd-cm-code-format" class="hasAnchor"><a href="#section-conversion-icd-cm-code-format" class="anchor"></a>Conversion ICD-CM code format</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="IcdDxShortToDecimal.html">IcdDxShortToDecimal()</a></code> </p>
-        </td>
-        <td><p>Convert ICD Codes From Short To Decimal Forms</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="IcdDxDecimalToShort.html">IcdDxDecimalToShort()</a></code> </p>
-        </td>
-        <td><p>Convert ICD Codes From Decimal To Short Forms</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-generation-icd-pcs-code-decimal-format" class="hasAnchor"><a href="#section-generation-icd-pcs-code-decimal-format" class="anchor"></a>Generation ICD-PCS code Decimal Format</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ICD9PrGenerateDecimalFormat.html">ICD9PrGenerateDecimalFormat()</a></code> </p>
-        </td>
-        <td><p>get ICD-9-PCS Codes Decimal Forms</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-conversion-icd-pcs-code-format" class="hasAnchor"><a href="#section-conversion-icd-pcs-code-format" class="anchor"></a>Conversion ICD-PCS code format</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="IcdPrShortToDecimal.html">IcdPrShortToDecimal()</a></code> </p>
-        </td>
-        <td><p>Convert ICD-9-PCS Codes From Short To Decimal Forms</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="IcdPrDecimalToShort.html">IcdPrDecimalToShort()</a></code> </p>
-        </td>
-        <td><p>Convert ICD-9-PCS Codes From Decimal To Short Forms</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-cm-code-two-format-maps" class="hasAnchor"><a href="#section-data-icd-cm-code-two-format-maps" class="anchor"></a>Data - ICD-CM-code Two Format maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ICD9DxwithTwoFormat.html">ICD9DxwithTwoFormat</a></code> </p>
-        </td>
-        <td><p>Two format of ICD-9-CM (2011): Short and Decimal</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ICD10DxwithTwoFormat.html">ICD10DxwithTwoFormat</a></code> </p>
-        </td>
-        <td><p>Two format of ICD-10-CM (2019): Short and Decimal</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-pcs-code-two-format-maps" class="hasAnchor"><a href="#section-data-icd-pcs-code-two-format-maps" class="anchor"></a>Data - ICD-PCS-code Two Format maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ICD9PrwithTwoFormat.html">ICD9PrwithTwoFormat</a></code> </p>
-        </td>
-        <td><p>Two format of ICD-9-PCS: Short and Decimal</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-cm-code-to-ccs-maps" class="hasAnchor"><a href="#section-data-icd-cm-code-to-ccs-maps" class="anchor"></a>Data - ICD-CM-code to CCS maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ccsDxICD9.html">ccsDxICD9</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-9-CM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ccsDxICD10.html">ccsDxICD10</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-10-CM</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-pcs-code-to-ccs-maps" class="hasAnchor"><a href="#section-data-icd-pcs-code-to-ccs-maps" class="anchor"></a>Data - ICD-PCS-code to CCS maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ccsPrICD9.html">ccsPrICD9</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-9-PCS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ccsPrICD10.html">ccsPrICD10</a></code> </p>
-        </td>
-        <td><p>Clinical Classifications Software (CCS)  for ICD-10-PCS</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-code-cm-pcs-procedure-class-maps" class="hasAnchor"><a href="#section-data-icd-code-cm-pcs-procedure-class-maps" class="anchor"></a>Data - ICD code (CM/PCS/Procedure Class)  maps</h2>
+          <h2 id="section-data-diagnosis" class="hasAnchor"><a href="#section-data-diagnosis" class="anchor"></a>Data - Diagnosis</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -414,36 +294,28 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="prICD9.html">prICD9</a></code> </p>
+          <p><code><a href="ICD9DxwithTwoFormat.html">ICD9DxwithTwoFormat</a></code> </p>
         </td>
-        <td><p>ICD-9-PCS</p></td>
+        <td><p>Two format of ICD-9-CM (2011): Short and Decimal</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="prICD10.html">prICD10</a></code> </p>
+          <p><code><a href="ICD10DxwithTwoFormat.html">ICD10DxwithTwoFormat</a></code> </p>
         </td>
-        <td><p>ICD-10-PCS</p></td>
+        <td><p>Two format of ICD-10-CM (2019): Short and Decimal</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pcICD9.html">pcICD9</a></code> </p>
+          <p><code><a href="ccsDxICD9.html">ccsDxICD9</a></code> </p>
         </td>
-        <td><p>Procedure Class for ICD-9-PCS</p></td>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-9-CM</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pcICD10.html">pcICD10</a></code> </p>
+          <p><code><a href="ccsDxICD10.html">ccsDxICD10</a></code> </p>
         </td>
-        <td><p>Procedure Class for ICD-10-PCS</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-cm-code-to-comorbidity-maps" class="hasAnchor"><a href="#section-data-icd-cm-code-to-comorbidity-maps" class="anchor"></a>Data - ICD-CM-code to Comorbidity maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-10-CM</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="icd9_ahrq.html">icd9_ahrq</a></code> </p>
@@ -479,34 +351,68 @@
           <p><code><a href="icd10_elix.html">icd10_elix</a></code> </p>
         </td>
         <td><p>Elixhauser Comorbidity for ICD-10</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-data-icd-cm-code-to-phecode-maps" class="hasAnchor"><a href="#section-data-icd-cm-code-to-phecode-maps" class="anchor"></a>Data - ICD-9-CM code to Phecode maps</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
+      </tr><tr>
         
         <td>
           <p><code><a href="phecode_icd9_2.html">phecode_icd9_2</a></code> </p>
         </td>
         <td><p>Phecode for ICD-9</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sampleDxFile.html">sampleDxFile</a></code> </p>
+        </td>
+        <td><p>Sample File of ICD-CM codes for grouping method</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-data-sample-file" class="hasAnchor"><a href="#section-data-sample-file" class="anchor"></a>Data - sample file</h2>
+          <h2 id="section-data-procedure" class="hasAnchor"><a href="#section-data-procedure" class="anchor"></a>Data - Procedure</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="sampleDxFile.html">sampleDxFile</a></code> </p>
+          <p><code><a href="prICD9.html">prICD9</a></code> </p>
         </td>
-        <td><p>Sample File of ICD-CM codes for grouping method</p></td>
+        <td><p>ICD-9-PCS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prICD10.html">prICD10</a></code> </p>
+        </td>
+        <td><p>ICD-10-PCS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pcICD9.html">pcICD9</a></code> </p>
+        </td>
+        <td><p>Procedure Class for ICD-9-PCS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pcICD10.html">pcICD10</a></code> </p>
+        </td>
+        <td><p>Procedure Class for ICD-10-PCS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ICD9PrwithTwoFormat.html">ICD9PrwithTwoFormat</a></code> </p>
+        </td>
+        <td><p>Two format of ICD-9-PCS: Short and Decimal</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ccsPrICD9.html">ccsPrICD9</a></code> </p>
+        </td>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-9-PCS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ccsPrICD10.html">ccsPrICD10</a></code> </p>
+        </td>
+        <td><p>Clinical Classifications Software (CCS)  for ICD-10-PCS</p></td>
       </tr><tr>
         
         <td>
@@ -521,24 +427,13 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-grouping-icd-cm-code">Grouping ICD-CM-code</a></li>
-      <li><a href="#section-grouping-icd-pcs-codes">Grouping ICD-PCS-codes</a></li>
-      <li><a href="#section-select-event">Select event</a></li>
-      <li><a href="#section-split-data-by-index-date">Split Data by index date</a></li>
-      <li><a href="#section-data-format-conversion">Data format Conversion</a></li>
-      <li><a href="#section-calculate-condition-era">Calculate condition era</a></li>
-      <li><a href="#section-generation-icd-cm-code-decimal-format">Generation ICD-CM code Decimal Format</a></li>
-      <li><a href="#section-conversion-icd-cm-code-format">Conversion ICD-CM code format</a></li>
-      <li><a href="#section-generation-icd-pcs-code-decimal-format">Generation ICD-PCS code Decimal Format</a></li>
-      <li><a href="#section-conversion-icd-pcs-code-format">Conversion ICD-PCS code format</a></li>
-      <li><a href="#section-data-icd-cm-code-two-format-maps">Data - ICD-CM-code Two Format maps</a></li>
-      <li><a href="#section-data-icd-pcs-code-two-format-maps">Data - ICD-PCS-code Two Format maps</a></li>
-      <li><a href="#section-data-icd-cm-code-to-ccs-maps">Data - ICD-CM-code to CCS maps</a></li>
-      <li><a href="#section-data-icd-pcs-code-to-ccs-maps">Data - ICD-PCS-code to CCS maps</a></li>
-      <li><a href="#section-data-icd-code-cm-pcs-procedure-class-maps">Data - ICD code (CM/PCS/Procedure Class)  maps</a></li>
-      <li><a href="#section-data-icd-cm-code-to-comorbidity-maps">Data - ICD-CM-code to Comorbidity maps</a></li>
-      <li><a href="#section-data-icd-cm-code-to-phecode-maps">Data - ICD-9-CM code to Phecode maps</a></li>
-      <li><a href="#section-data-sample-file">Data - sample file</a></li>
+      <li><a href="#section-i-code-standarization">I. Code standarization</a></li>
+      <li><a href="#section-ii-data-integration">II. Data integration</a></li>
+      <li><a href="#section-iii-eda-preparation">III. EDA preparation</a></li>
+      <li><a href="#section-iv-visualization">IV. Visualization</a></li>
+      <li><a href="#section-icd-pcs-function">ICD-PCS function</a></li>
+      <li><a href="#section-data-diagnosis">Data - Diagnosis</a></li>
+      <li><a href="#section-data-procedure">Data - Procedure</a></li>
     </ul>
   </div>
 </div>

@@ -27,6 +27,6 @@ Return codes with short forms
 }
 \examples{
 head(samplePrFile)
-samplePrFile$Short <- IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")$ICD
+IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
 
 }

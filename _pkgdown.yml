@@ -17,7 +17,13 @@ articles:
 
 reference:
 
-- title: Grouping ICD-CM-code
+- title: I. Code standarization
+  desc: ~
+  contents:
+  - '`IcdDxShortToDecimal`'
+  - '`IcdDxDecimalToShort`'
+
+- title: II. Data integration
   desc: ~
   contents:
   - '`IcdDxToCCS`'
@@ -26,107 +32,56 @@ reference:
   - '`IcdDxToComorbid`'
   - '`IcdDxToCustom`'
   - '`IcdDxToCustomGrep`'
-
-- title: Grouping ICD-PCS-codes
-  desc: ~
-  contents:
-  - '`IcdPrToCCS`'
-  - '`IcdPrToCCSLvl`'
-  - '`IcdPrToProcedureClass`'
-
-- title: Select event
-  desc: ~
-  contents:
   - '`selectCases`'
-
-- title: Split Data by index date
-  desc: ~
-  contents:
   - '`splitDataByDate`'
+  - '`patientRecordDate`'
+  - '`getConditionEra`'
 
-- title: Data format Conversion
+- title: III. EDA preparation
   desc: ~
   contents:
   - '`groupedDataLongToWide`'
 
-- title: Calculate condition era
+- title: IV. Visualization
   desc: ~
   contents:
-  - '`getConditionEra`'
+  - '`plot_errorICD`'
 
-- title: Generation ICD-CM code Decimal Format
-  desc: ~
-  contents:
-  - '`ICD9DxGenerateDecimalFormat`'
-  - '`ICD10DxGenerateDecimalFormat`'
-
-- title: Conversion ICD-CM code format
-  desc: ~
-  contents:
-  - '`IcdDxShortToDecimal`'
-  - '`IcdDxDecimalToShort`'
-
-- title: Generation ICD-PCS code Decimal Format
-  desc: ~
-  contents:
-  - '`ICD9PrGenerateDecimalFormat`'
-
-- title: Conversion ICD-PCS code format
+- title: ICD-PCS function
   desc: ~
   contents:
   - '`IcdPrShortToDecimal`'
   - '`IcdPrDecimalToShort`'
+  - '`IcdPrToCCS`'
+  - '`IcdPrToCCSLvl`'
+  - '`IcdPrToProcedureClass`'
 
-- title: Data - ICD-CM-code Two Format maps
-  desc: ~
-  contents:
-  - '`ICD9DxwithTwoFormat`'
-  - '`ICD10DxwithTwoFormat`'
-
-- title: Data - ICD-PCS-code Two Format maps
-  desc: ~
-  contents:
-  - '`ICD9PrwithTwoFormat`'
-
-- title: Data - ICD-CM-code to CCS maps
-  desc: ~
-  contents:
-  - '`ccsDxICD9`'
-  - '`ccsDxICD10`'
-
-- title: Data - ICD-PCS-code to CCS maps
-  desc: ~
-  contents:
-  - '`ccsPrICD9`'
-  - '`ccsPrICD10`'
-
-- title: Data - ICD code (CM/PCS/Procedure Class)  maps
+- title: Data - Diagnosis
   desc: ~
   contents:
   - '`dxICD9`'
   - '`dxICD10`'
-  - '`prICD9`'
-  - '`prICD10`'
-  - '`pcICD9`'
-  - '`pcICD10`'
-
-- title: Data - ICD-CM-code to Comorbidity maps
-  desc: ~
-  contents:
+  - '`ICD9DxwithTwoFormat`'
+  - '`ICD10DxwithTwoFormat`'
+  - '`ccsDxICD9`'
+  - '`ccsDxICD10`'
   - '`icd9_ahrq`'
   - '`icd10_ahrq`'
   - '`icd9_charlson`'
   - '`icd10_charlson`'
   - '`icd9_elix`'
   - '`icd10_elix`'
-
-- title: Data - ICD-9-CM code to Phecode maps
-  desc: ~
-  contents:
   - '`phecode_icd9_2`'
+  - '`sampleDxFile`'
 
-- title: Data - sample file
+- title: Data - Procedure
   desc: ~
   contents:
-  - '`sampleDxFile`'
+  - '`prICD9`'
+  - '`prICD10`'
+  - '`pcICD9`'
+  - '`pcICD10`'
+  - '`ICD9PrwithTwoFormat`'
+  - '`ccsPrICD9`'
+  - '`ccsPrICD10`'
   - '`samplePrFile`'

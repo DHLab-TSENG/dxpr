@@ -184,7 +184,7 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
 #&gt;      Short ID    ICD       Date Comorbidity
 #&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
 #&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
@@ -192,11 +192,11 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
 #&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
 #&gt;  ---                                       
-#&gt; 171: 75.52  D  75.52 2006-05-03        &lt;NA&gt;
-#&gt; 172: 78552  A 785.52 2006-05-03        &lt;NA&gt;
-#&gt; 173:   001  B    001 2006-05-03        &lt;NA&gt;
-#&gt; 174:  7552  D   7552 2006-05-03        &lt;NA&gt;
-#&gt; 175: 755.2  D  755.2 2006-05-03        &lt;NA&gt;
+#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
+#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
+#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
+#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
+#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
 #&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -204,19 +204,30 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 2:  C          RD    2007-04-21  2021-09-17    33 5263 days
 #&gt; 3:  B          RD    2007-05-28  2022-03-18    34 5408 days
 #&gt; 4:  C      MILDLD    2021-01-09  2021-01-09     1    0 days
+#&gt; 5:  D      DIAB_C    2015-10-02  2015-10-02     2    0 days
+#&gt; 6:  A      DIAB_C    2015-10-02  2016-10-02     2  366 days
+#&gt; 7:  B      DIAB_C    2015-10-02  2016-10-02     2  366 days
+#&gt; 8:  C      DIAB_C    2015-10-02  2016-10-02     2  366 days
 #&gt; 
 #&gt; $Error
-#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1:  75.52     1            ICD 9  Wrong format           
-#&gt; 2: 123.45     1           ICD 10  Wrong format           
-#&gt; 3: A01.05     1            ICD 9 Wrong version           
-#&gt; 4:  E03.0     1            ICD 9 Wrong version           
-#&gt; 5:  A0105     1            ICD 9 Wrong version           
-#&gt; 6:  42761     1           ICD 10 Wrong version           
-#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
-#&gt; 8:    001     1            ICD 9  Wrong format       0019
-#&gt; 9:   7552     1            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
+#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
 #&gt;      Short ID    ICD       Date Comorbidity
 #&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
 #&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
@@ -224,11 +235,11 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
 #&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
 #&gt;  ---                                       
-#&gt; 171: 75.52  D  75.52 2006-05-03        &lt;NA&gt;
-#&gt; 172: 78552  A 785.52 2006-05-03        &lt;NA&gt;
-#&gt; 173:   001  B    001 2006-05-03        &lt;NA&gt;
-#&gt; 174:  7552  D   7552 2006-05-03        &lt;NA&gt;
-#&gt; 175: 755.2  D  755.2 2006-05-03        &lt;NA&gt;
+#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
+#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
+#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
+#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
+#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
 #&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
@@ -244,17 +255,24 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 10:  C    HTNWOCHF    2015-10-01  2015-10-01     1    0 days
 #&gt; 
 #&gt; $Error
-#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1:  75.52     1            ICD 9  Wrong format           
-#&gt; 2: 123.45     1           ICD 10  Wrong format           
-#&gt; 3: A01.05     1            ICD 9 Wrong version           
-#&gt; 4:  E03.0     1            ICD 9 Wrong version           
-#&gt; 5:  A0105     1            ICD 9 Wrong version           
-#&gt; 6:  42761     1           ICD 10 Wrong version           
-#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
-#&gt; 8:    001     1            ICD 9  Wrong format       0019
-#&gt; 9:   7552     1            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
+#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
 #&gt;      Short ID    ICD       Date Comorbidity
 #&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
 #&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
@@ -262,11 +280,11 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
 #&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
 #&gt;  ---                                       
-#&gt; 171: 75.52  D  75.52 2006-05-03        &lt;NA&gt;
-#&gt; 172: 78552  A 785.52 2006-05-03        &lt;NA&gt;
-#&gt; 173:   001  B    001 2006-05-03        &lt;NA&gt;
-#&gt; 174:  7552  D   7552 2006-05-03        &lt;NA&gt;
-#&gt; 175: 755.2  D  755.2 2006-05-03        &lt;NA&gt;
+#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
+#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
+#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
+#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
+#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
 #&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
@@ -279,16 +297,23 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 7:  C Hypothyroid    2015-10-01  2015-10-01     1    0 days
 #&gt; 
 #&gt; $Error
-#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1:  75.52     1            ICD 9  Wrong format           
-#&gt; 2: 123.45     1           ICD 10  Wrong format           
-#&gt; 3: A01.05     1            ICD 9 Wrong version           
-#&gt; 4:  E03.0     1            ICD 9 Wrong version           
-#&gt; 5:  A0105     1            ICD 9 Wrong version           
-#&gt; 6:  42761     1           ICD 10 Wrong version           
-#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
-#&gt; 8:    001     1            ICD 9  Wrong format       0019
-#&gt; 9:   7552     1            ICD 9  Wrong format      75529
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

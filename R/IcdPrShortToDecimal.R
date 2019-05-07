@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' head(samplePrFile)
-#' samplePrFile$Decimal <- IcdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")$ICD
+#' IcdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")
 #'
 IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDate){
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))

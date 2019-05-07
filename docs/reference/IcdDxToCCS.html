@@ -173,7 +173,7 @@
 #&gt; 3:  A 553.20 2009-02-23
 #&gt; 4:  B 553.20 2007-08-29
 #&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 5 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("75.52 (1)", "755.2 (1)", "123.45 (1)", "001 (1)", "7552 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 4 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A01.05 (1)", "E03.0 (1)", "A0105 (1)", "42761 (1)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
 #&gt;      Short ID    ICD       Date CCS_CATEGORY_DESCRIPTION
 #&gt;   1:  5533  C  553.3 2008-04-03         Abdominal hernia
 #&gt;   2:  5533  A  553.3 2008-05-01         Abdominal hernia
@@ -181,11 +181,11 @@
 #&gt;   4: 55320  B 553.20 2007-08-29         Abdominal hernia
 #&gt;   5:  5533  A  553.3 2008-06-27         Abdominal hernia
 #&gt;  ---                                                    
-#&gt; 171: 75.52  D  75.52 2006-05-03                     &lt;NA&gt;
-#&gt; 172: 78552  A 785.52 2006-05-03                    Shock
-#&gt; 173:   001  B    001 2006-05-03                     &lt;NA&gt;
-#&gt; 174:  7552  D   7552 2006-05-03                     &lt;NA&gt;
-#&gt; 175: 755.2  D  755.2 2006-05-03                     &lt;NA&gt;
+#&gt; 271:   650  D    650 2018-10-02                     &lt;NA&gt;
+#&gt; 272:   650  A    650 2018-10-02                     &lt;NA&gt;
+#&gt; 273:   650  B    650 2018-10-02                     &lt;NA&gt;
+#&gt; 274:   F42  C    F42 2018-10-02        Anxiety disorders
+#&gt; 275: Z9.90  D  Z9.90 2018-10-02                     &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
 #&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
@@ -210,6 +210,10 @@
 #&gt; 19:  C       Other nutritional; endocrine; and metabolic disorders
 #&gt; 20:  A                          External cause codes:  Unspecified
 #&gt; 21:  C                                           Thyroid disorders
+#&gt; 22:  B                                           Anxiety disorders
+#&gt; 23:  C                                           Anxiety disorders
+#&gt; 24:  D                                           Anxiety disorders
+#&gt; 25:  A                                           Anxiety disorders
 #&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
 #&gt;     firstCaseDate endCaseDate count    period
 #&gt;  1:    2008-04-03  2018-12-28     2 3921 days
@@ -233,19 +237,30 @@
 #&gt; 19:    2019-10-16  2019-10-16     1    0 days
 #&gt; 20:    2014-10-01  2014-10-01     1    0 days
 #&gt; 21:    2015-10-01  2015-10-01     1    0 days
+#&gt; 22:    2018-10-02  2018-10-02     2    0 days
+#&gt; 23:    2018-10-02  2018-10-02     2    0 days
+#&gt; 24:    2018-10-02  2018-10-02     1    0 days
+#&gt; 25:    2018-10-02  2018-10-02     1    0 days
 #&gt;     firstCaseDate endCaseDate count    period
 #&gt; 
 #&gt; $Error
-#&gt;       ICD count IcdVersionInFile     WrongType Suggestion
-#&gt; 1:  75.52     1            ICD 9  Wrong format           
-#&gt; 2: 123.45     1           ICD 10  Wrong format           
-#&gt; 3: A01.05     1            ICD 9 Wrong version           
-#&gt; 4:  E03.0     1            ICD 9 Wrong version           
-#&gt; 5:  A0105     1            ICD 9 Wrong version           
-#&gt; 6:  42761     1           ICD 10 Wrong version           
-#&gt; 7:  755.2     1            ICD 9  Wrong format     755.29
-#&gt; 8:    001     1            ICD 9  Wrong format       0019
-#&gt; 9:   7552     1            ICD 9  Wrong format      75529
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
