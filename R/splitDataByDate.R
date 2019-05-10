@@ -7,7 +7,7 @@
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param indexDateFile An exact date of diagnosis for a period of observation.
-#' @param windowGap gap length of window. By default it is set to \code{30}.
+#' @param windowGap gap length of window. Default is set to \code{30}.
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -26,7 +26,7 @@ splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, inde
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile$Date)
 
-  splitedData <- merge(DxDataFile,indexDateTable,
+  splitedData <- merge(DxDataFile, indexDateFile,
                        all.x = T)[,Gap := Date - as.Date(indexDate)][Gap >= 0, timeTag := "A"][Gap < 0, timeTag := "B"][,window := abs((as.integer(Gap) %/% windowGap)),][timeTag == "A", window := window +1,][order(ID,Date), -"Gap"]
 
   splitedData

@@ -141,11 +141,11 @@
     </tr>
     <tr>
       <th>groupICD</th>
-      <td><p>default is FALSE</p></td>
+      <td><p>Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE</p></td>
     </tr>
     <tr>
       <th>Others</th>
-      <td><p>default is TRUE</p></td>
+      <td><p>Default is TRUE</p></td>
     </tr>
     <tr>
       <th>OthersThreshold</th>
@@ -169,7 +169,7 @@
                            <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
                            <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                            <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                           <span class='kw'>OthersThreshold</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+                           <span class='kw'>OthersThreshold</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $ICD
 #&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
 #&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47

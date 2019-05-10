@@ -70,93 +70,89 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<div id="i.-introduction" class="section level1">
-<h1>I. Introduction</h1>
+<p>Introduction</p>
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
-<div id="generate-icd-cm-code-decimal-format-for-conversion-function" class="section level3">
-<h3>Generate ICD-CM code Decimal Format for conversion function</h3>
+<div id="icd-cm-code-with-two-format" class="section level3">
+<h3>ICD-CM code with two format</h3>
 <p>conversion function : <code>IcdDxDecimaltoShort and IcdDxShortToDecimal</code></p>
-<p>ICD-9</p>
-<pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD9DxwithTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
-
-icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
-# c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
-icd9_Decimal &lt;- ICD9DxwithTwoFormat$Decimal[1:10]
-# c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)</code></pre>
-<p>ICD-10</p>
-<pre><code>icd10 &lt;- ccsDxICD10$ICD
-ICD10DxwithTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
-
-icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
-# c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)
-icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
-# c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
+<p>ICD-9-CM</p>
+<pre><code>icd9_Short &lt;- head(ICD9DxwithTwoFormat$Short,10)
+# c(&quot;E0000&quot;, &quot;E0001&quot;, &quot;E0002&quot;, &quot;E0008&quot;, &quot;E0009&quot;, &quot;E0010&quot;, &quot;E0011&quot;, &quot;E0020&quot;, &quot;E0021&quot;, &quot;E0022&quot;)
+icd9_Decimal &lt;- head(ICD9DxwithTwoFormat$Decimal,10)
+# c(&quot;E000.0&quot;, &quot;E000.1&quot;, &quot;E000.2&quot;, &quot;E000.8&quot;, &quot;E000.9&quot;, &quot;E001.0&quot;, &quot;E001.1&quot;, &quot;E002.0&quot;, &quot;E002.1&quot;, &quot;E002.2&quot;)</code></pre>
+<p>ICD-10-CM</p>
+<pre><code>icd10_Short &lt;- head(ICD10DxwithTwoFormat$Short,10)
+# c(&quot;A001&quot;,  &quot;A009&quot;,  &quot;A0100&quot;, &quot;A0101&quot;, &quot;A0102&quot;, &quot;A0103&quot;, &quot;A0104&quot;, &quot;A0105&quot;, &quot;A0109&quot;, &quot;A011&quot;)
+icd10_Decimal &lt;- head(ICD10DxwithTwoFormat$Decimal,10)
+# c(&quot;A00.1&quot;,  &quot;A00.9&quot;,  &quot;A010.0&quot;, &quot;A010.1&quot;, &quot;A010.2&quot;, &quot;A010.3&quot;, &quot;A010.4&quot;, &quot;A010.5&quot;, &quot;A010.9&quot;, &quot;A01.1&quot;)</code></pre>
 </div>
-<div id="convert-icd-cm-code-format" class="section level3">
-<h3>Convert ICD-CM code Format</h3>
+<div id="i.code-standarization" class="section level2">
+<h2>I.Code standarization</h2>
 <p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 <p>Convert ICD-CM code Short to Decimal.</p>
-<pre><code># ICD-9
-IcdDxShortToDecimal(icd9_Short)$Decimal
-# c(&quot;E950.0&quot;, &quot;E950.1&quot;, &quot;E950.2&quot;, &quot;E950.3&quot;, &quot;E950.4&quot;, &quot;E950.5&quot;, &quot;E950.6&quot;, &quot;E950.7&quot;, &quot;E950.8&quot;, &quot;E950.9&quot;)
-
-# ICD-10
-IcdDxShortToDecimal(icd10_Short)$Decimal
-# c(&quot;A15.0&quot;, &quot;A15.4&quot;, &quot;A15.5&quot;, &quot;A15.6&quot;, &quot;A15.7&quot;, &quot;A15.8&quot;, &quot;A15.9&quot;, &quot;A17.0&quot;, &quot;A17.1&quot;, &quot;A17.81&quot;)</code></pre>
+<pre><code># Short to decimal
+decimal &lt;- IcdDxShortToDecimal(sampleDxFile, ICD,Date, &quot;2015/10/01&quot;)
+head(decimal$ICD)
+# c(&quot;553.3&quot;, &quot;553.3&quot;, &quot;553.20&quot;, &quot;553.20&quot;, &quot;553.3&quot;, &quot;K44.9&quot;)
+</code></pre>
 <p>Convert ICD-CM code Decimal to Short.</p>
-<pre><code># ICD-9
-IcdDxDecimalToShort(icd9_Decimal)$Short
-# c(&quot;E9500&quot;, &quot;E9501&quot;, &quot;E9502&quot;, &quot;E9503&quot;, &quot;E9504&quot;, &quot;E9505&quot;, &quot;E9506&quot;, &quot;E9507&quot;, &quot;E9508&quot;, &quot;E9509&quot;)
-
-# ICD-10
-IcdDxDecimalToShort(icd10_Decimal)$Short
-# c(&quot;A150&quot;, &quot;A154&quot;, &quot;A155&quot;, &quot;A156&quot;, &quot;A157&quot;, &quot;A158&quot;, &quot;A159&quot;, &quot;A170&quot;, &quot;A171&quot;, &quot;A1781&quot;)</code></pre>
+<pre><code># Decimal to short
+short &lt;- IcdDxDecimalToShort(sampleDxFile, ICD,Date, &quot;2015/10/01&quot;)
+head(short$ICD)
+# c(&quot;5533&quot;, &quot;5533&quot;, &quot;55320&quot;, &quot;55320&quot;, &quot;5533&quot;, &quot;K449&quot;)
+</code></pre>
 </div>
-<div id="ii.-grouping-icd-cm-codes" class="section level2">
-<h2>II. Grouping ICD-CM codes</h2>
+<div id="ii.-data-integration" class="section level2">
+<h2>II. Data integration</h2>
 <p>Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
 <div id="a.-clinical-classifications-software-ccs" class="section level3">
 <h3>A. Clinical Classifications Software (CCS)</h3>
 <p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
-<div id="a.-ccs-single-level-category" class="section level4">
-<h4>a. CCS single-level category</h4>
-<p><code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p><strong>1) CCS single-level category</strong> <code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
-<pre><code>## ICD to CCS category
-IcdDxToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
-# &quot;99&quot;  NA    &quot;96&quot;  &quot;139&quot;
+<pre><code>## ICD to CCS description
+CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, TRUE)
+head(CCS_description$groupedDT,5)
+#&gt;       Short ID    ICD       Date           CCS_CATEGORY_DESCRIPTION
+#&gt;   1:   5533  C  553.3 2008-04-03                   Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01                   Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23                   Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29                   Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27                   Abdominal hernia
 
-## ICD to CCS description
-IcdDxToCCS (DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, TRUE)
-# &quot;Hypertension with complications and secondary hypertension&quot; NA  
-# &quot;Heart valve disorders&quot;                                      &quot;Gastroduodenal ulcer (except hemorrhage)&quot; </code></pre>
-<p>If CCS return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues.</p>
-<ol style="list-style-type: decimal">
-<li><p>Wrong Format: means the ICD has wrong format.</p></li>
-<li><p>Warning ICD: means the ICD classify to wrong ICD version (cause the “icd10usingDate”) or other issues.</p></li>
-</ol>
-<p>for example, <code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message.</p>
-</div>
-<div id="b.-ccs-multi-level" class="section level4">
-<h4>b. CCS multi-level</h4>
-<p><code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+head(CCS_description$summarised_groupedDT,5)
+#&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period
+#&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days
+#&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days
+#&gt;  3:  B           Abdominal hernia     2007-08-29  2019-11-10     2 4456 days
+#&gt;  4:  B           Acute bronchitis     2008-04-29  2008-04-29     1    0 days
+#&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days
+
+## ICD to CCS category
+CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, FALSE)</code></pre>
+<p><strong>2) CCS multi-level</strong> <code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
-<pre><code>## ICD to CCS multiple level 1
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 1, FALSE)
-# &quot;7&quot; NA  &quot;7&quot; &quot;9&quot;
+<pre><code>## ICD to CCS multiple level 2 description
+CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;,2, TRUE)
+head(CCSlvl_description$groupedDT,5)
+#&gt;       Short ID    ICD       Date      CCS_LVL_2_LABEL
+#&gt;   1:   5533  C  553.3 2008-04-03     Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01     Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23     Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29     Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27     Abdominal hernia
 
-## ICD to CCS multiple level 3
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)
-# &quot;7.1.2&quot; NA      NA      NA    </code></pre>
-<p>If CCSlvl return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues</p>
-<p>for example,</p>
-<ol style="list-style-type: decimal">
-<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message</p></li>
-<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message, ICD-10-CM show <code>Warning ICD</code> (cause ICD-10-CM ccs multiple levels are 1~2)</p></li>
-</ol>
-</div>
+head(CCSlvl_description$summarised_groupedDT,5)
+#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period
+#&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days
+#&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days
+#&gt;  3:  B                                      Abdominal hernia    2007-08-29  2019-11-10     2  4456 days
+#&gt;  4:  B                                Respiratory infections    2008-04-29  2008-04-29     1     0 days
+#&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days
+
+## ICD to CCS multiple level 3 category
+CCSLvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;,3, FALSE)</code></pre>
 </div>
 <div id="b.-phecode" class="section level3">
 <h3>B. Phecode</h3>
@@ -164,81 +160,124 @@ IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 3, FALSE)
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
 <pre><code>## ICD to Phecode
-IcdDxToPhecode(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, FALSE)
-# &quot;401.21&quot; NA       NA       NA   </code></pre>
-<p>If Phecode return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.</p>
+phecode &lt;- IcdDxToPhecode(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, FALSE)
+head(phecode$groupedDT,5)
+#&gt;        ICDD ID    ICD       Date PheCode
+#&gt;   1:  553.3  C  553.3 2008-04-03   550.2
+#&gt;   2:  553.3  A  553.3 2008-05-01   550.2
+#&gt;   3: 553.20  A 553.20 2009-02-23   550.5
+#&gt;   4: 553.20  B 553.20 2007-08-29   550.5
+#&gt;   5:  553.3  A  553.3 2008-06-27   550.2
+head(phecode$summarised_groupedDT,5)
+#&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
+#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
+#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
+#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
+#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
+</code></pre>
 </div>
 <div id="c.-creating-a-grouping-standards" class="section level3">
 <h3>C. Creating a grouping standards</h3>
-<p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame <code>icdFile</code> whether is matched these group: Hypotension and Hypertension or not.</p>
-<pre><code>icdFile &lt;- data.frame(ICD = c(&quot;I95.0&quot;, &quot;I952&quot;, &quot;I110&quot;, &quot;01091&quot;), stringsAsFactors = FALSE)</code></pre>
-<div id="a.-icddxtocustom-use-method-of-exhaustion-to-find-out-the-matched-icd." class="section level4">
-<h4>a. <code>IcdDxToCustom</code>: Use method of exhaustion to find out the matched ICD.</h4>
+<p>User can identify the rule of grouping standards, and return matched ICD codes.</p>
+<p><strong>1) IcdDxToCustom</strong> Use method of exhaustion to find out the matched ICD.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>,<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
-           <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;I95.0&quot;</span>,<span class="st">&quot;I951&quot;</span>,<span class="st">&quot;I952&quot;</span>,<span class="st">&quot;I110&quot;</span>,<span class="st">&quot;I11.9&quot;</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group   ICD</span>
-<span class="co">#&gt; 1  Hypotension I95.0</span>
-<span class="co">#&gt; 2  Hypotension  I951</span>
-<span class="co">#&gt; 3  Hypotension  I952</span>
-<span class="co">#&gt; 4 Hypertension  I110</span>
-<span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustom(icdFile, groupingTable)
-#  &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA </code></pre>
-</div>
-<div id="b.-icddxtocustomgrep-use-a-icd-pattern-to-find-out-the-fit-icd." class="section level4">
-<h4>b. <code>IcdDxToCustomGrep</code>: Use a ICD pattern to find out the fit ICD.</h4>
+groupingTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">&quot;Cardiac dysrhythmias&quot;</span>,<span class="dv">6</span>),
+                            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">&quot;427.1&quot;</span>,<span class="st">&quot;427.2&quot;</span>,<span class="st">&quot;427.31&quot;</span>,<span class="st">&quot;427.61&quot;</span>,<span class="st">&quot;427.81&quot;</span>,<span class="st">&quot;427.89&quot;</span>),
+                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGroup &lt;- IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+CustomGroup$groupedDT[10:15]
+#&gt;     ICD   ID       Date                group
+#&gt; 1:  466.0  A 2009-06-09                 &lt;NA&gt;
+#&gt; 2: 427.61  A 2009-02-16 Cardiac dysrhythmias
+#&gt; 3: 427.31  C 2007-06-20 Cardiac dysrhythmias
+#&gt; 4: 427.89  C 2008-01-23 Cardiac dysrhythmias
+#&gt; 5: 427.31  A 2007-09-19 Cardiac dysrhythmias
+#&gt; 6: 427.31  C 2008-09-11 Cardiac dysrhythmias
+CustomGroup$summarised_groupedDT
+#&gt;    ID                group firstCaseDate endCaseDate count   period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days</code></pre>
+<p><strong>2) IcdDxToCustomGrep</strong> Use a ICD pattern to find out the fit ICD.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">&quot;Hypotension&quot;</span>, <span class="st">&quot;Hypertension&quot;</span>),
-           <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">&quot;^I95|^I952&quot;</span>, <span class="st">&quot;^I11&quot;</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group grep_pattern</span>
-<span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
-<span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
-# &quot;Hypotension&quot;  &quot;Hypotension&quot;  &quot;Hypertension&quot; NA  </code></pre>
-</div>
+grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="st">&quot;Cardiac dysrhythmias&quot;</span>,
+                        <span class="dt">grepIcd =</span> <span class="st">&quot;^427|^I48&quot;</span>,
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGrepGroup &lt;- IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date,CustomGroupingTable = grepTable)
+CustomGrepGroup$groupedDT[10:15]
+#&gt;    ID    ICD       Date                group
+#&gt; 1:  A  466.0 2009-06-09                     
+#&gt; 2:  A 427.61 2009-02-16 Cardiac dysrhythmias
+#&gt; 3:  C 427.31 2007-06-20 Cardiac dysrhythmias
+#&gt; 4:  C 427.89 2008-01-23 Cardiac dysrhythmias
+#&gt; 5:  A 427.31 2007-09-19 Cardiac dysrhythmias
+#&gt; 6:  C 427.31 2008-09-11 Cardiac dysrhythmias
+
+CustomGrepGroup$summarised_groupedDT
+#&gt;    ID                group firstCaseDate endCaseDate count    period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days</code></pre>
 </div>
 <div id="d.-comorbidities" class="section level3">
 <h3>D. Comorbidities</h3>
 <p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
-<div id="a.-ahrq-comorbidity-classification" class="section level4">
-<h4>a. AHRQ comorbidity classification</h4>
-<p>AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
-icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
-icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
-<pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, ahrq, N, TRUE)</code></pre>
-</div>
-<div id="b.-charlson-comorbidity-classification" class="section level4">
-<h4>b. Charlson comorbidity classification</h4>
-<p>Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_charlson (list) to icd9_charlson (Df)
-icd9_charlson$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
-icd10_charlson$Comorbidity %&gt;% unique</code></pre>
-<pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, charlson, B, TRUE)</code></pre>
-</div>
-<div id="c.-elixhauser-comorbidity-classification" class="section level4">
-<h4>c. Elixhauser comorbidity classification</h4>
-<p>Elixhauser comorbidity measure data.</p>
+<p><strong>1) AHRQ</strong> AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
+<pre><code>AHRQ &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, ahrq)
+AHRQ$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09       Liver
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24  NeuroOther
+#&gt; 4: Z6832  C Z68.32 2019-10-16     Obesity
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(AHRQ$summarised_groupedDT,5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days
+#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days
+#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
+</code></pre>
+<p><strong>2) Charlson</strong> Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
+<pre><code>Charlson &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, charlson)
+Charlson$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09   LiverMild
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        &lt;NA&gt;
+#&gt; 4: Z6832  C Z68.32 2019-10-16        &lt;NA&gt;
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(Charlson$summarised_groupedDT,5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
+#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days</code></pre>
+<p><strong>3) Elixhauser</strong> Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
-<p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
-<pre><code>icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10-Elixhauser: Version 2019.1 (valid for FY2019 ICD-10-CM codes)</p>
-<pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
-<pre><code>IcdDxToComorbid(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, elix, N, TRUE)</code></pre>
+<pre><code>ELIX &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, elix)
+ELIX$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09     HYPOTHY
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        METS
+#&gt; 4: Z6832  C Z68.32 2019-10-16       NEURO
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(ELIX$summarised_groupedDT,5)
+#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
+#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
+#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
+#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
+#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days</code></pre>
 </div>
-</div>
-</div>
-<div id="iii.-selection-cases" class="section level2">
-<h2>III. Selection Cases</h2>
+<div id="e.-cases-selection" class="section level3">
+<h3>E. Cases selection</h3>
 <p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
 <p>searching criteria for example,</p>
 <ol style="list-style-type: decimal">
@@ -247,59 +286,121 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <li><p>Interval of days: 30 ~ 365 days, the days between two specific ICD codes.</p></li>
 </ol>
 <p>Return the matched Data frame.</p>
-<pre><code>selectCases_Example &lt;- data.frame(ID = c(&quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;),
-                         ICD = c(&quot;I072&quot;,&quot;I071&quot;, &quot;I072&quot;, &quot;I071&quot;),
-                         Date = as.Date(c(&quot;2016-03-31&quot;, &quot;2016-01-29&quot;, &quot;2016-02-10&quot;, &quot;2018-03-10&quot;)),
-                         stringsAsFactors = FALSE)
-selectCases(&quot;^I0&quot;, selectCasesDx_Example, ID, ICD, Date, &quot;2016-01-01&quot;, 2)</code></pre>
+<pre><code>selectCases(DxDataFile = sampleDxFile,
+            ID, ICD, Date,
+            groupDataType = ccslvl2,
+            icd10usingDate = &quot;2015/10/01&quot;,
+            caseCondition = &quot;Diseases of the heart&quot;,
+            caseCount = 2)
+#&gt;    ID selectedCase count firstCaseDate endCaseDate period MostCommonICD  MostCommonICDCount
+#&gt; 1:  A     Selected     4    2021-08-02  2022-02-20    202        I48.91                   4
+#&gt; 2:  B     Selected     4    2007-07-16  2009-02-25    348        427.31                   3
+#&gt; 3:  C     Selected     6    2007-06-20  2009-02-08    255        427.31                   3
+#&gt; 4:  D  nonSelected    NA          &lt;NA&gt;        &lt;NA&gt;     NA          &lt;NA&gt;                &lt;NA&gt;   </code></pre>
 </div>
-<div id="iv.-condition-era" class="section level2">
-<h2>IV. Condition Era</h2>
+<div id="f.-firstlast-event-of-patient-admission" class="section level3">
+<h3>F. first/last event of patient admission</h3>
+<pre><code>patientRecordDate(sampleDxFile, ID, ICD, Date)
+#&gt;    ID firstRecordDate endRecordDate
+#&gt; 1:  D      2006-05-03    2018-10-02
+#&gt; 2:  A      2006-05-03    2022-02-20
+#&gt; 3:  B      2006-05-03    2022-03-18
+#&gt; 4:  C      2007-04-21    2021-09-17</code></pre>
+</div>
+<div id="g.-data-split" class="section level3">
+<h3>G. Data split</h3>
+<pre><code>indexDateTable &lt;- data.frame(ID = c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;),
+                             indexDate = c(&quot;2006-05-03&quot;, &quot;2006-05-03&quot;,
+                                           &quot;2008-03-30&quot;, &quot;2006-05-03&quot;),
+                             stringsAsFactors = FALSE)
+Data &lt;- splitDataByDate(sampleDxFile, ID, ICD, Date,
+                indexDateFile = indexDateTable,
+                windowGap = 30) 
+head(Data,5)
+     ID    ICD       Date  indexDate timeTag window
+  1:  A 785.52 2006-05-03 2006-05-03       A      1
+  2:  A  V56.0 2007-05-12 2006-05-03       A     13
+  3:  A V45.11 2007-05-30 2006-05-03       A     14
+  4:  A  427.1 2007-07-27 2006-05-03       A     16
+  5:  A  585.2 2007-08-08 2006-05-03       A     16</code></pre>
+</div>
+<div id="h.-condition-era" class="section level3">
+<h3>H. Condition Era</h3>
 <p>Get the condition era</p>
 <p>Condition Eras are built with a Persistence Window, deafault is 30 days.</p>
-<pre><code>getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)
-getConditionEra(DxDataFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ICD, FALSE)</code></pre>
+<pre><code>getConditionEra(sampleDxFile, ID, ICD, Date, &quot;2016-01-01&quot;, 30, ccs, FALSE)
+#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period
+#&gt;  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days
+#&gt;  2:  B          158    2007-05-28  2022-03-18    34  14 5408 days
+#&gt;  3:  C          106    2007-06-20  2021-09-16    19  14 5202 days
+#&gt;  4:  A          158    2007-05-12  2022-02-08    33  12 5386 days
+#&gt;  5:  B          106    2007-07-16  2020-10-11    13  10 4836 days
+
+grepTable &lt;- data.frame(group = &quot;Cardiac dysrhythmias&quot;,
+                        grepIcd = &quot;^427|^I48&quot;,
+                        stringsAsFactors = FALSE)
+getConditionEra(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, 30, customGrepIcdGroup, CustomGroupingTable = grepTable)
+#&gt;    ID                group firstCaseDate endCaseDate count Era    period
+#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days
+#&gt; 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</code></pre>
 </div>
 </div>
-<div id="v.-reference" class="section level1">
-<h1>V. Reference</h1>
-<div id="icd-format-short-and-decimal" class="section level3">
-<h3>ICD format: Short and Decimal</h3>
+<div id="iii.-eda-preparation" class="section level2">
+<h2>III. EDA preparation</h2>
+<pre><code>groupedDataLongToWide(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, ccs,numericOrBinary = B)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date, &quot;2015-10-01&quot;, ccs,numericOrBinary = N)</code></pre>
+</div>
+<div id="iv.-visualization" class="section level2">
+<h2>IV. Visualization</h2>
+<pre><code>error &lt;- IcdDxDecimalToShort(sampleDxFile, ICD, Date, &quot;2015/10/01&quot;)
+plot_errorICD(error$Error, ICDVersion = all,
+                           wrongICDType = all,
+                           groupICD = FALSE,
+                           Others = FALSE,
+                           OthersThreshold = 1)</code></pre>
+<div class="figure">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXgAAANiCAMAAADsSFHCAAABwlBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrYTK0MaOFUhRmcoVHovY44zMzM3cqI6AAA6ADo6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kJA6kLY6kNs+gbdGkcxNTU1NTW5NTY5Nbm5Nbo5NbqtNjshOoeFWsfdmAABmOgBmOjpmZjpmZmZmZpBmkJBmkLZmkNtmtttmtv9uTU1uTW5ubk1ubm5ubo5ubqtujo5ujqtujshuq8huq+SOTU2Obk2Obm6Obo6Ojo6OjquOq46Oq6uOq8iOq+SOyOSOyP+QOgCQZjqQZmaQkGaQkLaQtraQttuQ29uQ2/+rbk2rjm6rjo6rjquryKuryMiryOSr5Mir5OSr5P+2ZgC2Zjq2Zma2kDq2kGa2kJC2tra2ttu229u22/+2/9u2///Ijk3Ijm7Iq27Iq47Iq6vIyI7IyKvIyMjIyOTI5OTI5P/I/+TI///bkDrbkGbbtmbbtpDbtrbb25Db27bb29vb2//b/9vb///kq27kq47kyI7kyKvkyMjkyOTk5Mjk5OTk5P/k///r6+v/tmb/yI7/25D/27b/29v/5Kv/5Mj/5OT//7b//8j//9v//+T////+BajGAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO29j58bx5mn10MNR5Rk4UzfyrmRQK9kacb2rpZk1k6kiPJd7nzrce7CkLo978Wj2MmZEb17sbOKIXJja4dnbbwrgpBJDUH8v+nqH0A30A10db9VXdX1fD8fcnowmHrwNgoPCtXVPdGCEEKI1UR9PwBCCAktiJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYjlHxTqP1HEg0OxtFF89W387vf2sUN/3cKz8v3mOZy390U+8xRtG11g9tsv7I4ta+dvOs/hcIIQHGe/HOP1y1vn9ndY9i9q7qPMYO4i2/JXxxvP64CCFk4b94y4rdu1Z1a5yvazzG9uI9P4oK4lXfZbnwUcsWCSFDjGnxXjTwMbsg3sSw+zc/jTd/86OVMwv3mKe3HzZotKsev1CmXRV8Gr8RvH22mP9U6g2HEDKQ+C1eNahczSMo8aXyLH/kV3beu7W70Y7ivZcMs0tj8fRtYNoATwgJKH6L97SsNOW6w/I9lrfvGnN2Fe8XamD91ULBkxXztMGImxASTrwW71K0eSYZcE286vZdY86O4k3mPA4LBc9PVnPFhvYDIcTT9CHeWIPX5h+Oor2v3Sptx/mNWhm298qdinuustTqZP2w1exbf/KfS/fIoqYkUkOf1jlwU7zlx5KK9ItkfdjPK399/06x4Bi5dH1xmxBC+hLvabII4VZpO5FbtgrhbOOeq+RaVXevnkFYF+/qno3Fu/5YEvHmSyBe2Whi9s+ulgsutlcc/RJCSE/ivRxlB6KK24X1V6sh7eXCt1lyra7GsetZF+9yDqKxeDcei5Lnn47KD29bwcXaES8hpJiexBtF/+Js8YdPy9tqbKs+2f/mOF//VfzpKrlWV+sG1lMl3h0zuGvi3Xgs6Qh4/+fFh7et4GlxNM7RNUJIIXZPoEhVNCmIq7C9OlQ2P808OalUXK7V+mVaG+Kdaop387Ek4j04Kz28qoJz7gTxEkJq0pN4l8IsbJ+WjkwlY9nq1QgWxLv5WJR48zvkD6+qYMRLCNmVnsRbXO2abZcmQk/T+04q5yoKUw2GxFvxWNRNh4WbKkWKeAkhDdLTHO/B5nZpzVX2m5PKZQvm53grHkvJxdWPizleQkij+CxejVUNtYsZir+yS7ylmxqIl1UNhJDK+CzeinW8k6+9fWexbR1vbbTE22DEW3wIpd8lhAQfR8U7Wc7xbhHv5gRCPhG7Lt76SYniXWrEO1nO8epMNcRNLNvjzDVCSDHuiLfm4No28W5cqyFf51BxrYZdF2KQPrjGtRoIIXVxR7zFJQyF5WTbxJuc5lAYyapfOyjfI/8FzauTbT4WJdLCNEL1CHZaXq9RuDoZF+QlhCzjkHirT6DYKt7N6/GmQux8Pd6aEyiym07qRrDFglUTV/NbmWkghKzikHirTxneKt50pfBzb2/5CxR/+LvC7VvS7JTh5U3V7ZUKPk0vsMNfoCCErMXy31xLRn514q28SM528WZ/9mGZwtnHVbd3vEjO5c32Ngrmb64RQnbFJfEuzvM/y1u4LOQO8a7+lG+c/VurexSzv/oD740vC7n+WJKDZdlfNN77s/qC+SvDhJBdcUq8i8V9dfHx54oXQt8l3thv/+6y8uxzr/y8eI9lLv9J8brlGhdCLz+WdJXC/eN8ZqOu4GLr8/vquumXr7KigRBSjFHxDimcfUYIkQribRjESwiRCuJtGMRLCJEK4m0YxEsIkQribRjESwiRCuJtGMRLCJEK4m0YxEsIkQriJYQQy0G8hBBiOYiXEEIsB/ESQojlIF5CCLEcxEsIIZaDeAkhxHIQLyGEWA7iJYQQy0G8hBBiOYiXEEIsB/ESQojlIF5CCLEcxEsIIZZjULwPhSLXEmSn0ZAhDxmNeCE7iYYMechoxAvZSTRkyENGI17ITqIhQx4yGvFCdhINGfKQ0YgXspNoyJCHjEa8kJ1EQ4Y8ZDTihewkGjLkIaMRL2Qn0ZAhDxmNeCE7iYYMechoxAvZSTRkyENGI17ITqIhQx4yGvFCdhINGfKQ0YgXspNoyJCHjEa8kJ1EQ4Y8ZDTihewkGjLkIaMRL2Qn0ZAhDxmNeCE7iYYMechoxAvZSTRkyENGI17ITqIhQx4yGvFCdhINGfKQ0YgXspNoyJCHjEa8kJ1EQ4Y8ZDTihewkGjLkIaMRL2Qn0ZAhDxmNeCE7iYYMechoxAvZSTRkyENGI17ITqIhQx4yGvFCdhINGfKQ0YgXspNoyJCHjEa8kJ1EQ4Y8ZDTihewkGjJkD9AydkS8kF1BQ4bsAVrGjogXsitoyJA9QMvYEfFCdgUNGbIHaBk7Il7IrqAhQ/YALWNHxAvZFTRkyB6gZeyIeCG7goYM2QN07rfJhY/SjfvHUbR/c2N7Oor2rqZbe7cQL2Rn0ZAhG85bb3VvI9PbvSgT7yRKcri2PRsdnE2ia/HW+dHBph0RL2RX0JAhG81bby3e6q7eRG7zn0aZeGej6KrSsBrVFrdP4//Ojy6eFYbGiBeyi2jIkE0mVu7ireRLpyS2PY72j1OfTvKx7mFpe34S/zj57/zosMKOiBeyK2jIkE1GULyne2///Uki3vlJOoE7G108K2/n4j2tGvAiXsjOoCFDNhglXCXeruZVbvvtWSrVRf4lHtde+Ki4vZxqmI2uVdkR8UJ2BQ0Zsrm8VUinhjK9ZZZNp3HTb4vby4Nrp+ltiBeyq2jIkI3lzTfffEv9k5lqaCBeNQ+8d3Uxjd37ySjav4N4ITuKhgzZTN5MIjjH20S82b0OFpPo6nxjohfxQnYFDRmyfFLpvqk2BZeTLXbO8aaZ7t2an8Q6nkZrSxsQL2RX0JAhy+bNgnWTCJ5AMd++qiG9kzp3IhkHz0ZrJ1EgXsiuoCFDFsy6dBO0uHjr1vGmmSTreBEvZJfRkCELpUq6Uug18daduaaSnDvBVANkt9GQIUukzrpC6DXx1l2rQSU9pMbBNchOoyFD7pot0pVCr4u37upkagCcnjvBcjLILqMhQ+6SjUNpZtAydjQoXkIIsZNMun0/jMZhxAvZFTRkyK2ye6QriZaxI+KF7AoaMmTtNJhfEEbL2BHxQnYFDRmyXrSkK4WWsSPihewKGjLk5tGWrhRaxo6IF7IraMiQG6aVdWXQiNd8QiQHWTRkj8htpSuAztqQCOKF7AoaMuQd0TuUJooutCERxAvZFTRkyNvSUbpd0OU2JIJ4IbuChgy5LgLSbYvebEMiiBeyK2jIkCsjZN026Mo2JIJ4IbuChgx5I3LS1UbXtiERxAvZFTRkyKV0PZTWAb21DYkgXsiuoCFDXkVcus3Ru9qQCOKF7AoaMuQ0RqTbDN2kDYkgXsiuoCFDNjG/0BjdtA2JIF7IrqAhB082Kd0daI02JIJ4IbuChhw02bR0t6A125AI4oXsChpyuGQb1q1B67chEcQL2RU05DDI6361JF0VxKtVqFRLkJ1GQw6B/Oabi4JljR5K2wzi1SpUqiXITqMhB0COFbt4M/lidaibBfFqFSrVEmSn0ZADIOfitS9dFcSrVahUS5CdRkMePlmZdtGTdR8iXs1CpVqC7DQa8vDJbxbSAx7xahUq1RJkp9GQh05+7bXX3lT/sjle+0G8WoVKtQTZaTTkQZNfS1I8uGY/iFerUKmWIDuNhjxYcird19RmeTmZ5SBerUKlWoLsNBryMMkF6ybpTbuIV7NQqZYgO42GPDzyunQTMuJFvJDdQUMeFvm1KutaIdcG8WoVKtUSZKfRkAdErpGuBfK2IF6tQqVaguw0GvJAyFuka5i8K4hXq1CpliA7jYY8BPIO6xokNwji1SpUqiXITqMh+07eLV1T5IZBvFqFSrUE2Wk0ZJ/JdYfSzJM1gni1CpVqCbLTaMjekhtLV5ysF8SrVahUS5CdRkP2kqwlXVGyfhCvVqFSLUF2Gg3ZP7K2dcXIrYJ4tQqVagmy02jIfpHbSFeG3DqIV6tQqZYgO42G7A+5+aE0aXKnIF6tQqVaguw0GrIn5A7S7UjuGsSrVahUS5CdRkP2gNxRuh3IEkG8WoVKtQTZaTRk18kC1m1JFgri1SpUqiXITqMhu0yWkW4bsmAQr1ahUi1BdhoN2VmynHV1ybKRF+8noyj62p10+/5xFO3fTDano2jvarq1dwvxQnYZDdlJsqh0tcjyERfvaZQkcewk3T6MN2ejg7NJdC3eOj86qLQj4oXsChqyc+Quq8a6kc1EWryTZFx7f6RGtbOR8u+9SG2fxv+dH108i+9x4SPEC9lpNGS3yCak24xsLMLinZ8ko1o1wFUSPkxdfBjfHus2+e/86LDajogXsitoyO6QTUl3N9lohMV7fpSOZ+cnF8/mJ+lk7myktnPxntYMeBEvZGfQkB0hm7TudrLpiItXzSYsEscmns1lnE81zEbXauyIeCG7gobsANmwdLeQbUR8qiEf5V74qCjh5cG10/Q2xAvZYTTknslGDqU1ItuKgYNrN9XBtWhNvIvZsTrsNo3d+8ko2r+DeCG7i4ZsM+t+tSNdFc87d9Fx85NkBdn+8bp4s58exGq+Oq+a6EW8kF1BQ7aX115bFCxrT7oqnnfukuTmPxtFe2///Ul2QG2xOuC2SM6dUIfd4oHv5tIGxAvZFTRka4kdu3gt+WLbug+979wVqlPLyYqrGtJb1bkTyTg4WW2GeCE7ioZsLbl4rUtXxfPOXXTcabqON1nCW1jHm2aSrONFvJAdR0O2FWXaRT/Wfeh95y46bhpduLOY/zRKjqcVzlxTSc6dYKoBsvNoyLbyWiH26Z537qLjsoNrqWsL12pQSQ+pcXANsutoyJby6quvvRr/y+Z4rcfzzl2S3PzDURS9snl1MjUATs+dYDkZZMfRkG3kVZXXXl0dXLMezzu3jB0RL2RX0JCN59U068vJ7Mbzzi1jR8QL2RU0ZLNZWjdJX9r1vnPL2BHxQnYFDdlgytZ9mC4n6yeed24ZOyJeyK6gIZvKhnWtkavieeeWsSPihewKGrKRVFnXDrkmnnduGTsiXsiuoCHLp8a6Fsj18bxzy9gR8UJ2BQ1ZOPXWNU3eGs87t4wdES9kV9CQJbPVukbJu+J555axI+KF7Aoaslh2WdccuUE879wydkS8kF1BQ5ZJA+saIjeL551bxo6IF7IraMgCaWZdE+TG8bxzy9gR8UJ2BQ25axpbV5ysE887t4wdES9kV9CQO0XHurJkzXjeuWXsiHghu4KG3D6a1hUk68fzzi1jR8QL2RU05JbRt64UuVU879wydkS8kF1BQ26TVtYVIbeN551bxo6IF7IraMjaaWvd7uQO8bxzy9ixhXif3R7n+cavF4unN1bbpXQvMS9UqiXITqMha6a9dbuSO8Xzzi3iXQHxPr6OeAdEDrJoH8mdrNuJ3DWed24R73aZanh8/cpP4i+Pxt+s/nn3EvNCpVqC7DQacuN0mGLoSBaI5527vTGLaS/eeOD7nvp6N/2yme4l5oVKtQTZaTTkZhGwbkuyTDzv3K2NWUp78T4Yv/H5Qvk3GfdWpHuJeaFSLUF2Gg25QWSs24YsFs87d2tjltJavE9vjH+Yfn3jl++Px9/7eOMe3UvMC5VqCbLTaMi7ImZdbbJkPO/cHWxbSGvxPsimdvNja6mGVb6SReDREUKyZNbt+2EQkbQV79Mb2QzDo/H43c8XX34wXs44IF5ChIN1B5a24n2UzvCuRr6bx9i6D+rzob1US5CdRkOuieQMgx7ZSDzv3O1lW0xL8T67vZpaSLM08TLdS8wLlWoJstNoyFUxYt1GZFPxvHO3M+Z6Wor38fX18yU2b+leYl6oVEuQnUZD3ogp6+4mG4znnbudMdfTUrybZ008vs6IdwjkIIt2k2zQujvIZuN5525nzPW0FO9yRnc557Cp4u4l5oVKtQTZaTTkQsxadxvZeDzv3O1lW0w78RbOmribCndz0hfxekkOsmjXyMatW0u2Ec87dwfbFtJOvE9vLCd0H19Xy8mevL9xbA3xekkOsminyDasW022FM87dyffLtNOvMUJ3QfZxck2Tl3rXmJeqFRLkJ1GQ7Zm3QqyvXjeuTvYtpB24i2tHXvy/fH4yrvr413E6yc5yKL7I5cca8+6D8Pc296Lt1G6l5gXKtUSZKfR4ZFffXWxFK1V6z4McW8LoWXsiHghu4IOjhxbdvFq8sW2dR8GuLel0DJ2RLyQXUEHR87Fa9+6DwPc21JoGTsiXsiuoEMjK9Uu+rHuw/D2thhaxo6IF7Ir6NDIr67SAz20vS2GlrEj4oXsCjow8ssvv/py/C8d+dpPYHtbDi1jR8QL2RV0SOSXVV59OT+41kNC2tuiaBk7Il7IrqCDIb+cpryczHaC2dvSaBk7Il7IrqDDIC+tm6Qv7Yaytw2gZeyIeCG7gg6AXLbuw3Q5WT8JYG+bQcvYEfFCdgU9dPKGda2RqxIi2YB47301ip67mm7fP46i/ZvJ5nQU7aW3TvduIV7ILqMHTa6yrh1yTUIky4v3NEpyqLYnq+3Z6OBsEl2Lt86PDirtiHghu4IeLrnGuhbI9QmRLC7eabQXj3DvjdSodjaK4jHuvUhtn8b/nR9dPIttfOEjxAvZafRAyfXWNU3emhDJ4uKd5GPdw9L2/CTWbfLf+dFhtR0RL2RX0EMkb7WuUfKuhEg2J95rsWfTydzZ6OLZSrynNQNexAvZGfTgyLusa47cICGSxcU7G6mphvuj3LMLNamrfJtNNcxG12rsiHghu4IeFrmBdQ2RmyVEsvzBtdmxOp62f2uRTekuUgHnB9dO09sQL2SH0QMiN7OuCXLjhEiWF+8nIyVetXKsJF4l5PjGaeze+B77dxAvZHfRQyE3tq44WSchkg3M8Sqp3h/Fgi2Ld5FuHsT3uDqvmuhFvJBdQQ+CrGNdWbJmQiRLizeX7PKA2iKb400z3bs1P4l1PI02lzYgXsiuoP0na1pXkKyfEMnS4i2OcourGvKfHqT3mI02T6JAvJBdQXtO1reuFLlVQiTLi7cg2+Ka3iSTZB0v4oXsONpncivripDbJkSy+BzvabT/vywW/++xkm3xzLXUyodqLMxUA2TH0d6S21q3O7lDQiSLi3d+kl6fIZldKFyrIZFyMtfLwTXIrqM9Jbe3bldyp4RIll9ONv+ZujrZ2+msbuHqZGoAnJ47wXIyyI6jfSR3sm4ncteESJYXb+sgXsiuoL0jd5hi6EgWSIhkxKtXqFRLkJ1G+0UWsG5LskxCJCNevUKlWoLsNNojsox125DFEiIZ8eoVKtUSZKfRvpDFrKtNlkyIZMSrV6hUS5CdRntBlrSuHlk4IZIRr16hUi1BdhrtPlnYuhpk+YRIRrx6hUq1BNlptONkees2JRtJiGTEq1eoVEuQnUa7TDZi3UZkUwmRjHj1CpVqCbLTaGfJpqy7m2wwIZIRr16hUi1BdhrtJtmgdXeQzSZEMuLVK1SqJchOox0km7XuNrLxhEhGvHqFSrUE2Wm0a2Tj1q0l20iIZMSrV6hUS5CdRjtFtmHdarKlhEhGvHqFSrUE2Wl0j+Q1wVqy7sNA97bfnVvGjogXsivo/sglx9qz7sMw97bnnVvGjogXsivovsgvv7xYitaqdR+GuLe979wydkS8kF1B90R+OZ1qeNm+dR8GuLd7JSNevUKlWoLsNLpn8dq37sMA93avZMSrV6hUS5CdRvdDVqpd9GPdh+Ht7X7JiFevUKmWIDuN7km8q/RAD21v90tGvHqFSrUE2Wl0L+SXXnr5pfhfOvK1n8D2ds9kxKtXqFRLkJ1G2ye/pPLyS/nBtR4S0t7un4x49QqVagmy02jL5JfSlJeT2U4we9sJMuLVK1SqJchOo22Sl9ZN0pd2Q9nbrpARr16hUi1BdhptjVy27sPNU4btJYC97RAZ8eoVKtUSZKfRdsgb1rVGrgpk79AydkS8kF1BWyBXWdcOuSaQvUPL2BHxQnYFbZpcY10L5PpA9g4tY0fEC9kVtEnyS/XWNUzeHsjeoWXsiHghu4I2Rt5uXZPknYHsHVrGjogXsitoM+Rd0jVHbhLI3qFl7Ih4IbuCNkBuYl0z5IaB7B1axo6IF7IraGlyQ+saIDcPZO/QMnZEvJBdQYuSm1tXmqwVyN6hZeyIeCG7gpYja1lXlKwbyN6hZeyIeCG7ghYi61pXjtwikL1Dy9gR8UJ2BS1BbmFdIXK7QPYOLWNHxAvZFXRncjvrSpBbB7J3aBk7Il7IrqC7kVtbtzO5SyB7h5axI+KF7Aq6A7mLdbuROwayd2gZOyJeyK6g25I7WrcDuXsge4eWsSPihewKuhW5u3XbkkUC2Tu0jB0RL2RX0PpkEeu2IksFsndoGTsiXsiuoDXJUtbVJwsGsndoGTsiXsiuoHXIgtbVJMsGsndoGTsiXsiuoBuTZa2rQxYPZO/QBcWdH0VZLnwUf3v/OIr2byY/mY6ivavp1t4txAvZZXQzsrh1G5NNBLJ36FrxTtLNw/gHs9HB2SS6ltzloNKOiBeyK+gGZBPWbUY2FMjeoTdNNz9Rjp2NoniMey9SI9zT+L/zo4tnsY2TsTDihewuegd55x/wMUY2GMjeoTdNN0lGuen/yZf5Sazb5L/zo8NqOxoULyFiya3b9+MgZD2zkRrazk/SyVz13Uq8pzUDXka8kJ1B15LNDXV3kY0Hsnfodc+lEw2pZxdqUlf5NptqmI2u1dgR8UJ2BV1NNm7dWrKNQPYOve65aaQGvNmUbibg/ODaaXob4oXsMLqCbMO61WRLgewdek1z2YC3LN7F7FgtJ5vGP/pkFO3fQbyQ3UWvky1Zt4JsL5C9Q69pLp3hXRfvIt08WEyiq/OqiV7EC9kVdMmx9qz7MMwnOkSyCfFmixnKc7xppnu35iexjqfR5tIGxAvZDfRLLy2WorVq3YdhPtEhkg2IN1/MUFrVkP5InTuRjINno82TKBAvZCfQsWUXLyVfbFv3YZhPdIhkA+LNZxhK63izG5J1vIgXssvoXLz2rfswzCc6RLIB8U6jXKrFM9dUknMnmGqA7DRaqXbRj3UfhvlEh0g2IN7VALd4rQaV9JAaB9cgO4x+qZAe8CE+0SGSjYh3dYpE4epkagCc/oDlZJAdRr/40osvvpjO8faQEJ/oEMmGrtXQJogXcu/oF5V0X8wPrvWQEJ/oEMmIV69QqZYgu4h+MUlpOZnthPhEh0hGvHqFSrUE2Tl0Zt0kfWk3zCc6RDLi1StUqiXIjqGL2k2Xk/WTEJ/oEMmIV69QqZYgu4QuW/ch4oXsBVrGjogXci/oDe2Gubshe4eWsSPihWwfXWFdS+TqQA6DjHj1CpVqCbIT6Grthrm7IXuHlrEj4oVsFV1nXfPkLYEcBhnx6hUq1RLkntEvbtFumLsbsndoGTsiXsi20Futa5S8K5DDICNevUKlWoLcH3qXdc2RGwRyGGTEq1eoVEuQ+0I30G6Yuxuyd2gZOyJeyKbRjaxrhNw0kMMgI169QqVagtwDuql2w9zdkL1Dy9gR8UI2iG5uXWmyViCHQUa8eoVKtQTZLlpLu2HubsjeoWXsiHghm0FrWleQrB/IYZARr16hUi1BtobW126Yuxuyd2gZOyJeyOLoNtaVIbcM5DDIiFevUKmWINtAt9RumLsbsndoGTsiXsiS6NbW7UzuEshhkBGvXqFSLUE2i95+DRyT5I6BHAYZ8eoVKtUSZJPobtbtQu4cyGGQEa9eoVItQTaG7mzd1mSJQA6DjHj1CpVqCbIhtIR2w9zdkL1Dy9gR8ULuiJaxbhuyWCCHQUa8eoVKtQRZHi2m3TB3N2Tv0DJ2RLyQ26MFratJlg3kMMiIV69QqZYgi6JltRvm7obsHVrGjogXciu0tHWbkw0EchhkxKtXqFRLkKXQBrQb5u6G7B1axo6IF7Iu2oh1G5FNBXIYZMSrV6hUS5C7ozueFtyBbDCQwyAjXr1CpVqC3BVtzrq7yEYDOQwy4tUrVKolyJ3QRq27lWw6kMMgI169QqVagtwBbVq7Ye5uyN6hZeyIeCE3QJu3bh3ZSiCHQUa8eoVKtQS5HdqKdsPc3ZC9Q8vYEfFC3o62ZN0Ksr1ADoOMePUKlWoJsjbannbD3N2QvUPL2BHxQi6noFmb1n0Y5u6G7B1axo6IF3IxL764yF1rWbtB7m7I/qFl7Ih4IRcSe3bxovpi3boPQ9zdkD1Ey9gR8UIuJBdvD9oNcXdD9hBdttz9b0XR3ttn6fZxFO3fTDano2jvarq1dwvxQt4e5dpFP9Z9GODuhuwjuiS5SZTk4tlq+zDenI0OzibRtXjr/Oig0o6IF/IyLxbSAz603Q3ZS3TRcbORGtd+caQcOxtF8fa9SI1wT+P/zo+UjicXPkK8kHfkhRdfeOGFF9ORr/0Et7sh+4guOu40GdUuptGBGvCqsW7yZX4S6zb57/zosNqOiBdyHiXdF15YIF7IAyVLizcd1KaZn6STubPRxbOVeE9rBryIF3KWF1SKy8msJ6jdDdlXdEFxs9HB/EfZwbXEs4mMlW+zqYbZ6FqNHREvZJVUuyp9aTeo3Q3ZX3RBcdPovznKD67lo99EwPnBtdPViBjxQl7PCyvtpsvJ+kkouxtyX2R58UZ7NxeL+6PosCzexexYLSebxu79ZBTt30G8kDdS0m4oRUMOkSwv3tW8blm8i3TzYDGJrs6rJnoRb+DksnWtotcDGbIH6ILilHBz2ZbmeNNM927NT+J7TKPNpQ2IN2TyCxvaDaBoyMGSzYp3NfpNf6rOnUjGwbPR5kkUiDdccpV2B1805IDJ0uKdn6TreBPZFtbxppkk63gRL+RSKq1rB10TyJA9QBcdN02uyHB/tH7mmkpy7gRTDZBLqdPuoIuGHDhZ/loNH6bXZ0hGtIVrNaikh4zwqiUAACAASURBVNQ4uAZ5meo5BivobYEM2QN02XL3vhpFz6XXIStenUwNgNNzJ1hOBjnNVu0OtWjIkIXQMnZEvIGRt1vXKHpXIEP2AC1jR8QbFHmndodYNGTIgmgZOyLecMg75hhMohsFMmQP0DJ2RLyhkJtpd2BFQ4YsjZaxI+INg9zQuibQjQMZsgdoGTsi3gDITQe7BtA6gQzZA7SMHVuJ9+mNcZJv/Fp99+yD6+PxOx9v3Kt7iXmhUi2FSdbS7lCKhgzZELqjcbO0Eu/j6wXxZhZOJVxM9xLzQqVaCpGsZ11RtG4gQ/YA3dm5SVqJ99H4m6tv7o7f+Hjx5Pb4jc/X7tW9xLxQqZbCI2trdwhFQ4ZsEN3BtoW0Eu/d8XvL7cfXs3HvlZ+s3at7iXmhUi0FRtacY5BEtwpkyB6gO9i2kDbifXa7INkH2ej3QUHGabqXmBcq1VJQ5Hba9bxoyJBNo9vLtpg24n16441fvj8efy85nnZ3/MPkxtL0Q5LuJeaFSrUUELmldSXQrQMZsgfojsbN0ka8+bE1pdzl6Pfx9XyS9ytZZB4g0U862O37URBC6tJGvI/G43c/X3z5wTh2LuJ1LmiXENfTRrz5tK46xlYQ7/qCsu6D+nxoL9VSCOT2cwyd0V0DGbIH6I7GzVIt3vn/9Cdny29m3/7nZ5X3ejR+4/OKES/i7Y/cWbs+Fg0ZskW0SfEW/kTx2jfFqEEu4nWH3HYdgwBaJJAhe4C2Jt7ZqFa8sWtZ1eAIWUa7nhUNGbJttIh3N8V7fhRt5GJpquHZ7aJr8/W7rOPtlSxk3TZosUCG7AHakHgX003xXivf4246uE0FzJlrDpDltOtR0ZAh94E2Jd75//ad73x7tPdH38nzpz9fu8fj62o52ZP3k8szxPp9nWs19EmWmmNogZYNZMgeoE2JV6X2eFqaB9nFyZJT155wdbI+ycLa9aNoyJB7Q5sUb2k5WUWefH88vvJuNsR98kHs3XfWx7uI1wZZ2roaaPlAhuwBurt0VfgLFP6SxQe7zdFGAhmyB2gZO24T72/zfNqq6e4l5oVKtTQoshntOl40ZMh9o9uJdj114v3iR4VVDVsnfGvTvcS8UKmWBkQ2ZN0maGOBDNkDdAfbFlIj3vJqXsTrGNmcdh0uGjJkF9BddLtKjXgnUbT/p/9Hnv+89UhbXbqXmBcq1dIwyKbmGBqgzQYyZA/QXXS7Ss2qhpPooHPT3UvMC5VqaQhkw9p1s2jIkJ1BdxZjkrp1vHu3OjfdvcS8UKmW/Cebtu4WtPlAhuwBurMYk7Q6gaJZupeYFyrVkudk44PderSVQIbsAbqzGJPUTTUw4nWNbEe7jhUNGbJr6M5iTFJ7cO2wc9PdS8wLlWrJY7Il61ahrQUyZA/QncWYpEa88ZD3atemu5eYFyrVkrdke9p1qGjIkF1Ed/VimrprNXw7ilYXKNt+4Ya6dC8xL1SqJT/JtuYYKtB2AxmyB+hOvl2m7uBaxAkUfZJXorWs3TB3N+QwyIhXr1Cplnwhv/DCIpOtbes+DHF3Qw6F7Lx4RdK9xLxQqZY8IcemXbygvvSg3QB3N+RgyIhXr1Cpljwhp+K1PseQJbjdDTkYMuLVK1SqJT/ISraLvrQb3u6GHA7ZffH+4bfFcD1em3mhkB7woe1uyOGQnRcvB9d6JF964dKlSy+kI98eEtruhhwOGfHqFSrVkg9kJd1LlxaIFzJkJ9GdfLtMzQkUf5dfivffHUd7/zPX47WVSyqF5WQ9JKTdDTkssvPiLWY2utjKu4hXO6l2VXrTbki7G3JoZHnxTtM5gfSaYvePo2j/Znr7KMouujCtvt5Yg1UNbS+Y073EvFCplpwmX1ppN13H21MC2d2QAyTLi3dSEG+2rWw5Gx2cTaJrCzVrW/0nJRqIt+2Qt3uJeaFSLTlMLmnX+74JGbKLZHnxnq7Gs7NRFI9x7yUSVjefHylvTmoOkDUQb9uroncvMS9UqiVnyWXr2iRvJoDdDTlQsrh45ycrN2YzA+pLcnPy3/lRzXRBoxEv4jWaDe163zchQ3aRLC7ewkRC/scj1ATBSrynde7cLd75acRUg7lcqtCu930TMmQXyeLinUZf/3AU7b19thr8JhME+VTDbHStxo511+PNL8X7nW+PIg6uGUu1dr3vm5Ahu0gWF292PE0NTdMp3UzA+cG109oxa5MTKFhOZig11rVA3pLh7m7IoZPFxXsavXJnsbg/isemJfEuZsdqOdk0du8no2j/ThvxPvd2O+8i3h2p1673fRMyZBfJpk6gUPO6ZfEu0s2DeEx8dV410cvVyfoh180xmCfvyiB3N2TIUugK1SnZluZ400z3bs1PYh1PKyZrEW8f5B3a9b5vQobsItmseFerGtJb1ZKHZBw8G22eRIF47ZN3WdccuUkGt7shQ5ZEFxSXj26n6jhYYR1vmkmyjldbvH/42eUo2rv8druL8SLeujTQrvd9EzJkF8kGDq6pA2f3Rurs4OKZa6mVD9VYWHeqYbI8utZuMRnircrOOQZj5MYZ0u6GDFkcXXTc+XHBkZOyL9NDaroH11Qjz/3Rd7791fbm7V5iXqhUS32Tm2rX+74JGbKLZPk53vmHo+UVyYpXJ1MD4PTcCa3lZGrYfDG99xcnUfV1zRCvZhpbV5yslaHsbsiQjaBbyXAjNeItnCY8P4mqL2y2K91LzAuVaqlPso52ve+bkCG7SHZevPnSiCRcFrJzms8xSJP1M4DdDRmyOXQ70a6n7sy1wnQwl4XsGG3tet83IUN2kYx49QqVaqkXsr51pcjt4vnuhgzZLLqdaNdTN9UQrS5nNuWykO3TSrve903IkF0kOy9eDq6JkFvMMQiRO8Tf3Q0ZsgV0O9Gup3452f7Pk63fHLOcrF3aa9f7vgkZsotk98WbnoVx+fLlDqeudS8xL1SqJZvkDtbtSO4YP3c3ZMiW0K1dW0rtKcP3RtkZw9mfh9dP9xLzQqVaskbuMtjtRu4eD3c3ZMj20C11uJb6i+TM7387HvH+0c2Wl0EPWLydtet934QM2UWyF+LtnO4l5oVKtWSF3N26bcky8Wx3Q4ZsFy1jR8QrSxbRrvd9EzJkF8keife37ZvuXmJeqFRLpskCcwwtyYLxZ3dDhtwDur0Ri6kV7/xnX/so+auXr1Rc06xRupeYFyrVklmynHa975uQIbtI9kC801F0IRVvtHet5j470r3EvFCplkySBa2rSRaOH7sbMuSe0K1dW0r9CRTpuWt/96MRJ1Dsjqx2ve+bkCG7SHZfvKerq6ZzyvCuSM4x6JFNxPndDRlyn+h2ol1P3dXJStfj5epkW2JAu973TciQXSR7IF4uC9mMbMK6zcim4vTuhgy5b3Q70a6HEW8XsiHtet83IUN2key8eBenhXndU+Z4K2NkjqER2Whc3d2QITuBbiXDjdSIdxpFr3yabP3hwyhqt56se4l5oVItSZJNatf7vgkZsotk98UbD3OjaO/y5cvqGmXtBryDFq9R624lG4+LuxsyZGfQrV1bSp145z+N8stC/lnLpruXmBcq1ZIU2bR2ve+bkCG7SPZAvMvLQv57LgtZjtk5hm1kO3Fsd0OG7Ba6rQ/L4epkemQr2vW+b0KG7CIZ8eoVKtVSZ7Id61aR7cWh3Q0ZsntoGTsi3uZka9r1vm9ChuwiGfHqFSrVUheypTmGCrLluLG7IUN2FC1jR8S7JSvR2tWu930TMmQXyYhXr1CplvRy6dIik61l6z70vm9ChuwiGfHqFSrVklYuxeRL6ot97XrfNyFDdpGMePUKlWpJK5cS8dqeY8jied+EDNlFMuLVK1SqJZ1cUuSetOt934QM2UUy4tUrVKolnVxapQe6530TMmQXyYhXr1CplrRy6eHzz19KR77243nfhAzZRTLi1StUqiWtXHoe8UKGPCQy4tUrVKolrTy/Wk5mP573TciQXSSHIV6/E493Y+/2/SgIIUMMI97qxN5N1/H2E88HBZAhu0gOY8TbvcS8UKmWmifxLuKFDHlIZMSrV6hUS42Tepe+CRnykMiIV69QqZaaJvMufRMy5CGREa9eoVItNUzuXfomZMhDIiNevUKlWmqWpXfpm5AhD4mMePUKlWqpUVbepW9ChjwksiHxnu7dSr7eP46i/ZvJ5nQU7V1Nt7IfrgXxrqXgXfomZMhDIpsR7yRK3TqJkhzGm7PRwdkkuhZvnR8dVNoR8ZZT9C59EzLkIZGNiHcapeKdjaJ4jHsv+UaNgc+PLp7FNr7wEeLdnZJ36ZuQIQ+JbEK8s9H+cSLeSTLWTb7MT2LdJv+dHx1W2xHxFlP2Ln0TMuQhkQ2IN9br/3mixDs/SSccZqOLZyvxntYMeBFvMWvepW9ChjwksgHxnu7dmmfiTR17fqR8m001zEbXauyIeFdZ9y59EzLkIZHlxauOoKXiTad0MwHnB9dO09sQ77ZseJe+CRnykMji4p1GB4sq8S5mx2o52TR27yejaP8O4q3Ppnfpm5AhD4ksLV41n1st3kW6eRAPia/OqyZ6EW+WCu/SNyFDHhJZWrzZyt04Fz4qzfGmmar531jH02hzaQPiTVPlXfomZMhDIpsV72pVQ/pTde5EMg6ejTZPokC8SSq9S9+EDHlIZDNnrmXKLazjTTNJ1vEi3i2p9i59EzLkIZGNird45ppKcu4EUw3bUuNd+iZkyEMiGxVv8VoNKukhNQ6u1afOu/RNyJCHRDYr3uLVydQAOD13guVkdan1Ln0TMuQhkc2It1UQb7136ZuQIQ+JjHj1CpVqqSpbvEvfhAx5SGTEq1eoVEsV2eZd+iZkyEMiI169QqVa2sxW79I3IUMeEhnx6hUq1dJGtnuXvgkZ8pDIiFevUKmW1rPDu/RNyJCHREa8eoVKtbSWXd6lb0KGPCQy4tUrVKqlcnZ6l74JGfKQyIhXr1CplkrZ7V36JmTIQyIjXr1CpVoqpoF36ZuQIQ+JjHj1CpVqqZAm3qVvQoY8JDLi1StUqqVVGnmXvgkZ8pDIiFevUKmWlmnmXfomZMhDIiNevUKlWsrT0Lv0TciQh0RGvHqFSrWUpal36ZuQIQ+JjHj1CpVqKU1j79I3IUMeEhnx6hUq1VKS5t6lb0KGPCQy4tUrVKolFQ3v0jchQx4SGfHqFSrV0kM979I3IUMeEhnx6hUq1ZKmd+mbkCEPiYx49QqVaknTu/RNyJCHREa8eoVKtaTpXfomZMhDIiNevUKFGtL1Ln0TMuQhkRGvXqEy7Wh7l74JGfKQyIhXr1CRZvS9S9+EDHlIZMSrV6hEKy28S9+EDHlIZMSrV6hAI228S9+EDHlIZMSrV2j3Nlp5l74JGfKQyIhXr9DOTbTzLn0TMuQhkRGvXqFdW2jpXfomZMhDIiNevUI7NtDWu/RNyJCHREa8eoV2+/3W3qVvQoY8JDLi1Su006+39y59EzLkIZERr16hXX67g3fpm5AhD4mMePUK7fLbHbxL34QMeUhkxKtXaIdf7uJd+iZkyEMiI169Qtv/bpeJBvomZMiDIiNevUJb/2o379I3IUMeEhnx6hXa9jc7epe+CRnykMiIV6/Qlr/Y1bv0TciQh0RGvHqFtvu9zt6lb0KGPCQy4tUrtNWvdfcufRMy5CGREa9eoW1+S8C79E3IkIdERrx6hbb4JQnv0jchQx4SGfHqFar/OyLepW9Chjwksrx45z8bRdHX7qTf3D+Oov2byeZ0FO1dTbf2boUjXhnv0jchQx4SWVy885MoyTX1zSTdPow3Z6ODs0ly6/nRQaUdByleIe/SNyFDHhJZXLzTaP/OYv7T6MJHSrZRPMa9F6kR7mn83/nRxbPYxupHgYhXyrv0TciQh0SWFu/8JJ1HUJ6NB7xqrJt8mZ/Euk3+Oz86rLbjAMUr5l36JmTIQyIbOriW+DeX8Gx08Wwl3tOaAe8AxSvnXfomZMhDIpsR7/zD6GCRenahJnWVb7OphtnoWo0dBydeQe/SNyFDHhLZhHhnoyj6F2eLbEo3E3B+cO00vS0A8Up6l74JGfKQyEbEe/lyFL1yVhbvYnaslpNNY/d+MlIH4IYuXlHv0jchQx4S2dQc72l0sCbe9PaTg8UkujqvmugdlnhlvUvfhAx5SGRTZ66ped3SHG+a6d6t+Ums42m0ubRhUOIV9i59EzLkIZFNiVdJt7iqIb1VnTuRjINno82TKNqJ97Pvj8dX3vk42X56Y5zkG7/uW7zS3qVvQoY8JLK0ePPRbSLbwjreNJNkHa+keH+RqvbKT9Q3j687Il5x79I3IUMeEll8xHuaHDi7P1KyLZ65llr5UI2FBacaHo2v/MVi8eR26tpH429W3617iXmhje4m7136JmTIQyKLize/VsOBml0oXKshkXIyGhY8uPbs9viH6uvTG8nXu+P3XBCvAe/SNyFDHhJZfo43uTrZc+l1yIpXJ1MD4PTcCbnlZE9vZLMKiXKf3U5nHHoWrwnv0jchQx4S2dTBtRbpsqohEe/TG2/88v3x+Hsfb/y4e4l5obvvY8S79E3IkIdEHoZ4n95QY9382Fo6/aDylSwSD69hYu9apBFCSKd0EO+D5Kjao/H43c8XX34wXs442Bcv3iWE+JT24n2UqvZBtqhh8xhb90F9PrTfcQcz8wxNyMbi+acxyJBdJA9hquHR9Ss/LH0/fuPz8j26l5gXuv3nxrxL34QMeUjkAYj3wXhtMcPj6+tnUHQvMS9064/NeZe+CRnykMj+i/cX696NxdvPiNegd+mbkCEPiey7eJ/dHb+eDW/zsykqTmDrXmJe6JYfmvQufRMy5CGRfRfv3cJ87t1UuEsBr9K9xLzQ+p8Z9S59EzLkIZE9F++D4nG0x9fVcrIn728cW7MhXrPepW9Chjwkst/iza8DGUcNdh9kFyfbOHWte4l5oXU/Mexd+iZkyEMi+y3eR+OSeBdP1MV5310f71oQr2nv0jchQx4S2W/xNk33EvNCq2837l36JmTIQyIjXr1CK2827136JmTIQyIjXr1Cq2614F36JmTIQyIjXr1CK2604V36JmTIQyIjXr1CN2+z4l36JmTIQyIjXr1CN26y4136JmTIQyIjXr1C12+x5F36JmTIQyIjXr1C126w5V36JmTIQyIjXr1Cy99b8y59EzLkIZERr16hpW/teZe+CRnykMiIV6/Q4ncWvUvfhAx5SGTEq1do4Rub3qVvQoY8JDLi1St0tW3Vu/RNyJCHREa8eoUuN+16l74JGfKQyIhXr9B8y7J36ZuQIQ+JjHj1Cs02bHuXvgkZ8pDIiFev0PSrde/SNyFDHhIZ8eoVmnyx7136JmTIQyIjXq1CE+H24F36JmTIQyIjXp0kxu3Du/RNyJCHREa8zfP884vnk8g0pxX6JmTIAyIj3sZ5Pplq6Me79E3IkIdERryNk4i3J+/SNyFDHhIZ8TaNEq4S70NGvMNHQ4bsAVrGjlbF+7zVSOzi7m34Rg6yaMhhkBEv4nWVHGTRkMMgI17E6yo5yKIhh0FGvIjXVXKQRUMOg4x4Ea+r5CCLhhwGGfEiXlfJQRYNOQwy4kW8rpKDLBpyGGTEi3hdJQdZNOQwyIgX8bpKDrJoyGGQES/idZUcZNGQwyDLi/cPH46i6Lmr6Tf3j6No/2ayOR1Fe+mt071biFd7F3dvwzdykEVDDoMsLt4vjqIkB+qbSbp9GG/ORgdnk+havHV+dFBpR8S7dRd3b8M3cpBFQw6DLC7e0+jrny4W90bKsbNRFI9x70VqhHsa/3d+dPEstvGFjxCv/i7u3oZv5CCLhhwGWVq8qVvVWPdA/XeYbh8u5iexbpP/zo8Oq+0YiHgvWY3Ek9u9De/QkCF7gK5Q3Wx0EHs2ncydjS6ercR7WjPgRbyI1xk0ZMgeoCtUtxzlLtQoWPk2m2qYja7V2BHxIl5X0JAhe4DeNN1slEwqpNMOiYDzg2un6W2IF/E6jIYM2QN0hXfVsbWSeBezY7WcbBr/4JNRtH8H8SJed9GQIXuAXvfcvWQ1w5p4F+nmwWISXZ1XTfQiXsTrChoyZA/QZcvNP4z2rhWFm8zxppnu3ZqfxDqeRptLGxAv4nUFDRmyB+iyd0/yiYTiqob0Z+rciWQcrBY9IF7E6yoaMmQP0Gve/Xp++Kywjje7IT/khngRr8toyJA9QBcdNylMIhTPXFNJzp1gqgHxOo+GDNkDdEFx59mlGqIoOTt4da0GlfSQGgfXEK/raMiQPUAXFDeNiuItXp1MDYDTcydYToZ4HUdDhuwBWsaOiBfxuoKGDNkDtIwdES/idQUNGbIHaBk7Il7E6woaMmQP0DJ2RLyI1xU0ZMgeoGXsiHgRrytoyJA9QMvYEfEiXlfQkCF7gJaxI+JFvK6gIUP2AC1jR8SLeF1BQ4bsAVrGjogX8bqChgzZA7SMHREv4nUFDRmyB2gZOyJexOsKGjJkD9AydkS8iNcVNGTIHqBl7Ih4Ea8raMiQPUDL2BHxIl5X0JAhe4CWsSPiRbyuoCFD9gAtY0fEi3hdQUOG7AFaxo6IF/G6goYM2QO0jB0RL+J1BQ0ZsgdoGTsiXsTrChoyZA/QMnZEvIjXFTRkyB6gZeyIeBGvK2jIkD1Ay9gR8SJeV9CQIXuAlrEj4kW8rqAhQ/YALWNHxIt4XUFDhuwBWsaOiBfxuoKGDNkDtIwdES/idQUNGbIHaBk7GhTvZuyKt0i2K16b+5QQ4l8Y8RqIxLtq9za8Q0OG7AFaxo6IF/G6goYM2QO0jB0RL+J1BQ0ZsgdoGTsiXsTrChoyZA/QMnZEvIjXFTRkyB6gZeyIeBGvK2jIkD1Ay9gR8SJeV9CQIXuAlrEj4kW8rqAhQ/YALWNHxIt4XUFDhuwBWsaOiBfxuoKGDNkDtIwdES/idQUNGbIHaBk7Il7E6woaMmQP0DJ2RLyI1xU0ZMgeoGXsiHgRrytoyJA9QMvYEfEiXlfQkCF7gJaxI+JFvK6gIUP2AC1jR8SLeF1BQ4bsAVrGjogX8bqChgzZA/SG6CYXPko37h9H0f7NZHM6ivauplt7t6rsiHgRrytoyJA9QK977l6UiXcSJTmMN2ejg7NJdC3eOj86qLQj4kW8rqAhQ/YAXbbc/KdRJt7ZKLqqNKxGuKfxf+dHF88Kw2HEi3gdRUOG7AG6JLnZcbR/nLp1kox1ky/zk/im5L/zo8NqOyJexOsKGjJkD9AlyZ3uvf33J4l45yfpZO5sdPFsJd7TmgEv4kW8zqAhQ/YAXZLcb89SwS7yL/EYV/k2m2qYja7V2BHxIl5X0JAhe4Be91xm3HRKN/s2P7h2mt6GeBGvw2jIkD1ANxGvmvvdu7qYxu79ZBTt30G8iNddNGTIHqAbiTf7ycFiEl2dV030Il7E6woaMmQP0DXiLc3xppnu3ZqfxDqeRptLGxAv4nUFDRmyB+ha8a5WNaQ/UOdOJOPg2WjzJArEi3hdQUOG7AG6RrzFdbxpJsk6XsTbj3hfsJrS7n7RaiR6dPc2IEM2jK4Tb/HMNZXk3AmmGhAv4oUcONmoeIvXalBJD6lxcA3xIl7IYZPNird4dTI1AE7PnWA5GeJFvJCDJpu5LGSrIF7Ei3ghh0FGvIgX8Vb06O5tQIZsGC1jR8SLeBEv5DDIiBfxDlq8L1mNxGupexuQ3ScjXsSLeBEvZB/RMnZEvIgX8YYooRDJiBfxIl7EC9lHtIwdES/iRbwhSihEMuJFvIgX8UL2ES1jR8SLeBFviBIKkYx4ES/iNSLel62mSH7Vaork16ymuaHqgngXiBfxIl7Ei3i12pAI4kW8iBfxIl6NNiSCeBEv4kW8iFejDYkgXsSLeBEv4tVoQyKIF/EiXsSLeDXakAjiRbyIF/G2FO+bNlMiv2U1iBfxIl7Ei3gRb30QL+JFvIgX8VYF8SJexIt4ES/iRbyIF/EiXsTbMogX8SJexIt4q4J4ES/iRbyIF/EiXsSLeBEv4m0ZxIt4ES/iRbxVQbyIF/EiXsSLeBEv4kW8iBfxtgziRbyIF/Ei3qogXsSLeBEv4kW8iBfxIl7Ei3hbBvEiXsSLeBFvVRAv4kW8iBfxIl7Ei3gRL+JFvC2DeBEv4kW8iLcqiBfxIl7Ei3gRL+JFvIgX8SLelkG8iBfxIl7EWxXEi3gRL+JFvIgX8SJexIt4EW/LIF7Ei3gRL+KtCuJFvIgX8SJexIt4ES/iRbyIt2UQL+JFvIgX8VZFQLzPPrg+Hr/z8cbtiBfxIl7Ei3ir0l28T2+MVb7x6/UfIF7Ei3gRbyDivX8cRfs3k83pKNq7mm7t3TIm3rvjNz5ePLk9fuNzxIt4ES/iDVK8kyjJYbw5Gx2cTaJr8db50UGdNjuL9/H1ZKz79MaVnyBexIt4EW+I4p2NoniMey9SI9zT+L/zo4tnsY0vfGRMvA/G38y+vod4ES/iRbwhineSjHWTL/OTWLfJf+dHh7Xe7Czeu+MfJl8fZQJGvIgX8SLesMQ7P0knc2eji2cr8Z7WD3g7i/fZ7WyK4fH1fJL3K1k272xXvEWyXfEWyXbFW9rddsVbJNsVb5FsV7xFsl3xFsl2xVvqYlbFWyLbFe+my8pJPLtQk7rKt9lUw2x0rf43rIqXEEKGl3RKNxNwfnDtNL2tOoLiXV9QtjnV0C5yLUF2Gg0ZsgfoneJdzI7VcrJp7N5PRtH+HdPiXV9P1r3EvFCpliA7jYYM2QP0bvEu0s2DxSS6Oq+Z6EW8kF1BQ4bsAbpKg6U53jTTvVvzk1jH06hyaYPVVQ1tC5VqCbLTaMiQPUBXi3e1qiG9RZ07kYyDZ6PKkygE1vG+V/qKeP0mB1k05DDIxsRbXMeb3ZCs4zUoXp0z19oWKtUSZKfRkCF7gK7UYPHMNZXk3AmjUw3Pbo9fb3qthraFSrUE2Wk0ZMgeoKs9WLhWg0p6SM3gwbXF4knzq5O1LVSqJchOoyFDlpG5owAAES9JREFU9gBd48HC1cnUADg9d8LccjJl3g9i776zPt5FvH6Sgywachhkk+LVjNW/QNG2UKmWIDuNhgzZA7SMHREvZFfQkCF7gJaxI+KF7AoaMuQhoxEvZCfRkCEPGY14ITuJhgx5yGjEC9lJNGTIQ0YjXshOoiFDHjIa8UJ2Eg0Z8pDRiBeyk2jIkIeMRryQnURDhjxkNOKF7CQaMuQhoxEvZCfRkCEPGY14ITuJhgx5yGjEC9lJNGTIQ0YjXshOoiFDHjIa8UJ2Eg0Z8pDRiBeyk2jIkIeMRryQnURDhjxkNOKF7CQaMuQhoxEvZCfRkCEPGY14ITuJhgx5yGjEC9lJNGTIQ0YjXshOoiFDHjIa8UJ2Eg0Z8pDRiBeyk2jIkIeMRryQnURDhjxkNOKF7CQaMuQhoxEvZCfRkCEPGY14ITuJhgx5yGjEC9lJNGTIQ0YjXshOoiFDHjIa8UJ2Eg0Z8pDRiBeyk2jIkIeMRryQnURDhjxktC3xSuUrX4EcBBoy5OGi14J4IbuChgx5uOi1IF7IrqAhQx4uei2IF7IraMiQh4teC+KFrIn+8vO+yMYCOQwy4tVJiD3E2b757G+uj39onfy7f2sIuZNsOpA3YuyNfTfaYjwWr+lXo8N9syf0s8/eH4/HV/7CNvnpjTcMvhi3kY3HQbLx19W2mk2+se9A240H4q2J8VdjfZ79w//dC/rJ++/1gc3y7BfKuu98bJ/8aGzyxVifvp7nXtPn68rsG7tT8Ve8fb0aF88+iHvH+N0eeueDcW+vCZW749f/tg/us9vj8Td7wPb2PPea/l5Xvb2x9xFvxdvTqzEeEbw//t6P4w9E9h0Yl3zlJ7ahhXHfg3E/A+4H4z++/o1f26b29zz3mt5eV/29sfcSz8S7mn/q59WYgFW/jPun9e759EYPr4nCuO+RVfqzf/jLHyfOe3z9yv962/4orJfn+dk//Krn2Q37r6v+3tjNHyWqj1/iXc0/9fRqVK/EdNQZPwDbo89H439j/b2mOO57fP2Nz598P9awhY+DyefOZLrvmXqaH1jT37N//Mf0aw/P85PkTe5Kjzqw/7rq7Y2919ls38S7nH+y/GpcPPmrfOvpjcx9d+3QC+/Kd7/x/1h/rymO++LS/6/r4yvXxxZmPOKPnX/1+w+Sp/u/vmdPf6n63vnc/vO8UEWOX//xrz7oa45Vxfbrqrc3dpXeZrNVvBJvYf7J5qvxy7hjLEeaT29kUDv0wrvys9tvfG7zNZEyC+M+tftf/1gtrhibG3inb3GP0qnVB8uX4F0rH0Of3ojV98ukPMvP8yLp3UmNdg+hrq2Usfm6UunrjX3R62z2wjPxrs8/2Xg1pktcxgX9rQbdFlxQeFd+fP29+J/duYbyuO9uJtzYT2aGCsu3uLvrgEc2bJRP6N6NYRaf58x9asCnvi6VbyVVmrfwuso+yNl/Y1+lt6NESXwS78b8k/lX4++/nyxx+etCT1z2ShsuKL4rP4hLt2D70hGH8rjvQT79aGTgXXiLe3Z7/RVhxUb521ryxmLvec7cl09xWhVv5UoZ8z07/yBn+Y29uDS7t6NEaTwS7+b8k/Eu+iAWwff+Nu4RBc6yV5obfVav3birNhT9M5NTYOUjDjXjPgOvzNJbXPJ6fPa7746/+4OcY+PTzbIsNeS18Dynyd2XA5cyspHKlTLm1Z9/kLP5xr4oHcmzPpu9Fo/EWzH/ZOzVmC3refwv/0o9SaWXwrKvPDP1flm9duPpjW8u0heKUQWtHXGoHvfJi7f8Fqc+garBfpzXf50jTegoX8OQM7KyHsUqNP88Z8nd9+yf8kdh2AbFNWvVK2VMv8stP8jZe2NXKS3Ntj2bvRaXxVt5xubd8hNkZHCwvqwnn33LH8E38w0zL8jqtRtqivfLX1xXB30NLjNfP+KwNu7L5CC/4nLtLe7u+C/ujv+HzxefXc8fjQn9rdYwZA8ifx0+UG9uxp/nLGvuM+35cueuXilj6HW1zOqDnK039gy7vjTbzjHbqrgr3pozNkvPiZlOurGs59Gai7Je+UAY/iSdQqhZu/Fg/K/+PN4h3zU7/7Z+xKE87vtd+jPJgUL5lIH8LU49jOyIU46S/1hYWMOQPZbb+Tjsu9fVXIOh5zlB/M2fr6aQSu4zPMFa7tw1K2WMvK4qp1dtvbEnD2BzabaVY7aVcVa8dWdsluefpF+Nz37xzueby3rK/WD5jik6EopfieOVdCrWbtyNrfvHP/jcxPzbtiMOpXFfrKo//sGv4mdF6nWx/tni0XJ4P14edXkvf2jCo7DiGoYlXr3TP3n/yn+6kcx1GHiek6QXg8nf0UruMzjgrejcdStl5N/laqZXjb+xL1bdu2Jptt0VJMU4K97aMzZLnw6kX43qhb+5rGftA8nj9Mp1kuz0lfiD9LVQvXbj0ZUf/FP6YIRfE9uPOJTHfU/ez08oE8nGZ4v8LS5+IBl2+Wnj2X+RnGH58vPyGoYlP8kPE9kaeJ5Vfp9OcORHSNfcZ3AVb0XnrlspI/4uVzu9avaNfVHs3lVLs3uba3BMvJ/9j1mvqz9jszT/JPtqTPvm5rKe9SFP/PJ851dyFw4tvRJ3rt0oTzh3z44jDuvjvt//lx+LLarY/GxRmPJbvkjkRRR/uohbL61hyH/0+++nF8hKqhV+nhP0X6tZ+u/91eqWsvtMDsEqOnfdShnp11X99KrRN/ZFqXtXHckzPZtdG7fEe3c5u1l/xqbRgw9p31xb1lMkPvtMvWZ+d12se2y8Enet3cgPfktl1xEHE+O+2lMGlm9xy9eG/IfedLnwe+U1DOt3Sh+I4PO8avjKX5TeScruy8r98hcGBmKbnXttpUzauQWzbRyVPRKTb+wqxe5dcSTP9KHM2jgm3it/Pn432dpyxqb4S/HLXy03Vd/cWNZTfHLy0dE//Eqqe2y8EtMbDa/daPCSyGNg3Fd3ykBhT2dLO6RHgOmni/9eFVtew1BOvlcEn+cs6/257L6kXDXdLzbhsLVzr62UuSs8zbF1HJU/s4YmdLKUunfV0uy+lvI6Jd54L/3HbH5nyxmb0k/R7wqvu8L6hYIEClMNj8b/nfArsVKrptduNHpJGBjfZ83WnTJQrFT5/sfC032/yD5dPMo+eRbWMOT3+exf/nqx8d4jmPX+XHZfzP1lOt0v9Llme+deWykj3bm3j6PuLj/TiL+xr1Lq3lVv8LZPws/jmnh/Eo90kpd4/RmbBuafqhaOFbhGZ+Djwc6y9eVMm9m1G01fEgbG9xmz7pSB4mz6fxX/nB8Prv44+XSRFlhaw5DdJX5Jvv63//g3BhfW5xPaTz74b9PDW0X3pQf3JK/OtbVzG1wps9g5jlqOOAxM6CxT7t4VS7PFbdIwzok37ynWzthcJJ/2s4636pvlwZfJjyN3l6/Ecc08q4GVVM1eEvLj+6zZulMGym9xv/+V8Hx21l7+aiytYcjyNJkBft3cIqP0ejB/cz2bVy277275wJtEtnVuYytlMsrWcVThaRef0Ck8hmL3Nro0Wy/uiTfrKesfC8Qn/kvclWnyF35xWY/ZZdbJK/HL5JX4+rJGo2s3NF4SRlJ/yoCdGbclsLSGIe9in/2Hf2NyEKTG1IXZhLL7Ptuc7hfgbe3cKiaWjuweR1l5skvd2+DSbN04KN5sBnDtY4H0xP8aeHnyQtWyHrOD7hj+vT9Pxz2lGw12jX5fEltOGbBzJtHG1JGFLrbKo8rZBDPuU9nRuZO7CH+yyMH14ygVK9Or5e5t9kieThwUb/YevfaxwNCn3ixPb6QiWPbN0rKeZ//B3Gh7kX7ivfLuP63faNB9/b4ktpwyYOUVsemd29mxPpNdrICvOmRgxn05cEvnNpdt46jk5zamV9e6t9EjeTpxULzJBQJf/7XdjwWP0ynPvG/KL+vZzt48smBUQf2+JLacMmD4LS7nL59U02sYKmPvjwll6alzbxtH2cta9zZ5JE8nron3xx+ov/zxr9WZJnY/Fjy6nr4hpn1TfFnPtlT+JVuj7uv3JWHvlIHKFI4iml/DUBX7Z0v107l7HEcVstG9zR3J04lj4k0uhv1xMg+m5gFtfixIzl/K+6b8sp7t6NUr8fd/aeFF2etLwvQpA7tSPIXB+BqGqhj8Awt16aVz9zmOKj4KZw6oFeOUeOMe+b1snPdALa2y+7HgQay/vG8aWNazJctXYrKS3kL36PUlYfiUgZ0pH9I3vIahMpaO4hXTR+fudRy1ijsH1IpxTLyrsciDZLWT1Y8F8evhr7NuYWBZz3byNxfpsC9b4W84vb4kTJ8ysCOFmYbf9/SZs48/fNBD5+53HLWKMwfUinFWvM/+P+tXKI5fkt/t59l5NP7Gf7Q57Ov1JWH8lIHtya2nBt09/cUtO3+geoNpu3P3PI5axZUDasU4K94+ogaCvYg3mfC0OOzr9SVh/JSB7UlmGvJPF3bRhcew8ZdVjMd+5+55HFWMGwfUikG8pQfwl/2cuB1LyOqwz4mXhLlTBrYl9s+//czupHLFg+hjl1vv3L2/nF0O4nUiX9p9JTqxow2eMrAlj6+nk8o9vcOGFCd6matxS7zf/0GvH0iCScAvCTWrY3dSOdgE3Mt2xynxEksJ+SXxC97cLYVx1JYg3hDDS4KQXoN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJd4kNOomAsftW1nfhIdLL+5/6NR3NjXbp5tQC6/cqfrIyZkWxAv8SAGxHv/q3lze1crIK+c1TZCSOcgXuJB5MU7KTZ4WAG5iHmJuSBe4kFOhTy4FK/y7nNvfxpv/eZb8Zj3VgrJjD7/zY/iHx/UtkJI1yBe4kGkxTsbRdHX8xYn2fD2tDCUnuQ2JsREEC/xINLiPS0NaE9TyRbFu3YPQmSDeIkH2RRvrNBr94+j6Llbq6345i/USoW9bFFC6Sf5LUqn50el8ezsa396Z7Em3vgu7aeSCdkRxEs8SKV4v5MeaFttrQ6Z7f1Z+T6F31LinVYOZ0vije/JXAMxFsRLPEhpwUEixFiMauOLm4Ut5d39ny8Wv4lHuddK98mTiXeSL2RYgxTHuJO0DUJMBPESD1It3lSMq63zo2xgHN+kHLr6SZ6VeCukiniJtSBe4kEqxZsv/lpuTZazA7ORGtKufpJHT7wVo2JCRIJ4iQepnOPNblptrcwZj30Pij8p/BYjXuJAEC/xIJXiPVjbKng23SxdmaF432mDOd5TxEvMBfESD9JUvAelX6gV72xUbu+Tf//pglUNxGIQL/EgwiPetXW82UG5knjX3UyIZBAv8SCNxFs1x1stXjWBW/hJdhyNM9eItSBe4kGaiXd1PCydxK0Xb+laDfeyUyyK4r3HtRqIySBe4kGaibdiHW+NeJNT3PbU1cnm97+VXxdydXWy5DYGvMRcEC/xIOVL5ZZHswW9Fs5cO1xsFe/iw2J7X6+AMMNLDAbxEg/SULyb12qoFe/ik1FUuvMa5Ot4lxgM4iUepKl4s6uTff3TzZ9s3DL/37+l3Hv57Yq/ufb2p0bLIcEH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYDuIlhBDLQbyEEGI5iJcQQiwH8RJCiOUgXkIIsRzESwghloN4CSHEchAvIYRYzv8PblWpQuq18KQAAAAASUVORK5CYII=" alt="warning message" />
+<p class="caption">warning message</p>
+</div>
+<pre><code>#&gt; $ICD
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
+#&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47
+#&gt;  2:  V27.0    18           ICD 10 Wrong version                   42.70
+#&gt;  3:   E114     8           ICD 10  Wrong format                   51.69
+#&gt;  4: A01.05     8            ICD 9 Wrong version                   60.67
+#&gt;  5:  42761     7           ICD 10 Wrong version                   68.54
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format                   75.28
+#&gt;  7:    F42     6           ICD 10  Wrong format                   82.02
+#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76
+#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38
+#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</code></pre>
+</div>
+<div id="v.-reference" class="section level2">
+<h2>V. Reference</h2>
+<div id="i.-icd-function-of-conversion" class="section level3">
+<h3>I. ICD function of conversion</h3>
+<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="icd-function-of-conversion-icddxdecimaltoshort--icddxshorttodecimal" class="section level3">
-<h3>ICD function of conversion (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h3>
-<p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
-<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
-</div>
-<div id="ccs-clinical-classifications-software" class="section level3">
-<h3>CCS (Clinical Classifications Software)</h3>
+<div id="ii.-data-integration-1" class="section level3">
+<h3>II. Data integration</h3>
+<p><strong>CCS (Clinical Classifications Software)</strong></p>
 <p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
-</div>
-<div id="phecode" class="section level3">
-<h3>Phecode</h3>
+<p><strong>Phecode</strong></p>
 <p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
-</div>
-<div id="comorbidities" class="section level3">
-<h3>Comorbidities</h3>
-<div id="ahrq" class="section level4">
-<h4>AHRQ</h4>
+<p><strong>Comorbidities</strong></p>
 <p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-</div>
-<div id="charlson" class="section level4">
-<h4>Charlson</h4>
 <p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
 <p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
-</div>
-<div id="elixhauser" class="section level4">
-<h4>Elixhauser</h4>
 <p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-</div>
 </div>
 </div>
 

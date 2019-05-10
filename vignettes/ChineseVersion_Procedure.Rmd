@@ -8,19 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
-
-PrDataFile <- data.frame(ID=c("A","A","A","B"),
-                         ICD=c("0101","8838","00870ZZ","00920ZZ"),
-                         Date=as.Date(c("2013-03-31","2013-01-29","2016-03-10","2016-03-10")),
-                         stringsAsFactors = FALSE)
-```
 
 # I. 檢查與處置前處理與整合方法
 
@@ -34,18 +21,15 @@ cat(utils::packageDescription("emr")$Description)
 
 ICD-9-PCS
 ```
-icd9 <- ccsPrICD9$ICD
-ICD9PrwithTwoFormat <- ICD9PrGenerateDecimalFormat(icd9)
-
-icd9_Short <- ICD9PrwithTwoFormat$Short[1:10]
-# c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
-icd9_Decimal <- ICD9PrwithTwoFormat$Decimal[1:10]
-# c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
+icd9_Short <- head(ICD9PrwithTwoFormat$Short,10)
+# c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")
+icd9_Decimal <- head(ICD9PrwithTwoFormat$Decimal, 10)
+# c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")
 ```
 ICD-10-PCS只有short的格式
 ```
-icd10 <- ccsPrICD10$ICD[1:10]
-# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
+icd10 <- head(prICD10$ICD,10)
+# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")
 ```
 
 ### ICD-PCS code 格式轉換
@@ -56,22 +40,26 @@ ICD-9-PCS 兩種格式的轉換: Short <-> Decimal
 將 ICD-PCS code 的格式統一轉成 Decimal
 ```
 # ICD-9
-IcdPrShortToDecimal(icd9_Short)$Decimal
-# c("01.01", "01.09", "01.21", "01.22", "01.23", "01.24", "01.25", "01.26", "01.27", "01.28")
+ICD9_Decimal <- IcdPrShortToDecimal(icd9_Short)
+ICD9$Decimal
+# c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")
 
 # ICD-10
-IcdPrShortToDecimal(icd10)$Decimal
-# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
+ICD10_Decimal <- IcdPrShortToDecimal(icd10)
+ICD10$Decimal
+# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")
 ```
 將 ICD-PCS code 的格式統一轉成 Short
 ```
 # ICD-9
-IcdPrDecimalToShort(icd9_Decimal)$Short
-# c("0101", "0109", "0121", "0122", "0123", "0124", "0125", "0126", "0127", "0128")
+ICD9_Short <- IcdPrDecimalToShort(icd9_Decimal)
+ICD9_Short$Short
+# c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")
 
 # ICD-10
-IcdPrDecimalToShort(icd10)$Decimal
-# c("00800ZZ", "00803ZZ", "00804ZZ", "00870ZZ", "00873ZZ", "00874ZZ", "00880ZZ", "00883ZZ", "00884ZZ", "008F0ZZ")
+ICD10_Short <- IcdPrDecimalToShort(icd10)
+ICD10_Short$Short
+# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")
 ```
 
 ## II. ICD-PCS-code 整合分類
@@ -135,17 +123,11 @@ IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 
 ## III. 參考資料
 
-### ICD 格式: Short 和 Decimal
+### ICD 格式轉換功能
 
 ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 
 ICD-10-PCS code (2019):https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html
-
-https://www.findacode.com/search/search.php
-
-https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
-
-### ICD 格式轉換功能 (`IcdPrDecimaltoShort` 和 `IcdPrShortToDecimal`)
 
 https://www.findacode.com/search/search.php
 

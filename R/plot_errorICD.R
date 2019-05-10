@@ -7,8 +7,8 @@
 #' @param errorFile error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)
 #' @param ICDVersion ICD version
 #' @param wrongICDType Wrong ICD type
-#' @param groupICD default is FALSE
-#' @param Others default is TRUE
+#' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
+#' @param Others Default is TRUE
 #' @param OthersThreshold Others threshold
 #' @source \url{http://sape.inf.usi.ch/quick-reference/ggplot2/colour}
 #' @export
@@ -19,7 +19,7 @@
 #'                            wrongICDType = all,
 #'                            groupICD = FALSE,
 #'                            Others = FALSE,
-#'                            OthersThreshold = 1)
+#'                            OthersThreshold = 2)
 #'
 plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, OthersThreshold){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))
@@ -45,9 +45,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     stop("'please enter `format`,`version`, `all` for 'wrongICDType'", call. = FALSE)
   }
 
-  if(exists("errorICD")){
-    errorFile <- errorICD
-  }
+  if(exists("errorICD")){errorFile <- errorICD}
 
   if(groupICD){
     if(version == "ICD 9"){
@@ -64,9 +62,9 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
       setnames(errorData,"ICD","MostICDinGroup")
       Xlabel <- paste0(Xlabel," (grouped)")
     }else{
-      stop("ICD 10 no group!!")
+      stop("ICD 10 already has unique alphanumeric codes to identify known diseases")
     }
-  }else{ #Top 10
+  }else{
     FileSize <- nrow(errorFile)
     errorData <- errorFile[, c("CumCount", "Number") :=
                              list(cumsum(count), 1:FileSize),][Number > 10, c("Number", "CumCount", "count", "ICD") :=
@@ -87,7 +85,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     geom_bar(stat="identity", aes(fill = Number)) +
     guides(fill = FALSE, color = FALSE) +
     geom_line(aes(x= Number, y = CumCount, color = Number)) +
-    geom_point(aes(x= Number, y = CumCount, color = Number), pch = 10) +
+    geom_point(aes(x= Number, y = CumCount, color = Number), pch = 19) +
     scale_x_discrete(breaks = errorData[,eval(parse(text = paste(graph_col[1])))]) +
     annotate("rect", xmin = nrow(errorData) + .55, xmax =  nrow(errorData) + 1,
              ymin = -.02 * Max, ymax = Max * 1.02, fill = "white") +

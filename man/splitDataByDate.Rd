@@ -18,7 +18,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
 
 \item{indexDateFile}{An exact date of diagnosis for a period of observation.}
 
-\item{windowGap}{gap length of window. By default it is set to \code{30}.}
+\item{windowGap}{gap length of window. Default is set to \code{30}.}
 }
 \description{
 split data based on index date

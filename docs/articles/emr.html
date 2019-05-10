@@ -85,100 +85,93 @@
 
     
     
-<div id="i--introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#i--introduction" class="anchor"></a>I. Introduction</h1>
+<p>Introduction</p>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
-<div id="generate-icd-cm-code-decimal-format-for-conversion-function" class="section level3">
+<div id="icd-cm-code-with-two-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#generate-icd-cm-code-decimal-format-for-conversion-function" class="anchor"></a>Generate ICD-CM code Decimal Format for conversion function</h3>
+<a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
 <p>conversion function : <code>IcdDxDecimaltoShort and IcdDxShortToDecimal</code></p>
-<p>ICD-9</p>
-<pre><code>icd9 &lt;- ccsDxICD9$ICD
-ICD9DxwithTwoFormat &lt;- ICD9DxGenerateDecimalFormat(icd9)
-
-icd9_Short &lt;- ICD9DxwithTwoFormat$Short[1:10]
-# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-icd9_Decimal &lt;- ICD9DxwithTwoFormat$Decimal[1:10]
-# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")</code></pre>
-<p>ICD-10</p>
-<pre><code>icd10 &lt;- ccsDxICD10$ICD
-ICD10DxwithTwoFormat &lt;- ICD10DxGenerateDecimalFormat(icd10)
-
-icd10_Short &lt;- ICD10DxwithTwoFormat$Short[1:10]
-# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")
-icd10_Decimal &lt;- ICD10DxwithTwoFormat$Decimal[1:10]
-# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
+<p>ICD-9-CM</p>
+<pre><code>icd9_Short &lt;- head(ICD9DxwithTwoFormat$Short, 10)
+# c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")
+icd9_Decimal &lt;- head(ICD9DxwithTwoFormat$Decimal,10)
+# c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")</code></pre>
+<p>ICD-10-CM</p>
+<pre><code>icd10_Short &lt;- head(ICD10DxwithTwoFormat$Short, 10)
+# c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")
+icd10_Decimal &lt;- head(ICD10DxwithTwoFormat$Decimal,10)
+# c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")</code></pre>
 </div>
-<div id="convert-icd-cm-code-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#convert-icd-cm-code-format" class="anchor"></a>Convert ICD-CM code Format</h3>
+<div id="i-code-standarization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#i-code-standarization" class="anchor"></a>I.Code standarization</h2>
 <p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 <p>Convert ICD-CM code Short to Decimal.</p>
-<pre><code># ICD-9
-IcdDxShortToDecimal(icd9_Short)$Decimal
-# c("E950.0", "E950.1", "E950.2", "E950.3", "E950.4", "E950.5", "E950.6", "E950.7", "E950.8", "E950.9")
-
-# ICD-10
-IcdDxShortToDecimal(icd10_Short)$Decimal
-# c("A15.0", "A15.4", "A15.5", "A15.6", "A15.7", "A15.8", "A15.9", "A17.0", "A17.1", "A17.81")</code></pre>
+<pre><code># Short to decimal
+decimal &lt;- IcdDxShortToDecimal(sampleDxFile, ICD, Date, "2015/10/01")
+head(decimal$ICD)
+# c("553.3", "553.3", "553.20", "553.20", "553.3", "K44.9")
+</code></pre>
 <p>Convert ICD-CM code Decimal to Short.</p>
-<pre><code># ICD-9
-IcdDxDecimalToShort(icd9_Decimal)$Short
-# c("E9500", "E9501", "E9502", "E9503", "E9504", "E9505", "E9506", "E9507", "E9508", "E9509")
-
-# ICD-10
-IcdDxDecimalToShort(icd10_Decimal)$Short
-# c("A150", "A154", "A155", "A156", "A157", "A158", "A159", "A170", "A171", "A1781")</code></pre>
+<pre><code># Decimal to short
+short &lt;- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+head(short$ICD)
+# c("5533", "5533", "55320", "55320", "5533", "K449")
+</code></pre>
 </div>
-<div id="ii--grouping-icd-cm-codes" class="section level2">
+<div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ii--grouping-icd-cm-codes" class="anchor"></a>II. Grouping ICD-CM codes</h2>
+<a href="#ii--data-integration" class="anchor"></a>II. Data integration</h2>
 <p>Grouping ICD-9 and ICD-10 codes by: Classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.</p>
 <div id="a--clinical-classifications-software-ccs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--clinical-classifications-software-ccs" class="anchor"></a>A. Clinical Classifications Software (CCS)</h3>
 <p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
-<div id="a--ccs-single-level-category" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a--ccs-single-level-category" class="anchor"></a>a. CCS single-level category</h4>
-<p><code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+<p><strong>1) CCS single-level category</strong> <code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
-<pre><code>## ICD to CCS category
-IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
-# "99"  NA    "96"  "139"
+<pre><code>## ICD to CCS description
+CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+head(CCS_description$groupedDT, 5)
+#&gt;       Short ID    ICD       Date           CCS_CATEGORY_DESCRIPTION
+#&gt;   1:   5533  C  553.3 2008-04-03                   Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01                   Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23                   Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29                   Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27                   Abdominal hernia
 
-## ICD to CCS description
-IcdDxToCCS (DxDataFile, ID, ICD, Date, "2016-01-01", TRUE)
-# "Hypertension with complications and secondary hypertension" NA  
-# "Heart valve disorders"                                      "Gastroduodenal ulcer (except hemorrhage)" </code></pre>
-<p>If CCS return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues.</p>
-<ol style="list-style-type: decimal">
-<li><p>Wrong Format: means the ICD has wrong format.</p></li>
-<li><p>Warning ICD: means the ICD classify to wrong ICD version (cause the “icd10usingDate”) or other issues.</p></li>
-</ol>
-<p>for example, <code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message.</p>
-</div>
-<div id="b--ccs-multi-level" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b--ccs-multi-level" class="anchor"></a>b. CCS multi-level</h4>
-<p><code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
+head(CCS_description$summarised_groupedDT, 5)
+#&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period
+#&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days
+#&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days
+#&gt;  3:  B           Abdominal hernia     2007-08-29  2019-11-10     2 4456 days
+#&gt;  4:  B           Acute bronchitis     2008-04-29  2008-04-29     1    0 days
+#&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days
+
+## ICD to CCS category
+CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)</code></pre>
+<p><strong>2) CCS multi-level</strong> <code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
-<pre><code>## ICD to CCS multiple level 1
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 1, FALSE)
-# "7" NA  "7" "9"
+<pre><code>## ICD to CCS multiple level 2 description
+CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+head(CCSlvl_description$groupedDT, 5)
+#&gt;       Short ID    ICD       Date      CCS_LVL_2_LABEL
+#&gt;   1:   5533  C  553.3 2008-04-03     Abdominal hernia
+#&gt;   2:   5533  A  553.3 2008-05-01     Abdominal hernia
+#&gt;   3:  55320  A 553.20 2009-02-23     Abdominal hernia
+#&gt;   4:  55320  B 553.20 2007-08-29     Abdominal hernia
+#&gt;   5:   5533  A  553.3 2008-06-27     Abdominal hernia
 
-## ICD to CCS multiple level 3
-IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
-# "7.1.2" NA      NA      NA    </code></pre>
-<p>If CCSlvl return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format or other issues</p>
-<p>for example,</p>
-<ol style="list-style-type: decimal">
-<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message</p></li>
-<li><p><code>42577</code> is wrong format of ICD-9-CM code, will show <code>wrong format</code> message, ICD-10-CM show <code>Warning ICD</code> (cause ICD-10-CM ccs multiple levels are 1~2)</p></li>
-</ol>
-</div>
+head(CCSlvl_description$summarised_groupedDT, 5)
+#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period
+#&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days
+#&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days
+#&gt;  3:  B                                      Abdominal hernia    2007-08-29  2019-11-10     2  4456 days
+#&gt;  4:  B                                Respiratory infections    2008-04-29  2008-04-29     1     0 days
+#&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days
+
+## ICD to CCS multiple level 3 category
+CCSLvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 3, FALSE)</code></pre>
 </div>
 <div id="b--phecode" class="section level3">
 <h3 class="hasAnchor">
@@ -187,89 +180,127 @@ IcdDxToCCSLvl(DxDataFile, ID, ICD, Date, "2016-01-01", 3, FALSE)
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
 <pre><code>## ICD to Phecode
-IcdDxToPhecode(DxDataFile, ID, ICD, Date, "2016-01-01", FALSE)
-# "401.21" NA       NA       NA   </code></pre>
-<p>If Phecode return <code>NA</code>, there are two ways of <code>warning message</code>: The ICD mentioned above matches to “NA” due to the format, the ICD classify to wrong ICD version (phecode does not have icd10) or other issues.</p>
+phecode &lt;- IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+head(phecode$groupedDT, 5)
+#&gt;        ICDD ID    ICD       Date PheCode
+#&gt;   1:  553.3  C  553.3 2008-04-03   550.2
+#&gt;   2:  553.3  A  553.3 2008-05-01   550.2
+#&gt;   3: 553.20  A 553.20 2009-02-23   550.5
+#&gt;   4: 553.20  B 553.20 2007-08-29   550.5
+#&gt;   5:  553.3  A  553.3 2008-06-27   550.2
+head(phecode$summarised_groupedDT, 5)
+#&gt;     ID PheCode firstCaseDate endCaseDate count   period
+#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
+#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
+#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
+#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
+#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
+</code></pre>
 </div>
 <div id="c--creating-a-grouping-standards" class="section level3">
 <h3 class="hasAnchor">
 <a href="#c--creating-a-grouping-standards" class="anchor"></a>C. Creating a grouping standards</h3>
-<p>User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame <code>icdFile</code> whether is matched these group: Hypotension and Hypertension or not.</p>
-<pre><code>icdFile &lt;- data.frame(ICD = c("I95.0", "I952", "I110", "01091"), stringsAsFactors = FALSE)</code></pre>
-<div id="a--icddxtocustom-use-method-of-exhaustion-to-find-out-the-matched-icd-" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a--icddxtocustom-use-method-of-exhaustion-to-find-out-the-matched-icd-" class="anchor"></a>a. <code>IcdDxToCustom</code>: Use method of exhaustion to find out the matched ICD.</h4>
+<p>User can identify the rule of grouping standards, and return matched ICD codes.</p>
+<p><strong>1) IcdDxToCustom</strong> Use method of exhaustion to find out the matched ICD.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>,<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>, <span class="st">"Hypertension"</span>),
-           <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"I95.0"</span>,<span class="st">"I951"</span>,<span class="st">"I952"</span>,<span class="st">"I110"</span>,<span class="st">"I11.9"</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group   ICD</span>
-<span class="co">#&gt; 1  Hypotension I95.0</span>
-<span class="co">#&gt; 2  Hypotension  I951</span>
-<span class="co">#&gt; 3  Hypotension  I952</span>
-<span class="co">#&gt; 4 Hypertension  I110</span>
-<span class="co">#&gt; 5 Hypertension I11.9</span></code></pre></div>
-<pre><code>IcdDxToCustom(icdFile, groupingTable)
-#  "Hypotension"  "Hypotension"  "Hypertension" NA </code></pre>
-</div>
-<div id="b--icddxtocustomgrep-use-a-icd-pattern-to-find-out-the-fit-icd-" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b--icddxtocustomgrep-use-a-icd-pattern-to-find-out-the-fit-icd-" class="anchor"></a>b. <code>IcdDxToCustomGrep</code>: Use a ICD pattern to find out the fit ICD.</h4>
+groupingTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">"Cardiac dysrhythmias"</span>,<span class="dv">6</span>),
+                            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"427.1"</span>,<span class="st">"427.2"</span>,<span class="st">"427.31"</span>,<span class="st">"427.61"</span>,<span class="st">"427.81"</span>,<span class="st">"427.89"</span>),
+                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGroup &lt;- IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+CustomGroup$groupedDT[10:15]
+#&gt;     ICD   ID       Date                group
+#&gt; 1:  466.0  A 2009-06-09                 &lt;NA&gt;
+#&gt; 2: 427.61  A 2009-02-16 Cardiac dysrhythmias
+#&gt; 3: 427.31  C 2007-06-20 Cardiac dysrhythmias
+#&gt; 4: 427.89  C 2008-01-23 Cardiac dysrhythmias
+#&gt; 5: 427.31  A 2007-09-19 Cardiac dysrhythmias
+#&gt; 6: 427.31  C 2008-09-11 Cardiac dysrhythmias
+CustomGroup$summarised_groupedDT
+#&gt;    ID                group firstCaseDate endCaseDate count   period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days</code></pre>
+<p><strong>2) IcdDxToCustomGrep</strong> Use a ICD pattern to find out the fit ICD.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
-<span class="kw">data.frame</span>(<span class="dt">Group =</span> <span class="kw">c</span>(<span class="st">"Hypotension"</span>, <span class="st">"Hypertension"</span>),
-           <span class="dt">grep_pattern =</span> <span class="kw">c</span>(<span class="st">"^I95|^I952"</span>, <span class="st">"^I11"</span>),
-           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;          Group grep_pattern</span>
-<span class="co">#&gt; 1  Hypotension   ^I95|^I952</span>
-<span class="co">#&gt; 2 Hypertension         ^I11</span></code></pre></div>
-<pre><code>IcdDxToCustomGrep(icdFile, grepTable)
-# "Hypotension"  "Hypotension"  "Hypertension" NA  </code></pre>
-</div>
+grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="st">"Cardiac dysrhythmias"</span>,
+                        <span class="dt">grepIcd =</span> <span class="st">"^427|^I48"</span>,
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>CustomGrepGroup &lt;- IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date, CustomGroupingTable = grepTable)
+CustomGrepGroup$groupedDT[10:15]
+#&gt;    ID    ICD       Date                group
+#&gt; 1:  A  466.0 2009-06-09                     
+#&gt; 2:  A 427.61 2009-02-16 Cardiac dysrhythmias
+#&gt; 3:  C 427.31 2007-06-20 Cardiac dysrhythmias
+#&gt; 4:  C 427.89 2008-01-23 Cardiac dysrhythmias
+#&gt; 5:  A 427.31 2007-09-19 Cardiac dysrhythmias
+#&gt; 6:  C 427.31 2008-09-11 Cardiac dysrhythmias
+
+CustomGrepGroup$summarised_groupedDT
+#&gt;    ID                group firstCaseDate endCaseDate count    period
+#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days
+#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days</code></pre>
 </div>
 <div id="d--comorbidities" class="section level3">
 <h3 class="hasAnchor">
 <a href="#d--comorbidities" class="anchor"></a>D. Comorbidities</h3>
 <p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
-<div id="a--ahrq-comorbidity-classification" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a--ahrq-comorbidity-classification" class="anchor"></a>a. AHRQ comorbidity classification</h4>
-<p>AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_ahrq (list) to icd9_ahrq (Df)
-icd9_ahrq$Comorbidity %&gt;% unique () </code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_ahrq (list) to icd10_ahrq (Df)
-icd10_ahrq$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", ahrq, N, TRUE)</a></code></pre>
-</div>
-<div id="b--charlson-comorbidity-classification" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b--charlson-comorbidity-classification" class="anchor"></a>b. Charlson comorbidity classification</h4>
-<p>Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
-<p>ICD-9</p>
-<pre><code># convert icd9_map_charlson (list) to icd9_charlson (Df)
-icd9_charlson$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10</p>
-<pre><code># convert icd10_map_charlson (list) to icd10_charlson (Df)
-icd10_charlson$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", charlson, B, TRUE)</a></code></pre>
-</div>
-<div id="c--elixhauser-comorbidity-classification" class="section level4">
-<h4 class="hasAnchor">
-<a href="#c--elixhauser-comorbidity-classification" class="anchor"></a>c. Elixhauser comorbidity classification</h4>
-<p>Elixhauser comorbidity measure data.</p>
+<p><strong>1) AHRQ</strong> AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
+<pre><code>AHRQ &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
+AHRQ$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09       Liver
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24  NeuroOther
+#&gt; 4: Z6832  C Z68.32 2019-10-16     Obesity
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(AHRQ$summarised_groupedDT, 5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days
+#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days
+#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
+</code></pre>
+<p><strong>2) Charlson</strong> Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
+<pre><code>Charlson &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+Charlson$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09   LiverMild
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        &lt;NA&gt;
+#&gt; 4: Z6832  C Z68.32 2019-10-16        &lt;NA&gt;
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(Charlson$summarised_groupedDT, 5)
+#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
+#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
+#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
+#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days</code></pre>
+<p><strong>3) Elixhauser</strong> Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
-<p>ICD-9-Elixhauser: Version 3.7 January 2012/January 2015 (valid for ICD-9-CM codese ffective October 1, 2011)</p>
-<pre><code>icd9_elix$Comorbidity %&gt;% unique</code></pre>
-<p>ICD-10-Elixhauser: Version 2019.1 (valid for FY2019 ICD-10-CM codes)</p>
-<pre><code>icd10_elix$Comorbidity %&gt;% unique</code></pre>
-<pre><code><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid(DxDataFile, ID, ICD, Date, "2016-01-01", elix, N, TRUE)</a></code></pre>
+<pre><code>ELIX &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
+ELIX$groupedDT[160:164]
+#&gt;    Short ID    ICD       Date Comorbidity
+#&gt; 1: K7460  C K74.60 2021-01-09     HYPOTHY
+#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
+#&gt; 3: G2581  B G25.81 2021-06-24        METS
+#&gt; 4: Z6832  C Z68.32 2019-10-16       NEURO
+#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+
+head(ELIX$summarised_groupedDT, 5)
+#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
+#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
+#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
+#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
+#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days</code></pre>
 </div>
-</div>
-</div>
-<div id="iii--selection-cases" class="section level2">
-<h2 class="hasAnchor">
-<a href="#iii--selection-cases" class="anchor"></a>III. Selection Cases</h2>
+<div id="e--cases-selection" class="section level3">
+<h3 class="hasAnchor">
+<a href="#e--cases-selection" class="anchor"></a>E. Cases selection</h3>
 <p>This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.</p>
 <p>searching criteria for example,</p>
 <ol style="list-style-type: decimal">
@@ -278,69 +309,128 @@ icd10_charlson$Comorbidity %&gt;% unique</code></pre>
 <li><p>Interval of days: 30 ~ 365 days, the days between two specific ICD codes.</p></li>
 </ol>
 <p>Return the matched Data frame.</p>
-<pre><code>selectCases_Example &lt;- data.frame(ID = c("A", "A", "A", "A"),
-                         ICD = c("I072","I071", "I072", "I071"),
-                         Date = as.Date(c("2016-03-31", "2016-01-29", "2016-02-10", "2018-03-10")),
-                         stringsAsFactors = FALSE)
-selectCases("^I0", selectCasesDx_Example, ID, ICD, Date, "2016-01-01", 2)</code></pre>
+<pre><code>selectCases(DxDataFile = sampleDxFile,
+            ID, ICD, Date,
+            groupDataType = ccslvl2,
+            icd10usingDate = "2015/10/01",
+            caseCondition = "Diseases of the heart",
+            caseCount = 2)
+#&gt;    ID selectedCase count firstCaseDate endCaseDate period MostCommonICD  MostCommonICDCount
+#&gt; 1:  A     Selected     4    2021-08-02  2022-02-20    202        I48.91                   4
+#&gt; 2:  B     Selected     4    2007-07-16  2009-02-25    348        427.31                   3
+#&gt; 3:  C     Selected     6    2007-06-20  2009-02-08    255        427.31                   3
+#&gt; 4:  D  nonSelected    NA          &lt;NA&gt;        &lt;NA&gt;     NA          &lt;NA&gt;                &lt;NA&gt;   </code></pre>
 </div>
-<div id="iv--condition-era" class="section level2">
-<h2 class="hasAnchor">
-<a href="#iv--condition-era" class="anchor"></a>IV. Condition Era</h2>
+<div id="f--firstlast-event-of-patient-admission" class="section level3">
+<h3 class="hasAnchor">
+<a href="#f--firstlast-event-of-patient-admission" class="anchor"></a>F. first/last event of patient admission</h3>
+<pre><code>patientRecordDate(sampleDxFile, ID, ICD, Date)
+#&gt;    ID firstRecordDate endRecordDate
+#&gt; 1:  D      2006-05-03    2018-10-02
+#&gt; 2:  A      2006-05-03    2022-02-20
+#&gt; 3:  B      2006-05-03    2022-03-18
+#&gt; 4:  C      2007-04-21    2021-09-17</code></pre>
+</div>
+<div id="g--data-split" class="section level3">
+<h3 class="hasAnchor">
+<a href="#g--data-split" class="anchor"></a>G. Data split</h3>
+<pre><code>indexDateTable &lt;- data.frame(ID = c("A", "B", "C", "D"),
+                             indexDate = c("2006-05-03", "2006-05-03",
+                                           "2008-03-30", "2006-05-03"),
+                             stringsAsFactors = FALSE)
+Data &lt;- splitDataByDate(sampleDxFile, ID, ICD, Date,
+                indexDateFile = indexDateTable,
+                windowGap = 30) 
+head(Data, 5)
+     ID    ICD       Date  indexDate timeTag window
+  1:  A 785.52 2006-05-03 2006-05-03       A      1
+  2:  A  V56.0 2007-05-12 2006-05-03       A     13
+  3:  A V45.11 2007-05-30 2006-05-03       A     14
+  4:  A  427.1 2007-07-27 2006-05-03       A     16
+  5:  A  585.2 2007-08-08 2006-05-03       A     16</code></pre>
+</div>
+<div id="h--condition-era" class="section level3">
+<h3 class="hasAnchor">
+<a href="#h--condition-era" class="anchor"></a>H. Condition Era</h3>
 <p>Get the condition era</p>
 <p>Condition Eras are built with a Persistence Window, deafault is 30 days.</p>
-<pre><code>getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
-getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code></pre>
+<pre><code>getConditionEra(sampleDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
+#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period
+#&gt;  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days
+#&gt;  2:  B          158    2007-05-28  2022-03-18    34  14 5408 days
+#&gt;  3:  C          106    2007-06-20  2021-09-16    19  14 5202 days
+#&gt;  4:  A          158    2007-05-12  2022-02-08    33  12 5386 days
+#&gt;  5:  B          106    2007-07-16  2020-10-11    13  10 4836 days
+
+grepTable &lt;- data.frame(group = "Cardiac dysrhythmias",
+                        grepIcd = "^427|^I48",
+                        stringsAsFactors = FALSE)
+getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup, CustomGroupingTable = grepTable)
+#&gt;    ID                group firstCaseDate endCaseDate count Era    period
+#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days
+#&gt; 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
+#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</code></pre>
 </div>
 </div>
-<div id="v--reference" class="section level1">
-<h1 class="hasAnchor">
-<a href="#v--reference" class="anchor"></a>V. Reference</h1>
-<div id="icd-format-short-and-decimal" class="section level3">
+<div id="iii--eda-preparation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#iii--eda-preparation" class="anchor"></a>III. EDA preparation</h2>
+<pre><code>groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = B)
+groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = N)</code></pre>
+</div>
+<div id="iv--visualization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#iv--visualization" class="anchor"></a>IV. Visualization</h2>
+<pre><code>error &lt;- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+plot_errorICD(error$Error, ICDVersion = all,
+                           wrongICDType = all,
+                           groupICD = FALSE,
+                           Others = FALSE,
+                           OthersThreshold = 1)</code></pre>
+<div class="figure">
+<img src="https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png" alt="warning message"><p class="caption">warning message</p>
+</div>
+<pre><code>#&gt; $ICD
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
+#&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47
+#&gt;  2:  V27.0    18           ICD 10 Wrong version                   42.70
+#&gt;  3:   E114     8           ICD 10  Wrong format                   51.69
+#&gt;  4: A01.05     8            ICD 9 Wrong version                   60.67
+#&gt;  5:  42761     7           ICD 10 Wrong version                   68.54
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format                   75.28
+#&gt;  7:    F42     6           ICD 10  Wrong format                   82.02
+#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76
+#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38
+#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</code></pre>
+</div>
+<div id="v--reference" class="section level2">
+<h2 class="hasAnchor">
+<a href="#v--reference" class="anchor"></a>V. Reference</h2>
+<div id="i--icd-function-of-conversion" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-format-short-and-decimal" class="anchor"></a>ICD format: Short and Decimal</h3>
+<a href="#i--icd-function-of-conversion" class="anchor"></a>I. ICD function of conversion</h3>
+<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="icd-function-of-conversion-icddxdecimaltoshort--icddxshorttodecimal" class="section level3">
+<div id="ii--data-integration-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-function-of-conversion-icddxdecimaltoshort--icddxshorttodecimal" class="anchor"></a>ICD function of conversion (<code>IcdDxDecimaltoShort 和 IcdDxShortToDecimal</code>)</h3>
-<p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
-<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
-</div>
-<div id="ccs-clinical-classifications-software" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ccs-clinical-classifications-software" class="anchor"></a>CCS (Clinical Classifications Software)</h3>
+<a href="#ii--data-integration-1" class="anchor"></a>II. Data integration</h3>
+<p><strong>CCS (Clinical Classifications Software)</strong></p>
 <p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
-</div>
-<div id="phecode" class="section level3">
-<h3 class="hasAnchor">
-<a href="#phecode" class="anchor"></a>Phecode</h3>
+<p><strong>Phecode</strong></p>
 <p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
-</div>
-<div id="comorbidities" class="section level3">
-<h3 class="hasAnchor">
-<a href="#comorbidities" class="anchor"></a>Comorbidities</h3>
-<div id="ahrq" class="section level4">
-<h4 class="hasAnchor">
-<a href="#ahrq" class="anchor"></a>AHRQ</h4>
+<p><strong>Comorbidities</strong></p>
 <p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-</div>
-<div id="charlson" class="section level4">
-<h4 class="hasAnchor">
-<a href="#charlson" class="anchor"></a>Charlson</h4>
 <p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
 <p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
-</div>
-<div id="elixhauser" class="section level4">
-<h4 class="hasAnchor">
-<a href="#elixhauser" class="anchor"></a>Elixhauser</h4>
 <p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-</div>
 </div>
 </div>
   </div>
@@ -350,13 +440,10 @@ getConditionEra(DxDataFile, ID, ICD, Date, "2016-01-01", 30, ICD, FALSE)</code><
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#i--introduction">I. Introduction</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#ii--grouping-icd-cm-codes">II. Grouping ICD-CM codes</a></li>
-      <li><a href="#iii--selection-cases">III. Selection Cases</a></li>
-      <li><a href="#iv--condition-era">IV. Condition Era</a></li>
-      </ul>
-</li>
+<li><a href="#i-code-standarization">I.Code standarization</a></li>
+      <li><a href="#ii--data-integration">II. Data integration</a></li>
+      <li><a href="#iii--eda-preparation">III. EDA preparation</a></li>
+      <li><a href="#iv--visualization">IV. Visualization</a></li>
       <li><a href="#v--reference">V. Reference</a></li>
       </ul>
 </div>

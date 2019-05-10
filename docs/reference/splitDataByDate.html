@@ -149,7 +149,7 @@
     </tr>
     <tr>
       <th>windowGap</th>
-      <td><p>gap length of window. By default it is set to <code>30</code>.</p></td>
+      <td><p>gap length of window. Default is set to <code>30</code>.</p></td>
     </tr>
     </table>
     
@@ -167,7 +167,18 @@
                              <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                 <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
-                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt; <span class='error'>Error in is.data.table(y): 找不到物件 'indexDateTable'</span></div></pre>
+                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date  indexDate timeTag window
+#&gt;   1:  A 785.52 2006-05-03 2006-05-03       A      1
+#&gt;   2:  A  V56.0 2007-05-12 2006-05-03       A     13
+#&gt;   3:  A V45.11 2007-05-30 2006-05-03       A     14
+#&gt;   4:  A  427.1 2007-07-27 2006-05-03       A     16
+#&gt;   5:  A  585.2 2007-08-08 2006-05-03       A     16
+#&gt;  ---                                               
+#&gt; 271:  D  V27.0 2018-10-02 2006-05-03       A    152
+#&gt; 272:  D  V27.0 2018-10-02 2006-05-03       A    152
+#&gt; 273:  D  V27.0 2018-10-02 2006-05-03       A    152
+#&gt; 274:  D    650 2018-10-02 2006-05-03       A    152
+#&gt; 275:  D  Z9.90 2018-10-02 2006-05-03       A    152</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

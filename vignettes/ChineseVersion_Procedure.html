@@ -42,16 +42,13 @@
 <p>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</p>
 <p>供後續 ICD 格式轉換的功能使用 (<code>IcdPrDecimaltoShort 和 IcdPrShortToDecimal</code>)</p>
 <p>ICD-9-PCS</p>
-<pre><code>icd9 &lt;- ccsPrICD9$ICD
-ICD9PrwithTwoFormat &lt;- ICD9PrGenerateDecimalFormat(icd9)
-
-icd9_Short &lt;- ICD9PrwithTwoFormat$Short[1:10]
-# c(&quot;0101&quot;, &quot;0109&quot;, &quot;0121&quot;, &quot;0122&quot;, &quot;0123&quot;, &quot;0124&quot;, &quot;0125&quot;, &quot;0126&quot;, &quot;0127&quot;, &quot;0128&quot;)
-icd9_Decimal &lt;- ICD9PrwithTwoFormat$Decimal[1:10]
-# c(&quot;01.01&quot;, &quot;01.09&quot;, &quot;01.21&quot;, &quot;01.22&quot;, &quot;01.23&quot;, &quot;01.24&quot;, &quot;01.25&quot;, &quot;01.26&quot;, &quot;01.27&quot;, &quot;01.28&quot;)</code></pre>
+<pre><code>icd9_Short &lt;- head(ICD9PrwithTwoFormat$Short,10)
+# c(&quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0009&quot;, &quot;0010&quot;, &quot;0011&quot;, &quot;0012&quot;, &quot;0013&quot;, &quot;0014&quot;, &quot;0015&quot;)
+icd9_Decimal &lt;- head(ICD9PrwithTwoFormat$Decimal,10)
+# c(&quot;00.01&quot;, &quot;00.02&quot;, &quot;00.03&quot;, &quot;00.09&quot;, &quot;00.10&quot;, &quot;00.11&quot;, &quot;00.12&quot;, &quot;00.13&quot;, &quot;00.14&quot;, &quot;00.15&quot;)</code></pre>
 <p>ICD-10-PCS只有short的格式</p>
-<pre><code>icd10 &lt;- ccsPrICD10$ICD[1:10]
-# c(&quot;00800ZZ&quot;, &quot;00803ZZ&quot;, &quot;00804ZZ&quot;, &quot;00870ZZ&quot;, &quot;00873ZZ&quot;, &quot;00874ZZ&quot;, &quot;00880ZZ&quot;, &quot;00883ZZ&quot;, &quot;00884ZZ&quot;, &quot;008F0ZZ&quot;)</code></pre>
+<pre><code>icd10 &lt;- head(prICD10$ICD,10)
+# c(&quot;0016071&quot;, &quot;0016072&quot;, &quot;0016073&quot;, &quot;0016074&quot;, &quot;0016075&quot;, &quot;0016076&quot;, &quot;0016077&quot;, &quot;0016078&quot;, &quot;001607B&quot;, &quot;00160J0&quot;)</code></pre>
 </div>
 <div id="icd-pcs-code-" class="section level3">
 <h3>ICD-PCS code 格式轉換</h3>
@@ -59,20 +56,24 @@ icd9_Decimal &lt;- ICD9PrwithTwoFormat$Decimal[1:10]
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-PCS code 的格式統一轉成 Decimal</p>
 <pre><code># ICD-9
-IcdPrShortToDecimal(icd9_Short)$Decimal
-# c(&quot;01.01&quot;, &quot;01.09&quot;, &quot;01.21&quot;, &quot;01.22&quot;, &quot;01.23&quot;, &quot;01.24&quot;, &quot;01.25&quot;, &quot;01.26&quot;, &quot;01.27&quot;, &quot;01.28&quot;)
+ICD9_Decimal &lt;- IcdPrShortToDecimal(icd9_Short)
+ICD9$Decimal
+# c(&quot;00.01&quot;, &quot;00.02&quot;, &quot;00.03&quot;, &quot;00.09&quot;, &quot;00.10&quot;, &quot;00.11&quot;, &quot;00.12&quot;, &quot;00.13&quot;, &quot;00.14&quot;, &quot;00.15&quot;)
 
 # ICD-10
-IcdPrShortToDecimal(icd10)$Decimal
-# c(&quot;00800ZZ&quot;, &quot;00803ZZ&quot;, &quot;00804ZZ&quot;, &quot;00870ZZ&quot;, &quot;00873ZZ&quot;, &quot;00874ZZ&quot;, &quot;00880ZZ&quot;, &quot;00883ZZ&quot;, &quot;00884ZZ&quot;, &quot;008F0ZZ&quot;)</code></pre>
+ICD10_Decimal &lt;- IcdPrShortToDecimal(icd10)
+ICD10$Decimal
+# c(&quot;0016071&quot;, &quot;0016072&quot;, &quot;0016073&quot;, &quot;0016074&quot;, &quot;0016075&quot;, &quot;0016076&quot;, &quot;0016077&quot;, &quot;0016078&quot;, &quot;001607B&quot;, &quot;00160J0&quot;)</code></pre>
 <p>將 ICD-PCS code 的格式統一轉成 Short</p>
 <pre><code># ICD-9
-IcdPrDecimalToShort(icd9_Decimal)$Short
-# c(&quot;0101&quot;, &quot;0109&quot;, &quot;0121&quot;, &quot;0122&quot;, &quot;0123&quot;, &quot;0124&quot;, &quot;0125&quot;, &quot;0126&quot;, &quot;0127&quot;, &quot;0128&quot;)
+ICD9_Short &lt;- IcdPrDecimalToShort(icd9_Decimal)
+ICD9_Short$Short
+# c(&quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0009&quot;, &quot;0010&quot;, &quot;0011&quot;, &quot;0012&quot;, &quot;0013&quot;, &quot;0014&quot;, &quot;0015&quot;)
 
 # ICD-10
-IcdPrDecimalToShort(icd10)$Decimal
-# c(&quot;00800ZZ&quot;, &quot;00803ZZ&quot;, &quot;00804ZZ&quot;, &quot;00870ZZ&quot;, &quot;00873ZZ&quot;, &quot;00874ZZ&quot;, &quot;00880ZZ&quot;, &quot;00883ZZ&quot;, &quot;00884ZZ&quot;, &quot;008F0ZZ&quot;)</code></pre>
+ICD10_Short &lt;- IcdPrDecimalToShort(icd10)
+ICD10_Short$Short
+# c(&quot;0016071&quot;, &quot;0016072&quot;, &quot;0016073&quot;, &quot;0016074&quot;, &quot;0016075&quot;, &quot;0016076&quot;, &quot;0016077&quot;, &quot;0016078&quot;, &quot;001607B&quot;, &quot;00160J0&quot;)</code></pre>
 </div>
 <div id="ii.-icd-pcs-code-" class="section level2">
 <h2>II. ICD-PCS-code 整合分類</h2>

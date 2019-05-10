@@ -17,9 +17,9 @@ plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
 
 \item{wrongICDType}{Wrong ICD type}
 
-\item{groupICD}{default is FALSE}
+\item{groupICD}{Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE}
 
-\item{Others}{default is TRUE}
+\item{Others}{Default is TRUE}
 
 \item{OthersThreshold}{Others threshold}
 }
@@ -33,6 +33,6 @@ plot_errorICD(error$Error, ICDVersion = all,
                            wrongICDType = all,
                            groupICD = FALSE,
                            Others = FALSE,
-                           OthersThreshold = 1)
+                           OthersThreshold = 2)
 
 }
