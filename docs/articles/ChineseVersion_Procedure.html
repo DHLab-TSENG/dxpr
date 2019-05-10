@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Started: Chinese Version-Procedure • emr</title>
+<title>Get Started: Procedure • emr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Chinese Version-Procedure">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Procedure">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Diagnosis</a>
     </li>
     <li>
-      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Procedure</a>
     </li>
   </ul>
 </li>
@@ -75,7 +75,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Get Started: Chinese Version-Procedure</h1>
+      <h1>Get Started: Procedure</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
       
@@ -86,9 +86,8 @@
 
     
     
-<div id="i--" class="section level1">
-<h1 class="hasAnchor">
-<a href="#i--" class="anchor"></a>I. 檢查與處置前處理與整合方法</h1>
+<div class="section level1">
+<h1>檢查與處置前處理與整合方法</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
 <div id="icd-pcs-code-" class="section level3">
 <h3 class="hasAnchor">
@@ -104,9 +103,9 @@ icd9_Decimal &lt;- head(ICD9PrwithTwoFormat$Decimal, 10)
 <pre><code>icd10 &lt;- head(prICD10$ICD,10)
 # c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</code></pre>
 </div>
-<div id="icd-pcs-code-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#icd-pcs-code-" class="anchor"></a>ICD-PCS code 格式轉換</h3>
+<div id="i--code-standarization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h2>
 <p>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-PCS code 的格式統一轉成 Decimal</p>
@@ -130,9 +129,9 @@ ICD10_Short &lt;- IcdPrDecimalToShort(icd10)
 ICD10_Short$Short
 # c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</code></pre>
 </div>
-<div id="ii--icd-pcs-code-" class="section level2">
+<div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ii--icd-pcs-code-" class="anchor"></a>II. ICD-PCS-code 整合分類</h2>
+<a href="#ii--data-integration" class="anchor"></a>II. Data integration</h2>
 <p>將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用</p>
 <p>目前分類標準: CCS及 Procedure Class, 以下將分別介紹之</p>
 <div class="section level3">
@@ -181,27 +180,25 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 # "2" "1" "4" "4"</code></pre>
 </div>
 </div>
-<div id="iii--" class="section level2">
+<div id="iii--reference" class="section level2">
 <h2 class="hasAnchor">
-<a href="#iii--" class="anchor"></a>III. 參考資料</h2>
-<div id="icd-" class="section level3">
+<a href="#iii--reference" class="anchor"></a>III. Reference</h2>
+<div id="i--code-standarization-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-" class="anchor"></a>ICD 格式轉換功能</h3>
+<a href="#i--code-standarization-1" class="anchor"></a>I. Code standarization</h3>
 <p>ICD-9-PCS code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
 <p>ICD-10-PCS code (2019):<a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
 <p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="-clinical-classifications-software-ccs" class="section level3">
+<div id="ii--data-integration-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#-clinical-classifications-software-ccs" class="anchor"></a>臨床分類軟體 (Clinical Classifications Software, CCS)</h3>
+<a href="#ii--data-integration-1" class="anchor"></a>II. Data integration</h3>
+<p><strong>臨床分類軟體 (Clinical Classifications Software, CCS)</strong></p>
 <p>ICD-9-PCS CCS (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-PCS CCS (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
-</div>
-<div id="procedure-class-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#procedure-class-1" class="anchor"></a>Procedure Class</h3>
+<p><strong>Procedure Class</strong></p>
 <p>ICD-9-Procedure Class (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
 <p>ICD-10-Procedure Class (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
 </div>
@@ -215,9 +212,10 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#i--">I. 檢查與處置前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#ii--icd-pcs-code-">II. ICD-PCS-code 整合分類</a></li>
-      <li><a href="#iii--">III. 參考資料</a></li>
+<a href="NA">檢查與處置前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#i--code-standarization">I. Code standarization</a></li>
+      <li><a href="#ii--data-integration">II. Data integration</a></li>
+      <li><a href="#iii--reference">III. Reference</a></li>
       </ul>
 </li>
       </ul>

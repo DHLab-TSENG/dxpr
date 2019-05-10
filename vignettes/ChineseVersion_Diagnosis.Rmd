@@ -1,5 +1,5 @@
 ---
-title: "Get Started: Chinese Version-Diagnosis"
+title: "Get Started: Diagnosis"
 
 author: "Hsiang-Ju, Chiu"
 output: rmarkdown::html_vignette
@@ -34,7 +34,7 @@ icd10_Short <- head(ICD10DxwithTwoFormat$Short, 10)
 icd10_Decimal <- head(ICD10DxwithTwoFormat$Decimal,10)
 # c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")
 ```
-### I. Code standarization
+## I. Code standarization
 
 **ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short <-> Decimal**
 
@@ -506,7 +506,7 @@ getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGrou
 #> 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
 #> 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days
 ```
-## III. 寬表
+## III. EDA preparation
 診斷碼整合分組後，為能進行後續的醫學統計分析，須將分組後的長表資料型態轉為適合進行統計分析之資料型態的寬表。
 
 寬表共兩種表示方式如**表五、表六**，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true。數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料
@@ -559,15 +559,9 @@ plot_errorICD(error$Error, ICDVersion = all,
 #>  9:  A0105     5            ICD 9 Wrong version                   94.38
 #> 10:    001     5            ICD 9  Wrong format       0019       100.00
 ```
-## V. 參考資料
+## V. Reference
 
-本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。
-
-Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。
-
-Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。
-
-### I. ICD function of conversion
+### I. Code standarization
 
 ICD-9-CM code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 
@@ -580,6 +574,13 @@ https://www.findacode.com/search/search.php
 https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
 
 ### II. Data integration
+
+
+本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。
+
+Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。
+
+Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。
 
 **CCS (Clinical Classifications Software)**
 

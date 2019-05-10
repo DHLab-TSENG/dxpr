@@ -1,5 +1,5 @@
 ---
-title: "Get Started: Chinese Version-Procedure"
+title: "Get Started: Procedure"
 author: "Hsiang-Ju, Chiu"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,7 +9,7 @@ vignette: >
 ---
 
 
-# I. 檢查與處置前處理與整合方法
+# 檢查與處置前處理與整合方法
 
 ```
 cat(utils::packageDescription("emr")$Description)
@@ -32,7 +32,7 @@ icd10 <- head(prICD10$ICD,10)
 # c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")
 ```
 
-### ICD-PCS code 格式轉換
+## I. Code standarization
 ICD-9-PCS 兩種格式的轉換: Short <-> Decimal
 
 進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式
@@ -62,7 +62,7 @@ ICD10_Short$Short
 # c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")
 ```
 
-## II. ICD-PCS-code 整合分類
+## II. Data integration
 將 ICD-9 及 ICD-10 code 依照不同的分類標準分類: 分散的 ICD-9-PCS 及 ICD-10-PCS 的診斷碼依照其臨床上意義相似的歸併整合為較大的群組, 標準化的分類以便於後續的整合統計分析使用
 
 目前分類標準: CCS及 Procedure Class, 以下將分別介紹之 
@@ -106,7 +106,7 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 #  "Incision  excision of CNS"               "Computerized axial tomography (CT) scan"
 #  "Incision  excision of CNS"               "Incision  excision of CNS"    
 ```
-###二、Procedure Class 
+### 二、Procedure Class 
 由美國醫療照護政策研究品質局（AHRQ）提供的HCUP Classes, 將檢查與處置碼基於其特性分組, 共ICD-PCS code分為下列四個組別:
  
 1.Minor Diagnostic: 非手術室執行之診斷類處置
@@ -121,9 +121,9 @@ IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
 # "2" "1" "4" "4"
 ```
 
-## III. 參考資料
+## III. Reference
 
-### ICD 格式轉換功能
+### I. Code standarization
 
 ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 
@@ -133,7 +133,9 @@ https://www.findacode.com/search/search.php
 
 https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
 
-### 臨床分類軟體 (Clinical Classifications Software, CCS)
+### II. Data integration
+
+**臨床分類軟體 (Clinical Classifications Software, CCS)**
 
 ICD-9-PCS CCS (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
 
@@ -141,7 +143,7 @@ https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
 ICD-10-PCS CCS (2019): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp
 
-### Procedure Class
+**Procedure Class**
 
 ICD-9-Procedure Class (2015): https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv
 

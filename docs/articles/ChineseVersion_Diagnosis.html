@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Started: Chinese Version-Diagnosis • emr</title>
+<title>Get Started: Diagnosis • emr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Chinese Version-Diagnosis">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Get Started: Diagnosis">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Chinese Version-Diagnosis</a>
+      <a href="../articles/ChineseVersion_Diagnosis.html">Get Started: Diagnosis</a>
     </li>
     <li>
-      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Chinese Version-Procedure</a>
+      <a href="../articles/ChineseVersion_Procedure.html">Get Started: Procedure</a>
     </li>
   </ul>
 </li>
@@ -75,7 +75,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Get Started: Chinese Version-Diagnosis</h1>
+      <h1>Get Started: Diagnosis</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
       
@@ -105,9 +105,9 @@ icd9_Decimal &lt;- head(ICD9DxwithTwoFormat$Decimal,10)
 icd10_Decimal &lt;- head(ICD10DxwithTwoFormat$Decimal,10)
 # c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")</code></pre>
 </div>
-<div id="i--code-standarization" class="section level3">
-<h3 class="hasAnchor">
-<a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h3>
+<div id="i--code-standarization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h2>
 <p><strong>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
 <p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如<strong>表一</strong>，將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
 <p>雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式</p>
@@ -543,9 +543,9 @@ getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGrou
 #&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</code></pre>
 </div>
 </div>
-<div id="iii--" class="section level2">
+<div id="iii--eda-preparation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#iii--" class="anchor"></a>III. 寬表</h2>
+<a href="#iii--eda-preparation" class="anchor"></a>III. EDA preparation</h2>
 <p>診斷碼整合分組後，為能進行後續的醫學統計分析，須將分組後的長表資料型態轉為適合進行統計分析之資料型態的寬表。</p>
 <p>寬表共兩種表示方式如<strong>表五、表六</strong>，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true。數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料</p>
 <p>以下範例以CCS 多階層為範例進行兩種表示法進行回傳資料型態的示範</p>
@@ -644,15 +644,12 @@ plot_errorICD(error$Error, ICDVersion = all,
 #&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38
 #&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</code></pre>
 </div>
-<div id="v--" class="section level2">
+<div id="v--reference" class="section level2">
 <h2 class="hasAnchor">
-<a href="#v--" class="anchor"></a>V. 參考資料</h2>
-<p>本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。</p>
-<p>Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。</p>
-<p>Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。</p>
-<div id="i--icd-function-of-conversion" class="section level3">
+<a href="#v--reference" class="anchor"></a>V. Reference</h2>
+<div id="i--code-standarization-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#i--icd-function-of-conversion" class="anchor"></a>I. ICD function of conversion</h3>
+<a href="#i--code-standarization-1" class="anchor"></a>I. Code standarization</h3>
 <p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
 <p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
 <p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
@@ -662,6 +659,9 @@ plot_errorICD(error$Error, ICDVersion = all,
 <div id="ii--data-integration-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ii--data-integration-1" class="anchor"></a>II. Data integration</h3>
+<p>本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。</p>
+<p>Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。</p>
+<p>Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。</p>
 <p><strong>CCS (Clinical Classifications Software)</strong></p>
 <p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
@@ -687,10 +687,11 @@ plot_errorICD(error$Error, ICDVersion = all,
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="NA">診斷前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#ii--data-integration">II. Data integration</a></li>
-      <li><a href="#iii--">III. 寬表</a></li>
+<li><a href="#i--code-standarization">I. Code standarization</a></li>
+      <li><a href="#ii--data-integration">II. Data integration</a></li>
+      <li><a href="#iii--eda-preparation">III. EDA preparation</a></li>
       <li><a href="#iv--visualization">IV. Visualization</a></li>
-      <li><a href="#v--">V. 參考資料</a></li>
+      <li><a href="#v--reference">V. Reference</a></li>
       </ul>
 </li>
       </ul>
