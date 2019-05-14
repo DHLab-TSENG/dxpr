@@ -9,7 +9,7 @@
 #' @param wrongICDType Wrong ICD type
 #' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
 #' @param Others Default is TRUE
-#' @param OthersThreshold Others threshold
+#' @param Ranking Default is Top "10"
 #' @source \url{http://sape.inf.usi.ch/quick-reference/ggplot2/colour}
 #' @export
 #' @examples
@@ -18,10 +18,10 @@
 #' plot_errorICD(error$Error, ICDVersion = all,
 #'                            wrongICDType = all,
 #'                            groupICD = FALSE,
-#'                            Others = FALSE,
-#'                            OthersThreshold = 2)
+#'                            Others = TRUE,
+#'                            Ranking = 10)
 #'
-plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, OthersThreshold){
+plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, Ranking = 10){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))
   wrongICDType <- tolower(deparse(substitute(wrongICDType)))
   title <- "Error ICD: Top 10"
@@ -49,32 +49,33 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
 
   if(groupICD){
     if(version == "ICD 9"){
-      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][groupCount <= OthersThreshold, ICDGroup := "Others"][order(groupCount,decreasing = T),][!duplicated(ICDGroup),][,c("CumCount","ICDPercinGroup") := list(cumsum(groupCount),round((count/groupCount)*100,2)),][,-c("maxICD","count")]
+      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = T),][,-"maxICD"]
+      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > Ranking, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),round((count/groupCount)*100,2)),][,-"count"]
 
       if(!Others){
-        errorData <- errorData[-nrow(errorData),]
+        errorData <- errorData[!ICDGroup == "Others",]
       }
-      errorData <- errorData[,c("CumCountPerc","Number","ICDGroup") :=
-                               list(round(CumCount/max(CumCount)*100,2),1:nrow(errorData),factor(ICDGroup,levels = errorData$ICDGroup)),]
+      errorData <- errorData[,c("CumCountPerc","ICDGroup") :=
+                               list(round(CumCount/max(CumCount)*100,2),factor(ICDGroup,levels = errorData$ICDGroup)),]
 
-      ICD <- errorData[,c(5:6,9,1,8,2:4)]
       graph_col <- c("ICDGroup","groupCount")
-      setnames(errorData,"ICD","MostICDinGroup")
+      setnames(errorData,"ICD","MostICDInGroup")
       Xlabel <- paste0(Xlabel," (grouped)")
+      ICD <- errorData[,c(5,6,10,1,9,2,4)]
     }else{
       stop("ICD 10 already has unique alphanumeric codes to identify known diseases")
     }
   }else{
     FileSize <- nrow(errorFile)
     errorData <- errorFile[, c("CumCount", "Number") :=
-                             list(cumsum(count), 1:FileSize),][Number > 10, c("Number", "CumCount", "count", "ICD") :=
-                                                                              list(11, max(CumCount), sum(count),"Others"),][!duplicated(Number),]
+                             list(cumsum(count), 1:FileSize),][Number > Ranking, c("CumCount", "count", "ICD") :=
+                                                                 list(max(CumCount), sum(count),"Others"),][!duplicated(ICD),]
     if(!Others){
-      errorData <- head(errorData, 10)
+      errorData <- errorData[!ICD == "Others",]
     }
     errorData <- errorData[, c("CumCountPerc","ICD") := list(round(CumCount/max(CumCount)*100,2),factor(ICD,levels = errorData$ICD)),]
 
-    ICD <- errorData[,-c("Number","CumCount")]
+    ICD <- errorData[,c(1,2,8,3:5)]
     graph_col <- c("ICD","count")
 
   }
@@ -92,9 +93,10 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     annotate("text", x = nrow(errorData) + .8, y = seq(0, Max, Max/10),
              label = c("  0%", " 10%", " 20%", " 30%", " 40%", " 50%", " 60%", " 70%", " 80%", " 90%", "100%"),
              size = 2.8) +
-    geom_segment(x = Max + .55, xend = Max + .55, y = -.02 * Max, yend = Max * 1.02, color = "gray70") +
+    geom_segment(x = Max + .55, xend = Max + .55, y = -.02 * Max, yend = Max * 1.02) +
     xlab(Xlabel) + ylab("count") +
     ggtitle(title) +
+    theme_bw() +
     theme(axis.text.x = element_text(angle = 20))
 
   return(list(graph = errorICDgraph,

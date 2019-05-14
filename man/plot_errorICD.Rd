@@ -8,7 +8,7 @@
 }
 \usage{
 plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
-  groupICD = FALSE, Others = TRUE, OthersThreshold)
+  groupICD = FALSE, Others = TRUE, Ranking = 10)
 }
 \arguments{
 \item{errorFile}{error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)}
@@ -21,7 +21,7 @@ plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
 
 \item{Others}{Default is TRUE}
 
-\item{OthersThreshold}{Others threshold}
+\item{Ranking}{Default is Top "10"}
 }
 \description{
 Pareto Plot of error ICD Codes
@@ -32,7 +32,7 @@ error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 plot_errorICD(error$Error, ICDVersion = all,
                            wrongICDType = all,
                            groupICD = FALSE,
-                           Others = FALSE,
-                           OthersThreshold = 2)
+                           Others = TRUE,
+                           Ranking = 10)
 
 }

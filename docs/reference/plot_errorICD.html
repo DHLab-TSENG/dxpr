@@ -122,7 +122,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_errorICD</span>(<span class='no'>errorFile</span>, <span class='kw'>ICDVersion</span> <span class='kw'>=</span> <span class='no'>all</span>, <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
-  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>OthersThreshold</span>)</pre>
+  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,8 +148,8 @@
       <td><p>Default is TRUE</p></td>
     </tr>
     <tr>
-      <th>OthersThreshold</th>
-      <td><p>Others threshold</p></td>
+      <th>Ranking</th>
+      <td><p>Default is Top "10"</p></td>
     </tr>
     </table>
     
@@ -168,20 +168,21 @@
 #&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='IcdDxDecimalToShort.html'>IcdDxDecimalToShort</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>plot_errorICD</span>(<span class='no'>error</span>$<span class='no'>Error</span>, <span class='kw'>ICDVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
                            <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
                            <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                           <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                           <span class='kw'>OthersThreshold</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+                           <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                           <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $ICD
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
-#&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47
-#&gt;  2:  V27.0    18           ICD 10 Wrong version                   42.70
-#&gt;  3:   E114     8           ICD 10  Wrong format                   51.69
-#&gt;  4: A01.05     8            ICD 9 Wrong version                   60.67
-#&gt;  5:  42761     7           ICD 10 Wrong version                   68.54
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format                   75.28
-#&gt;  7:    F42     6           ICD 10  Wrong format                   82.02
-#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76
-#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38
-#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00
+#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20        18.35           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18        34.86           ICD 10 Wrong version           
+#&gt;  3:   E114     8        42.20           ICD 10  Wrong format           
+#&gt;  4: A01.05     8        49.54            ICD 9 Wrong version           
+#&gt;  5:  42761     7        55.96           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6        61.47           ICD 10  Wrong format           
+#&gt;  7:    F42     6        66.97           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6        72.48           ICD 10 Wrong version           
+#&gt;  9:  A0105     5        77.06            ICD 9 Wrong version           
+#&gt; 10:    001     5        81.65            ICD 9  Wrong format       0019
+#&gt; 11: Others    20       100.00            ICD 9  Wrong format           
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

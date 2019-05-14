@@ -52,7 +52,7 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
                                  list(firstCaseDate = min(Date),
                                       endCaseDate = max(Date),
                                       count = .N),
-                                 by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),]
+                                 by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
   return(list(groupedDT = IcdToCCSLvl,
               summarised_groupedDT = IcdToCCSLvlLong,

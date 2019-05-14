@@ -68,7 +68,7 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
                                      list(firstCaseDate = min(Date),
                                           endCaseDate = max(Date),
                                           count = .N),
-                                     by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),]
+                                     by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
   return(list(groupedDT = IcdToComorbid,
               summarised_groupedDT = IcdToComorbidLong,
