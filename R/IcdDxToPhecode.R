@@ -23,10 +23,9 @@ IcdDxToPhecode <- function(DxDataFile, idColName, icdColName, dateColName, icd10
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
   Conversion <- IcdDxShortToDecimal(DxDataFile,ICD,Date,icd10usingDate)
-  DxDataFile[,ICDD:= Conversion$ICD]
+  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
+  DxDataFile[,ICDD := Conversion$ICD]
 
   if(isDescription == T){
     phecodeCol <- "PheCodeDescription"

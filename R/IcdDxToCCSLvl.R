@@ -28,11 +28,9 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
-
+  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
-  DxDataFile[,Short:= Conversion$ICD]
+  DxDataFile[,Short := Conversion$ICD]
 
   if(isDescription == T){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")

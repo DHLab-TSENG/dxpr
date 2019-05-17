@@ -10,7 +10,6 @@
 #' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
 #' @param Others Default is TRUE
 #' @param Ranking Default is Top "10"
-#' @source \url{http://sape.inf.usi.ch/quick-reference/ggplot2/colour}
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -56,7 +55,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
         errorData <- errorData[!ICDGroup == "Others",]
       }
       errorData <- errorData[,c("CumCountPerc","ICDGroup") :=
-                               list(round(CumCount/max(CumCount)*100,2),factor(ICDGroup,levels = errorData$ICDGroup)),]
+                               list(round(CumCount/max(CumCount)*100,2),factor(ICDGroup,levels = unique(ICDGroup))),]
 
       graph_col <- c("ICDGroup","groupCount")
       setnames(errorData,"ICD","MostICDInGroup")
@@ -73,7 +72,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     if(!Others){
       errorData <- errorData[!ICD == "Others",]
     }
-    errorData <- errorData[, c("CumCountPerc","ICD") := list(round(CumCount/max(CumCount)*100,2),factor(ICD,levels = errorData$ICD)),]
+    errorData <- errorData[, c("CumCountPerc","ICD") := list(round(CumCount/max(CumCount)*100,2),factor(ICD,levels = unique(ICD))),]
 
     ICD <- errorData[,c(1,2,8,3:5)]
     graph_col <- c("ICD","count")

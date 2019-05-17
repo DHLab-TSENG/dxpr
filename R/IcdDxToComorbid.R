@@ -40,11 +40,9 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
-
+  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
-  DxDataFile[,Short:= Conversion$ICD]
+  DxDataFile[,Short := Conversion$ICD]
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
   if (comorbidMethod == "ahrq"){

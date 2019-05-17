@@ -28,9 +28,9 @@ IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   PrDataFile <- PrDataFile[,DataCol,with = FALSE]
   names(PrDataFile) <- c("ID","ICD", "Date")
-  PrDataFile[,"Date"] <- as.Date(PrDataFile[,Date])
-  PrDataFile[,Number:=1:nrow(PrDataFile)]
-  PrDataFile[,Short:=IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)$ICD]
+  Conversion <- IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)
+  PrDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(PrDataFile))]
+  PrDataFile[,Short := Conversion$ICD]
 
   if (isProcedureClassName == T) {
     PC_col <- "PROCEDURE_CLASS"
@@ -39,6 +39,9 @@ IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName
   }
   IcdToPC <- rbind(merge(PrDataFile[Date < icd10usingDate],pcICD9[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                    merge(PrDataFile[Date >= icd10usingDate],pcICD10[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
-  IcdToPC <- IcdToPC[order(Number)][,eval(parse(text = paste(PC_col)))]
+  IcdToPC <- IcdToPC[order(Number),-"Number"]
   IcdToPC
+
+  return(list(groupedDT = IcdToPC,
+              Error = Conversion$Error))
 }

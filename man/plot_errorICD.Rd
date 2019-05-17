@@ -3,9 +3,6 @@
 \name{plot_errorICD}
 \alias{plot_errorICD}
 \title{Pareto Plot of error ICD Codes}
-\source{
-\url{http://sape.inf.usi.ch/quick-reference/ggplot2/colour}
-}
 \usage{
 plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
   groupICD = FALSE, Others = TRUE, Ranking = 10)

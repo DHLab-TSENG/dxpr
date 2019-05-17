@@ -26,8 +26,8 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   customICD <- customICD[,DataCol,with = FALSE]
   names(customICD) <- c("ID", "ICD", "Date")
-  customICD[,"Date"] <- as.Date(customICD[,Date])
-  customICD[,Number:=1:nrow(customICD)]
+  customICD[,c("Date", "Number") := list(as.Date(Date), 1:nrow(customICD))]
+
 
   groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)
   groupedICD <- groupedICD[order(Number),-"Number"]

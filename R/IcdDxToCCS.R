@@ -27,10 +27,9 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
+  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
-  DxDataFile[,Short:= Conversion$ICD]
+  DxDataFile[,Short := Conversion$ICD]
 
   if (isDescription == T) {
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
@@ -39,6 +38,7 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   }
   IcdToCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                     merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
+
   IcdToCCS <- IcdToCCS[order(Number),-"Number"]
   IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
                            list(firstCaseDate = min(Date),

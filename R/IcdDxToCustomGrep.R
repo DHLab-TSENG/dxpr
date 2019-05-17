@@ -26,9 +26,7 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
   DataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   GrepedIcd <- GrepedIcd[,DataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
-  GrepedIcd[,"Date"] <- as.Date(GrepedIcd[, Date])
-  GrepedIcd[, Number:=1:nrow(GrepedIcd)]
-  GrepedIcd[, group:=""]
+  GrepedIcd[,c("Date", "Number", "group") := list(as.Date(Date), 1:nrow(GrepedIcd), "")]
 
   for (rule in 1:nrow(CustomGroupingTable)){
     GrepedIcd$group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd[,ICD]), CustomGroupingTable[rule,group], GrepedIcd[,group])

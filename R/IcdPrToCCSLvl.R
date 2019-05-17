@@ -27,9 +27,9 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   PrDataFile <- PrDataFile[,DataCol,with = FALSE]
   names(PrDataFile) <- c("ID","ICD", "Date")
-  PrDataFile[,"Date"] <- as.Date(PrDataFile[,Date])
-  PrDataFile[,Number:=1:nrow(PrDataFile)]
-  PrDataFile[,Short:=IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)$ICD]
+  Conversion <- IcdPrDecimalToShort(PrDataFile,ICD,Date,icd10usingDate)
+  PrDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(PrDataFile))]
+  PrDataFile[,Short := Conversion$ICD]
 
   if(isDescription == T){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")
@@ -44,6 +44,8 @@ IcdPrToCCSLvl <- function(PrDataFile, idColName, icdColName, dateColName, icd10u
     IcdToCCSLvl <- merge(merge(PrDataFile[Date < icd10usingDate],ccsPrICD9[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T),
                          PrDataFile[Date >= icd10usingDate], by = names(PrDataFile), all = T)
   }
-  IcdToCCSLvl <- IcdToCCSLvl[order(Number)][,eval(parse(text = paste(CCSLvlCol)))]
-  IcdToCCSLvl
+  IcdToCCSLvl <- IcdToCCSLvl[order(Number),-"Number"]
+
+  return(list(groupedDT = IcdToCCSLvl,
+              Error = Conversion$Error))
 }

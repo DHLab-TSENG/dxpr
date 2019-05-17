@@ -22,8 +22,7 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  DxDataFile[,Number:=1:nrow(DxDataFile)]
+  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
 
   icd_Decimal <- DxDataFile[grepl("[.]", DxDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
