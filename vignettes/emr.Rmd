@@ -22,14 +22,14 @@ library(emr)
 conversion function : `IcdDxDecimaltoShort and IcdDxShortToDecimal`
 
 ICD-9-CM
-```
+```r
 icd9_Short <- head(ICD9DxwithTwoFormat$Short, 10)
 # c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")
 icd9_Decimal <- head(ICD9DxwithTwoFormat$Decimal,10)
 # c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")
 ```
 ICD-10-CM
-```
+```r
 icd10_Short <- head(ICD10DxwithTwoFormat$Short, 10)
 # c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")
 icd10_Decimal <- head(ICD10DxwithTwoFormat$Decimal,10)
@@ -39,7 +39,7 @@ icd10_Decimal <- head(ICD10DxwithTwoFormat$Decimal,10)
 According to the using format of function, these conversion function can be used to convert ICD codes between types.
 
 Convert ICD-CM code Short to Decimal.
-```
+```r
 # Short to decimal
 decimal <- IcdDxShortToDecimal(sampleDxFile, ICD, Date, "2015/10/01")
 head(decimal$ICD)
@@ -47,7 +47,7 @@ head(decimal$ICD)
 
 ```
 Convert ICD-CM code Decimal to Short.
-```
+```r
 # Decimal to short
 short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 head(short$ICD)
@@ -64,7 +64,7 @@ It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into
 `IcdDxToCCS` can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.
 
 ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.
-```
+```r
 ## ICD to CCS description
 CCS_description <- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 head(CCS_description$groupedDT, 5)
@@ -92,7 +92,7 @@ CCS_category <- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 ICD-9-CM has four levels
 
 ICD-10-CM has two levels
-```
+```r
 ## ICD to CCS multiple level 2 description
 CCSlvl_description <- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 head(CCSlvl_description$groupedDT, 5)
@@ -120,7 +120,7 @@ CCSLvl_category <- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 3, F
 This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
 
 more detail: https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies
-```
+```r
 ## ICD to Phecode
 phecode <- IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 head(phecode$groupedDT, 5)
@@ -143,13 +143,12 @@ head(phecode$summarised_groupedDT, 5)
 User can identify the rule of grouping standards, and return matched ICD codes.
 
 **1) IcdDxToCustom** Use method of exhaustion to find out the matched ICD.
-```{r}
+```r
 # groupingTable 
 groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
                             stringsAsFactors = FALSE)
-```
-```
+
 CustomGroup <- IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
 CustomGroup$groupedDT[10:15]
 #>     ICD   ID       Date                group
@@ -159,6 +158,7 @@ CustomGroup$groupedDT[10:15]
 #> 4: 427.89  C 2008-01-23 Cardiac dysrhythmias
 #> 5: 427.31  A 2007-09-19 Cardiac dysrhythmias
 #> 6: 427.31  C 2008-09-11 Cardiac dysrhythmias
+
 CustomGroup$summarised_groupedDT
 #>    ID                group firstCaseDate endCaseDate count   period
 #> 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
@@ -166,13 +166,12 @@ CustomGroup$summarised_groupedDT
 #> 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days
 ```
 **2) IcdDxToCustomGrep** Use a ICD pattern to find out the fit ICD.
-```{r}
+```r
 # grepTable
 grepTable <- data.frame(group = "Cardiac dysrhythmias",
                         grepIcd = "^427|^I48",
                         stringsAsFactors = FALSE)
-```
-```
+
 CustomGrepGroup <- IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date, CustomGroupingTable = grepTable)
 CustomGrepGroup$groupedDT[10:15]
 #>    ID    ICD       Date                group
@@ -195,7 +194,7 @@ The comorbidities measures from different sources are provided as lists. There a
 
 **1) AHRQ**
 AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index
-```
+```r
 AHRQ <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 AHRQ$groupedDT[160:164]
 #>    Short ID    ICD       Date Comorbidity
@@ -216,7 +215,7 @@ head(AHRQ$summarised_groupedDT, 5)
 ```
 **2) Charlson**
 Charlson comorbidity measure dataset is based on Quan's translations of the Charlson Comorbidity Index
-```
+```r
 Charlson <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 Charlson$groupedDT[160:164]
 #>    Short ID    ICD       Date Comorbidity
@@ -237,7 +236,7 @@ head(Charlson$summarised_groupedDT, 5)
 Elixhauser comorbidity measure data.
 
 The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
-```
+```r
 ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
 ELIX$groupedDT[160:164]
 #>    Short ID    ICD       Date Comorbidity
@@ -268,7 +267,7 @@ searching criteria for example,
 
 Return the matched Data frame.
 
-```
+```r
 selectCases(DxDataFile = sampleDxFile,
             ID, ICD, Date,
             groupDataType = ccslvl2,
@@ -283,7 +282,7 @@ selectCases(DxDataFile = sampleDxFile,
 ```
 ### F. first/last event of patient admission
 
-```
+```r
 patientRecordDate(sampleDxFile, ID, ICD, Date)
 #>    ID firstRecordDate endRecordDate
 #> 1:  D      2006-05-03    2018-10-02
@@ -293,7 +292,7 @@ patientRecordDate(sampleDxFile, ID, ICD, Date)
 ```
 ### G. Data split
 
-```
+```r
 indexDateTable <- data.frame(ID = c("A", "B", "C", "D"),
                              indexDate = c("2006-05-03", "2006-05-03",
                                            "2008-03-30", "2006-05-03"),
@@ -313,7 +312,7 @@ head(Data, 5)
 Get the condition era
 
 Condition Eras are built with a Persistence Window, deafault is 30 days.
-```
+```r
 getConditionEra(sampleDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
 #>     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period
 #>  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days
@@ -332,12 +331,12 @@ getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGrou
 #> 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days
 ```
 ## III. EDA preparation
-```
+```r
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = B)
 groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = N)
 ```
 ## IV. Visualization
-```
+```r
 error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 plot_errorICD(error$Error, ICDVersion = all,
                            wrongICDType = all,
@@ -346,7 +345,7 @@ plot_errorICD(error$Error, ICDVersion = all,
                            OthersThreshold = 1)
 ```
 ![warning message](https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png)
-```
+```r
 #> $ICD
 #>        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
 #>  1:  A0.11    20           ICD 10  Wrong format                   22.47

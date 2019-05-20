@@ -101,32 +101,30 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
 <p>conversion function : <code>IcdDxDecimaltoShort and IcdDxShortToDecimal</code></p>
 <p>ICD-9-CM</p>
-<pre><code>icd9_Short &lt;- head(ICD9DxwithTwoFormat$Short, 10)
-# c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")
-icd9_Decimal &lt;- head(ICD9DxwithTwoFormat$Decimal,10)
-# c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd9_Short &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Short, <span class="dv">10</span>)
+<span class="co"># c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")</span>
+icd9_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Decimal,<span class="dv">10</span>)
+<span class="co"># c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")</span></code></pre></div>
 <p>ICD-10-CM</p>
-<pre><code>icd10_Short &lt;- head(ICD10DxwithTwoFormat$Short, 10)
-# c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")
-icd10_Decimal &lt;- head(ICD10DxwithTwoFormat$Decimal,10)
-# c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd10_Short &lt;-<span class="st"> </span><span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Short, <span class="dv">10</span>)
+<span class="co"># c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")</span>
+icd10_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Decimal,<span class="dv">10</span>)
+<span class="co"># c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")</span></code></pre></div>
 </div>
 <div id="i-code-standarization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#i-code-standarization" class="anchor"></a>I.Code standarization</h2>
 <p>According to the using format of function, these conversion function can be used to convert ICD codes between types.</p>
 <p>Convert ICD-CM code Short to Decimal.</p>
-<pre><code># Short to decimal
-decimal &lt;- IcdDxShortToDecimal(sampleDxFile, ICD, Date, "2015/10/01")
-head(decimal$ICD)
-# c("553.3", "553.3", "553.20", "553.20", "553.3", "K44.9")
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Short to decimal</span>
+decimal &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxShortToDecimal.html">IcdDxShortToDecimal</a></span>(sampleDxFile, ICD, Date, <span class="st">"2015/10/01"</span>)
+<span class="kw">head</span>(decimal<span class="op">$</span>ICD)
+<span class="co"># c("553.3", "553.3", "553.20", "553.20", "553.3", "K44.9")</span></code></pre></div>
 <p>Convert ICD-CM code Decimal to Short.</p>
-<pre><code># Decimal to short
-short &lt;- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
-head(short$ICD)
-# c("5533", "5533", "55320", "55320", "5533", "K449")
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Decimal to short</span>
+short &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxDecimalToShort.html">IcdDxDecimalToShort</a></span>(sampleDxFile, ICD, Date, <span class="st">"2015/10/01"</span>)
+<span class="kw">head</span>(short<span class="op">$</span>ICD)
+<span class="co"># c("5533", "5533", "55320", "55320", "5533", "K449")</span></code></pre></div>
 </div>
 <div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">
@@ -138,49 +136,49 @@ head(short$ICD)
 <p>It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. and get the CCS categories and description by ICD-9/ICD-10 code.</p>
 <p><strong>1) CCS single-level category</strong> <code>IcdDxToCCS</code> can get CCS categories or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
-<pre><code>## ICD to CCS description
-CCS_description &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
-head(CCS_description$groupedDT, 5)
-#&gt;       Short ID    ICD       Date           CCS_CATEGORY_DESCRIPTION
-#&gt;   1:   5533  C  553.3 2008-04-03                   Abdominal hernia
-#&gt;   2:   5533  A  553.3 2008-05-01                   Abdominal hernia
-#&gt;   3:  55320  A 553.20 2009-02-23                   Abdominal hernia
-#&gt;   4:  55320  B 553.20 2007-08-29                   Abdominal hernia
-#&gt;   5:   5533  A  553.3 2008-06-27                   Abdominal hernia
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS description
+CCS_description &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCS.html">IcdDxToCCS</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">TRUE</span>)
+<span class="kw">head</span>(CCS_description<span class="op">$</span>groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;       Short ID    ICD       Date           CCS_CATEGORY_DESCRIPTION</span>
+<span class="co">#&gt;   1:   5533  C  553.3 2008-04-03                   Abdominal hernia</span>
+<span class="co">#&gt;   2:   5533  A  553.3 2008-05-01                   Abdominal hernia</span>
+<span class="co">#&gt;   3:  55320  A 553.20 2009-02-23                   Abdominal hernia</span>
+<span class="co">#&gt;   4:  55320  B 553.20 2007-08-29                   Abdominal hernia</span>
+<span class="co">#&gt;   5:   5533  A  553.3 2008-06-27                   Abdominal hernia</span>
 
-head(CCS_description$summarised_groupedDT, 5)
-#&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period
-#&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days
-#&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days
-#&gt;  3:  B           Abdominal hernia     2007-08-29  2019-11-10     2 4456 days
-#&gt;  4:  B           Acute bronchitis     2008-04-29  2008-04-29     1    0 days
-#&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days
+<span class="kw">head</span>(CCS_description<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;     ID   CCS_CATEGORY_DESCRIPTION  firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt;  1:  C           Abdominal hernia     2008-04-03  2018-12-28     2 3921 days</span>
+<span class="co">#&gt;  2:  A           Abdominal hernia     2008-05-01  2018-12-28     4 3893 days</span>
+<span class="co">#&gt;  3:  B           Abdominal hernia     2007-08-29  2019-11-10     2 4456 days</span>
+<span class="co">#&gt;  4:  B           Acute bronchitis     2008-04-29  2008-04-29     1    0 days</span>
+<span class="co">#&gt;  5:  A           Acute bronchitis     2009-06-09  2009-06-09     1    0 days</span>
 
 ## ICD to CCS category
-CCS_category &lt;- IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)</code></pre>
+CCS_category &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCS.html">IcdDxToCCS</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)</code></pre></div>
 <p><strong>2) CCS multi-level</strong> <code>IcdDxToCCSLvl</code> can get CCS multiple levels or description for ICD-9 and ICD-10 codes on diagnoses.</p>
 <p>ICD-9-CM has four levels</p>
 <p>ICD-10-CM has two levels</p>
-<pre><code>## ICD to CCS multiple level 2 description
-CCSlvl_description &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
-head(CCSlvl_description$groupedDT, 5)
-#&gt;       Short ID    ICD       Date      CCS_LVL_2_LABEL
-#&gt;   1:   5533  C  553.3 2008-04-03     Abdominal hernia
-#&gt;   2:   5533  A  553.3 2008-05-01     Abdominal hernia
-#&gt;   3:  55320  A 553.20 2009-02-23     Abdominal hernia
-#&gt;   4:  55320  B 553.20 2007-08-29     Abdominal hernia
-#&gt;   5:   5533  A  553.3 2008-06-27     Abdominal hernia
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS multiple level 2 description
+CCSlvl_description &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCSLvl.html">IcdDxToCCSLvl</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="dv">2</span>, <span class="ot">TRUE</span>)
+<span class="kw">head</span>(CCSlvl_description<span class="op">$</span>groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;       Short ID    ICD       Date      CCS_LVL_2_LABEL</span>
+<span class="co">#&gt;   1:   5533  C  553.3 2008-04-03     Abdominal hernia</span>
+<span class="co">#&gt;   2:   5533  A  553.3 2008-05-01     Abdominal hernia</span>
+<span class="co">#&gt;   3:  55320  A 553.20 2009-02-23     Abdominal hernia</span>
+<span class="co">#&gt;   4:  55320  B 553.20 2007-08-29     Abdominal hernia</span>
+<span class="co">#&gt;   5:   5533  A  553.3 2008-06-27     Abdominal hernia</span>
 
-head(CCSlvl_description$summarised_groupedDT, 5)
-#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period
-#&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days
-#&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days
-#&gt;  3:  B                                      Abdominal hernia    2007-08-29  2019-11-10     2  4456 days
-#&gt;  4:  B                                Respiratory infections    2008-04-29  2008-04-29     1     0 days
-#&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days
+<span class="kw">head</span>(CCSlvl_description<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;     ID                                       CCS_LVL_2_LABEL firstCaseDate endCaseDate count     period</span>
+<span class="co">#&gt;  1:  C                                      Abdominal hernia    2008-04-03  2018-12-28     2  3921 days</span>
+<span class="co">#&gt;  2:  A                                      Abdominal hernia    2008-05-01  2018-12-28     4  3893 days</span>
+<span class="co">#&gt;  3:  B                                      Abdominal hernia    2007-08-29  2019-11-10     2  4456 days</span>
+<span class="co">#&gt;  4:  B                                Respiratory infections    2008-04-29  2008-04-29     1     0 days</span>
+<span class="co">#&gt;  5:  A                                Respiratory infections    2009-06-09  2009-06-09     1     0 days</span>
 
 ## ICD to CCS multiple level 3 category
-CCSLvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 3, FALSE)</code></pre>
+CCSLvl_category &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCSLvl.html">IcdDxToCCSLvl</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="dv">3</span>, <span class="ot">FALSE</span>)</code></pre></div>
 </div>
 <div id="b--phecode" class="section level3">
 <h3 class="hasAnchor">
@@ -188,23 +186,22 @@ CCSLvl_category &lt;- IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 3
 <p><code>IcdDxToPhecode</code> allows for conversion and aggregate ICD9 codes into PheWAS codes (Phecode).</p>
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
-<pre><code>## ICD to Phecode
-phecode &lt;- IcdDxToPhecode(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
-head(phecode$groupedDT, 5)
-#&gt;        ICDD ID    ICD       Date PheCode
-#&gt;   1:  553.3  C  553.3 2008-04-03   550.2
-#&gt;   2:  553.3  A  553.3 2008-05-01   550.2
-#&gt;   3: 553.20  A 553.20 2009-02-23   550.5
-#&gt;   4: 553.20  B 553.20 2007-08-29   550.5
-#&gt;   5:  553.3  A  553.3 2008-06-27   550.2
-head(phecode$summarised_groupedDT, 5)
-#&gt;     ID PheCode firstCaseDate endCaseDate count   period
-#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days
-#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days
-#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days
-#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days
-#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to Phecode
+phecode &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToPhecode.html">IcdDxToPhecode</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)
+<span class="kw">head</span>(phecode<span class="op">$</span>groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;        ICDD ID    ICD       Date PheCode</span>
+<span class="co">#&gt;   1:  553.3  C  553.3 2008-04-03   550.2</span>
+<span class="co">#&gt;   2:  553.3  A  553.3 2008-05-01   550.2</span>
+<span class="co">#&gt;   3: 553.20  A 553.20 2009-02-23   550.5</span>
+<span class="co">#&gt;   4: 553.20  B 553.20 2007-08-29   550.5</span>
+<span class="co">#&gt;   5:  553.3  A  553.3 2008-06-27   550.2</span>
+<span class="kw">head</span>(phecode<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;     ID PheCode firstCaseDate endCaseDate count   period</span>
+<span class="co">#&gt;  1:  C   550.2    2008-04-03  2008-04-03     1   0 days</span>
+<span class="co">#&gt;  2:  A   550.2    2008-05-01  2008-06-27     2  57 days</span>
+<span class="co">#&gt;  3:  A   550.5    2009-02-23  2009-02-23     1   0 days</span>
+<span class="co">#&gt;  4:  B   550.5    2007-08-29  2007-08-29     1   0 days</span>
+<span class="co">#&gt;  5:  B     483    2008-04-29  2008-04-29     1   0 days</span></code></pre></div>
 </div>
 <div id="c--creating-a-grouping-standards" class="section level3">
 <h3 class="hasAnchor">
@@ -214,98 +211,100 @@ head(phecode$summarised_groupedDT, 5)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
 groupingTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">"Cardiac dysrhythmias"</span>,<span class="dv">6</span>),
                             <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"427.1"</span>,<span class="st">"427.2"</span>,<span class="st">"427.31"</span>,<span class="st">"427.61"</span>,<span class="st">"427.81"</span>,<span class="st">"427.89"</span>),
-                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>CustomGroup &lt;- IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
-CustomGroup$groupedDT[10:15]
-#&gt;     ICD   ID       Date                group
-#&gt; 1:  466.0  A 2009-06-09                 &lt;NA&gt;
-#&gt; 2: 427.61  A 2009-02-16 Cardiac dysrhythmias
-#&gt; 3: 427.31  C 2007-06-20 Cardiac dysrhythmias
-#&gt; 4: 427.89  C 2008-01-23 Cardiac dysrhythmias
-#&gt; 5: 427.31  A 2007-09-19 Cardiac dysrhythmias
-#&gt; 6: 427.31  C 2008-09-11 Cardiac dysrhythmias
-CustomGroup$summarised_groupedDT
-#&gt;    ID                group firstCaseDate endCaseDate count   period
-#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days
-#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days
-#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days</code></pre>
+                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+
+CustomGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCustom.html">IcdDxToCustom</a></span>(sampleDxFile, ID, ICD, Date, <span class="dt">CustomGroupingTable =</span> groupingTable)
+CustomGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>]
+<span class="co">#&gt;     ICD   ID       Date                group</span>
+<span class="co">#&gt; 1:  466.0  A 2009-06-09                 &lt;NA&gt;</span>
+<span class="co">#&gt; 2: 427.61  A 2009-02-16 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 3: 427.31  C 2007-06-20 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 4: 427.89  C 2008-01-23 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 5: 427.31  A 2007-09-19 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 6: 427.31  C 2008-09-11 Cardiac dysrhythmias</span>
+
+CustomGroup<span class="op">$</span>summarised_groupedDT
+<span class="co">#&gt;    ID                group firstCaseDate endCaseDate count   period</span>
+<span class="co">#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2009-02-16     4 570 days</span>
+<span class="co">#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2009-02-08     9 599 days</span>
+<span class="co">#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2009-02-25     5 590 days</span></code></pre></div>
 <p><strong>2) IcdDxToCustomGrep</strong> Use a ICD pattern to find out the fit ICD.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grepTable</span>
 grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="st">"Cardiac dysrhythmias"</span>,
                         <span class="dt">grepIcd =</span> <span class="st">"^427|^I48"</span>,
-                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>CustomGrepGroup &lt;- IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date, CustomGroupingTable = grepTable)
-CustomGrepGroup$groupedDT[10:15]
-#&gt;    ID    ICD       Date                group
-#&gt; 1:  A  466.0 2009-06-09                     
-#&gt; 2:  A 427.61 2009-02-16 Cardiac dysrhythmias
-#&gt; 3:  C 427.31 2007-06-20 Cardiac dysrhythmias
-#&gt; 4:  C 427.89 2008-01-23 Cardiac dysrhythmias
-#&gt; 5:  A 427.31 2007-09-19 Cardiac dysrhythmias
-#&gt; 6:  C 427.31 2008-09-11 Cardiac dysrhythmias
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
 
-CustomGrepGroup$summarised_groupedDT
-#&gt;    ID                group firstCaseDate endCaseDate count    period
-#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days
-#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days
-#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days</code></pre>
+CustomGrepGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCustomGrep.html">IcdDxToCustomGrep</a></span>(sampleDxFile, ID, ICD, Date, <span class="dt">CustomGroupingTable =</span> grepTable)
+CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><span class="op">:</span><span class="dv">15</span>]
+<span class="co">#&gt;    ID    ICD       Date                group</span>
+<span class="co">#&gt; 1:  A  466.0 2009-06-09                     </span>
+<span class="co">#&gt; 2:  A 427.61 2009-02-16 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 3:  C 427.31 2007-06-20 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 4:  C 427.89 2008-01-23 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 5:  A 427.31 2007-09-19 Cardiac dysrhythmias</span>
+<span class="co">#&gt; 6:  C 427.31 2008-09-11 Cardiac dysrhythmias</span>
+
+CustomGrepGroup<span class="op">$</span>summarised_groupedDT
+<span class="co">#&gt;    ID                group firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10 5253 days</span>
+<span class="co">#&gt; 2:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16 5202 days</span>
+<span class="co">#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10 4836 days</span></code></pre></div>
 </div>
 <div id="d--comorbidities" class="section level3">
 <h3 class="hasAnchor">
 <a href="#d--comorbidities" class="anchor"></a>D. Comorbidities</h3>
 <p>The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.</p>
 <p><strong>1) AHRQ</strong> AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
-<pre><code>AHRQ &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
-AHRQ$groupedDT[160:164]
-#&gt;    Short ID    ICD       Date Comorbidity
-#&gt; 1: K7460  C K74.60 2021-01-09       Liver
-#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
-#&gt; 3: G2581  B G25.81 2021-06-24  NeuroOther
-#&gt; 4: Z6832  C Z68.32 2019-10-16     Obesity
-#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AHRQ &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, ahrq)
+AHRQ<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
+<span class="co">#&gt;    Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: K7460  C K74.60 2021-01-09       Liver</span>
+<span class="co">#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;</span>
+<span class="co">#&gt; 3: G2581  B G25.81 2021-06-24  NeuroOther</span>
+<span class="co">#&gt; 4: Z6832  C Z68.32 2019-10-16     Obesity</span>
+<span class="co">#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;</span>
 
-head(AHRQ$summarised_groupedDT, 5)
-#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
-#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days
-#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days
-#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days
-#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
-</code></pre>
+<span class="kw">head</span>(AHRQ<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days</span>
+<span class="co">#&gt; 2:  C       Renal    2007-04-21  2021-09-17    31 5263 days</span>
+<span class="co">#&gt; 3:  B       Renal    2007-05-28  2022-03-18    33 5408 days</span>
+<span class="co">#&gt; 4:  C       Liver    2021-01-09  2021-01-09     1    0 days</span>
+<span class="co">#&gt; 5:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days</span></code></pre></div>
 <p><strong>2) Charlson</strong> Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
-<pre><code>Charlson &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-Charlson$groupedDT[160:164]
-#&gt;    Short ID    ICD       Date Comorbidity
-#&gt; 1: K7460  C K74.60 2021-01-09   LiverMild
-#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
-#&gt; 3: G2581  B G25.81 2021-06-24        &lt;NA&gt;
-#&gt; 4: Z6832  C Z68.32 2019-10-16        &lt;NA&gt;
-#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Charlson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, charlson)
+Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
+<span class="co">#&gt;    Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: K7460  C K74.60 2021-01-09   LiverMild</span>
+<span class="co">#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;</span>
+<span class="co">#&gt; 3: G2581  B G25.81 2021-06-24        &lt;NA&gt;</span>
+<span class="co">#&gt; 4: Z6832  C Z68.32 2019-10-16        &lt;NA&gt;</span>
+<span class="co">#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;</span>
 
-head(Charlson$summarised_groupedDT, 5)
-#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days
-#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days
-#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days
-#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days</code></pre>
+<span class="kw">head</span>(Charlson<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A       Renal    2007-05-12  2022-02-08    33 5386 days</span>
+<span class="co">#&gt; 2:  C       Renal    2007-04-21  2021-09-17    33 5263 days</span>
+<span class="co">#&gt; 3:  B       Renal    2007-05-28  2022-03-18    34 5408 days</span>
+<span class="co">#&gt; 4:  C   LiverMild    2021-01-09  2021-01-09     1    0 days</span></code></pre></div>
 <p><strong>3) Elixhauser</strong> Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
-<pre><code>ELIX &lt;- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-ELIX$groupedDT[160:164]
-#&gt;    Short ID    ICD       Date Comorbidity
-#&gt; 1: K7460  C K74.60 2021-01-09     HYPOTHY
-#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;
-#&gt; 3: G2581  B G25.81 2021-06-24        METS
-#&gt; 4: Z6832  C Z68.32 2019-10-16       NEURO
-#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ELIX &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToComorbid.html">IcdDxToComorbid</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, elix)
+ELIX<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
+<span class="co">#&gt;    Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: K7460  C K74.60 2021-01-09     HYPOTHY</span>
+<span class="co">#&gt; 2:  Z720  A  Z72.0 2020-04-29        &lt;NA&gt;</span>
+<span class="co">#&gt; 3: G2581  B G25.81 2021-06-24        METS</span>
+<span class="co">#&gt; 4: Z6832  C Z68.32 2019-10-16       NEURO</span>
+<span class="co">#&gt; 5: 42761  A  42761 2020-03-16        &lt;NA&gt;</span>
 
-head(ELIX$summarised_groupedDT, 5)
-#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
-#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
-#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
-#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
-#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days</code></pre>
+<span class="kw">head</span>(ELIX<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days</span>
+<span class="co">#&gt;  2:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days</span>
+<span class="co">#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days</span>
+<span class="co">#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days</span>
+<span class="co">#&gt;  5:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days</span></code></pre></div>
 </div>
 <div id="e--cases-selection" class="section level3">
 <h3 class="hasAnchor">
@@ -318,99 +317,99 @@ head(ELIX$summarised_groupedDT, 5)
 <li><p>Interval of days: 30 ~ 365 days, the days between two specific ICD codes.</p></li>
 </ol>
 <p>Return the matched Data frame.</p>
-<pre><code>selectCases(DxDataFile = sampleDxFile,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
             ID, ICD, Date,
-            groupDataType = ccslvl2,
-            icd10usingDate = "2015/10/01",
-            caseCondition = "Diseases of the heart",
-            caseCount = 2)
-#&gt;    ID selectedCase count firstCaseDate endCaseDate period MostCommonICD  MostCommonICDCount
-#&gt; 1:  A     Selected     4    2021-08-02  2022-02-20    202        I48.91                   4
-#&gt; 2:  B     Selected     4    2007-07-16  2009-02-25    348        427.31                   3
-#&gt; 3:  C     Selected     6    2007-06-20  2009-02-08    255        427.31                   3
-#&gt; 4:  D  nonSelected    NA          &lt;NA&gt;        &lt;NA&gt;     NA          &lt;NA&gt;                &lt;NA&gt;   </code></pre>
+            <span class="dt">groupDataType =</span> ccslvl2,
+            <span class="dt">icd10usingDate =</span> <span class="st">"2015/10/01"</span>,
+            <span class="dt">caseCondition =</span> <span class="st">"Diseases of the heart"</span>,
+            <span class="dt">caseCount =</span> <span class="dv">2</span>)
+<span class="co">#&gt;    ID selectedCase count firstCaseDate endCaseDate period MostCommonICD  MostCommonICDCount</span>
+<span class="co">#&gt; 1:  A     Selected     4    2021-08-02  2022-02-20    202        I48.91                   4</span>
+<span class="co">#&gt; 2:  B     Selected     4    2007-07-16  2009-02-25    348        427.31                   3</span>
+<span class="co">#&gt; 3:  C     Selected     6    2007-06-20  2009-02-08    255        427.31                   3</span>
+<span class="co">#&gt; 4:  D  nonSelected    NA          &lt;NA&gt;        &lt;NA&gt;     NA          &lt;NA&gt;                &lt;NA&gt;   </span></code></pre></div>
 </div>
 <div id="f--firstlast-event-of-patient-admission" class="section level3">
 <h3 class="hasAnchor">
 <a href="#f--firstlast-event-of-patient-admission" class="anchor"></a>F. first/last event of patient admission</h3>
-<pre><code>patientRecordDate(sampleDxFile, ID, ICD, Date)
-#&gt;    ID firstRecordDate endRecordDate
-#&gt; 1:  D      2006-05-03    2018-10-02
-#&gt; 2:  A      2006-05-03    2022-02-20
-#&gt; 3:  B      2006-05-03    2022-03-18
-#&gt; 4:  C      2007-04-21    2021-09-17</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/patientRecordDate.html">patientRecordDate</a></span>(sampleDxFile, ID, ICD, Date)
+<span class="co">#&gt;    ID firstRecordDate endRecordDate</span>
+<span class="co">#&gt; 1:  D      2006-05-03    2018-10-02</span>
+<span class="co">#&gt; 2:  A      2006-05-03    2022-02-20</span>
+<span class="co">#&gt; 3:  B      2006-05-03    2022-03-18</span>
+<span class="co">#&gt; 4:  C      2007-04-21    2021-09-17</span></code></pre></div>
 </div>
 <div id="g--data-split" class="section level3">
 <h3 class="hasAnchor">
 <a href="#g--data-split" class="anchor"></a>G. Data split</h3>
-<pre><code>indexDateTable &lt;- data.frame(ID = c("A", "B", "C", "D"),
-                             indexDate = c("2006-05-03", "2006-05-03",
-                                           "2008-03-30", "2006-05-03"),
-                             stringsAsFactors = FALSE)
-Data &lt;- splitDataByDate(sampleDxFile, ID, ICD, Date,
-                indexDateFile = indexDateTable,
-                windowGap = 30) 
-head(Data, 5)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indexDateTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ID =</span> <span class="kw">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>),
+                             <span class="dt">indexDate =</span> <span class="kw">c</span>(<span class="st">"2006-05-03"</span>, <span class="st">"2006-05-03"</span>,
+                                           <span class="st">"2008-03-30"</span>, <span class="st">"2006-05-03"</span>),
+                             <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span>(sampleDxFile, ID, ICD, Date,
+                <span class="dt">indexDateFile =</span> indexDateTable,
+                <span class="dt">windowGap =</span> <span class="dv">30</span>) 
+<span class="kw">head</span>(Data, <span class="dv">5</span>)
      ID    ICD       Date  indexDate timeTag window
-  1:  A 785.52 2006-05-03 2006-05-03       A      1
-  2:  A  V56.0 2007-05-12 2006-05-03       A     13
-  3:  A V45.11 2007-05-30 2006-05-03       A     14
-  4:  A  427.1 2007-07-27 2006-05-03       A     16
-  5:  A  585.2 2007-08-08 2006-05-03       A     16</code></pre>
+  <span class="dv">1</span><span class="op">:</span><span class="st">  </span>A <span class="fl">785.52</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span>       A      <span class="dv">1</span>
+  <span class="dv">2</span><span class="op">:</span><span class="st">  </span>A  V56.<span class="dv">0</span> <span class="dv">2007</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">12</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span>       A     <span class="dv">13</span>
+  <span class="dv">3</span><span class="op">:</span><span class="st">  </span>A V45.<span class="dv">11</span> <span class="dv">2007</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">30</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span>       A     <span class="dv">14</span>
+  <span class="dv">4</span><span class="op">:</span><span class="st">  </span>A  <span class="fl">427.1</span> <span class="dv">2007</span><span class="op">-</span><span class="dv">07</span><span class="op">-</span><span class="dv">27</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span>       A     <span class="dv">16</span>
+  <span class="dv">5</span><span class="op">:</span><span class="st">  </span>A  <span class="fl">585.2</span> <span class="dv">2007</span><span class="op">-</span><span class="dv">08</span><span class="op">-</span><span class="dv">08</span> <span class="dv">2006</span><span class="op">-</span><span class="dv">05</span><span class="op">-</span><span class="dv">03</span>       A     <span class="dv">16</span></code></pre></div>
 </div>
 <div id="h--condition-era" class="section level3">
 <h3 class="hasAnchor">
 <a href="#h--condition-era" class="anchor"></a>H. Condition Era</h3>
 <p>Get the condition era</p>
 <p>Condition Eras are built with a Persistence Window, deafault is 30 days.</p>
-<pre><code>getConditionEra(sampleDxFile, ID, ICD, Date, "2016-01-01", 30, ccs, FALSE)
-#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period
-#&gt;  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days
-#&gt;  2:  B          158    2007-05-28  2022-03-18    34  14 5408 days
-#&gt;  3:  C          106    2007-06-20  2021-09-16    19  14 5202 days
-#&gt;  4:  A          158    2007-05-12  2022-02-08    33  12 5386 days
-#&gt;  5:  B          106    2007-07-16  2020-10-11    13  10 4836 days
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/getConditionEra.html">getConditionEra</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2016-01-01"</span>, <span class="dv">30</span>, ccs, <span class="ot">FALSE</span>)
+<span class="co">#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count Era    period</span>
+<span class="co">#&gt;  1:  C          158    2007-04-21  2021-09-17    33  16 5263 days</span>
+<span class="co">#&gt;  2:  B          158    2007-05-28  2022-03-18    34  14 5408 days</span>
+<span class="co">#&gt;  3:  C          106    2007-06-20  2021-09-16    19  14 5202 days</span>
+<span class="co">#&gt;  4:  A          158    2007-05-12  2022-02-08    33  12 5386 days</span>
+<span class="co">#&gt;  5:  B          106    2007-07-16  2020-10-11    13  10 4836 days</span>
 
-grepTable &lt;- data.frame(group = "Cardiac dysrhythmias",
-                        grepIcd = "^427|^I48",
-                        stringsAsFactors = FALSE)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", 30, customGrepIcdGroup, CustomGroupingTable = grepTable)
-#&gt;    ID                group firstCaseDate endCaseDate count Era    period
-#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days
-#&gt; 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days
-#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</code></pre>
+grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="st">"Cardiac dysrhythmias"</span>,
+                        <span class="dt">grepIcd =</span> <span class="st">"^427|^I48"</span>,
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+<span class="kw"><a href="../reference/getConditionEra.html">getConditionEra</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="dv">30</span>, customGrepIcdGroup, <span class="dt">CustomGroupingTable =</span> grepTable)
+<span class="co">#&gt;    ID                group firstCaseDate endCaseDate count Era    period</span>
+<span class="co">#&gt; 1:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    16  12 5202 days</span>
+<span class="co">#&gt; 2:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    10   9 5253 days</span>
+<span class="co">#&gt; 3:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    10   9 4836 days</span></code></pre></div>
 </div>
 </div>
 <div id="iii--eda-preparation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#iii--eda-preparation" class="anchor"></a>III. EDA preparation</h2>
-<pre><code>groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = B)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrBinary = N)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, ccs, <span class="dt">numericOrBinary =</span> B)
+<span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, ccs, <span class="dt">numericOrBinary =</span> N)</code></pre></div>
 </div>
 <div id="iv--visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#iv--visualization" class="anchor"></a>IV. Visualization</h2>
-<pre><code>error &lt;- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
-plot_errorICD(error$Error, ICDVersion = all,
-                           wrongICDType = all,
-                           groupICD = FALSE,
-                           Others = FALSE,
-                           OthersThreshold = 1)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxDecimalToShort.html">IcdDxDecimalToShort</a></span>(sampleDxFile, ICD, Date, <span class="st">"2015/10/01"</span>)
+<span class="kw"><a href="../reference/plot_errorICD.html">plot_errorICD</a></span>(error<span class="op">$</span>Error, <span class="dt">ICDVersion =</span> all,
+                           <span class="dt">wrongICDType =</span> all,
+                           <span class="dt">groupICD =</span> <span class="ot">FALSE</span>,
+                           <span class="dt">Others =</span> <span class="ot">FALSE</span>,
+                           <span class="dt">OthersThreshold =</span> <span class="dv">1</span>)</code></pre></div>
 <div class="figure">
 <img src="https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png" alt="warning message"><p class="caption">warning message</p>
 </div>
-<pre><code>#&gt; $ICD
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
-#&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47
-#&gt;  2:  V27.0    18           ICD 10 Wrong version                   42.70
-#&gt;  3:   E114     8           ICD 10  Wrong format                   51.69
-#&gt;  4: A01.05     8            ICD 9 Wrong version                   60.67
-#&gt;  5:  42761     7           ICD 10 Wrong version                   68.54
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format                   75.28
-#&gt;  7:    F42     6           ICD 10  Wrong format                   82.02
-#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76
-#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38
-#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $ICD</span>
+<span class="co">#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc</span>
+<span class="co">#&gt;  1:  A0.11    20           ICD 10  Wrong format                   22.47</span>
+<span class="co">#&gt;  2:  V27.0    18           ICD 10 Wrong version                   42.70</span>
+<span class="co">#&gt;  3:   E114     8           ICD 10  Wrong format                   51.69</span>
+<span class="co">#&gt;  4: A01.05     8            ICD 9 Wrong version                   60.67</span>
+<span class="co">#&gt;  5:  42761     7           ICD 10 Wrong version                   68.54</span>
+<span class="co">#&gt;  6:  Z9.90     6           ICD 10  Wrong format                   75.28</span>
+<span class="co">#&gt;  7:    F42     6           ICD 10  Wrong format                   82.02</span>
+<span class="co">#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76</span>
+<span class="co">#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38</span>
+<span class="co">#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</span></code></pre></div>
 </div>
 <div id="v--reference" class="section level2">
 <h2 class="hasAnchor">

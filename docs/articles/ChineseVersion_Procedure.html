@@ -101,13 +101,13 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <p>產生 ICD-9-PCS 的兩種格式的表格: Decimal 和 Short</p>
 <p>供後續 ICD 格式轉換的功能使用 (<code>IcdPrDecimaltoShort 和 IcdPrShortToDecimal</code>)</p>
 <p>ICD-9-PCS</p>
-<pre><code>icd9_Short &lt;- head(ICD9PrwithTwoFormat$Short,10)
-# c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")
-icd9_Decimal &lt;- head(ICD9PrwithTwoFormat$Decimal, 10)
-# c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd9_Short &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9PrwithTwoFormat<span class="op">$</span>Short,<span class="dv">10</span>)
+<span class="co"># c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")</span>
+icd9_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9PrwithTwoFormat<span class="op">$</span>Decimal, <span class="dv">10</span>)
+<span class="co"># c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")</span></code></pre></div>
 <p>ICD-10-PCS只有short的格式</p>
-<pre><code>icd10 &lt;- head(prICD10$ICD,10)
-# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd10 &lt;-<span class="st"> </span><span class="kw">head</span>(prICD10<span class="op">$</span>ICD,<span class="dv">10</span>)
+<span class="co"># c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</span></code></pre></div>
 </div>
 <div id="i--code-standarization" class="section level2">
 <h2 class="hasAnchor">
@@ -115,25 +115,25 @@ icd9_Decimal &lt;- head(ICD9PrwithTwoFormat$Decimal, 10)
 <p>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</p>
 <p>進行後續分組功能之前, 根據使用者使用的 ICD 格式進行格式的統一化, 分別兩種功能可以將 ICD 統一轉換為 Short 或 Decimal 的格式</p>
 <p>將 ICD-PCS code 的格式統一轉成 Decimal</p>
-<pre><code># ICD-9
-ICD9_Decimal &lt;- IcdPrShortToDecimal(icd9_Short)
-ICD9$Decimal
-# c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ICD-9</span>
+ICD9_Decimal &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrShortToDecimal.html">IcdPrShortToDecimal</a></span>(icd9_Short)
+ICD9<span class="op">$</span>Decimal
+<span class="co"># c("00.01", "00.02", "00.03", "00.09", "00.10", "00.11", "00.12", "00.13", "00.14", "00.15")</span>
 
-# ICD-10
-ICD10_Decimal &lt;- IcdPrShortToDecimal(icd10)
-ICD10$Decimal
-# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</code></pre>
+<span class="co"># ICD-10</span>
+ICD10_Decimal &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrShortToDecimal.html">IcdPrShortToDecimal</a></span>(icd10)
+ICD10<span class="op">$</span>Decimal
+<span class="co"># c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</span></code></pre></div>
 <p>將 ICD-PCS code 的格式統一轉成 Short</p>
-<pre><code># ICD-9
-ICD9_Short &lt;- IcdPrDecimalToShort(icd9_Decimal)
-ICD9_Short$Short
-# c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ICD-9</span>
+ICD9_Short &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrDecimalToShort.html">IcdPrDecimalToShort</a></span>(icd9_Decimal)
+ICD9_Short<span class="op">$</span>Short
+<span class="co"># c("0001", "0002", "0003", "0009", "0010", "0011", "0012", "0013", "0014", "0015")</span>
 
-# ICD-10
-ICD10_Short &lt;- IcdPrDecimalToShort(icd10)
-ICD10_Short$Short
-# c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</code></pre>
+<span class="co"># ICD-10</span>
+ICD10_Short &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrDecimalToShort.html">IcdPrDecimalToShort</a></span>(icd10)
+ICD10_Short<span class="op">$</span>Short
+<span class="co"># c("0016071", "0016072", "0016073", "0016074", "0016075", "0016076", "0016077", "0016078", "001607B", "00160J0")</span></code></pre></div>
 </div>
 <div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">
@@ -150,28 +150,30 @@ ICD10_Short$Short
 <h4>1) 單一階層分類</h4>
 <p><code>IcdPrToCCS</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 分類(CCS Category)及分類之敘述</p>
 <p>ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致: 共231種</p>
-<pre><code>## ICD to CCS category
-IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", FALSE)
-#  "1"   "180" "1"   "1"
-
-## ICD to CCS description
-IcdPrToCCS (PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
-# "Incision and excision of CNS"             "Other CT scan"                
-# "Incision and excision of CNS"             "Incision and excision of CNS"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS category
+CCS &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrToCCS.html">IcdPrToCCS</a></span>(PrDataFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">TRUE</span>)
+<span class="co">#&gt; head(CCS$groupedDT, 5)</span>
+<span class="co">#&gt;        Short ID     ICD       Date                              CCS_CATEGORY_DESCRIPTION</span>
+<span class="co">#&gt;   1:    5681  B    5681 2008-01-14      Other OR therapeutic procedures of urinary tract</span>
+<span class="co">#&gt;   2:    9774  A    9774 2009-01-11    Other non-OR therapeutic procedures; female organs</span>
+<span class="co">#&gt;   3:    4499  B   44.99 2009-05-10              Other OR upper GI therapeutic procedures</span>
+<span class="co">#&gt;   4:    0759  C   07.59 2009-01-21                      Therapeutic endocrine procedures</span>
+<span class="co">#&gt;   5:    0205  B    0205 2008-07-06        Other OR therapeutic nervous system procedures</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4>2) 多階層分類</h4>
 <p><code>IcdPrToCCSLvl</code> 可取得 ICD-9-PCS 及 ICD-10-PCS 相對應的 CCS 多階層分類 (Multiple ccs level)及分類之敘述</p>
 <p>ICD-9-PCS 共 3個階層 (Level 1~3)</p>
 <p>ICD-10-PCS 共 2個階層 (Level 1~2)</p>
-<pre><code>## ICD to CCS multiple level 1
-IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, FALSE)
-# "1.1"  "16.2" "1.1"  "1.1"
-
-## ICD to CCS multiple level 2
-IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
-#  "Incision  excision of CNS"               "Computerized axial tomography (CT) scan"
-#  "Incision  excision of CNS"               "Incision  excision of CNS"    </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS multiple level 2
+CCSLvl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrToCCSLvl.html">IcdPrToCCSLvl</a></span>(samplePrFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="dv">2</span>, <span class="ot">TRUE</span>)
+<span class="kw">head</span>(CCSLvl<span class="op">$</span>groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;        Short ID     ICD       Date                                       CCS_LVL_2_LABEL</span>
+<span class="co">#&gt;   1:    5681  B    5681 2008-01-14      Other OR therapeutic procedures of urinary tract</span>
+<span class="co">#&gt;   2:    9774  A    9774 2009-01-11    Other non-OR therapeutic procedures; female organs</span>
+<span class="co">#&gt;   3:    4499  B   44.99 2009-05-10              Other OR upper GI therapeutic procedures</span>
+<span class="co">#&gt;   4:    0759  C   07.59 2009-01-21                Other therapeutic endocrine procedures</span>
+<span class="co">#&gt;   5:    0205  B    0205 2008-07-06        Other OR therapeutic nervous system procedures</span></code></pre></div>
 </div>
 </div>
 <div id="procedure-class" class="section level3">
@@ -182,8 +184,14 @@ IcdPrToCCSLvl(PrDataFile, ID, ICD, Date, "2016-01-01", 2, TRUE)
 <p>2.Minor Therapeutic: 非手術室執行之治療類處置</p>
 <p>3.Major Diagnostic: 需在手術室執行之診斷類處置</p>
 <p>4.Major Therapeutic: 需在手術室執行之治療類處置</p>
-<pre><code>IcdPrToProcedureClass(PrDataFile, ID, ICD, Date, "2016-01-01", TRUE)
-# "2" "1" "4" "4"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ProcedureClass &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdPrToProcedureClass.html">IcdPrToProcedureClass</a></span>(samplePrFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">TRUE</span>)
+<span class="kw">head</span>(ProcedureClass<span class="op">$</span>groupedDT, <span class="dv">5</span>)
+<span class="co">#&gt;        Short ID     ICD       Date PROCEDURE_CLASS</span>
+<span class="co">#&gt;   1:    5681  B    5681 2008-01-14               4</span>
+<span class="co">#&gt;   2:    9774  A    9774 2009-01-11               2</span>
+<span class="co">#&gt;   3:    4499  B   44.99 2009-05-10               4</span>
+<span class="co">#&gt;   4:    0759  C   07.59 2009-01-21               4</span>
+<span class="co">#&gt;   5:    0205  B    0205 2008-07-06               4</span></code></pre></div>
 </div>
 </div>
 <div id="iii--reference" class="section level2">
