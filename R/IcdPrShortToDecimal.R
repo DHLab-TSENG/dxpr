@@ -153,5 +153,3 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     return(list(ICD = allDecimalFormat[order(Number),-"Number"]))
   }
 }
-# samplePrFile <- PrDataFile
-# PrDataFile <- rbind(PrDataFile,data.table(ICD = c("79929","45612","12333"),Date = rep(as.Date("2014-10-11"),3),Number = 180:182))

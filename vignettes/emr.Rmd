@@ -7,10 +7,17 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
- Introduction
+# Introduction
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
+### Install
+```r
+# Install development version from GitHub
+devtools::install_github("DHLab-CGU/emr")
+library(emr)
+```
+ 
 ### ICD-CM code with two format
 conversion function : `IcdDxDecimaltoShort and IcdDxShortToDecimal`
 

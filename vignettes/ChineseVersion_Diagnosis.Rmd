@@ -14,6 +14,12 @@ vignette: >
 ```
 cat(utils::packageDescription("emr")$Description)
 ```
+### 安裝套件
+```r
+# Install development version from GitHub
+devtools::install_github("DHLab-CGU/emr")
+library(emr)
+```
 ### ICD-CM-CODE 格式對照
 
 本套件將CMS所提供的ICD編碼視為ICD編碼的標準依據，並依照CMS (Centers for Medicare & Medicaid Services)訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal

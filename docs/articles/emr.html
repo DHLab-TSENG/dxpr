@@ -85,8 +85,17 @@
 
     
     
-<p>Introduction</p>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
 <pre><code>cat(utils::packageDescription("emr")$Description)</code></pre>
+<div id="install" class="section level3">
+<h3 class="hasAnchor">
+<a href="#install" class="anchor"></a>Install</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install development version from GitHub</span>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"DHLab-CGU/emr"</span>)
+<span class="kw">library</span>(emr)</code></pre></div>
+</div>
 <div id="icd-cm-code-with-two-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
@@ -433,6 +442,7 @@ plot_errorICD(error$Error, ICDVersion = all,
 <p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -440,11 +450,15 @@ plot_errorICD(error$Error, ICDVersion = all,
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+<li>
+<a href="#introduction">Introduction</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#i-code-standarization">I.Code standarization</a></li>
       <li><a href="#ii--data-integration">II. Data integration</a></li>
       <li><a href="#iii--eda-preparation">III. EDA preparation</a></li>
       <li><a href="#iv--visualization">IV. Visualization</a></li>
       <li><a href="#v--reference">V. Reference</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
