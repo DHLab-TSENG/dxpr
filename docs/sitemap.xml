@@ -82,7 +82,7 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCustomGrep.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToPhecode.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToPheWAS.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrDecimalToShort.html</loc>
@@ -113,6 +113,9 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/plot_errorICD.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/plot_groupedData.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/prICD10.html</loc>

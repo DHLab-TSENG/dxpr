@@ -447,11 +447,12 @@ NULL
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "InTimeINR", "firstCaseDate", "endCaseDate", "period", "MostCommonICDCount",
   "selectedCase", "groupDataType", "isDescription", "B", "ahrq", "charlson", "elix", "group",
-  "Out", "OutCount", "Number", "Short", "Decimal",
+  "Out", "OutCount", "Number", "Short", "Decimal","value","variable",
   "ICD9DxwithTwoFormat", "ICD10DxwithTwoFormat","ICD9PrwithTwoFormat", "ccsDxICD9", "ccsDxICD10", "prICD10",
   "phecode_icd9_2", "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
   "count", "WrongType", "IcdVersionInFile", "Suggestion", "ICD_DESCRIPTION",
   "ccs", "ID", "ICD", "ICDD", "Comorbidity", "Date","Gap", "NextDate", "diffDay", "episodeCount", "episode", "era", "icd10usingDate",
   "CustomGroupingTable", "greplICD", "timeTag","indexDateTable","window","indexDate",
   "firstRecordDate","endRecordDate", "WrongICDType", "errorFile", "ICDVersion", "groupICD",
-  "ICDGroup","groupCount","maxICD","MostICDinGroup","CumCount","ICDPercinGroup","CumCountPerc"))
+  "ICDGroup","groupCount","maxICD","MostICDinGroup","CumCount","ICDPercinGroup","CumCountPerc",
+  "catePerc","sigCate","category"))

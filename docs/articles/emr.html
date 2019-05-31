@@ -187,7 +187,7 @@ CCSLvl_category &lt;-<span class="st"> </span><span class="kw"><a href="../refer
 <p>This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.</p>
 <p>more detail: <a href="https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies" class="uri">https://www.vumc.org/cpm/cpm-blog/phewas-phenome-wide-association-studies</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to Phecode
-phecode &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToPhecode.html">IcdDxToPhecode</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)
+phecode &lt;-<span class="st"> </span><span class="kw">IcdDxToPhecode</span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)
 <span class="kw">head</span>(phecode<span class="op">$</span>groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;        ICDD ID    ICD       Date PheCode</span>
 <span class="co">#&gt;   1:  553.3  C  553.3 2008-04-03   550.2</span>

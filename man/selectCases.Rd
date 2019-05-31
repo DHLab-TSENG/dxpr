@@ -20,11 +20,11 @@ selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{icd10usingDate}{Icd 10 using date}
 
-\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
+\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.}
 
 \item{CustomGroupingTable}{Table is for groupDataType}
 
-\item{isDescription}{CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.}
+\item{isDescription}{CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.}
 
 \item{caseCondition}{ICD selection rules with grepl expression}
 

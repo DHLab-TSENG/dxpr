@@ -46,6 +46,7 @@ reference:
   desc: ~
   contents:
   - '`plot_errorICD`'
+  - '`plot_groupedData`'
 
 - title: ICD-PCS function
   desc: ~

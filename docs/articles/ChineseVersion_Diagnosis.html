@@ -98,25 +98,28 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="icd-cm-code-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icd-cm-code-" class="anchor"></a>ICD-CM-CODE 格式對照</h3>
-<p>本套件將CMS所提供的ICD編碼視為ICD編碼的標準依據，並依照CMS (Centers for Medicare &amp; Medicaid Services)訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal</p>
-<p>供後續 ICD 格式轉換的功能使用 (<code>IcdDxDecimalToShort 和 IcdDxShortToDecimal</code>)</p>
+<p>本套件將CMS (Centers for Medicare &amp; Medicaid Services)所提供的ICD編碼視為ICD編碼的標準依據，並依照WHO訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: <code>ICD9DxwithTwoFormat 和 ICD10DxwithTwoFormat</code></p>
+<p>供後續 ICD 格式轉換的功能使用</p>
 <p>ICD-9-CM</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd9_Short &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Short, <span class="dv">10</span>)
-<span class="co"># c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")</span>
-icd9_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Decimal,<span class="dv">10</span>)
-<span class="co"># c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># icd9_Short</span>
+<span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Short)
+<span class="co"># c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010")</span>
+<span class="co"># icd9_Decimal</span>
+<span class="kw">head</span>(ICD9DxwithTwoFormat<span class="op">$</span>Decimal)
+<span class="co"># c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0")</span></code></pre></div>
 <p>ICD-10-CM</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">icd10_Short &lt;-<span class="st"> </span><span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Short, <span class="dv">10</span>)
-<span class="co"># c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")</span>
-icd10_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Decimal,<span class="dv">10</span>)
-<span class="co"># c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># icd10_Short</span>
+<span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Short)
+<span class="co"># c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103")</span>
+<span class="co"># icd10_Decimal</span>
+<span class="kw">head</span>(ICD10DxwithTwoFormat<span class="op">$</span>Decimal)
+<span class="co"># c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3")</span></code></pre></div>
 </div>
 <div id="i--code-standarization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h2>
 <p><strong>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
-<p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如<strong>表一</strong>，將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
-<p>雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式</p>
+<p>進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如<strong>表一</strong>，將醫療大數據中的ICD診斷編碼進行統一編碼格式的轉換，以便後續ICD編碼標準化分群。</p>
 <p>表一 標準化分組之ICD格式</p>
 <table class="table">
 <thead><tr class="header">
@@ -138,9 +141,10 @@ icd10_Decimal &lt;-<span class="st"> </span><span class="kw">head</span>(ICD10Dx
 </tr>
 </tbody>
 </table>
-<p>為在疾病分組時區別診斷編碼ICD-9-CM與ICD-10-CM，本套件依據診斷日期區分所使用的ICD版本，其時間切割點可依使用者需求設定，如使用者分析台灣的醫療資料，此日期可設定為2016年1月1日</p>
-<p>如使用者分析的是美國的醫療資料，則可將日期設定為2015年10月1號。</p>
-<p>以下範例皆以<code>sampleDxFile</code>作為範例, 區分ICD-9/ICD-10-CM code的使用日期為: 2015年10月1號</p>
+<p>為在疾病分組時區別診斷編碼ICD-9-CM與ICD-10-CM，本套件依據診斷日期區分ICD的版本，其時間切割點可依使用者需求設定。</p>
+<p>如使用者分析台灣的醫療資料，可將日期設定為2016年1月1日；</p>
+<p>如使用者分析的是美國的醫療資料，可將日期設定為2015年10月1日。</p>
+<p>以下示範皆以<code>sampleDxFile</code>作為範例, 區分ICD-9/ICD-10-CM code的日期為: 2015年10月1日</p>
 <p><strong>將 ICD-CM code 的格式統一轉成 Decimal</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Short to decimal</span>
 decimal &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxShortToDecimal.html">IcdDxShortToDecimal</a></span>(sampleDxFile, ICD, Date, <span class="st">"2015/10/01"</span>)
@@ -153,7 +157,7 @@ short &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDx
 <span class="co"># c("5533", "5533", "55320", "55320", "5533", "K449")</span></code></pre></div>
 <p><strong>Warning message</strong></p>
 <p>當ICD編碼發生轉換錯誤時，會提供warning message提醒使用者<strong>格式錯誤 (Wrong format)</strong>或是<strong>版本分類錯誤 (Wrong version)</strong>， 避免輸入的ICD編碼錯誤而影響後續臨床疾病分組錯誤或是無法分組的情形。</p>
-<p>以下為判斷ICD編碼錯誤之流程圖，將以short 轉為 decimal 作為範例</p>
+<p>以下為判斷ICD編碼錯誤之流程圖，以short 轉為 decimal 作為範例</p>
 <div class="figure">
 <img src="https://raw.githubusercontent.com/amamagg/image/master/msg4.jpg" alt="warning message"><p class="caption">warning message</p>
 </div>
@@ -316,7 +320,7 @@ CCSLvl_category &lt;-<span class="st"> </span><span class="kw"><a href="../refer
 <p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具, PheWAS套件使用自訂的phecode定義ICD-9-CM code的編碼分組，約一萬多筆的ICD-9-CM code診斷碼分為共1,866種較大的phecode分類，ICD-9-CM和phecode為多對多的配對關係。</p>
 <p>最新版本為 version 2 (phecode_icd9_2), 目前只有 ICD-9-CM 供轉換分類</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to Phecode
-phecode &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToPhecode.html">IcdDxToPhecode</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)
+phecode &lt;-<span class="st"> </span><span class="kw">IcdDxToPhecode</span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015-10-01"</span>, <span class="ot">FALSE</span>)
 <span class="kw">head</span>(phecode<span class="op">$</span>groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;        ICDD ID    ICD       Date PheCode</span>
 <span class="co">#&gt;   1:  553.3  C  553.3 2008-04-03   550.2</span>
@@ -627,15 +631,21 @@ grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span
 <div id="iv--visualization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#iv--visualization" class="anchor"></a>IV. Visualization</h2>
-<p>將第一階段 - 診斷編碼格式統一所產生的錯誤編碼訊息轉換成圖表</p>
+<p>進行第一階段 - 診斷編碼格式統一時,會將資料中的錯誤編碼訊息列表並顯示其數量</p>
+<p><code>plot_errorICD</code>可將錯誤編碼訊息以圖表方式呈現, 使用者可選擇<strong>單看</strong>格式錯誤 (Wrong format)或是版本分類錯誤 (Wrong version)或顯示<strong>全部</strong>的錯誤編碼種類</p>
+<p>另外使用者可選擇將ICD-9依照章節<strong>分組</strong>:</p>
+<p>001-139: 傳染病或寄生蟲相關疾病</p>
+<p>140-239: 腫瘤相關疾病</p>
+<p>…等共19章節，<code>plot_errorICD</code>依照編碼開頭分類，大致分為11組: 0, 1, 2,…, 9, V and E</p>
+<p>使用者可選擇顯示前幾名的錯誤編碼，例如使用者設定顯示前10名，將顯示前十名的柏拉圖 （pareto plot）及前十名錯誤編碼的列表。預設為顯示前10名的錯誤編碼</p>
+<p>藉由柏拉圖圖表，使用者可得知錯誤的種類及主要的錯誤編碼供使用者做為參考</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxDecimalToShort.html">IcdDxDecimalToShort</a></span>(sampleDxFile, ICD, Date, <span class="st">"2015/10/01"</span>)
 <span class="kw"><a href="../reference/plot_errorICD.html">plot_errorICD</a></span>(error<span class="op">$</span>Error, <span class="dt">ICDVersion =</span> all,
                            <span class="dt">wrongICDType =</span> all,
                            <span class="dt">groupICD =</span> <span class="ot">FALSE</span>,
-                           <span class="dt">Others =</span> <span class="ot">FALSE</span>,
-                           <span class="dt">OthersThreshold =</span> <span class="dv">1</span>)</code></pre></div>
+                           <span class="dt">Others =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <div class="figure">
-<img src="https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png" alt="warning message"><p class="caption">warning message</p>
+<img src="https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png" alt="pareto plot of error ICD"><p class="caption">pareto plot of error ICD</p>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $ICD</span>
 <span class="co">#&gt;        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc</span>
@@ -649,6 +659,18 @@ grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span
 <span class="co">#&gt;  8:  V24.1     6           ICD 10 Wrong version                   88.76</span>
 <span class="co">#&gt;  9:  A0105     5            ICD 9 Wrong version                   94.38</span>
 <span class="co">#&gt; 10:    001     5            ICD 9  Wrong format       0019       100.00</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_errorICD.html">plot_errorICD</a></span>(error<span class="op">$</span>Error, <span class="dt">ICDVersion =</span> <span class="dv">9</span>,
+                           <span class="dt">wrongICDType =</span> all,
+                           <span class="dt">groupICD =</span> <span class="ot">TRUE</span>,
+                           <span class="dt">Others =</span> <span class="ot">TRUE</span>,
+                           <span class="dt">Ranking =</span> <span class="dv">3</span>)</code></pre></div>
+<p>[pareto plot of error ICD9 (grouped)]</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">$</span>ICD
+<span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup IcdVersionInFile Suggestion</span>
+<span class="co">#&gt; 1:        A         13        41.94         A01.05          61.54            ICD 9           </span>
+<span class="co">#&gt; 2:        7          9        70.97          75.52          44.44            ICD 9           </span>
+<span class="co">#&gt; 3:        0          5        87.10            001         100.00            ICD 9       0019</span>
+<span class="co">#&gt; 4:   Others          4       100.00          E03.0         100.00            ICD 9           </span></code></pre></div>
 </div>
 <div id="v--reference" class="section level2">
 <h2 class="hasAnchor">

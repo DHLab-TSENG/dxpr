@@ -17,8 +17,13 @@
 #' plot_errorICD(error$Error, ICDVersion = all,
 #'                            wrongICDType = all,
 #'                            groupICD = FALSE,
+#'                            Others = TRUE)
+#'
+#' plot_errorICD(error$Error, ICDVersion = 9,
+#'                            wrongICDType = all,
+#'                            groupICD = TRUE,
 #'                            Others = TRUE,
-#'                            Ranking = 10)
+#'                            Ranking = 3)
 #'
 plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, Ranking = 10){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))

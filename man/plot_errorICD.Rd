@@ -29,7 +29,12 @@ error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 plot_errorICD(error$Error, ICDVersion = all,
                            wrongICDType = all,
                            groupICD = FALSE,
+                           Others = TRUE)
+
+plot_errorICD(error$Error, ICDVersion = 9,
+                           wrongICDType = all,
+                           groupICD = TRUE,
                            Others = TRUE,
-                           Ranking = 10)
+                           Ranking = 3)
 
 }

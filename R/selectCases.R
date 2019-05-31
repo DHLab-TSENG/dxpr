@@ -12,9 +12,9 @@
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate Icd 10 using date
-#' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), phecode (\code{'phecode'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
+#' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
 #' @param CustomGroupingTable Table is for groupDataType
-#' @param isDescription  CCS/Phecode categories or description for ICD-CM codes, default is \code{'TRUE'}.
+#' @param isDescription  CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.
 #' @param caseCount a threshold of number of ICD for case selection
 #' @param INRofDayRange Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.
 #' @param selectCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.

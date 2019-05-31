@@ -22,31 +22,33 @@ library(emr)
 ```
 ### ICD-CM-CODE 格式對照
 
-本套件將CMS所提供的ICD編碼視為ICD編碼的標準依據，並依照CMS (Centers for Medicare & Medicaid Services)訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: Decimal
+本套件將CMS (Centers for Medicare & Medicaid Services)所提供的ICD編碼視為ICD編碼的標準依據，並依照WHO訂定的ICD編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: `ICD9DxwithTwoFormat 和 ICD10DxwithTwoFormat`
 
-供後續 ICD 格式轉換的功能使用 (`IcdDxDecimalToShort 和 IcdDxShortToDecimal`) 
+供後續 ICD 格式轉換的功能使用 
 
 ICD-9-CM
 ```r
-icd9_Short <- head(ICD9DxwithTwoFormat$Short, 10)
-# c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010", "E0011", "E0020", "E0021", "E0022")
-icd9_Decimal <- head(ICD9DxwithTwoFormat$Decimal,10)
-# c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0", "E001.1", "E002.0", "E002.1", "E002.2")
+# icd9_Short
+head(ICD9DxwithTwoFormat$Short)
+# c("E0000", "E0001", "E0002", "E0008", "E0009", "E0010")
+# icd9_Decimal
+head(ICD9DxwithTwoFormat$Decimal)
+# c("E000.0", "E000.1", "E000.2", "E000.8", "E000.9", "E001.0")
 ```
 ICD-10-CM
 ```r
-icd10_Short <- head(ICD10DxwithTwoFormat$Short, 10)
-# c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103", "A0104", "A0105", "A0109", "A011")
-icd10_Decimal <- head(ICD10DxwithTwoFormat$Decimal,10)
-# c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3", "A010.4", "A010.5", "A010.9", "A01.1")
+# icd10_Short
+head(ICD10DxwithTwoFormat$Short)
+# c("A001",  "A009",  "A0100", "A0101", "A0102", "A0103")
+# icd10_Decimal
+head(ICD10DxwithTwoFormat$Decimal)
+# c("A00.1",  "A00.9",  "A010.0", "A010.1", "A010.2", "A010.3")
 ```
 ## I. Code standarization
 
 **ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short <-> Decimal**
 
-進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如**表一**，將醫療大數據中的ICD診斷編碼進行編碼格式的轉換，以便後續ICD編碼標準化分群。
-
-雖然CMS所發佈的各項標準使用short格式的ICD編碼，但在診斷碼的紀錄有兩種格式（short及decimal format）可使用，因此需要再進行標準化分組前，將ICD轉換為單一格式
+進行後續標準化分組功能之前，將診斷紀錄轉換為有臨床意義的疾病分組之前，依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS編碼的分組表中ICD診斷碼格式如**表一**，將醫療大數據中的ICD診斷編碼進行統一編碼格式的轉換，以便後續ICD編碼標準化分群。
 
 表一 標準化分組之ICD格式
 
@@ -56,11 +58,13 @@ icd10_Decimal <- head(ICD10DxwithTwoFormat$Decimal,10)
 |Comorbidity |short format|
 |Phecode|decimal format|
 
-為在疾病分組時區別診斷編碼ICD-9-CM與ICD-10-CM，本套件依據診斷日期區分所使用的ICD版本，其時間切割點可依使用者需求設定，如使用者分析台灣的醫療資料，此日期可設定為2016年1月1日
+為在疾病分組時區別診斷編碼ICD-9-CM與ICD-10-CM，本套件依據診斷日期區分ICD的版本，其時間切割點可依使用者需求設定。
 
-如使用者分析的是美國的醫療資料，則可將日期設定為2015年10月1號。
+如使用者分析台灣的醫療資料，可將日期設定為2016年1月1日；
 
-以下範例皆以`sampleDxFile`作為範例, 區分ICD-9/ICD-10-CM code的使用日期為: 2015年10月1號
+如使用者分析的是美國的醫療資料，可將日期設定為2015年10月1日。
+
+以下示範皆以`sampleDxFile`作為範例, 區分ICD-9/ICD-10-CM code的日期為: 2015年10月1日
 
 **將 ICD-CM code 的格式統一轉成 Decimal**
 ```r
@@ -80,7 +84,7 @@ head(short$ICD)
 
 當ICD編碼發生轉換錯誤時，會提供warning message提醒使用者**格式錯誤 (Wrong format)**或是**版本分類錯誤 (Wrong version)**， 避免輸入的ICD編碼錯誤而影響後續臨床疾病分組錯誤或是無法分組的情形。
 
-以下為判斷ICD編碼錯誤之流程圖，將以short 轉為 decimal 作為範例
+以下為判斷ICD編碼錯誤之流程圖，以short 轉為 decimal 作為範例
 
 ![warning message](https://raw.githubusercontent.com/amamagg/image/master/msg4.jpg)
 
@@ -539,16 +543,32 @@ groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01", ccs, numericOrB
 
 
 ## IV. Visualization
-將第一階段 - 診斷編碼格式統一所產生的錯誤編碼訊息轉換成圖表
+進行第一階段 - 診斷編碼格式統一時,會將資料中的錯誤編碼訊息列表並顯示其數量
+
+`plot_errorICD`可將錯誤編碼訊息以圖表方式呈現, 使用者可選擇**單看**格式錯誤 (Wrong format)或是版本分類錯誤 (Wrong version)或顯示**全部**的錯誤編碼種類
+
+另外使用者可選擇將ICD-9依照章節**分組**:
+
+001-139: 傳染病或寄生蟲相關疾病
+
+140-239: 腫瘤相關疾病
+
+...等共19章節，`plot_errorICD`依照編碼開頭分類，大致分為11組: 0, 1, 2,..., 9, V and E
+
+使用者可選擇顯示前幾名的錯誤編碼，例如使用者設定顯示前10名，將顯示前十名的柏拉圖
+（pareto plot）及前十名錯誤編碼的列表。預設為顯示前10名的錯誤編碼
+
+藉由柏拉圖圖表，使用者可得知錯誤的種類及主要的錯誤編碼供使用者做為參考
+
+
 ```r
 error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 plot_errorICD(error$Error, ICDVersion = all,
                            wrongICDType = all,
                            groupICD = FALSE,
-                           Others = FALSE,
-                           OthersThreshold = 1)
+                           Others = FALSE)
 ```
-![warning message](https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png)
+![pareto plot of error ICD](https://dhlab-cgu.github.io/emr/reference/plot_errorICD-1.png)
 ```r
 #> $ICD
 #>        ICD count IcdVersionInFile     WrongType Suggestion CumCountPerc
@@ -563,6 +583,24 @@ plot_errorICD(error$Error, ICDVersion = all,
 #>  9:  A0105     5            ICD 9 Wrong version                   94.38
 #> 10:    001     5            ICD 9  Wrong format       0019       100.00
 ```
+
+```r
+plot_errorICD(error$Error, ICDVersion = 9,
+                           wrongICDType = all,
+                           groupICD = TRUE,
+                           Others = TRUE,
+                           Ranking = 3)
+```
+![pareto plot of error ICD9 (grouped)]
+```r
+$ICD
+#>    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup IcdVersionInFile Suggestion
+#> 1:        A         13        41.94         A01.05          61.54            ICD 9           
+#> 2:        7          9        70.97          75.52          44.44            ICD 9           
+#> 3:        0          5        87.10            001         100.00            ICD 9       0019
+#> 4:   Others          4       100.00          E03.0         100.00            ICD 9           
+```
+
 ## V. Reference
 
 ### I. Code standarization
