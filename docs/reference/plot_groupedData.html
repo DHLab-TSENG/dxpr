@@ -121,7 +121,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_groupedData</span>(<span class='no'>groupedDataWide</span>, <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_groupedData</span>(<span class='no'>groupedDataWide</span>, <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,12 +132,16 @@
       <td><p>groupedData file from functions of code classification (four strategies)</p></td>
     </tr>
     <tr>
-      <th>Ranking</th>
+      <th>TopN</th>
       <td><p>Default is Top "10"</p></td>
     </tr>
     <tr>
       <th>limitPrevalance</th>
       <td><p>the minimum  of prevalance Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.</p></td>
+    </tr>
+    <tr>
+      <th>pvalue</th>
+      <td><p>p value of chisq.test</p></td>
     </tr>
     </table>
     
@@ -155,8 +160,9 @@
 #&gt; 2  B    FALSE   FALSE  TRUE FALSE     TRUE     TRUE
 #&gt; 3  C     TRUE    TRUE FALSE  TRUE     TRUE     TRUE
 #&gt; 4  D    FALSE   FALSE FALSE FALSE    FALSE    FALSE</div><div class='input'><span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
-                 <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-                 <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_groupedData-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+                 <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+                 <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+                 <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_groupedData-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $sigCate
 #&gt;    category count catePerc
 #&gt; 1: PULMCIRC     3      75%

@@ -5,7 +5,7 @@
 \title{Pareto Plot of error ICD Codes}
 \usage{
 plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
-  groupICD = FALSE, Others = TRUE, Ranking = 10)
+  groupICD = FALSE, Others = TRUE, TopN = 10)
 }
 \arguments{
 \item{errorFile}{error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)}
@@ -18,7 +18,7 @@ plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
 
 \item{Others}{Default is TRUE}
 
-\item{Ranking}{Default is Top "10"}
+\item{TopN}{Default is Top "10"}
 }
 \description{
 Pareto Plot of error ICD Codes
@@ -35,6 +35,6 @@ plot_errorICD(error$Error, ICDVersion = 9,
                            wrongICDType = all,
                            groupICD = TRUE,
                            Others = TRUE,
-                           Ranking = 3)
+                           TopN = 3)
 
 }

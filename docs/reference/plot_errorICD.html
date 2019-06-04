@@ -122,7 +122,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_errorICD</span>(<span class='no'>errorFile</span>, <span class='kw'>ICDVersion</span> <span class='kw'>=</span> <span class='no'>all</span>, <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
-  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,7 +148,7 @@
       <td><p>Default is TRUE</p></td>
     </tr>
     <tr>
-      <th>Ranking</th>
+      <th>TopN</th>
       <td><p>Default is Top "10"</p></td>
     </tr>
     </table>
@@ -183,7 +183,7 @@
                            <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
                            <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                            <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                           <span class='kw'>Ranking</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+                           <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_errorICD-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $ICD
 #&gt;    CumCount Number CumCountPerc MostICDInGroup ICDPercInGroup IcdVersionInFile
 #&gt; 1:       80      1        44.94         Others          25.00            ICD 9

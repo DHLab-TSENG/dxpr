@@ -16,6 +16,7 @@ cat(utils::packageDescription("emr")$Description)
 ```
 ### 安裝套件
 ```r
+install.packages("devtools")
 # Install development version from GitHub
 devtools::install_github("DHLab-CGU/emr")
 library(emr)

@@ -77,7 +77,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>cat(utils::packageDescription(&quot;emr&quot;)$Description)</code></pre>
 <div class="section level3">
 <h3>安裝套件</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install development version from GitHub</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+<span class="co"># Install development version from GitHub</span>
 devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;DHLab-CGU/emr&quot;</span>)
 <span class="kw">library</span>(emr)</code></pre></div>
 </div>
@@ -631,7 +632,7 @@ grepTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span
 <p>另外使用者可選擇將ICD-9依照章節<strong>分組</strong>:</p>
 <p>001-139: 傳染病或寄生蟲相關疾病</p>
 <p>140-239: 腫瘤相關疾病</p>
-<p>…等等共19章節，<code>plot_errorICD</code>依照編碼開頭分類，大致分為11組: 0, 1, 2,…, 9, V and E</p>
+<p>…等共19章節，<code>plot_errorICD</code>依照編碼開頭分類，大致分為11組: 0, 1, 2,…, 9, V and E</p>
 <p>使用者可選擇顯示前幾名的錯誤編碼，例如使用者設定顯示前10名，將顯示前十名的柏拉圖 （pareto plot）及前十名錯誤編碼的列表。預設為顯示前10名的錯誤編碼</p>
 <p>藉由柏拉圖圖表，使用者可得知錯誤的種類及主要的錯誤編碼供使用者做為參考</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error &lt;-<span class="st"> </span><span class="kw">IcdDxDecimalToShort</span>(sampleDxFile, ICD, Date, <span class="st">&quot;2015/10/01&quot;</span>)

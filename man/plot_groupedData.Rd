@@ -4,14 +4,17 @@
 \alias{plot_groupedData}
 \title{Plot of diagnostic category data}
 \usage{
-plot_groupedData(groupedDataWide, Ranking = 10, limitPrevalance = 0.01)
+plot_groupedData(groupedDataWide, TopN = 10, limitPrevalance = 0.01,
+  pvalue = 0.05)
 }
 \arguments{
 \item{groupedDataWide}{groupedData file from functions of code classification (four strategies)}
 
-\item{Ranking}{Default is Top "10"}
+\item{TopN}{Default is Top "10"}
 
 \item{limitPrevalance}{the minimum  of prevalance Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.}
+
+\item{pvalue}{p value of chisq.test}
 }
 \description{
 Plot of diagnostic category data
@@ -23,7 +26,8 @@ groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          groupDataType = elix)
 head(groupedDataWide)
 plot_groupedData(groupedDataWide = groupedDataWide,
-                 Ranking = 10,
-                 limitPrevalance = 0.01)
+                 TopN = 10,
+                 limitPrevalance = 0.01,
+                 pvalue = 0.001)
 
 }

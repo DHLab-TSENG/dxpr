@@ -18,8 +18,11 @@ This tool can be used to group the ICD's multitude of codes into a smaller numbe
 - Get the condition era
 
 ## Install
-```{R}
+```r
+install.packages("devtools")
+# Install development version from GitHub
 devtools::install_github("DHLab-CGU/emr")
+library(emr)
 ```
 ### Generate ICD-CM code Decimal Format for conversion function 
 ICD codes have two forms: decimal`E950.7` and short`E9507` format, first at all, unifing the ICD codes format.

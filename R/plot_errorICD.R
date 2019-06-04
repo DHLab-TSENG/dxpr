@@ -9,7 +9,7 @@
 #' @param wrongICDType Wrong ICD type
 #' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
 #' @param Others Default is TRUE
-#' @param Ranking Default is Top "10"
+#' @param TopN Default is Top "10"
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -23,9 +23,9 @@
 #'                            wrongICDType = all,
 #'                            groupICD = TRUE,
 #'                            Others = TRUE,
-#'                            Ranking = 3)
+#'                            TopN = 3)
 #'
-plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, Ranking = 10){
+plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, TopN = 10){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))
   wrongICDType <- tolower(deparse(substitute(wrongICDType)))
   title <- "Error ICD: Top 10"
@@ -54,7 +54,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
   if(groupICD){
     if(version == "ICD 9"){
       errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = T),][,-"maxICD"]
-      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > Ranking, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),round((count/groupCount)*100,2)),][,-"count"]
+      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > TopN, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),round((count/groupCount)*100,2)),][,-"count"]
 
       if(!Others){
         errorData <- errorData[!ICDGroup == "Others",]
@@ -72,7 +72,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
   }else{
     FileSize <- nrow(errorFile)
     errorData <- errorFile[, c("CumCount", "Number") :=
-                             list(cumsum(count), 1:FileSize),][Number > Ranking, c("CumCount", "count", "ICD") :=
+                             list(cumsum(count), 1:FileSize),][Number > TopN, c("CumCount", "count", "ICD") :=
                                                                  list(max(CumCount), sum(count),"Others"),][!duplicated(ICD),]
     if(!Others){
       errorData <- errorData[!ICD == "Others",]

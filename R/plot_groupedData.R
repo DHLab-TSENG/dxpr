@@ -5,8 +5,9 @@
 #' @import ggplot2
 #' @importFrom stats chisq.test
 #' @param groupedDataWide groupedData file from functions of code classification (four strategies)
-#' @param Ranking Default is Top "10"
+#' @param TopN Default is Top "10"
 #' @param limitPrevalance the minimum  of prevalance Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.
+#' @param pvalue p value of chisq.test
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -15,12 +16,13 @@
 #'                                          groupDataType = elix)
 #' head(groupedDataWide)
 #' plot_groupedData(groupedDataWide = groupedDataWide,
-#'                  Ranking = 10,
-#'                  limitPrevalance = 0.01)
+#'                  TopN = 10,
+#'                  limitPrevalance = 0.01,
+#'                  pvalue = 0.001)
 #'
-plot_groupedData <- function(groupedDataWide, Ranking = 10, limitPrevalance = 0.01){
+plot_groupedData <- function(groupedDataWide, TopN = 10, limitPrevalance = 0.01, pvalue = 0.05){
   pvalue <- c()
-  ggtitle <- "diagnostic category in GroupedData"
+  ggtitle <- "Diagnostic category"
   if(names(groupedDataWide)[ncol(groupedDataWide)] == "selectedCase"){
     groupedDataWide <- cbind(groupedDataWide[, -c(1, ncol(groupedDataWide))]*1,
                              group = groupedDataWide[, "selectedCase"])
@@ -36,13 +38,13 @@ plot_groupedData <- function(groupedDataWide, Ranking = 10, limitPrevalance = 0.
       if(caseDataLong$catePerc[cat] >= limitPrevalance | controlDataLong$catePerc[cat] >= limitPrevalance){
         chisq <- rbind(c(caseDataLong$count[cat], caseNum - caseDataLong$count[cat]),
                        c(controlDataLong$count[cat], controlNum - controlDataLong$count[cat]))
-        pvalue[[length(pvalue)+1]] <- chisq.test(chisq,simulate.p.value = T)$p.value < 0.001
+        pvalue[[length(pvalue)+1]] <- chisq.test(chisq, simulate.p.value = T)$p.value < pvalue
       }else{
         pvalue[[length(pvalue)+1]] <- FALSE
       }
     }
     groupedDataLong <- groupedDataLong[,list(sum = sum(count)),by = category][order(sum,decreasing = T)]
-    groupedDataLong <- groupedDataLong[1:Ranking,][order(sum)][,-"sum"]
+    groupedDataLong <- groupedDataLong[1:TopN,][order(sum)][,-"sum"]
     dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[pvalue,],controlDataLong[pvalue,]),all.x = T)
     dignosticCate <- dignosticCate[,c("group","category","catePerc") :=
                                      list(factor(group, levels = unique(dignosticCate$group)),
@@ -60,18 +62,18 @@ plot_groupedData <- function(groupedDataWide, Ranking = 10, limitPrevalance = 0.
     groupedDataLong <- groupedDataLong[][,c("category","Number","catePerc") :=
                                          list(factor(category, levels = category),
                                               nrow(groupedDataLong):1,
-                                              paste0(catePerc,"%")),][Number <= Ranking,]
+                                              paste0(catePerc,"%")),][Number <= TopN,]
 
     g <- ggplot(groupedDataLong, aes(y = count, x = category)) +
       geom_text(aes(label = catePerc), vjust = -.5, hjust = -0.5, size = 2.5, position = position_dodge(width = 1))  +
-      geom_bar(position="dodge", stat="identity", aes(fill = Number)) +
+      geom_bar(position="dodge", stat="identity") +
       guides(fill = FALSE, color = FALSE)
     dignosticCate <- groupedDataLong[,-"Number"]
   }
-  ggtitle <- paste0(ggtitle,": Top ",Ranking)
+  ggtitle <- paste0(ggtitle,": Top ", TopN)
   dignosticCate_graph <- g +
     coord_flip() +
-    xlab("diagnostic category") + ylab("count of diagnostic category") + ggtitle(ggtitle) +
+    xlab("Diagnostic category") + ylab("Diagnostic category, n") + ggtitle(ggtitle) +
     theme_bw() +
     theme(axis.text.y = element_text(size = 10,face = "bold"),
           axis.text.x = element_text(size = 10,face = "bold"))
@@ -79,22 +81,4 @@ plot_groupedData <- function(groupedDataWide, Ranking = 10, limitPrevalance = 0.
   return(list(graph = dignosticCate_graph,
               sigCate = dignosticCate[order(count,decreasing = T)]))
 }
-
-#### poisson.test ----
-# if(names(groupedDataWide)[length(groupedDataWide)] == "selectedCase"){
-#   groupedDataWide <- cbind(groupedDataWide[,-length(groupedDataWide)]*1,Group = groupedDataWide$selectedCase)
-#   case <- groupedDataWide[!grepl("non|[*]",groupedDataWide$Group),]
-#   control<- groupedDataWide[grepl("non",groupedDataWide$Group),]
-#   caseNum <- nrow(case)
-#   controlNum <-  nrow(control)
-#
-#   for(cat in 2:(length(groupedDataWide)-1)){
-#     if(poisson.test(c(sum(case[, cat]), sum(control[, cat])), c(caseNum, controlNum))$p.value > 0.5){
-#       pvalue[[length(pvalue)+1]] <- chisq.test(groupedDataWide[,-length(case)])
-#     }
-#   }
-#   pvalue[length(pvalue)+1] <- TRUE
-# }else{
-#
-# }
 
