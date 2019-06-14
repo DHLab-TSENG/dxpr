@@ -14,27 +14,29 @@
 #' @examples
 #' head(sampleDxFile)
 #' error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
-#' plot_errorICD(error$Error, ICDVersion = all,
-#'                            wrongICDType = all,
-#'                            groupICD = FALSE,
-#'                            Others = TRUE)
+#' plot_errorICD(errorFile = error$Error,
+#'               ICDVersion = 9,
+#'               wrongICDType = all,
+#'               groupICD = TRUE,
+#'               Others = TRUE,
+#'               TopN = 3)
 #'
-#' plot_errorICD(error$Error, ICDVersion = 9,
-#'                            wrongICDType = all,
-#'                            groupICD = TRUE,
-#'                            Others = TRUE,
-#'                            TopN = 3)
+#' plot_errorICD(errorFile = error$Error,
+#'               ICDVersion = all,
+#'               wrongICDType = all,
+#'               groupICD = FALSE,
+#'               Others = TRUE)
 #'
 plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, TopN = 10){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))
   wrongICDType <- tolower(deparse(substitute(wrongICDType)))
-  title <- "Error ICD: Top 10"
+  title <- paste0("Error ICD: Top ",TopN)
   Xlabel <- "Error ICD"
 
   if(ICDVersion == "9" | ICDVersion == "10"){
     version <- paste0("ICD ", ICDVersion)
     errorICD <- errorFile[IcdVersionInFile == version]
-    title <- paste0("Error ", version, ": Top 10")
+    title <- paste0("Error ", version, ": Top ",TopN)
     Xlabel <- paste0("Error ", version)
   }else if(ICDVersion != "9" && ICDVersion != "10" && ICDVersion != "all"){
     stop("'please enter `9`,`10`, `all` for 'ICDVersion'", call. = FALSE)
@@ -53,19 +55,19 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
 
   if(groupICD){
     if(version == "ICD 9"){
-      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = T),][,-"maxICD"]
-      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > TopN, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),round((count/groupCount)*100,2)),][,-"count"]
+      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = T),]
+      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > TopN, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),paste0(round((count/groupCount)*100,2),"%")),][,-"count"]
 
       if(!Others){
         errorData <- errorData[!ICDGroup == "Others",]
       }
       errorData <- errorData[,c("CumCountPerc","ICDGroup") :=
-                               list(round(CumCount/max(CumCount)*100,2),factor(ICDGroup,levels = unique(ICDGroup))),]
+                               list(paste0(round(CumCount/max(CumCount)*100,2),"%"),factor(ICDGroup,levels = unique(ICDGroup))),]
 
       graph_col <- c("ICDGroup","groupCount")
       setnames(errorData,"ICD","MostICDInGroup")
       Xlabel <- paste0(Xlabel," (grouped)")
-      ICD <- errorData[,c(5,6,10,1,9,2,4)]
+      ICD <- errorData[,c(5,6,11,1,10,2)]
     }else{
       stop("ICD 10 already has unique alphanumeric codes to identify known diseases")
     }
@@ -77,7 +79,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     if(!Others){
       errorData <- errorData[!ICD == "Others",]
     }
-    errorData <- errorData[, c("CumCountPerc","ICD") := list(round(CumCount/max(CumCount)*100,2),factor(ICD,levels = unique(ICD))),]
+    errorData <- errorData[, c("CumCountPerc","ICD") := list(paste0(round(CumCount/max(CumCount)*100,2),"%"),factor(ICD,levels = unique(ICD))),]
 
     ICD <- errorData[,c(1,2,8,3:5)]
     graph_col <- c("ICD","count")

@@ -31,12 +31,17 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
 
   groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)
   groupedICD <- groupedICD[order(Number),-"Number"]
-  groupedICDLong <- groupedICD[!is.na(group),
-                               list(firstCaseDate = min(Date),
-                                    endCaseDate = max(Date),
-                                    count = .N),
-                               by = list(ID, group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
-  return(list(groupedDT = groupedICD,
-              summarised_groupedDT = groupedICDLong))
+  if(sum(!is.na(groupedICD$group)) > 0){
+    groupedICDLong <- groupedICD[!is.na(group),
+                                 list(firstCaseDate = min(Date),
+                                      endCaseDate = max(Date),
+                                      count = .N),
+                                 by = list(ID, group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+    return(list(groupedDT = groupedICD,
+                summarised_groupedDT = groupedICDLong))
+  }else{
+    warning("There is no match diagnostic code with the groupingTable")
+    return(groupedICD)
+  }
 }

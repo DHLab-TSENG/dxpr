@@ -26,15 +26,17 @@ Pareto Plot of error ICD Codes
 \examples{
 head(sampleDxFile)
 error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
-plot_errorICD(error$Error, ICDVersion = all,
-                           wrongICDType = all,
-                           groupICD = FALSE,
-                           Others = TRUE)
+plot_errorICD(errorFile = error$Error,
+              ICDVersion = 9,
+              wrongICDType = all,
+              groupICD = TRUE,
+              Others = TRUE,
+              TopN = 3)
 
-plot_errorICD(error$Error, ICDVersion = 9,
-                           wrongICDType = all,
-                           groupICD = TRUE,
-                           Others = TRUE,
-                           TopN = 3)
+plot_errorICD(errorFile = error$Error,
+              ICDVersion = all,
+              wrongICDType = all,
+              groupICD = FALSE,
+              Others = TRUE)
 
 }

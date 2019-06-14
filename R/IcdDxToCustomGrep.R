@@ -31,12 +31,17 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
   for (rule in 1:nrow(CustomGroupingTable)){
     GrepedIcd$group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd[,ICD]), CustomGroupingTable[rule,group], GrepedIcd[,group])
   }
-  GrepedIcd <- GrepedIcd[order(Number),-"Number"]
-  GrepedIcdLong <- GrepedIcd[nchar(group)>0,
-                             list(firstCaseDate = min(Date),
-                                  endCaseDate = max(Date),
-                                  count = .N),by = list(ID,group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
-  return(list(groupedDT = GrepedIcd,
-              summarised_groupedDT = GrepedIcdLong))
+  if(sum(nchar(GrepedIcd$group) > 0) > 0){
+    GrepedIcdLong <- GrepedIcd[nchar(group)>0,
+                               list(firstCaseDate = min(Date),
+                                    endCaseDate = max(Date),
+                                    count = .N),by = list(ID,group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+
+    return(list(groupedDT = GrepedIcd[order(Number),-"Number"],
+                summarised_groupedDT = GrepedIcdLong))
+  }else{
+    warning("There is no match diagnostic code with the grepTable")
+    return(GrepedIcd[order(Number),-"Number"])
+  }
 }
