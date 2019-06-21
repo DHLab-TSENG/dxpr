@@ -24,12 +24,14 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
 split data based on index date
 }
 \examples{
+sampleDxFile <- sampleDxFile[grepl("A0|B0|C0|D0",ID),]
 head(sampleDxFile)
-indexDateTable <- data.frame(ID = c("A","B","C","D"),
-                             indexDate = c("2006-05-03", "2006-05-03",
-                                           "2008-03-30", "2006-05-03"),
+indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
+                             indexDate = c("2009-07-25", "2015-12-26",
+                                           "2015-12-05", "2017-01-29"),
                              stringsAsFactors = FALSE)
 splitDataByDate(sampleDxFile, ID, ICD, Date,
                 indexDateFile = indexDateTable,
                 windowGap = 30)
+
 }

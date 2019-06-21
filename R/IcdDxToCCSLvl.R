@@ -46,13 +46,20 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
                          DxDataFile[Date >= icd10usingDate], by = names(DxDataFile), all = T)
   }
   IcdToCCSLvl <- IcdToCCSLvl[order(Number),-"Number"]
-  IcdToCCSLvlLong <- IcdToCCSLvl[!is.na(eval(parse(text = paste(CCSLvlCol)))),
-                                 list(firstCaseDate = min(Date),
-                                      endCaseDate = max(Date),
-                                      count = .N),
-                                 by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
-  return(list(groupedDT = IcdToCCSLvl,
-              summarised_groupedDT = IcdToCCSLvlLong,
-              Error = Conversion$Error))
+  if(nrow(IcdToCCSLvl[is.na(eval(parse(text = paste(CCSLvlCol))))]) < nrow(IcdToCCSLvl)){
+    IcdToCCSLvlLong <- IcdToCCSLvl[!is.na(eval(parse(text = paste(CCSLvlCol)))),
+                                   list(firstCaseDate = min(Date),
+                                        endCaseDate = max(Date),
+                                        count = .N),
+                                   by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+
+    return(list(groupedDT = IcdToCCSLvl,
+                summarised_groupedDT = IcdToCCSLvlLong,
+                Error = Conversion$Error))
+  }else{
+    return(list(groupedDT = IcdToCCSLvl,
+                Error = Conversion$Error))
+  }
+
 }

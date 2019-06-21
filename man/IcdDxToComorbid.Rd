@@ -61,7 +61,5 @@ return comorbidity meseaures based on ICD diagnosis codes
 \examples{
 head(sampleDxFile)
 IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 
 }

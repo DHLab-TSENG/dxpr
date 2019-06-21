@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_groupedData</span>(<span class='no'>groupedDataWide</span>, <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+    <pre class="usage"><span class='fu'>plot_groupedData</span>(<span class='no'>groupedDataWide</span>, <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>limitPercentage</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
   <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -129,15 +129,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>groupedDataWide</th>
-      <td><p>groupedData file from functions of code classification (four strategies)</p></td>
+      <td><p>groupedData file from functions of code classification (four stPercentagegies)</p></td>
     </tr>
     <tr>
       <th>TopN</th>
       <td><p>Default is Top "10"</p></td>
     </tr>
     <tr>
-      <th>limitPrevalance</th>
-      <td><p>the minimum  of prevalance Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.</p></td>
+      <th>limitPercentage</th>
+      <td><p>the minimum  of Percentage Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.</p></td>
     </tr>
     <tr>
       <th>pvalue</th>
@@ -147,30 +147,52 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                                          <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015-10-01"</span>,
-                                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>groupedDataWide</span>)</div><div class='output co'>#&gt;   ID HTNWOCHF HYPOTHY  METS NEURO PULMCIRC RENLFAIL
-#&gt; 1  A    FALSE   FALSE FALSE FALSE     TRUE     TRUE
-#&gt; 2  B    FALSE   FALSE  TRUE FALSE     TRUE     TRUE
-#&gt; 3  C     TRUE    TRUE FALSE  TRUE     TRUE     TRUE
-#&gt; 4  D    FALSE   FALSE FALSE FALSE    FALSE    FALSE</div><div class='input'><span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
-                 <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-                 <span class='kw'>limitPrevalance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-                 <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.001</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_groupedData-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+                                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>elix</span>,
+                                         <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
+                          <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+                          <span class='kw'>limitPercentage</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
+
+<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='kw'>DxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
+                                <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
+                                <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
+                                <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+                                <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
+                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
+                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
+                                <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                                         <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015-10-01"</span>,
+                                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>elix</span>,
+                                         <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>,
+                                         <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='no'>plot2</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
+                          <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+                          <span class='kw'>limitPercentage</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+                          <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+<span class='no'>plot1</span></div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_groupedData-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $sigCate
-#&gt;    category count catePerc
-#&gt; 1: PULMCIRC     3      75%
-#&gt; 2: RENLFAIL     3      75%
-#&gt; 3: HTNWOCHF     1      25%
-#&gt; 4:  HYPOTHY     1      25%
-#&gt; 5:     METS     1      25%
-#&gt; 6:    NEURO     1      25%
+#&gt;     category count catePerc
+#&gt;  1: RENLFAIL    24   63.16%
+#&gt;  2:  ANEMDEF     5   13.16%
+#&gt;  3: PULMCIRC     5   13.16%
+#&gt;  4:    LIVER     4   10.53%
+#&gt;  5:    PSYCH     3    7.89%
+#&gt;  6:     DRUG     2    5.26%
+#&gt;  7:     METS     2    5.26%
+#&gt;  8:    NEURO     2    5.26%
+#&gt;  9:     PARA     2    5.26%
+#&gt; 10:    TUMOR     2    5.26%
+#&gt; </div><div class='input'><span class='no'>plot2</span></div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plot_groupedData-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $sigCate
+#&gt;    category       group count catePerc
+#&gt; 1: RENLFAIL    Selected    19    79.17
+#&gt; 2: RENLFAIL nonSelected     5    35.71
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

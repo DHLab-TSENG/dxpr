@@ -33,6 +33,8 @@ return PheWAS or description based on ICD-9-CM codes
 }
 \examples{
 head(sampleDxFile)
-IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+PheWAS <- IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+head(PheWAS$groupedDT)
+head(PheWAS$summarised_groupedDT)
 
 }

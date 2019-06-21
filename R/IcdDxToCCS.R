@@ -40,13 +40,19 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
                     merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
 
   IcdToCCS <- IcdToCCS[order(Number),-"Number"]
-  IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
-                           list(firstCaseDate = min(Date),
-                                endCaseDate = max(Date),
-                                count = .N),
-                           by = c("ID",ccs_col)][,period := (endCaseDate - firstCaseDate),][order(ID)]
 
-  return(list(groupedDT = IcdToCCS,
-              summarised_groupedDT = IcdToCCSLong,
-              Error = Conversion$Error))
+  if(nrow(IcdToCCS[is.na(eval(parse(text = paste(ccs_col))))]) < nrow(IcdToCCS)){
+    IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
+                             list(firstCaseDate = min(Date),
+                                  endCaseDate = max(Date),
+                                  count = .N),
+                             by = c("ID",ccs_col)][,period := (endCaseDate - firstCaseDate),][order(ID)]
+
+    return(list(groupedDT = IcdToCCS,
+                summarised_groupedDT = IcdToCCSLong,
+                Error = Conversion$Error))
+  }else{
+    return(list(groupedDT = IcdToCCS,
+                Error = Conversion$Error))
+  }
 }

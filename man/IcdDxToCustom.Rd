@@ -25,8 +25,8 @@ return first diagnosis record based on factIcd Data
 }
 \examples{
 head(sampleDxFile)
-groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+groupingTable <- data.frame(group = rep("Chronic kidney disease",6),
+                            ICD = c("N181","5853","5854","5855","5856","5859"),
                             stringsAsFactors = FALSE)
 IcdDxToCustom(sampleDxFile, ID, ICD, Date,
               CustomGroupingTable = groupingTable)

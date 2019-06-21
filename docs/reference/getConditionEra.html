@@ -64,7 +64,7 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -182,64 +182,45 @@ Condition Eras are built with a Persistence Window,deafault is 30 days, meaning,
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                                 <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
-                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl3</span>,
-                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Shock"</span>,
-                                <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
-                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl3</span>,
-                <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;     ID                           CCS_LVL_3_LABEL firstCaseDate endCaseDate
-#&gt;  1:  A                          Acute bronchitis    2009-06-09  2009-06-09
-#&gt;  2:  A                      Cardiac dysrhythmias    2007-07-27  2009-03-02
-#&gt;  3:  A                    Chronic kidney disease    2007-05-12  2009-04-26
-#&gt;  4:  A                      Diaphragmatic hernia    2008-05-01  2008-06-27
-#&gt;  5:  A                    Other abdominal hernia    2009-02-23  2009-02-23
-#&gt;  6:  A Residual codes; unclassified; all E codes    2014-10-01  2014-10-01
-#&gt;  7:  A                                     Shock    2006-05-03  2008-05-03
-#&gt;  8:  B                          Acute bronchitis    2008-04-29  2008-04-29
-#&gt;  9:  B                      Cardiac dysrhythmias    2007-07-16  2009-02-25
-#&gt; 10:  B                    Chronic kidney disease    2007-05-28  2009-03-05
-#&gt; 11:  B                    Other abdominal hernia    2007-08-29  2007-08-29
-#&gt; 12:  B                                     Shock    2008-01-19  2008-01-19
-#&gt; 13:  C                      Cardiac dysrhythmias    2007-06-20  2009-02-08
-#&gt; 14:  C                    Chronic kidney disease    2007-04-21  2009-05-26
-#&gt; 15:  C                      Diaphragmatic hernia    2008-04-03  2008-04-03
-#&gt; 16:  C                     Heart valve disorders    2007-12-12  2007-12-12
-#&gt; 17:  C                                     Shock    2008-03-30  2008-09-06
-#&gt;     count era   period selectedCase
-#&gt;  1:     1   1   0 days    Selected*
-#&gt;  2:     6   4 584 days    Selected*
-#&gt;  3:    29   8 715 days    Selected*
-#&gt;  4:     2   2  57 days    Selected*
-#&gt;  5:     1   1   0 days    Selected*
-#&gt;  6:     1   1   0 days    Selected*
-#&gt;  7:     2   2 731 days    Selected*
-#&gt;  8:     1   1   0 days    Selected*
-#&gt;  9:     7   5 590 days    Selected*
-#&gt; 10:    27   9 647 days    Selected*
-#&gt; 11:     1   1   0 days    Selected*
-#&gt; 12:     1   1   0 days    Selected*
-#&gt; 13:    11   6 599 days     Selected
-#&gt; 14:    28  11 766 days     Selected
-#&gt; 15:     1   1   0 days     Selected
-#&gt; 16:     1   1   0 days     Selected
-#&gt; 17:     2   2 160 days     Selected</div><div class='input'>
-<span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Cardiac dysrhythmias"</span>,
-                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^427|^I48"</span>,
+                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
+                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
+                                <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='no'>Era1</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                        <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl3</span>,
+                        <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
+<span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Chronic kidney disease"</span>,
+                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^58|^N18"</span>,
                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
-                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
-                <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt;    ID                group firstCaseDate endCaseDate count era    period
-#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    11  10 5253 days
-#&gt; 2:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    11  10 4836 days
-#&gt; 3:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    18  14 5202 days
-#&gt; 4:  D Cardiac dysrhythmias    2016-10-02  2016-10-02     2   1    0 days</div><div class='input'>
+<span class='no'>Era2</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                        <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
+                        <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)
+<span class='fu'>head</span>(<span class='no'>Era1</span>)</div><div class='output co'>#&gt;     ID        CCS_LVL_3_LABEL firstCaseDate endCaseDate count era    period
+#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     5   5 1609 days
+#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     5   5 2856 days
+#&gt; 3: A10 Chronic kidney disease    2007-11-04  2012-07-30     5   4 1730 days
+#&gt; 4: A11 Chronic kidney disease    2008-03-09  2011-09-03     5   4 1273 days
+#&gt; 5: A12 Chronic kidney disease    2006-05-14  2015-06-29     5   5 3333 days
+#&gt; 6: A13 Chronic kidney disease    2006-04-29  2010-09-29     3   3 1614 days
+#&gt;    selectedCase
+#&gt; 1:     Selected
+#&gt; 2:     Selected
+#&gt; 3:     Selected
+#&gt; 4:     Selected
+#&gt; 5:     Selected
+#&gt; 6:     Selected</div><div class='input'><span class='fu'>head</span>(<span class='no'>Era2</span>)</div><div class='output co'>#&gt;     ID                  group firstCaseDate endCaseDate count era    period
+#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3   3 1609 days
+#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4   4 2856 days
+#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1   1    0 days
+#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2   2  714 days
+#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3   3 1748 days
+#&gt; 6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2   2 1394 days</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

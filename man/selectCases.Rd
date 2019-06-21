@@ -46,7 +46,7 @@ selectCases(DxDataFile = sampleDxFile,
             ID, ICD, Date,
             groupDataType = ccslvl2,
             icd10usingDate = "2015/10/01",
-            caseCondition = "Diseases of the heart",
-            caseCount = 2)
+            caseCondition = "Diseases of the urinary system",
+            caseCount = 1)
 
 }

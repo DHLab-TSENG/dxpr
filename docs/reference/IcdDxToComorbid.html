@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -178,123 +178,80 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;      Short ID    ICD       Date Comorbidity
-#&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3: 55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
-#&gt;  ---                                       
-#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
-#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
-#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
-#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
-#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt;       Short  ID    ICD       Date Comorbidity
+#&gt;   1:   Z992  A2   Z992 2020-05-22          RD
+#&gt;   2:   Z992  A5   Z992 2020-01-24          RD
+#&gt;   3:   Z992  A8   Z992 2015-10-27          RD
+#&gt;   4:   Z992 A13   Z992 2020-04-26          RD
+#&gt;   5:   Z992 A13   Z992 2025-02-02          RD
+#&gt;  ---                                         
+#&gt; 296:    650  C2    650 2017-10-10        &lt;NA&gt;
+#&gt; 297:    650  D4    650 2022-04-04        &lt;NA&gt;
+#&gt; 298: 123.45  C3 123.45 2022-09-28        &lt;NA&gt;
+#&gt; 299: 123.45  D8 123.45 2018-06-17        &lt;NA&gt;
+#&gt; 300: 123.45  C0 123.45 2017-05-09        &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 1:  A          RD    2007-05-12  2022-02-08    33 5386 days
-#&gt; 2:  A      DIAB_C    2015-10-02  2016-10-02     2  366 days
-#&gt; 3:  B          RD    2007-05-28  2022-03-18    34 5408 days
-#&gt; 4:  B      DIAB_C    2015-10-02  2016-10-02     2  366 days
-#&gt; 5:  C          RD    2007-04-21  2021-09-17    33 5263 days
-#&gt; 6:  C      MILDLD    2021-01-09  2021-01-09     1    0 days
-#&gt; 7:  C      DIAB_C    2015-10-02  2016-10-02     2  366 days
-#&gt; 8:  D      DIAB_C    2015-10-02  2015-10-02     2    0 days
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;      Short ID    ICD       Date Comorbidity
-#&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3: 55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
-#&gt;  ---                                       
-#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
-#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
-#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
-#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
-#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  A    RENLFAIL    2007-05-12  2009-04-26    28  715 days
-#&gt;  2:  A    PULMCIRC    2018-03-14  2019-08-15     3  519 days
-#&gt;  3:  B    RENLFAIL    2007-05-28  2022-03-03    29 5393 days
-#&gt;  4:  B    PULMCIRC    2019-03-11  2022-03-18     4 1103 days
-#&gt;  5:  B        METS    2021-06-24  2021-06-24     1    0 days
-#&gt;  6:  C    RENLFAIL    2007-04-21  2021-09-17    29 5263 days
-#&gt;  7:  C    PULMCIRC    2019-12-28  2020-05-10     2  134 days
-#&gt;  8:  C     HYPOTHY    2021-01-09  2021-01-09     1    0 days
-#&gt;  9:  C       NEURO    2019-10-16  2019-10-16     1    0 days
-#&gt; 10:  C    HTNWOCHF    2015-10-01  2015-10-01     1    0 days
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>ahrq</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;      Short ID    ICD       Date Comorbidity
-#&gt;   1:  5533  C  553.3 2008-04-03        &lt;NA&gt;
-#&gt;   2:  5533  A  553.3 2008-05-01        &lt;NA&gt;
-#&gt;   3: 55320  A 553.20 2009-02-23        &lt;NA&gt;
-#&gt;   4: 55320  B 553.20 2007-08-29        &lt;NA&gt;
-#&gt;   5:  5533  A  553.3 2008-06-27        &lt;NA&gt;
-#&gt;  ---                                       
-#&gt; 271:   650  D    650 2018-10-02        &lt;NA&gt;
-#&gt; 272:   650  A    650 2018-10-02        &lt;NA&gt;
-#&gt; 273:   650  B    650 2018-10-02        &lt;NA&gt;
-#&gt; 274:   F42  C    F42 2018-10-02        &lt;NA&gt;
-#&gt; 275: Z9.90  D  Z9.90 2018-10-02        &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;    ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 1:  A       Renal    2007-05-12  2019-08-15    31 4478 days
-#&gt; 2:  B       Renal    2007-05-28  2022-03-18    33 5408 days
-#&gt; 3:  B  NeuroOther    2021-06-24  2021-06-24     1    0 days
-#&gt; 4:  C       Renal    2007-04-21  2021-09-17    31 5263 days
-#&gt; 5:  C       Liver    2021-01-09  2021-01-09     1    0 days
-#&gt; 6:  C     Obesity    2019-10-16  2019-10-16     1    0 days
-#&gt; 7:  C Hypothyroid    2015-10-01  2015-10-01     1    0 days
+#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt;  1:  A0          RD    2009-07-25  2013-12-20     5 1609 days
+#&gt;  2:  A1          RD    2006-11-29  2014-09-24     5 2856 days
+#&gt;  3: A10          RD    2007-11-04  2012-07-30     5 1730 days
+#&gt;  4: A11          RD    2008-03-09  2011-09-03     5 1273 days
+#&gt;  5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days
+#&gt;  6: A12          RD    2006-05-14  2015-06-29     5 3333 days
+#&gt;  7: A13          RD    2006-04-29  2025-02-02     5 6854 days
+#&gt;  8: A14          RD    2006-11-28  2014-12-21     5 2945 days
+#&gt;  9: A15          RD    2007-05-25  2023-05-12     5 5831 days
+#&gt; 10: A16          RD    2007-04-15  2014-12-05     5 2791 days
+#&gt; 11: A17          RD    2007-02-19  2014-07-03     5 2691 days
+#&gt; 12: A18          RD    2007-04-05  2014-03-04     5 2525 days
+#&gt; 13:  A2          RD    2011-09-20  2020-05-22     5 3167 days
+#&gt; 14:  A3          RD    2008-07-08  2014-02-24     5 2057 days
+#&gt; 15:  A4          RD    2006-10-20  2015-03-09     5 3062 days
+#&gt; 16:  A5          RD    2009-09-10  2020-01-24     5 3788 days
+#&gt; 17:  A6          RD    2007-10-01  2015-07-12     5 2841 days
+#&gt; 18:  A7          RD    2007-02-01  2014-08-14     5 2751 days
+#&gt; 19:  A8          RD    2007-11-22  2015-10-27     5 2896 days
+#&gt; 20:  A9          RD    2007-03-05  2013-11-09     5 2441 days
+#&gt; 21:  B0          RD    2015-12-26  2024-02-12     6 2970 days
+#&gt; 22:  B1          RD    2016-08-08  2024-03-04     6 2765 days
+#&gt; 23:  B2          RD    2016-03-20  2024-09-20     6 3106 days
+#&gt; 24:  B3          RD    2019-05-07  2025-05-25     6 2210 days
+#&gt; 25:  B4          RD    2015-12-02  2025-07-21     6 3519 days
+#&gt; 26:  C0      CANCER    2015-12-05  2025-02-21     5 3366 days
+#&gt; 27:  C1      CANCER    2018-02-13  2025-02-20     5 2564 days
+#&gt; 28:  C2      CANCER    2016-09-09  2024-12-12     5 3016 days
+#&gt; 29:  C2      DIAB_C    2017-07-08  2017-07-08     1    0 days
+#&gt; 30:  C3      CANCER    2015-12-06  2021-10-22     4 2147 days
+#&gt; 31:  C4      CANCER    2017-08-29  2025-09-05     5 2929 days
+#&gt; 32:  C4      DIAB_C    2015-11-23  2015-11-23     1    0 days
+#&gt; 33:  D0         PUD    2017-12-24  2017-12-24     1    0 days
+#&gt; 34:  D0      DIAB_C    2017-01-29  2020-04-04     3 1161 days
+#&gt; 35:  D1       Rheum    2016-12-06  2016-12-06     1    0 days
+#&gt; 36:  D1        MSLD    2024-04-04  2024-04-04     1    0 days
+#&gt; 37:  D2      CANCER    2019-10-13  2019-10-13     1    0 days
+#&gt; 38:  D3         PVD    2017-11-19  2017-11-19     1    0 days
+#&gt; 39:  D4      CANCER    2020-03-10  2020-03-10     1    0 days
+#&gt; 40:  D4      DIAB_C    2019-01-03  2019-01-03     1    0 days
+#&gt; 41:  D4        CEVD    2020-10-06  2020-10-06     1    0 days
+#&gt; 42:  D5      CANCER    2021-02-13  2021-02-13     1    0 days
+#&gt; 43:  D5       Rheum    2022-10-10  2022-10-10     1    0 days
+#&gt; 44:  D5        COPD    2014-11-15  2014-11-15     1    0 days
+#&gt; 45:  D5      DIAB_C    2023-07-23  2023-07-23     1    0 days
+#&gt; 46:  D7       Rheum    2021-12-03  2021-12-03     1    0 days
+#&gt; 47:  D7      CANCER    2012-07-04  2012-07-04     1    0 days
+#&gt; 48:  D7      DIAB_C    2021-08-21  2021-08-21     1    0 days
+#&gt; 49:  D8         PVD    2021-03-18  2021-03-18     1    0 days
+#&gt; 50:  D8      CANCER    2025-09-10  2025-09-10     1    0 days
+#&gt; 51:  D8        PARA    2010-09-27  2010-09-27     1    0 days
+#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
 #&gt; 
 #&gt; $Error
 #&gt;        ICD count IcdVersionInFile     WrongType Suggestion

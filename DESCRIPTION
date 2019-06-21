@@ -1,13 +1,11 @@
 Package: emr
 Type: Package
-Title: Tool of Electric Medical Record for grouping with ICD-9 and ICD-10 codes by ccs, comorbidities and phecodes, and calculating condition era
-Version: 0.1.0
+Title: Tool of Electric Medical Record for code standarization, data integration, EDA preparation and visualizatoin
+Version: 0.2.0
 Date: 2018-07-31
 Authors@R: c(person("Yi-Ju", "Tseng", email = "yjtseng@mail.cgu.edu.tw", role = c("aut")),person("Hsiang-Ju", "Chiu", email = "aibabi3@gmail.com", role = c("aut", "cre")))
 Description: A health data analysis tool of electric medical record in R.
-    For medical, health, clinical data analysis from DHLab at CGU.Grouping ICD-9 and ICD-10 codes to Clinical Classifications Software (CCS),
-    Comorbidities and phecode.ICD-9 and ICD-10 comorbidity mappings from AHRQ, Charlson and Elixhauser included. 
-    Calculating condition era for combining individual condition occurrences into a single condition era based on ICD code.
+    For medical, health, clinical data analysis from DHLab at CGU. Code standarization, data integration, EDA preparation and visualizatoin.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

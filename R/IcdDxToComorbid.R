@@ -32,8 +32,6 @@
 #' @examples
 #' head(sampleDxFile)
 #' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
-#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", elix)
-#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", ahrq)
 #'
 IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod){
   DxDataFile <- as.data.table(DxDataFile)
@@ -60,15 +58,18 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
 
   IcdToComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate],comorbidMap9[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T),
                          merge(DxDataFile[Date >=icd10usingDate],comorbidMap10[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T))
-
   IcdToComorbid <- IcdToComorbid[order(Number),-"Number"]
-  IcdToComorbidLong <- IcdToComorbid[!is.na(Comorbidity),
-                                     list(firstCaseDate = min(Date),
-                                          endCaseDate = max(Date),
-                                          count = .N),
-                                     by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),][order(ID),]
-
-  return(list(groupedDT = IcdToComorbid,
-              summarised_groupedDT = IcdToComorbidLong,
-              Error = Conversion$Error))
+  if(sum(is.na(IcdToComorbid$Comorbidity)) < nrow(IcdToComorbid)){
+    IcdToComorbidLong <- IcdToComorbid[!is.na(Comorbidity),
+                                       list(firstCaseDate = min(Date),
+                                            endCaseDate = max(Date),
+                                            count = .N),
+                                       by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+    return(list(groupedDT = IcdToComorbid,
+                summarised_groupedDT = IcdToComorbidLong,
+                Error = Conversion$Error))
+  }else{
+    return(list(groupedDT = IcdToComorbid,
+                Error = Conversion$Error))
+  }
 }

@@ -14,8 +14,8 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-#'                             ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
+#' groupingTable <- data.frame(group = rep("Chronic kidney disease",6),
+#'                             ICD = c("N181","5853","5854","5855","5856","5859"),
 #'                             stringsAsFactors = FALSE)
 #' IcdDxToCustom(sampleDxFile, ID, ICD, Date,
 #'               CustomGroupingTable = groupingTable)
@@ -29,8 +29,7 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
   customICD[,c("Date", "Number") := list(as.Date(Date), 1:nrow(customICD))]
 
 
-  groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)
-  groupedICD <- groupedICD[order(Number),-"Number"]
+  groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)[order(Number),-"Number"]
 
   if(sum(!is.na(groupedICD$group)) > 0){
     groupedICDLong <- groupedICD[!is.na(group),
@@ -42,6 +41,6 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
                 summarised_groupedDT = groupedICDLong))
   }else{
     warning("There is no match diagnostic code with the groupingTable")
-    return(groupedICD)
+    return(groupedDT = groupedICD)
   }
 }

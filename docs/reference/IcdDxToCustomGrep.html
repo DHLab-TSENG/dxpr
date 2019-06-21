@@ -63,7 +63,7 @@ return first diagnosis record based on factIcd Data" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -155,36 +155,55 @@ return first diagnosis record based on factIcd Data</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Cardiac dysrhythmias"</span>,
-                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^427|^I48"</span>,
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Chronic kidney disease"</span>,
+                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^585|^N18"</span>,
                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>IcdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+<span class='fu'>IcdDxToCustomGrep</span>(<span class='kw'>DxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
+                  <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                   <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; $groupedDT
-#&gt;      ID    ICD       Date group
-#&gt;   1:  C  553.3 2008-04-03      
-#&gt;   2:  A  553.3 2008-05-01      
-#&gt;   3:  A 553.20 2009-02-23      
-#&gt;   4:  B 553.20 2007-08-29      
-#&gt;   5:  A  553.3 2008-06-27      
-#&gt;  ---                           
-#&gt; 271:  D    650 2018-10-02      
-#&gt; 272:  A    650 2018-10-02      
-#&gt; 273:  B    650 2018-10-02      
-#&gt; 274:  C    F42 2018-10-02      
-#&gt; 275:  D  Z9.90 2018-10-02      
+#&gt;       ID    ICD       Date group
+#&gt;   1:  A2   Z992 2020-05-22  &lt;NA&gt;
+#&gt;   2:  A5   Z992 2020-01-24  &lt;NA&gt;
+#&gt;   3:  A8   Z992 2015-10-27  &lt;NA&gt;
+#&gt;   4: A13   Z992 2020-04-26  &lt;NA&gt;
+#&gt;   5: A13   Z992 2025-02-02  &lt;NA&gt;
+#&gt;  ---                            
+#&gt; 296:  C2    650 2017-10-10  &lt;NA&gt;
+#&gt; 297:  D4    650 2022-04-04  &lt;NA&gt;
+#&gt; 298:  C3 123.45 2022-09-28  &lt;NA&gt;
+#&gt; 299:  D8 123.45 2018-06-17  &lt;NA&gt;
+#&gt; 300:  C0 123.45 2017-05-09  &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;    ID                group firstCaseDate endCaseDate count    period
-#&gt; 1:  A Cardiac dysrhythmias    2007-07-27  2021-12-13    11 5253 days
-#&gt; 2:  B Cardiac dysrhythmias    2007-07-16  2020-10-11    11 4836 days
-#&gt; 3:  C Cardiac dysrhythmias    2007-06-20  2021-09-16    18 5202 days
-#&gt; 4:  D Cardiac dysrhythmias    2016-10-02  2016-10-02     2    0 days
+#&gt;      ID                  group firstCaseDate endCaseDate count    period
+#&gt;  1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
+#&gt;  2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
+#&gt;  3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days
+#&gt;  4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days
+#&gt;  5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days
+#&gt;  6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2 1394 days
+#&gt;  7: A14 Chronic kidney disease    2011-11-07  2013-07-26     2  627 days
+#&gt;  8: A17 Chronic kidney disease    2007-02-19  2013-09-30     2 2415 days
+#&gt;  9: A18 Chronic kidney disease    2007-04-05  2012-02-10     2 1772 days
+#&gt; 10:  A2 Chronic kidney disease    2011-09-20  2015-01-06     3 1204 days
+#&gt; 11:  A3 Chronic kidney disease    2010-11-12  2014-02-24     2 1200 days
+#&gt; 12:  A4 Chronic kidney disease    2015-03-09  2015-03-09     1    0 days
+#&gt; 13:  A5 Chronic kidney disease    2010-08-24  2010-08-24     1    0 days
+#&gt; 14:  A6 Chronic kidney disease    2007-10-01  2007-10-01     1    0 days
+#&gt; 15:  A7 Chronic kidney disease    2007-02-01  2013-12-16     2 2510 days
+#&gt; 16:  A8 Chronic kidney disease    2014-08-20  2014-08-20     1    0 days
+#&gt; 17:  B0 Chronic kidney disease    2015-12-26  2023-08-28     4 2802 days
+#&gt; 18:  B1 Chronic kidney disease    2016-08-08  2024-03-04     5 2765 days
+#&gt; 19:  B2 Chronic kidney disease    2016-03-20  2024-09-20     5 3106 days
+#&gt; 20:  B3 Chronic kidney disease    2019-05-07  2025-05-25     6 2210 days
+#&gt; 21:  B4 Chronic kidney disease    2015-12-02  2025-07-21     6 3519 days
+#&gt;      ID                  group firstCaseDate endCaseDate count    period
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

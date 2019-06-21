@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -167,80 +167,224 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;      Short ID    ICD       Date CCS_CATEGORY_DESCRIPTION
-#&gt;   1:  5533  C  553.3 2008-04-03         Abdominal hernia
-#&gt;   2:  5533  A  553.3 2008-05-01         Abdominal hernia
-#&gt;   3: 55320  A 553.20 2009-02-23         Abdominal hernia
-#&gt;   4: 55320  B 553.20 2007-08-29         Abdominal hernia
-#&gt;   5:  5533  A  553.3 2008-06-27         Abdominal hernia
-#&gt;  ---                                                    
-#&gt; 271:   650  D    650 2018-10-02                     &lt;NA&gt;
-#&gt; 272:   650  A    650 2018-10-02                     &lt;NA&gt;
-#&gt; 273:   650  B    650 2018-10-02                     &lt;NA&gt;
-#&gt; 274:   F42  C    F42 2018-10-02        Anxiety disorders
-#&gt; 275: Z9.90  D  Z9.90 2018-10-02                     &lt;NA&gt;
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='fu'>IcdDxToCCS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt;       Short  ID    ICD       Date CCS_CATEGORY_DESCRIPTION
+#&gt;   1:   Z992  A2   Z992 2020-05-22   Chronic kidney disease
+#&gt;   2:   Z992  A5   Z992 2020-01-24   Chronic kidney disease
+#&gt;   3:   Z992  A8   Z992 2015-10-27   Chronic kidney disease
+#&gt;   4:   Z992 A13   Z992 2020-04-26   Chronic kidney disease
+#&gt;   5:   Z992 A13   Z992 2025-02-02   Chronic kidney disease
+#&gt;  ---                                                      
+#&gt; 296:    650  C2    650 2017-10-10                     &lt;NA&gt;
+#&gt; 297:    650  D4    650 2022-04-04                     &lt;NA&gt;
+#&gt; 298: 123.45  C3 123.45 2022-09-28                     &lt;NA&gt;
+#&gt; 299: 123.45  D8 123.45 2018-06-17                     &lt;NA&gt;
+#&gt; 300: 123.45  C0 123.45 2017-05-09                     &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
-#&gt;  1:  A                                            Abdominal hernia
-#&gt;  2:  A                                            Acute bronchitis
-#&gt;  3:  A                                        Cardiac dysrhythmias
-#&gt;  4:  A                                      Chronic kidney disease
-#&gt;  5:  A                                                       Shock
-#&gt;  6:  A                                Residual codes; unclassified
-#&gt;  7:  A                          External cause codes:  Unspecified
-#&gt;  8:  A                                           Anxiety disorders
-#&gt;  9:  B                                            Abdominal hernia
-#&gt; 10:  B                                            Acute bronchitis
-#&gt; 11:  B                                        Cardiac dysrhythmias
-#&gt; 12:  B                                      Chronic kidney disease
-#&gt; 13:  B                                                       Shock
-#&gt; 14:  B Other hereditary and degenerative nervous system conditions
-#&gt; 15:  B                                           Anxiety disorders
-#&gt; 16:  C                                            Abdominal hernia
-#&gt; 17:  C                                        Cardiac dysrhythmias
-#&gt; 18:  C                                      Chronic kidney disease
-#&gt; 19:  C                                                       Shock
-#&gt; 20:  C                                       Heart valve disorders
-#&gt; 21:  C                                        Other liver diseases
-#&gt; 22:  C       Other nutritional; endocrine; and metabolic disorders
-#&gt; 23:  C                                           Thyroid disorders
-#&gt; 24:  C                                           Anxiety disorders
-#&gt; 25:  D                                           Anxiety disorders
-#&gt;     ID                                    CCS_CATEGORY_DESCRIPTION
+#&gt;      ID                                           CCS_CATEGORY_DESCRIPTION
+#&gt;  1:  A0                                             Chronic kidney disease
+#&gt;  2:  A1                                             Chronic kidney disease
+#&gt;  3: A10                                             Chronic kidney disease
+#&gt;  4: A11                                             Chronic kidney disease
+#&gt;  5: A12                                             Chronic kidney disease
+#&gt;  6: A13                                             Chronic kidney disease
+#&gt;  7: A14                                             Chronic kidney disease
+#&gt;  8: A15                                             Chronic kidney disease
+#&gt;  9: A15                                Acute and unspecified renal failure
+#&gt; 10: A16                                             Chronic kidney disease
+#&gt; 11: A16                                Acute and unspecified renal failure
+#&gt; 12: A17                                             Chronic kidney disease
+#&gt; 13: A18                                Acute and unspecified renal failure
+#&gt; 14: A18                                             Chronic kidney disease
+#&gt; 15:  A2                                             Chronic kidney disease
+#&gt; 16:  A3                                             Chronic kidney disease
+#&gt; 17:  A4                                             Chronic kidney disease
+#&gt; 18:  A5                                             Chronic kidney disease
+#&gt; 19:  A6                                             Chronic kidney disease
+#&gt; 20:  A7                                             Chronic kidney disease
+#&gt; 21:  A7                                Acute and unspecified renal failure
+#&gt; 22:  A8                                             Chronic kidney disease
+#&gt; 23:  A9                                             Chronic kidney disease
+#&gt; 24:  A9                                Acute and unspecified renal failure
+#&gt; 25:  B0                                             Chronic kidney disease
+#&gt; 26:  B0                                Acute and unspecified renal failure
+#&gt; 27:  B1                                Acute and unspecified renal failure
+#&gt; 28:  B1                                             Chronic kidney disease
+#&gt; 29:  B2                                             Chronic kidney disease
+#&gt; 30:  B2                                Acute and unspecified renal failure
+#&gt; 31:  B3                                             Chronic kidney disease
+#&gt; 32:  B4                                             Chronic kidney disease
+#&gt; 33:  C0                                                  Melanomas of skin
+#&gt; 34:  C0                                                  Cancer of bladder
+#&gt; 35:  C0                                 Cancer of brain and nervous system
+#&gt; 36:  C0                                            Cancer of head and neck
+#&gt; 37:  C1                                 Cancer of brain and nervous system
+#&gt; 38:  C1                                            Cancer of head and neck
+#&gt; 39:  C1                                                   Cancer of breast
+#&gt; 40:  C1                                           Cancer of bronchus; lung
+#&gt; 41:  C1                                Other non-epithelial cancer of skin
+#&gt; 42:  C2                              Cancer; other and unspecified primary
+#&gt; 43:  C2                                           Cancer of bronchus; lung
+#&gt; 44:  C2                   Malignant neoplasm without specification of site
+#&gt; 45:  C2                                            Cancer of head and neck
+#&gt; 46:  C2                                                  Anxiety disorders
+#&gt; 47:  C3                                                  Melanomas of skin
+#&gt; 48:  C3                                                    Cancer of colon
+#&gt; 49:  C3                                     Cancer of other urinary organs
+#&gt; 50:  C3                                Other non-epithelial cancer of skin
+#&gt; 51:  C3                                                   Cancer of breast
+#&gt; 52:  C3                                          Cancer of rectum and anus
+#&gt; 53:  C4                                                   Cancer of cervix
+#&gt; 54:  C4                                                  Cancer of bladder
+#&gt; 55:  C4                                                   Cancer of testis
+#&gt; 56:  C4                                Other non-epithelial cancer of skin
+#&gt; 57:  C4                                                   Cancer of breast
+#&gt; 58:  C4                                            Cancer of head and neck
+#&gt; 59:  C4                                                  Anxiety disorders
+#&gt; 60:  D0                           Rheumatoid arthritis and related disease
+#&gt; 61:  D0                                        Gastrointestinal hemorrhage
+#&gt; 62:  D0                                                     Mood disorders
+#&gt; 63:  D0    Spondylosis; intervertebral disc disorders; other back problems
+#&gt; 64:  D0                                                  Anxiety disorders
+#&gt; 65:  D1                           Rheumatoid arthritis and related disease
+#&gt; 66:  D1                                               Other liver diseases
+#&gt; 67:  D1         Hypertension with complications and secondary hypertension
+#&gt; 68:  D1                                           Nutritional deficiencies
+#&gt; 69:  D2                                   Other complications of pregnancy
+#&gt; 70:  D2                                        Substance-related disorders
+#&gt; 71:  D2                                             Non-Hodgkin`s lymphoma
+#&gt; 72:  D2                                              Heart valve disorders
+#&gt; 73:  D3                                              Epilepsy; convulsions
+#&gt; 74:  D3                           Complication of device; implant or graft
+#&gt; 75:  D3              Other nutritional; endocrine; and metabolic disorders
+#&gt; 76:  D3                        Schizophrenia and other psychotic disorders
+#&gt; 77:  D3                                                  Anxiety disorders
+#&gt; 78:  D4                                             Non-Hodgkin`s lymphoma
+#&gt; 79:  D4                               Diabetes mellitus with complications
+#&gt; 80:  D4 Hypertension complicating pregnancy; childbirth and the puerperium
+#&gt; 81:  D4                            Late effects of cerebrovascular disease
+#&gt; 82:  D5                                             Non-Hodgkin`s lymphoma
+#&gt; 83:  D5                           Rheumatoid arthritis and related disease
+#&gt; 84:  D5                                                             Asthma
+#&gt; 85:  D5                                              Heart valve disorders
+#&gt; 86:  D6                               Diabetes mellitus with complications
+#&gt; 87:  D6                           Rheumatoid arthritis and related disease
+#&gt; 88:  D6                                        Substance-related disorders
+#&gt; 89:  D6        Other hereditary and degenerative nervous system conditions
+#&gt; 90:  D7                           Rheumatoid arthritis and related disease
+#&gt; 91:  D7                                                Cancer of esophagus
+#&gt; 92:  D7                                                     Mood disorders
+#&gt; 93:  D7                                        Substance-related disorders
+#&gt; 94:  D8                           Complication of device; implant or graft
+#&gt; 95:  D8                                             Non-Hodgkin`s lymphoma
+#&gt; 96:  D8                                                          Paralysis
+#&gt; 97:  D8                        Schizophrenia and other psychotic disorders
+#&gt;      ID                                           CCS_CATEGORY_DESCRIPTION
 #&gt;     firstCaseDate endCaseDate count    period
-#&gt;  1:    2008-05-01  2018-12-28     4 3893 days
-#&gt;  2:    2009-06-09  2009-06-09     1    0 days
-#&gt;  3:    2007-07-27  2022-02-20    12 5322 days
-#&gt;  4:    2007-05-12  2022-02-08    33 5386 days
-#&gt;  5:    2006-05-03  2008-05-03     2  731 days
-#&gt;  6:    2020-04-29  2020-04-29     1    0 days
-#&gt;  7:    2014-10-01  2014-10-01     1    0 days
-#&gt;  8:    2018-10-02  2018-10-02     1    0 days
-#&gt;  9:    2007-08-29  2019-11-10     2 4456 days
-#&gt; 10:    2008-04-29  2008-04-29     1    0 days
-#&gt; 11:    2007-07-16  2020-10-11    13 4836 days
-#&gt; 12:    2007-05-28  2022-03-18    34 5408 days
-#&gt; 13:    2008-01-19  2008-01-19     1    0 days
-#&gt; 14:    2021-06-24  2021-06-24     1    0 days
-#&gt; 15:    2018-10-02  2018-10-02     2    0 days
-#&gt; 16:    2008-04-03  2018-12-28     2 3921 days
-#&gt; 17:    2007-06-20  2021-09-16    19 5202 days
-#&gt; 18:    2007-04-21  2021-09-17    33 5263 days
-#&gt; 19:    2008-03-30  2008-09-06     2  160 days
-#&gt; 20:    2007-12-12  2007-12-12     1    0 days
-#&gt; 21:    2021-01-09  2021-01-09     1    0 days
-#&gt; 22:    2019-10-16  2019-10-16     1    0 days
-#&gt; 23:    2015-10-01  2015-10-01     1    0 days
-#&gt; 24:    2018-10-02  2018-10-02     2    0 days
-#&gt; 25:    2018-10-02  2018-10-02     1    0 days
+#&gt;  1:    2009-07-25  2013-12-20     5 1609 days
+#&gt;  2:    2006-11-29  2014-09-24     5 2856 days
+#&gt;  3:    2007-11-04  2012-07-30     5 1730 days
+#&gt;  4:    2008-03-09  2011-09-03     5 1273 days
+#&gt;  5:    2006-05-14  2015-06-29     5 3333 days
+#&gt;  6:    2006-04-29  2025-02-02     5 6854 days
+#&gt;  7:    2006-11-28  2014-12-21     5 2945 days
+#&gt;  8:    2007-05-25  2023-05-12     4 5831 days
+#&gt;  9:    2008-06-28  2008-06-28     1    0 days
+#&gt; 10:    2007-04-15  2013-08-18     4 2317 days
+#&gt; 11:    2014-12-05  2014-12-05     1    0 days
+#&gt; 12:    2007-02-19  2014-07-03     5 2691 days
+#&gt; 13:    2012-06-08  2012-06-08     1    0 days
+#&gt; 14:    2007-04-05  2014-03-04     4 2525 days
+#&gt; 15:    2011-09-20  2020-05-22     5 3167 days
+#&gt; 16:    2008-07-08  2014-02-24     5 2057 days
+#&gt; 17:    2006-10-20  2015-03-09     5 3062 days
+#&gt; 18:    2009-09-10  2020-01-24     5 3788 days
+#&gt; 19:    2007-10-01  2015-07-12     5 2841 days
+#&gt; 20:    2007-02-01  2014-08-14     4 2751 days
+#&gt; 21:    2012-03-31  2012-03-31     1    0 days
+#&gt; 22:    2007-11-22  2015-10-27     5 2896 days
+#&gt; 23:    2007-03-05  2013-11-09     4 2441 days
+#&gt; 24:    2008-12-19  2008-12-19     1    0 days
+#&gt; 25:    2015-12-26  2023-08-28     4 2802 days
+#&gt; 26:    2023-11-18  2024-02-12     2   86 days
+#&gt; 27:    2016-09-07  2016-09-07     1    0 days
+#&gt; 28:    2016-08-08  2024-03-04     5 2765 days
+#&gt; 29:    2016-03-20  2024-09-20     5 3106 days
+#&gt; 30:    2024-04-07  2024-04-07     1    0 days
+#&gt; 31:    2019-05-07  2025-05-25     6 2210 days
+#&gt; 32:    2015-12-02  2025-07-21     6 3519 days
+#&gt; 33:    2018-05-07  2025-01-12     2 2442 days
+#&gt; 34:    2015-12-05  2015-12-05     1    0 days
+#&gt; 35:    2016-08-29  2016-08-29     1    0 days
+#&gt; 36:    2016-07-05  2025-02-21     2 3153 days
+#&gt; 37:    2020-12-25  2022-11-20     2  695 days
+#&gt; 38:    2018-02-13  2018-02-13     1    0 days
+#&gt; 39:    2023-12-18  2023-12-18     1    0 days
+#&gt; 40:    2025-02-20  2025-02-20     1    0 days
+#&gt; 41:    2019-09-28  2019-09-28     1    0 days
+#&gt; 42:    2022-05-30  2024-12-12     3  927 days
+#&gt; 43:    2020-02-28  2020-02-28     1    0 days
+#&gt; 44:    2025-09-17  2025-09-17     1    0 days
+#&gt; 45:    2016-09-09  2016-09-09     1    0 days
+#&gt; 46:    2020-03-24  2020-03-24     1    0 days
+#&gt; 47:    2018-12-19  2018-12-19     1    0 days
+#&gt; 48:    2018-01-16  2018-01-16     1    0 days
+#&gt; 49:    2021-10-22  2021-10-22     1    0 days
+#&gt; 50:    2024-02-07  2024-02-07     1    0 days
+#&gt; 51:    2021-04-06  2021-04-06     1    0 days
+#&gt; 52:    2015-12-06  2015-12-06     1    0 days
+#&gt; 53:    2024-09-05  2024-09-05     1    0 days
+#&gt; 54:    2025-09-05  2025-09-05     1    0 days
+#&gt; 55:    2017-08-29  2017-08-29     1    0 days
+#&gt; 56:    2020-08-12  2020-08-12     1    0 days
+#&gt; 57:    2017-12-19  2017-12-19     1    0 days
+#&gt; 58:    2022-10-23  2022-10-23     1    0 days
+#&gt; 59:    2022-01-23  2022-09-27     2  247 days
+#&gt; 60:    2020-02-01  2020-02-01     1    0 days
+#&gt; 61:    2017-12-24  2017-12-24     1    0 days
+#&gt; 62:    2022-12-01  2022-12-01     1    0 days
+#&gt; 63:    2024-12-24  2024-12-24     1    0 days
+#&gt; 64:    2021-02-26  2024-07-15     2 1235 days
+#&gt; 65:    2016-12-06  2016-12-06     1    0 days
+#&gt; 66:    2024-04-04  2024-04-04     1    0 days
+#&gt; 67:    2006-02-12  2006-02-12     1    0 days
+#&gt; 68:    2011-06-18  2011-06-18     1    0 days
+#&gt; 69:    2023-10-23  2023-10-23     1    0 days
+#&gt; 70:    2022-09-15  2022-09-15     1    0 days
+#&gt; 71:    2019-10-13  2019-10-13     1    0 days
+#&gt; 72:    2016-11-21  2016-11-21     1    0 days
+#&gt; 73:    2024-01-27  2024-01-27     1    0 days
+#&gt; 74:    2017-11-19  2017-11-19     1    0 days
+#&gt; 75:    2016-01-22  2016-01-22     1    0 days
+#&gt; 76:    2014-03-23  2014-03-23     1    0 days
+#&gt; 77:    2022-02-22  2022-02-22     1    0 days
+#&gt; 78:    2020-03-10  2020-03-10     1    0 days
+#&gt; 79:    2019-01-03  2019-01-03     1    0 days
+#&gt; 80:    2020-01-12  2020-01-12     1    0 days
+#&gt; 81:    2020-10-06  2020-10-06     1    0 days
+#&gt; 82:    2021-02-13  2021-02-13     1    0 days
+#&gt; 83:    2022-10-10  2022-10-10     1    0 days
+#&gt; 84:    2014-11-15  2014-11-15     1    0 days
+#&gt; 85:    2013-07-16  2013-07-16     1    0 days
+#&gt; 86:    2015-10-29  2015-10-29     1    0 days
+#&gt; 87:    2024-05-21  2024-05-21     1    0 days
+#&gt; 88:    2005-10-09  2005-10-09     1    0 days
+#&gt; 89:    2014-06-25  2014-06-25     1    0 days
+#&gt; 90:    2021-12-03  2021-12-03     1    0 days
+#&gt; 91:    2012-07-04  2012-07-04     1    0 days
+#&gt; 92:    2012-01-25  2012-01-25     1    0 days
+#&gt; 93:    2007-05-22  2007-05-22     1    0 days
+#&gt; 94:    2021-03-18  2021-03-18     1    0 days
+#&gt; 95:    2025-09-10  2025-09-10     1    0 days
+#&gt; 96:    2010-09-27  2010-09-27     1    0 days
+#&gt; 97:    2007-01-30  2007-01-30     1    0 days
 #&gt;     firstCaseDate endCaseDate count    period
 #&gt; 
 #&gt; $Error

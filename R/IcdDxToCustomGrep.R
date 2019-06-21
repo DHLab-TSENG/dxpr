@@ -14,10 +14,11 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' grepTable <- data.frame(group = "Cardiac dysrhythmias",
-#'                         grepIcd = "^427|^I48",
+#' grepTable <- data.frame(group = "Chronic kidney disease",
+#'                         grepIcd = "^585|^N18",
 #'                         stringsAsFactors = FALSE)
-#' IcdDxToCustomGrep(sampleDxFile, ID, ICD, Date,
+#' IcdDxToCustomGrep(DxDataFile = sampleDxFile,
+#'                   ID, ICD, Date,
 #'                   CustomGroupingTable = grepTable)
 #'
 IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, CustomGroupingTable){
@@ -26,13 +27,13 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
   DataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   GrepedIcd <- GrepedIcd[,DataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
-  GrepedIcd[,c("Date", "Number", "group") := list(as.Date(Date), 1:nrow(GrepedIcd), "")]
+  GrepedIcd[,c("Date", "Number", "group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
 
   for (rule in 1:nrow(CustomGroupingTable)){
-    GrepedIcd$group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd[,ICD]), CustomGroupingTable[rule,group], GrepedIcd[,group])
+    GrepedIcd$group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), CustomGroupingTable[rule,group], GrepedIcd$group)
   }
 
-  if(sum(nchar(GrepedIcd$group) > 0) > 0){
+  if(sum(!is.na(GrepedIcd$group)) > 0){
     GrepedIcdLong <- GrepedIcd[nchar(group)>0,
                                list(firstCaseDate = min(Date),
                                     endCaseDate = max(Date),
@@ -42,6 +43,6 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
                 summarised_groupedDT = GrepedIcdLong))
   }else{
     warning("There is no match diagnostic code with the grepTable")
-    return(GrepedIcd[order(Number),-"Number"])
+    return(groupedDT = GrepedIcd[order(Number),-"Number"])
   }
 }

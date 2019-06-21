@@ -23,19 +23,21 @@
 #' head(sampleDxFile)
 #' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 #'                                 icd10usingDate = "2015/10/01",
-#'                                 groupDataType = ccslvl3,
-#'                                 caseCondition = "Shock",
-#'                                 caseCount = 2)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                 groupDataType = CCSlvl3,
-#'                 selectedCaseFile = selectedCaseFile)
+#'                                 groupDataType = ccslvl2,
+#'                                 caseCondition = "Diseases of the urinary system",
+#'                                 caseCount = 1)
+#' Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+#'                         groupDataType = CCSlvl3,
+#'                         selectedCaseFile = selectedCaseFile)
 #'
-#' grepTable <- data.frame(group = "Cardiac dysrhythmias",
-#'                         grepIcd = "^427|^I48",
+#' grepTable <- data.frame(group = "Chronic kidney disease",
+#'                         grepIcd = "^58|^N18",
 #'                         stringsAsFactors = FALSE)
-#' getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                 groupDataType = customGrepIcdGroup,
-#'                 CustomGroupingTable = grepTable)
+#' Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+#'                         groupDataType = customGrepIcdGroup,
+#'                         CustomGroupingTable = grepTable)
+#' head(Era1)
+#' head(Era2)
 #'
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL){
 
@@ -48,11 +50,14 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
-  if(groupDataType != "ICD"){
-    groupedData <- groupedData$groupedDT
-  }
+
+  if(groupDataType != "ICD"){groupedData <- groupedData$groupedDT}
+  if(is.null(groupedData)){return(groupedData)}
+
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
+
+  if(nrow(groupedData[is.na(eval(parse(text = paste(groupDataType))))]) == nrow(groupedData)){return(groupedData)}
 
   count <- groupedData[nchar(eval(parse(text = paste(groupDataType)))) > 0  & !is.na(eval(parse(text = paste(groupDataType))))][order(eval(parse(text = paste(groupByCol))),Date)][,NextDate := c(Date[-1],NA),by = groupByCol][is.na(NextDate),NextDate := Date][,Gap := NextDate- Date]
 

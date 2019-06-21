@@ -4,15 +4,15 @@
 \alias{plot_groupedData}
 \title{Plot of diagnostic category data}
 \usage{
-plot_groupedData(groupedDataWide, TopN = 10, limitPrevalance = 0.01,
+plot_groupedData(groupedDataWide, TopN = 10, limitPercentage = 0.01,
   pvalue = 0.05)
 }
 \arguments{
-\item{groupedDataWide}{groupedData file from functions of code classification (four strategies)}
+\item{groupedDataWide}{groupedData file from functions of code classification (four stPercentagegies)}
 
 \item{TopN}{Default is Top "10"}
 
-\item{limitPrevalance}{the minimum  of prevalance Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.}
+\item{limitPercentage}{the minimum  of Percentage Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.}
 
 \item{pvalue}{p value of chisq.test}
 }
@@ -23,11 +23,30 @@ Plot of diagnostic category data
 head(sampleDxFile)
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
-                                         groupDataType = elix)
-head(groupedDataWide)
-plot_groupedData(groupedDataWide = groupedDataWide,
-                 TopN = 10,
-                 limitPrevalance = 0.01,
-                 pvalue = 0.001)
+                                         groupDataType = elix,
+                                         numericOrBinary = B)
+plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
+                          TopN = 10,
+                          limitPercentage = 0.01)
+
+selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
+                                idColName = ID,
+                                icdColName = ICD,
+                                dateColName = Date,
+                                icd10usingDate = "2015/10/01",
+                                groupDataType = ccslvl2,
+                                caseCondition = "Diseases of the urinary system",
+                                caseCount = 1)
+groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
+                                         icd10usingDate = "2015-10-01",
+                                         groupDataType = elix,
+                                         numericOrBinary = B,
+                                         selectedCaseFile = selectedCaseFile)
+plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
+                          TopN = 10,
+                          limitPercentage = 0.01,
+                          pvalue = 0.05)
+plot1
+plot2
 
 }

@@ -25,8 +25,8 @@
 #'             ID, ICD, Date,
 #'             groupDataType = ccslvl2,
 #'             icd10usingDate = "2015/10/01",
-#'             caseCondition = "Diseases of the heart",
-#'             caseCount = 2)
+#'             caseCondition = "Diseases of the urinary system",
+#'             caseCount = 1)
 #'
 selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, INRofDayRange = c(30, 365), selectCaseType = "Selected"){
   DxDataFile <- as.data.table(DxDataFile)

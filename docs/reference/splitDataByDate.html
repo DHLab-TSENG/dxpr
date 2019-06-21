@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -155,30 +155,59 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='no'>indexDateTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>,<span class='st'>"D"</span>),
-                             <span class='kw'>indexDate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"2006-05-03"</span>, <span class='st'>"2006-05-03"</span>,
-                                           <span class='st'>"2008-03-30"</span>, <span class='st'>"2006-05-03"</span>),
+    <pre class="examples"><div class='input'><span class='no'>sampleDxFile</span> <span class='kw'>&lt;-</span> <span class='no'>sampleDxFile</span>[<span class='fu'>grepl</span>(<span class='st'>"A0|B0|C0|D0"</span>,<span class='no'>ID</span>),]
+<span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID   ICD       Date
+#&gt; 1: A0  5855 2013-12-20
+#&gt; 2: A0 V4511 2012-04-05
+#&gt; 3: A0  V560 2010-03-28
+#&gt; 4: A0  5853 2010-10-29
+#&gt; 5: A0  5856 2009-07-25
+#&gt; 6: B0  N185 2021-07-16</div><div class='input'><span class='no'>indexDateTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A0"</span>,<span class='st'>"B0"</span>,<span class='st'>"C0"</span>,<span class='st'>"D0"</span>),
+                             <span class='kw'>indexDate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"2009-07-25"</span>, <span class='st'>"2015-12-26"</span>,
+                                           <span class='st'>"2015-12-05"</span>, <span class='st'>"2017-01-29"</span>),
                              <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
                 <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
-                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;      ID    ICD       Date  indexDate timeTag window
-#&gt;   1:  A 785.52 2006-05-03 2006-05-03       A      1
-#&gt;   2:  A  V56.0 2007-05-12 2006-05-03       A     13
-#&gt;   3:  A V45.11 2007-05-30 2006-05-03       A     14
-#&gt;   4:  A  427.1 2007-07-27 2006-05-03       A     16
-#&gt;   5:  A  585.2 2007-08-08 2006-05-03       A     16
-#&gt;  ---                                               
-#&gt; 271:  D  V27.0 2018-10-02 2006-05-03       A    152
-#&gt; 272:  D  V27.0 2018-10-02 2006-05-03       A    152
-#&gt; 273:  D  V27.0 2018-10-02 2006-05-03       A    152
-#&gt; 274:  D    650 2018-10-02 2006-05-03       A    152
-#&gt; 275:  D  Z9.90 2018-10-02 2006-05-03       A    152</div></pre>
+                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;     ID    ICD       Date  indexDate timeTag window
+#&gt;  1: A0   5856 2009-07-25 2009-07-25       A      1
+#&gt;  2: A0   V560 2010-03-28 2009-07-25       A      9
+#&gt;  3: A0   5853 2010-10-29 2009-07-25       A     16
+#&gt;  4: A0  V4511 2012-04-05 2009-07-25       A     33
+#&gt;  5: A0   5855 2013-12-20 2009-07-25       A     54
+#&gt;  6: A0    001 2014-11-05 2009-07-25       A     65
+#&gt;  7: A0  A0.11 2017-01-31 2009-07-25       A     92
+#&gt;  8: A0  A0.11 2023-08-12 2009-07-25       A    172
+#&gt;  9: B0   N185 2015-12-26 2015-12-26       A      1
+#&gt; 10: B0   N189 2017-11-27 2015-12-26       A     24
+#&gt; 11: B0  A0.11 2017-12-19 2015-12-26       A     25
+#&gt; 12: B0  V27.0 2020-03-06 2015-12-26       A     52
+#&gt; 13: B0  A0.11 2020-08-12 2015-12-26       A     57
+#&gt; 14: B0   N185 2021-07-16 2015-12-26       A     68
+#&gt; 15: B0   N183 2023-08-28 2015-12-26       A     94
+#&gt; 16: B0    N19 2023-11-18 2015-12-26       A     97
+#&gt; 17: B0    N19 2024-02-12 2015-12-26       A    100
+#&gt; 18: C0   C671 2015-12-05 2015-12-05       A      1
+#&gt; 19: C0   C048 2016-07-05 2015-12-05       A      8
+#&gt; 20: C0  C7259 2016-08-29 2015-12-05       A      9
+#&gt; 21: C0  V24.1 2016-10-08 2015-12-05       A     11
+#&gt; 22: C0 123.45 2017-05-09 2015-12-05       A     18
+#&gt; 23: C0  D0330 2018-05-07 2015-12-05       A     30
+#&gt; 24: C0  C4351 2025-01-12 2015-12-05       A    111
+#&gt; 25: C0   C089 2025-02-21 2015-12-05       A    113
+#&gt; 26: D0   E114 2017-01-29 2017-01-29       A      1
+#&gt; 27: D0  42761 2017-08-31 2017-01-29       A      8
+#&gt; 28: D0   K266 2017-12-24 2017-01-29       A     11
+#&gt; 29: D0   E114 2018-04-13 2017-01-29       A     15
+#&gt; 30: D0 M08029 2020-02-01 2017-01-29       A     37
+#&gt; 31: D0   E114 2020-04-04 2017-01-29       A     39
+#&gt; 32: D0    F42 2021-02-26 2017-01-29       A     50
+#&gt; 33: D0   F312 2022-12-01 2017-01-29       A     72
+#&gt; 34: D0  42761 2023-04-08 2017-01-29       A     76
+#&gt; 35: D0    F42 2024-07-15 2017-01-29       A     91
+#&gt; 36: D0  M4687 2024-12-24 2017-01-29       A     97
+#&gt; 37: D0  Z9.90 2025-04-08 2017-01-29       A    100
+#&gt;     ID    ICD       Date  indexDate timeTag window</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

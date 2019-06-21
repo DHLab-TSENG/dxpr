@@ -17,9 +17,12 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+#' PheWAS <- IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+#' head(PheWAS$groupedDT)
+#' head(PheWAS$summarised_groupedDT)
 #'
 IcdDxToPheWAS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
+  DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
@@ -35,13 +38,19 @@ IcdDxToPheWAS <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   IcdToPheWAS <- rbind(merge(DxDataFile[Date < icd10usingDate,], phecode_icd9_2[,c(PheWASCol,"ICDD"), with = F], by = "ICDD", all.x = T),
                         merge(DxDataFile[Date >= icd10usingDate,], phecode_icd9_2[,c(PheWASCol,"ICDD"), with = F], by = "ICDD", all.x = T))
   IcdToPheWAS <- IcdToPheWAS[order(Number),-"Number"]
-  IcdToPheWASLong <- IcdToPheWAS[!is.na(eval(parse(text = paste(PheWASCol)))),
+
+  if(nrow(IcdToPheWAS[is.na(eval(parse(text = paste(PheWASCol))))]) < nrow(IcdToPheWAS)){
+    IcdToPheWASLong <- IcdToPheWAS[!is.na(eval(parse(text = paste(PheWASCol)))),
                                    list(firstCaseDate = min(Date),
                                         endCaseDate = max(Date),
                                         count = .N),
                                    by = c("ID",PheWASCol)][,period := (endCaseDate - firstCaseDate),]
 
-  return(list(groupedDT = IcdToPheWAS,
-              summarised_groupedDT = IcdToPheWASLong,
-              Error = Conversion$Error))
+    return(list(groupedDT = IcdToPheWAS,
+                summarised_groupedDT = IcdToPheWASLong,
+                Error = Conversion$Error))
+  }else{
+    return(list(groupedDT = IcdToPheWAS,
+                Error = Conversion$Error))
+  }
 }

@@ -36,21 +36,16 @@ convert long format to wide format
 return numeric or binary wide format
 }
 \examples{
-groupingTable <- data.frame(group = rep("Cardiac dysrhythmias",6),
-                            ICD = c("427.1","427.2","427.31","427.61","427.81","427.89"),
-                            stringsAsFactors = FALSE)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",
-                      groupDataType = customIcdGroup,
-                      CustomGroupingTable = groupingTable)
-
+head(sampleDxFile)
 selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,
-                                caseCondition = "Diseases of the heart",
-                                caseCount = 2)
-groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                      "2015-10-01", ccslvl2,
-                      numericOrBinary = N,
-                      selectedCaseFile = selectedCaseFile)
+                                caseCondition = "Diseases of the urinary system",
+                                caseCount = 1)
+groupedData_Long <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
+                                          "2015-10-01", elix,
+                                          numericOrBinary = N,
+                                          selectedCaseFile = selectedCaseFile)
+head(groupedData_Long)
 
 }

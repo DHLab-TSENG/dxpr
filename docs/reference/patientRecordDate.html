@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">emr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -146,17 +146,52 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;    ID    ICD       Date
-#&gt; 1:  C  553.3 2008-04-03
-#&gt; 2:  A  553.3 2008-05-01
-#&gt; 3:  A 553.20 2009-02-23
-#&gt; 4:  B 553.20 2007-08-29
-#&gt; 5:  A  553.3 2008-06-27
-#&gt; 6:  B  K44.9 2019-11-10</div><div class='input'><span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>)</div><div class='output co'>#&gt;    ID firstRecordDate endRecordDate
-#&gt; 1:  D      2006-05-03    2018-10-02
-#&gt; 2:  A      2006-05-03    2022-02-20
-#&gt; 3:  B      2006-05-03    2022-03-18
-#&gt; 4:  C      2007-04-21    2021-09-17</div><div class='input'>                
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
+#&gt; 1:  A2 Z992 2020-05-22
+#&gt; 2:  A5 Z992 2020-01-24
+#&gt; 3:  A8 Z992 2015-10-27
+#&gt; 4: A13 Z992 2020-04-26
+#&gt; 5: A13 Z992 2025-02-02
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>)</div><div class='output co'>#&gt;      ID firstRecordDate endRecordDate
+#&gt;  1:  D6      2005-10-09    2025-01-05
+#&gt;  2: A12      2006-01-12    2022-06-12
+#&gt;  3:  D1      2006-02-12    2024-04-04
+#&gt;  4: A13      2006-04-29    2025-02-02
+#&gt;  5:  A9      2006-06-30    2023-12-10
+#&gt;  6:  D2      2006-09-01    2025-08-11
+#&gt;  7:  A4      2006-10-20    2024-12-11
+#&gt;  8: A14      2006-11-28    2023-07-05
+#&gt;  9:  A1      2006-11-29    2014-09-24
+#&gt; 10:  D8      2007-01-30    2025-09-10
+#&gt; 11:  A7      2007-02-01    2024-01-19
+#&gt; 12: A17      2007-02-19    2014-07-03
+#&gt; 13: A18      2007-04-05    2014-03-04
+#&gt; 14: A16      2007-04-15    2025-05-13
+#&gt; 15:  D7      2007-05-22    2021-12-03
+#&gt; 16: A15      2007-05-25    2023-05-12
+#&gt; 17:  D4      2007-09-23    2022-04-04
+#&gt; 18:  A6      2007-10-01    2022-06-11
+#&gt; 19: A10      2007-11-04    2023-03-11
+#&gt; 20:  B4      2007-11-19    2025-07-21
+#&gt; 21:  A8      2007-11-22    2016-05-12
+#&gt; 22: A11      2008-03-09    2019-11-17
+#&gt; 23:  A3      2008-07-08    2018-10-03
+#&gt; 24:  A0      2009-07-25    2023-08-12
+#&gt; 25:  A5      2009-09-10    2020-01-24
+#&gt; 26:  C2      2009-12-16    2025-09-17
+#&gt; 27:  C1      2010-12-03    2025-02-20
+#&gt; 28:  A2      2011-09-20    2020-05-22
+#&gt; 29:  B3      2012-12-24    2025-05-25
+#&gt; 30:  D3      2013-03-14    2024-01-27
+#&gt; 31:  D5      2013-07-16    2023-07-28
+#&gt; 32:  C3      2014-03-26    2024-02-07
+#&gt; 33:  B1      2014-06-30    2024-03-04
+#&gt; 34:  C4      2015-11-23    2025-09-05
+#&gt; 35:  C0      2015-12-05    2025-02-21
+#&gt; 36:  B0      2015-12-26    2024-02-12
+#&gt; 37:  B2      2016-03-20    2024-09-20
+#&gt; 38:  D0      2017-01-29    2025-04-08
+#&gt;      ID firstRecordDate endRecordDate</div><div class='input'>                
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

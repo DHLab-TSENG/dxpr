@@ -42,18 +42,20 @@ return DxDataFile with new column, condition era.
 head(sampleDxFile)
 selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
                                 icd10usingDate = "2015/10/01",
-                                groupDataType = ccslvl3,
-                                caseCondition = "Shock",
-                                caseCount = 2)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-                groupDataType = CCSlvl3,
-                selectedCaseFile = selectedCaseFile)
+                                groupDataType = ccslvl2,
+                                caseCondition = "Diseases of the urinary system",
+                                caseCount = 1)
+Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                        groupDataType = CCSlvl3,
+                        selectedCaseFile = selectedCaseFile)
 
-grepTable <- data.frame(group = "Cardiac dysrhythmias",
-                        grepIcd = "^427|^I48",
+grepTable <- data.frame(group = "Chronic kidney disease",
+                        grepIcd = "^58|^N18",
                         stringsAsFactors = FALSE)
-getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-                groupDataType = customGrepIcdGroup,
-                CustomGroupingTable = grepTable)
+Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+                        groupDataType = customGrepIcdGroup,
+                        CustomGroupingTable = grepTable)
+head(Era1)
+head(Era2)
 
 }
