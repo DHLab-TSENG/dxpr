@@ -253,20 +253,21 @@ short<span class="op">$</span>ICD[<span class="dv">6</span><span class="op">:</s
 <p><strong>表二</strong> 標準化分組後回傳的資料型態</p>
 <table class="table">
 <thead><tr class="header">
-<th>Short</th>
+<th>Short/Decimal</th>
 <th>ID</th>
 <th>ICD</th>
 <th>Date</th>
 <th>GroupType</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td>ICD short格式</td>
+<td>ICD short/Decimal格式</td>
 <td>病患編碼</td>
-<td>使用者輸入的診斷編碼格式</td>
+<td>使用者輸入的診斷編碼</td>
 <td>診斷日期</td>
-<td>標準化分組</td>
+<td>標準化分組組別</td>
 </tr></tbody>
 </table>
+<p>groupedDT將顯示完整的分組結果，如範例為300筆資料，groupedDT就會顯示300筆</p>
 <ol start="2" style="list-style-type: decimal">
 <li>
 <strong>summarised_groupedDT</strong>：如<strong>表三</strong>，將病患被歸類在同一個組別的多筆資料會統整成一筆資料。另可將其資料轉為適合進行統計分析之資料型態的寬表。</li>
@@ -293,6 +294,8 @@ short<span class="op">$</span>ICD[<span class="dv">6</span><span class="op">:</s
 </tr></tbody>
 </table>
 <p>取診斷資料中最早診斷的時間為first case date，診斷資料中最後記錄的時間為end case date，並計算其週期（period）內相差的天數，以及週期內共有幾筆診斷紀錄（count）</p>
+<p>其中CCS單階層、多階層及PheWAS的分組(IcdDxToCCS, IcdDxToCCSLvl, IcdDxToPheWAS)另可選擇為“組別”或“組別敘述” (<code>isDescription</code> = TRUE or FALSE)</p>
+<p>舉例來說CCS = 1，其組別敘述為“Tuberculosis”；供使用者選擇呈現方式</p>
 <div id="ccs-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ccs-" class="anchor"></a>一、CCS 臨床分類軟體</h3>
@@ -300,7 +303,7 @@ short<span class="op">$</span>ICD[<span class="dv">6</span><span class="op">:</s
 <p>單一階層: 較通用的分類</p>
 <p>多階層: 將診斷碼分為較精確的分組</p>
 <p><strong>1) CCS單一階層分類</strong></p>
-<p><code>IcdDxToCCS</code> 可取得診斷編碼相對應的 CCS 分類 (CCS Category) 及分類之敘述</p>
+<p><code>IcdDxToCCS</code> 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述</p>
 <p>ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS category's description 
 CCS_description &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCS.html">IcdDxToCCS</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
@@ -406,9 +409,8 @@ PheWAS<span class="op">$</span>summarised_groupedDT[<span class="dv">7</span><sp
 <p><strong>1) IcdDxToCustom</strong>：<strong>精確比對</strong></p>
 <p>使用者須定義精確分組的表格 (groupingTable)，輸入詳細的診斷編碼 (N181, 5853, 5854…)， 進行分組的資料須要完全符合，才會歸類為Cardiac dysrhythmias，另外不符合條件的組別則顯示<code>NA</code>。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># groupingTable </span>
-groupingTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">"Chronic kidney disease"</span>,<span class="dv">6</span>),
-                            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>),
-                            <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+groupingTable &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">group =</span> <span class="kw">rep</span>(<span class="st">"Chronic kidney disease"</span>,<span class="dv">6</span>),
+                            <span class="dt">ICD =</span> <span class="kw">c</span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>))
 
 CustomGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCustom.html">IcdDxToCustom</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,  
                             <span class="dt">idColName =</span> ID,         
@@ -574,11 +576,12 @@ Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span clas
 <td>第一筆資料時間</td>
 <td>最後一筆資料時間</td>
 <td>第一筆資料與最後一筆資料相隔週期</td>
-<td></td>
-<td></td>
+<td>出現最多次數的診斷編碼</td>
+<td>最常出現診斷編碼的次數</td>
 </tr></tbody>
 </table>
 <p>符合條件的個案將整合為一筆資料，內容包含符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD and most common ICD count）。</p>
+<p>符合篩選條件會在欄位<code>selectedCase</code>顯示“Selected”，使用者也可自行定義組別名稱 (在argument<code>selectCaseType</code>設定) 以第一筆做說明，個案A0符合篩選條件的診斷資料共5筆。其中V420出現三筆，出現次數最高。第一筆診斷日期為“2008-07-08”，最後一筆診斷紀錄為“2014-02-24”，整個診斷紀錄週期為2057天</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Case &lt;-<span class="st"> </span><span class="kw"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                    <span class="dt">idColName =</span> ID,           
                    <span class="dt">icdColName =</span> ICD,       
@@ -586,7 +589,8 @@ Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span clas
                    <span class="dt">groupDataType =</span> ccslvl2,
                    <span class="dt">icd10usingDate =</span> <span class="st">"2015/10/01"</span>,
                    <span class="dt">caseCondition =</span> <span class="st">"Diseases of the urinary system"</span>,
-                   <span class="dt">caseCount =</span> <span class="dv">1</span>)
+                   <span class="dt">caseCount =</span> <span class="dv">1</span>,
+                   <span class="dt">selectCaseType =</span> <span class="st">"Selected"</span>)
 <span class="kw">head</span>(Case)                   
 <span class="co">#&gt;     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD MostCommonICDCount</span>
 <span class="co">#&gt; 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420                  3</span>
@@ -645,6 +649,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <p>在診斷紀錄整合機制方面，Dr. Ryan提出疾病世代（Condition era）概念整合處理連續性的醫療行為， 將分散的醫療紀錄整合為單一病程發展紀錄，以利後續醫療大數據分析使用。</p>
 <p>疾病世代的概念是針對疾病定義持續期（gap）長度，若診斷與診斷間間隔小於gap，則兩個診斷視為同一個疾病世代。</p>
 <p>疾病世代的診斷分類可選擇診斷編碼、CCS、Phecode、comorbidity和自定義分類組別，計算病患之疾病世代，其持續期長度預設值為30天。</p>
+<p>以範例的第一個結果做說明：個案A0被分組到CCS “158”共有5筆資料，其中第一筆診斷日期為“2009-07-25”，最後一筆診斷紀錄為“2013-12-20”，整個週期相差天數為1609天，共五個era (意指五筆診斷紀錄彼此相差天數都大於gap長度)。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Era &lt;-<span class="st"> </span><span class="kw"><a href="../reference/getConditionEra.html">getConditionEra</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                        <span class="dt">idColName =</span> ID,
                        <span class="dt">icdColName =</span> ICD,
@@ -729,7 +734,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <tr class="odd">
 <td>A0</td>
 <td>0</td>
-<td></td>
+<td>0</td>
 <td>5</td>
 <td>…..</td>
 </tr>
@@ -813,9 +818,13 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <h3 class="hasAnchor">
 <a href="#histogram-plot" class="anchor"></a>histogram plot：標準化分組之長條圖表</h3>
 <p>進行第二和第三階段 - 資料整合 (Data integration) 並轉換為探索性長表資料 (EDA preparation)，此功能整合長表資料圖形化，以便觀察診斷資料在各分群（如CCS、 comorbidity）的分布情形及數量。</p>
-<p>使用者可選擇顯示前幾名的分組資料(Top N)，且每個分群至少有一定比例的病患 (limitPercentage)，預設顯示前十名，限制比例為1% (0.01)。</p>
-<p>限制比例的意思是：假設使用者的資料共1000個病患，每種組別至少要有10個病患（1%）。</p>
-<p>如範例，欲觀察前十名的的分組種類分布情形，並設定每群種類的比率至少達1%</p>
+<p>使用者可選擇顯示前幾名的分組資料(Top N)，且每個分群至少有一定比例的病患 (limitPercentage)， 舉例來說，假設使用者的資料共1000個病患，每種組別至少要有10個病患（1%）。</p>
+<p>預設顯示前十名，限制比例為1% (0.01)。</p>
+<p>範例使用步驟如下：</p>
+<ol style="list-style-type: decimal">
+<li><p>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現</p></li>
+<li><p>設定作圖標準：顯示前幾名組別、限制比例</p></li>
+</ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedDataWide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(sampleDxFile,
                                          <span class="dt">idColName =</span> ID,
                                          <span class="dt">icdColName =</span> ICD,
@@ -823,13 +832,13 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
                                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
                                          <span class="dt">groupDataType =</span> elix,
                                          <span class="dt">numericOrBinary =</span> B)
-<span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
-                 <span class="dt">TopN =</span> <span class="dv">10</span>,
-                 <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>)
-<span class="co">#&gt; $graph</span></code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" alt="pareto plot of error ICD9 (grouped)"> 下表格為有符合條件設定的共病症共六組，每組分別有多少人，且該共病症在資料中的比例</p>
-<p>以第一組為例，本範例共有38個病患共有24人被分為 RENLFAIL 共病症，比例為63.16%(24/38)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $sigCate</span>
+plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
+                          <span class="dt">TopN =</span> <span class="dv">10</span>,
+                          <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>)
+plot1<span class="op">$</span>graph</code></pre></div>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" alt="pareto plot of error ICD9 (grouped)"> 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例</p>
+<p>本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16%(24/38)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot1<span class="op">$</span>sigCate
 <span class="co">#&gt;     category count catePerc</span>
 <span class="co">#&gt;  1: RENLFAIL    24   63.16%</span>
 <span class="co">#&gt;  2:  ANEMDEF     5   13.16%</span>
@@ -843,9 +852,14 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <span class="co">#&gt; 10:    TUMOR     2    5.26%</span></code></pre></div>
 <p>若資料有進行病患分組case/control，於每個類別 (如CCS、comorbidity)將進行兩組 (case and control)的卡方獨立性檢定，圖表將顯示<strong>達統計上顯著差異</strong>的分組類別。</p>
 <p>若樣本數過小以致不適用卡方檢定時，則採用費雪爾精確檢定 (Fisher’s Exact Test)</p>
-<p>預設顯示前十名的類別，且每群種類的病患在兩組的比率至少有一組達1%。</p>
-<p>假如case和control組各500人，在某特定組別至少有一組的人數有5個病患 (1%)。</p>
+<p>預設顯示前十名的類別，且每群種類的病患在兩組的比率至少有一組達1%，舉例來說，假設case和control組各500人，在某特定組別至少有一組的人數有5個病患 (1%)。</p>
 <p>顯著差異p value預設門檻為0.05</p>
+<p>範例使用步驟如下：</p>
+<ol style="list-style-type: decimal">
+<li><p>定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為“Diseases of the urinary system” 視為case組，詳細設定條件請看範例</p></li>
+<li><p>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現</p></li>
+<li><p>設定作圖標準：顯示前幾名組別、限制比例、p value</p></li>
+</ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selectedCaseFile &lt;-<span class="st"> </span><span class="kw"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                                 <span class="dt">idColName =</span> ID,
                            　　 <span class="dt">icdColName =</span> ICD,
@@ -860,15 +874,14 @@ groupedDataWide &lt;-<span class="st"> </span><span class="kw"><a href="../refer
                                          <span class="dt">groupDataType =</span> elix,
                                          <span class="dt">numericOrBinary =</span> B,
                                          <span class="dt">selectedCaseFile =</span> selectedCaseFile)
-<span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
-                 <span class="dt">TopN =</span> <span class="dv">10</span>,
-                 <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>,
-                 <span class="dt">pvalue =</span> <span class="fl">0.05</span>)
-<span class="co">#&gt; $graph</span></code></pre></div>
-<div class="figure">
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" alt="pareto plot of error ICD9 (grouped)"><p class="caption">pareto plot of error ICD9 (grouped)</p>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $sigCate</span>
+plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
+                          <span class="dt">TopN =</span> <span class="dv">10</span>,
+                          <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>,
+                          <span class="dt">pvalue =</span> <span class="fl">0.05</span>)
+plot2<span class="op">$</span>graph</code></pre></div>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" alt="pareto plot of error ICD9 (grouped)"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL</p>
+<p>在selected組佔了79.17% (19/24)，在nonSelected組佔了35.71% (5/14)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
 <span class="co">#&gt;    category       group count catePerc</span>
 <span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17</span>
 <span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71</span></code></pre></div>
