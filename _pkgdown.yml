@@ -28,7 +28,7 @@ reference:
   contents:
   - '`IcdDxToCCS`'
   - '`IcdDxToCCSLvl`'
-  - '`IcdDxToPhecode`'
+  - '`IcdDxToPheWAS`'
   - '`IcdDxToComorbid`'
   - '`IcdDxToCustom`'
   - '`IcdDxToCustomGrep`'
