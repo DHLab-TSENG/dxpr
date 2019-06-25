@@ -146,10 +146,10 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     warning('"Wrong ICD format" means the ICD has wrong format', call. = F)
     warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
 
-    combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),-"Number"]
+    combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),"ICD"]
     return(list(ICD = combine_with_error,
                 Error = allWrongICDMsg[order(count,decreasing = T),]))
   }else{
-    return(list(ICD = allDecimalFormat[order(Number),-"Number"]))
+    return(list(ICD = allDecimalFormat[order(Number),"ICD"]))
   }
 }
