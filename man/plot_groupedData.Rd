@@ -23,8 +23,7 @@ Plot of diagnostic category data
 head(sampleDxFile)
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
-                                         groupDataType = elix,
-                                         numericOrBinary = B)
+                                         groupDataType = elix)
 plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
                           limitPercentage = 0.01)
@@ -40,7 +39,6 @@ selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
                                          groupDataType = elix,
-                                         numericOrBinary = B,
                                          selectedCaseFile = selectedCaseFile)
 plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,

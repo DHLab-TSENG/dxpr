@@ -14,8 +14,7 @@
 #' head(sampleDxFile)
 #' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix,
-#'                                          numericOrBinary = B)
+#'                                          groupDataType = elix)
 #' plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
 #'                           TopN = 10,
 #'                           limitPercentage = 0.01)
@@ -31,7 +30,6 @@
 #' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                                          icd10usingDate = "2015-10-01",
 #'                                          groupDataType = elix,
-#'                                          numericOrBinary = B,
 #'                                          selectedCaseFile = selectedCaseFile)
 #' plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
 #'                           TopN = 10,
@@ -40,12 +38,19 @@
 #' plot1
 #' plot2
 #'
+
 plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
-  ggtitle <- "Diagnostic category"
+  plot_title <- "Diagnostic category"
+  groupedDataWide <- groupedDataWide[,-1]
   if(names(groupedDataWide)[ncol(groupedDataWide)] == "selectedCase"){
-    groupedDataWide <- cbind(groupedDataWide[, -c(1, ncol(groupedDataWide))]*1,
-                             group = groupedDataWide[, "selectedCase"])
+    if(is.numeric(groupedDataWide[[1,1]])){
+      groupedDataWide <- cbind(as.data.frame(groupedDataWide[,-c(ncol(groupedDataWide))] >= 1L),
+                               group = groupedDataWide[, "selectedCase"])
+    }else{
+      groupedDataWide <- cbind(groupedDataWide[, -c(ncol(groupedDataWide))]*1,
+                               group = groupedDataWide[, "selectedCase"])
+    }
     groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)]
 
@@ -76,16 +81,21 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
       groupedDataLong[,"category" := factor(category, levels = groupedDataLong$category),]
 
       dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],controlDataLong[Test_pvalue,]),all.x = T)[!is.na(group),]
-      dignosticCate[,"group" := factor(group, levels = unique(dignosticCate$group)),]
+      dignosticCate[,c("group","catePerc") := list(factor(group, levels = unique(dignosticCate$group)),
+                                                   paste0(catePerc,"%")),]
 
       g <- ggplot(dignosticCate, aes(fill =  group, y = count, x = category, group = group)) +
-        geom_text(aes(label = paste0(catePerc,"%")), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
+        geom_text(aes(label = catePerc), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
         geom_bar(position="dodge", stat="identity")
     }
   }else{
-    groupedDataWide[,-1] <- groupedDataWide[,-1]*1
+    if(is.numeric(groupedDataWide[[1,1]])){
+      groupedDataWide <- as.data.frame(groupedDataWide >= 1L)
+    }else{
+      groupedDataWide <- groupedDataWide*1
+    }
     groupedDataWide$group <- "noGroup"
-    groupedDataLong <- melt(groupedDataWide[,-1], id.vars = "group",variable.name = "category", value.name = "value")
+    groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)][order(count)][,catePerc := round(count/nrow(groupedDataWide)*100,2)][,-"group"][catePerc >= limitPercentage,]
     groupedDataLong <- groupedDataLong[][,c("category","Number","catePerc") :=
                                          list(factor(category, levels = category),
@@ -93,16 +103,13 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
                                               paste0(catePerc,"%")),][Number <= TopN,]
     dignosticCate <- groupedDataLong[,-"Number"]
 
-
     g <- ggplot(groupedDataLong, aes(y = count, x = category)) +
       geom_bar(position="dodge", stat="identity") +
       geom_text(aes(label = catePerc), hjust = -.2, size = 3, position = position_dodge(width = 1))
-
-    dignosticCate <- groupedDataLong[,-"Number"]
   }
-  ggtitle <- paste0(ggtitle,": Top ", TopN)
+  plot_title <- paste0(plot_title,": Top ", TopN)
   dignosticCate_graph <- g + coord_flip() +
-    xlab("Diagnostic category") + ylab("Diagnostic category, n") + ggtitle(ggtitle) +
+    xlab("Diagnostic category") + ylab("Diagnostic category, n") + ggtitle(plot_title) +
     annotate("rect",xmin = 1,xmax = 1, ymin = 1, ymax = 25, fill = "white") +
     theme_bw() +
     theme(axis.text.y = element_text(size = 10,face = "bold"),

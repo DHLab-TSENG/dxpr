@@ -398,14 +398,14 @@ PheWAS &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdD
                          <span class="dt">dateColName =</span> Date,
                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
                          <span class="dt">isDescription =</span> <span class="ot">FALSE</span>)
-PheWAS<span class="op">$</span>groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>,]
+PheWAS<span class="op">$</span>groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>]
 <span class="co">#&gt;      ICDD ID   ICD       Date PheCode</span>
 <span class="co">#&gt; 1:  585.5 A0  5855 2013-12-20  585.32</span>
 <span class="co">#&gt; 2: V45.11 A0 V4511 2012-04-05  585.31</span>
 <span class="co">#&gt; 3:  V56.0 A0  V560 2010-03-28  585.31</span>
 <span class="co">#&gt; 4:  585.3 A0  5853 2010-10-29  585.33</span>
 <span class="co">#&gt; 5:  585.6 A0  5856 2009-07-25  585.32</span>
-PheWAS<span class="op">$</span>summarised_groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>,]
+PheWAS<span class="op">$</span>summarised_groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>]
 <span class="co">#&gt;    ID PheCode firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1: A2  585.32    2011-09-20  2015-01-06     3 1204 days</span>
 <span class="co">#&gt; 2: A2  585.31    2015-08-12  2015-08-12     1    0 days</span>
@@ -442,7 +442,7 @@ CustomGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><span cl
 <span class="co">#&gt; 4: 5855 A1 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: 5855 A1 2013-04-28 Chronic kidney disease</span>
 
-CustomGroup<span class="op">$</span>summarised_groupedDT[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="kw">head</span>(CustomGroup<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;     ID                  group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
@@ -469,7 +469,7 @@ CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><spa
 <span class="co">#&gt; 4: A1 5855 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: A1 5855 2013-04-28 Chronic kidney disease</span>
 
-CustomGrepGroup<span class="op">$</span>summarised_groupedDT[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="kw">head</span>(CustomGrepGroup<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;     ID                  group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
@@ -692,86 +692,35 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <p>診斷碼整合分組後，為能進行後續的探索性資料分析，提供資料型態轉換的功能，以便進行統計分析之資料型態的寬表。</p>
 <p>寬表提供兩種表示方式如<strong>表五、表六</strong>，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true；數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料。</p>
 <p>以下範例以共病症 Elixhauser為範例進行兩種表示法進行回傳資料型態的示範</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
-                      <span class="dt">idColName =</span> ID,    
-                      <span class="dt">icdColName =</span> ICD,   
-                      <span class="dt">dateColName =</span> Date,
-                      <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
-                      <span class="dt">groupDataType =</span> Elix,
-                      <span class="dt">numericOrBinary =</span> B)</code></pre></div>
-<p><strong>表五</strong> 標準化分組結果轉為二分法（binary）寬表</p>
-<table class="table">
-<thead><tr class="header">
-<th>ID</th>
-<th>ANEMDEF</th>
-<th>CHRNLUNG</th>
-<th>RENLFAIL</th>
-<th>…..</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>A0</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-<tr class="even">
-<td>A1</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-<tr class="odd">
-<td>A10</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
-                      <span class="dt">idColName =</span> ID,    
-                      <span class="dt">icdColName =</span> ICD,   
-                      <span class="dt">dateColName =</span> Date,
-                      <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
-                      <span class="dt">groupDataType =</span> ELix,
-                      <span class="dt">numericOrBinary =</span> N)</code></pre></div>
-<p><strong>表六</strong> 標準化分組結果轉為數量（numeric）寬表</p>
-<table class="table">
-<thead><tr class="header">
-<th>ID</th>
-<th>ANEMDEF</th>
-<th>CHRNLUNG</th>
-<th>RENLFAIL</th>
-<th>…..</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>A0</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-<tr class="even">
-<td>A1</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-<tr class="odd">
-<td>A10</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
+                                          <span class="dt">idColName =</span> ID,    
+                                          <span class="dt">icdColName =</span> ICD,   
+                                          <span class="dt">dateColName =</span> Date,
+                                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
+                                          <span class="dt">groupDataType =</span> ELix,
+                                          <span class="dt">numericOrBinary =</span> B)
+                                          
+<span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
+   ID  CANCER  CEVD  COPD DIAB_C  MSLD  PARA   PUD   PVD   RD Rheum
+<span class="dv">1</span>  A0   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">2</span>  A1   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">3</span> A10   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">4</span> A11   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>   <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">5</span> A12   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
+                                          <span class="dt">idColName =</span> ID,    
+                                          <span class="dt">icdColName =</span> ICD,   
+                                          <span class="dt">dateColName =</span> Date,
+                                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
+                                          <span class="dt">groupDataType =</span> ELix,
+                                          <span class="dt">numericOrBinary =</span> N)
+<span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
+    ID CANCER  CEVD COPD  DIAB_C  MSLD PARA PUD  PVD RD  Rheum
+<span class="dv">1</span><span class="op">:</span><span class="st">  </span>A0      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">2</span><span class="op">:</span><span class="st">  </span>A1      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">3</span><span class="op">:</span><span class="st"> </span>A10      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">4</span><span class="op">:</span><span class="st"> </span>A11      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">5</span><span class="op">:</span><span class="st"> </span>A12      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span></code></pre></div>
 </div>
 <div id="iv--visualization" class="section level2">
 <h2 class="hasAnchor">
@@ -837,8 +786,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <p>預設顯示前十名，限制比例為1% (0.01)。</p>
 <p>範例使用步驟如下：</p>
 <ul>
-<li>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現<br>
-</li>
+<li>將資料以共病症Elixhauser做標準化分組並轉成寬表</li>
 <li>設定作圖標準：顯示前幾名組別、限制比例</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedDataWide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(sampleDxFile,
@@ -846,8 +794,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
                                          <span class="dt">icdColName =</span> ICD,
                                          <span class="dt">dateColName =</span> Date,
                                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
-                                         <span class="dt">groupDataType =</span> elix,
-                                         <span class="dt">numericOrBinary =</span> B)
+                                         <span class="dt">groupDataType =</span> elix)
 plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>)
@@ -872,7 +819,7 @@ plot1<span class="op">$</span>graph</code></pre></div>
 <ul>
 <li>定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為“Diseases of the urinary system” 視為case組，詳細設定條件請看範例<br>
 </li>
-<li>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現<br>
+<li>將資料以共病症Elixhauser做標準化分組並轉成寬表<br>
 </li>
 <li>設定作圖標準：顯示前幾名組別、限制比例、p value</li>
 </ul>
@@ -890,7 +837,6 @@ plot1<span class="op">$</span>graph</code></pre></div>
 groupedDataWide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(sampleDxFile, ID, ICD, Date,
                                          <span class="dt">icd10usingDate =</span> <span class="st">"2015-10-01"</span>,
                                          <span class="dt">groupDataType =</span> elix,
-                                         <span class="dt">numericOrBinary =</span> B,
                                          <span class="dt">selectedCaseFile =</span> selectedCaseFile)
 plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_groupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
@@ -900,9 +846,9 @@ plot2<span class="op">$</span>graph</code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL<br>
 在selected組佔了79.17% (19/24)，在nonSelected組佔了35.71% (5/14)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
-<span class="co">#&gt;    category       group count catePerc</span>
-<span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17</span>
-<span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71</span></code></pre></div>
+<span class="co">#&gt;    category       group count  catePerc</span>
+<span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17%</span>
+<span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71%</span></code></pre></div>
 </div>
 </div>
 <div id="reference" class="section level2">

@@ -307,14 +307,14 @@ PheWAS <- IcdDxToPheWAS(DxDataFile = sampleDxFile,
                          dateColName = Date,
                          icd10usingDate = "2015-10-01",
                          isDescription = FALSE)
-PheWAS$groupedDT[7:11,]
+PheWAS$groupedDT[7:11]
 #>      ICDD ID   ICD       Date PheCode
 #> 1:  585.5 A0  5855 2013-12-20  585.32
 #> 2: V45.11 A0 V4511 2012-04-05  585.31
 #> 3:  V56.0 A0  V560 2010-03-28  585.31
 #> 4:  585.3 A0  5853 2010-10-29  585.33
 #> 5:  585.6 A0  5856 2009-07-25  585.32
-PheWAS$summarised_groupedDT[7:11,]
+PheWAS$summarised_groupedDT[7:11]
 #>    ID PheCode firstCaseDate endCaseDate count    period
 #> 1: A2  585.32    2011-09-20  2015-01-06     3 1204 days
 #> 2: A2  585.31    2015-08-12  2015-08-12     1    0 days
@@ -358,7 +358,7 @@ CustomGroup$groupedDT[10:14]
 #> 4: 5855 A1 2012-06-19 Chronic kidney disease
 #> 5: 5855 A1 2013-04-28 Chronic kidney disease
 
-CustomGroup$summarised_groupedDT[1:5]
+head(CustomGroup$summarised_groupedDT, 5)
 #>     ID                  group firstCaseDate endCaseDate count    period
 #> 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
 #> 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
@@ -388,7 +388,7 @@ CustomGrepGroup$groupedDT[10:14]
 #> 4: A1 5855 2012-06-19 Chronic kidney disease
 #> 5: A1 5855 2013-04-28 Chronic kidney disease
 
-CustomGrepGroup$summarised_groupedDT[1:5]
+head(CustomGrepGroup$summarised_groupedDT, 5)
 #>     ID                  group firstCaseDate endCaseDate count    period
 #> 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
 #> 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
@@ -625,38 +625,41 @@ head(Era)
 
 以下範例以共病症 Elixhauser為範例進行兩種表示法進行回傳資料型態的示範
 ```r
-groupedDataLongToWide(DxDataFile = sampleDxFile, 
-                      idColName = ID,    
-                      icdColName = ICD,   
-                      dateColName = Date,
-                      icd10usingDate = "2015-10-01",
-                      groupDataType = Elix,
-                      numericOrBinary = B)
-```
-**表五** 標準化分組結果轉為二分法（binary）寬表
+groupedData_Wide <- groupedDataLongToWide(DxDataFile = sampleDxFile, 
+                                          idColName = ID,    
+                                          icdColName = ICD,   
+                                          dateColName = Date,
+                                          icd10usingDate = "2015-10-01",
+                                          groupDataType = ELix,
+                                          numericOrBinary = B)
+                                          
+head(groupedData_Wide, 5)
+   ID  CANCER  CEVD  COPD DIAB_C  MSLD  PARA   PUD   PVD   RD Rheum
+1  A0   FALSE FALSE FALSE  FALSE FALSE FALSE FALSE FALSE TRUE FALSE
+2  A1   FALSE FALSE FALSE  FALSE FALSE FALSE FALSE FALSE TRUE FALSE
+3 A10   FALSE FALSE FALSE  FALSE FALSE FALSE FALSE FALSE TRUE FALSE
+4 A11   FALSE FALSE FALSE   TRUE FALSE FALSE FALSE FALSE TRUE FALSE
+5 A12   FALSE FALSE FALSE  FALSE FALSE FALSE FALSE FALSE TRUE FALSE
 
-|ID|ANEMDEF|CHRNLUNG|RENLFAIL|	….. |
-|--|----|-----|----|------|
-|A0|FALSE|FALSE|TRUE| …..|	
-|A1|FALSE|FALSE|TRUE|	…..|
-|A10|FALSE|FALSE|TRUE|	…..|
+```
+
 ```r
-groupedDataLongToWide(DxDataFile = sampleDxFile, 
-                      idColName = ID,    
-                      icdColName = ICD,   
-                      dateColName = Date,
-                      icd10usingDate = "2015-10-01",
-                      groupDataType = ELix,
-                      numericOrBinary = N)
+groupedData_Wide <- groupedDataLongToWide(DxDataFile = sampleDxFile, 
+                                          idColName = ID,    
+                                          icdColName = ICD,   
+                                          dateColName = Date,
+                                          icd10usingDate = "2015-10-01",
+                                          groupDataType = ELix,
+                                          numericOrBinary = N)
+head(groupedData_Wide, 5)
+    ID CANCER  CEVD COPD  DIAB_C  MSLD PARA PUD  PVD RD  Rheum
+1:  A0      0     0    0       0     0    0   0    0  5      0
+2:  A1      0     0    0       0     0    0   0    0  5      0
+3: A10      0     0    0       0     0    0   0    0  5      0
+4: A11      0     0    0       1     0    0   0    0  5      0
+5: A12      0     0    0       0     0    0   0    0  5      0
+
 ```
-**表六** 標準化分組結果轉為數量（numeric）寬表
-
-|ID|ANEMDEF|CHRNLUNG|RENLFAIL|	….. |
-|--|----|-----|----|-------|
-|A0|0|0|5| …..|	
-|A1|0|0|5|	…..|
-|A10|0|0|5|	…..|
-
 
 ## IV. Visualization
 
@@ -738,7 +741,7 @@ plot_errorICD(errorFile = error$Error,
 
 範例使用步驟如下：
 
-* 將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現  
+* 將資料以共病症Elixhauser做標準化分組並轉成寬表
 * 設定作圖標準：顯示前幾名組別、限制比例  
 
 ```r
@@ -747,8 +750,7 @@ groupedDataWide <- groupedDataLongToWide(sampleDxFile,
                                          icdColName = ICD,
                                          dateColName = Date,
                                          icd10usingDate = "2015-10-01",
-                                         groupDataType = elix,
-                                         numericOrBinary = B)
+                                         groupDataType = elix)
 plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
                           limitPercentage = 0.01)
@@ -777,7 +779,7 @@ plot1$sigCate
 範例使用步驟如下：  
 
 * 定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為"Diseases of the urinary system" 視為case組，詳細設定條件請看範例  
-* 將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現  
+* 將資料以共病症Elixhauser做標準化分組並轉成寬表  
 * 設定作圖標準：顯示前幾名組別、限制比例、p value 
 
 顯著差異p value預設門檻為0.05，預設顯示前十名的類別，且每群種類的病患在兩組的比率至少有一組達1%  
@@ -796,7 +798,6 @@ selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
                                          groupDataType = elix,
-                                         numericOrBinary = B,
                                          selectedCaseFile = selectedCaseFile)
 plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
@@ -811,9 +812,9 @@ plot2$graph
 
 ```r
 plot2$sigCate
-#>    category       group count catePerc
-#> 1: RENLFAIL    Selected    19    79.17
-#> 2: RENLFAIL nonSelected     5    35.71
+#>    category       group count  catePerc
+#> 1: RENLFAIL    Selected    19    79.17%
+#> 2: RENLFAIL nonSelected     5    35.71%
 
 ```
 
