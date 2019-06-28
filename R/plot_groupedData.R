@@ -38,19 +38,18 @@
 #' plot1
 #' plot2
 #'
-
 plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
   plot_title <- "Diagnostic category"
   groupedDataWide <- groupedDataWide[,-1]
   if(names(groupedDataWide)[ncol(groupedDataWide)] == "selectedCase"){
     if(is.numeric(groupedDataWide[[1,1]])){
-      groupedDataWide <- cbind(as.data.frame(groupedDataWide[,-c(ncol(groupedDataWide))] >= 1L),
-                               group = groupedDataWide[, "selectedCase"])
-    }else{
-      groupedDataWide <- cbind(groupedDataWide[, -c(ncol(groupedDataWide))]*1,
+      groupedDataWide <- cbind(as.data.frame(groupedDataWide[,1:(ncol(groupedDataWide)-1)] >= 1L),
                                group = groupedDataWide[, "selectedCase"])
     }
+    groupedDataWide <- cbind(groupedDataWide[, -c(ncol(groupedDataWide))]*1,
+                             group = groupedDataWide[, "selectedCase"])
+
     groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)]
 
@@ -91,9 +90,8 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
   }else{
     if(is.numeric(groupedDataWide[[1,1]])){
       groupedDataWide <- as.data.frame(groupedDataWide >= 1L)
-    }else{
-      groupedDataWide <- groupedDataWide*1
     }
+    groupedDataWide <- groupedDataWide*1
     groupedDataWide$group <- "noGroup"
     groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)][order(count)][,catePerc := round(count/nrow(groupedDataWide)*100,2)][,-"group"][catePerc >= limitPercentage,]
