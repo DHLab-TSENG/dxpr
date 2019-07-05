@@ -117,7 +117,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <h2>I. Code standarization</h2>
 <p><strong>ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
 <p>將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS的分組表中ICD診斷碼格式如<strong>表一</strong>。</p>
-<p><strong>表一</strong> 標準化分組之ICD格式</p>
+<p><strong>表一</strong> 標準化分組之診斷編碼格式</p>
 <table>
 <thead>
 <tr class="header">
@@ -372,7 +372,7 @@ CCSLvl_category &lt;-<span class="st"> </span><span class="kw">IcdDxToCCSLvl</sp
 </div>
 <div id="phewas" class="section level3">
 <h3>二、PheWAS</h3>
-<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具，將分散的診斷碼依照其臨床意義進行標準化分組， 共1,866種的PheWAS分類，ICD-9-CM和PheWAS為多對多的配對關係。</p>
+<p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具，將分散的診斷碼依照其臨床意義進行標準化分組，共1,866種的PheWAS分類，ICD-9-CM和PheWAS為多對多的配對關係。</p>
 <p>最新版本為 version 2 (phecode_icd9_2)，目前只有 ICD-9-CM 供標準化分組</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to PheWAS
 PheWAS &lt;-<span class="st"> </span><span class="kw">IcdDxToPheWAS</span>(<span class="dt">DxDataFile =</span> sampleDxFile,
@@ -381,14 +381,14 @@ PheWAS &lt;-<span class="st"> </span><span class="kw">IcdDxToPheWAS</span>(<span
                          <span class="dt">dateColName =</span> Date,
                          <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
                          <span class="dt">isDescription =</span> <span class="ot">FALSE</span>)
-PheWAS<span class="op">$</span>groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>,]
+PheWAS<span class="op">$</span>groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>]
 <span class="co">#&gt;      ICDD ID   ICD       Date PheCode</span>
 <span class="co">#&gt; 1:  585.5 A0  5855 2013-12-20  585.32</span>
 <span class="co">#&gt; 2: V45.11 A0 V4511 2012-04-05  585.31</span>
 <span class="co">#&gt; 3:  V56.0 A0  V560 2010-03-28  585.31</span>
 <span class="co">#&gt; 4:  585.3 A0  5853 2010-10-29  585.33</span>
 <span class="co">#&gt; 5:  585.6 A0  5856 2009-07-25  585.32</span>
-PheWAS<span class="op">$</span>summarised_groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>,]
+PheWAS<span class="op">$</span>summarised_groupedDT[<span class="dv">7</span><span class="op">:</span><span class="dv">11</span>]
 <span class="co">#&gt;    ID PheCode firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1: A2  585.32    2011-09-20  2015-01-06     3 1204 days</span>
 <span class="co">#&gt; 2: A2  585.31    2015-08-12  2015-08-12     1    0 days</span>
@@ -425,7 +425,7 @@ CustomGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><span cl
 <span class="co">#&gt; 4: 5855 A1 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: 5855 A1 2013-04-28 Chronic kidney disease</span>
 
-CustomGroup<span class="op">$</span>summarised_groupedDT[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="kw">head</span>(CustomGroup<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;     ID                  group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
@@ -452,7 +452,7 @@ CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><spa
 <span class="co">#&gt; 4: A1 5855 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: A1 5855 2013-04-28 Chronic kidney disease</span>
 
-CustomGrepGroup<span class="op">$</span>summarised_groupedDT[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+<span class="kw">head</span>(CustomGrepGroup<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
 <span class="co">#&gt;     ID                  group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
@@ -674,90 +674,35 @@ Data &lt;-<span class="st"> </span><span class="kw">splitDataByDate</span>(<span
 <p>診斷碼整合分組後，為能進行後續的探索性資料分析，提供資料型態轉換的功能，以便進行統計分析之資料型態的寬表。</p>
 <p>寬表提供兩種表示方式如<strong>表五、表六</strong>，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true；數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料。</p>
 <p>以下範例以共病症 Elixhauser為範例進行兩種表示法進行回傳資料型態的示範</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">groupedDataLongToWide</span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
-                      <span class="dt">idColName =</span> ID,    
-                      <span class="dt">icdColName =</span> ICD,   
-                      <span class="dt">dateColName =</span> Date,
-                      <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
-                      <span class="dt">groupDataType =</span> Elix,
-                      <span class="dt">numericOrBinary =</span> B)</code></pre></div>
-<p><strong>表五</strong> 標準化分組結果轉為二分法（binary）寬表</p>
-<table>
-<thead>
-<tr class="header">
-<th>ID</th>
-<th>ANEMDEF</th>
-<th>CHRNLUNG</th>
-<th>RENLFAIL</th>
-<th>…..</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A0</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-<tr class="even">
-<td>A1</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-<tr class="odd">
-<td>A10</td>
-<td>FALSE</td>
-<td>FALSE</td>
-<td>TRUE</td>
-<td>…..</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">groupedDataLongToWide</span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
-                      <span class="dt">idColName =</span> ID,    
-                      <span class="dt">icdColName =</span> ICD,   
-                      <span class="dt">dateColName =</span> Date,
-                      <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
-                      <span class="dt">groupDataType =</span> ELix,
-                      <span class="dt">numericOrBinary =</span> N)</code></pre></div>
-<p><strong>表六</strong> 標準化分組結果轉為數量（numeric）寬表</p>
-<table>
-<thead>
-<tr class="header">
-<th>ID</th>
-<th>ANEMDEF</th>
-<th>CHRNLUNG</th>
-<th>RENLFAIL</th>
-<th>…..</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A0</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-<tr class="even">
-<td>A1</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-<tr class="odd">
-<td>A10</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>…..</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw">groupedDataLongToWide</span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
+                                          <span class="dt">idColName =</span> ID,    
+                                          <span class="dt">icdColName =</span> ICD,   
+                                          <span class="dt">dateColName =</span> Date,
+                                          <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
+                                          <span class="dt">groupDataType =</span> ELix,
+                                          <span class="dt">numericOrBinary =</span> B)
+                                          
+<span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
+   ID  CANCER  CEVD  COPD DIAB_C  MSLD  PARA   PUD   PVD   RD Rheum
+<span class="dv">1</span>  A0   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">2</span>  A1   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">3</span> A10   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">4</span> A11   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>   <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
+<span class="dv">5</span> A12   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw">groupedDataLongToWide</span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
+                                          <span class="dt">idColName =</span> ID,    
+                                          <span class="dt">icdColName =</span> ICD,   
+                                          <span class="dt">dateColName =</span> Date,
+                                          <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
+                                          <span class="dt">groupDataType =</span> ELix,
+                                          <span class="dt">numericOrBinary =</span> N)
+<span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
+    ID CANCER  CEVD COPD  DIAB_C  MSLD PARA PUD  PVD RD  Rheum
+<span class="dv">1</span><span class="op">:</span><span class="st">  </span>A0      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">2</span><span class="op">:</span><span class="st">  </span>A1      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">3</span><span class="op">:</span><span class="st"> </span>A10      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">4</span><span class="op">:</span><span class="st"> </span>A11      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
+<span class="dv">5</span><span class="op">:</span><span class="st"> </span>A12      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span></code></pre></div>
 </div>
 <div id="iv.-visualization" class="section level2">
 <h2>IV. Visualization</h2>
@@ -820,8 +765,7 @@ Data &lt;-<span class="st"> </span><span class="kw">splitDataByDate</span>(<span
 <p>預設顯示前十名，限制比例為1% (0.01)。</p>
 <p>範例使用步驟如下：</p>
 <ul>
-<li>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現<br />
-</li>
+<li>將資料以共病症Elixhauser做標準化分組並轉成寬表</li>
 <li>設定作圖標準：顯示前幾名組別、限制比例</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedDataWide &lt;-<span class="st"> </span><span class="kw">groupedDataLongToWide</span>(sampleDxFile,
@@ -829,8 +773,7 @@ Data &lt;-<span class="st"> </span><span class="kw">splitDataByDate</span>(<span
                                          <span class="dt">icdColName =</span> ICD,
                                          <span class="dt">dateColName =</span> Date,
                                          <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
-                                         <span class="dt">groupDataType =</span> elix,
-                                         <span class="dt">numericOrBinary =</span> B)
+                                         <span class="dt">groupDataType =</span> elix)
 plot1 &lt;-<span class="st"> </span><span class="kw">plot_groupedData</span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>)
@@ -855,7 +798,7 @@ plot1<span class="op">$</span>graph</code></pre></div>
 <ul>
 <li>定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為“Diseases of the urinary system” 視為case組，詳細設定條件請看範例<br />
 </li>
-<li>將資料以共病症Elixhauser做標準化分組並轉成寬表，以二分法(binary)的形式呈現<br />
+<li>將資料以共病症Elixhauser做標準化分組並轉成寬表<br />
 </li>
 <li>設定作圖標準：顯示前幾名組別、限制比例、p value</li>
 </ul>
@@ -873,7 +816,6 @@ plot1<span class="op">$</span>graph</code></pre></div>
 groupedDataWide &lt;-<span class="st"> </span><span class="kw">groupedDataLongToWide</span>(sampleDxFile, ID, ICD, Date,
                                          <span class="dt">icd10usingDate =</span> <span class="st">&quot;2015-10-01&quot;</span>,
                                          <span class="dt">groupDataType =</span> elix,
-                                         <span class="dt">numericOrBinary =</span> B,
                                          <span class="dt">selectedCaseFile =</span> selectedCaseFile)
 plot2 &lt;-<span class="st"> </span><span class="kw">plot_groupedData</span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
@@ -883,9 +825,9 @@ plot2<span class="op">$</span>graph</code></pre></div>
 <p><img src="data:image/png;base64,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CYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp412wFtAAAC7dJREFU7UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp47UC8bpCxhEzQcSeVCYp4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" style="display:block; margin:auto; width:70%;"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL<br />
 在selected組佔了79.17% (19/24)，在nonSelected組佔了35.71% (5/14)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
-<span class="co">#&gt;    category       group count catePerc</span>
-<span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17</span>
-<span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71</span></code></pre></div>
+<span class="co">#&gt;    category       group count  catePerc</span>
+<span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17%</span>
+<span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71%</span></code></pre></div>
 </div>
 </div>
 <div id="reference" class="section level2">
