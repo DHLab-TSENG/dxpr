@@ -24,7 +24,7 @@
 #'                                 groupDataType = ccslvl2,
 #'                                 caseCondition = "Diseases of the urinary system",
 #'                                 caseCount = 1)
-#' groupedData_Long <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
+#' groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                                           "2015-10-01", elix,
 #'                                           numericOrBinary = N,
 #'                                           selectedCaseFile = selectedCaseFile)

@@ -250,7 +250,7 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <a href="#ii--data-integration" class="anchor"></a>II. Data integration</h2>
 <p>將分散的診斷編碼基於臨床意義整合成較大群組的疾病分組功能，以供後續分析使用。</p>
 <p>目前套件提供四種標準化分組的種類，包括CCS階層式編碼轉換、PheWAS分群編碼、共病症（AHRQ、Charlson、Elixhauser Comorbidity）分組以及自定義診斷分組，以下將分別介紹之</p>
-<p>經過四種標準化處理後, 可得兩種回傳的結果</p>
+<p>經過四種標準化處理後，可得兩種回傳的結果</p>
 <ol style="list-style-type: decimal">
 <li>
 <p><strong>groupedDT</strong>：如<strong>表二</strong>，將診斷編碼依國際標準轉換為有臨床意義的疾病分組。groupedDT將顯示完整的分組結果，如範例為300筆資料，groupedDT就會顯示300筆</p>
@@ -268,7 +268,7 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </tr></thead>
 <tbody><tr class="odd">
 <td>ICD short/Decimal格式</td>
-<td>病患編碼</td>
+<td>病患編號</td>
 <td>使用者輸入的診斷編碼</td>
 <td>診斷日期</td>
 <td>標準化分組組別</td>
@@ -292,7 +292,7 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <th>Period</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td>病患編碼</td>
+<td>病患編號</td>
 <td>標準化分組</td>
 <td>事件發生前/後</td>
 <td>第一筆資料時間</td>
@@ -303,19 +303,19 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </table>
 <p>取診斷資料中最早診斷的時間為first case date，診斷資料中最後記錄的時間為end case date，並計算其週期（period）內相差的天數，以及週期內共有幾筆診斷紀錄（count）。</p>
 <p>其中CCS單階層、多階層及PheWAS的分組(IcdDxToCCS, IcdDxToCCSLvl, IcdDxToPheWAS)另可選擇為“組別”或“組別敘述” (<code>isDescription</code> = TRUE or FALSE)</p>
-<p>舉例來說CCS = 1，其組別敘述為“Tuberculosis”；供使用者選擇呈現方式</p>
+<p>舉例來說CCS = 1，其組別敘述為“Tuberculosis”；使用者可自行選擇呈現方式</p>
 <div id="ccs-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ccs-" class="anchor"></a>一、CCS 臨床分類軟體</h3>
 <p>美國Healthcare Cost and Utilization Project（HCUP）發展出一套診斷與處置的臨床分組標準CCS。基於此機制，將分散的診斷碼依照其臨床意義進行單層式或階層式的標準化診斷整合分類，其階層式診斷分類可依使用需求調整分類標準。</p>
 <ul>
-<li>單一階層: 較通用的分類<br>
+<li>單一階層：較通用的分類<br>
 </li>
-<li>多階層: 將診斷碼分為較精確的分組</li>
+<li>多階層：將診斷碼分為較精確的分組</li>
 </ul>
 <p><strong>1) CCS單一階層分類</strong></p>
 <p><code>IcdDxToCCS</code> 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述<br>
-ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致: 共260種</p>
+ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致：共260種</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## ICD to CCS category's description 
 CCS_description &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxToCCS.html">IcdDxToCCS</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                               <span class="dt">idColName =</span> ID,
@@ -643,10 +643,9 @@ Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span clas
 <p>個案A0的第二筆診斷資料時間為2010-03-28視為指標日期後的紀錄，因此TimeTag為A。資料間隔天數為246天，故為第9個週期。</p>
 <p>週期長度 (<code>windowGap</code>) 和指標日期 (<code>indexDateTable</code>) 依使用者需求定義。<br>
 另外本套見也提供週期（window）計算功能，預設週期長度為30天。</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indexDateTable &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ID =</span> <span class="kw">c</span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indexDateTable &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">ID =</span> <span class="kw">c</span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
                              <span class="dt">indexDate =</span> <span class="kw">c</span>(<span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
-                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span>),
-                             <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span>))
 Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                         <span class="dt">idColName =</span> ID,
                         <span class="dt">icdColName =</span> ICD,
@@ -691,7 +690,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <a href="#iii--eda-preparation" class="anchor"></a>III. EDA preparation</h2>
 <p>診斷碼整合分組後，為能進行後續的探索性資料分析，提供資料型態轉換的功能，以便進行統計分析之資料型態的寬表。</p>
 <p>寬表提供兩種表示方式如<strong>表五、表六</strong>，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true；數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料。</p>
-<p>以下範例以共病症 Elixhauser為範例進行兩種表示法進行回傳資料型態的示範</p>
+<p>以下範例以共病症 Elixhauser為範例進行兩種表示法回傳的資料型態</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
                                           <span class="dt">idColName =</span> ID,    
                                           <span class="dt">icdColName =</span> ICD,   
@@ -701,12 +700,12 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
                                           <span class="dt">numericOrBinary =</span> B)
                                           
 <span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
-   ID  CANCER  CEVD  COPD DIAB_C  MSLD  PARA   PUD   PVD   RD Rheum
-<span class="dv">1</span>  A0   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-<span class="dv">2</span>  A1   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-<span class="dv">3</span> A10   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-<span class="dv">4</span> A11   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>   <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span>
-<span class="dv">5</span> A12   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">TRUE</span> <span class="ot">FALSE</span></code></pre></div>
+   ID  ARTH CHRNLUNG  DMCX  DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE  PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE  WGHTLOSS
+<span class="dv">1</span>  A0 <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span>   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">FALSE</span>
+<span class="dv">2</span>  A1 <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span>   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">FALSE</span>
+<span class="dv">3</span> A10 <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span>   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">FALSE</span>
+<span class="dv">4</span> A11 <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span>   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">FALSE</span>
+<span class="dv">5</span> A12 <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span>   <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>    <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">TRUE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span> <span class="ot">FALSE</span>     <span class="ot">FALSE</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
                                           <span class="dt">idColName =</span> ID,    
                                           <span class="dt">icdColName =</span> ICD,   
@@ -715,12 +714,12 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
                                           <span class="dt">groupDataType =</span> ELix,
                                           <span class="dt">numericOrBinary =</span> N)
 <span class="kw">head</span>(groupedData_Wide, <span class="dv">5</span>)
-    ID CANCER  CEVD COPD  DIAB_C  MSLD PARA PUD  PVD RD  Rheum
-<span class="dv">1</span><span class="op">:</span><span class="st">  </span>A0      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
-<span class="dv">2</span><span class="op">:</span><span class="st">  </span>A1      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
-<span class="dv">3</span><span class="op">:</span><span class="st"> </span>A10      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
-<span class="dv">4</span><span class="op">:</span><span class="st"> </span>A11      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">1</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span>
-<span class="dv">5</span><span class="op">:</span><span class="st"> </span>A12      <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>   <span class="dv">0</span>    <span class="dv">0</span>  <span class="dv">5</span>      <span class="dv">0</span></code></pre></div>
+    ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS
+<span class="dv">1</span><span class="op">:</span><span class="st">  </span>A0    <span class="dv">0</span>        <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">5</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">0</span>
+<span class="dv">2</span><span class="op">:</span><span class="st">  </span>A1    <span class="dv">0</span>        <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">5</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">0</span>
+<span class="dv">3</span><span class="op">:</span><span class="st"> </span>A10    <span class="dv">0</span>        <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">5</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">0</span>
+<span class="dv">4</span><span class="op">:</span><span class="st"> </span>A11    <span class="dv">0</span>        <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">5</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">0</span>
+<span class="dv">5</span><span class="op">:</span><span class="st"> </span>A12    <span class="dv">0</span>        <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>    <span class="dv">0</span>        <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">5</span>     <span class="dv">0</span>     <span class="dv">0</span>     <span class="dv">0</span>        <span class="dv">0</span></code></pre></div>
 </div>
 <div id="iv--visualization" class="section level2">
 <h2 class="hasAnchor">
@@ -731,7 +730,8 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <a href="#pareto-plot" class="anchor"></a>Pareto plot：錯誤編碼之柏拉圖圖表</h3>
 <p>進行第一階段 - 診斷編碼格式統一 (Code standarization) 時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。<br>
 使用者可選擇只看格式錯誤 (wrong format) 或是版本分類錯誤 (wrong version) 或不分類顯示全部的錯誤編碼。</p>
-<p>以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。　　 使用者可選擇顯示前幾名 (Top N) 的錯誤編碼，預設顯示前10名的錯誤編碼。</p>
+<p>以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。<br>
+使用者可選擇顯示前幾名 (Top N) 的錯誤編碼，預設顯示前10名的錯誤編碼。</p>
 <p>如範例，欲觀察前十名的錯誤編碼種類及分布比例，第11名以後的錯誤編碼設為＂others＂(使用者可選擇是否顯示others的資訊)。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/IcdDxDecimalToShort.html">IcdDxDecimalToShort</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                             <span class="dt">icdColName =</span> ICD,
@@ -743,7 +743,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
               <span class="dt">groupICD =</span> <span class="ot">FALSE</span>,
               <span class="dt">Others =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;"> 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至“Others”<br>
-第一名的錯誤<strong>A0.11</strong>共有20筆，佔全部錯誤18.35%(20/109)</p>
+第一名的錯誤<strong>A0.11</strong>共有20筆，佔全部錯誤18.35% (20/109)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $ICD</span>
 <span class="co">#&gt;        ICD count  CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20        18.35%           ICD 10  Wrong format           </span>
@@ -759,10 +759,10 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
 <span class="co">#&gt; 11: Others    20       100.00%            ICD 9  Wrong format           </span></code></pre></div>
 <p>另外使用者可選擇將<strong>ICD-9</strong>依照章節<strong>分組</strong> (<code>groupICD = TRUE</code>)</p>
 <p>ICD-9共19章節疾病分類：<br>
-　001-139: 傳染病或寄生蟲相關疾病<br>
-　140-239: 腫瘤相關疾病<br>
+　001-139：傳染病或寄生蟲相關疾病<br>
+　140-239：腫瘤相關疾病<br>
 　…等。</p>
-<p><code>plot_errorICD</code>依照編碼開頭分類，大致分為12組: 0, 1, 2,…, 9, V and E<br>
+<p><code>plot_errorICD</code>依照編碼開頭分類，大致分為12組：0, 1, 2,…, 9, V and E<br>
 如範例，欲觀察<strong>前三名</strong>的錯誤編碼種類及分布比例，第4名以後的錯誤編碼設為＂others＂</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_errorICD.html">plot_errorICD</a></span>(<span class="dt">errorFile =</span> error<span class="op">$</span>Error,
               <span class="dt">ICDVersion =</span> <span class="dv">9</span>,
@@ -770,7 +770,7 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/splitD
               <span class="dt">groupICD =</span> <span class="ot">TRUE</span>,
               <span class="dt">Others =</span> <span class="ot">TRUE</span>,
               <span class="dt">TopN =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;"> 由下表格得知第一名的錯誤編碼為<strong>A01.05</strong>佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤41.94%的比例</p>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;"> 由下表格得知第一名的錯誤編碼為<strong>A01.05</strong>佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; $ICD</span>
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc  MostICDInGroup  ICDPercInGroup  IcdVersionInFile</span>
 <span class="co">#&gt; 1:        A         13       41.94%          A01.05          61.54%             ICD 9           </span>
@@ -800,19 +800,19 @@ plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_
                           <span class="dt">limitPercentage =</span> <span class="fl">0.01</span>)
 plot1<span class="op">$</span>graph</code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" style="display:block; margin:auto; width:70%;"> 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例<br>
-本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16%(24/38)</p>
+本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16% (24/38)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot1<span class="op">$</span>sigCate
 <span class="co">#&gt;     category count catePerc</span>
 <span class="co">#&gt;  1: RENLFAIL    24   63.16%</span>
-<span class="co">#&gt;  2:  ANEMDEF     5   13.16%</span>
-<span class="co">#&gt;  3: PULMCIRC     5   13.16%</span>
-<span class="co">#&gt;  4:    LIVER     4   10.53%</span>
-<span class="co">#&gt;  5:    PSYCH     3    7.89%</span>
-<span class="co">#&gt;  6:     DRUG     2    5.26%</span>
-<span class="co">#&gt;  7:     METS     2    5.26%</span>
-<span class="co">#&gt;  8:    NEURO     2    5.26%</span>
-<span class="co">#&gt;  9:     PARA     2    5.26%</span>
-<span class="co">#&gt; 10:    TUMOR     2    5.26%</span></code></pre></div>
+<span class="co">#&gt;  2:    TUMOR     6   15.79%</span>
+<span class="co">#&gt;  3:     ARTH     5   13.16%</span>
+<span class="co">#&gt;  4:    LYMPH     4   10.53%</span>
+<span class="co">#&gt;  5:    PSYCH     4   10.53%</span>
+<span class="co">#&gt;  6:     DRUG     3    7.89%</span>
+<span class="co">#&gt;  7:    NEURO     3    7.89%</span>
+<span class="co">#&gt;  8:     PARA     2    5.26%</span>
+<span class="co">#&gt;  9: PERIVASC     2    5.26%</span>
+<span class="co">#&gt; 10:    VALVE     2    5.26%</span></code></pre></div>
 <p>若資料有進行病患分組case/control，於每個類別 (如CCS、comorbidity)將進行兩組 (case and control)的卡方獨立性檢定，圖表將顯示<strong>達統計上顯著差異</strong>的分組類別。<br>
 若樣本數過小以致不適用卡方檢定時，則採用費雪爾精確檢定 (Fisher’s Exact Test)</p>
 <p>範例使用步驟如下：</p>
@@ -844,11 +844,11 @@ plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_
                           <span class="dt">pvalue =</span> <span class="fl">0.05</span>)
 plot2<span class="op">$</span>graph</code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL<br>
-在selected組佔了79.17% (19/24)，在nonSelected組佔了35.71% (5/14)</p>
+在selected組佔了100% (24/24)，在nonSelected組佔了0% (0/14)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
-<span class="co">#&gt;    category       group count  catePerc</span>
-<span class="co">#&gt; 1: RENLFAIL    Selected    19    79.17%</span>
-<span class="co">#&gt; 2: RENLFAIL nonSelected     5    35.71%</span></code></pre></div>
+   category        group count catePerc
+<span class="dv">1</span><span class="op">:</span><span class="st"> </span>RENLFAIL     Selected    <span class="dv">24</span>     <span class="dv">100</span>%
+<span class="dv">2</span><span class="op">:</span><span class="st"> </span>RENLFAIL  nonSelected     <span class="dv">0</span>       <span class="dv">0</span>%</code></pre></div>
 </div>
 </div>
 <div id="reference" class="section level2">
