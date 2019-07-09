@@ -10,9 +10,9 @@ plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
 \arguments{
 \item{errorFile}{error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)}
 
-\item{ICDVersion}{ICD version}
+\item{ICDVersion}{ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}}
 
-\item{wrongICDType}{Wrong ICD type}
+\item{wrongICDType}{Wrong ICD type: wrong version (\code{'version'}), wrong format (\code{'format'}, and all wrong type \code{'all'}}
 
 \item{groupICD}{Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE}
 

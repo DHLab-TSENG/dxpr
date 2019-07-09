@@ -81,7 +81,8 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
 
       dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],controlDataLong[Test_pvalue,]),all.x = T)[!is.na(group),]
       dignosticCate[,c("group","catePerc") := list(factor(group, levels = unique(dignosticCate$group)),
-                                                   paste0(catePerc,"%")),][order(category, group, count, decreasing = T)]
+                                                   paste0(catePerc,"%")),]
+      dignosticCate <- dignosticCate[order(category, group, count, decreasing = T),]
 
       g <- ggplot(dignosticCate, aes(fill =  group, y = count, x = category, group = group)) +
         geom_text(aes(label = catePerc), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
@@ -99,7 +100,7 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
                                          list(factor(category, levels = category),
                                               nrow(groupedDataLong):1,
                                               paste0(catePerc,"%")),][Number <= TopN,]
-    dignosticCate <- groupedDataLong[,-"Number"][order(count,decreasing = T)]
+    dignosticCate <- groupedDataLong[,-"Number"][order(count,decreasing = T),]
 
     g <- ggplot(groupedDataLong, aes(y = count, x = category)) +
       geom_bar(position="dodge", stat="identity") +

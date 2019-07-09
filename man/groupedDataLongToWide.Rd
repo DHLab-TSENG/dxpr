@@ -46,6 +46,6 @@ groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                           "2015-10-01", elix,
                                           numericOrBinary = N,
                                           selectedCaseFile = selectedCaseFile)
-head(groupedData_Long)
+head(groupedData_Wide)
 
 }

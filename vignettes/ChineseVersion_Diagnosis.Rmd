@@ -23,7 +23,7 @@ library(emr)
 ```
 ### ICD-CM-CODE 格式對照
 
-本套件使用的診斷編碼依照CMS (Centers for Medicare & Medicaid Services)所提供的診斷編碼做為標準依據，並依照WHO訂定的診斷編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: `ICD9DxwithTwoFormat 和 ICD10DxwithTwoFormat`
+本套件使用的診斷編碼依照CMS（Centers for Medicare & Medicaid Services）所提供的診斷編碼做為標準依據，並依照WHO訂定的診斷編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: `ICD9DxwithTwoFormat 和 ICD10DxwithTwoFormat`
 
 供後續診斷編碼格式轉換的功能使用 
 
@@ -60,7 +60,7 @@ head(sampleDxFile)
 ```
 ## I. Code standarization
 
-**ICD-9-CM and ICD-10-CM code兩種格式的轉換: Short <-> Decimal**
+**ICD-9-CM and ICD-10-CM code兩種格式的轉換：Short <-> Decimal**
 
 將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS的分組表中ICD診斷碼格式如**表一**。
 
@@ -103,9 +103,9 @@ short$ICD[6:10]
 **warning message**
 
 醫療數據的診斷編碼有可能誤植導致診斷編碼錯誤，而錯誤的診斷編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。  
-為方便使用者修改錯誤的診斷編碼，emr套件會提供warning message提醒使用者些錯誤的診斷編碼。  
+為方便使用者修改錯誤的診斷編碼，emr套件提供warning message提醒使用者錯誤的診斷編碼。  
 
-編碼錯誤的種類：**格式錯誤 (Wrong format)**及**版本分類錯誤 (Wrong version)**
+編碼錯誤的種類：**格式錯誤 (wrong format)**及**版本分類錯誤 (wrong version)**
 ```r
 sample <- IcdDxShortToDecimal(DxDataFile = sampleDxFile,
                               icdColName = ICD, 
@@ -122,11 +122,11 @@ sample <- IcdDxShortToDecimal(DxDataFile = sampleDxFile,
 #> Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)
 ```
 
-1) 診斷編碼格式錯誤：共9種診斷編碼 (括號內為該診斷編碼出現次數) 
+1) 診斷編碼格式錯誤：共 9 種診斷編碼（括號內為該診斷編碼出現次數）
 
     c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")
 
-2) 診斷編碼版本錯誤：共7種診斷編碼 (括號內為診斷編碼出現次數) 
+2) 診斷編碼版本錯誤：共 7 種診斷編碼（括號內為診斷編碼出現次數）
 
     c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")
 
@@ -155,26 +155,27 @@ sample$Error
 
 **Warning message判斷流程**
 
-以下為判斷診斷編碼錯誤之流程圖，將診斷編碼轉為 decimal 作為範例
+以下為判斷診斷編碼錯誤流程圖，以診斷編碼轉為 decimal 作為範例
 
 <img src="https://raw.githubusercontent.com/DHLab-CGU/dhlab-cgu.github.io/master/emr/warning.jpg" style="display:block; margin:auto; width:100%;">
 
-* 將資料依照格式分為short及decimal兩部分  
+* 將資料依照格式依診斷日期分為ICD-9及ICD-10兩部分  
+* 再將資料分為short及decimal  
 * short的組別依照診斷編碼版本分組進行**第一次**格式轉換  
 > ICD-9: C, E  
 > ICD-10: A  
 * decimal的組別依診斷編碼版本分組進行**第一次**確認格式正確性  
-> ICD-9: B  
-> ICD-10: D  
+> ICD-9: D  
+> ICD-10: B  
 * 第二步驟結束後，挑出有NA的個案 (A, C, D, E)，進行**第二次**的格式轉換和確認正確性。  
 > A為ICD-10 code，因此將與`ICD9DxwithTwoFormat`進行**第二次**的確認及轉換  
 > C, D, E為ICD-9 code，因此將與`ICD10DxwithTwoFormat`進行**第二次**的確認及轉換  
 
-若結果為`NA`，則表示該診斷編碼格式錯誤；反之結果`不是NA`，則表示該診斷編碼版本錯誤  
+若結果為`NA`，則表示該診斷編碼格式錯誤；反之則表示該診斷編碼版本錯誤  
 
 如圖     
-A和C 轉換格式的結果不是NA，表示診斷編碼**版本錯誤** (42761應為ICD 9的診斷編碼，A0105應為ICD 10的診斷編碼)  
-D和E 轉換格式的結果為NA，表示診斷編**格式錯誤** (應為755.2和001.9)
+A和C 轉換格式的結果不是NA，表示診斷編碼**版本錯誤**（42761應為ICD 9的診斷編碼，A0105應為ICD 10的診斷編碼）  
+D和E 轉換格式的結果為NA，表示診斷編**格式錯誤** （應為755.2和001.9）
 
 ## II. Data integration
 
@@ -186,7 +187,7 @@ D和E 轉換格式的結果為NA，表示診斷編**格式錯誤** (應為755.2�
 
 1) **groupedDT**：如**表二**，將診斷編碼依國際標準轉換為有臨床意義的疾病分組。groupedDT將顯示完整的分組結果，如範例為300筆資料，groupedDT就會顯示300筆  
 
-    用途：計算疾病世代 (condition era)及選取合適的case組(selectCase)
+    用途：計算疾病世代 （condition era）及選取合適的case組（selectCase）
 
 **表二** 標準化分組後回傳的資料型態
 
@@ -206,12 +207,12 @@ ID|GroupType|(TimeTag)|FirstCaseDate|EndCaseDate|Count|Period
 
 取診斷資料中最早診斷的時間為first case date，診斷資料中最後記錄的時間為end case date，並計算其週期（period）內相差的天數，以及週期內共有幾筆診斷紀錄（count）。
 
-其中CCS單階層、多階層及PheWAS的分組(IcdDxToCCS, IcdDxToCCSLvl, IcdDxToPheWAS)另可選擇為"組別"或"組別敘述" (`isDescription` = TRUE or FALSE)
+其中CCS單階層、多階層及PheWAS的分組另可選擇為"分類"或"分類敘述" （`isDescription` = `TRUE` or `FALSE`）
 
 舉例來說CCS = 1，其組別敘述為"Tuberculosis"；使用者可自行選擇呈現方式
 
 ###一、CCS 臨床分類軟體
-美國Healthcare Cost and Utilization Project（HCUP）發展出一套診斷與處置的臨床分組標準CCS。基於此機制，將分散的診斷碼依照其臨床意義進行單層式或階層式的標準化診斷整合分類，其階層式診斷分類可依使用需求調整分類標準。  
+美國Healthcare Cost and Utilization Project (HCUP)發展出一套診斷與處置的臨床分組標準CCS。基於此機制，將分散的診斷碼依照其臨床意義進行單層式或階層式的標準化診斷整合分類，其階層式診斷分類可依使用需求調整分類標準。  
 
 * 單一階層：較通用的分類  
 * 多階層：將診斷碼分為較精確的分組  
@@ -219,7 +220,7 @@ ID|GroupType|(TimeTag)|FirstCaseDate|EndCaseDate|Count|Period
 **1) CCS單一階層分類**
 
 `IcdDxToCCS` 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述  
-ICD-9-CM 和 ICD-10-CM 的ccs單一階層一致：共260種
+ICD-9-CM 和 ICD-10-CM 的 CCS 單一階層一致：共260種
 ```r
 ## ICD to CCS category's description 
 CCS_description <- IcdDxToCCS(DxDataFile = sampleDxFile,
@@ -257,8 +258,8 @@ CCS_category <- IcdDxToCCS(DxDataFile = sampleDxFile,
 
 `IcdDxToCCSLvl` 可取得診斷編碼相對應的 CCS 多階層分類 (Multiple ccs level) 及分類之敘述
 
-* ICD-9-CM 共 4個階層 (Level 1~4)  
-* ICD-10-CM 共 2個階層 (Level 1~2)
+* ICD-9-CM 共 4 個階層 (Level 1~4)  
+* ICD-10-CM 共 2 個階層 (Level 1~2)
 
 ```r
 ## ICD to CCS multiple level 2 description
@@ -506,7 +507,7 @@ head(Charlson$summarised_groupedDT, 5)
     
 2) 	設定搜尋範圍
 
-　　　`INRofDayRange`：限制每筆診斷資料之間的間隔範圍，預設為至少間隔30天至365天時間內的資料
+　　　`INRofDayRange`：限制每筆診斷資料之間的間隔範圍，預設為間隔30天至365天時間內的資料
 　　
 
 3) 	ICD次數
@@ -522,10 +523,10 @@ head(Charlson$summarised_groupedDT, 5)
 |病患編碼|個數|第一筆資料時間|最後一筆資料時間|第一筆資料與最後一筆資料相隔週期| 出現最多次數的診斷編碼|最常出現診斷編碼的次數 |
 
 
-符合條件的個案將整合為一筆資料，內容包含符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD and most common ICD count）。
+符合條件的個案將整合為一筆資料，內容為符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD and most common ICD count）。
 
-符合篩選條件會在欄位`selectedCase`顯示"Selected"，使用者也可自行定義組別名稱 (在argument`selectCaseType`設定)  
-以第一筆做說明，個案A0符合篩選條件的診斷資料共5筆。其中V420出現三筆，出現次數最高。第一筆診斷日期為"2008-07-08"，最後一筆診斷紀錄為"2014-02-24"，整個診斷紀錄週期為2057天
+符合篩選條件會在欄位`selectedCase`顯示"Selected"，使用者也可自行定義組別名稱 (在`selectCaseType`設定)  
+以第一筆做說明，個案A0符合篩選條件的診斷資料共5筆，第一筆診斷日期為"2008-07-08"，最後一筆診斷紀錄為"2014-02-24"。其中V420出現次數最高，共三筆。整個診斷紀錄週期為2057天
 ```r
 Case <- selectCases(DxDataFile = sampleDxFile,
                    idColName = ID,           
@@ -546,7 +547,7 @@ head(Case)
 #> 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days         V5631                  2  
 ```
 ###六、就診紀錄第一筆資料及最後一筆資料
-取得病患的就診紀錄第一筆資料及最後一筆資料
+取得病患的就診紀錄第一筆資料及最後一筆資料，可用來做為個案的指標日期供`splitDataByDate`使用
 ```r
 admissionDate <- patientRecordDate(DxDataFile = sampleDxFile,
                                    idColName = ID,
@@ -562,16 +563,14 @@ head(admissionDate)
 #> 6:  D2      2006-09-01    2025-08-11
 ```
 ###七、以事件（index date）區分事件前後的醫療紀錄
-醫學研究常需要觀察特定事件發生前後的改變，因此需要一個指標時間（index date）來記錄事件的發生。TimeTag欄位可顯示此紀錄為事件前或是事件後（before and after），使用者可依此選擇事件發生前／後的資料。
+醫學研究常需要觀察特定事件發生前後的改變，因此需要一個指標時間（index date）來記錄事件的發生。TimeTag欄位可顯示此紀錄為事件前或是事件後（before and after），使用者可依此選擇事件發生前／後的資料
 
-舉例來說，指標日期根據不同個案定義，個案A0之指標日期為2009/07/25。
+指標日期 (`indexDateTable`) 依指標日期根據個案個別定義。  
+另外本套見也提供週期（window）計算功能，使用者可自行定義週期長度 (`windowGap`)，預設週期長度為30天。  
 
-個案A0的第一筆診斷資料時間為2009-07-25視為指標日期之後發生的紀錄，因此TimeTag為A (after)。兩筆資料間隔天數為0天，故為第1個週期。
+舉例來說，個案A0之指標日期為2009/07/25。
 
-個案A0的第二筆診斷資料時間為2010-03-28視為指標日期後的紀錄，因此TimeTag為A。資料間隔天數為246天，故為第9個週期。
-
-週期長度 (`windowGap`) 和指標日期 (`indexDateTable`) 依使用者需求定義。  
-另外本套見也提供週期（window）計算功能，預設週期長度為30天。  
+個案A0的第一筆診斷資料時間為2009-07-25視為指標日期之後發生的紀錄，TimeTag為A (after)。兩筆資料間隔天數為0天，故為第1個週期；個案A0的第二筆診斷資料時間為2010-03-28視為指標日期後的紀錄，因此TimeTag為A。資料間隔天數為246天，故為第9個週期。
 
 ```r
 indexDateTable <- data.table(ID = c("A0","B0","C0","D0"),
@@ -596,7 +595,7 @@ head(Data, 5)
 將分散的醫療紀錄整合為單一病程發展紀錄，以利後續醫療大數據分析使用。
 
 疾病世代的概念是針對疾病定義持續期（gap）長度，若診斷與診斷間間隔小於gap，則兩個診斷視為同一個疾病世代。  
-疾病世代的診斷分類可選擇診斷編碼、CCS、Phecode、comorbidity和自定義分類組別，計算病患之疾病世代，其持續期長度預設值為30天。  
+疾病世代的診斷分類可選擇診斷編碼或四種標準化分組，計算病患之疾病世代，其持續期長度預設值為30天（`gapDate`）。  
 
 以範例的第一個結果做說明：個案A0被分組到CCS "158"共有5筆資料，第一筆診斷日期為"2009-07-25"和最後一筆診斷紀錄為"2013-12-20"，整個週期相差天數為1609天，共五個era (意指五筆診斷紀錄彼此相差天數都大於gap長度)。
 ```r
@@ -620,7 +619,7 @@ head(Era)
 ## III. EDA preparation
 診斷碼整合分組後，為能進行後續的探索性資料分析，提供資料型態轉換的功能，以便進行統計分析之資料型態的寬表。
 
-寬表提供兩種表示方式如**表五、表六**，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true；數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料。
+寬表提供兩種表示方式如**表五、表六**，以二分法（binary）或是數量（numeric）的方式呈現。當病患沒有相關的疾病診斷，二分法的表示法為false，反之，不論有幾筆疾病診斷紀錄，二分法的表示法為true；數量表示法則計算該病患在相關疾病的分組上有幾筆疾病診斷資料。（`numericOrBinary` = `N`或`B`）
 
 以下範例以共病症 Elixhauser為範例進行兩種表示法回傳的資料型態
 ```r
@@ -664,13 +663,17 @@ head(groupedData_Wide, 5)
 第四部份視覺化：套件將前述功能之結果整合，以圖表形式呈現  
 
 ### Pareto plot：錯誤編碼之柏拉圖圖表
-進行第一階段 - 診斷編碼格式統一 (Code standarization) 時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。  
-使用者可選擇只看格式錯誤 (wrong format) 或是版本分類錯誤 (wrong version) 或不分類顯示全部的錯誤編碼。  
-
+進行第一階段－診斷編碼格式統一（Code standarization）時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。  
 以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。  
-使用者可選擇顯示前幾名 (Top N) 的錯誤編碼，預設顯示前10名的錯誤編碼。  
 
-如範例，欲觀察前十名的錯誤編碼種類及分布比例，第11名以後的錯誤編碼設為＂others＂(使用者可選擇是否顯示others的資訊)。
+如範例，欲觀察前十名的錯誤編碼種類及分布比例。  
+範例使用步驟如下：
+
+* `errorFile`：診斷編碼進行統一格式轉換時產生的錯誤編碼  
+* 顯示診斷編碼的版本：顯示全部的編碼版本（`ICDVersion` = `9, 10 or all`）  
+* 顯示錯誤診斷編碼的種類：顯示全部的錯誤編碼種類（`wrongICDType` = `version,  format or all`）  
+* 預設為顯示前十名的錯誤編碼（`TopN` = `10`）
+* 第10名以後的錯誤編碼設為＂others＂（`Others` = `TRUE`）
 
 ```r
 error <- IcdDxDecimalToShort(DxDataFile = sampleDxFile,
@@ -680,7 +683,6 @@ error <- IcdDxDecimalToShort(DxDataFile = sampleDxFile,
 plot_errorICD(errorFile = error$Error,
               ICDVersion = all,
               wrongICDType = all,
-              groupICD = FALSE,
               Others = TRUE)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;">
@@ -709,7 +711,16 @@ ICD-9共19章節疾病分類：
 　...等。  
 
 `plot_errorICD`依照編碼開頭分類，大致分為12組：0, 1, 2,..., 9, V and E  
-如範例，欲觀察**前三名**的錯誤編碼種類及分布比例，第4名以後的錯誤編碼設為＂others＂
+
+如範例，欲觀察前三名ICD9的錯誤編碼種類及分布比例。  
+範例使用步驟如下：  
+
+* `errorFile`：診斷編碼進行統一格式轉換時產生的錯誤編碼  
+* 顯示ICD9的錯誤編碼
+* 顯示全部的錯誤編碼種類
+* 依章節分組，只有ICD9有此功能
+* 顯示前三名的錯誤編碼
+* 第3名以後的錯誤編碼設為＂others＂
 
 ```r
 plot_errorICD(errorFile = error$Error,
@@ -730,12 +741,12 @@ plot_errorICD(errorFile = error$Error,
 #> 4:   Others          4         100%           E03.0         100.00%             ICD 9           
 ```
 ### histogram plot：標準化分組之長條圖表
-進行第二和第三階段 - 資料整合 (Data integration) 並轉換為探索性長表資料 (EDA preparation)，此功能整合長表資料圖形化，以便觀察診斷資料在各分群（如CCS、 comorbidity）的分布情形及數量。
+進行第二和第三階段－資料整合（Data integration）並轉換為探索性長表資料（EDA preparation），將長表資料圖形化，以便觀察診斷資料在各分群（如 comorbidity）的分布情形及數量。
 
-使用者可選擇顯示前幾名的分組資料(Top N)，且每個分群至少有一定比例的病患 (limitPercentage)，
+使用者可選擇顯示前幾名的分組資料（Top N），且每個分群至少有一定比例的病患（limitPercentage），
 舉例來說，假設使用者的資料共1000個病患，每種組別至少要有10個病患（1%）。
 
-預設顯示前十名，限制比例為1% (0.01)。
+預設顯示前十名，限制比例為1%（0.01）。
 
 範例使用步驟如下：
 
@@ -771,12 +782,12 @@ plot1$sigCate
 #>  9: PERIVASC     2    5.26%
 #> 10:    VALVE     2    5.26%
 ```
-若資料有進行病患分組case/control，於每個類別 (如CCS、comorbidity)將進行兩組 (case and control)的卡方獨立性檢定，圖表將顯示**達統計上顯著差異**的分組類別。  
-若樣本數過小以致不適用卡方檢定時，則採用費雪爾精確檢定 (Fisher’s Exact Test)  
+若資料有進行病患分組case/control，於每個類別（如comorbidity）將進行兩組（case and control）的卡方獨立性檢定，圖表將顯示**達統計上顯著差異**的分組類別。  
+若樣本數過小以致不適用卡方檢定時，則採用費雪爾精確檢定（Fisher’s Exact Test）  
 
 範例使用步驟如下：  
 
-* 定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為"Diseases of the urinary system" 視為case組，詳細設定條件請看範例  
+* 定義case/control組，採CCS多階層的標準化分組，在CCS level 2被分組為"Diseases of the urinary system" 視為case組，詳細設定條件請看`selectCases`範例  
 * 將資料以共病症Elixhauser做標準化分組並轉成寬表  
 * 設定作圖標準：顯示前幾名組別、限制比例、p value 
 
@@ -811,8 +822,8 @@ plot2$graph
 ```r
 plot2$sigCate
    category        group count catePerc
-1: RENLFAIL     Selected    24     100%
-2: RENLFAIL  nonSelected     0       0%
+1: RENLFAIL  nonSelected     0       0%
+2: RENLFAIL     Selected    24     100%
 
 ```
 
@@ -833,7 +844,7 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 ### II. Data integration
 
 本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。  
-Phecode依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。  
+PheWAS依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。  
 Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。  
 
 **CCS (Clinical Classifications Software)**
@@ -844,7 +855,7 @@ https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
 ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
 
-**Phecode**
+**PheWAS**
 
 ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
 

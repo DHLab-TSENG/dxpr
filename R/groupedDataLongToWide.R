@@ -28,7 +28,7 @@
 #'                                           "2015-10-01", elix,
 #'                                           numericOrBinary = N,
 #'                                           selectedCaseFile = selectedCaseFile)
-#' head(groupedData_Long)
+#' head(groupedData_Wide)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B,selectedCaseFile = NULL){
   DxDataFile <- as.data.table(DxDataFile)

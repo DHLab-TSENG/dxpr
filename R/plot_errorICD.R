@@ -5,8 +5,8 @@
 #' @import ggplot2
 #' @importFrom stats reorder
 #' @param errorFile error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)
-#' @param ICDVersion ICD version
-#' @param wrongICDType Wrong ICD type
+#' @param ICDVersion ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}
+#' @param wrongICDType Wrong ICD type: wrong version (\code{'version'}), wrong format (\code{'format'}, and all wrong type \code{'all'}
 #' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
 #' @param Others Default is TRUE
 #' @param TopN Default is Top "10"
