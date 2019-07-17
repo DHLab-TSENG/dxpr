@@ -9,10 +9,10 @@
 \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 }
 \usage{
-data(dxICD10)
+data(dxICD9)
 }
 \description{
-A datatable for ICD-9-CM, containing ICD-9-CM code and ICD description(Updated for codes valid through FY 2011.)
+A datatable for ICD-9-CM, containing ICD-9-CM code and ICD description (Updated for codes valid through FY 2011).
 }
 \details{
 \itemize{

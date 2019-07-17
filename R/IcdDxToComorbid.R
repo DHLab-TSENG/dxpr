@@ -12,6 +12,7 @@
 #' @param dateColName A column for Date of DxDataFile
 #' @param icd10usingDate ICD 10 using date
 #' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+#' @param isDescription   Categories/Description of comorbidities for ICD-9 or ICD-10. By default it is set to \code{True}.
 #' it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).
 #' @export
 #' @source AHRQ
@@ -33,7 +34,7 @@
 #' head(sampleDxFile)
 #' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 #'
-IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod){
+IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, isDescription = TRUE){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
@@ -43,7 +44,7 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   DxDataFile[,Short := Conversion$ICD]
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
-  if (comorbidMethod == "ahrq"){
+  if(comorbidMethod == "ahrq"){
     comorbidMap9 <- `icd9_ahrq`
     comorbidMap10 <- `icd10_ahrq`
   }else if(comorbidMethod == "charlson"){
@@ -56,20 +57,27 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     stop("'please enter AHRQ, Charlson or Elix for 'comorbidMethod'", call. = FALSE)
   }
 
-  IcdToComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate],comorbidMap9[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T),
-                         merge(DxDataFile[Date >=icd10usingDate],comorbidMap10[,list(ICD,Comorbidity)],by.x ="Short",by.y = "ICD",all.x = T))
-  IcdToComorbid <- IcdToComorbid[order(Number),-"Number"]
-  if(sum(is.na(IcdToComorbid$Comorbidity)) < nrow(IcdToComorbid)){
-    IcdToComorbidLong <- IcdToComorbid[!is.na(Comorbidity),
-                                       list(firstCaseDate = min(Date),
-                                            endCaseDate = max(Date),
-                                            count = .N),
-                                       by = list(ID,Comorbidity)][,period := (endCaseDate - firstCaseDate),][order(ID),]
-    return(list(groupedDT = IcdToComorbid,
-                summarised_groupedDT = IcdToComorbidLong,
+  if (isDescription){
+    com_col <- "Description"
+  }else{
+    com_col <- "Comorbidity"
+  }
+
+  allComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate], comorbidMap9[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                       merge(DxDataFile[Date >=icd10usingDate], comorbidMap10[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  allComorbid <- allComorbid[order(Number),-"Number"]
+
+  if(nrow(allComorbid[is.na(eval(parse(text = paste(com_col))))]) < nrow(allComorbid)){
+    summarisedComorbid <- allComorbid[!is.na(eval(parse(text = paste(com_col)))),
+                                      list(firstCaseDate = min(Date),
+                                           endCaseDate = max(Date),
+                                           count = .N),
+                                      by = c("ID",com_col)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+    return(list(groupedDT = allComorbid,
+                summarised_groupedDT = summarisedComorbid,
                 Error = Conversion$Error))
   }else{
-    return(list(groupedDT = IcdToComorbid,
+    return(list(groupedDT = allComorbid,
                 Error = Conversion$Error))
   }
 }

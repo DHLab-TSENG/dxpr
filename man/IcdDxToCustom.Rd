@@ -16,7 +16,7 @@ IcdDxToCustom(DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{CustomGroupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group" and "ICD"}
+\item{CustomGroupingTable}{Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "Group" and "ICD"}
 }
 \description{
 This can be used to select the first diagnosis record
@@ -25,7 +25,7 @@ return first diagnosis record based on factIcd Data
 }
 \examples{
 head(sampleDxFile)
-groupingTable <- data.frame(group = rep("Chronic kidney disease",6),
+groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
                             ICD = c("N181","5853","5854","5855","5856","5859"),
                             stringsAsFactors = FALSE)
 IcdDxToCustom(sampleDxFile, ID, ICD, Date,

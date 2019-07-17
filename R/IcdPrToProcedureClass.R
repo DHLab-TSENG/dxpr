@@ -13,7 +13,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' @param icdColName A column for ICD of PrDataFile
 #' @param dateColName A column for Date of PrDataFile
 #' @param icd10usingDate ICD-10 using date
-#' @param isProcedureClassName  Procedure Class category/name for ICD-9 or ICD-10. By default it is set to \code{True}.
+#' @param isDescription  Procedure Class category/name for ICD-9 or ICD-10. By default it is set to \code{True}.
 #' @export
 #' @source ICD-9-Procedure Class (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
@@ -23,7 +23,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
 #' head(samplePrFile)
 #' IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
-IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isProcedureClassName = TRUE){
+IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
   PrDataFile <- as.data.table(PrDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   PrDataFile <- PrDataFile[,DataCol,with = FALSE]
@@ -32,13 +32,13 @@ IcdPrToProcedureClass <- function(PrDataFile, idColName, icdColName, dateColName
   PrDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(PrDataFile))]
   PrDataFile[,Short := Conversion$ICD]
 
-  if (isProcedureClassName == T) {
+  if (isDescription) {
     PC_col <- "PROCEDURE_CLASS"
   } else {
     PC_col <- "PROCEDURE_CLASS_NAME"
   }
-  IcdToPC <- rbind(merge(PrDataFile[Date < icd10usingDate],pcICD9[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
-                   merge(PrDataFile[Date >= icd10usingDate],pcICD10[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
+  IcdToPC <- rbind(merge(PrDataFile[Date < icd10usingDate],pcICD9[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                   merge(PrDataFile[Date >= icd10usingDate],pcICD10[,c("ICD", PC_col), with = F],by.x ="Short",by.y = "ICD",all.x = TRUE))
   IcdToPC <- IcdToPC[order(Number),-"Number"]
   IcdToPC
 

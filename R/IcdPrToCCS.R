@@ -35,13 +35,13 @@ IcdPrToCCS <- function(PrDataFile, idColName, icdColName, dateColName, icd10usin
   PrDataFile[,Short := Conversion$ICD]
 
 
-  if (isDescription == T) {
+  if (isDescription) {
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
   } else {
     ccs_col <- "CCS_CATEGORY"
   }
-  IcdToCCS <- rbind(merge(PrDataFile[Date <icd10usingDate],ccsPrICD9[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
-                    merge(PrDataFile[Date >=icd10usingDate],ccsPrICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
+  IcdToCCS <- rbind(merge(PrDataFile[Date <icd10usingDate],ccsPrICD9[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                    merge(PrDataFile[Date >=icd10usingDate],ccsPrICD10[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
   IcdToCCS <- IcdToCCS[order(Number), -"Number"]
 
   return(list(groupedDT = IcdToCCS,

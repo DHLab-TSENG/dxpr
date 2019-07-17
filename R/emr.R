@@ -6,7 +6,7 @@ NULL
 
 #' ICD-9-CM
 #'
-#' A datatable for ICD-9-CM, containing ICD-9-CM code and ICD description(Updated for codes valid through FY 2011.)
+#' A datatable for ICD-9-CM, containing ICD-9-CM code and ICD description (Updated for codes valid through FY 2011).
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-CM
@@ -16,7 +16,7 @@ NULL
 #' @docType data
 #' @keywords datatable
 #' @name dxICD9
-#' @usage data(dxICD10)
+#' @usage data(dxICD9)
 #' @format A data frame with 14567 rows and 2 variables
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
 #' @seealso \code{\link{dxICD10}}
@@ -24,7 +24,7 @@ NULL
 
 #' ICD-10-CM
 #'
-#' A datatable for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-CM, containing ICD-10-CM code and ICD description (Updated for codes valid through FY 2019).
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-CM
@@ -42,7 +42,7 @@ NULL
 
 #' ICD-9-PCS
 #'
-#' A datatable for ICD-9-PCS, containing ICD-9-PCS code and ICD description(Updated for codes valid through FY 2014.)
+#' A datatable for ICD-9-PCS, containing ICD-9-PCS code and ICD description (Updated for codes valid through FY 2014).
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-PCS
@@ -60,7 +60,7 @@ NULL
 
 #' ICD-10-PCS
 #'
-#' A datatable for ICD-10-PCS, containing ICD-10-PCS code and ICD description(Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-PCS, containing ICD-10-PCS code and ICD description (Updated for codes valid through FY 2019).
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-PCS
@@ -131,7 +131,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-9-PCS
 #'
-#' A datatable for ICD-9-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
+#' A datatable for ICD-9-PCS CCS mapping, containing ICD description, CCS single-level procedure classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2015.)
 #'
 #' \itemize{
 #'   \item ICD. ICD-9-PCS
@@ -158,7 +158,7 @@ NULL
 
 #' Clinical Classifications Software (CCS)  for ICD-10-PCS
 #'
-#' A datatable for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level diagnosis classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types. (Updated for codes valid through FY 2019.)
+#' A datatable for ICD-10-PCS CCS mapping, containing ICD description, CCS single-level procedure classification, and CCS multiple level, which can be used for aggregate statistical reporting of a variety of types (Updated for codes valid through FY 2019).
 #'
 #' \itemize{
 #'   \item ICD. ICD-10-PCS
@@ -182,10 +182,10 @@ NULL
 
 #' Procedure Class for ICD-9-PCS
 #'
-#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2015.)
+#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic (Updated for codes valid through FY 2015).
 #'
 #' \itemize{
-#'   \item ICD. ICD-9-CM procedure codes
+#'   \item ICD. ICD-9 procedure codes
 #'   \item ICD_DESCRIPTION. Code Description (word label for the code)
 #'   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
 #'   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
@@ -203,10 +203,10 @@ NULL
 
 #' Procedure Class for ICD-10-PCS
 #'
-#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2019.)
+#' The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic (Updated for codes valid through FY 2019).
 #'
 #' \itemize{
-#'   \item ICD. ICD-10-CM procedure codes
+#'   \item ICD. ICD-10 procedure codes
 #'   \item ICD_DESCRIPTION. Code Description (word label for the code)
 #'   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
 #'   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic
@@ -252,7 +252,7 @@ NULL
 #' @keywords datatable
 #' @name icd10_ahrq
 #' @usage data(icd10_ahrq)
-#' @format A data table with 3217 rows and 2 variables
+#' @format A data table with 3217 rows and 3 variables
 #' @seealso \code{\link{icd9_ahrq}} \code{\link{icd9_charlson}} \code{\link{icd10_charlson}} \code{\link{icd9_elix}} \code{\link{icd10_elix}}
 NULL
 
@@ -412,7 +412,7 @@ NULL
 
 #' Sample File of ICD-CM codes for grouping method
 #'
-#' A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
+#' A sample file for demo with diagnostic function.
 #'
 #' \itemize{
 #'   \item ID  MemberID
@@ -424,7 +424,7 @@ NULL
 #' @keywords datatable
 #' @name sampleDxFile
 #' @usage data(sampleDxFile)
-#' @format A data table with 4010 rows and 3 variables
+#' @format A sample data table with 300 rows and 3 variables
 NULL
 
 #' Sample File of ICD-PCS codes for grouping method
@@ -441,18 +441,20 @@ NULL
 #' @keywords datatable
 #' @name samplePrFile
 #' @usage data(samplePrFile)
-#' @format A data table with 4010 rows and 3 variables
+#' @format A data table with 170 rows and 3 variables
 NULL
 
 if(getRversion() >= "2.15.1") utils::globalVariables(c(
-  "InTimeINR", "firstCaseDate", "endCaseDate", "period", "MostCommonICDCount",
-  "selectedCase", "groupDataType", "isDescription", "B", "ahrq", "charlson", "elix", "group",
-  "Out", "OutCount", "Number", "Short", "Decimal","value","variable",
-  "ICD9DxwithTwoFormat", "ICD10DxwithTwoFormat","ICD9PrwithTwoFormat", "ccsDxICD9", "ccsDxICD10", "prICD10",
-  "phecode_icd9_2", "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
-  "count", "WrongType", "IcdVersionInFile", "Suggestion", "ICD_DESCRIPTION",
-  "ccs", "ID", "ICD", "ICDD", "Comorbidity", "Date","Gap", "NextDate", "diffDay", "episodeCount", "episode", "era", "icd10usingDate",
-  "CustomGroupingTable", "greplICD", "timeTag","indexDateTable","window","indexDate",
-  "firstRecordDate","endRecordDate", "WrongICDType", "errorFile", "ICDVersion", "groupICD",
-  "ICDGroup","groupCount","maxICD","MostICDinGroup","CumCount","ICDPercinGroup","CumCountPerc",
-  "catePerc","sigCate","category"))
+  "ID", "ICD", "Date", "ICDD", "Short", "Decimal", "Number", "Suggestion",
+  "ccs", "icd10usingDate","Comorbidity", "ahrq", "charlson", "elix", "isDescription",
+  "Group", "period", "firstCaseDate", "endCaseDate", "CustomGroupingTable", "greplICD",
+  "ICD9DxwithTwoFormat", "ICD10DxwithTwoFormat","ccsDxICD9", "ccsDxICD10", "phecode_icd9_2",
+  "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
+  "ICD9PrwithTwoFormat", "ICD_DESCRIPTION", "prICD10",
+  "selectedCase", "OutRange", "OutCount", "count", "InRange", "MostCommonICDCount",
+  "Gap", "NextDate", "diffDay", "episodeCount", "episode", "era",
+  "timeTag","indexDateTable","window","indexDate", "firstRecordDate","endRecordDate",
+  "B", "N",
+  "errorFile", "ICDVersion", "WrongICDType", "WrongType", "IcdVersionInFile", "ICDGroup", "groupICD",
+  "groupCount", "maxICD", "MostICDinGroup", "CumCount", "ICDPercinGroup", "CumCountPerc", "Percentage","sigCate","DiagnosticCategory"))
+

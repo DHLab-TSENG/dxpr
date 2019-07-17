@@ -12,7 +12,7 @@
 data(dxICD10)
 }
 \description{
-A datatable for ICD-10-CM, containing ICD-10-CM code and ICD description(Updated for codes valid through FY 2019.)
+A datatable for ICD-10-CM, containing ICD-10-CM code and ICD description (Updated for codes valid through FY 2019).
 }
 \details{
 \itemize{

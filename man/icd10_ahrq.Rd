@@ -4,7 +4,7 @@
 \name{icd10_ahrq}
 \alias{icd10_ahrq}
 \title{AHRQ Comorbidity for ICD-10}
-\format{A data table with 3217 rows and 2 variables}
+\format{A data table with 3217 rows and 3 variables}
 \usage{
 data(icd10_ahrq)
 }

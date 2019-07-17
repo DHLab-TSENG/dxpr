@@ -122,7 +122,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>indexDateFile</span>, <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+  <span class='no'>indexDateFile</span>, <span class='kw'>Gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,7 +148,7 @@
       <td><p>An exact date of diagnosis for a period of observation.</p></td>
     </tr>
     <tr>
-      <th>windowGap</th>
+      <th>Gap</th>
       <td><p>gap length of window. Default is set to <code>30</code>.</p></td>
     </tr>
     </table>
@@ -163,51 +163,12 @@
 #&gt; 4: A0  5853 2010-10-29
 #&gt; 5: A0  5856 2009-07-25
 #&gt; 6: B0  N185 2021-07-16</div><div class='input'><span class='no'>indexDateTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>ID</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"A0"</span>,<span class='st'>"B0"</span>,<span class='st'>"C0"</span>,<span class='st'>"D0"</span>),
-                             <span class='kw'>indexDate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"2009-07-25"</span>, <span class='st'>"2015-12-26"</span>,
+                             <span class='kw'>indexDate</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"2023-08-12"</span>, <span class='st'>"2015-12-26"</span>,
                                            <span class='st'>"2015-12-05"</span>, <span class='st'>"2017-01-29"</span>),
                              <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
-                <span class='kw'>windowGap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt;     ID    ICD       Date  indexDate timeTag window
-#&gt;  1: A0   5856 2009-07-25 2009-07-25       A      1
-#&gt;  2: A0   V560 2010-03-28 2009-07-25       A      9
-#&gt;  3: A0   5853 2010-10-29 2009-07-25       A     16
-#&gt;  4: A0  V4511 2012-04-05 2009-07-25       A     33
-#&gt;  5: A0   5855 2013-12-20 2009-07-25       A     54
-#&gt;  6: A0    001 2014-11-05 2009-07-25       A     65
-#&gt;  7: A0  A0.11 2017-01-31 2009-07-25       A     92
-#&gt;  8: A0  A0.11 2023-08-12 2009-07-25       A    172
-#&gt;  9: B0   N185 2015-12-26 2015-12-26       A      1
-#&gt; 10: B0   N189 2017-11-27 2015-12-26       A     24
-#&gt; 11: B0  A0.11 2017-12-19 2015-12-26       A     25
-#&gt; 12: B0  V27.0 2020-03-06 2015-12-26       A     52
-#&gt; 13: B0  A0.11 2020-08-12 2015-12-26       A     57
-#&gt; 14: B0   N185 2021-07-16 2015-12-26       A     68
-#&gt; 15: B0   N183 2023-08-28 2015-12-26       A     94
-#&gt; 16: B0    N19 2023-11-18 2015-12-26       A     97
-#&gt; 17: B0    N19 2024-02-12 2015-12-26       A    100
-#&gt; 18: C0   C671 2015-12-05 2015-12-05       A      1
-#&gt; 19: C0   C048 2016-07-05 2015-12-05       A      8
-#&gt; 20: C0  C7259 2016-08-29 2015-12-05       A      9
-#&gt; 21: C0  V24.1 2016-10-08 2015-12-05       A     11
-#&gt; 22: C0 123.45 2017-05-09 2015-12-05       A     18
-#&gt; 23: C0  D0330 2018-05-07 2015-12-05       A     30
-#&gt; 24: C0  C4351 2025-01-12 2015-12-05       A    111
-#&gt; 25: C0   C089 2025-02-21 2015-12-05       A    113
-#&gt; 26: D0   E114 2017-01-29 2017-01-29       A      1
-#&gt; 27: D0  42761 2017-08-31 2017-01-29       A      8
-#&gt; 28: D0   K266 2017-12-24 2017-01-29       A     11
-#&gt; 29: D0   E114 2018-04-13 2017-01-29       A     15
-#&gt; 30: D0 M08029 2020-02-01 2017-01-29       A     37
-#&gt; 31: D0   E114 2020-04-04 2017-01-29       A     39
-#&gt; 32: D0    F42 2021-02-26 2017-01-29       A     50
-#&gt; 33: D0   F312 2022-12-01 2017-01-29       A     72
-#&gt; 34: D0  42761 2023-04-08 2017-01-29       A     76
-#&gt; 35: D0    F42 2024-07-15 2017-01-29       A     91
-#&gt; 36: D0  M4687 2024-12-24 2017-01-29       A     97
-#&gt; 37: D0  Z9.90 2025-04-08 2017-01-29       A    100
-#&gt;     ID    ICD       Date  indexDate timeTag window</div><div class='input'>
-</div></pre>
+<span class='no'>splitedData</span> <span class='kw'>&lt;-</span> <span class='fu'>splitDataByDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                               <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
+                               <span class='kw'>Gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -222,7 +183,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
+  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
 </div>
 
 <div class="pkgdown">

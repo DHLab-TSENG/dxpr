@@ -7,17 +7,18 @@
 #' @importFrom stats fisher.test
 #' @param groupedDataWide groupedData file from functions of code classification (four stPercentagegies)
 #' @param TopN Default is Top "10"
-#' @param limitPercentage the minimum  of Percentage Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.
+#' @param limitFreq the minimum  of Frequency Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.
 #' @param pvalue p value of chisq.test
 #' @export
 #' @examples
 #' head(sampleDxFile)
 #' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix)
+#'                                          groupDataType = elix,
+#'                                          isDescription = FALSE)
 #' plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
 #'                           TopN = 10,
-#'                           limitPercentage = 0.01)
+#'                           limitFreq = 0.01)
 #'
 #' selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
 #'                                 idColName = ID,
@@ -30,41 +31,42 @@
 #' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
 #'                                          icd10usingDate = "2015-10-01",
 #'                                          groupDataType = elix,
+#'                                          isDescription = FALSE,
 #'                                          selectedCaseFile = selectedCaseFile)
 #' plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
 #'                           TopN = 10,
-#'                           limitPercentage = 0.01,
+#'                           limitFreq = 0.01,
 #'                           pvalue = 0.05)
 #' plot1
 #' plot2
 #'
-plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01, pvalue = 0.05){
+plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
   plot_title <- "Diagnostic category"
   groupedDataWide <- groupedDataWide[,-1]
   if(names(groupedDataWide)[ncol(groupedDataWide)] == "selectedCase"){
     if(is.numeric(groupedDataWide[[1,1]])){
       groupedDataWide <- cbind(as.data.frame(groupedDataWide[,1:(ncol(groupedDataWide)-1)] >= 1L),
-                               group = groupedDataWide[, "selectedCase"])
+                               Group = groupedDataWide[, "selectedCase"])
     }
     groupedDataWide <- cbind(groupedDataWide[, -c(ncol(groupedDataWide))]*1,
-                             group = groupedDataWide[, "selectedCase"])
+                             Group = groupedDataWide[, "selectedCase"])
 
-    groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
-    groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)]
+    groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
+    groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = list(Group, DiagnosticCategory)]
 
-    caseNum <- sum(!grepl("non|[*]",groupedDataWide$group))
-    controlNum <- sum(grepl("non",groupedDataWide$group))
-    caseDataLong <- groupedDataLong[!grepl("non|[*]",groupedDataLong$group),][,catePerc := round((count/caseNum)*100,2)]
-    controlDataLong <- groupedDataLong[grepl("non",groupedDataLong$group),][,catePerc := round((count/controlNum)*100,2)]
+    caseN <- sum(!grepl("non|[*]",groupedDataWide$Group))
+    ctrlN <- sum(grepl("non",groupedDataWide$Group))
+    caseDataLong <- groupedDataLong[!grepl("non|[*]",groupedDataLong$Group),][,Percentage := round((N/caseN)*100,2)]
+    ctrlDataLong <- groupedDataLong[grepl("non",groupedDataLong$Group),][,Percentage := round((N/ctrlN)*100,2)]
 
     for(cat in 1:nrow(caseDataLong)){
-      if(caseDataLong$catePerc[cat] >= limitPercentage | controlDataLong$catePerc[cat] >= limitPercentage){
-        Table <- matrix(c(caseDataLong$count[cat], controlDataLong$count[cat],
-                          caseNum - caseDataLong$count[cat], controlNum - controlDataLong$count[cat]), 2, 2)
+      if(caseDataLong$Percentage[cat] >= limitFreq | ctrlDataLong$Percentage[cat] >= limitFreq){
+        Table <- matrix(c(caseDataLong$N[cat], ctrlDataLong$N[cat],
+                          caseN - caseDataLong$N[cat], ctrlN - ctrlDataLong$N[cat]), 2, 2)
 
-        if(sum(Table < 5) < 1){
-          Test_pvalue[[length(Test_pvalue)+1]] <- chisq.test(Table)$p.value < pvalue
+        if(sum(Table < 5) < 1 && sum((chisq.test(Table, simulate.p.value = TRUE)$expected) < 5) < 1){
+          Test_pvalue[[length(Test_pvalue)+1]] <- chisq.test(Table, correct = FALSE)$p.value < pvalue
         }else{
           Test_pvalue[[length(Test_pvalue)+1]] <- fisher.test(Table, alternative = "greater")$p.value < pvalue
         }
@@ -75,17 +77,17 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
     if(sum(Test_pvalue) == 0){
       return(message("There is no significant category between case and control"))
     }else{
-      groupedDataLong <- groupedDataLong[,list(sum = sum(count)),by = category][order(sum,decreasing = T)]
-      groupedDataLong <- groupedDataLong[1:TopN,][order(sum),"category"]
-      groupedDataLong[,"category" := factor(category, levels = groupedDataLong$category),]
+      groupedDataLong <- groupedDataLong[,list(sum = sum(N)),by = DiagnosticCategory][order(sum,decreasing = TRUE)]
+      groupedDataLong <- groupedDataLong[1:TopN,][order(sum),"DiagnosticCategory"]
+      groupedDataLong[,"DiagnosticCategory" := factor(DiagnosticCategory, levels = groupedDataLong$DiagnosticCategory),]
 
-      dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],controlDataLong[Test_pvalue,]),all.x = T)[!is.na(group),]
-      dignosticCate[,c("group","catePerc") := list(factor(group, levels = unique(dignosticCate$group)),
-                                                   paste0(catePerc,"%")),]
-      dignosticCate <- dignosticCate[order(category, group, count, decreasing = T),]
+      dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],ctrlDataLong[Test_pvalue,]),all.x = TRUE)[!is.na(Group),]
+      dignosticCate[,c("Group","Percentage") := list(factor(Group, levels = unique(dignosticCate$Group)),
+                                                   paste0(Percentage,"%")),]
+      dignosticCate <- dignosticCate[order(DiagnosticCategory, Group, N, decreasing = TRUE),]
 
-      g <- ggplot(dignosticCate, aes(fill =  group, y = count, x = category, group = group)) +
-        geom_text(aes(label = catePerc), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
+      g <- ggplot(dignosticCate, aes(fill =  Group, y = N, x = DiagnosticCategory, group = Group)) +
+        geom_text(aes(label = Percentage), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
         geom_bar(position="dodge", stat="identity")
     }
   }else{
@@ -93,18 +95,18 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitPercentage = 0.01,
       groupedDataWide <- as.data.frame(groupedDataWide >= 1L)
     }
     groupedDataWide <- groupedDataWide*1
-    groupedDataWide$group <- "noGroup"
-    groupedDataLong <- melt(groupedDataWide, id.vars = "group",variable.name = "category", value.name = "value")
-    groupedDataLong <- as.data.table(groupedDataLong)[,list(count = sum(value)), by = list(group, category)][order(count)][,catePerc := round(count/nrow(groupedDataWide)*100,2)][,-"group"][catePerc >= limitPercentage,]
-    groupedDataLong <- groupedDataLong[][,c("category","Number","catePerc") :=
-                                         list(factor(category, levels = category),
+    groupedDataWide$Group <- "noGroup"
+    groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
+    groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = list(Group, DiagnosticCategory)][order(N)][,Percentage := round(N/nrow(groupedDataWide)*100,2)][,-"Group"][Percentage >= limitFreq,]
+    groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
+                                         list(factor(DiagnosticCategory, levels = DiagnosticCategory),
                                               nrow(groupedDataLong):1,
-                                              paste0(catePerc,"%")),][Number <= TopN,]
-    dignosticCate <- groupedDataLong[,-"Number"][order(count,decreasing = T),]
+                                              paste0(Percentage,"%")),][Number <= TopN,]
+    dignosticCate <- groupedDataLong[,-"Number"][order(N, decreasing = TRUE),]
 
-    g <- ggplot(groupedDataLong, aes(y = count, x = category)) +
+    g <- ggplot(groupedDataLong, aes(y = N, x = DiagnosticCategory)) +
       geom_bar(position="dodge", stat="identity") +
-      geom_text(aes(label = catePerc), hjust = -.2, size = 3, position = position_dodge(width = 1))
+      geom_text(aes(label = Percentage), hjust = -.2, size = 3, position = position_dodge(width = 1))
   }
   plot_title <- paste0(plot_title,": Top ", TopN)
   dignosticCate_graph <- g + coord_flip() +

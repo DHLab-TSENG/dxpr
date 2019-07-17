@@ -32,33 +32,33 @@ IcdDxToCCSLvl <- function(DxDataFile, idColName, icdColName, dateColName, icd10u
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
   DxDataFile[,Short := Conversion$ICD]
 
-  if(isDescription == T){
+  if(isDescription){
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel, "_LABEL")
   }else{
     CCSLvlCol <- paste0("CCS_LVL_", CCSLevel)
   }
 
   if(CCSLevel <= 2){
-    IcdToCCSLvl <- rbind(merge(DxDataFile[Date < icd10usingDate],ccsDxICD9[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T),
-                         merge(DxDataFile[Date >= icd10usingDate],ccsDxICD10[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T))
+    allCCSLvl <- rbind(merge(DxDataFile[Date < icd10usingDate],ccsDxICD9[,c("ICD", CCSLvlCol), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                         merge(DxDataFile[Date >= icd10usingDate],ccsDxICD10[,c("ICD", CCSLvlCol), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
   }else{
-    IcdToCCSLvl <- merge(merge(DxDataFile[Date < icd10usingDate],ccsDxICD9[,c("ICD", CCSLvlCol), with = F],by.x ="Short",by.y = "ICD",all.x = T),
-                         DxDataFile[Date >= icd10usingDate], by = names(DxDataFile), all = T)
+    allCCSLvl <- merge(merge(DxDataFile[Date < icd10usingDate],ccsDxICD9[,c("ICD", CCSLvlCol), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                         DxDataFile[Date >= icd10usingDate], by = names(DxDataFile), all = TRUE)
   }
-  IcdToCCSLvl <- IcdToCCSLvl[order(Number),-"Number"]
+  allCCSLvl <- allCCSLvl[order(Number),-"Number"]
 
-  if(nrow(IcdToCCSLvl[is.na(eval(parse(text = paste(CCSLvlCol))))]) < nrow(IcdToCCSLvl)){
-    IcdToCCSLvlLong <- IcdToCCSLvl[!is.na(eval(parse(text = paste(CCSLvlCol)))),
-                                   list(firstCaseDate = min(Date),
-                                        endCaseDate = max(Date),
-                                        count = .N),
-                                   by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+  if(nrow(allCCSLvl[is.na(eval(parse(text = paste(CCSLvlCol))))]) < nrow(allCCSLvl)){
+    summarisedCCSLvl <- allCCSLvl[!is.na(eval(parse(text = paste(CCSLvlCol)))),
+                                  list(firstCaseDate = min(Date),
+                                       endCaseDate = max(Date),
+                                       count = .N),
+                                  by = c("ID",CCSLvlCol)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
-    return(list(groupedDT = IcdToCCSLvl,
-                summarised_groupedDT = IcdToCCSLvlLong,
+    return(list(groupedDT = allCCSLvl,
+                summarised_groupedDT = summarisedCCSLvl,
                 Error = Conversion$Error))
   }else{
-    return(list(groupedDT = IcdToCCSLvl,
+    return(list(groupedDT = allCCSLvl,
                 Error = Conversion$Error))
   }
 

@@ -10,11 +10,11 @@
 #' @param idColName A column for MemberID of DxDataFile
 #' @param icdColName A column for ICD of DxDataFile
 #' @param dateColName A column for Date of DxDataFile
-#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group" and "ICD"
+#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "Group" and "ICD"
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' groupingTable <- data.frame(group = rep("Chronic kidney disease",6),
+#' groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
 #'                             ICD = c("N181","5853","5854","5855","5856","5859"),
 #'                             stringsAsFactors = FALSE)
 #' IcdDxToCustom(sampleDxFile, ID, ICD, Date,
@@ -28,17 +28,16 @@ IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, Custom
   names(customICD) <- c("ID", "ICD", "Date")
   customICD[,c("Date", "Number") := list(as.Date(Date), 1:nrow(customICD))]
 
+  groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = TRUE)[order(Number), -"Number"]
 
-  groupedICD <- merge(customICD, CustomGroupingTable, by = "ICD", all.x = T)[order(Number),-"Number"]
-
-  if(sum(!is.na(groupedICD$group)) > 0){
-    groupedICDLong <- groupedICD[!is.na(group),
-                                 list(firstCaseDate = min(Date),
-                                      endCaseDate = max(Date),
-                                      count = .N),
-                                 by = list(ID, group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+  if(sum(!is.na(groupedICD$Group)) > 0){
+    summarisedgroupedICD <- groupedICD[!is.na(Group),
+                                       list(firstCaseDate = min(Date),
+                                            endCaseDate = max(Date),
+                                            count = .N),
+                                       by = list(ID, Group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
     return(list(groupedDT = groupedICD,
-                summarised_groupedDT = groupedICDLong))
+                summarised_groupedDT = summarisedgroupedICD))
   }else{
     warning("There is no match diagnostic code with the groupingTable")
     return(groupedDT = groupedICD)

@@ -14,7 +14,7 @@
 #' @export
 #' @examples
 #' head(sampleDxFile)
-#' grepTable <- data.frame(group = "Chronic kidney disease",
+#' grepTable <- data.frame(Group = "Chronic kidney disease",
 #'                         grepIcd = "^585|^N18",
 #'                         stringsAsFactors = FALSE)
 #' IcdDxToCustomGrep(DxDataFile = sampleDxFile,
@@ -27,20 +27,20 @@ IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, Cu
   DataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   GrepedIcd <- GrepedIcd[,DataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
-  GrepedIcd[,c("Date", "Number", "group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
+  GrepedIcd[,c("Date", "Number", "Group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
 
   for (rule in 1:nrow(CustomGroupingTable)){
-    GrepedIcd$group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), CustomGroupingTable[rule,group], GrepedIcd$group)
+    GrepedIcd$Group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), CustomGroupingTable[rule,Group], GrepedIcd$Group)
   }
 
-  if(sum(!is.na(GrepedIcd$group)) > 0){
-    GrepedIcdLong <- GrepedIcd[nchar(group)>0,
-                               list(firstCaseDate = min(Date),
-                                    endCaseDate = max(Date),
-                                    count = .N),by = list(ID,group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+  if(sum(!is.na(GrepedIcd$Group)) > 0){
+    summarisedGrepedIcd <- GrepedIcd[nchar(Group)>0,
+                                     list(firstCaseDate = min(Date),
+                                          endCaseDate = max(Date),
+                                          count = .N),by = list(ID,Group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
     return(list(groupedDT = GrepedIcd[order(Number),-"Number"],
-                summarised_groupedDT = GrepedIcdLong))
+                summarised_groupedDT = summarisedGrepedIcd))
   }else{
     warning("There is no match diagnostic code with the grepTable")
     return(groupedDT = GrepedIcd[order(Number),-"Number"])

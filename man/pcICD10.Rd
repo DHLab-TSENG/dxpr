@@ -12,11 +12,11 @@
 data(pcICD10)
 }
 \description{
-The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic.  (Updated for codes valid through FY 2019.)
+The Procedure Classes provide users an easy way to categorize procedure codes into one of four broad categories: Minor Diagnostic, Minor Therapeutic, Major Diagnostic, and Major Therapeutic (Updated for codes valid through FY 2019).
 }
 \details{
 \itemize{
-  \item ICD. ICD-10-CM procedure codes
+  \item ICD. ICD-10 procedure codes
   \item ICD_DESCRIPTION. Code Description (word label for the code)
   \item PROCEDURE_CLASS. 1=minor diagnostic / 2=minor therapeutic / 3 = major diagnostic / 4=major therapeutic
   \item PROCEDURE_CLASS_NAME. minor diagnostic, minor therapeutic, major diagnostic, and major therapeutic

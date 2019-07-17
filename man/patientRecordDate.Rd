@@ -20,6 +20,6 @@ patients' first and last record date.
 }
 \examples{
 head(sampleDxFile)
-patientRecordDate(sampleDxFile, ID, ICD, Date)
-                
+record <- patientRecordDate(sampleDxFile, ID, ICD, Date)
+head(record)
 }

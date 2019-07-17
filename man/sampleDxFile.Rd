@@ -4,12 +4,12 @@
 \name{sampleDxFile}
 \alias{sampleDxFile}
 \title{Sample File of ICD-CM codes for grouping method}
-\format{A data table with 4010 rows and 3 variables}
+\format{A sample data table with 300 rows and 3 variables}
 \usage{
 data(sampleDxFile)
 }
 \description{
-A sample file for grouping method (CCS, CCSLvl, phecode, comorbidity...) and calculating condition era
+A sample file for demo with diagnostic function.
 }
 \details{
 \itemize{

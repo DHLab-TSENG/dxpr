@@ -6,8 +6,8 @@
 \usage{
 selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
   groupDataType = ICD, CustomGroupingTable, isDescription = TRUE,
-  caseCondition, caseCount, INRofDayRange = c(30, 365),
-  selectCaseType = "Selected")
+  caseCondition, caseCount, PeriodRange = c(30, 365),
+  CaseName = "Selected")
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -30,9 +30,9 @@ selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{caseCount}{a threshold of number of ICD for case selection}
 
-\item{INRofDayRange}{Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.}
+\item{PeriodRange}{Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.}
 
-\item{selectCaseType}{Aggregation  of selected cases name. By default it is set to \code{"selected"}.}
+\item{CaseName}{Aggregation  of selected cases name. By default it is set to \code{"selected"}.}
 }
 \description{
 This can be used to select qualified cases from factIcd data

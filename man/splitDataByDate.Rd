@@ -5,7 +5,7 @@
 \title{split data based on index date}
 \usage{
 splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
-  indexDateFile, windowGap = 30)
+  indexDateFile, Gap = 30)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", "Date"}
@@ -18,7 +18,7 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
 
 \item{indexDateFile}{An exact date of diagnosis for a period of observation.}
 
-\item{windowGap}{gap length of window. Default is set to \code{30}.}
+\item{Gap}{gap length of window. Default is set to \code{30}.}
 }
 \description{
 split data based on index date
@@ -27,11 +27,11 @@ split data based on index date
 sampleDxFile <- sampleDxFile[grepl("A0|B0|C0|D0",ID),]
 head(sampleDxFile)
 indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
-                             indexDate = c("2009-07-25", "2015-12-26",
+                             indexDate = c("2023-08-12", "2015-12-26",
                                            "2015-12-05", "2017-01-29"),
                              stringsAsFactors = FALSE)
-splitDataByDate(sampleDxFile, ID, ICD, Date,
-                indexDateFile = indexDateTable,
-                windowGap = 30)
+splitedData <- splitDataByDate(sampleDxFile, ID, ICD, Date,
+                               indexDateFile = indexDateTable,
+                               Gap = 30)
 
 }

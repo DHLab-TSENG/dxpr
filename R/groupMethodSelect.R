@@ -27,11 +27,11 @@ groupMethodSelect <- function(DxDataFile,idColName, icdColName, dateColName, icd
   }else if(groupMethod == "PHEWAS"){
     groupedData <- IcdDxToPheWAS(DxDataFile, ID, ICD, Date, icd10usingDate, isDescription)
   }else if(groupMethod == "AHRQ"){
-    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, ahrq)
+    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, ahrq, isDescription)
   }else if(groupMethod == "CHARLSON"){
-    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson)
+    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, charlson, isDescription)
   }else if(groupMethod == "ELIX"){
-    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix)
+    groupedData <- IcdDxToComorbid(DxDataFile, ID, ICD, Date, icd10usingDate, elix, isDescription)
   }else if(groupMethod == "CUSTOMGREPICDGROUP"){
     groupedData <- IcdDxToCustomGrep(DxDataFile, ID, ICD, Date, CustomGroupingTable)
   }else if(groupMethod == "CUSTOMICDGROUP"){

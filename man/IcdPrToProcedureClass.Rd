@@ -14,7 +14,7 @@ ICD-10-Procedure Class (2018)
 }
 \usage{
 IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, isProcedureClassName = TRUE)
+  icd10usingDate, isDescription = TRUE)
 }
 \arguments{
 \item{PrDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -27,7 +27,7 @@ IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{ICD-10 using date}
 
-\item{isProcedureClassName}{Procedure Class category/name for ICD-9 or ICD-10. By default it is set to \code{True}.}
+\item{isDescription}{Procedure Class category/name for ICD-9 or ICD-10. By default it is set to \code{True}.}
 }
 \description{
 return Procedure Class categories based on ICD-9 and ICD-10 codes

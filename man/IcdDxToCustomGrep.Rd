@@ -25,7 +25,7 @@ return first diagnosis record based on factIcd Data
 }
 \examples{
 head(sampleDxFile)
-grepTable <- data.frame(group = "Chronic kidney disease",
+grepTable <- data.frame(Group = "Chronic kidney disease",
                         grepIcd = "^585|^N18",
                         stringsAsFactors = FALSE)
 IcdDxToCustomGrep(DxDataFile = sampleDxFile,

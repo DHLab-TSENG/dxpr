@@ -36,7 +36,7 @@ ICD-10-CM Elixhauser (2019)
 }
 \usage{
 IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
-  icd10usingDate, comorbidMethod)
+  icd10usingDate, comorbidMethod, isDescription = TRUE)
 }
 \arguments{
 \item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
@@ -49,7 +49,9 @@ IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{ICD 10 using date}
 
-\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change}
+
+\item{isDescription}{Categories/Description of comorbidities for ICD-9 or ICD-10. By default it is set to \code{True}.
 it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).}
 }
 \description{

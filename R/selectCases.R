@@ -16,8 +16,8 @@
 #' @param CustomGroupingTable Table is for groupDataType
 #' @param isDescription  CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.
 #' @param caseCount a threshold of number of ICD for case selection
-#' @param INRofDayRange Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.
-#' @param selectCaseType Aggregation  of selected cases name. By default it is set to \code{"selected"}.
+#' @param PeriodRange Determines the interval of days of interest for performing the case selection. By default it is set from 30 to 365 days.
+#' @param CaseName Aggregation  of selected cases name. By default it is set to \code{"selected"}.
 #' @export
 #' @examples
 #' head(sampleDxFile)
@@ -28,56 +28,53 @@
 #'             caseCondition = "Diseases of the urinary system",
 #'             caseCount = 1)
 #'
-selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, INRofDayRange = c(30, 365), selectCaseType = "Selected"){
+selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ICD, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, PeriodRange = c(30, 365), CaseName = "Selected"){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+  DxDataFile <- DxDataFile[,DataCol, with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  nonSelectCaseType <- paste0("non",selectCaseType)
-  semiSelectCaseType <- paste0(selectCaseType,"*")
+  nonCaseName <- paste0("non-",CaseName)
+  semiCaseName <- paste0(CaseName,"*")
 
   groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
   if(groupDataType != "ICD"){
-    groupedData <- groupedData$groupedDT
-  }
+    groupedData <- groupedData$groupedDT[,-"ICD"]
+  }else{
+    groupedData <- groupedData[,-"ICD"]
+    }
+  names(groupedData) <- gsub("Short|Decimal", "ICD", names(groupedData))
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
-  Case <- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))]),][order(ID,Date)])
+  Case <- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))]),][order(ID, Date)])
 
   if(nrow(Case) > 0){
     if(caseCount > 1){
-      Case <- Case[,NextDate := c(Date[-1],NA),by = "ID"][is.na(NextDate), NextDate := Date][, diffDay := NextDate-Date][, Out := FALSE][diffDay > INRofDayRange[2],
-                                                                                                                                         Out := TRUE][,OutCount:=cumsum(Out),by = "ID"][!Out == TRUE,]
-      CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)),by = c("ID","OutCount")][,InTimeINR := Gap >= INRofDayRange[1] & Gap < INRofDayRange[2]][is.na(InTimeINR),InTimeINR := FALSE][,list(count = cumsum(InTimeINR),
-                                                                                                                                                                                                firstCaseDate = min(Date),
-                                                                                                                                                                                                endCaseDate = max(NextDate),
-                                                                                                                                                                                                period = Gap),
-                                                                                                                                                                                          by = c("ID","OutCount")][order(ID, count, decreasing = T)][!duplicated(ID),][count >= caseCount,][,-"OutCount"]
-      CaseMostICDCount <- Case[InTimeINR ==TRUE,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
-    }
-    else{
-      CaseCount <- Case[,list(count = .N,
-                              firstCaseDate = min(Date),
-                              endCaseDate = max(Date)),by = c("ID")][,period := endCaseDate-firstCaseDate,][order(ID, count, decreasing = T)]
-      CaseMostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount,decreasing = T),]
+      Case <- Case[,NextDate := c(Date[-1], NA),by = "ID"][is.na(NextDate), NextDate := Date][, diffDay := NextDate-Date][, OutRange := FALSE][diffDay > PeriodRange[2], OutRange := TRUE][,OutCount:=cumsum(OutRange), by = "ID"][!OutRange == TRUE,]
+
+      CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)), by = c("ID","OutCount")][, InRange := Gap >= PeriodRange[1] & Gap < PeriodRange[2]][is.na(InRange),InRange := FALSE][,list(count = cumsum(InRange),firstCaseDate = min(Date),endCaseDate = max(NextDate),period = Gap),by = c("ID","OutCount")][!duplicated(ID),][count >= caseCount,][,-"OutCount"]
+      CaseMostICDCount <- Case[InRange == TRUE,list(MostCommonICDCount = .N),by = list(ID,ICD)]
+
+    }else{
+      CaseCount <- Case[,list(count = .N,firstCaseDate = min(Date),endCaseDate = max(Date)),by = c("ID")][,period := endCaseDate-firstCaseDate,]
+      CaseMostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)]
     }
   }else{
-    nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonSelectCaseType][!duplicated(ID),][order(ID),]
+    nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
     return(nonSelectedCase)
   }
 
-  selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[!duplicated(ID),][,selectedCase := selectCaseType]
+  selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[!duplicated(ID),][,selectedCase := CaseName]
   setnames(selectedCase,"ICD","MostCommonICD")
-  nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonSelectCaseType][!duplicated(ID),]
+  nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
   if(length(unique(Case$ID)) > length(unique(selectedCase$ID))){
-    semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := semiSelectCaseType][!duplicated(ID),]
+    semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := semiCaseName][!duplicated(ID),]
     nonSelectedCase <- rbind(nonSelectedCase,semiCase)
   }
 
-  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all = T)[order(MostCommonICDCount,decreasing = T),]
+  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
 
   allData
 }

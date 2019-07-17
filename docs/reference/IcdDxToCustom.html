@@ -149,7 +149,7 @@ return first diagnosis record based on factIcd Data</p>
     </tr>
     <tr>
       <th>CustomGroupingTable</th>
-      <td><p>Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "group" and "ICD"</p></td>
+      <td><p>Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "Group" and "ICD"</p></td>
     </tr>
     </table>
     
@@ -161,12 +161,12 @@ return first diagnosis record based on factIcd Data</p>
 #&gt; 3:  A8 Z992 2015-10-27
 #&gt; 4: A13 Z992 2020-04-26
 #&gt; 5: A13 Z992 2025-02-02
-#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='no'>groupingTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Chronic kidney disease"</span>,<span class='fl'>6</span>),
+#&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='no'>groupingTable</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>Group</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"Chronic kidney disease"</span>,<span class='fl'>6</span>),
                             <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"N181"</span>,<span class='st'>"5853"</span>,<span class='st'>"5854"</span>,<span class='st'>"5855"</span>,<span class='st'>"5856"</span>,<span class='st'>"5859"</span>),
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>IcdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
               <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDT
-#&gt;         ICD  ID       Date group
+#&gt;         ICD  ID       Date Group
 #&gt;   1:   Z992  A2 2020-05-22  &lt;NA&gt;
 #&gt;   2:   Z992  A5 2020-01-24  &lt;NA&gt;
 #&gt;   3:   Z992  A8 2015-10-27  &lt;NA&gt;
@@ -180,7 +180,7 @@ return first diagnosis record based on factIcd Data</p>
 #&gt; 300: 123.45  C0 2017-05-09  &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;      ID                  group firstCaseDate endCaseDate count    period
+#&gt;      ID                  Group firstCaseDate endCaseDate count    period
 #&gt;  1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
 #&gt;  2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
 #&gt;  3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days
@@ -213,7 +213,7 @@ return first diagnosis record based on factIcd Data</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
+  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
 </div>
 
 <div class="pkgdown">

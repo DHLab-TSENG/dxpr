@@ -4,7 +4,7 @@
 \alias{plot_groupedData}
 \title{Plot of diagnostic category data}
 \usage{
-plot_groupedData(groupedDataWide, TopN = 10, limitPercentage = 0.01,
+plot_groupedData(groupedDataWide, TopN = 10, limitFreq = 0.01,
   pvalue = 0.05)
 }
 \arguments{
@@ -12,7 +12,7 @@ plot_groupedData(groupedDataWide, TopN = 10, limitPercentage = 0.01,
 
 \item{TopN}{Default is Top "10"}
 
-\item{limitPercentage}{the minimum  of Percentage Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.}
+\item{limitFreq}{the minimum  of Frequency Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.}
 
 \item{pvalue}{p value of chisq.test}
 }
@@ -23,10 +23,11 @@ Plot of diagnostic category data
 head(sampleDxFile)
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
-                                         groupDataType = elix)
+                                         groupDataType = elix,
+                                         isDescription = FALSE)
 plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
-                          limitPercentage = 0.01)
+                          limitFreq = 0.01)
 
 selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
                                 idColName = ID,
@@ -39,10 +40,11 @@ selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
 groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          icd10usingDate = "2015-10-01",
                                          groupDataType = elix,
+                                         isDescription = FALSE,
                                          selectedCaseFile = selectedCaseFile)
 plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
-                          limitPercentage = 0.01,
+                          limitFreq = 0.01,
                           pvalue = 0.05)
 plot1
 plot2

@@ -31,28 +31,28 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
   DxDataFile[,Short := Conversion$ICD]
 
-  if (isDescription == T) {
+  if (isDescription){
     ccs_col <- "CCS_CATEGORY_DESCRIPTION"
   }else {
     ccs_col <- "CCS_CATEGORY"
   }
-  IcdToCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T),
-                    merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = F],by.x ="Short",by.y = "ICD",all.x = T))
+  allCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                  merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
 
-  IcdToCCS <- IcdToCCS[order(Number),-"Number"]
+  allCCS <- allCCS[order(Number),-"Number"]
 
-  if(nrow(IcdToCCS[is.na(eval(parse(text = paste(ccs_col))))]) < nrow(IcdToCCS)){
-    IcdToCCSLong <- IcdToCCS[!is.na(eval(parse(text = paste(ccs_col)))),
-                             list(firstCaseDate = min(Date),
-                                  endCaseDate = max(Date),
-                                  count = .N),
-                             by = c("ID",ccs_col)][,period := (endCaseDate - firstCaseDate),][order(ID)]
+  if(nrow(allCCS[is.na(eval(parse(text = paste(ccs_col))))]) < nrow(allCCS)){
+    summarisedIcdToCCS <- allCCS[!is.na(eval(parse(text = paste(ccs_col)))),
+                                 list(firstCaseDate = min(Date),
+                                      endCaseDate = max(Date),
+                                      count = .N),
+                                 by = c("ID",ccs_col)][,period := (endCaseDate - firstCaseDate),][order(ID)]
 
-    return(list(groupedDT = IcdToCCS,
-                summarised_groupedDT = IcdToCCSLong,
+    return(list(groupedDT = allCCS,
+                summarised_groupedDT = summarisedIcdToCCS,
                 Error = Conversion$Error))
   }else{
-    return(list(groupedDT = IcdToCCS,
+    return(list(groupedDT = allCCS,
                 Error = Conversion$Error))
   }
 }

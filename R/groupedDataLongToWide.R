@@ -30,22 +30,21 @@
 #'                                           selectedCaseFile = selectedCaseFile)
 #' head(groupedData_Wide)
 #'
-groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B,selectedCaseFile = NULL){
+groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]
   names(DxDataFile) <- c("ID", "ICD", "Date")
 
   groupDataType <- toupper(deparse(substitute(groupDataType)))
-  groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
-                                   icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+  groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date, icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+
   if(groupDataType != "ICD"){
     groupedData <- groupedData$summarised_groupedDT
     if(is.null(groupedData)){return(groupedData)}
   }else{
     groupedData <- groupedData[,list(firstCaseDate = min(Date),endCaseDate = max(Date),count = .N),by = c("ID","Short")][,period := (endCaseDate - firstCaseDate),]
   }
-
   groupedData_wide <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
 
   if(length(groupedData_wide$ID) != length(DxDataFile$ID)){
@@ -68,8 +67,14 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
 
   if(!is.null(selectedCaseFile)){
     wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
+    if(isDescription == FALSE |groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
+      names(wideData_selected)[2:(ncol(wideData_selected)-1)] <- paste0(groupDataType,"_",names(wideData_selected)[2:(ncol(wideData_selected)-1)])
+    }
     return(wideData_selected)
   }else{
+    if(isDescription == FALSE |groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
+      names(wideData)[2:ncol(wideData)] <- paste0(groupDataType,"_",names(wideData)[2:ncol(wideData)])
+    }
     return(wideData)
   }
 }

@@ -28,10 +28,10 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
 
   icd_Decimal <- DxDataFile[grepl("[.]", DxDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
-    icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = T)
-    icd10D <- merge(icd_Decimal[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = T)
-    if(anyNA(icd9D)){icd9DNA <- merge(icd9D[is.na(Short),-"Short"],ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = T)}
-    if(anyNA(icd10D)){icd10DNA <- merge(icd10D[is.na(Short),-"Short"],ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = T)}
+    icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    icd10D <- merge(icd_Decimal[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    if(anyNA(icd9D)){icd9DNA <- merge(icd9D[is.na(Short),-"Short"],ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = TRUE)}
+    if(anyNA(icd10D)){icd10DNA <- merge(icd10D[is.na(Short),-"Short"],ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = TRUE)}
 
     if(exists("icd9DNA")){
       icd9DwrongFormat <- icd9DNA[is.na(Short), list(count = .N),by = ICD]
@@ -74,10 +74,10 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
 
   icd_Short <- DxDataFile[!icd_Decimal, on = "Number"]
   if(nrow(icd_Short) > 0){
-    icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = T)
-    icd10S <- merge(icd_Short[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = T)
-    if(anyNA(icd9S)){icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = T)}
-    if(anyNA(icd10S)){icd10SNA <- merge(icd10S[is.na(Decimal),-"Decimal"], ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = T)}
+    icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+    icd10S <- merge(icd_Short[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+    if(anyNA(icd9S)){icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = TRUE)}
+    if(anyNA(icd10S)){icd10SNA <- merge(icd10S[is.na(Decimal),-"Decimal"], ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = TRUE)}
     if(exists("icd9SNA")){
       icd9SwrongFormat <- icd9SNA[is.na(Decimal), list(count = .N),by = ICD]
       icd9SWrongVer <- icd9SNA[!is.na(Decimal), list(count = .N),by = ICD]
@@ -151,9 +151,9 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
     ICD9wrongFormatMsg <- allWrongFormatMsg[grepl("9", allWrongFormatMsg$IcdVersionInFile),]
     ICD9wrongFormatMsg <- ICD9wrongFormatMsg[, Suggestion :=paste0(ICD9wrongFormatMsg[,ICD], "9")]
     ICD9wrongFormatSuggested <- rbind(merge(ICD9wrongFormatMsg[grepl("[.]", ICD9wrongFormatMsg$Suggestion),],
-                                            ICD9DxwithTwoFormat, by.x = "Suggestion", by.y = "Decimal", nomatch = T)[,-"Short"],
+                                            ICD9DxwithTwoFormat, by.x = "Suggestion", by.y = "Decimal", nomatch = TRUE)[,-"Short"],
                                       merge(ICD9wrongFormatMsg[!grepl("[.]", ICD9wrongFormatMsg$Suggestion),],
-                                            ICD9DxwithTwoFormat, by.x = "Suggestion", by.y = "Short", nomatch = T)[,-"Decimal"])
+                                            ICD9DxwithTwoFormat, by.x = "Suggestion", by.y = "Short", nomatch = TRUE)[,-"Decimal"])
     noSuggestedWrongFormat <- allWrongICDMsg[!ICD9wrongFormatSuggested, on = c("ICD","IcdVersionInFile")][, Suggestion :=""]
 
     allWrongICDMsg <- rbind(noSuggestedWrongFormat, ICD9wrongFormatSuggested)
@@ -163,23 +163,23 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
   if(nrow(allDecimalFormat) < nrow(DxDataFile)){
     if(exists("allWrongFormat")){
       message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
-      allWrongFormatMsg <- allWrongFormatMsg[order(count,decreasing = T),]
+      allWrongFormatMsg <- allWrongFormatMsg[order(count,decreasing = TRUE),]
       message(head(allWrongFormatMsg[,list(wrongFormat= paste0(ICD," (",count,")","")),],10))
       message(("\t"))
     }
     if(exists("allWrongVersion")){
       message(paste0("Wrong ICD version: total ",nrow(allWrongVersionMsg)," ICD codes (the number of occurrences is in brackets)"))
-      allWrongVersionMsg <- allWrongVersionMsg[order(count,decreasing = T),]
+      allWrongVersionMsg <- allWrongVersionMsg[order(count,decreasing = TRUE),]
       message(head(allWrongVersionMsg[,list(wrongFormat= paste0(ICD," (",count,")","")),], 10))
       message(("\t"))
     }
-    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = F)
-    warning('"Wrong ICD format" means the ICD has wrong format', call. = F)
-    warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = F)
+    warning('The ICD mentioned above matches to "NA" due to the format or other issues.', call. = FALSE)
+    warning('"Wrong ICD format" means the ICD has wrong format', call. = FALSE)
+    warning('"Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)', call. = FALSE)
 
     combine_with_error <- rbind(allWrongICD, allDecimalFormat)[order(Number),"ICD"]
     return(list(ICD = combine_with_error,
-                Error = allWrongICDMsg[order(count,decreasing = T),]))
+                Error = allWrongICDMsg[order(count,decreasing = TRUE),]))
   }else{
     return(list(ICD = allDecimalFormat[order(Number),ICD]))
   }

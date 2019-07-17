@@ -122,7 +122,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>IcdDxToComorbid</span>(<span class='no'>DxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>icd10usingDate</span>, <span class='no'>comorbidMethod</span>)</pre>
+  <span class='no'>icd10usingDate</span>, <span class='no'>comorbidMethod</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,7 +149,11 @@
     </tr>
     <tr>
       <th>comorbidMethod</th>
-      <td><p>Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
+      <td><p>Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change</p></td>
+    </tr>
+    <tr>
+      <th>isDescription</th>
+      <td><p>Categories/Description of comorbidities for ICD-9 or ICD-10. By default it is set to <code>True</code>.
 it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>).</p></td>
     </tr>
     </table>
@@ -185,73 +189,126 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 #&gt; 4: A13 Z992 2020-04-26
 #&gt; 5: A13 Z992 2025-02-02
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'><span class='fu'>IcdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;       Short  ID    ICD       Date Comorbidity
-#&gt;   1:   Z992  A2   Z992 2020-05-22          RD
-#&gt;   2:   Z992  A5   Z992 2020-01-24          RD
-#&gt;   3:   Z992  A8   Z992 2015-10-27          RD
-#&gt;   4:   Z992 A13   Z992 2020-04-26          RD
-#&gt;   5:   Z992 A13   Z992 2025-02-02          RD
-#&gt;  ---                                         
-#&gt; 296:    650  C2    650 2017-10-10        &lt;NA&gt;
-#&gt; 297:    650  D4    650 2022-04-04        &lt;NA&gt;
-#&gt; 298: 123.45  C3 123.45 2022-09-28        &lt;NA&gt;
-#&gt; 299: 123.45  D8 123.45 2018-06-17        &lt;NA&gt;
-#&gt; 300: 123.45  C0 123.45 2017-05-09        &lt;NA&gt;
+#&gt;       Short  ID    ICD       Date   Description
+#&gt;   1:   Z992  A2   Z992 2020-05-22 Renal Disease
+#&gt;   2:   Z992  A5   Z992 2020-01-24 Renal Disease
+#&gt;   3:   Z992  A8   Z992 2015-10-27 Renal Disease
+#&gt;   4:   Z992 A13   Z992 2020-04-26 Renal Disease
+#&gt;   5:   Z992 A13   Z992 2025-02-02 Renal Disease
+#&gt;  ---                                           
+#&gt; 296:    650  C2    650 2017-10-10          &lt;NA&gt;
+#&gt; 297:    650  D4    650 2022-04-04          &lt;NA&gt;
+#&gt; 298: 123.45  C3 123.45 2022-09-28          &lt;NA&gt;
+#&gt; 299: 123.45  D8 123.45 2018-06-17          &lt;NA&gt;
+#&gt; 300: 123.45  C0 123.45 2017-05-09          &lt;NA&gt;
 #&gt; 
 #&gt; $summarised_groupedDT
-#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  A0          RD    2009-07-25  2013-12-20     5 1609 days
-#&gt;  2:  A1          RD    2006-11-29  2014-09-24     5 2856 days
-#&gt;  3: A10          RD    2007-11-04  2012-07-30     5 1730 days
-#&gt;  4: A11          RD    2008-03-09  2011-09-03     5 1273 days
-#&gt;  5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days
-#&gt;  6: A12          RD    2006-05-14  2015-06-29     5 3333 days
-#&gt;  7: A13          RD    2006-04-29  2025-02-02     5 6854 days
-#&gt;  8: A14          RD    2006-11-28  2014-12-21     5 2945 days
-#&gt;  9: A15          RD    2007-05-25  2023-05-12     5 5831 days
-#&gt; 10: A16          RD    2007-04-15  2014-12-05     5 2791 days
-#&gt; 11: A17          RD    2007-02-19  2014-07-03     5 2691 days
-#&gt; 12: A18          RD    2007-04-05  2014-03-04     5 2525 days
-#&gt; 13:  A2          RD    2011-09-20  2020-05-22     5 3167 days
-#&gt; 14:  A3          RD    2008-07-08  2014-02-24     5 2057 days
-#&gt; 15:  A4          RD    2006-10-20  2015-03-09     5 3062 days
-#&gt; 16:  A5          RD    2009-09-10  2020-01-24     5 3788 days
-#&gt; 17:  A6          RD    2007-10-01  2015-07-12     5 2841 days
-#&gt; 18:  A7          RD    2007-02-01  2014-08-14     5 2751 days
-#&gt; 19:  A8          RD    2007-11-22  2015-10-27     5 2896 days
-#&gt; 20:  A9          RD    2007-03-05  2013-11-09     5 2441 days
-#&gt; 21:  B0          RD    2015-12-26  2024-02-12     6 2970 days
-#&gt; 22:  B1          RD    2016-08-08  2024-03-04     6 2765 days
-#&gt; 23:  B2          RD    2016-03-20  2024-09-20     6 3106 days
-#&gt; 24:  B3          RD    2019-05-07  2025-05-25     6 2210 days
-#&gt; 25:  B4          RD    2015-12-02  2025-07-21     6 3519 days
-#&gt; 26:  C0      CANCER    2015-12-05  2025-02-21     5 3366 days
-#&gt; 27:  C1      CANCER    2018-02-13  2025-02-20     5 2564 days
-#&gt; 28:  C2      CANCER    2016-09-09  2024-12-12     5 3016 days
-#&gt; 29:  C2      DIAB_C    2017-07-08  2017-07-08     1    0 days
-#&gt; 30:  C3      CANCER    2015-12-06  2021-10-22     4 2147 days
-#&gt; 31:  C4      CANCER    2017-08-29  2025-09-05     5 2929 days
-#&gt; 32:  C4      DIAB_C    2015-11-23  2015-11-23     1    0 days
-#&gt; 33:  D0         PUD    2017-12-24  2017-12-24     1    0 days
-#&gt; 34:  D0      DIAB_C    2017-01-29  2020-04-04     3 1161 days
-#&gt; 35:  D1       Rheum    2016-12-06  2016-12-06     1    0 days
-#&gt; 36:  D1        MSLD    2024-04-04  2024-04-04     1    0 days
-#&gt; 37:  D2      CANCER    2019-10-13  2019-10-13     1    0 days
-#&gt; 38:  D3         PVD    2017-11-19  2017-11-19     1    0 days
-#&gt; 39:  D4      CANCER    2020-03-10  2020-03-10     1    0 days
-#&gt; 40:  D4      DIAB_C    2019-01-03  2019-01-03     1    0 days
-#&gt; 41:  D4        CEVD    2020-10-06  2020-10-06     1    0 days
-#&gt; 42:  D5      CANCER    2021-02-13  2021-02-13     1    0 days
-#&gt; 43:  D5       Rheum    2022-10-10  2022-10-10     1    0 days
-#&gt; 44:  D5        COPD    2014-11-15  2014-11-15     1    0 days
-#&gt; 45:  D5      DIAB_C    2023-07-23  2023-07-23     1    0 days
-#&gt; 46:  D7       Rheum    2021-12-03  2021-12-03     1    0 days
-#&gt; 47:  D7      CANCER    2012-07-04  2012-07-04     1    0 days
-#&gt; 48:  D7      DIAB_C    2021-08-21  2021-08-21     1    0 days
-#&gt; 49:  D8         PVD    2021-03-18  2021-03-18     1    0 days
-#&gt; 50:  D8      CANCER    2025-09-10  2025-09-10     1    0 days
-#&gt; 51:  D8        PARA    2010-09-27  2010-09-27     1    0 days
-#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
+#&gt;      ID                                 Description firstCaseDate endCaseDate
+#&gt;  1:  A0                               Renal Disease    2009-07-25  2013-12-20
+#&gt;  2:  A1                               Renal Disease    2006-11-29  2014-09-24
+#&gt;  3: A10                               Renal Disease    2007-11-04  2012-07-30
+#&gt;  4: A11                               Renal Disease    2008-03-09  2011-09-03
+#&gt;  5: A11                 Diabetes with complications    2015-12-16  2015-12-16
+#&gt;  6: A12                               Renal Disease    2006-05-14  2015-06-29
+#&gt;  7: A13                               Renal Disease    2006-04-29  2025-02-02
+#&gt;  8: A14                               Renal Disease    2006-11-28  2014-12-21
+#&gt;  9: A15                               Renal Disease    2007-05-25  2023-05-12
+#&gt; 10: A16                               Renal Disease    2007-04-15  2014-12-05
+#&gt; 11: A17                               Renal Disease    2007-02-19  2014-07-03
+#&gt; 12: A18                               Renal Disease    2007-04-05  2014-03-04
+#&gt; 13:  A2                               Renal Disease    2011-09-20  2020-05-22
+#&gt; 14:  A3                               Renal Disease    2008-07-08  2014-02-24
+#&gt; 15:  A4                               Renal Disease    2006-10-20  2015-03-09
+#&gt; 16:  A5                               Renal Disease    2009-09-10  2020-01-24
+#&gt; 17:  A6                               Renal Disease    2007-10-01  2015-07-12
+#&gt; 18:  A7                               Renal Disease    2007-02-01  2014-08-14
+#&gt; 19:  A8                               Renal Disease    2007-11-22  2015-10-27
+#&gt; 20:  A9                               Renal Disease    2007-03-05  2013-11-09
+#&gt; 21:  B0                               Renal Disease    2015-12-26  2024-02-12
+#&gt; 22:  B1                               Renal Disease    2016-08-08  2024-03-04
+#&gt; 23:  B2                               Renal Disease    2016-03-20  2024-09-20
+#&gt; 24:  B3                               Renal Disease    2019-05-07  2025-05-25
+#&gt; 25:  B4                               Renal Disease    2015-12-02  2025-07-21
+#&gt; 26:  C0                                      Cancer    2015-12-05  2025-02-21
+#&gt; 27:  C1                                      Cancer    2018-02-13  2025-02-20
+#&gt; 28:  C2                                      Cancer    2016-09-09  2024-12-12
+#&gt; 29:  C2                 Diabetes with complications    2017-07-08  2017-07-08
+#&gt; 30:  C3                                      Cancer    2015-12-06  2021-10-22
+#&gt; 31:  C4                                      Cancer    2017-08-29  2025-09-05
+#&gt; 32:  C4                 Diabetes with complications    2015-11-23  2015-11-23
+#&gt; 33:  D0                        Peptic Ulcer Disease    2017-12-24  2017-12-24
+#&gt; 34:  D0                 Diabetes with complications    2017-01-29  2020-04-04
+#&gt; 35:  D1 Connective Tissue Disease-Rheumatic Disease    2016-12-06  2016-12-06
+#&gt; 36:  D1            Moderate or Severe Liver Disease    2024-04-04  2024-04-04
+#&gt; 37:  D2                                      Cancer    2019-10-13  2019-10-13
+#&gt; 38:  D3                  Periphral Vascular Disease    2017-11-19  2017-11-19
+#&gt; 39:  D4                                      Cancer    2020-03-10  2020-03-10
+#&gt; 40:  D4                 Diabetes with complications    2019-01-03  2019-01-03
+#&gt; 41:  D4                     Cerebrovascular Disease    2020-10-06  2020-10-06
+#&gt; 42:  D5                                      Cancer    2021-02-13  2021-02-13
+#&gt; 43:  D5 Connective Tissue Disease-Rheumatic Disease    2022-10-10  2022-10-10
+#&gt; 44:  D5                   Chronic Pulmonary Disease    2014-11-15  2014-11-15
+#&gt; 45:  D5                 Diabetes with complications    2023-07-23  2023-07-23
+#&gt; 46:  D7 Connective Tissue Disease-Rheumatic Disease    2021-12-03  2021-12-03
+#&gt; 47:  D7                                      Cancer    2012-07-04  2012-07-04
+#&gt; 48:  D7                 Diabetes with complications    2021-08-21  2021-08-21
+#&gt; 49:  D8                  Periphral Vascular Disease    2021-03-18  2021-03-18
+#&gt; 50:  D8                                      Cancer    2025-09-10  2025-09-10
+#&gt; 51:  D8                   Paraplegia and Hemiplegia    2010-09-27  2010-09-27
+#&gt;      ID                                 Description firstCaseDate endCaseDate
+#&gt;     count    period
+#&gt;  1:     5 1609 days
+#&gt;  2:     5 2856 days
+#&gt;  3:     5 1730 days
+#&gt;  4:     5 1273 days
+#&gt;  5:     1    0 days
+#&gt;  6:     5 3333 days
+#&gt;  7:     5 6854 days
+#&gt;  8:     5 2945 days
+#&gt;  9:     5 5831 days
+#&gt; 10:     5 2791 days
+#&gt; 11:     5 2691 days
+#&gt; 12:     5 2525 days
+#&gt; 13:     5 3167 days
+#&gt; 14:     5 2057 days
+#&gt; 15:     5 3062 days
+#&gt; 16:     5 3788 days
+#&gt; 17:     5 2841 days
+#&gt; 18:     5 2751 days
+#&gt; 19:     5 2896 days
+#&gt; 20:     5 2441 days
+#&gt; 21:     6 2970 days
+#&gt; 22:     6 2765 days
+#&gt; 23:     6 3106 days
+#&gt; 24:     6 2210 days
+#&gt; 25:     6 3519 days
+#&gt; 26:     5 3366 days
+#&gt; 27:     5 2564 days
+#&gt; 28:     5 3016 days
+#&gt; 29:     1    0 days
+#&gt; 30:     4 2147 days
+#&gt; 31:     5 2929 days
+#&gt; 32:     1    0 days
+#&gt; 33:     1    0 days
+#&gt; 34:     3 1161 days
+#&gt; 35:     1    0 days
+#&gt; 36:     1    0 days
+#&gt; 37:     1    0 days
+#&gt; 38:     1    0 days
+#&gt; 39:     1    0 days
+#&gt; 40:     1    0 days
+#&gt; 41:     1    0 days
+#&gt; 42:     1    0 days
+#&gt; 43:     1    0 days
+#&gt; 44:     1    0 days
+#&gt; 45:     1    0 days
+#&gt; 46:     1    0 days
+#&gt; 47:     1    0 days
+#&gt; 48:     1    0 days
+#&gt; 49:     1    0 days
+#&gt; 50:     1    0 days
+#&gt; 51:     1    0 days
+#&gt;     count    period
 #&gt; 
 #&gt; $Error
 #&gt;        ICD count IcdVersionInFile     WrongType Suggestion
@@ -291,7 +348,7 @@ it to any of the other possible variables (<code>'ahrq'</code>,<code>'charlson'<
 
       <footer>
       <div class="copyright">
-  <p>Developed by Yi-Ju Tseng, Hsiang-Ju Chiu.</p>
+  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
 </div>
 
 <div class="pkgdown">

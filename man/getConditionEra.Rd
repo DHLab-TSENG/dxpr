@@ -49,7 +49,7 @@ Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
                         groupDataType = CCSlvl3,
                         selectedCaseFile = selectedCaseFile)
 
-grepTable <- data.frame(group = "Chronic kidney disease",
+grepTable <- data.frame(Group = "Chronic kidney disease",
                         grepIcd = "^58|^N18",
                         stringsAsFactors = FALSE)
 Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",

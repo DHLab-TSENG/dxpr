@@ -4,7 +4,7 @@
 \name{samplePrFile}
 \alias{samplePrFile}
 \title{Sample File of ICD-PCS codes for grouping method}
-\format{A data table with 4010 rows and 3 variables}
+\format{A data table with 170 rows and 3 variables}
 \usage{
 data(samplePrFile)
 }

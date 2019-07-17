@@ -55,7 +55,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
 
   if(groupICD){
     if(version == "ICD 9"){
-      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = T),]
+      errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = TRUE),]
       errorData <-errorData[,Number :=  1:nrow(errorData),][Number > TopN, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),paste0(round((count/groupCount)*100,2),"%")),][,-"count"]
 
       if(!Others){

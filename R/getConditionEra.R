@@ -30,7 +30,7 @@
 #'                         groupDataType = CCSlvl3,
 #'                         selectedCaseFile = selectedCaseFile)
 #'
-#' grepTable <- data.frame(group = "Chronic kidney disease",
+#' grepTable <- data.frame(Group = "Chronic kidney disease",
 #'                         grepIcd = "^58|^N18",
 #'                         stringsAsFactors = FALSE)
 #' Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
@@ -51,15 +51,19 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
 
-  if(groupDataType != "ICD"){groupedData <- groupedData$groupedDT}
+  if(groupDataType != "ICD"){
+    groupedData <- groupedData$groupedDT[,-"ICD"]
+  }else{
+    groupedData <- groupedData[,-"ICD"]
+    names(groupedData) <- gsub("Short|Decimal", "ICD", names(groupedData))
+  }
   if(is.null(groupedData)){return(groupedData)}
-
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
 
   if(nrow(groupedData[is.na(eval(parse(text = paste(groupDataType))))]) == nrow(groupedData)){return(groupedData)}
 
-  count <- groupedData[nchar(eval(parse(text = paste(groupDataType)))) > 0  & !is.na(eval(parse(text = paste(groupDataType))))][order(eval(parse(text = paste(groupByCol))),Date)][,NextDate := c(Date[-1],NA),by = groupByCol][is.na(NextDate),NextDate := Date][,Gap := NextDate- Date]
+  count <- groupedData[nchar(eval(parse(text = paste(groupDataType)))) > 0  & !is.na(eval(parse(text = paste(groupDataType))))][order(eval(parse(text = paste(groupByCol))),Date)][,NextDate := c(Date[-1], NA),by = groupByCol][is.na(NextDate),NextDate := Date][,Gap := NextDate- Date]
 
   conditionEra <- count[,episode := Gap > gapDate][is.na(episode),episode :=TRUE][,list(episodeCount = cumsum(episode)+1,
                                                                                         firstCaseDate = min(Date),
@@ -69,7 +73,7 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
   conditionEra <- unique(conditionEra)
 
   if(!is.null(selectedCaseFile)){
-    conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = T)
+    conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = TRUE)
   }
   conditionEra <- conditionEra[order(ID),]
   conditionEra
