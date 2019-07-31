@@ -20,11 +20,11 @@ The proposed open-source emr package is a software tool aimed at expediting an i
 
 ## Geting start
 - Diagnostic part  
-  English: https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html  
-  Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html  
+    English: https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html   
+    Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html   
 - Procedure part  
-  English: https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html  
-  Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html 
+    English: https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html   
+    Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html  
   
 ## Development version
 

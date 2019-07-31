@@ -531,7 +531,7 @@ Plot_error1 <- plot_errorICD(errorFile = error$Error,
                             wrongICDType = all,
                             Others = TRUE)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;">
 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至"Others"  
 第一名的錯誤**A0.11**共有20筆，佔全部錯誤18.35% (20/109)
 ```{r, message = FALSE}
@@ -564,7 +564,7 @@ Plot_error2 <- plot_errorICD(errorFile = error$Error,
                              Others = TRUE,
                              TopN = 3)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
 由下表格得知第一名的錯誤編碼為**A01.05**佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%
 ```r
 Plot_error2$ICD
@@ -600,7 +600,7 @@ plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
                           limitFreq = 0.01)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" style="display:block; margin:auto; width:70%;"> 
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例  
 本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16% (24/38)
 ```{r}
@@ -621,8 +621,8 @@ plot1$sigCate
 ```{r, message = FALSE, warning = FALSE}
 selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
                                 idColName = ID,
-                           　　 icdColName = ICD,
-                            　　dateColName = Date,
+                                icdColName = ICD,
+                                dateColName = Date,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,
                                 caseCondition = "Diseases of the urinary system",
@@ -639,7 +639,7 @@ plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           pvalue = 0.05)
 ```
 
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-2.png" style="display:block; margin:auto; width:70%;">
 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL  
 在selected組佔了100% (24/24)，在nonSelected組佔了0% (0/14)  
 

@@ -31,8 +31,6 @@ Development version
 ``` r
 # install.packages("devtools")
 devtools::install_github("DHLab-CGU/emr")
-#> Skipping install of 'emr' from a github remote, the SHA1 (557d1197) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 Overview
@@ -55,6 +53,7 @@ head(sampleDxFile)
 #> 5: A13 Z992 2025-02-02
 #> 6: A15 Z992 2023-05-12
 
+# I. Code standardization
 short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 head(short$ICD)
 #>     ICD
@@ -65,51 +64,36 @@ head(short$ICD)
 #> 5: Z992
 #> 6: Z992
 
-head(short$Error)
+tail(short$Error)
 #>       ICD count IcdVersionInFile     WrongType Suggestion
-#> 1:  A0.11    20           ICD 10  Wrong format           
-#> 2:  V27.0    18           ICD 10 Wrong version           
-#> 3:   E114     8           ICD 10  Wrong format           
-#> 4: A01.05     8            ICD 9 Wrong version           
-#> 5:  42761     7           ICD 10 Wrong version           
-#> 6:  Z9.90     6           ICD 10  Wrong format
+#> 1:  75.52     4            ICD 9  Wrong format           
+#> 2:  E03.0     4            ICD 9 Wrong version           
+#> 3:    650     4           ICD 10 Wrong version           
+#> 4: 123.45     3           ICD 10  Wrong format           
+#> 5:  755.2     3            ICD 9  Wrong format     755.29
+#> 6:   7552     2            ICD 9  Wrong format      75529
 
+# II. Data integration
 ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
 head(ELIX$groupedDT)
-#>    Short  ID  ICD       Date   Description
-#> 1:  Z992  A2 Z992 2020-05-22 Renal failure
-#> 2:  Z992  A5 Z992 2020-01-24 Renal failure
-#> 3:  Z992  A8 Z992 2015-10-27 Renal failure
-#> 4:  Z992 A13 Z992 2020-04-26 Renal failure
-#> 5:  Z992 A13 Z992 2025-02-02 Renal failure
-#> 6:  Z992 A15 Z992 2023-05-12 Renal failure
+#>    Short  ID  ICD       Date Comorbidity
+#> 1:  Z992  A2 Z992 2020-05-22    RENLFAIL
+#> 2:  Z992  A5 Z992 2020-01-24    RENLFAIL
+#> 3:  Z992  A8 Z992 2015-10-27    RENLFAIL
+#> 4:  Z992 A13 Z992 2020-04-26    RENLFAIL
+#> 5:  Z992 A13 Z992 2025-02-02    RENLFAIL
+#> 6:  Z992 A15 Z992 2023-05-12    RENLFAIL
 
 head(ELIX$summarised_groupedDT)
-#>     ID   Description firstCaseDate endCaseDate count    period
-#> 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days
-#> 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days
-#> 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days
-#> 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days
-#> 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days
-#> 6: A13 Renal failure    2006-04-29  2025-02-02     5 6854 days
+#>     ID Comorbidity firstCaseDate endCaseDate count    period
+#> 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days
+#> 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days
+#> 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days
+#> 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days
+#> 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days
+#> 6: A13    RENLFAIL    2006-04-29  2025-02-02     5 6854 days
 
-Era <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015/10/01")       
-head(Era)                      
-#>     ID CCS_CATEGORY_DESCRIPTION firstCaseDate endCaseDate count era
-#> 1:  A0   Chronic kidney disease    2009-07-25  2013-12-20     5   5
-#> 2:  A1   Chronic kidney disease    2006-11-29  2014-09-24     5   5
-#> 3: A10   Chronic kidney disease    2007-11-04  2012-07-30     5   4
-#> 4: A11   Chronic kidney disease    2008-03-09  2011-09-03     5   4
-#> 5: A12   Chronic kidney disease    2006-05-14  2015-06-29     5   5
-#> 6: A13   Chronic kidney disease    2006-04-29  2025-02-02     5   5
-#>       period
-#> 1: 1609 days
-#> 2: 2856 days
-#> 3: 1730 days
-#> 4: 1273 days
-#> 5: 3333 days
-#> 6: 6854 days
-
+# III. EDA preparation
 groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015/10/01", groupDataType = Charlson)
 head(groupedData_Wide[,1:4])
 #>    ID Cancer Cerebrovascular Disease Chronic Pulmonary Disease
@@ -120,11 +104,15 @@ head(groupedData_Wide[,1:4])
 #> 5 A12  FALSE                   FALSE                     FALSE
 #> 6 A13  FALSE                   FALSE                     FALSE
 
-plot_errorICD(short$Error)  
+# IV. Visualization
+plot_errorICD <- plot_errorICD(short$Error)  
+plot_groupedData <- plot_groupedData(groupedData_Wide)
+
+plot_errorICD
 #> $graph
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
     #> 
     #> $ICD
@@ -141,10 +129,10 @@ plot_errorICD(short$Error)
     #> 10:    001     5       81.65%            ICD 9  Wrong format       0019
     #> 11: Others    20         100%            ICD 9  Wrong format
 
-    plot_groupedData(groupedData_Wide)
+    plot_groupedData
     #> $graph
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-2-2.png)
 
     #> 
     #> $sigCate

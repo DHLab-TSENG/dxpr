@@ -448,9 +448,9 @@ groupingTable &lt;-<span class="st"> </span><span class="kw"><a href="https://ww
                             <span class="dt">ICD =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>),
                             <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
 
-CustomGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxCustom.html">IcdDxToCustom</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,  
-                             <span class="dt">idColName =</span> ID,         
-                             <span class="dt">icdColName =</span> ICD,  
+CustomGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxCustom.html">IcdDxToCustom</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
+                             <span class="dt">idColName =</span> ID,
+                             <span class="dt">icdColName =</span> ICD,
                              <span class="dt">dateColName =</span> Date,
                              <span class="dt">CustomGroupingTable =</span> groupingTable)
 
@@ -476,11 +476,11 @@ grepTable &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rd
                         <span class="dt">grepIcd =</span> <span class="st">"^585|^N18"</span>,
                         <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
 
-CustomGrepGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxCustom.html">IcdDxToCustomGrep</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile, 
-                                    <span class="dt">idColName =</span> ID,            
-                                    <span class="dt">icdColName =</span> ICD,   
-                                    <span class="dt">dateColName =</span> Date,
-                                    <span class="dt">CustomGroupingTable =</span> grepTable)
+CustomGrepGroup &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxCustom.html">IcdDxToCustomGrep</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
+                                     <span class="dt">idColName =</span> ID,
+                                     <span class="dt">icdColName =</span> ICD,
+                                     <span class="dt">dateColName =</span> Date,
+                                     <span class="dt">CustomGroupingTable =</span> grepTable)
 
 CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><span class="op">:</span><span class="dv">14</span>]
 <span class="co">#&gt;    ID  ICD       Date                  Group</span>
@@ -513,26 +513,20 @@ CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><spa
                         <span class="dt">comorbidMethod =</span> elix)
 
 ELIX<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13</span>
-<span class="co">#&gt;                                       Description</span>
-<span class="co">#&gt; 1: Rheumatoid arthritiscollagen vascular diseases</span>
-<span class="co">#&gt; 2:                                  Liver disease</span>
-<span class="co">#&gt; 3:                   Other neurological disorders</span>
-<span class="co">#&gt; 4:                                     Drug abuse</span>
-<span class="co">#&gt; 5:                                       Lymphoma</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06        ARTH</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       LIVER</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23       NEURO</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        DRUG</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13       LYMPH</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(ELIX<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID   Description firstCaseDate endCaseDate count    period</span>
-<span class="co">#&gt; 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days</span>
-<span class="co">#&gt; 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days</span>
-<span class="co">#&gt; 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days</span>
-<span class="co">#&gt; 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>2) AHRQ</strong></p>
 <p>於2017年基於Elixhauser Comorbidity 更進一步設計AHRQ Elixhauser Comorbidity Index，此index為單一的風險評估分數，可用於再入院與死亡的風險評估。</p>
 <p>ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致，共30種</p>
@@ -545,26 +539,20 @@ ELIX<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="o
                         <span class="dt">comorbidMethod =</span> AHRQ)
 
 AHRQ<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13</span>
-<span class="co">#&gt;                                        Description</span>
-<span class="co">#&gt; 1: Rheumatoid arthritis/collagen vascular diseases</span>
-<span class="co">#&gt; 2:                                   Liver disease</span>
-<span class="co">#&gt; 3:                    Other neurological disorders</span>
-<span class="co">#&gt; 4:                                      Drug abuse</span>
-<span class="co">#&gt; 5:                                        Lymphoma</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06   Rheumatic</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       Liver</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23  NeuroOther</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15       Drugs</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13    Lymphoma</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(AHRQ<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID   Description firstCaseDate endCaseDate count    period</span>
-<span class="co">#&gt; 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days</span>
-<span class="co">#&gt; 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days</span>
-<span class="co">#&gt; 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days</span>
-<span class="co">#&gt; 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0       Renal    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1       Renal    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10       Renal    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11       Renal    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>3) Charlson</strong></p>
 <p>Charlson database共病症測量指標的是基於Quan的Charlson Comorbidity Index版本，依診斷編碼其相關的共病症做分類</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致，共17種</p>
@@ -577,26 +565,20 @@ AHRQ<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="o
                         <span class="dt">comorbidMethod =</span> charlson)
 
 Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date                                 Description</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06 Connective Tissue Disease-Rheumatic Disease</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04            Moderate or Severe Liver Disease</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23                                        &lt;NA&gt;</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15                                        &lt;NA&gt;</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13                                      Cancer</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06       Rheum</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04        MSLD</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23        &lt;NA&gt;</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        &lt;NA&gt;</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13      CANCER</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(Charlson<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID                 Description firstCaseDate endCaseDate count</span>
-<span class="co">#&gt; 1:  A0               Renal Disease    2009-07-25  2013-12-20     5</span>
-<span class="co">#&gt; 2:  A1               Renal Disease    2006-11-29  2014-09-24     5</span>
-<span class="co">#&gt; 3: A10               Renal Disease    2007-11-04  2012-07-30     5</span>
-<span class="co">#&gt; 4: A11               Renal Disease    2008-03-09  2011-09-03     5</span>
-<span class="co">#&gt; 5: A11 Diabetes with complications    2015-12-16  2015-12-16     1</span>
-<span class="co">#&gt;       period</span>
-<span class="co">#&gt; 1: 1609 days</span>
-<span class="co">#&gt; 2: 2856 days</span>
-<span class="co">#&gt; 3: 1730 days</span>
-<span class="co">#&gt; 4: 1273 days</span>
-<span class="co">#&gt; 5:    0 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0          RD    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1          RD    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10          RD    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11          RD    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3>五、篩選符合條件的個案</h3>
@@ -828,7 +810,7 @@ Plot_error1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference
                             <span class="dt">ICDVersion =</span> all,
                             <span class="dt">wrongICDType =</span> all,
                             <span class="dt">Others =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;"> 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至“Others”<br>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;"> 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至“Others”<br>
 第一名的錯誤<strong>A0.11</strong>共有20筆，佔全部錯誤18.35% (20/109)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Plot_error1<span class="op">$</span>ICD
 <span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
@@ -867,7 +849,7 @@ Plot_error1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference
                              <span class="dt">groupICD =</span> <span class="ot">TRUE</span>,
                              <span class="dt">Others =</span> <span class="ot">TRUE</span>,
                              <span class="dt">TopN =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;"> 由下表格得知第一名的錯誤編碼為<strong>A01.05</strong>佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%</p>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;"> 由下表格得知第一名的錯誤編碼為<strong>A01.05</strong>佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Plot_error2<span class="op">$</span>ICD
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType</span>
 <span class="co">#&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version</span>
@@ -897,7 +879,7 @@ Plot_error1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotGroupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitFreq =</span> <span class="fl">0.01</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" style="display:block; margin:auto; width:70%;"> 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例<br>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例<br>
 本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16% (24/38)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot1<span class="op">$</span>sigCate
 <span class="co">#&gt;     DiagnosticCategory  N Percentage</span>
@@ -925,8 +907,8 @@ plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotG
 舉例來說，假設case和control組各500人，在某特定組別至少有一組的人數有5個病患 (1%)。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selectedCaseFile &lt;-<span class="st"> </span><span class="kw"><a href="../reference/selectCase.html">selectCases</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                                 <span class="dt">idColName =</span> ID,
-                           　　 <span class="dt">icdColName =</span> ICD,
-                            　　<span class="dt">dateColName =</span> Date,
+                                <span class="dt">icdColName =</span> ICD,
+                                <span class="dt">dateColName =</span> Date,
                                 <span class="dt">icd10usingDate =</span> <span class="st">"2015/10/01"</span>,
                                 <span class="dt">groupDataType =</span> ccslvl2,
                                 <span class="dt">caseCondition =</span> <span class="st">"Diseases of the urinary system"</span>,
@@ -941,7 +923,7 @@ plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotG
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitFreq =</span> <span class="fl">0.01</span>,
                           <span class="dt">pvalue =</span> <span class="fl">0.05</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL<br>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-2.png" style="display:block; margin:auto; width:70%;"> 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL<br>
 在selected組佔了100% (24/24)，在nonSelected組佔了0% (0/14)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
 <span class="co">#&gt;    DiagnosticCategory        Group  N Percentage</span>

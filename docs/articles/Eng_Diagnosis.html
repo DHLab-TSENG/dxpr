@@ -498,26 +498,20 @@ CustomGrepGroup<span class="op">$</span>groupedDT[<span class="dv">10</span><spa
                         <span class="dt">comorbidMethod =</span> AHRQ)
 
 AHRQ<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13</span>
-<span class="co">#&gt;                                        Description</span>
-<span class="co">#&gt; 1: Rheumatoid arthritis/collagen vascular diseases</span>
-<span class="co">#&gt; 2:                                   Liver disease</span>
-<span class="co">#&gt; 3:                    Other neurological disorders</span>
-<span class="co">#&gt; 4:                                      Drug abuse</span>
-<span class="co">#&gt; 5:                                        Lymphoma</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06   Rheumatic</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       Liver</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23  NeuroOther</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15       Drugs</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13    Lymphoma</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(AHRQ<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID   Description firstCaseDate endCaseDate count    period</span>
-<span class="co">#&gt; 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days</span>
-<span class="co">#&gt; 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days</span>
-<span class="co">#&gt; 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days</span>
-<span class="co">#&gt; 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0       Renal    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1       Renal    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10       Renal    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11       Renal    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>2) Charlson</strong> Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Charlson &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxComorbid.html">IcdDxToComorbid</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                         <span class="dt">idColName =</span> ID,           
@@ -527,26 +521,20 @@ AHRQ<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="o
                         <span class="dt">comorbidMethod =</span> charlson)
 
 Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date                                 Description</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06 Connective Tissue Disease-Rheumatic Disease</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04            Moderate or Severe Liver Disease</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23                                        &lt;NA&gt;</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15                                        &lt;NA&gt;</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13                                      Cancer</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06       Rheum</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04        MSLD</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23        &lt;NA&gt;</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        &lt;NA&gt;</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13      CANCER</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(Charlson<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID                 Description firstCaseDate endCaseDate count</span>
-<span class="co">#&gt; 1:  A0               Renal Disease    2009-07-25  2013-12-20     5</span>
-<span class="co">#&gt; 2:  A1               Renal Disease    2006-11-29  2014-09-24     5</span>
-<span class="co">#&gt; 3: A10               Renal Disease    2007-11-04  2012-07-30     5</span>
-<span class="co">#&gt; 4: A11               Renal Disease    2008-03-09  2011-09-03     5</span>
-<span class="co">#&gt; 5: A11 Diabetes with complications    2015-12-16  2015-12-16     1</span>
-<span class="co">#&gt;       period</span>
-<span class="co">#&gt; 1: 1609 days</span>
-<span class="co">#&gt; 2: 2856 days</span>
-<span class="co">#&gt; 3: 1730 days</span>
-<span class="co">#&gt; 4: 1273 days</span>
-<span class="co">#&gt; 5:    0 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0          RD    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1          RD    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10          RD    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11          RD    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></code></pre></div>
 <p><strong>3) Elixhauser</strong> Elixhauser comorbidity measure data.</p>
 <p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ELIX &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DxComorbid.html">IcdDxToComorbid</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
@@ -557,26 +545,20 @@ Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span clas
                         <span class="dt">comorbidMethod =</span> elix)
 
 ELIX<span class="op">$</span>groupedDT[<span class="dv">160</span><span class="op">:</span><span class="dv">164</span>]
-<span class="co">#&gt;     Short ID    ICD       Date</span>
-<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06</span>
-<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04</span>
-<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23</span>
-<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15</span>
-<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13</span>
-<span class="co">#&gt;                                       Description</span>
-<span class="co">#&gt; 1: Rheumatoid arthritiscollagen vascular diseases</span>
-<span class="co">#&gt; 2:                                  Liver disease</span>
-<span class="co">#&gt; 3:                   Other neurological disorders</span>
-<span class="co">#&gt; 4:                                     Drug abuse</span>
-<span class="co">#&gt; 5:                                       Lymphoma</span>
+<span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06        ARTH</span>
+<span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       LIVER</span>
+<span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23       NEURO</span>
+<span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        DRUG</span>
+<span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13       LYMPH</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(ELIX<span class="op">$</span>summarised_groupedDT, <span class="dv">5</span>)
-<span class="co">#&gt;     ID   Description firstCaseDate endCaseDate count    period</span>
-<span class="co">#&gt; 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days</span>
-<span class="co">#&gt; 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days</span>
-<span class="co">#&gt; 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days</span>
-<span class="co">#&gt; 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 </div>
 <div id="e--cases-selection" class="section level3">
 <h3 class="hasAnchor">
@@ -768,7 +750,7 @@ Plot_error1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference
                             <span class="dt">ICDVersion =</span> all,
                             <span class="dt">wrongICDType =</span> all,
                             <span class="dt">Others =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;"> Plot of top 10 common error ICD codes and a list of the detail of error ICD codes<br>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;"> Plot of top 10 common error ICD codes and a list of the detail of error ICD codes<br>
 The Top 1 common error ICD is <em>A0.11</em> which has 20 admission records and error type is “wrong format”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Plot_error1<span class="op">$</span>ICD
 <span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
@@ -795,7 +777,7 @@ The Top 1 common error ICD is <em>A0.11</em> which has 20 admission records and 
                              <span class="dt">groupICD =</span> <span class="ot">TRUE</span>,
                              <span class="dt">Others =</span> <span class="ot">TRUE</span>,
                              <span class="dt">TopN =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;"> Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes<br>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;"> Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes<br>
 The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and error type is “wrong version”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Plot_error2<span class="op">$</span>ICD
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType</span>
@@ -819,7 +801,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
 plot1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotGroupedData.html">plot_groupedData</a></span>(<span class="dt">groupedDataWide =</span> groupedDataWide,
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitFreq =</span> <span class="fl">0.01</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" style="display:block; margin:auto; width:70%;"> The first group, for instance, is grouped into “RENLFAIL” of ELIX comorbidity index.</p>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> The first group, for instance, is grouped into “RENLFAIL” of ELIX comorbidity index.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot1<span class="op">$</span>sigCate
 <span class="co">#&gt;     DiagnosticCategory  N Percentage</span>
 <span class="co">#&gt;  1:      ELIX_RENLFAIL 24     63.16%</span>
@@ -851,7 +833,7 @@ plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotG
                           <span class="dt">TopN =</span> <span class="dv">10</span>,
                           <span class="dt">limitFreq =</span> <span class="fl">0.01</span>,
                           <span class="dt">pvalue =</span> <span class="fl">0.05</span>)</code></pre></div>
-<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;"> There are stastitcal significant different in “RENLFAIL” of ELIX comorbidity index between case and control.</p>
+<p><img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> There are stastitcal significant different in “RENLFAIL” of ELIX comorbidity index between case and control.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot2<span class="op">$</span>sigCate
 <span class="co">#&gt;    DiagnosticCategory        Group  N Percentage</span>
 <span class="co">#&gt; 1:      Renal failure non-Selected  0         0%</span>

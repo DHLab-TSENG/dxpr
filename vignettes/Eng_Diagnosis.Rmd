@@ -449,7 +449,7 @@ Plot_error1 <- plot_errorICD(errorFile = error$Error,
                             wrongICDType = all,
                             Others = TRUE)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;">
 Plot of top 10 common error ICD codes and a list of the detail of error ICD codes  
 The Top 1 common error ICD is *A0.11* which has 20 admission records and error type is "wrong format"
 ```{r, message = FALSE}
@@ -471,7 +471,7 @@ Plot_error2 <- plot_errorICD(errorFile = error$Error,
                              Others = TRUE,
                              TopN = 3)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_errorICD-1.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
 Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes  
 The Top 1 common error ICD is *A01.05* which has 13 admission records and error type is "wrong version"
 ```r
@@ -498,7 +498,7 @@ plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           TopN = 10,
                           limitFreq = 0.01)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-1.png" style="display:block; margin:auto; width:70%;"> 
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
 The first group, for instance, is grouped into "RENLFAIL" of ELIX comorbidity index.  
 ```{r}
 plot1$sigCate
@@ -527,7 +527,7 @@ plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
                           pvalue = 0.05)
 ```
 
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plot_groupedData-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;">
 There are stastitcal significant different in "RENLFAIL" of ELIX comorbidity index between case and control.  
 
 ```{r}

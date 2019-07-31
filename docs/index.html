@@ -167,22 +167,22 @@ short &lt;-<span class="st"> </span><span class="kw"><a href="reference/DxUnifor
 <span class="co"># II. Data integration</span>
 ELIX &lt;-<span class="st"> </span><span class="kw"><a href="reference/DxComorbid.html">IcdDxToComorbid</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015/10/01"</span>, elix)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(ELIX<span class="op">$</span>groupedDT)
-<span class="co">#&gt;    Short  ID  ICD       Date   Description</span>
-<span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22 Renal failure</span>
-<span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24 Renal failure</span>
-<span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27 Renal failure</span>
-<span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26 Renal failure</span>
-<span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02 Renal failure</span>
-<span class="co">#&gt; 6:  Z992 A15 Z992 2023-05-12 Renal failure</span>
+<span class="co">#&gt;    Short  ID  ICD       Date Comorbidity</span>
+<span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22    RENLFAIL</span>
+<span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24    RENLFAIL</span>
+<span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27    RENLFAIL</span>
+<span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26    RENLFAIL</span>
+<span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02    RENLFAIL</span>
+<span class="co">#&gt; 6:  Z992 A15 Z992 2023-05-12    RENLFAIL</span>
 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(ELIX<span class="op">$</span>summarised_groupedDT)
-<span class="co">#&gt;     ID   Description firstCaseDate endCaseDate count    period</span>
-<span class="co">#&gt; 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days</span>
-<span class="co">#&gt; 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days</span>
-<span class="co">#&gt; 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days</span>
-<span class="co">#&gt; 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days</span>
-<span class="co">#&gt; 6: A13 Renal failure    2006-04-29  2025-02-02     5 6854 days</span>
+<span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span>
+<span class="co">#&gt; 6: A13    RENLFAIL    2006-04-29  2025-02-02     5 6854 days</span>
 
 <span class="co"># III. EDA preparation</span>
 groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/dataWide.html">groupedDataLongToWide</a></span>(sampleDxFile, ID, ICD, Date, <span class="st">"2015/10/01"</span>, <span class="dt">groupDataType =</span> Charlson)
