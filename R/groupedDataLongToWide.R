@@ -1,34 +1,5 @@
-#'
-#' Grouped data format conversion
-#'
-#' convert long format to wide format
-#'
-#' return numeric or binary wide format
-#'
-#' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate Icd 10 using date
-#' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
-#' @param CustomGroupingTable Table is for groupDataType
-#' @param isDescription  CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.
-#' @param numericOrBinary  Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.
-#' @param selectedCaseFile Table for selectedCases. Default is \code{'NULL'}
+#' @rdname dataWide
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
-#'                                 icd10usingDate = "2015/10/01",
-#'                                 groupDataType = ccslvl2,
-#'                                 caseCondition = "Diseases of the urinary system",
-#'                                 caseCount = 1)
-#' groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                           "2015-10-01", elix,
-#'                                           numericOrBinary = N,
-#'                                           selectedCaseFile = selectedCaseFile)
-#' head(groupedData_Wide)
 #'
 groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
   DxDataFile <- as.data.table(DxDataFile)

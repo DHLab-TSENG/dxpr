@@ -1,40 +1,7 @@
-#'
-#' Grouping comorbid method comorbidities (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
-#'
-#' Get comorbidities using the comorbidity methods based on ICD code in clinical diagnostic data.
-#'
-#' return comorbidity meseaures based on ICD diagnosis codes
-#'
-#' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate ICD 10 using date
-#' @param comorbidMethod  Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change
-#' @param isDescription   Categories/Description of comorbidities for ICD-9 or ICD-10. By default it is set to \code{True}.
-#' it to any of the other possible variables (\code{'ahrq'},\code{'charlson'}, \code{'elix'}).
+#' @rdname DxComorbid
 #' @export
-#' @source AHRQ
-#' @source ICD-9-CM Elixhauser (2012-2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-#' @source ICD-10-CM Elixhauser (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
-#' @source Charlson
-#' @source ICD-9-CM Charlson (2006)
-#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
-#' @source ICD-10-CM Charlson (2006)
-#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
-#' @source Elixhauser
-#' @source ICD-9-CM Elixhauser (2012-2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-#' @source ICD-10-CM Elixhauser (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
-#' @examples
-#' head(sampleDxFile)
-#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 #'
-IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, isDescription = TRUE){
+IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, isDescription = FALSE){
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol,with = FALSE]

@@ -1,24 +1,5 @@
-#'
-#' Convert ICD Codes From Decimal To Short Forms
-#'
-#' Convert codes between short and decimal forms
-#'
-#' @import data.table
-#' @importFrom utils head
-#' @param DxDataFile A file of clinical diagnostic data with at least 2 columns: "ICD", "Date"
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate icd 10 using date
-#' @source \url{https://www.findacode.com/search/search.php}
-#' @source ICD-9-diagnostic code
-#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
-#' @source ICD 10-diagnostic code
-#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
+#' @rdname DxUniform
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' IcdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
 #'
 IcdDxDecimalToShort<-function(DxDataFile, icdColName, dateColName, icd10usingDate){
   DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))

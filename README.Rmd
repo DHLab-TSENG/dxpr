@@ -1,0 +1,79 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## emr
+# I. Introduction
+The proposed open-source emr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The emr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.  
+
+## Feature
+- **Code standardization** Transform codes into uniform format before the integration process.
+- **Data integration** Code classification and data integration.
+- **Exploratory data analysis (EDA) preparation** Transform data format which is fit to others analytical and plotting packages.
+- **Visualization** Provide overviews for diagnoses standardization and data integration.
+
+## Geting start
+- Diagnostic part  
+  English: https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html  
+  Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html  
+- Procedure part  
+  English: https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html  
+  Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html 
+  
+## Development version
+
+```r
+# install.packages("devtools")
+devtools::install_github("DHLab-CGU/emr")
+```
+```{r setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+devtools::install_github("DHLab-CGU/emr")
+```
+## Overview
+
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+
+## Usage
+
+```{r, message = FALSE, warning = FALSE}
+library(emr)  
+ 
+head(sampleDxFile)  
+
+# I. Code standardization
+short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+head(short$ICD)
+
+tail(short$Error)
+
+# II. Data integration
+ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
+head(ELIX$groupedDT)
+
+head(ELIX$summarised_groupedDT)
+
+# III. EDA preparation
+groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015/10/01", groupDataType = Charlson)
+head(groupedData_Wide[,1:4])
+
+# IV. Visualization
+plot_errorICD <- plot_errorICD(short$Error)  
+plot_groupedData <- plot_groupedData(groupedData_Wide)
+
+plot_errorICD
+
+plot_groupedData
+```  
+
+## Getting help 
+See the `GitHub issues page` (https://github.com/DHLab-CGU/emr/issues) to see open issues and feature requests. 
+
+

@@ -1,76 +1,166 @@
-## emr
-# I. Introduction
-A tool of `Electric Medical Record` for grouping with ICD-9 and ICD-10 codes by `ccs, comorbidities and phecodes`, and calculating `condition era`. 
-There are some information about patients' diagnoses data: members' ID, diagnosis ICD-9/ICD-10 codes, and date of service started, etc...
-This tool can be used to group the ICD's multitude of codes into a smaller number of clinically meaningful categories (CCS, phecode, comorbidity, and even grouping rule by your standards!). 
 
-## Get started
-- English introduction: https://dhlab-cgu.github.io/emr/articles/emr.html
-- Chinese introduction: https://dhlab-cgu.github.io/emr/articles/ChineseVersion_Diagnosis.html
+emr
+---
 
-## Feature
-- convert ICD code's format: Short <-> Decimal
-- Get the Clinical Classifications Software (CCS) categories and description for ICD-9 and ICD-10 codes on diagnoses
-- Get the Phecode or phenotype (phecode description) of ICD-9 diagnosis codes
-- Get the categories for ICD-9 and ICD-10 codes on diagnoses, the grouping  rules are based on your standard
-- Grouping comorbid method measures (AHRQ, Charlson and Elixhauser Comorbidity) infers whether to use ICD-9 or ICD-10 codes
-- Get the qualified cases which based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset
-- Get the condition era
+I. Introduction
+===============
 
-## Install
-```r
-install.packages("devtools")
-# Install development version from GitHub
+The proposed open-source emr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The emr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.
+
+Feature
+-------
+
+-   **Code standardization** Transform codes into uniform format before the integration process.
+-   **Data integration** Code classification and data integration.
+-   **Exploratory data analysis (EDA) preparation** Transform data format which is fit to others analytical and plotting packages.
+-   **Visualization** Provide overviews for diagnoses standardization and data integration.
+
+Geting start
+------------
+
+-   Diagnostic part
+    English: <https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html>
+    Chinese: <https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html>
+-   Procedure part
+    English: <https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html>
+    Chinese: <https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html>
+
+Development version
+-------------------
+
+``` r
+# install.packages("devtools")
 devtools::install_github("DHLab-CGU/emr")
-library(emr)
+#> Skipping install of 'emr' from a github remote, the SHA1 (557d1197) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
-### Generate ICD-CM code Decimal Format for conversion function 
-ICD codes have two forms: decimal`E950.7` and short`E9507` format, first at all, unifing the ICD codes format.
-There are two function to generate ICD codes' decimal format.
 
-### Convert ICD-CM code Format
-There are two functions to let user convert ICD code format  for the following function for grouping methods.
-Second, according to the using format of function, these conversion function can be used to convert ICD codes between types.
+Overview
+--------
 
-## II. Grouping ICD-CM codes
-classifying ICD-9-CM and ICD-10-CM diagnoses codes into clinically meaningful categories, which can be used for aggregate statistical reporting of a variety of types.
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
 
-### A. Clinical Classifications Software (CCS)
-It is based on the CCS for ICD-9-CM and attempts to map ICD-10-CM/PCS codes into the same categories. Get the CCS categories and description by ICD-9/ICD-10 code.
-#### a. CCS single-level category
-ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.
-#### b. CCS multi-level
-ICD-9-CM has four levels
+Usage
+-----
 
-ICD-10-CM has two levels
+``` r
+library(emr)  
+ 
+head(sampleDxFile)  
+#>     ID  ICD       Date
+#> 1:  A2 Z992 2020-05-22
+#> 2:  A5 Z992 2020-01-24
+#> 3:  A8 Z992 2015-10-27
+#> 4: A13 Z992 2020-04-26
+#> 5: A13 Z992 2025-02-02
+#> 6: A15 Z992 2023-05-12
 
-### B. Phecode
-This can be used to group Phecode or description of phecode (phenotype) by ICD-9 diagnosis codes in clinical diagnostic data.
+short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+head(short$ICD)
+#>     ICD
+#> 1: Z992
+#> 2: Z992
+#> 3: Z992
+#> 4: Z992
+#> 5: Z992
+#> 6: Z992
 
-### C. Creating a grouping standards
-User can identify the rule of grouping standards, and return matched ICD codes. For example, there is a ICD data frame icdFile whether is matched these group: Hypotension and Hypertension or not.
+head(short$Error)
+#>       ICD count IcdVersionInFile     WrongType Suggestion
+#> 1:  A0.11    20           ICD 10  Wrong format           
+#> 2:  V27.0    18           ICD 10 Wrong version           
+#> 3:   E114     8           ICD 10  Wrong format           
+#> 4: A01.05     8            ICD 9 Wrong version           
+#> 5:  42761     7           ICD 10 Wrong version           
+#> 6:  Z9.90     6           ICD 10  Wrong format
 
-### D. Comorbidities
-The comorbidities measures from different sources are provided as lists. There are three comorbidities sources: AHRQ, Charlson, and Elixhauser Comorbidity.
+ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
+head(ELIX$groupedDT)
+#>    Short  ID  ICD       Date   Description
+#> 1:  Z992  A2 Z992 2020-05-22 Renal failure
+#> 2:  Z992  A5 Z992 2020-01-24 Renal failure
+#> 3:  Z992  A8 Z992 2015-10-27 Renal failure
+#> 4:  Z992 A13 Z992 2020-04-26 Renal failure
+#> 5:  Z992 A13 Z992 2025-02-02 Renal failure
+#> 6:  Z992 A15 Z992 2023-05-12 Renal failure
 
-#### a. AHRQ comorbidity classification
-AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index
+head(ELIX$summarised_groupedDT)
+#>     ID   Description firstCaseDate endCaseDate count    period
+#> 1:  A0 Renal failure    2009-07-25  2013-12-20     5 1609 days
+#> 2:  A1 Renal failure    2006-11-29  2014-09-24     5 2856 days
+#> 3: A10 Renal failure    2007-11-04  2012-07-30     5 1730 days
+#> 4: A11 Renal failure    2008-03-09  2011-09-03     5 1273 days
+#> 5: A12 Renal failure    2006-05-14  2015-06-29     5 3333 days
+#> 6: A13 Renal failure    2006-04-29  2025-02-02     5 6854 days
 
-#### b. Charlson comorbidity classification
-Charlson comorbidity measure dataframe is based on Quan's translations of the Charlson Comorbidity Index
+Era <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015/10/01")       
+head(Era)                      
+#>     ID CCS_CATEGORY_DESCRIPTION firstCaseDate endCaseDate count era
+#> 1:  A0   Chronic kidney disease    2009-07-25  2013-12-20     5   5
+#> 2:  A1   Chronic kidney disease    2006-11-29  2014-09-24     5   5
+#> 3: A10   Chronic kidney disease    2007-11-04  2012-07-30     5   4
+#> 4: A11   Chronic kidney disease    2008-03-09  2011-09-03     5   4
+#> 5: A12   Chronic kidney disease    2006-05-14  2015-06-29     5   5
+#> 6: A13   Chronic kidney disease    2006-04-29  2025-02-02     5   5
+#>       period
+#> 1: 1609 days
+#> 2: 2856 days
+#> 3: 1730 days
+#> 4: 1273 days
+#> 5: 3333 days
+#> 6: 6854 days
 
-#### c. Elixhauser comorbidity classification
-Elixhauser comorbidity measure data table icd9_elix, icd10_elix.
+groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015/10/01", groupDataType = Charlson)
+head(groupedData_Wide[,1:4])
+#>    ID Cancer Cerebrovascular Disease Chronic Pulmonary Disease
+#> 1  A0  FALSE                   FALSE                     FALSE
+#> 2  A1  FALSE                   FALSE                     FALSE
+#> 3 A10  FALSE                   FALSE                     FALSE
+#> 4 A11  FALSE                   FALSE                     FALSE
+#> 5 A12  FALSE                   FALSE                     FALSE
+#> 6 A13  FALSE                   FALSE                     FALSE
 
-The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
+plot_errorICD(short$Error)  
+#> $graph
+```
 
-## III. Selection Cases
-This can be used to select qualified cases from factIcd data based on the ICD code searching criteria and number of ICD code per patients in the inout factIcd dataset.
-## IV. Condition Era
-A Condition Era is defined as a span of time when the member is assumed to have a given condition.
+![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-Condition Eras are periods of Condition Occurrence. Combining individual Condition Occurrences into a single Condition Era based on ICD code in clinical diagnostic data. Condition Eras are built with a Persistence Window,deafault is 30 days, meaning, if no occurence of the same member id happens within 30 days of any one occurrence, it will be considered the end date of the last condition occurrence.
-## Report a bug at 
-See the `GitHub issues page` (https://github.com/DHLab-CGU/emr/issues) to see open issues and feature requests. 
+    #> 
+    #> $ICD
+    #>        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion
+    #>  1:  A0.11    20       18.35%           ICD 10  Wrong format           
+    #>  2:  V27.0    18       34.86%           ICD 10 Wrong version           
+    #>  3:   E114     8        42.2%           ICD 10  Wrong format           
+    #>  4: A01.05     8       49.54%            ICD 9 Wrong version           
+    #>  5:  42761     7       55.96%           ICD 10 Wrong version           
+    #>  6:  Z9.90     6       61.47%           ICD 10  Wrong format           
+    #>  7:    F42     6       66.97%           ICD 10  Wrong format           
+    #>  8:  V24.1     6       72.48%           ICD 10 Wrong version           
+    #>  9:  A0105     5       77.06%            ICD 9 Wrong version           
+    #> 10:    001     5       81.65%            ICD 9  Wrong format       0019
+    #> 11: Others    20         100%            ICD 9  Wrong format
 
+    plot_groupedData(groupedData_Wide)
+    #> $graph
 
+![](README_files/figure-markdown_github/unnamed-chunk-3-2.png)
+
+    #> 
+    #> $sigCate
+    #>                              DiagnosticCategory  N Percentage
+    #>  1:                               Renal Disease 24     63.16%
+    #>  2:                                      Cancer 10     26.32%
+    #>  3:                 Diabetes with complications  7     18.42%
+    #>  4: Connective Tissue Disease-Rheumatic Disease  3      7.89%
+    #>  5:                  Periphral Vascular Disease  2      5.26%
+    #>  6:                     Cerebrovascular Disease  1      2.63%
+    #>  7:                   Chronic Pulmonary Disease  1      2.63%
+    #>  8:            Moderate or Severe Liver Disease  1      2.63%
+    #>  9:                   Paraplegia and Hemiplegia  1      2.63%
+    #> 10:                        Peptic Ulcer Disease  1      2.63%
+
+Getting help
+------------
+
+See the `GitHub issues page` (<https://github.com/DHLab-CGU/emr/issues>) to see open issues and feature requests.

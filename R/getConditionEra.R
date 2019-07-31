@@ -1,43 +1,5 @@
-#' Get the condition era
-#'
-#' A Condition Era is defined as a span of time when the member is assumed to have a given condition.
-#' Condition Eras are periods of Condition Occurrence.
-#' Combining individual Condition Occurrences into a single Condition Era based on ICD code in clinical diagnostic data.
-#' Condition Eras are built with a Persistence Window,deafault is 30 days, meaning, if no occurence of the same member id happens within 30 days of any one occurrence, it will be considered the end date of the last condition occurrence.
-#'
-#' return DxDataFile with new column, condition era.
-#'
-#' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate Icd 10 using date
-#' @param groupDataType  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it is set to \code{"ccs"}.
-#' @param CustomGroupingTable Table is for groupDataType
-#' @param isDescription  CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.
-#' @param gapDate Length of condition era,By default it is set to 30 days \code{"30"}.
-#' @param selectedCaseFile Table for selectedCases. Default is \code{'NULL'}
+#' @rdname era
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
-#'                                 icd10usingDate = "2015/10/01",
-#'                                 groupDataType = ccslvl2,
-#'                                 caseCondition = "Diseases of the urinary system",
-#'                                 caseCount = 1)
-#' Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                         groupDataType = CCSlvl3,
-#'                         selectedCaseFile = selectedCaseFile)
-#'
-#' grepTable <- data.frame(Group = "Chronic kidney disease",
-#'                         grepIcd = "^58|^N18",
-#'                         stringsAsFactors = FALSE)
-#' Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
-#'                         groupDataType = customGrepIcdGroup,
-#'                         CustomGroupingTable = grepTable)
-#' head(Era1)
-#' head(Era2)
 #'
 getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL){
 

@@ -1,0 +1,190 @@
+---
+title: "Get started with emr: Procedure"
+author: "Hsiang-Ju, Chiu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Intro: Pr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage{UTF-8}{inputenc}
+---
+
+# Description
+```
+cat(utils::packageDescription("emr")$Description)
+```
+### Development version
+```r
+install.packages("devtools")
+# Install development version from GitHub
+devtools::install_github("DHLab-CGU/emr")
+library(emr)
+```
+```{r setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+devtools::install_github("DHLab-CGU/emr")
+library(emr)
+```
+### ICD-CM code with two format
+
+There are two formats of ICD-9 codes, decimal (with a decimal place separating the code) and short format.
+
+ICD-9-PCS
+```{r}
+# ICD-9-PCS_Short
+head(ICD9PrwithTwoFormat$Short)
+
+# ICD-9-PCS_Decimal
+head(ICD9PrwithTwoFormat$Decimal)
+```
+ICD-10-PCS只有short的格式
+```{r}
+# ICD-10-PCS_Short
+head(prICD10$ICD)
+```
+### Sample file
+An example of the data shows as below:  
+This data is a simulated medical data set of 3 patients with 170 records.
+```{r}
+head(samplePrFile)
+```
+## I. Code standarization
+
+**ICD-9-PCS code format transformation：Short <-> Decimal**
+
+Standardize the ICD procedure codes into a uniform format before code classification.
+
+Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.  
+
+**Table 1** Format of code classification methods
+
+|   |ICD format|
+|--------|----|
+|Clinical Classifications Software|short format|
+|Procedure class|short format|
+
+To distinguish the version of ICD procedure code (ICD9/ICD10) in code standardization.  
+User can set the using date of ICD10.  
+
+Reimbursement claims with a date required to use of ICD-10 codes (`icd10usingdate`)   
+In America: 10/1/2015  
+In Taiwan: 1/1/2016   
+
+**A. Uniform decimal format**
+
+```{r, message = FALSE, warning = FALSE}
+decimal <- IcdPrShortToDecimal(PrDataFile = samplePrFile,
+                               icdColName = ICD, 
+                               dateColName = Date,
+                               icd10usingDate = "2015/10/01")
+head(decimal$ICD)
+```
+**B. Uniform short format**
+Convert the diagnostic codes to the short format, and used for grouping to the others classification (`IcdPrToCCS` and `IcdPrToCCSLvl`). 
+```{r, message = FALSE, warning = FALSE}
+short <- IcdPrDecimalToShort(PrDataFile = samplePrFile,
+                             icdColName = ICD, 
+                             dateColName = Date,
+                             icd10usingDate = "2015/10/01")
+head(short$ICD)
+```
+**warning message** (More detail: [Get started with emr: Diagnosis](https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html#i--code-standarization))
+
+Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.
+
+## II. Data integration
+These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.
+
+The emr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.  
+
+### A. Clinical Classifications Software (CCS)
+The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures. 
+
+**1) single-level**: `IcdPrToCCS`
+
+ICD-9-PCS and ICD-10-PCS code contains same 231 CCS categories.
+
+```{r, message = FALSE, warning = FALSE}
+## ICD to CCS category
+CCS <- IcdPrToCCS(PrDataFile = samplePrFile,
+                  idColName = ID,
+                  icdColName = ICD,        
+                  dateColName = Date,
+                  icd10usingDate = "2015-10-01",
+                  isDescription = FALSE)
+
+head(CCS$groupedDT, 5)
+```
+
+**2) multi-level**: `IcdPrToCCSLvl`
+
+ICD-9-PCS has 3 levels, and ICD-10-PCS has two levels
+
+```{r, message = FALSE, warning = FALSE}
+## ICD to CCS multiple level 2 description
+CCSLvl <- IcdPrToCCSLvl(PrDataFile = samplePrFile,
+                       idColName = ID,
+                       icdColName = ICD,        
+                       dateColName = Date,
+                       icd10usingDate = "2015-10-01",
+                       CCSLevel = 2,
+                       isDescription = TRUE)
+
+head(CCSLvl$groupedDT, 5)
+```
+
+### 二、Procedure Class 
+Procedure Classes are part of the family of databases and software tools developed as part of the HCUP by AHRQ.     
+The Procedure Classes assign all ICD-9-CM procedure codes to one of four categories:  
+
+* Minor Diagnostic - Non-operating room procedures that are diagnostic 
+* Minor Therapeutic - Non-operating room procedures that are therapeutic
+* Major Diagnostic - Operating room procedures that are diagnostic
+* Major Therapeutic - Operating room procedures that are therapeutic
+ 
+```{r, message = FALSE, warning = FALSE}
+ProcedureClass <- IcdPrToProcedureClass(PrDataFile = samplePrFile,
+                                        idColName = ID,
+                                        icdColName = ICD,      
+                                        dateColName = Date,
+                                        icd10usingDate = "2015-10-01",
+                                        isDescription = FALSE)
+```
+```r
+head(ProcedureClass$groupedDT, 5)
+#>    Short ID   ICD       Date PROCEDURE_CLASS_NAME
+#> 1:  5681  B  5681 2008-01-14                    4
+#> 2:  9774  A  9774 2009-01-11                    2
+#> 3:  4499  B 44.99 2009-05-10                    4
+#> 4:  0759  C 07.59 2009-01-21                    4
+#> 5:  0205  B  0205 2008-07-06                    4
+```
+
+## Reference
+
+### I. Code standarization
+
+ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
+
+ICD-10-PCS code (2019):https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html
+
+https://www.findacode.com/search/search.php
+
+https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf
+
+### II. Data integration
+
+** Clinical Classifications Software (CCS)**
+
+ICD-9-PCS CCS (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
+
+https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
+
+ICD-10-PCS CCS (2019): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp
+
+**Procedure Class**
+
+ICD-9-Procedure Class (2015): https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv
+
+ICD-10-Procedure Class (2019): https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp

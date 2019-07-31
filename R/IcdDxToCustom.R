@@ -1,24 +1,5 @@
-#'
-#' Get the categories of ICD-9 and ICD-10 codes on diagnoses, the grouping rules are based on your standards.
-#'
-#' This can be used to select the first diagnosis record
-#' based on ICD code (grepl language) in DxDataFile,
-#' return first diagnosis record based on factIcd Data
-#'
-#' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param CustomGroupingTable Grouping rules of clustering the ICD is based on yourself! There are two column in the dataframe/datatable: "Group" and "ICD"
+#' @rdname DxCustom
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
-#'                             ICD = c("N181","5853","5854","5855","5856","5859"),
-#'                             stringsAsFactors = FALSE)
-#' IcdDxToCustom(sampleDxFile, ID, ICD, Date,
-#'               CustomGroupingTable = groupingTable)
 #'
 IcdDxToCustom <- function(DxDataFile, idColName, icdColName, dateColName, CustomGroupingTable){
   customICD <- as.data.table(DxDataFile)

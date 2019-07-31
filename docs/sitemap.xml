@@ -4,124 +4,70 @@
     <loc>https://dhlab-cgu.github.io/emr//index.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ccsDxICD10.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/common_DxArg.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ccsDxICD9.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/common_PrArg.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD10.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DataSplit.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ccsPrICD9.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/dataWide.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/dxICD10.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/diagnosis_dataset_classification.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/dxICD9.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/diagnosis_dataset_standardization.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/emr.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DxCCS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/getConditionEra.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DxComorbid.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/groupedDataLongToWide.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DxCustom.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DxPheWAS.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/DxUniform.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/emr-package.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/era.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/groupMethodSelect.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD10DxwithTwoFormat.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PC.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd10_ahrq.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/plotError.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd10_charlson.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PlotGroupedData.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd10_elix.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PrCCS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9DxwithTwoFormat.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/procedure_dataset_classification.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/ICD9PrwithTwoFormat.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/procedure_dataset_standardization.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd9_ahrq.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/PrUniform.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd9_charlson.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/icd9_elix.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxDecimalToShort.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxShortToDecimal.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCCS.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCCSLvl.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToComorbid.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCustom.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToCustomGrep.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdDxToPheWAS.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrDecimalToShort.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrShortToDecimal.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToCCS.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToCCSLvl.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/IcdPrToProcedureClass.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/patientRecordDate.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/pcICD10.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/pcICD9.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/phecode_icd9_2.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/plot_errorICD.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/plot_groupedData.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/prICD10.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/prICD9.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/recordPeriod.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/sampleDxFile.html</loc>
@@ -130,18 +76,18 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/samplePrFile.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/selectCases.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//reference/selectCase.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/splitDataByDate.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//articles/Chi_Diagnosis.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_Diagnosis.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//articles/Chi_Procedure.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//articles/ChineseVersion_Procedure.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//articles/Eng_Diagnosis.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//articles/emr.html</loc>
+    <loc>https://dhlab-cgu.github.io/emr//articles/Eng_Procedure.html</loc>
   </url>
 </urlset>

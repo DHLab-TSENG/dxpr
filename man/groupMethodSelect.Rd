@@ -2,28 +2,31 @@
 % Please edit documentation in R/groupMethodSelect.R
 \name{groupMethodSelect}
 \alias{groupMethodSelect}
-\title{Select code classification method}
+\title{code classification method}
 \usage{
 groupMethodSelect(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, groupMethod, CustomGroupingTable, isDescription)
 }
 \arguments{
-\item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"}
+\item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of DxDataFile}
+\item{idColName}{A column for MemberID of DxDataFile.}
 
 \item{icdColName}{A column for ICD of DxDataFile}
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{icd10usingDate}{Icd 10 using date}
+\item{icd10usingDate}{ICD-10 using date}
 
 \item{groupMethod}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables.}
 
 \item{CustomGroupingTable}{Table is for groupDataType}
 
-\item{isDescription}{CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.}
+\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 }
 \description{
-return grouped data
+Common argument of diagnostic functions
+}
+\details{
+Common argument of diagnostic functions
 }

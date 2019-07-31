@@ -1,44 +1,5 @@
-#'
-#' Plot of diagnostic category data
-#'
-#' @import data.table
-#' @import ggplot2
-#' @importFrom stats chisq.test
-#' @importFrom stats fisher.test
-#' @param groupedDataWide groupedData file from functions of code classification (four stPercentagegies)
-#' @param TopN Default is Top "10"
-#' @param limitFreq the minimum  of Frequency Default is "0.01", in other words,the limit at same diagnostic category must have 1 percent patient in total patient.
-#' @param pvalue p value of chisq.test
+#' @rdname PlotGroupedData
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix,
-#'                                          isDescription = FALSE)
-#' plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
-#'                           TopN = 10,
-#'                           limitFreq = 0.01)
-#'
-#' selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
-#'                                 idColName = ID,
-#'                                 icdColName = ICD,
-#'                                 dateColName = Date,
-#'                                 icd10usingDate = "2015/10/01",
-#'                                 groupDataType = ccslvl2,
-#'                                 caseCondition = "Diseases of the urinary system",
-#'                                 caseCount = 1)
-#' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix,
-#'                                          isDescription = FALSE,
-#'                                          selectedCaseFile = selectedCaseFile)
-#' plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
-#'                           TopN = 10,
-#'                           limitFreq = 0.01,
-#'                           pvalue = 0.05)
-#' plot1
-#' plot2
 #'
 plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalue = 0.05){
   Test_pvalue <- c()

@@ -5,7 +5,7 @@ Date: 2019-07-09
 Authors@R: c(person("Hsiang-Ju", "Chiu", role = c("aut", "cre"), email = "aibabi3@gmail.com"),
              person("Yi-Ju", "Tseng", role = "aut", email = "yjtseng@mail.cgu.edu.tw"))
 Description: A health data analysis tool of electric medical record in R.
-    For clinical data analysis from Digital Health Lab at Chang-Gung University. Code standardization, data integration, exploratory data analysis preparation and visualization.
+    For clinical data analysis from Digital Health Lab at Chang Gung University, Taiwan. Code standardization, data integration, exploratory data analysis preparation and visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

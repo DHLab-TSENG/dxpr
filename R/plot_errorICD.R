@@ -1,31 +1,5 @@
-#'
-#' Pareto Plot of error ICD Codes
-#'
-#' @import data.table
-#' @import ggplot2
-#' @importFrom stats reorder
-#' @param errorFile error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)
-#' @param ICDVersion ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}
-#' @param wrongICDType Wrong ICD type: wrong version (\code{'version'}), wrong format (\code{'format'}, and all wrong type \code{'all'}
-#' @param groupICD Only ICD-9 codes can be grouped, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
-#' @param Others Default is TRUE
-#' @param TopN Default is Top "10"
+#' @rdname plotError
 #' @export
-#' @examples
-#' head(sampleDxFile)
-#' error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
-#' plot_errorICD(errorFile = error$Error,
-#'               ICDVersion = 9,
-#'               wrongICDType = all,
-#'               groupICD = TRUE,
-#'               Others = TRUE,
-#'               TopN = 3)
-#'
-#' plot_errorICD(errorFile = error$Error,
-#'               ICDVersion = all,
-#'               wrongICDType = all,
-#'               groupICD = FALSE,
-#'               Others = TRUE)
 #'
 plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, TopN = 10){
   ICDVersion <- tolower(deparse(substitute(ICDVersion)))
@@ -67,7 +41,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
       graph_col <- c("ICDGroup","groupCount")
       setnames(errorData,"ICD","MostICDInGroup")
       Xlabel <- paste0(Xlabel," (grouped)")
-      ICD <- errorData[,c(5,6,11,1,10,2)]
+      ICD <- errorData[,c("ICDGroup","groupCount","CumCountPerc","MostICDInGroup","ICDPercInGroup","WrongType")]
     }else{
       stop("ICD 10 already has unique alphanumeric codes to identify known diseases")
     }
@@ -81,7 +55,7 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
     }
     errorData <- errorData[, c("CumCountPerc","ICD") := list(paste0(round(CumCount/max(CumCount)*100,2),"%"),factor(ICD,levels = unique(ICD))),]
 
-    ICD <- errorData[,c(1,2,8,3:5)]
+    ICD <- errorData[,c("ICD","count","CumCountPerc","IcdVersionInFile","WrongType","Suggestion")]
     graph_col <- c("ICD","count")
 
   }

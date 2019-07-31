@@ -1,16 +1,8 @@
+#' code classification method
 #'
-#' Select code classification method
-#'
-#' return grouped data
-#' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID","ICD", "Date"
-#' @param idColName A column for MemberID of DxDataFile
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
-#' @param icd10usingDate Icd 10 using date
+#' @inherit common_DxArg
 #' @param groupMethod  Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables.
 #' @param CustomGroupingTable Table is for groupDataType
-#' @param isDescription  CCS/PheWAS categories or description for ICD-CM codes, default is \code{'TRUE'}.
 #'
 groupMethodSelect <- function(DxDataFile,idColName, icdColName, dateColName, icd10usingDate, groupMethod, CustomGroupingTable, isDescription){
   DxDataFile <- as.data.table(DxDataFile)
