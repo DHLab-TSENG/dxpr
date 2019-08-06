@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data integration for Case Selection — selectCase • emr</title>
+<title>Data integration for case selection — selectCase • emr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Data integration for Case Selection — selectCase" />
+<meta property="og:title" content="Data integration for case selection — selectCase" />
 
 <meta property="og:description" content="This query function can select the cases matching defined conditions for analyses." />
 <meta name="twitter:card" content="summary" />
@@ -115,7 +115,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data integration for Case Selection</h1>
+    <h1>Data integration for case selection</h1>
     
     <div class="hidden name"><code>selectCase.Rd</code></div>
     </div>
@@ -168,25 +168,33 @@
     </tr>
     <tr>
       <th>caseCondition</th>
-      <td><p>Certain diseases of standard groups</p></td>
+      <td><p>Certain diseases of standard groups.</p></td>
     </tr>
     <tr>
       <th>caseCount</th>
-      <td><p>Minimum number of diagnoses</p></td>
+      <td><p>Minimum number of diagnoses.</p></td>
     </tr>
     <tr>
       <th>PeriodRange</th>
-      <td><p>Determine days of interest for performing the case selection. By default, it set from 30 to 365 days</p></td>
+      <td><p>Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.</p></td>
     </tr>
     <tr>
       <th>CaseName</th>
-      <td><p>Aggregation of selected cases name. By default, it set to <code>"selected"</code>.</p></td>
+      <td><p>Name of selected cases. By default, it set to <code>"selected"</code>.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A new <code>data.table</code> based on standard classification dataset with a new column: <code>selectedCase</code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the options to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other data integration functions: <code><a href='DataSplit.html'>DataSplit</a></code>, <code><a href='recordPeriod.html'>recordPeriod</a></code>, <code><a href='era.html'>era</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -292,7 +300,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

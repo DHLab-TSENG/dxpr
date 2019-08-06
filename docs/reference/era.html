@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data integration for Condition Era calculation — era • emr</title>
+<title>Data integration for condition era calculation — era • emr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Data integration for Condition Era calculation — era" />
+<meta property="og:title" content="Data integration for condition era calculation — era" />
 
 <meta property="og:description" content="Conditions era is used to integrate distributed data of clinical records into a single progression record" />
 <meta name="twitter:card" content="summary" />
@@ -115,7 +115,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data integration for Condition Era calculation</h1>
+    <h1>Data integration for condition era calculation</h1>
     
     <div class="hidden name"><code>era.Rd</code></div>
     </div>
@@ -175,9 +175,17 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A new <code>data.table</code> based on classifying <code>DxDataFile</code> and calculated condition era by <code>groupDataType</code> for each patient.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Calculate condition era by grouped categories of each patient. Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other data integration functions: <code><a href='selectCase.html'>selectCase</a></code>, <code><a href='DataSplit.html'>DataSplit</a></code>, <code><a href='recordPeriod.html'>recordPeriod</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -239,7 +247,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -4,15 +4,6 @@
 \alias{IcdPrToProcedureClass}
 \alias{PC}
 \title{Code classification for procedure code}
-\source{
-ICD-9-Procedure Class (2015)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
-
-ICD-10-Procedure Class (2018)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
-}
 \usage{
 IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
   icd10usingDate, isDescription = TRUE)
@@ -30,6 +21,9 @@ IcdPrToProcedureClass(PrDataFile, idColName, icdColName, dateColName,
 
 \item{isDescription}{Category or description of standard classification methods for ICD procedure codes. By default, it set to \code{True} (standard description).}
 }
+\value{
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+}
 \description{
 The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data
 }
@@ -45,4 +39,7 @@ head(samplePrFile)
 
 IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
+}
+\seealso{
+see other code classification: \code{\link{PrCCS}}
 }

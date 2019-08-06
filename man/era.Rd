@@ -3,7 +3,7 @@
 \name{era}
 \alias{era}
 \alias{getConditionEra}
-\title{Data integration for Condition Era calculation}
+\title{Data integration for condition era calculation}
 \usage{
 getConditionEra(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, groupDataType = ccs, CustomGroupingTable,
@@ -29,6 +29,9 @@ getConditionEra(DxDataFile, idColName, icdColName, dateColName,
 \item{gapDate}{Length of condition gap, By default, it set to 30 days \code{"30"}.}
 
 \item{selectedCaseFile}{Table for selectedCases. Default is \code{'NULL'}}
+}
+\value{
+A new \code{data.table} based on classifying \code{DxDataFile} and calculated condition era by \code{groupDataType} for each patient.
 }
 \description{
 Conditions era is used to integrate distributed data of clinical records into a single progression record
@@ -68,4 +71,7 @@ Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
                         CustomGroupingTable = grepTable)
 head(Era1)
 head(Era2)
+}
+\seealso{
+Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{recordPeriod}}
 }

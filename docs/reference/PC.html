@@ -158,16 +158,17 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ICD-9-Procedure Class (2015)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv'>https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
-<p>ICD-10-Procedure Class (2018)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp'>https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>PrDataFile</code> with two new columns for uniform format procedure codes and classified standard categories. 2) <code>Error</code>: Potential error codes from <code><a href='PrUniform.html'>PrUniform</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>see other code classification: <code><a href='PrCCS.html'>PrCCS</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -206,9 +207,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#source">Source</a></li>
+      <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

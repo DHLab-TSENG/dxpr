@@ -158,14 +158,17 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ICD-9-PheWAS (version 1.2, 2015)</p>
-<p><a href='https://phewascatalog.org/PheWASs'>https://phewascatalog.org/PheWASs</a></p>
+    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>DxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID. 3) <code>Error</code>: Potential error codes from <code><a href='DxUniform.html'>DxUniform</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other code classification functions: <code><a href='DxCustom.html'>DxCustom</a></code>, <code><a href='DxComorbid.html'>DxComorbid</a></code>, <code><a href='DxCCS.html'>DxCCS</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -299,9 +302,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#source">Source</a></li>
+      <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -62,12 +62,12 @@ reference:
   desc: ~
   contents:
   - sampleDxFile
-  - diagnosis_dataset_standardization
-  - diagnosis_dataset_classification
+  - Dx_dataset_standardization
+  - Dx_dataset_classification
 
 - title: Data - Procedure
   desc: ~
   contents:
   - samplePrFile
-  - procedure_dataset_standardization
-  - procedure_dataset_classification
+  - Pr_dataset_standardization
+  - Pr_dataset_classification

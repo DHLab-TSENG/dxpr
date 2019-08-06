@@ -27,12 +27,7 @@ NULL
 #' @inherit common_DxArg
 #' @param DxDataFile A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"
 #' @importFrom utils head
-#' @source \url{https://www.findacode.com/search/search.php}
-#' @source ICD-9-diagnostic code
-#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-#' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
-#' @source ICD 10-diagnostic code
-#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html}
+#' @return Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes. 2) \code{Error}: Potential error codes.
 #' @examples
 #' # sample file for example
 #'
@@ -56,11 +51,8 @@ NULL
 #' @name DxCCS
 #' @inherit common_DxArg
 #' @param CCSLevel By default it set to \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.
-#' @source ICD-9-CM CCS (2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
-#' @source ICD-10-CM CCS (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxComorbid}}
 #' @examples
 #' # sample file for example
 #'
@@ -83,8 +75,8 @@ NULL
 #'
 #' @name DxPheWAS
 #' @inherit common_DxArg
-#' @source ICD-9-PheWAS (version 1.2, 2015)
-#' @source \url{https://phewascatalog.org/PheWASs}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+#' @seealso Other code classification functions: \code{\link{DxCustom}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -103,6 +95,8 @@ NULL
 #'
 #' @name DxCustom
 #' @inherit common_DxArg
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID.
+#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -134,24 +128,11 @@ NULL
 #'
 #' @name DxComorbid
 #' @inherit common_DxArg
-#' @param comorbidMethod Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).
+#' @param comorbidMethod Three comorbidity methods: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).
 #' @param isDescription Category or description of standard classification methods for ICD diagnostic codes. By default it is set to \code{FALSE} ( Comorbidity categories).
 #'
-#' @source AHRQ
-#' @source ICD-9-CM Elixhauser (2012-2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-#' @source ICD-10-CM Elixhauser (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
-#' @source Charlson
-#' @source ICD-9-CM Charlson (2006)
-#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
-#' @source ICD-10-CM Charlson (2006)
-#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
-#' @source Elixhauser
-#' @source ICD-9-CM Elixhauser (2012-2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-#' @source ICD-10-CM Elixhauser (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -162,7 +143,7 @@ NULL
 #' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 NULL
 
-#' Data integration for Case Selection
+#' Data integration for case selection
 #'
 #' This query function can select the cases matching defined conditions for analyses.
 #'
@@ -170,10 +151,12 @@ NULL
 #'
 #' @name selectCase
 #' @inherit common_DxArg
-#' @param caseCondition Certain diseases of standard groups
-#' @param caseCount Minimum number of diagnoses
-#' @param PeriodRange Determine days of interest for performing the case selection. By default, it set from 30 to 365 days
-#' @param CaseName Aggregation of selected cases name. By default, it set to \code{"selected"}.
+#' @param caseCondition Certain diseases of standard groups.
+#' @param caseCount Minimum number of diagnoses.
+#' @param PeriodRange Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.
+#' @param CaseName Name of selected cases. By default, it set to \code{"selected"}.
+#' @return A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}
+#' @seealso Other data integration functions: \code{\link{DataSplit}}, \code{\link{recordPeriod}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -189,7 +172,7 @@ NULL
 #'             caseCount = 1)
 NULL
 
-#' Data integration for Data Split
+#' Data integration for data split
 #'
 #' Splitting data by the date of the clinical event and shows the data recorded before or after the clinical event and the window counts, which is the gap between the record date and index date.
 #'
@@ -198,7 +181,9 @@ NULL
 #' @name DataSplit
 #' @inherit common_DxArg
 #' @param Gap Gap length of the window. Default set to \code{30}.
-#' @param indexDateFile Diagnostic dates for each patient in an observed period
+#' @param indexDateFile Diagnostic dates for each patient in an observed period.
+#' @return A new \code{data.table} based on \code{DxDataFile} and classified by \code{indexDateFile} for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{recordPeriod}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -209,18 +194,19 @@ NULL
 #' # Defined index date of patient A0,B0,C0 and D0
 #'
 #' indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
-#'                              indexDate = c("2023-08-12", "2015-12-26",
+#'                              indexDate = c("2023-08-12", "2024-02-12",
 #'                                            "2015-12-05", "2017-01-29"),
 #'                              stringsAsFactors = FALSE)
-#'
+#' indexDateTable
 #' # Split data by index date for each patient
 #'
 #' splitedData <- splitDataByDate(SampleforCertainPatient, ID, ICD, Date,
 #'                                indexDateFile = indexDateTable,
 #'                                Gap = 30)
+#' splitedData[15:19,]
 NULL
 
-#' Data integration for Patient Record Period
+#' Data integration for patient record period
 #'
 #' Function for researchers used for finding the first and last clinical event for a given patient as index date.
 #'
@@ -228,6 +214,8 @@ NULL
 #'
 #' @name recordPeriod
 #' @inherit common_DxArg
+#' @return A new \code{data.table} based on \code{DxDataFile} with the earliest and latest admission date for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -239,7 +227,7 @@ NULL
 #' head(record)
 NULL
 
-#' Data integration for Condition Era calculation
+#' Data integration for condition era calculation
 #'
 #' Conditions era is used to integrate distributed data of clinical records into a single progression record
 #'
@@ -248,6 +236,8 @@ NULL
 #' @name era
 #' @inherit common_DxArg
 #' @param gapDate Length of condition gap, By default, it set to 30 days \code{"30"}.
+#' @return A new \code{data.table} based on classifying \code{DxDataFile} and calculated condition era by \code{groupDataType} for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{recordPeriod}}
 #' @examples
 #' # sample file for example
 #'
@@ -291,6 +281,7 @@ NULL
 #' @name dataWide
 #' @inherit common_DxArg
 #' @param numericOrBinary Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.
+#' @return A new \code{data.table} based on classifying \code{DxDataFile} and converted the dataset into a wide format dataset.
 #' @examples
 #' # sample file for example
 #'
@@ -330,6 +321,8 @@ NULL
 #' @param groupICD Only ICD-9 codes can group, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
 #' @param Others Default is TRUE
 #' @param TopN Default is Top "10"
+#' @return A Pareto plot and a \code{data.table} for error codes.
+#' @seealso other plot function: \code{\link{PlotGroupedData}}
 #' @examples
 #' # sample file for example
 #' head(sampleDxFile)
@@ -372,6 +365,8 @@ NULL
 #' @param TopN Default is Top "10"
 #' @param limitFreq The minimum frequency set to "0.01"; In other words, the limit at the same diagnostic category must have 1 percent patient in the total patient.
 #' @param pvalue p value of chisq.test
+#' @return A histogram plot and a \code{data.table} for classifying data.
+#' @seealso other plot function: \code{\link{plotError}}
 #' @examples
 #' # sample file for example
 #' head(sampleDxFile)
@@ -443,9 +438,7 @@ NULL
 #' @inherit common_PrArg
 #' @name PrUniform
 #' @param PrDataFile A file of clinical procedure data with at least 2 columns: "ICD" and "Date"
-#' @source \url{https://www.findacode.com/search/search.php}
-#' @source \url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-#' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
+#' @return Two new \code{data.table}s. 1) \code{ICD}: Uniform format procedure codes. 2) \code{Error}: Potential error codes.
 #' @examples
 #' # sample file for example
 #'
@@ -470,11 +463,8 @@ NULL
 #' @name PrCCS
 #' @inherit common_PrArg
 #' @param CCSLevel By default, it set to \code{1}. CCS multiple level:1~3, CCS for ICD-10-CM only has 1~2 multiple levels.
-#' @source ICD-9-PCS CCS (2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
-#' @source ICD-10-PCS CCS (2019)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2019_1.zip}
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+#' @seealso see other code classification: \code{\link{PC}}
 #' @examples
 #' # sample file for example
 #'
@@ -499,10 +489,8 @@ NULL
 #' @importFrom stats complete.cases
 #' @name PC
 #' @inherit common_PrArg
-#' @source ICD-9-Procedure Class (2015)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv}
-#' @source ICD-10-Procedure Class (2018)
-#' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp}
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+#' @seealso see other code classification: \code{\link{PrCCS}}
 #' @examples
 #' # sample file for example
 #'

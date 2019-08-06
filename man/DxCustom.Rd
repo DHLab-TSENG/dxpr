@@ -24,6 +24,9 @@ IcdDxToCustomGrep(DxDataFile, idColName, icdColName, dateColName,
 
 \item{CustomGroupingTable}{Define the grouping categories. `IcdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `IcdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.}
 }
+\value{
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID.
+}
 \description{
 Researches can define the grouping categories and therefore have more flexible for grouping ICD diagnostic codes.
 }
@@ -51,4 +54,7 @@ grepTable <- data.frame(Group = "Chronic kidney disease",
 
 IcdDxToCustomGrep(sampleDxFile,ID, ICD, Date,CustomGroupingTable = grepTable)
 
+}
+\seealso{
+Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
 }

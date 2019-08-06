@@ -5,17 +5,6 @@
 \alias{IcdDxToCCSLvl}
 \alias{DxCCS}
 \title{Code classification for CCS}
-\source{
-ICD-9-CM CCS (2015)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
-
-ICD-10-CM CCS (2019)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip}
-}
 \usage{
 IcdDxToCCS(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
   isDescription = TRUE)
@@ -38,6 +27,9 @@ IcdDxToCCSLvl(DxDataFile, idColName, icdColName, dateColName,
 
 \item{CCSLevel}{By default it set to \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.}
 }
+\value{
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+}
 \description{
 The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 }
@@ -56,4 +48,7 @@ IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 # Group diagnostic codes into multiple levels of CCS classification
 
 IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+}
+\seealso{
+Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxComorbid}}
 }

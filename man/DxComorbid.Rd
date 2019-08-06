@@ -4,37 +4,6 @@
 \alias{IcdDxToComorbid}
 \alias{DxComorbid}
 \title{Code classification for Comorbidity}
-\source{
-AHRQ
-
-ICD-9-CM Elixhauser (2012-2015)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-
-ICD-10-CM Elixhauser (2019)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
-
-Charlson
-
-ICD-9-CM Charlson (2006)
-
-\url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
-
-ICD-10-CM Charlson (2006)
-
-\url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
-
-Elixhauser
-
-ICD-9-CM Elixhauser (2012-2015)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
-
-ICD-10-CM Elixhauser (2019)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
-}
 \usage{
 IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, comorbidMethod, isDescription = FALSE)
@@ -50,9 +19,12 @@ IcdDxToComorbid(DxDataFile, idColName, icdColName, dateColName,
 
 \item{icd10usingDate}{ICD-10 using date}
 
-\item{comorbidMethod}{Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).}
+\item{comorbidMethod}{Three comorbidity methods: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).}
 
 \item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default it is set to \code{FALSE} ( Comorbidity categories).}
+}
+\value{
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
 }
 \description{
 The comorbidities classification (AHRQ, Charlson ,and Elixhauser Comorbidity) for ICD diagnostic codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
@@ -68,4 +40,7 @@ head(sampleDxFile)
 # Group diagnostic codes into charlson comorbidity categories
 
 IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+}
+\seealso{
+Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxCCS}}
 }

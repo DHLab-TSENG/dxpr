@@ -154,7 +154,7 @@
     </tr>
     <tr>
       <th>comorbidMethod</th>
-      <td><p>Three comorbidity method: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (<code>ahrq</code>,<code>charlson</code>, and <code>elix</code>).</p></td>
+      <td><p>Three comorbidity methods: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (<code>ahrq</code>,<code>charlson</code>, and <code>elix</code>).</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
@@ -162,27 +162,17 @@
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>AHRQ</p>
-<p>ICD-9-CM Elixhauser (2012-2015)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM Elixhauser (2019)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
-<p>Charlson</p>
-<p>ICD-9-CM Charlson (2006)</p>
-<p><a href='http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt'>http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
-<p>ICD-10-CM Charlson (2006)</p>
-<p><a href='http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt'>http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
-<p>Elixhauser</p>
-<p>ICD-9-CM Elixhauser (2012-2015)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-CM Elixhauser (2019)</p>
-<p><a href='https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp'>https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp</a></p>
+    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>DxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID. 3) <code>Error</code>: Potential error codes from <code><a href='DxUniform.html'>DxUniform</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other code classification functions: <code><a href='DxPheWAS.html'>DxPheWAS</a></code>, <code><a href='DxCustom.html'>DxCustom</a></code>, <code><a href='DxCCS.html'>DxCCS</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -291,9 +281,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#source">Source</a></li>
+      <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data integration for Patient Record Period — recordPeriod • emr</title>
+<title>Data integration for patient record period — recordPeriod • emr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Data integration for Patient Record Period — recordPeriod" />
+<meta property="og:title" content="Data integration for patient record period — recordPeriod" />
 
 <meta property="og:description" content="Function for researchers used for finding the first and last clinical event for a given patient as index date." />
 <meta name="twitter:card" content="summary" />
@@ -115,7 +115,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data integration for Patient Record Period</h1>
+    <h1>Data integration for patient record period</h1>
     
     <div class="hidden name"><code>recordPeriod.Rd</code></div>
     </div>
@@ -149,9 +149,17 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A new <code>data.table</code> based on <code>DxDataFile</code> with the earliest and latest admission date for each patient.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function queries the earliest and latest admission date for each patient.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other data integration functions: <code><a href='selectCase.html'>selectCase</a></code>, <code><a href='DataSplit.html'>DataSplit</a></code>, <code><a href='era.html'>era</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -180,7 +188,11 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

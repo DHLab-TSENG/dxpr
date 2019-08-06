@@ -3,7 +3,7 @@
 \name{recordPeriod}
 \alias{recordPeriod}
 \alias{patientRecordDate}
-\title{Data integration for Patient Record Period}
+\title{Data integration for patient record period}
 \usage{
 patientRecordDate(DxDataFile, idColName, icdColName, dateColName)
 }
@@ -15,6 +15,9 @@ patientRecordDate(DxDataFile, idColName, icdColName, dateColName)
 \item{icdColName}{A column for ICD of DxDataFile}
 
 \item{dateColName}{A column for Date of DxDataFile}
+}
+\value{
+A new \code{data.table} based on \code{DxDataFile} with the earliest and latest admission date for each patient.
 }
 \description{
 Function for researchers used for finding the first and last clinical event for a given patient as index date.
@@ -31,4 +34,7 @@ head(sampleDxFile)
 
 record <- patientRecordDate(sampleDxFile, ID, ICD, Date)
 head(record)
+}
+\seealso{
+Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{era}}
 }

@@ -30,6 +30,9 @@ groupedDataLongToWide(DxDataFile, idColName, icdColName, dateColName,
 
 \item{selectedCaseFile}{Table for selectedCases. Default is \code{'NULL'}}
 }
+\value{
+A new \code{data.table} based on classifying \code{DxDataFile} and converted the dataset into a wide format dataset.
+}
 \description{
 Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages.
 }

@@ -6,13 +6,6 @@
 \alias{IcdPrShortToDecimal}
 \alias{PrUniform}
 \title{Code format transformation}
-\source{
-\url{https://www.findacode.com/search/search.php}
-
-\url{https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf}
-
-\url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
-}
 \usage{
 IcdPrDecimalToShort(PrDataFile, icdColName, dateColName, icd10usingDate)
 
@@ -26,6 +19,9 @@ IcdPrShortToDecimal(PrDataFile, icdColName, dateColName, icd10usingDate)
 \item{dateColName}{A Date column of PrDataFile}
 
 \item{icd10usingDate}{ICD-10 using date}
+}
+\value{
+Two new \code{data.table}s. 1) \code{ICD}: Uniform format procedure codes. 2) \code{Error}: Potential error codes.
 }
 \description{
 Converts the ICD procedure codes to a uniform format

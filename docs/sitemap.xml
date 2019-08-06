@@ -16,12 +16,6 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/dataWide.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/diagnosis_dataset_classification.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/diagnosis_dataset_standardization.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/DxCCS.html</loc>
   </url>
   <url>
@@ -35,6 +29,12 @@
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/DxUniform.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/Dx_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/Dx_dataset_standardization.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/emr-package.html</loc>
@@ -58,13 +58,13 @@
     <loc>https://dhlab-cgu.github.io/emr//reference/PrCCS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/procedure_dataset_classification.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-cgu.github.io/emr//reference/procedure_dataset_standardization.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/PrUniform.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/Pr_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-cgu.github.io/emr//reference/Pr_dataset_standardization.html</loc>
   </url>
   <url>
     <loc>https://dhlab-cgu.github.io/emr//reference/recordPeriod.html</loc>

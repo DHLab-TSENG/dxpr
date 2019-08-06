@@ -4,11 +4,6 @@
 \alias{IcdDxToPheWAS}
 \alias{DxPheWAS}
 \title{Code classification for PheWAS}
-\source{
-ICD-9-PheWAS (version 1.2, 2015)
-
-\url{https://phewascatalog.org/PheWASs}
-}
 \usage{
 IcdDxToPheWAS(DxDataFile, idColName, icdColName, dateColName,
   icd10usingDate, isDescription = TRUE)
@@ -26,6 +21,9 @@ IcdDxToPheWAS(DxDataFile, idColName, icdColName, dateColName,
 
 \item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 }
+\value{
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+}
 \description{
 The PheWAS classification for ICD-9-CM codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 }
@@ -40,4 +38,7 @@ head(sampleDxFile)
 # Group diagnostic codes into PheWAS
 
 IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+}
+\seealso{
+Other code classification functions: \code{\link{DxCustom}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
 }

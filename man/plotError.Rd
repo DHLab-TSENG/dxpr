@@ -21,6 +21,9 @@ plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
 
 \item{TopN}{Default is Top "10"}
 }
+\value{
+A Pareto plot and a \code{data.table} for error codes.
+}
 \description{
 Pareto chart of error ICD list
 }
@@ -52,4 +55,7 @@ plot_errorICD(errorFile = error$Error,
               groupICD = FALSE,
               Others = TRUE)
 
+}
+\seealso{
+other plot function: \code{\link{PlotGroupedData}}
 }

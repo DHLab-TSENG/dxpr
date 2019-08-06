@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Code format transformation — IcdPrDecimalToShort • emr</title>
+<title>Datasets for code classification — Dx_dataset_classification • emr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Code format transformation — IcdPrDecimalToShort" />
+<meta property="og:title" content="Datasets for code classification — Dx_dataset_classification" />
 
-<meta property="og:description" content="Converts the ICD procedure codes to a uniform format" />
+<meta property="og:description" content="These datasets are used for diagnostic code transformation." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,105 +115,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Code format transformation</h1>
+    <h1>Datasets for code classification</h1>
     
-    <div class="hidden name"><code>PrUniform.Rd</code></div>
+    <div class="hidden name"><code>Dx_dataset_classification.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Converts the ICD procedure codes to a uniform format</p>
+    <p>These datasets are used for diagnostic code transformation.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>IcdPrDecimalToShort</span>(<span class='no'>PrDataFile</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>icd10usingDate</span>)
+    <pre class="usage"><span class='no'>ccsDxICD9</span>
 
-<span class='fu'>IcdPrShortToDecimal</span>(<span class='no'>PrDataFile</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>, <span class='no'>icd10usingDate</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>PrDataFile</th>
-      <td><p>A file of clinical procedure data with at least 2 columns: "ICD" and "Date"</p></td>
-    </tr>
-    <tr>
-      <th>icdColName</th>
-      <td><p>A ICD column of PrDataFile</p></td>
-    </tr>
-    <tr>
-      <th>dateColName</th>
-      <td><p>A Date column of PrDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+<span class='no'>ccsDxICD10</span>
 
-    <p>Two new <code>data.table</code>s. 1) <code>ICD</code>: Uniform format procedure codes. 2) <code>Error</code>: Potential error codes.</p>
+<span class='no'>phecode_icd9_2</span>
+
+<span class='no'>icd9_ahrq</span>
+
+<span class='no'>icd10_ahrq</span>
+
+<span class='no'>icd9_charlson</span>
+
+<span class='no'>icd10_charlson</span>
+
+<span class='no'>icd9_elix</span>
+
+<span class='no'>icd10_elix</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>These datatable with ICD diagnostic codes and the specific Standardization categories.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These transformative function does not only convert the ICD to uniform format code but also check the potential coding error of the ICD codes’ format or version.</p>
+    <p>These datasets are used for <code>IcdDxToCCS</code>, <code>IcdDxToCCSLvl</code>, <code>IcdDxToPheWAS</code>, and <code>IcdDxToComorbid</code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># sample file for example</span>
-
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>samplePrFile</span>)</div><div class='output co'>#&gt;    ID   ICD       Date
-#&gt; 1:  B  5681 2008-01-14
-#&gt; 2:  A  9774 2009-01-11
-#&gt; 3:  B 44.99 2009-05-10
-#&gt; 4:  C 07.59 2009-01-21
-#&gt; 5:  B  0205 2008-07-06
-#&gt; 6:  B  8812 2007-06-27</div><div class='input'>
-<span class='co'># convert the procedure codes to the short format</span>
-
-<span class='fu'>IcdPrDecimalToShort</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; $ICD
-#&gt;          ICD
-#&gt;   1:    5681
-#&gt;   2:    9774
-#&gt;   3:    4499
-#&gt;   4:    0759
-#&gt;   5:    0205
-#&gt;  ---        
-#&gt; 166: 00UH4KZ
-#&gt; 167: 001U074
-#&gt; 168: 02160AQ
-#&gt; 169: 02134KC
-#&gt; 170: 00WU0YZ
-#&gt; </div><div class='input'>
-<span class='co'># convert the procedure codes to the decimal format</span>
-
-<span class='fu'>IcdPrShortToDecimal</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; $ICD
-#&gt;          ICD
-#&gt;   1:   56.81
-#&gt;   2:   97.74
-#&gt;   3:   44.99
-#&gt;   4:   07.59
-#&gt;   5:   02.05
-#&gt;  ---        
-#&gt; 166: 00UH4KZ
-#&gt; 167: 001U074
-#&gt; 168: 02160AQ
-#&gt; 169: 02134KC
-#&gt; 170: 00WU0YZ
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#format">Format</a></li>
 
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

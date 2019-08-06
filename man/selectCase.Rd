@@ -3,7 +3,7 @@
 \name{selectCase}
 \alias{selectCase}
 \alias{selectCases}
-\title{Data integration for Case Selection}
+\title{Data integration for case selection}
 \usage{
 selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
   groupDataType = ccs, CustomGroupingTable, isDescription = TRUE,
@@ -27,13 +27,16 @@ selectCases(DxDataFile, idColName, icdColName, dateColName, icd10usingDate,
 
 \item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 
-\item{caseCondition}{Certain diseases of standard groups}
+\item{caseCondition}{Certain diseases of standard groups.}
 
-\item{caseCount}{Minimum number of diagnoses}
+\item{caseCount}{Minimum number of diagnoses.}
 
-\item{PeriodRange}{Determine days of interest for performing the case selection. By default, it set from 30 to 365 days}
+\item{PeriodRange}{Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.}
 
-\item{CaseName}{Aggregation of selected cases name. By default, it set to \code{"selected"}.}
+\item{CaseName}{Name of selected cases. By default, it set to \code{"selected"}.}
+}
+\value{
+A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}
 }
 \description{
 This query function can select the cases matching defined conditions for analyses.
@@ -54,4 +57,7 @@ selectCases(DxDataFile = sampleDxFile,
             icd10usingDate = "2015/10/01",
             caseCondition = "Diseases of the urinary system",
             caseCount = 1)
+}
+\seealso{
+Other data integration functions: \code{\link{DataSplit}}, \code{\link{recordPeriod}}, \code{\link{era}}
 }

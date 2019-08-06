@@ -3,7 +3,7 @@
 \name{DataSplit}
 \alias{DataSplit}
 \alias{splitDataByDate}
-\title{Data integration for Data Split}
+\title{Data integration for data split}
 \usage{
 splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
   indexDateFile, Gap = 30)
@@ -17,9 +17,12 @@ splitDataByDate(DxDataFile, idColName, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of DxDataFile}
 
-\item{indexDateFile}{Diagnostic dates for each patient in an observed period}
+\item{indexDateFile}{Diagnostic dates for each patient in an observed period.}
 
 \item{Gap}{Gap length of the window. Default set to \code{30}.}
+}
+\value{
+A new \code{data.table} based on \code{DxDataFile} and classified by \code{indexDateFile} for each patient.
 }
 \description{
 Splitting data by the date of the clinical event and shows the data recorded before or after the clinical event and the window counts, which is the gap between the record date and index date.
@@ -37,13 +40,17 @@ head(SampleforCertainPatient)
 # Defined index date of patient A0,B0,C0 and D0
 
 indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
-                             indexDate = c("2023-08-12", "2015-12-26",
+                             indexDate = c("2023-08-12", "2024-02-12",
                                            "2015-12-05", "2017-01-29"),
                              stringsAsFactors = FALSE)
-
+indexDateTable
 # Split data by index date for each patient
 
 splitedData <- splitDataByDate(SampleforCertainPatient, ID, ICD, Date,
                                indexDateFile = indexDateTable,
                                Gap = 30)
+splitedData[15:19,]
+}
+\seealso{
+Other data integration functions: \code{\link{selectCase}}, \code{\link{recordPeriod}}, \code{\link{era}}
 }

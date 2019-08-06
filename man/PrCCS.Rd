@@ -5,17 +5,6 @@
 \alias{IcdPrToCCSLvl}
 \alias{PrCCS}
 \title{Code classification for CCS}
-\source{
-ICD-9-PCS CCS (2015)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
-
-ICD-10-PCS CCS (2019)
-
-\url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_pr_icd10pcs_2019_1.zip}
-}
 \usage{
 IcdPrToCCS(PrDataFile, idColName, icdColName, dateColName, icd10usingDate,
   isDescription = TRUE)
@@ -38,6 +27,9 @@ IcdPrToCCSLvl(PrDataFile, idColName, icdColName, dateColName,
 
 \item{CCSLevel}{By default, it set to \code{1}. CCS multiple level:1~3, CCS for ICD-10-CM only has 1~2 multiple levels.}
 }
+\value{
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+}
 \description{
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures
 }
@@ -57,4 +49,7 @@ IcdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 IcdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 
+}
+\seealso{
+see other code classification: \code{\link{PC}}
 }

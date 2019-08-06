@@ -388,6 +388,8 @@ head(Data, 5)
 ### H. Condition Era
 Calculate condition era by grouped categories of each patient.  
 Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.  
+The first case date is the start date of the first condition of the group category for each patient.
+The end case date is the end date of the last condition of the group category for each patient.
 ```{r, message = FALSE, warning = FALSE}
 Era <- getConditionEra(DxDataFile = sampleDxFile,
                        idColName = ID,

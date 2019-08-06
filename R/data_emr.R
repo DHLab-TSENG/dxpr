@@ -23,10 +23,10 @@ NULL
 #' These datasets are used for diagnostic code standardization
 #'
 #' These datasets are used for \code{IcdDxShortToDecimal}, and \code{IcdDxDecimalToShort}. Transform the diagnosis codes into uniform format before the integration process.
-#' @name diagnosis_dataset_standardization
+#' @name Dx_dataset_standardization
 #' @format These datatable with ICD9 and ICD10 diagnosis codes.
 "ICD9DxwithTwoFormat"
-#' @rdname diagnosis_dataset_standardization
+#' @rdname Dx_dataset_standardization
 "ICD10DxwithTwoFormat"
 #' @source \url{https://www.findacode.com/search/search.php}
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html}
@@ -40,24 +40,24 @@ NULL
 #'
 #' These datasets are used for \code{IcdDxToCCS}, \code{IcdDxToCCSLvl}, \code{IcdDxToPheWAS}, and \code{IcdDxToComorbid}
 #'
-#' @name diagnosis_dataset_classification
+#' @name Dx_dataset_classification
 #' @format These datatable with ICD diagnostic codes and the specific Standardization categories.
 "ccsDxICD9"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "ccsDxICD10"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "phecode_icd9_2"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd9_ahrq"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd10_ahrq"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd9_charlson"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd10_charlson"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd9_elix"
-#' @rdname diagnosis_dataset_classification
+#' @rdname Dx_dataset_classification
 "icd10_elix"
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip}
@@ -81,10 +81,10 @@ NULL
 #' These datasets are used for procedure code standardization
 #'
 #' These datasets are used for \code{IcdPrShortToDecimal}, and \code{IcdPrDecimalToShort}
-#' @name procedure_dataset_standardization
+#' @name Pr_dataset_standardization
 #' @format These datatable with ICD9 and ICD10 procedure codes.
 "ICD9PrwithTwoFormat"
-#' @rdname procedure_dataset_standardization
+#' @rdname Pr_dataset_standardization
 "prICD10"
 #' @source \url{https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html}
 #' @source \url{https://www.findacode.com/search/search.php}
@@ -96,14 +96,14 @@ NULL
 #' These datasets are used for procedure code transformation.
 #'
 #' These datasets are used for \code{IcdPrToCCS}, \code{IcdPrToCCSLvl}, and \code{IcdPrToProcedureClass}
-#' @name procedure_dataset_classification
+#' @name Pr_dataset_classification
 #' @format These datatable with ICD procedure codes and the specific Standardization categories.
 "ccsPrICD9"
-#' @rdname procedure_dataset_classification
+#' @rdname Pr_dataset_classification
 "ccsPrICD10"
-#' @rdname procedure_dataset_classification
+#' @rdname Pr_dataset_classification
 "pcICD9"
-#' @rdname procedure_dataset_classification
+#' @rdname Pr_dataset_classification
 "pcICD10"
 #' @source ICD-9-PCS CCS (2015)
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip}
