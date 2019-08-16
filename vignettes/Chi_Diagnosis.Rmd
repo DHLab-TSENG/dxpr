@@ -55,7 +55,7 @@ head(ICD10DxwithTwoFormat$Decimal)
 ```{r}
 head(sampleDxFile)
 ```
-## I. Code standarization
+## I. Code standardization
 
 **ICD-CM code兩種格式的轉換：Short <-> Decimal**
 
@@ -509,7 +509,7 @@ head(groupedData_Wide, 5)
 第四部份視覺化：套件將前述功能之結果整合，以圖表形式呈現  
 
 ### Pareto plot：錯誤編碼之柏拉圖圖表
-進行第一階段－診斷編碼格式統一（Code standarization）時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。  
+進行第一階段－診斷編碼格式統一（Code standardization）時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。  
 以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。  
 
 如範例，欲觀察前十名的錯誤編碼種類及分布比例。  
@@ -649,7 +649,7 @@ plot2$sigCate
 
 ## Reference
 
-### I. Code standarization
+### I. Code standardization
 
 ICD-9-CM code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 

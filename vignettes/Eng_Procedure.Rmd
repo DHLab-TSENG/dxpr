@@ -49,7 +49,7 @@ This data is a simulated medical data set of 3 patients with 170 records.
 ```{r}
 head(samplePrFile)
 ```
-## I. Code standarization
+## I. Code standardization
 
 **ICD-9-PCS code format transformation：Short <-> Decimal**
 
@@ -89,7 +89,7 @@ short <- IcdPrDecimalToShort(PrDataFile = samplePrFile,
                              icd10usingDate = "2015/10/01")
 head(short$ICD)
 ```
-**warning message** (More detail: [Get started with emr: Diagnosis](https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html#i--code-standarization))
+**warning message** (More detail: [Get started with emr: Diagnosis](https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html#i--code-standardization))
 
 Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.
 
@@ -163,7 +163,7 @@ head(ProcedureClass$groupedDT, 5)
 
 ## Reference
 
-### I. Code standarization
+### I. Code standardization
 
 ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 

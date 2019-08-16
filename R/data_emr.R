@@ -65,6 +65,8 @@ NULL
 #' @source \url{https://phewascatalog.org/phecodes}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references}
 #' @source \url{https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp}
+#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt}
+#' @source \url{http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt}
 NULL
 
 #' Sample file for demo with diagnostic codes
@@ -123,6 +125,15 @@ NULL
 #' @docType data
 #' @name samplePrFile
 #' @format A data table with 170 rows and 3 variables
+NULL
+
+#' Sample file for patients with patent ductus arteriosus (PDA) from MIMIC-III.
+#'
+#' @docType data
+#' @name sample_MIMICIII
+#' @format A data table with 45674 rows and 8 variables
+#' @source Pollard, T. J., & Johnson, A. E. W. The MIMIC-III Clinical Database {http://dx.doi.org/10.13026/C2XW26} (2016)
+#'
 NULL
 
 if(getRversion() >= "2.15.1") utils::globalVariables(c(

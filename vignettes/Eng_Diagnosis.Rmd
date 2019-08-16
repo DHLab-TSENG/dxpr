@@ -52,7 +52,7 @@ This data is a simulated medical data set of 38 patients with 300 records.
 ```{r}
 head(sampleDxFile)
 ```
-## I.Code standarization
+## I.Code standardization
 **ICD diagnostic code format transformation：Short <-> Decimal**
 
 Standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before code classification.

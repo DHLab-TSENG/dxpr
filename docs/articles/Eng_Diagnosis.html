@@ -82,7 +82,7 @@
       <h1>Get started with emr: Diagnosis</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2019-08-05</h4>
+            <h4 class="date">2019-08-16</h4>
       
       
       <div class="hidden name"><code>Eng_Diagnosis.Rmd</code></div>
@@ -138,9 +138,9 @@ This data is a simulated medical data set of 38 patients with 300 records.</p>
 <span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
 <span class="co">#&gt; 6: A15 Z992 2023-05-12</span></code></pre></div>
 </div>
-<div id="i-code-standarization" class="section level2">
+<div id="i-code-standardization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#i-code-standarization" class="anchor"></a>I.Code standarization</h2>
+<a href="#i-code-standardization" class="anchor"></a>I.Code standardization</h2>
 <p><strong>ICD diagnostic code format transformation：Short &lt;-&gt; Decimal</strong></p>
 <p>Standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before code classification.</p>
 <p>Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.</p>
@@ -648,7 +648,8 @@ Data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/DataSp
 <h3 class="hasAnchor">
 <a href="#h--condition-era" class="anchor"></a>H. Condition Era</h3>
 <p>Calculate condition era by grouped categories of each patient.<br>
-Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.</p>
+Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.<br>
+The first case date is the start date of the first condition of the group category for each patient. The end case date is the end date of the last condition of the group category for each patient.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Era &lt;-<span class="st"> </span><span class="kw"><a href="../reference/era.html">getConditionEra</a></span>(<span class="dt">DxDataFile =</span> sampleDxFile,
                        <span class="dt">idColName =</span> ID,
                        <span class="dt">icdColName =</span> ICD,
@@ -880,7 +881,7 @@ plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotG
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#description">Description</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#i-code-standarization">I.Code standarization</a></li>
+<li><a href="#i-code-standardization">I.Code standardization</a></li>
       <li><a href="#ii--data-integration">II. Data integration</a></li>
       <li><a href="#iii--eda-preparation">III. EDA preparation</a></li>
       <li><a href="#iv--visualization">IV. Visualization</a></li>

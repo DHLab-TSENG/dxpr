@@ -53,7 +53,7 @@ head(prICD10$ICD)
 ```{r}
 head(samplePrFile)
 ```
-## I. Code standarization
+## I. Code standardization
 
 **ICD-9-PCS 兩種格式的轉換: Short <-> Decimal**
 
@@ -92,7 +92,7 @@ short <- IcdPrDecimalToShort(PrDataFile = samplePrFile,
                              icd10usingDate = "2015/10/01")
 head(short$ICD)
 ```
-**warning message** (詳細流程請參考: [診斷前處理與整合方法](https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html#i--code-standarization))
+**warning message** (詳細流程請參考: [診斷前處理與整合方法](https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html#i--code-standardization))
 
 醫療數據的處置編碼有可能誤植導致處置編碼錯誤，而錯誤的處置編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。  
 為方便使用者修改錯誤的處置編碼，emr套件會提供warning message提醒使用者些錯誤的處置編碼。  
@@ -172,7 +172,7 @@ head(ProcedureClass$groupedDT, 5)
 
 ## Reference
 
-### I. Code standarization
+### I. Code standardization
 
 ICD-9-PCS code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 

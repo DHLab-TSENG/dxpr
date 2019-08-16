@@ -82,7 +82,7 @@
       <h1>Get started with emr: Diagnosis (Chinese)</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2019-08-05</h4>
+            <h4 class="date">2019-08-16</h4>
       
       
       <div class="hidden name"><code>Chi_Diagnosis.Rmd</code></div>
@@ -135,9 +135,9 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
 <span class="co">#&gt; 6: A15 Z992 2023-05-12</span></code></pre></div>
 </div>
-<div id="i--code-standarization" class="section level2">
+<div id="i--code-standardization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h2>
+<a href="#i--code-standardization" class="anchor"></a>I. Code standardization</h2>
 <p><strong>ICD-CM code兩種格式的轉換：Short &lt;-&gt; Decimal</strong></p>
 <p>將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據CCS（Clinical Classifications Software）、共病症（Comorbidity）及PheWAS的分組表中ICD診斷碼格式如<strong>表一</strong>。</p>
 <p><strong>表一</strong> 標準化分組之診斷編碼格式</p>
@@ -786,7 +786,7 @@ groupedData_Wide &lt;-<span class="st"> </span><span class="kw"><a href="../refe
 <div id="pareto-plot" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pareto-plot" class="anchor"></a>Pareto plot：錯誤編碼之柏拉圖圖表</h3>
-<p>進行第一階段－診斷編碼格式統一（Code standarization）時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。<br>
+<p>進行第一階段－診斷編碼格式統一（Code standardization）時，將資料中的錯誤編碼訊息列表其數量轉換成圖表。<br>
 以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。</p>
 <p>如範例，欲觀察前十名的錯誤編碼種類及分布比例。<br>
 範例使用步驟如下：</p>
@@ -934,9 +934,9 @@ plot2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PlotG
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
-<div id="i--code-standarization-1" class="section level3">
+<div id="i--code-standardization-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#i--code-standarization-1" class="anchor"></a>I. Code standarization</h3>
+<a href="#i--code-standardization-1" class="anchor"></a>I. Code standardization</h3>
 <p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
 <p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
 <p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
@@ -974,7 +974,7 @@ Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="NA">診斷前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#i--code-standarization">I. Code standarization</a></li>
+<li><a href="#i--code-standardization">I. Code standardization</a></li>
       <li><a href="#ii--data-integration">II. Data integration</a></li>
       <li><a href="#iii--eda-preparation">III. EDA preparation</a></li>
       <li><a href="#iv--visualization">IV. Visualization</a></li>

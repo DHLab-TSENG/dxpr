@@ -82,7 +82,7 @@
       <h1>Get started with emr: Procedure (Chinese)</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2019-08-05</h4>
+            <h4 class="date">2019-08-16</h4>
       
       
       <div class="hidden name"><code>Chi_Procedure.Rmd</code></div>
@@ -131,9 +131,9 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <span class="co">#&gt; 5:  B  0205 2008-07-06</span>
 <span class="co">#&gt; 6:  B  8812 2007-06-27</span></code></pre></div>
 </div>
-<div id="i--code-standarization" class="section level2">
+<div id="i--code-standardization" class="section level2">
 <h2 class="hasAnchor">
-<a href="#i--code-standarization" class="anchor"></a>I. Code standarization</h2>
+<a href="#i--code-standardization" class="anchor"></a>I. Code standardization</h2>
 <p><strong>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
 <p>將醫療大數據中的處置編碼進行編碼一致格式的轉換，以便後續處置編碼的標準化分群。依據CCS（Clinical Classifications Software）及Procedure class分組表中處置編碼格式如<strong>表一</strong>。</p>
 <p><strong>表一</strong> 標準化分組之處置編碼格式</p>
@@ -184,7 +184,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <span class="co">#&gt; 4: 0759</span>
 <span class="co">#&gt; 5: 0205</span>
 <span class="co">#&gt; 6: 8812</span></code></pre></div>
-<p><strong>warning message</strong> (詳細流程請參考: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html#i--code-standarization">診斷前處理與整合方法</a>)</p>
+<p><strong>warning message</strong> (詳細流程請參考: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html#i--code-standardization">診斷前處理與整合方法</a>)</p>
 <p>醫療數據的處置編碼有可能誤植導致處置編碼錯誤，而錯誤的處置編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。<br>
 為方便使用者修改錯誤的處置編碼，emr套件會提供warning message提醒使用者些錯誤的處置編碼。</p>
 </div>
@@ -281,9 +281,9 @@ CCSLvl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PrCC
 <div id="reference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reference" class="anchor"></a>Reference</h2>
-<div id="i--code-standarization-1" class="section level3">
+<div id="i--code-standardization-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#i--code-standarization-1" class="anchor"></a>I. Code standarization</h3>
+<a href="#i--code-standardization-1" class="anchor"></a>I. Code standardization</h3>
 <p>ICD-9-PCS code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
 <p>ICD-10-PCS code (2019):<a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
 <p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
@@ -312,7 +312,7 @@ CCSLvl &lt;-<span class="st"> </span><span class="kw"><a href="../reference/PrCC
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="NA">檢查與處置前處理與整合方法</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#i--code-standarization">I. Code standarization</a></li>
+<li><a href="#i--code-standardization">I. Code standardization</a></li>
       <li><a href="#ii--data-integration">II. Data integration</a></li>
       <li><a href="#reference">Reference</a></li>
       </ul>
