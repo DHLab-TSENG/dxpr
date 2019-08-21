@@ -134,9 +134,9 @@ CCSLvl <- IcdPrToCCSLvl(PrDataFile = samplePrFile,
 head(CCSLvl$groupedDT, 5)
 ```
 
-### 二、Procedure Class 
+### B. Procedure Class 
 Procedure Classes are part of the family of databases and software tools developed as part of the HCUP by AHRQ.     
-The Procedure Classes assign all ICD-9-CM procedure codes to one of four categories:  
+The Procedure Classes assign all ICD procedure codes to one of four categories:  
 
 * Minor Diagnostic - Non-operating room procedures that are diagnostic 
 * Minor Therapeutic - Non-operating room procedures that are therapeutic
