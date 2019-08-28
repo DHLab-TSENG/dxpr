@@ -144,7 +144,7 @@ if(getRversion() >= "2.15.1") utils::globalVariables(c(
   "icd9_ahrq", "icd10_ahrq", "icd9_charlson", "icd10_charlson", "icd9_elix", "icd10_elix",
   "ICD9PrwithTwoFormat", "ICD_DESCRIPTION", "prICD10", "ccsPrICD9", "ccsPrICD10", "pcICD9", "pcICD10",
   "selectedCase", "OutRange", "OutCount", "count", "InRange", "MostCommonICDCount",
-  "Gap", "NextDate", "diffDay", "episodeCount", "episode", "era",
+  "Gap", "NextDate", "LastDate", "diffDay", "episodeCount", "episode", "era", "CaseEra",
   "timeTag","indexDateTable","window","indexDate", "firstRecordDate","endRecordDate",
   "B", "N",
   "errorFile", "ICDVersion", "WrongICDType", "WrongType", "IcdVersionInFile", "ICDGroup", "groupICD",

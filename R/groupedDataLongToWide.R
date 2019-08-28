@@ -12,10 +12,15 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
 
   if(groupDataType != "ICD"){
     groupedData <- groupedData$summarised_groupedDT
+
     if(is.null(groupedData)){return(groupedData)}
+
   }else{
+
     groupedData <- groupedData[,list(firstCaseDate = min(Date),endCaseDate = max(Date),count = .N),by = c("ID","Short")][,period := (endCaseDate - firstCaseDate),]
+
   }
+
   groupedData_wide <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
 
   if(length(groupedData_wide$ID) != length(DxDataFile$ID)){
@@ -25,9 +30,10 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
     OtherPatientDt[,"ID"] <- OtherPatientID
     wideData <- rbind(groupedData_wide, OtherPatientDt)
   }
-  wideData[is.na(wideData)] <- 0L
 
+  wideData[is.na(wideData)] <- 0L
   numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
+
   if(numericOrBinary == "B"){
     wideData_B <- as.data.frame(wideData >= 1L)
     wideData_B$ID <- wideData$ID
@@ -38,14 +44,10 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
 
   if(!is.null(selectedCaseFile)){
     wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
-    if(isDescription == FALSE |groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
-      names(wideData_selected)[2:(ncol(wideData_selected)-1)] <- paste0(groupDataType,"_",names(wideData_selected)[2:(ncol(wideData_selected)-1)])
-    }
+
     return(wideData_selected)
   }else{
-    if(isDescription == FALSE |groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
-      names(wideData)[2:ncol(wideData)] <- paste0(groupDataType,"_",names(wideData)[2:ncol(wideData)])
-    }
+
     return(wideData)
   }
 }

@@ -234,6 +234,7 @@ NULL
 #' Calculate condition era by grouped categories of each patient. Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.
 #'
 #' @name era
+#' @importFrom stats na.omit
 #' @inherit common_DxArg
 #' @param gapDate Length of condition gap, By default, it set to 30 days \code{"30"}.
 #' @return A new \code{data.table} based on classifying \code{DxDataFile} and calculated condition era by \code{groupDataType} for each patient.

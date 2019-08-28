@@ -2,6 +2,7 @@
 #' @export
 #'
 selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, PeriodRange = c(30, 365), CaseName = "Selected"){
+
   DxDataFile <- as.data.table(DxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   DxDataFile <- DxDataFile[,DataCol, with = FALSE]
@@ -13,11 +14,13 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
   groupDataType <- toupper(deparse(substitute(groupDataType)))
   groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
                                    icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+
   if(groupDataType != "ICD"){
     groupedData <- groupedData$groupedDT[,-"ICD"]
   }else{
     groupedData <- groupedData[,-"ICD"]
-    }
+  }
+
   names(groupedData) <- gsub("Short|Decimal", "ICD", names(groupedData))
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
@@ -25,29 +28,32 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
 
   if(nrow(Case) > 0){
     if(caseCount > 1){
-      Case <- Case[,NextDate := c(Date[-1], NA),by = "ID"][is.na(NextDate), NextDate := Date][, diffDay := NextDate-Date][, OutRange := FALSE][diffDay > PeriodRange[2], OutRange := TRUE][,OutCount:=cumsum(OutRange), by = "ID"][!OutRange == TRUE,]
+      CaseCount <- Case[, endCaseDate := shift(Date, caseCount -1 , type = "lead"), by = "ID"][is.na(endCaseDate), endCaseDate := Date][, period := endCaseDate - Date, by = "ID"][between(period, PeriodRange[1], PeriodRange[2], incbounds = TRUE),][,count := caseCount,]
 
-      CaseCount <- Case[,Gap := cumsum(as.integer(diffDay)), by = c("ID","OutCount")][, InRange := Gap >= PeriodRange[1] & Gap < PeriodRange[2]][is.na(InRange),InRange := FALSE][,list(count = cumsum(InRange),firstCaseDate = min(Date),endCaseDate = max(NextDate),period = Gap),by = c("ID","OutCount")][!duplicated(ID),][count >= caseCount,][,-"OutCount"]
-      CaseMostICDCount <- Case[InRange == TRUE,list(MostCommonICDCount = .N),by = list(ID,ICD)]
+      setnames(CaseCount,"Date", "firstCaseDate")
 
     }else{
-      CaseCount <- Case[,list(count = .N,firstCaseDate = min(Date),endCaseDate = max(Date)),by = c("ID")][,period := endCaseDate-firstCaseDate,]
-      CaseMostICDCount <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)]
+      CaseCount <- Case[, c("firstCaseDate","endCaseDate","count") := list(min(Date), max(Date),.N), by = "ID"][,period := endCaseDate - firstCaseDate,][,-"Date"]
+      CaseCount <- unique(CaseCount)
     }
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
+    message("No matching Case")
     return(nonSelectedCase)
   }
 
-  selectedCase <- merge(CaseCount,CaseMostICDCount,"ID")[!duplicated(ID),][,selectedCase := CaseName]
+  CaseMostICDCount <- CaseCount[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount, decreasing = TRUE),][!duplicated(ID),]
+  selectedCase <- merge(CaseCount[,-"ICD"], CaseMostICDCount,"ID")[,selectedCase := CaseName]
   setnames(selectedCase,"ICD","MostCommonICD")
   nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
+
   if(length(unique(Case$ID)) > length(unique(selectedCase$ID))){
     semiCase <- Case[!selectedCase, on = "ID", list(ID)][,selectedCase := semiCaseName][!duplicated(ID),]
     nonSelectedCase <- rbind(nonSelectedCase,semiCase)
   }
 
-  allData <- merge(selectedCase,nonSelectedCase,by = names(nonSelectedCase),all = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
-
+  allData <- rbindlist(list(nonSelectedCase, selectedCase),fill = TRUE, use.names = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
+  allData <- allData[,c("ID","selectedCase","count","firstCaseDate","endCaseDate","period","MostCommonICD","MostCommonICDCount")]
+  allData <- unique(allData)
   allData
 }

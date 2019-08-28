@@ -221,26 +221,26 @@
 <span class='no'>Era2</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
                         <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>Era1</span>)</div><div class='output co'>#&gt;     ID        CCS_LVL_3_LABEL firstCaseDate endCaseDate count era    period
-#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     5   5 1609 days
-#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     5   5 2856 days
-#&gt; 3: A10 Chronic kidney disease    2007-11-04  2012-07-30     5   4 1730 days
-#&gt; 4: A11 Chronic kidney disease    2008-03-09  2011-09-03     5   4 1273 days
-#&gt; 5: A12 Chronic kidney disease    2006-05-14  2015-06-29     5   5 3333 days
-#&gt; 6: A13 Chronic kidney disease    2006-04-29  2010-09-29     3   3 1614 days
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>Era1</span>)</div><div class='output co'>#&gt;    ID        CCS_LVL_3_LABEL era firstCaseDate endCaseDate count   period
+#&gt; 1: A0 Chronic kidney disease   1    2009-07-25  2009-07-25     1   0 days
+#&gt; 2: A0 Chronic kidney disease   2    2010-03-28  2010-03-28     1 246 days
+#&gt; 3: A0 Chronic kidney disease   3    2010-10-29  2010-10-29     1 215 days
+#&gt; 4: A0 Chronic kidney disease   4    2012-04-05  2012-04-05     1 524 days
+#&gt; 5: A0 Chronic kidney disease   5    2013-12-20  2013-12-20     1 624 days
+#&gt; 6: A1 Chronic kidney disease   1    2006-11-29  2006-11-29     1   0 days
 #&gt;    selectedCase
 #&gt; 1:     Selected
 #&gt; 2:     Selected
 #&gt; 3:     Selected
 #&gt; 4:     Selected
 #&gt; 5:     Selected
-#&gt; 6:     Selected</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>Era2</span>)</div><div class='output co'>#&gt;     ID                  Group firstCaseDate endCaseDate count era    period
-#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3   3 1609 days
-#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4   4 2856 days
-#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1   1    0 days
-#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2   2  714 days
-#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3   3 1748 days
-#&gt; 6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2   2 1394 days</div></pre>
+#&gt; 6:     Selected</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>Era2</span>)</div><div class='output co'>#&gt;    ID                  Group era firstCaseDate endCaseDate count    period
+#&gt; 1: A0 Chronic kidney disease   1    2009-07-25  2009-07-25     1    0 days
+#&gt; 2: A0 Chronic kidney disease   2    2010-10-29  2010-10-29     1  461 days
+#&gt; 3: A0 Chronic kidney disease   3    2013-12-20  2013-12-20     1 1148 days
+#&gt; 4: A1 Chronic kidney disease   1    2006-11-29  2006-11-29     1    0 days
+#&gt; 5: A1 Chronic kidney disease   2    2012-06-19  2012-06-19     1 2029 days
+#&gt; 6: A1 Chronic kidney disease   3    2013-04-28  2013-04-28     1  313 days</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
