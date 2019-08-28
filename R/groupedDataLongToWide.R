@@ -44,10 +44,14 @@ groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName
 
   if(!is.null(selectedCaseFile)){
     wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
-
+    if(isDescription == FALSE  && groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
+      names(wideData_selected)[2:(ncol(wideData_selected)-1)] <- paste0(groupDataType,"_",names(wideData_selected)[2:(ncol(wideData_selected)-1)])
+    }
     return(wideData_selected)
   }else{
-
+    if(isDescription == FALSE && groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
+      names(wideData)[2:ncol(wideData)] <- paste0(groupDataType,"_",names(wideData)[2:ncol(wideData)])
+    }
     return(wideData)
   }
 }

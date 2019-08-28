@@ -207,34 +207,20 @@
                                           <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>,
                                           <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>,
                                           <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                          <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>groupedData_Wide</span>)</div><div class='output co'>#&gt;     ID ELIX_ARTH ELIX_CHRNLUNG ELIX_DMCX ELIX_DRUG ELIX_HRENWORF ELIX_HTNPREG
-#&gt; 1:  A0         0             0         0         0             0            0
-#&gt; 2:  A1         0             0         0         0             0            0
-#&gt; 3: A10         0             0         0         0             0            0
-#&gt; 4: A11         0             0         0         0             0            0
-#&gt; 5: A12         0             0         0         0             0            0
-#&gt; 6: A13         0             0         0         0             0            0
-#&gt;    ELIX_LIVER ELIX_LYMPH ELIX_NEURO ELIX_OBESE ELIX_PARA ELIX_PERIVASC
-#&gt; 1:          0          0          0          0         0             0
-#&gt; 2:          0          0          0          0         0             0
-#&gt; 3:          0          0          0          0         0             0
-#&gt; 4:          0          0          0          0         0             0
-#&gt; 5:          0          0          0          0         0             0
-#&gt; 6:          0          0          0          0         0             0
-#&gt;    ELIX_PSYCH ELIX_RENLFAIL ELIX_TUMOR ELIX_ULCER ELIX_VALVE ELIX_WGHTLOSS
-#&gt; 1:          0             5          0          0          0             0
-#&gt; 2:          0             5          0          0          0             0
-#&gt; 3:          0             5          0          0          0             0
-#&gt; 4:          0             5          0          0          0             0
-#&gt; 5:          0             5          0          0          0             0
-#&gt; 6:          0             5          0          0          0             0
-#&gt;    selectedCase
-#&gt; 1:     Selected
-#&gt; 2:     Selected
-#&gt; 3:     Selected
-#&gt; 4:     Selected
-#&gt; 5:     Selected
-#&gt; 6:     Selected</div></pre>
+                                          <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>groupedData_Wide</span>)</div><div class='output co'>#&gt;     ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE PARA
+#&gt; 1:  A0    0        0    0    0        0       0     0     0     0     0    0
+#&gt; 2:  A1    0        0    0    0        0       0     0     0     0     0    0
+#&gt; 3: A10    0        0    0    0        0       0     0     0     0     0    0
+#&gt; 4: A11    0        0    0    0        0       0     0     0     0     0    0
+#&gt; 5: A12    0        0    0    0        0       0     0     0     0     0    0
+#&gt; 6: A13    0        0    0    0        0       0     0     0     0     0    0
+#&gt;    PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS selectedCase
+#&gt; 1:        0     0        5     0     0     0        0     Selected
+#&gt; 2:        0     0        5     0     0     0        0     Selected
+#&gt; 3:        0     0        5     0     0     0        0     Selected
+#&gt; 4:        0     0        5     0     0     0        0     Selected
+#&gt; 5:        0     0        5     0     0     0        0     Selected
+#&gt; 6:        0     0        5     0     0     0        0     Selected</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

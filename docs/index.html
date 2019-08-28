@@ -18,7 +18,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -77,11 +77,8 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
+  <div class="contents col-md-9">
 
-    
-    
 <div id="emr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#emr" class="anchor"></a>emr</h2>
@@ -108,13 +105,9 @@
 <h2 class="hasAnchor">
 <a href="#geting-start" class="anchor"></a>Geting start</h2>
 <ul>
-<li>Diagnostic part<br>
-English: <a href="https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html</a><br>
-Chinese: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html</a><br>
+<li>Diagnostic part English: <a href="https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html</a> Chinese: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html</a>
 </li>
-<li>Procedure part<br>
-English: <a href="https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html</a><br>
-Chinese: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html</a>
+<li>Procedure part English: <a href="https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html</a> Chinese: <a href="https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html" class="uri">https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html</a>
 </li>
 </ul>
 </div>
@@ -200,38 +193,38 @@ plot_groupedData &lt;-<span class="st"> </span><span class="kw"><a href="referen
 
 plot_errorICD
 <span class="co">#&gt; $graph</span></code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<pre><code>#&gt; 
-#&gt; $ICD
-#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           
-#&gt;  3:   E114     8        42.2%           ICD 10  Wrong format           
-#&gt;  4: A01.05     8       49.54%            ICD 9 Wrong version           
-#&gt;  5:  42761     7       55.96%           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6       61.47%           ICD 10  Wrong format           
-#&gt;  7:    F42     6       66.97%           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           
-#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           
-#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019
-#&gt; 11: Others    20         100%            ICD 9  Wrong format
+<p><img src="README_files/figure-markdown_github/unnamed-chunk-2-1.png"></p>
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="co">#&gt; </span>
+<span class="co">#&gt; $ICD</span>
+<span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
+<span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span>
+<span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span>
+<span class="co">#&gt;  3:   E114     8        42.2%           ICD 10  Wrong format           </span>
+<span class="co">#&gt;  4: A01.05     8       49.54%            ICD 9 Wrong version           </span>
+<span class="co">#&gt;  5:  42761     7       55.96%           ICD 10 Wrong version           </span>
+<span class="co">#&gt;  6:  Z9.90     6       61.47%           ICD 10  Wrong format           </span>
+<span class="co">#&gt;  7:    F42     6       66.97%           ICD 10  Wrong format           </span>
+<span class="co">#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           </span>
+<span class="co">#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           </span>
+<span class="co">#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019</span>
+<span class="co">#&gt; 11: Others    20         100%            ICD 9  Wrong format</span>
 
 plot_groupedData
-#&gt; $graph</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<pre><code>#&gt; 
-#&gt; $sigCate
-#&gt;                              DiagnosticCategory  N Percentage
-#&gt;  1:                               Renal Disease 24     63.16%
-#&gt;  2:                                      Cancer 10     26.32%
-#&gt;  3:                 Diabetes with complications  7     18.42%
-#&gt;  4: Connective Tissue Disease-Rheumatic Disease  3      7.89%
-#&gt;  5:                  Periphral Vascular Disease  2      5.26%
-#&gt;  6:                     Cerebrovascular Disease  1      2.63%
-#&gt;  7:                   Chronic Pulmonary Disease  1      2.63%
-#&gt;  8:            Moderate or Severe Liver Disease  1      2.63%
-#&gt;  9:                   Paraplegia and Hemiplegia  1      2.63%
-#&gt; 10:                        Peptic Ulcer Disease  1      2.63%</code></pre>
+<span class="co">#&gt; $graph</span></code></pre></div>
+<p><img src="README_files/figure-markdown_github/unnamed-chunk-2-2.png"></p>
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="co">#&gt; </span>
+<span class="co">#&gt; $sigCate</span>
+<span class="co">#&gt;                              DiagnosticCategory  N Percentage</span>
+<span class="co">#&gt;  1:                               Renal Disease 24     63.16%</span>
+<span class="co">#&gt;  2:                                      Cancer 10     26.32%</span>
+<span class="co">#&gt;  3:                 Diabetes with complications  7     18.42%</span>
+<span class="co">#&gt;  4: Connective Tissue Disease-Rheumatic Disease  3      7.89%</span>
+<span class="co">#&gt;  5:                  Periphral Vascular Disease  2      5.26%</span>
+<span class="co">#&gt;  6:                     Cerebrovascular Disease  1      2.63%</span>
+<span class="co">#&gt;  7:                   Chronic Pulmonary Disease  1      2.63%</span>
+<span class="co">#&gt;  8:            Moderate or Severe Liver Disease  1      2.63%</span>
+<span class="co">#&gt;  9:                   Paraplegia and Hemiplegia  1      2.63%</span>
+<span class="co">#&gt; 10:                        Peptic Ulcer Disease  1      2.63%</span></code></pre></div>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
@@ -239,6 +232,7 @@ plot_groupedData
 <p>See the <code>GitHub issues page</code> (<a href="https://github.com/DHLab-CGU/emr/issues" class="uri">https://github.com/DHLab-CGU/emr/issues</a>) to see open issues and feature requests.</p>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -265,10 +259,8 @@ plot_groupedData
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
-
 
       <footer><div class="copyright">
   <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
