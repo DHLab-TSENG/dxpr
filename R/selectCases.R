@@ -19,6 +19,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icd10usi
     groupedData <- groupedData$groupedDT[,-"ICD"]
   }else{
     groupedData <- groupedData[,-"ICD"]
+    caseCondition <- gsub(".", "", caseCondition)
   }
 
   names(groupedData) <- gsub("Short|Decimal", "ICD", names(groupedData))
