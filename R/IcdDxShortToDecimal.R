@@ -1,16 +1,29 @@
 #' @rdname DxUniform
 #' @export
 #'
-IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingDate){
-  DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ICD", "Date")
+IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL){
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    DxDataFile <- setDT(DxDataFile)[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ICD", "Date", "Version")
+  }else{
+    DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    DxDataFile <- setDT(DxDataFile)[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ICD", "Date")
+  }
+
   DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
 
   icd_Decimal <- DxDataFile[grepl("[.]", DxDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
-    icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
-    icd10D <- merge(icd_Decimal[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    if(deparse(substitute(icdVerColName)) != "NULL"){
+      icd9D <- merge(icd_Decimal[Version == 9], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+      icd10D <- merge(icd_Decimal[Version == 10], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    }else{
+      icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+      icd10D <- merge(icd_Decimal[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    }
     if(anyNA(icd9D)){icd9DNA <- merge(icd9D[is.na(Short),-"Short"],ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = TRUE)}
     if(anyNA(icd10D)){icd10DNA <- merge(icd10D[is.na(Short),-"Short"],ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Decimal",all.x = TRUE)}
 
@@ -55,8 +68,13 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icd10usingD
 
   icd_Short <- DxDataFile[!icd_Decimal, on = "Number"]
   if(nrow(icd_Short) > 0){
-    icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
-    icd10S <- merge(icd_Short[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+    if(deparse(substitute(icdVerColName)) != "NULL"){
+      icd9S <- merge(icd_Short[Version == 9], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+      icd10S <- merge(icd_Short[Version == 10], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+    }else{
+      icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+      icd10S <- merge(icd_Short[Date >= icd10usingDate], ICD10DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+    }
     if(anyNA(icd9S)){icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], ICD10DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = TRUE)}
     if(anyNA(icd10S)){icd10SNA <- merge(icd10S[is.na(Decimal),-"Decimal"], ICD9DxwithTwoFormat,by.x = "ICD",by.y = "Short",all.x = TRUE)}
     if(exists("icd9SNA")){
