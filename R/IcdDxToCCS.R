@@ -2,13 +2,27 @@
 #' @export
 #' @rdname DxCCS
 #'
-IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, isDescription = TRUE){
+IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icdVerColName, icd10usingDate, isDescription = TRUE){
   DxDataFile <- as.data.table(DxDataFile)
-  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ID", "ICD", "Date", "Version")
+  }else{
+    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ID", "ICD", "Date")
+  }
+
   DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
-  Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    Conversion <- IcdDxDecimalToShort(DxDataFile, ICD, Date, icdVerColName = Version, icd10usingDate = NULL)
+  }else{
+    Conversion <- IcdDxDecimalToShort(DxDataFile, ICD, Date, icdVerColName = NULL, icd10usingDate = icd10usingDate)
+  }
+
   DxDataFile[,Short := Conversion$ICD]
 
   if (isDescription){
@@ -16,8 +30,13 @@ IcdDxToCCS <- function(DxDataFile, idColName, icdColName, dateColName, icd10usin
   }else {
     ccs_col <- "CCS_CATEGORY"
   }
-  allCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
-                  merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  if (deparse(substitute(icdVerColName)) != "NULL"){
+    allCCS <- rbind(merge(DxDataFile[Version == 9,],ccsDxICD9[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                    merge(DxDataFile[Version == 10,],ccsDxICD10[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  }else{
+    allCCS <- rbind(merge(DxDataFile[Date <icd10usingDate],ccsDxICD9[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                    merge(DxDataFile[Date >=icd10usingDate],ccsDxICD10[,c("ICD",ccs_col), with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  }
 
   allCCS <- allCCS[order(Number),-"Number"]
 
