@@ -51,7 +51,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
     }else{
       chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
     }
-    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][,period := endCaseDate - firstCaseDate,][, uniqueCount := .N, by = .(ID, Date)][,count := .N, by = ID][,-"Date"]
+    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][,period := endCaseDate - firstCaseDate,][!duplicated(Date),][,count := .N, by = ID][,-"Date"]
     CaseCount <- CaseCount[!duplicated(ID), c("ID", "firstCaseDate", "endCaseDate", "count", "period")]
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
