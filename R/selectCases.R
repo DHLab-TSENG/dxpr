@@ -17,6 +17,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
   DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
   nonCaseName <- paste0("non-",CaseName)
   semiCaseName <- paste0(CaseName,"*")
+
   groupDataType <- toupper(deparse(substitute(groupDataType)))
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
@@ -32,35 +33,33 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
   }else{
     names(groupedData) <- gsub("Short|Decimal", "UNIICD", names(groupedData))
   }
-  
   groupDataType <- names(groupedData)[ncol(groupedData)]
-  groupByCol <- c("ID",groupDataType) #######<- WHAT DOES THIS LINE DO????????
+  groupByCol <- c("ID",groupDataType)
   if (groupDataType == "UNIICD"){
-    # if not compare twice, then conditionICD should be transformed tsoo
-    Case <<- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))])|grepl(caseCondition, groupedData[,ICD]),][order(ID, Date)]) # EVERY ICD IS UNIQUEs
+    Case <- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))])|grepl(caseCondition, groupedData[,ICD]),][order(ID, Date)]) # EVERY ICD IS UNIQUEs
   }else{
     Case <- unique(groupedData[grepl(toupper(caseCondition), toupper(groupedData[,eval(parse(text = paste(groupDataType)))])),][order(ID, Date)]) # EVERY ICD only ONCE at ONE DAY
   }
 
   if(nrow(Case) > 0){
-    concernCase <- Case
-    CaseMostICD <- concernCase[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount, decreasing = TRUE),][!duplicated(ID),]
+    CaseMostICD <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount, decreasing = TRUE),][!duplicated(ID),]
     setnames(CaseMostICD, "ICD", "MostCommonICD")
     if(caseCount > 1){
-      chosenCase <- concernCase[, endCaseDate := shift(Date, caseCount -1 , type = "lead"), by = "ID"][is.na(endCaseDate), endCaseDate := Date][, period := endCaseDate - Date, by = "ID"][,mark := ifelse(between(period, PeriodRange[1], PeriodRange[2], incbounds = TRUE), 1,0)][order(mark, decreasing = TRUE),][!duplicated(ID),]
+      chosenCase <- Case[, endCaseDate := shift(Date, caseCount -1 , type = "lead"), by = "ID"][is.na(endCaseDate), endCaseDate := Date][, period := endCaseDate - Date, by = "ID"][,mark := ifelse(between(period, PeriodRange[1], PeriodRange[2], incbounds = TRUE), 1,0)][order(mark, decreasing = TRUE),][!duplicated(ID),]
       chosenCase <- chosenCase[,selectedCase := ifelse(mark == 1, CaseName, semiCaseName)][,c("ID", "selectedCase"),with=FALSE]
     }else{
-      chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE]
+      chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
     }
-    CaseCount <- concernCase[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][, count :=.N, by = c("ID","Date")][,period := endCaseDate - firstCaseDate,][,-"Date"]
-    CaseCount <- unique(CaseCount)
+    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][, count :=.N, by = c("ID","Date")][,period := endCaseDate - firstCaseDate,][,-"Date"]
+    CaseCount <- CaseCount[!duplicated(ID), c("ID", "firstCaseDate", "endCaseDate", "count", "period")]
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
     message("No matching Case")
     return(nonSelectedCase)
   }
-  selectedCase <- merge(CaseCount[,-"ICD"], CaseMostICD,"ID")
-  selectedCase <- merge(selectedCase, chosenCase,"ID")
+  
+  selectedCase <- merge(CaseCount, CaseMostICD, "ID") 
+  selectedCase <- merge(selectedCase, chosenCase, "ID") 
   nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
 
   allData <- rbindlist(list(nonSelectedCase, selectedCase),fill = TRUE, use.names = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
