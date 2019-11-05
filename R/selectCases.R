@@ -33,8 +33,9 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
   }else{
     names(groupedData) <- gsub("Short|Decimal", "UNIICD", names(groupedData))
   }
+
   groupDataType <- names(groupedData)[ncol(groupedData)]
-  groupByCol <- c("ID",groupDataType)
+  groupByCol <- c("ID",groupDataType) 
   if (groupDataType == "UNIICD"){
     Case <- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))])|grepl(caseCondition, groupedData[,ICD]),][order(ID, Date)]) # EVERY ICD IS UNIQUEs
   }else{
@@ -50,16 +51,16 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
     }else{
       chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
     }
-    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][, count :=.N, by = c("ID","Date")][,period := endCaseDate - firstCaseDate,][,-"Date"]
+    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][, count :=.N, by = list(ID,Date)][,period := endCaseDate - firstCaseDate,][,-"Date"]
     CaseCount <- CaseCount[!duplicated(ID), c("ID", "firstCaseDate", "endCaseDate", "count", "period")]
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
     message("No matching Case")
     return(nonSelectedCase)
   }
-  
-  selectedCase <- merge(CaseCount, CaseMostICD, "ID") 
-  selectedCase <- merge(selectedCase, chosenCase, "ID") 
+
+  selectedCase <- merge(CaseCount, CaseMostICD, "ID") # allow.cartesian = TRUE
+  selectedCase <- merge(selectedCase, chosenCase, "ID")  # allow.cartesian = TRUE
   nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
 
   allData <- rbindlist(list(nonSelectedCase, selectedCase),fill = TRUE, use.names = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
