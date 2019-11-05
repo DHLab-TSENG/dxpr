@@ -1,6 +1,7 @@
 #' @rdname selectCase
 #' @export
 #'
+
 selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, PeriodRange = c(30, 365), CaseName = "Selected"){
 
   DxDataFile <- as.data.table(DxDataFile)
@@ -33,9 +34,8 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
   }else{
     names(groupedData) <- gsub("Short|Decimal", "UNIICD", names(groupedData))
   }
-
   groupDataType <- names(groupedData)[ncol(groupedData)]
-  groupByCol <- c("ID",groupDataType) 
+  groupByCol <- c("ID",groupDataType)
   if (groupDataType == "UNIICD"){
     Case <- unique(groupedData[grepl(caseCondition, groupedData[,eval(parse(text = paste(groupDataType)))])|grepl(caseCondition, groupedData[,ICD]),][order(ID, Date)]) # EVERY ICD IS UNIQUEs
   }else{
@@ -51,7 +51,7 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
     }else{
       chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
     }
-    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][, count :=.N, by = list(ID,Date)][,period := endCaseDate - firstCaseDate,][,-"Date"]
+    CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][,period := endCaseDate - firstCaseDate,][, uniqueCount := .N, by = .(ID, Date)][,count := .N, by = ID][,-"Date"]
     CaseCount <- CaseCount[!duplicated(ID), c("ID", "firstCaseDate", "endCaseDate", "count", "period")]
   }else{
     nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
