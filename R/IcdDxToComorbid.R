@@ -1,13 +1,27 @@
 #' @rdname DxComorbid
 #' @export
 #'
-IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, comorbidMethod, isDescription = FALSE){
+IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icdVerColName, icd10usingDate, comorbidMethod, isDescription = FALSE){
   DxDataFile <- as.data.table(DxDataFile)
-  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ID", "ICD", "Date", "Version")
+  }else{
+    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    DxDataFile <- DxDataFile[,DataCol,with = FALSE]
+    names(DxDataFile) <- c("ID", "ICD", "Date")
+  }
+
   DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
-  Conversion <- IcdDxDecimalToShort(DxDataFile,ICD,Date,icd10usingDate)
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    Conversion <- IcdDxDecimalToShort(DxDataFile, ICD, Date, icdVerColName = Version, icd10usingDate = NULL)
+  }else{
+    Conversion <- IcdDxDecimalToShort(DxDataFile, ICD, Date, icdVerColName = NULL, icd10usingDate = icd10usingDate)
+  }
+
   DxDataFile[,Short := Conversion$ICD]
 
   comorbidMethod <- tolower(deparse(substitute(comorbidMethod)))
@@ -30,8 +44,13 @@ IcdDxToComorbid <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     com_col <- "Comorbidity"
   }
 
-  allComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate], comorbidMap9[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
-                       merge(DxDataFile[Date >=icd10usingDate], comorbidMap10[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  if (deparse(substitute(icdVerColName)) != "NULL"){
+    allComorbid <- rbind(merge(DxDataFile[Version == 9], comorbidMap9[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                         merge(DxDataFile[Version == 10], comorbidMap10[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  }else{
+    allComorbid <- rbind(merge(DxDataFile[Date <icd10usingDate], comorbidMap9[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE),
+                         merge(DxDataFile[Date >=icd10usingDate], comorbidMap10[,c("ICD",com_col),with = FALSE],by.x ="Short",by.y = "ICD",all.x = TRUE))
+  }
   allComorbid <- allComorbid[order(Number),-"Number"]
 
   if(nrow(allComorbid[is.na(eval(parse(text = paste(com_col))))]) < nrow(allComorbid)){
