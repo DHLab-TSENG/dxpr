@@ -668,7 +668,7 @@ Charlson<span class="op">$</span>groupedDT[<span class="dv">160</span><span clas
 <a href="#index-date" class="anchor"></a>七、以事件（index date）區分事件前後的醫療紀錄</h3>
 <p>醫學研究常需要觀察特定事件發生前後的改變，因此需要一個指標時間（index date）來記錄事件的發生。TimeTag欄位可顯示此紀錄為事件前或是事件後（before and after），使用者可依此選擇事件發生前／後的資料</p>
 <p>指標日期 (<code>indexDateTable</code>) 依指標日期根據個案個別定義。<br>
-另外本套見也提供週期（window）計算功能，使用者可自行定義週期長度 (<code>windowGap</code>)，預設週期長度為30天。</p>
+另外本套件也提供週期（window）計算功能，使用者可自行定義週期長度 (<code>windowGap</code>)，預設週期長度為30天。</p>
 <p>舉例來說，個案A0之指標日期為2009/07/25。</p>
 <p>個案A0的第一筆診斷資料時間為2009-07-25視為指標日期之後發生的紀錄，TimeTag為A (after)。兩筆資料間隔天數為0天，故為第1個週期；個案A0的第二筆診斷資料時間為2010-03-28視為指標日期後的紀錄，因此TimeTag為A。資料間隔天數為246天，故為第9個週期。</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indexDateTable &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">ID =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
