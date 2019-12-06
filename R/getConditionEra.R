@@ -1,26 +1,40 @@
 #' @rdname era
 #' @export
 #'
-getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL){
 
-  DxDataFile <- as.data.table(DxDataFile)
-  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+getConditionEra <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable, isDescription = TRUE, gapDate = 30, selectedCaseFile = NULL){
+  dxDataFile <- as.data.table(dxDataFile)
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date", "Version")
+  }else{
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date")
+  }
+
+  dxDataFile[,"Date"] <- as.Date(dxDataFile[,Date])
   groupDataType <- toupper(deparse(substitute(groupDataType)))
-  groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date,
-                                   icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icdVerColName = Version, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+  }else{
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+  }
 
   if(groupDataType != "ICD"){
-    groupedData <- groupedData$groupedDT[,-"ICD"]
+    groupedData <- unique(groupedData$groupedDT[,-"ICD"])
   }else{
-    groupedData <- groupedData[,-"ICD"]
+    groupedData <- unique(groupedData[,-"ICD"])
     names(groupedData) <- gsub("Short|Decimal", "ICD", names(groupedData))
   }
 
   groupDataType <- names(groupedData)[ncol(groupedData)]
   groupByCol <- c("ID",groupDataType)
+
 
   if(is.null(groupedData) | nrow(groupedData[is.na(eval(parse(text = paste(groupDataType))))]) == nrow(groupedData)){
     return(groupedData)
@@ -28,23 +42,12 @@ getConditionEra <- function(DxDataFile, idColName, icdColName, dateColName, icd1
     groupedData <- na.omit(groupedData, groupDataType)
   }
 
-  eraCount <- groupedData[order(eval(parse(text = paste(groupByCol))),Date)][,LastDate := shift(Date, type = "lag"),by = groupByCol][is.na(LastDate), LastDate := Date][,Gap := Date- LastDate][,episode := Gap > gapDate][,era := cumsum(episode), by = groupByCol][,-"episode"]
-
-  if(sum(eraCount$era == 0) > 0){
-    eraPlusOne_ID <- eraCount[grepl(0, era), groupByCol, with = FALSE]
-    eraPlusOne_ID <- unique(eraPlusOne_ID)
-    eraPlusOne <- merge(eraCount, eraPlusOne_ID, by = names(eraPlusOne_ID))[,"era" := era+1,]
-    eraCount <- rbind(eraPlusOne, eraCount[!eraPlusOne, on = groupByCol])
-  }
-
-  conditionEra <- eraCount[,list(firstCaseDate = min(Date),
-                                 endCaseDate = max(Date),
-                                 count = .N,
-                                 period = Gap),by = c(groupByCol,"era")][!(period == 0 & count > 1),]
-
+  eraCount <- groupedData[order(eval(parse(text = paste(groupByCol))),Date)][,Gap :=  Date - shift(Date, fill = Date[1L], type = "lag"), by = groupByCol][,episode := Gap > gapDate][,era := cumsum(episode) +1 , by = groupByCol]#[,-"episode"]
+  eraCount <- eraCount[,list(firstCaseDate = min(Date),
+                             endCaseDate = max(Date),
+                             count = .N), by = c("ID", groupDataType,"era")][order(ID),]
   if(!is.null(selectedCaseFile)){
-    conditionEra <- merge(conditionEra, selectedCaseFile[,list(ID, selectedCase)], all.x = TRUE)
+    eraCount <- merge(eraCount, selectedCaseFile[,list(ID, selectedCase)], all.x = TRUE)
   }
-  conditionEra <- conditionEra[order(ID),]
-  conditionEra
+  eraCount
 }
