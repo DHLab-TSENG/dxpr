@@ -1,21 +1,21 @@
 #' @rdname DxUniform
 #' @export
 #'
-IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL){
+icdDxShortToDecimal <- function(dxDataFile, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL){
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
-    DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
-    DxDataFile <- setDT(DxDataFile)[,DataCol,with = FALSE]
-    names(DxDataFile) <- c("ICD", "Date", "Version")
+    dataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    dxDataFile <- setDT(dxDataFile)[,dataCol,with = FALSE]
+    names(dxDataFile) <- c("ICD", "Date", "Version")
   }else{
-    DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-    DxDataFile <- setDT(DxDataFile)[,DataCol,with = FALSE]
-    names(DxDataFile) <- c("ICD", "Date")
+    dataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    dxDataFile <- setDT(dxDataFile)[,dataCol,with = FALSE]
+    names(dxDataFile) <- c("ICD", "Date")
   }
 
-  DxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(DxDataFile))]
+  dxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(dxDataFile))]
 
-  icd_Decimal <- DxDataFile[grepl("[.]", DxDataFile$ICD),]
+  icd_Decimal <- dxDataFile[grepl("[.]", dxDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
     if(deparse(substitute(icdVerColName)) != "NULL"){
       icd9D <- merge(icd_Decimal[Version == 9], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
@@ -66,7 +66,7 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icdVerColNa
     DtoD <- icd_Decimal
   }
 
-  icd_Short <- DxDataFile[!icd_Decimal, on = "Number"]
+  icd_Short <- dxDataFile[!icd_Decimal, on = "Number"]
   if(nrow(icd_Short) > 0){
     if(deparse(substitute(icdVerColName)) != "NULL"){
       icd9S <- merge(icd_Short[Version == 9], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
@@ -159,7 +159,7 @@ IcdDxShortToDecimal <- function(DxDataFile, icdColName, dateColName, icdVerColNa
   }
   allDecimalFormat <- rbind(DtoD,StoD)
 
-  if(nrow(allDecimalFormat) < nrow(DxDataFile)){
+  if(nrow(allDecimalFormat) < nrow(dxDataFile)){
     if(exists("allWrongFormat")){
       message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
       allWrongFormatMsg <- allWrongFormatMsg[order(count,decreasing = TRUE),]
