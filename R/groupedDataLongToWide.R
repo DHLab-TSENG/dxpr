@@ -1,30 +1,40 @@
 #' @rdname dataWide
 #' @export
 #'
-groupedDataLongToWide <- function(DxDataFile, idColName, icdColName, dateColName, icd10usingDate, groupDataType = ccs, CustomGroupingTable, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
-  DxDataFile <- as.data.table(DxDataFile)
-  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
+groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable = NULL, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
+  dxDataFile <- as.data.table(dxDataFile)
+
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date", "Version")
+  }else{
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date")
+  }
 
   groupDataType <- toupper(deparse(substitute(groupDataType)))
-  groupedData <- groupMethodSelect(DxDataFile, ID, ICD, Date, icd10usingDate, groupDataType, CustomGroupingTable, isDescription)
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icdVerColName = Version, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
+  }else{
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
+  }
 
   if(groupDataType != "ICD"){
     groupedData <- groupedData$summarised_groupedDT
-
-    if(is.null(groupedData)){return(groupedData)}
-
+    if(is.null(groupedData)){
+      return(groupedData)
+    }
   }else{
-
-    groupedData <- groupedData[,list(firstCaseDate = min(Date),endCaseDate = max(Date),count = .N),by = c("ID","Short")][,period := (endCaseDate - firstCaseDate),]
-
+    groupedData <- groupedData[, list(firstCaseDate = min(Date), endCaseDate = max(Date), count = .N), by = c("ID","Short")][, period := (endCaseDate - firstCaseDate),]
   }
-
   groupedData_wide <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
 
-  if(length(groupedData_wide$ID) != length(DxDataFile$ID)){
-    OtherPatientID <- DxDataFile[!groupedData_wide, on = "ID"][!duplicated(ID),ID]
+  if(length(groupedData_wide$ID) != length(dxDataFile$ID)){
+    OtherPatientID <- dxDataFile[!groupedData_wide, on = "ID"][!duplicated(ID),ID]
     OtherPatientDt <- data.table(matrix(ncol = ncol(groupedData_wide),nrow = length(OtherPatientID)))
     names(OtherPatientDt) <- names(groupedData_wide)
     OtherPatientDt[,"ID"] <- OtherPatientID
