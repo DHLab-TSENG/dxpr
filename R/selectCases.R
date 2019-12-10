@@ -1,32 +1,32 @@
-#' @rdname selectCase
+#' @rdname selectCases
 #' @export
 #'
 
-selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS, CustomGroupingTable, isDescription = TRUE, caseCondition, caseCount, PeriodRange = c(30, 365), CaseName = "Selected"){
+selectCases <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS, customGroupingTable, isDescription = TRUE, caseCondition, caseCount, periodRange = c(30, 365), caseName = "Selected"){
 
-  DxDataFile <- as.data.table(DxDataFile)
+  dxDataFile <- as.data.table(dxDataFile)
   if(deparse(substitute(icdVerColName)) != "NULL"){
-    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
-    DxDataFile <- DxDataFile[,DataCol, with = FALSE]
-    names(DxDataFile) <- c("ID", "ICD", "Date", "Version")
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date", "Version")
   }else{
-    DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-    DxDataFile <- DxDataFile[,DataCol, with = FALSE]
-    names(DxDataFile) <- c("ID", "ICD", "Date")
+    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+    names(dxDataFile) <- c("ID", "ICD", "Date")
   }
 
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
-  nonCaseName <- paste0("non-",CaseName)
-  semiCaseName <- paste0(CaseName,"*")
+  dxDataFile[,"Date"] <- as.Date(dxDataFile[,Date])
+  nonCaseName <- paste0("non-",caseName)
+  semiCaseName <- paste0(caseName,"*")
 
   groupDataType <- toupper(deparse(substitute(groupDataType)))
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
-    groupedData <- groupMethodSelect(DxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icdVerColName = Version, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icdVerColName = Version, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
   }else{
-    groupedData <- groupMethodSelect(DxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
+                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
   }
   if(groupDataType != "ICD"){
     groupedData <- groupedData$groupedDT
@@ -46,23 +46,23 @@ selectCases <- function(DxDataFile, idColName, icdColName, dateColName, icdVerCo
     CaseMostICD <- Case[,list(MostCommonICDCount = .N),by = list(ID,ICD)][order(MostCommonICDCount, decreasing = TRUE),][!duplicated(ID),]
     setnames(CaseMostICD, "ICD", "MostCommonICD")
     if(caseCount > 1){
-      chosenCase <- Case[, endCaseDate := shift(Date, caseCount -1 , type = "lead"), by = "ID"][is.na(endCaseDate), endCaseDate := Date][, period := endCaseDate - Date, by = "ID"][,mark := ifelse(between(period, PeriodRange[1], PeriodRange[2], incbounds = TRUE), 1,0)][order(mark, decreasing = TRUE),][!duplicated(ID),]
-      chosenCase <- chosenCase[,selectedCase := ifelse(mark == 1, CaseName, semiCaseName)][,c("ID", "selectedCase"),with=FALSE]
+      chosenCase <- Case[, endCaseDate := shift(Date, caseCount -1 , type = "lead"), by = "ID"][is.na(endCaseDate), endCaseDate := Date][, period := endCaseDate - Date, by = "ID"][,mark := ifelse(between(period, periodRange[1], periodRange[2], incbounds = TRUE), 1,0)][order(mark, decreasing = TRUE),][!duplicated(ID),]
+      chosenCase <- chosenCase[,selectedCase := ifelse(mark == 1, caseName, semiCaseName)][,c("ID", "selectedCase"),with=FALSE]
     }else{
-      chosenCase <- Case[,selectedCase := CaseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
+      chosenCase <- Case[,selectedCase := caseName][,c("ID", "selectedCase"),with=FALSE][!duplicated(ID),]
     }
     CaseCount <- Case[, c("firstCaseDate","endCaseDate") := list(min(Date), max(Date)), by = "ID"][,period := endCaseDate - firstCaseDate,]
     CaseCount <- unique(CaseCount, by = c('ID', 'Date'))
     CaseCount <- CaseCount[,count := .N, by = ID][,-"Date"][!duplicated(ID), c("ID", "firstCaseDate", "endCaseDate", "count", "period")]
   }else{
-    nonSelectedCase <- DxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
+    nonSelectedCase <- dxDataFile[,list(ID)][,selectedCase := nonCaseName][!duplicated(ID),][order(ID),]
     message("No matching Case")
     return(nonSelectedCase)
   }
 
   selectedCase <- merge(CaseCount, CaseMostICD, "ID") # allow.cartesian = TRUE
   selectedCase <- merge(selectedCase, chosenCase, "ID")  # allow.cartesian = TRUE
-  nonSelectedCase <- DxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
+  nonSelectedCase <- dxDataFile[!Case, on = "ID", list(ID)][,selectedCase := nonCaseName][!duplicated(ID),]
 
   allData <- rbindlist(list(nonSelectedCase, selectedCase),fill = TRUE, use.names = TRUE)[order(MostCommonICDCount,decreasing = TRUE),]
   allData <- allData[,c("ID","selectedCase","count","firstCaseDate","endCaseDate","period","MostCommonICD","MostCommonICDCount")]
