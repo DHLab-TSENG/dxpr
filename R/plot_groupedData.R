@@ -1,7 +1,7 @@
-#' @rdname PlotGroupedData
+#' @rdname plotGroupedData
 #' @export
 #'
-plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalue = 0.05){
+plot_groupedData <- function(groupedDataWide, topN = 10, limitFreq = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
   plot_title <- "Diagnostic category"
   groupedDataWide <- groupedDataWide[,-1]
@@ -39,7 +39,7 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalu
       return(message("There is no significant category between case and control"))
     }else{
       groupedDataLong <- groupedDataLong[,list(sum = sum(N)),by = DiagnosticCategory][order(sum,decreasing = TRUE)]
-      groupedDataLong <- groupedDataLong[1:TopN,][order(sum),"DiagnosticCategory"]
+      groupedDataLong <- groupedDataLong[1:topN,][order(sum),"DiagnosticCategory"]
       groupedDataLong[,"DiagnosticCategory" := factor(DiagnosticCategory, levels = groupedDataLong$DiagnosticCategory),]
 
       dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],ctrlDataLong[Test_pvalue,]),all.x = TRUE)[!is.na(Group),]
@@ -62,14 +62,14 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalu
     groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
                                          list(factor(DiagnosticCategory, levels = DiagnosticCategory),
                                               nrow(groupedDataLong):1,
-                                              paste0(Percentage,"%")),][Number <= TopN,]
+                                              paste0(Percentage,"%")),][Number <= topN,]
     dignosticCate <- groupedDataLong[,-"Number"][order(N, decreasing = TRUE),]
 
     g <- ggplot(groupedDataLong, aes(y = N, x = DiagnosticCategory)) +
       geom_bar(position="dodge", stat="identity") +
       geom_text(aes(label = Percentage), hjust = -.2, size = 3, position = position_dodge(width = 1))
   }
-  plot_title <- paste0(plot_title,": Top ", TopN)
+  plot_title <- paste0(plot_title,": Top ", topN)
   dignosticCate_graph <- g + coord_flip() +
     xlab("Diagnostic category") + ylab("Diagnostic category, n") + ggtitle(plot_title) +
     annotate("rect",xmin = 1,xmax = 1, ymin = 1, ymax = 25, fill = "white") +
@@ -80,4 +80,3 @@ plot_groupedData <- function(groupedDataWide, TopN = 10, limitFreq = 0.01, pvalu
   return(list(graph = dignosticCate_graph,
               sigCate = dignosticCate))
 }
-
