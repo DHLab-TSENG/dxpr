@@ -19,10 +19,10 @@ getConditionEra <- function(dxDataFile, idColName, icdColName, dateColName, icdV
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
     groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icdVerColName = Version, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+                                     icdVerColName = Version, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
   }else{
     groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, CustomGroupingTable = CustomGroupingTable, isDescription = isDescription)
+                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
   }
 
   if(groupDataType != "ICD"){
