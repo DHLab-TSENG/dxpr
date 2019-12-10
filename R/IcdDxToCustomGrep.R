@@ -1,16 +1,16 @@
-#' @rdname DxCustom
+#' @rdname dxCustom
 #' @export
 #'
-IcdDxToCustomGrep <- function(DxDataFile, idColName, icdColName, dateColName, CustomGroupingTable){
-  GrepedIcd <- as.data.table(DxDataFile)
-  CustomGroupingTable <- as.data.table(CustomGroupingTable)
-  DataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  GrepedIcd <- GrepedIcd[,DataCol,with = FALSE]
+icdDxToCustomGrep <- function(dxDataFile, idColName, icdColName, dateColName, customGroupingTable){
+  GrepedIcd <- as.data.table(dxDataFile)
+  customGroupingTable <- as.data.table(customGroupingTable)
+  dataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+  GrepedIcd <- GrepedIcd[,dataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
   GrepedIcd[,c("Date", "Number", "Group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
 
-  for (rule in 1:nrow(CustomGroupingTable)){
-    GrepedIcd$Group<-ifelse(grepl(CustomGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), CustomGroupingTable[rule,Group], GrepedIcd$Group)
+  for (rule in 1:nrow(customGroupingTable)){
+    GrepedIcd$Group<-ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$Group)
   }
 
   if(sum(!is.na(GrepedIcd$Group)) > 0){
