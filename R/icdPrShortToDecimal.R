@@ -1,19 +1,33 @@
-#' @rdname PrUniform
+#' @rdname prUniform
 #' @export
 #'
-IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDate){
-  DataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  PrDataFile <- PrDataFile[,DataCol,with = FALSE]
-  names(PrDataFile) <- c("ICD", "Date")
-  PrDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(PrDataFile))]
+icdPrShortToDecimal<-function(prDataFile, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL){
 
-  icd_Decimal <- PrDataFile[grepl("[.]",PrDataFile$ICD),]
+  if(deparse(substitute(icdVerColName)) != "NULL"){
+    dataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
+    prDataFile <- setDT(prDataFile)[,dataCol,with = FALSE]
+    names(prDataFile) <- c("ICD", "Date", "Version")
+  }else{
+    dataCol <- c(deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+    prDataFile <- setDT(prDataFile)[,dataCol,with = FALSE]
+    names(prDataFile) <- c("ICD", "Date")
+  }
+
+  prDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(prDataFile))]
+
+  icd_Decimal <- prDataFile[grepl("[.]",prDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
-    icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
-    icd10DNA <- merge(icd_Decimal[Date >= icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
 
+    if(deparse(substitute(icdVerColName)) != "NULL"){
+      icd9D <- merge(icd_Decimal[Version == 9], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+      icd10DNA <- merge(icd_Decimal[Version == 10], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    }else{
+      icd9D <- merge(icd_Decimal[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+      icd10DNA <- merge(icd_Decimal[Date >= icd10usingDate], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
+    }
     if(anyNA(icd9D)){icd9DNA <- icd9D[is.na(Short),]}
     if(exists("icd9DNA")){icd9DwrongFormat <- icd9DNA[, list(count = .N), by = ICD]}
+
     if(nrow(icd10DNA) > 0){
       icd10DwrongFormat <- icd10DNA[is.na(Short), list(count = .N), by = ICD]
       icd10DWrongVer <- icd10DNA[!is.na(Short), list(count = .N), by = ICD]
@@ -38,10 +52,16 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
     DtoD <- icd_Decimal
   }
 
-  icd_Short <- PrDataFile[!icd_Decimal, on = "Number"]
+  icd_Short <- prDataFile[!icd_Decimal, on = "Number"]
   if(nrow(icd_Short) > 0){
-    icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
-    icd10S <- merge(icd_Short[Date >= icd10usingDate], prICD10, by =  "ICD", all.x = TRUE)
+    if(deparse(substitute(icdVerColName)) != "NULL"){
+      icd9S <- merge(icd_Short[Version == 9], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+      icd10S <- merge(icd_Short[Version == 10], prICD10, by =  "ICD", all.x = TRUE)
+    }else{
+      icd9S <- merge(icd_Short[Date < icd10usingDate], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Short", all.x = TRUE)
+      icd10S <- merge(icd_Short[Date >= icd10usingDate], prICD10, by =  "ICD", all.x = TRUE)
+    }
+
     if(anyNA(icd9S)){icd9SNA <- merge(icd9S[is.na(Decimal),-"Decimal"], prICD10,by = "ICD",all.x = TRUE)}
     if(anyNA(icd10S)){icd10SNA <- merge(icd10S[is.na(ICD_DESCRIPTION),-"ICD_DESCRIPTION"], ICD9PrwithTwoFormat,by.x = "ICD", by.y = "Short", all.x = TRUE)}
 
@@ -115,7 +135,7 @@ IcdPrShortToDecimal<-function(PrDataFile, icdColName, dateColName, icd10usingDat
   }
   allDecimalFormat <- rbind(DtoD,StoD)
 
-  if(nrow(allDecimalFormat) < nrow(PrDataFile)){
+  if(nrow(allDecimalFormat) < nrow(prDataFile)){
     if(exists("allWrongFormat")){
       message(paste0("Wrong ICD format: total ",nrow(allWrongFormatMsg)," ICD codes (the number of occurrences is in brackets)"))
       allWrongFormatMsg <- allWrongFormatMsg[order(count,decreasing = TRUE),]
