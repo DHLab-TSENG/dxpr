@@ -1,7 +1,7 @@
 #' @rdname dataWide
 #' @export
 #'
-groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable = NULL, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
+groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
   dxDataFile <- as.data.table(dxDataFile)
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
