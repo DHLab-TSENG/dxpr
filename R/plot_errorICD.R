@@ -1,19 +1,19 @@
 #' @rdname plotError
 #' @export
 #'
-plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, groupICD = FALSE, Others = TRUE, TopN = 10){
-  ICDVersion <- tolower(deparse(substitute(ICDVersion)))
+plot_errorICD <- function(errorFile, icdVersion = all, wrongICDType = all, groupICD = FALSE, others = TRUE, topN = 10){
+  icdVersion <- tolower(deparse(substitute(icdVersion)))
   wrongICDType <- tolower(deparse(substitute(wrongICDType)))
-  title <- paste0("Error ICD: Top ",TopN)
+  title <- paste0("Error ICD: Top ",topN)
   Xlabel <- "Error ICD"
 
-  if(ICDVersion == "9" | ICDVersion == "10"){
-    version <- paste0("ICD ", ICDVersion)
+  if(icdVersion == "9" | icdVersion == "10"){
+    version <- paste0("ICD ", icdVersion)
     errorICD <- errorFile[IcdVersionInFile == version]
-    title <- paste0("Error ", version, ": Top ",TopN)
+    title <- paste0("Error ", version, ": Top ",topN)
     Xlabel <- paste0("Error ", version)
-  }else if(ICDVersion != "9" && ICDVersion != "10" && ICDVersion != "all"){
-    stop("'please enter `9`,`10`, `all` for 'ICDVersion'", call. = FALSE)
+  }else if(icdVersion != "9" && icdVersion != "10" && icdVersion != "all"){
+    stop("'please enter `9`,`10`, `all` for 'icdVersion'", call. = FALSE)
   }
 
   if(wrongICDType == "format" | wrongICDType == "version"){
@@ -30,10 +30,10 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
   if(groupICD){
     if(version == "ICD 9"){
       errorData <- errorFile[,ICDGroup := substr(ICD,1,1),][,c("groupCount","maxICD") := list(sum(count),max(count)), by = "ICDGroup"][count == maxICD,][order(groupCount,decreasing = TRUE),]
-      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > TopN, c("ICDGroup","groupCount") := list("Others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),paste0(round((count/groupCount)*100,2),"%")),][,-"count"]
+      errorData <-errorData[,Number :=  1:nrow(errorData),][Number > topN, c("ICDGroup","groupCount") := list("others",sum(groupCount)),][!duplicated(ICDGroup),][,c("CumCount","ICDPercInGroup") := list(cumsum(groupCount),paste0(round((count/groupCount)*100,2),"%")),][,-"count"]
 
-      if(!Others){
-        errorData <- errorData[!ICDGroup == "Others",]
+      if(!others){
+        errorData <- errorData[!ICDGroup == "others",]
       }
       errorData <- errorData[,c("CumCountPerc","ICDGroup") :=
                                list(paste0(round(CumCount/max(CumCount)*100,2),"%"),factor(ICDGroup,levels = unique(ICDGroup))),]
@@ -48,10 +48,10 @@ plot_errorICD <- function(errorFile, ICDVersion = all, wrongICDType = all, group
   }else{
     FileSize <- nrow(errorFile)
     errorData <- errorFile[, c("CumCount", "Number") :=
-                             list(cumsum(count), 1:FileSize),][Number > TopN, c("CumCount", "count", "ICD") :=
-                                                                 list(max(CumCount), sum(count),"Others"),][!duplicated(ICD),]
-    if(!Others){
-      errorData <- errorData[!ICD == "Others",]
+                             list(cumsum(count), 1:FileSize),][Number > topN, c("CumCount", "count", "ICD") :=
+                                                                 list(max(CumCount), sum(count),"others"),][!duplicated(ICD),]
+    if(!others){
+      errorData <- errorData[!ICD == "others",]
     }
     errorData <- errorData[, c("CumCountPerc","ICD") := list(paste0(round(CumCount/max(CumCount)*100,2),"%"),factor(ICD,levels = unique(ICD))),]
 
