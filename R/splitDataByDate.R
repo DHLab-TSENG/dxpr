@@ -1,15 +1,15 @@
-#' @rdname DataSplit
+#' @rdname dataSplit
 #' @export
 #'
-splitDataByDate <- function(DxDataFile, idColName, icdColName, dateColName, indexDateFile, Gap = 30){
-  DxDataFile <- as.data.table(DxDataFile)
+splitDataByDate <- function(dxDataFile, idColName, icdColName, dateColName, indexDateFile, Gap = 30){
+  dxDataFile <- as.data.table(dxDataFile)
   indexDateFile <- as.data.table(indexDateFile)
-  DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile$Date)
+  dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
+  dxDataFile <- dxDataFile[,dataCol,with = FALSE]
+  names(dxDataFile) <- c("ID", "ICD", "Date")
+  dxDataFile[,"Date"] <- as.Date(dxDataFile$Date)
 
-  splitedData <- merge(DxDataFile, indexDateFile,
+  splitedData <- merge(dxDataFile, indexDateFile,
                        all.x = TRUE)[,diff := Date - as.Date(indexDate)][diff >= 0, timeTag := "A"][diff < 0, timeTag := "B"][,window := abs((as.integer(diff) %/% Gap)),][timeTag == "A", window := window +1,][order(ID,Date), -"diff"]
 
   splitedData
