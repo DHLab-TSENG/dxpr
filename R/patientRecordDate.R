@@ -1,14 +1,14 @@
 #' @rdname recordPeriod
 #' @export
 #'
-patientRecordDate <- function(DxDataFile, idColName, icdColName, dateColName){
-  DxDataFile <- as.data.table(DxDataFile)
+patientRecordDate <- function(dxDataFile, idColName, icdColName, dateColName){
+  dxDataFile <- as.data.table(dxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-  DxDataFile <- DxDataFile[,DataCol,with = FALSE]
-  names(DxDataFile) <- c("ID", "ICD", "Date")
-  DxDataFile[,"Date"] <- as.Date(DxDataFile[,Date])
+  dxDataFile <- dxDataFile[,DataCol,with = FALSE]
+  names(dxDataFile) <- c("ID", "ICD", "Date")
+  dxDataFile[,"Date"] <- as.Date(dxDataFile[,Date])
 
-  recordDate <- DxDataFile[,list(firstRecordDate = min(Date), endRecordDate = max(Date)),by = "ID"][order(firstRecordDate,endRecordDate),]
+  recordDate <- dxDataFile[,list(firstRecordDate = min(Date), endRecordDate = max(Date)),by = "ID"][order(firstRecordDate,endRecordDate),]
 
   recordDate
 }
