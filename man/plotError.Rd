@@ -5,21 +5,21 @@
 \alias{plot_errorICD}
 \title{Plot for error ICD list}
 \usage{
-plot_errorICD(errorFile, icdVersion = all, wrongICDType = all,
-  groupICD = FALSE, others = TRUE, topN = 10)
+plot_errorICD(errorFile, ICDVersion = all, wrongICDType = all,
+  groupICD = FALSE, Others = TRUE, TopN = 10)
 }
 \arguments{
-\item{errorFile}{Error file from ICD uniform function (`icdDxDecimalToShort` or `icdDxShortToDecimal`)}
+\item{errorFile}{Error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)}
 
-\item{icdVersion}{ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}}
+\item{ICDVersion}{ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}}
 
 \item{wrongICDType}{Wrong ICD type: wrong version (\code{'version'}), wrong format (\code{'format'}, and both wrong type \code{'all'}}
 
 \item{groupICD}{Only ICD-9 codes can group, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE}
 
-\item{others}{Default is TRUE}
+\item{Others}{Default is TRUE}
 
-\item{topN}{Default is Top "10"}
+\item{TopN}{Default is Top "10"}
 }
 \value{
 A Pareto plot and a \code{data.table} for error codes.
@@ -36,26 +36,26 @@ head(sampleDxFile)
 
 # Data of diagnosis codes with potential error
 
-error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, icd10usingDate = "2015/10/01")
+error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 
-# Plot of top 5 common error ICD-9 codes and a list of the detail of error ICD codes
+# Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes
 
 plot_errorICD(errorFile = error$Error,
-              icdVersion = 9,
+              ICDVersion = 9,
               wrongICDType = all,
               groupICD = TRUE,
-              others = TRUE,
-              topN = 5)
+              Others = TRUE,
+              TopN = 3)
 
 # Plot of top 10 common error ICD codes and a list of the detail of error ICD codes
 
 plot_errorICD(errorFile = error$Error,
-              icdVersion = all,
+              ICDVersion = all,
               wrongICDType = all,
               groupICD = FALSE,
-              others = TRUE)
+              Others = TRUE)
 
 }
 \seealso{
-other plot function: \code{\link{plotGroupedData}}
+other plot function: \code{\link{PlotGroupedData}}
 }

@@ -5,19 +5,19 @@
 \alias{patientRecordDate}
 \title{Data integration for patient record period}
 \usage{
-patientRecordDate(dxDataFile, idColName, icdColName, dateColName)
+patientRecordDate(DxDataFile, idColName, icdColName, dateColName)
 }
 \arguments{
-\item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
+\item{DxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of DxDataFile.}
 
-\item{icdColName}{A column for ICD of dxDataFile}
+\item{icdColName}{A column for ICD of DxDataFile}
 
-\item{dateColName}{A column for Date of dxDataFile}
+\item{dateColName}{A column for Date of DxDataFile}
 }
 \value{
-A new \code{data.table} based on \code{dxDataFile} with the earliest and latest admission date for each patient.
+A new \code{data.table} based on \code{DxDataFile} with the earliest and latest admission date for each patient.
 }
 \description{
 Function for researchers used for finding the first and last clinical event for a given patient as index date.
@@ -36,5 +36,5 @@ record <- patientRecordDate(sampleDxFile, ID, ICD, Date)
 head(record)
 }
 \seealso{
-Other data integration functions: \code{\link{selectCases}}, \code{\link{dataSplit}}, \code{\link{era}}
+Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{era}}
 }
