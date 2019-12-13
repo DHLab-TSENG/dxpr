@@ -22,6 +22,6 @@ pcICD10
 These datasets are used for procedure code transformation.
 }
 \details{
-These datasets are used for \code{IcdPrToCCS}, \code{IcdPrToCCSLvl}, and \code{IcdPrToProcedureClass}
+These datasets are used for \code{icdPrToCCS}, \code{icdPrToCCSLvl}, and \code{icdPrToProcedureClass}
 }
 \keyword{datasets}
