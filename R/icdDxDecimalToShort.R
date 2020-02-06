@@ -12,7 +12,10 @@ icdDxDecimalToShort<-function(dxDataFile, icdColName, dateColName, icdVerColName
     dxDataFile <- setDT(dxDataFile)[,dataCol,with = FALSE]
     names(dxDataFile) <- c("ICD", "Date")
   }
+
   dxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(dxDataFile))]
+  ifelse(is.na(dxDataFile$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),dxDataFile$Date)
+  ifelse(is.na(dxDataFile$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),dxDataFile$ICD)
 
   icd_Decimal <- dxDataFile[grepl("[.]", dxDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
