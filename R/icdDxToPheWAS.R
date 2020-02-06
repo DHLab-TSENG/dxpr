@@ -27,11 +27,11 @@ icdDxToPheWAS <- function(dxDataFile, idColName, icdColName, dateColName, icdVer
   }
 
   if (deparse(substitute(icdVerColName)) != "NULL"){
-    allPheWAS <- rbind(merge(dxDataFile[Version == 9,], phecode_icd9_2[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE),
-                       merge(dxDataFile[Version == 10,], phecode_icd10[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE))
+    allPheWAS <- rbind(merge(dxDataFile[Version == 9,], phecode_icd9_2[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE, allow.cartesian=TRUE),
+                       merge(dxDataFile[Version == 10,], phecode_icd10[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE, allow.cartesian=TRUE))
   }else{
-    allPheWAS <- rbind(merge(dxDataFile[Date < icd10usingDate,], phecode_icd9_2[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE),
-                       merge(dxDataFile[Date >= icd10usingDate,], phecode_icd10[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE))
+    allPheWAS <- rbind(merge(dxDataFile[Date < icd10usingDate,], phecode_icd9_2[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE, allow.cartesian=TRUE),
+                       merge(dxDataFile[Date >= icd10usingDate,], phecode_icd10[,c(PheWASCol,"ICD"), with = FALSE], by.x ="Decimal", by.y = "ICD", all.x = TRUE, allow.cartesian=TRUE))
   }
   allPheWAS <- allPheWAS[order(Number),-"Number"]
 
