@@ -1,7 +1,8 @@
 #' @rdname dataWide
 #' @export
 #'
-groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable, isDescription = TRUE, numericOrBinary = B, selectedCaseFile = NULL){
+
+groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable, isDescription = TRUE, numericOrBinary = B, count = 1, selectedCaseFile = NULL){
   dxDataFile <- as.data.table(dxDataFile)
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
@@ -42,10 +43,10 @@ groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName
   }
 
   wideData[is.na(wideData)] <- 0L
-  numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
 
+  numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
   if(numericOrBinary == "B"){
-    wideData_B <- as.data.frame(wideData >= 1L)
+    wideData_B <- as.data.frame(wideData >= count)
     wideData_B$ID <- wideData$ID
     wideData <- wideData_B
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
