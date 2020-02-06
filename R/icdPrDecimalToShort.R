@@ -14,10 +14,12 @@ icdPrDecimalToShort<-function(prDataFile, icdColName, dateColName, icdVerColName
   }
 
   prDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(prDataFile))]
+  ifelse(is.na(prDataFile$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),prDataFile$Date)
+  ifelse(is.na(prDataFile$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),prDataFile$ICD)
 
   icd_Decimal <- prDataFile[grepl("[.]",prDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
-    
+
     if(deparse(substitute(icdVerColName)) != "NULL"){
       icd9D <- merge(icd_Decimal[Version == 9], ICD9PrwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
       icd10DNA <- merge(icd_Decimal[Version == 10], ICD9DxwithTwoFormat, by.x = "ICD", by.y = "Decimal", all.x = TRUE)
