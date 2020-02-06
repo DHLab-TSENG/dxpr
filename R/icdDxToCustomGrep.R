@@ -8,6 +8,8 @@ icdDxToCustomGrep <- function(dxDataFile, idColName, icdColName, dateColName, cu
   GrepedIcd <- GrepedIcd[,dataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
   GrepedIcd[,c("Date", "Number", "Group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
+  ifelse(is.na(customICD$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),customICD$Date)
+  ifelse(is.na(customICD$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),customICD$ICD)
 
   for (rule in 1:nrow(customGroupingTable)){
     GrepedIcd$Group<-ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$Group)
