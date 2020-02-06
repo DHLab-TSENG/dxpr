@@ -14,6 +14,8 @@ icdPrShortToDecimal<-function(prDataFile, icdColName, dateColName, icdVerColName
   }
 
   prDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(prDataFile))]
+  ifelse(is.na(prDataFile$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),prDataFile$Date)
+  ifelse(is.na(prDataFile$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),prDataFile$ICD)
 
   icd_Decimal <- prDataFile[grepl("[.]",prDataFile$ICD),]
   if(nrow(icd_Decimal) > 0){
@@ -159,3 +161,4 @@ icdPrShortToDecimal<-function(prDataFile, icdColName, dateColName, icdVerColName
     return(list(ICD = allDecimalFormat[order(Number),"ICD"]))
   }
 }
+
