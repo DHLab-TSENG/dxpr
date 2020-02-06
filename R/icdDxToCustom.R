@@ -8,6 +8,8 @@ icdDxToCustom <- function(dxDataFile, idColName, icdColName, dateColName, custom
   customICD <- customICD[,dataCol,with = FALSE]
   names(customICD) <- c("ID", "ICD", "Date")
   customICD[,c("Date", "Number") := list(as.Date(Date), 1:nrow(customICD))]
+  ifelse(is.na(customICD$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),customICD$Date)
+  ifelse(is.na(customICD$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),customICD$ICD)
 
   groupedICD <- merge(customICD, customGroupingTable, by = "ICD", all.x = TRUE)[order(Number), -"Number"]
 
