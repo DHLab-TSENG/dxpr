@@ -80,7 +80,7 @@ head(sampleDxFile)
 **將 ICD-CM code 的格式統一轉成 Decimal**
 ```{r, message = FALSE, warning = FALSE}
 # Short to decimal
-decimal <- IcdDxShortToDecimal(DxDataFile = sampleDxFile,
+decimal <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
                                icdColName = ICD, 
                                dateColName = Date,
                                icd10usingDate = "2015/10/01")
@@ -89,7 +89,7 @@ decimal$ICD[6:10]
 **將 ICD-CM code 的格式統一轉成 Short**
 ```{r, message = FALSE, warning = FALSE}
 # Decimal to short
-short <- IcdDxDecimalToShort(DxDataFile = sampleDxFile,
+short <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
                             icdColName = ICD,         
                             dateColName = Date,
                             icd10usingDate = "2015/10/01")
@@ -102,7 +102,7 @@ short$ICD[6:10]
 
 編碼錯誤的種類：**格式錯誤 (wrong format)**及**版本分類錯誤 (wrong version)**
 ```{r, message = FALSE, warning = FALSE}
-sample <- IcdDxShortToDecimal(DxDataFile = sampleDxFile,
+sample <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
                               icdColName = ICD, 
                               dateColName = Date,
                               icd10usingDate = "2015/10/01")
@@ -188,11 +188,11 @@ ID|GroupType|FirstCaseDate|EndCaseDate|Count|Period
 
 **1) CCS單一階層分類**
 
-`IcdDxToCCS` 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述  
+`icdDxToCCS` 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述  
 ICD-9-CM 和 ICD-10-CM 的 CCS 單一階層一致：共260種
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS category's description 
-CCS_description <- IcdDxToCCS(DxDataFile = sampleDxFile,
+CCS_description <- icdDxToCCS(dxDataFile = sampleDxFile,
                               idColName = ID,
                               icdColName = ICD,        
                               dateColName = Date,
@@ -204,7 +204,7 @@ head(CCS_description$groupedDT, 5)
 head(CCS_description$summarised_groupedDT, 5)
 
 ## ICD to CCS category
-CCS_category <- IcdDxToCCS(DxDataFile = sampleDxFile, 
+CCS_category <- icdDxToCCS(dxDataFile = sampleDxFile, 
                           idColName = ID,         
                           icdColName = ICD,       
                           dateColName = Date, 
@@ -214,14 +214,14 @@ CCS_category <- IcdDxToCCS(DxDataFile = sampleDxFile,
 
 **2) CCS多階層分類**
 
-`IcdDxToCCSLvl` 可取得診斷編碼相對應的 CCS 多階層分類 (Multiple ccs level) 及分類之敘述
+`icdDxToCCSLvl` 可取得診斷編碼相對應的 CCS 多階層分類 (Multiple ccs level) 及分類之敘述
 
 * ICD-9-CM 共 4 個階層 (Level 1~4)  
 * ICD-10-CM 共 2 個階層 (Level 1~2)
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS multiple level 2 description
-CCSlvl_description <- IcdDxToCCSLvl(DxDataFile = sampleDxFile,
+CCSlvl_description <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     idColName = ID,  
                                     icdColName = ICD,   
                                     dateColName = Date,
@@ -234,7 +234,7 @@ head(CCSlvl_description$groupedDT, 5)
 head(CCSlvl_description$summarised_groupedDT, 5)
 
 ## ICD to CCS multiple level 3 category
-CCSLvl_category <- IcdDxToCCSLvl(DxDataFile = sampleDxFile,
+CCSLvl_category <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     idColName = ID,  
                                     icdColName = ICD,   
                                     dateColName = Date,
@@ -249,7 +249,7 @@ CCSLvl_category <- IcdDxToCCSLvl(DxDataFile = sampleDxFile,
 最新版本為 version 2 (phecode_icd9_2)，目前只有 ICD-9-CM 供標準化分組
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to PheWAS
-PheWAS <- IcdDxToPheWAS(DxDataFile = sampleDxFile,
+PheWAS <- icdDxToPheWAS(dxDataFile = sampleDxFile,
                          idColName = ID,           
                          icdColName = ICD,     
                          dateColName = Date,
@@ -273,7 +273,7 @@ PheWAS$summarised_groupedDT[7:11]
 自定義診斷分組提供兩種分組方法供使用者選擇，將符合條件的診斷編碼分組為心律異常的組別。
 
 
-**1) IcdDxToCustom**：**精確比對**
+**1) icdDxToCustom**：**精確比對**
 
 使用者須定義精確分組的表格 (groupingTable)，輸入詳細的診斷編碼 (N181, 5853, 5854…)，
 進行分組的資料須要完全符合，才會歸類為Cardiac dysrhythmias，另外不符合條件的組別則顯示`NA`。
@@ -284,17 +284,17 @@ groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
                             ICD = c("N181","5853","5854","5855","5856","5859"),
                             stringsAsFactors = FALSE)
 
-CustomGroup <- IcdDxToCustom(DxDataFile = sampleDxFile,
+CustomGroup <- icdDxToCustom(dxDataFile = sampleDxFile,
                              idColName = ID,
                              icdColName = ICD,
                              dateColName = Date,
-                             CustomGroupingTable = groupingTable)
+                             customGroupingTable = groupingTable)
 
 CustomGroup$groupedDT[10:14]
 
 head(CustomGroup$summarised_groupedDT, 5)
 ```
-**2) IcdDxToCustomGrep**：**模糊比對**
+**2) icdDxToCustomGrep**：**模糊比對**
 
 使用者須定義模糊分組的表格 (grepTable)，以字串比對之正規表示式 (585\*\ , N18\*\…)，當資料開頭為585\*\ (ICD-9-CM) 或是N18\*\ (ICD-10-CM) 即符合使用者定義之組別條件Cardiac dysrhythmias，另外不符合條件的組別則顯示`NA`。
 ```{r, message = FALSE}
@@ -303,11 +303,11 @@ grepTable <- data.frame(Group = "Chronic kidney disease",
                         grepIcd = "^585|^N18",
                         stringsAsFactors = FALSE)
 
-CustomGrepGroup <- IcdDxToCustomGrep(DxDataFile = sampleDxFile,
+CustomGrepGroup <- icdDxToCustomGrep(dxDataFile = sampleDxFile,
                                      idColName = ID,
                                      icdColName = ICD,
                                      dateColName = Date,
-                                     CustomGroupingTable = grepTable)
+                                     customGroupingTable = grepTable)
 
 CustomGrepGroup$groupedDT[10:14]
 
@@ -323,9 +323,9 @@ Elixhauser Comorbidity為Dr. Elixhauser與其團隊在1998年提出基於標準I
 
 ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致，共 29 種
 
-欲將診斷編碼依照 Elixhauser 共病症分類，在 function `IcdDxToComorbid` 的`comorbidMethod` 輸入 `elix`
+欲將診斷編碼依照 Elixhauser 共病症分類，在 function `icdDxToComorbid` 的`comorbidMethod` 輸入 `elix`
 ```{r, message = FALSE, warning = FALSE}
-ELIX <- IcdDxToComorbid(DxDataFile = sampleDxFile,
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
                         icdColName = ICD,       
                         dateColName = Date,
@@ -342,9 +342,9 @@ head(ELIX$summarised_groupedDT, 5)
 
 ICD-9-CM及 ICD-10-CM的AHRQ 共病症種類一致，共30種
 
-欲將診斷編碼依照 AHRQ 共病症分類，在 function `IcdDxToComorbid` 的 `comorbidMethod` 輸入 `AHRQ`
+欲將診斷編碼依照 AHRQ 共病症分類，在 function `icdDxToComorbid` 的 `comorbidMethod` 輸入 `AHRQ`
 ```{r, message = FALSE, warning = FALSE}
-AHRQ <- IcdDxToComorbid(DxDataFile = sampleDxFile,
+AHRQ <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
                         icdColName = ICD,       
                         dateColName = Date,
@@ -361,9 +361,9 @@ Charlson database共病症測量指標的是基於Quan的Charlson Comorbidity In
 
 ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致，共17種
 
-欲將診斷編碼依照 Charlson 共病症分類，在 function `IcdDxToComorbid` 的`comorbidMethod` 輸入 `Charlson`
+欲將診斷編碼依照 Charlson 共病症分類，在 function `icdDxToComorbid` 的`comorbidMethod` 輸入 `Charlson`
 ```{r, message = FALSE, warning = FALSE}
-Charlson <- IcdDxToComorbid(DxDataFile = sampleDxFile,
+Charlson <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
                         icdColName = ICD,       
                         dateColName = Date,
@@ -409,7 +409,7 @@ head(Charlson$summarised_groupedDT, 5)
 符合篩選條件會在欄位`selectedCase`顯示"Selected"，使用者也可自行定義組別名稱 (在`selectCaseType`設定)  
 以第一筆做說明，個案A0符合篩選條件的診斷資料共5筆，第一筆診斷日期為"2008-07-08"，最後一筆診斷紀錄為"2014-02-24"。其中V420出現次數最高，共三筆。整個診斷紀錄週期為2057天
 ```{r, message = FALSE, warning = FALSE}
-Case <- selectCases(DxDataFile = sampleDxFile,
+Case <- selectCases(dxDataFile = sampleDxFile,
                     idColName = ID,           
                     icdColName = ICD,       
                     dateColName = Date,
@@ -417,13 +417,13 @@ Case <- selectCases(DxDataFile = sampleDxFile,
                     icd10usingDate = "2015/10/01",
                     caseCondition = "Diseases of the urinary system",
                     caseCount = 1,
-                    CaseName = "Selected")
+                    caseName = "Selected")
 head(Case)                   
 ```
 ###六、就診紀錄第一筆資料及最後一筆資料
 取得病患的就診紀錄第一筆資料及最後一筆資料，可用來做為個案的指標日期供`splitDataByDate`使用
 ```{r, message = FALSE}
-admissionDate <- patientRecordDate(DxDataFile = sampleDxFile,
+admissionDate <- patientRecordDate(dxDataFile = sampleDxFile,
                                    idColName = ID,
                                    icdColName = ICD,
                                    dateColName = Date)
@@ -443,7 +443,7 @@ indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
                              indexDate = c("2009-07-25", "2015-12-26",
                                            "2015-12-05", "2017-01-29"),
                              stringsAsFactors = FALSE)
-Data <- splitDataByDate(DxDataFile = sampleDxFile,
+Data <- splitDataByDate(dxDataFile = sampleDxFile,
                         idColName = ID,
                         icdColName = ICD,
                         dateColName = Date,
@@ -460,7 +460,7 @@ head(Data, 5)
 
 以範例的第一個結果做說明：個案A0被分組到CCS "158"共有5筆資料，第一筆診斷日期為"2009-07-25"和最後一筆診斷紀錄為"2013-12-20"，整個週期相差天數為1609天，共五個era (意指五筆診斷紀錄彼此相差天數都大於gap長度)。
 ```{r, message = FALSE, warning = FALSE}
-Era <- getConditionEra(DxDataFile = sampleDxFile,
+Era <- getConditionEra(dxDataFile = sampleDxFile,
                        idColName = ID,
                        icdColName = ICD,
                        dateColName = Date,
@@ -478,7 +478,7 @@ head(Era)
 以下範例以共病症 Elixhauser為範例進行兩種表示法回傳的資料型態
 ```{r, message = FALSE, warning = FALSE}
 #binary
-groupedData_Wide <- groupedDataLongToWide(DxDataFile = sampleDxFile, 
+groupedData_Wide <- groupedDataLongToWide(dxDataFile = sampleDxFile, 
                                           idColName = ID,    
                                           icdColName = ICD,   
                                           dateColName = Date,
@@ -492,7 +492,7 @@ head(groupedData_Wide, 5)
 
 ```{r, message = FALSE, warning = FALSE}
 # numeric
-groupedData_Wide <- groupedDataLongToWide(DxDataFile = sampleDxFile, 
+groupedData_Wide <- groupedDataLongToWide(dxDataFile = sampleDxFile, 
                                           idColName = ID,    
                                           icdColName = ICD,   
                                           dateColName = Date,
@@ -521,15 +521,15 @@ head(groupedData_Wide, 5)
 * 預設為顯示前十名的錯誤編碼（`TopN` = `10`）
 * 第10名以後的錯誤編碼設為＂others＂（`Others` = `TRUE`）  
 ```{r, message = FALSE, warning = FALSE}
-error <- IcdDxDecimalToShort(DxDataFile = sampleDxFile,
+error <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
                             icdColName = ICD,
                             dateColName = Date,
                             icd10usingDate = "2015/10/01")
 
 Plot_error1 <- plot_errorICD(errorFile = error$Error,
-                            ICDVersion = all,
+                            icdVersion = all,
                             wrongICDType = all,
-                            Others = TRUE)
+                            others = TRUE)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;">
 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至"Others"  
@@ -558,11 +558,11 @@ ICD-9共19章節疾病分類：
 
 ```{r, message = FALSE}
 Plot_error2 <- plot_errorICD(errorFile = error$Error,
-                             ICDVersion = 9,
+                             icdVersion = 9,
                              wrongICDType = all,
                              groupICD = TRUE,
-                             Others = TRUE,
-                             TopN = 3)
+                             others = TRUE,
+                             topN = 3)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
 由下表格得知第一名的錯誤編碼為**A01.05**佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%
@@ -597,7 +597,7 @@ groupedDataWide <- groupedDataLongToWide(sampleDxFile,
                                          groupDataType = elix)
 
 plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          TopN = 10,
+                          topN = 10,
                           limitFreq = 0.01)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
@@ -619,7 +619,7 @@ plot1$sigCate
 舉例來說，假設case和control組各500人，在某特定組別至少有一組的人數有5個病患 (1%)。  
 
 ```{r, message = FALSE, warning = FALSE}
-selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
+selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
                                 idColName = ID,
                                 icdColName = ICD,
                                 dateColName = Date,
@@ -634,7 +634,7 @@ groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
                                          selectedCaseFile = selectedCaseFile)
 
 plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          TopN = 10,
+                          topN = 10,
                           limitFreq = 0.01,
                           pvalue = 0.05)
 ```
