@@ -74,16 +74,16 @@ In Taiwan: 1/1/2016
 **A. Uniform decimal format**
 
 ```{r, message = FALSE, warning = FALSE}
-decimal <- IcdPrShortToDecimal(PrDataFile = samplePrFile,
+decimal <- icdPrShortToDecimal(prDataFile = samplePrFile,
                                icdColName = ICD, 
                                dateColName = Date,
                                icd10usingDate = "2015/10/01")
 head(decimal$ICD)
 ```
 **B. Uniform short format**
-Convert the diagnostic codes to the short format, and used for grouping to the others classification (`IcdPrToCCS` and `IcdPrToCCSLvl`). 
+Convert the diagnostic codes to the short format, and used for grouping to the others classification (`icdPrToCCS` and `icdPrToCCSLvl`). 
 ```{r, message = FALSE, warning = FALSE}
-short <- IcdPrDecimalToShort(PrDataFile = samplePrFile,
+short <- icdPrDecimalToShort(prDataFile = samplePrFile,
                              icdColName = ICD, 
                              dateColName = Date,
                              icd10usingDate = "2015/10/01")
@@ -101,13 +101,13 @@ The emr package supports two strategies to group EHR procedure codes, including 
 ### A. Clinical Classifications Software (CCS)
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures. 
 
-**1) single-level**: `IcdPrToCCS`
+**1) single-level**: `icdPrToCCS`
 
 ICD-9-PCS and ICD-10-PCS code contains same 231 CCS categories.
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS category
-CCS <- IcdPrToCCS(PrDataFile = samplePrFile,
+CCS <- icdPrToCCS(prDataFile = samplePrFile,
                   idColName = ID,
                   icdColName = ICD,        
                   dateColName = Date,
@@ -117,13 +117,13 @@ CCS <- IcdPrToCCS(PrDataFile = samplePrFile,
 head(CCS$groupedDT, 5)
 ```
 
-**2) multi-level**: `IcdPrToCCSLvl`
+**2) multi-level**: `icdPrToCCSLvl`
 
 ICD-9-PCS has 3 levels, and ICD-10-PCS has two levels
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS multiple level 2 description
-CCSLvl <- IcdPrToCCSLvl(PrDataFile = samplePrFile,
+CCSLvl <- icdPrToCCSLvl(prDataFile = samplePrFile,
                        idColName = ID,
                        icdColName = ICD,        
                        dateColName = Date,
@@ -144,7 +144,7 @@ The Procedure Classes assign all ICD procedure codes to one of four categories:
 * Major Therapeutic - Operating room procedures that are therapeutic
  
 ```{r, message = FALSE, warning = FALSE}
-ProcedureClass <- IcdPrToProcedureClass(PrDataFile = samplePrFile,
+ProcedureClass <- icdPrToProcedureClass(prDataFile = samplePrFile,
                                         idColName = ID,
                                         icdColName = ICD,      
                                         dateColName = Date,
