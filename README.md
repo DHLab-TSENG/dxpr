@@ -15,7 +15,7 @@ Feature
 -   **Exploratory data analysis (EDA) preparation** Transform data format which is fit to others analytical and plotting packages.
 -   **Visualization** Provide overviews for diagnoses standardization and data integration.
 
-Geting start
+Getting started
 ------------
 
 -   Diagnostic part
@@ -54,7 +54,7 @@ head(sampleDxFile)
 #> 6: A15 Z992 2023-05-12
 
 # I. Code standardization
-short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+short <- icdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 head(short$ICD)
 #>     ICD
 #> 1: Z992
@@ -74,7 +74,7 @@ tail(short$Error)
 #> 6:   7552     2            ICD 9  Wrong format      75529
 
 # II. Data integration
-ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
+ELIX <- icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
 head(ELIX$groupedDT)
 #>    Short  ID  ICD       Date Comorbidity
 #> 1:  Z992  A2 Z992 2020-05-22    RENLFAIL
@@ -152,3 +152,4 @@ Getting help
 ------------
 
 See the `GitHub issues page` (<https://github.com/DHLab-CGU/emr/issues>) to see open issues and feature requests.
+
