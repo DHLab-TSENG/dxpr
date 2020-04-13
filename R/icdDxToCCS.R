@@ -15,7 +15,7 @@ icdDxToCCS <- function(dxDataFile, idColName, icdColName, dateColName, icdVerCol
     names(dxDataFile) <- c("ID", "ICD", "Date")
   }
 
-  dxDataFile[,c("Date", "Number") := list(as.Date(Date), 1:nrow(dxDataFile))]
+  dxDataFile[,c("Date", "Number") := list(as.Date(format(Date)), 1:nrow(dxDataFile))]
 
   if(deparse(substitute(icdVerColName)) != "NULL"){
     Conversion <- icdDxDecimalToShort(dxDataFile, ICD, Date, icdVerColName = Version, icd10usingDate = NULL)
