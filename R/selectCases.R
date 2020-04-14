@@ -15,7 +15,7 @@ selectCases <- function(dxDataFile, idColName, icdColName, dateColName, icdVerCo
     names(dxDataFile) <- c("ID", "ICD", "Date")
   }
 
-  dxDataFile[,"Date"] <- as.Date(dxDataFile[,Date])
+  dxDataFile[,"Date"] <- as.Date(format(dxDataFile[,Date]))
   nonCaseName <- paste0("non-",caseName)
   semiCaseName <- paste0(caseName,"*")
 
