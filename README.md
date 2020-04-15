@@ -19,11 +19,11 @@ Getting started
 ------------
 
 -   Diagnostic part
-    English: <https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html>
+    English: <https://DHLab-TSENG.github.io/emr/articles/Eng_Diagnosis.html>
     Chinese: <https://DHLab-TSENG.github.io/emr/articles/Chi_Diagnosis.html>
 -   Procedure part
-    English: <https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html>
-    Chinese: <https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html>
+    English: <https://DHLab-TSENG.github.io/emr/articles/Eng_Procedure.html>
+    Chinese: <https://DHLab-TSENG.github.io/emr/articles/Chi_Procedure.html>
 
 Development version
 -------------------
