@@ -1,7 +1,7 @@
 #' @rdname dataSplit
 #' @export
 #'
-splitDataByDate <- function(dxDataFile, idColName, icdColName, dateColName, indexDateFile, Gap = 30){
+splitDataByDate <- function(dxDataFile, idColName, icdColName, dateColName, indexDateFile, gap = 30){
   dxDataFile <- as.data.table(dxDataFile)
   indexDateFile <- as.data.table(indexDateFile)
   dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
