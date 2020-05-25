@@ -130,22 +130,18 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>patientRecordDate</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>)</pre>
+    <pre class="usage"><span class='fu'>patientRecordDate</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>dateColName</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>A column for Member ID of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
@@ -178,14 +174,7 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># Earliest and latest admission date for each patient</span>
 
-<span class='no'>record</span> <span class='kw'>&lt;-</span> <span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>record</span>)</div><div class='output co'>#&gt;     ID firstRecordDate endRecordDate
-#&gt; 1:  D6      2005-10-09    2025-01-05
-#&gt; 2: A12      2006-01-12    2022-06-12
-#&gt; 3:  D1      2006-02-12    2024-04-04
-#&gt; 4: A13      2006-04-29    2025-02-02
-#&gt; 5:  A9      2006-06-30    2023-12-10
-#&gt; 6:  D2      2006-09-01    2025-08-11</div></pre>
+<span class='no'>record</span> <span class='kw'>&lt;-</span> <span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>)</div><div class='output co'>#&gt; <span class='error'>Error in patientRecordDate(sampleDxFile, ID, ICD, Date): unused argument (Date)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>record</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(record): object 'record' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -222,5 +211,3 @@
 
   </body>
 </html>
-
-
