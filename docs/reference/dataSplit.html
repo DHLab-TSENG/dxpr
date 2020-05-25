@@ -130,8 +130,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>dateColName</span>, <span class='no'>indexDateFile</span>,
-  <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
+    <pre class="usage"><span class='fu'>splitDataByDate</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
+  <span class='no'>indexDateFile</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +143,10 @@
     <tr>
       <th>idColName</th>
       <td><p>A column for Member ID of dxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>icdColName</th>
+      <td><p>A column for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
@@ -195,9 +199,15 @@
 #&gt; 3 C0 2015-12-05
 #&gt; 4 D0 2017-01-29</div><div class='input'><span class='co'># Split data by index date for each patient</span>
 
-<span class='no'>splitedData</span> <span class='kw'>&lt;-</span> <span class='fu'>splitDataByDate</span>(<span class='no'>SampleforCertainPatient</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+<span class='no'>splitedData</span> <span class='kw'>&lt;-</span> <span class='fu'>splitDataByDate</span>(<span class='no'>SampleforCertainPatient</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>,<span class='no'>Date</span>,
                                <span class='kw'>indexDateFile</span> <span class='kw'>=</span> <span class='no'>indexDateTable</span>,
-                               <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)</div><div class='output co'>#&gt; <span class='error'>Error in splitDataByDate(SampleforCertainPatient, ID, ICD, Date, indexDateFile = indexDateTable,     gap = 30): unused argument (Date)</span></div><div class='input'><span class='no'>splitedData</span>[<span class='fl'>15</span>:<span class='fl'>19</span>,]</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'splitedData' not found</span></div></pre>
+                               <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>30</span>)
+<span class='no'>splitedData</span>[<span class='fl'>15</span>:<span class='fl'>19</span>,]</div><div class='output co'>#&gt;    ID  ICD       Date  indexDate timeTag window
+#&gt; 1: B0 N183 2023-08-28 2024-02-12       B      6
+#&gt; 2: B0  N19 2023-11-18 2024-02-12       B      3
+#&gt; 3: B0  N19 2024-02-12 2024-02-12       A      1
+#&gt; 4: C0 C671 2015-12-05 2015-12-05       A      1
+#&gt; 5: C0 C048 2016-07-05 2015-12-05       A      8</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -229,7 +239,8 @@
       </footer>
    </div>
 
+  
+
 
   </body>
 </html>
-
