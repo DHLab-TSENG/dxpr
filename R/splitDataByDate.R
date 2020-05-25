@@ -10,7 +10,7 @@ splitDataByDate <- function(dxDataFile, idColName, icdColName, dateColName, inde
   dxDataFile[,"Date"] <- as.Date(dxDataFile$Date)
 
   splitedData <- merge(dxDataFile, indexDateFile,
-                       all.x = TRUE)[,diff := Date - as.Date(indexDate)][diff >= 0, timeTag := "A"][diff < 0, timeTag := "B"][,window := abs((as.integer(diff) %/% Gap)),][timeTag == "A", window := window +1,][order(ID,Date), -"diff"]
+                       all.x = TRUE)[,diff := Date - as.Date(indexDate)][diff >= 0, timeTag := "A"][diff < 0, timeTag := "B"][,window := abs((as.integer(diff) %/% gap)),][timeTag == "A", window := window +1,][order(ID,Date), -"diff"]
 
   splitedData
 }
