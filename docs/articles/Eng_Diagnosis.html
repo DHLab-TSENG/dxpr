@@ -84,7 +84,7 @@
       <h1>Get started with emr: Diagnosis</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2020-03-27</h4>
+            <h4 class="date">2020-05-25</h4>
       
       
       <div class="hidden name"><code>Eng_Diagnosis.Rmd</code></div>
@@ -611,16 +611,15 @@ There are two functions for customized defined grouping method, the customized c
 <p>The function used for querying the earliest and latest admission date for each patient.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">admissionDate &lt;-<span class="st"> </span><span class="kw"><a href="../reference/recordPeriod.html">patientRecordDate</a></span>(<span class="dt">dxDataFile =</span> sampleDxFile,</a>
 <a class="sourceLine" id="cb22-2" data-line-number="2">                                   <span class="dt">idColName =</span> ID,</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">                                   <span class="dt">icdColName =</span> ICD,</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">                                   <span class="dt">dateColName =</span> Date)</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(admissionDate)                                  </a>
-<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">#&gt;     ID firstRecordDate endRecordDate</span></a>
-<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">#&gt; 1:  D6      2005-10-09    2025-01-05</span></a>
-<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co">#&gt; 2: A12      2006-01-12    2022-06-12</span></a>
-<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="co">#&gt; 3:  D1      2006-02-12    2024-04-04</span></a>
-<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co">#&gt; 4: A13      2006-04-29    2025-02-02</span></a>
-<a class="sourceLine" id="cb22-11" data-line-number="11"><span class="co">#&gt; 5:  A9      2006-06-30    2023-12-10</span></a>
-<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></a></code></pre></div>
+<a class="sourceLine" id="cb22-3" data-line-number="3">                                   <span class="dt">dateColName =</span> Date)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(admissionDate)                                  </a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">#&gt;     ID firstRecordDate endRecordDate</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">#&gt; 1:  D6      2005-10-09    2025-01-05</span></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">#&gt; 2: A12      2006-01-12    2022-06-12</span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co">#&gt; 3:  D1      2006-02-12    2024-04-04</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="co">#&gt; 4: A13      2006-04-29    2025-02-02</span></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="co">#&gt; 5:  A9      2006-06-30    2023-12-10</span></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11"><span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></a></code></pre></div>
 </div>
 <div id="g--data-split" class="section level3">
 <h3 class="hasAnchor">
@@ -637,7 +636,7 @@ Users can define a table of clinical index dates of each patient. The date can g
 <a class="sourceLine" id="cb23-7" data-line-number="7">                        <span class="dt">icdColName =</span> ICD,</a>
 <a class="sourceLine" id="cb23-8" data-line-number="8">                        <span class="dt">dateColName =</span> Date,</a>
 <a class="sourceLine" id="cb23-9" data-line-number="9">                        <span class="dt">indexDateFile =</span> indexDateTable,</a>
-<a class="sourceLine" id="cb23-10" data-line-number="10">                        <span class="dt">Gap =</span> <span class="dv">30</span>) </a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">                        <span class="dt">gap =</span> <span class="dv">30</span>) </a>
 <a class="sourceLine" id="cb23-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(Data, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb23-12" data-line-number="12"><span class="co">#&gt;    ID   ICD       Date  indexDate timeTag window</span></a>
 <a class="sourceLine" id="cb23-13" data-line-number="13"><span class="co">#&gt; 1: A0  5856 2009-07-25 2009-07-25       A      1</span></a>
