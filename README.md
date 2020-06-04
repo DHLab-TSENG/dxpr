@@ -30,13 +30,13 @@ Development version
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("DHLab-CGU/emr")
+devtools::install_github("DHLab-TSENG/emr")
 ```
 
 Overview
 --------
 
-<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+<img src="https://github.com/DHLab-TSENG/dhlab-TSENG.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
 
 Usage
 -----
