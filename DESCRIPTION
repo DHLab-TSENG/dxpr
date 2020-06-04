@@ -17,8 +17,6 @@ BugReports: https://github.com/DHLab-CGU/emr/issues
 RoxygenNote: 6.1.1
 Suggests:
     testthat,
-    roxygen2,
     knitr,
-    devtools,
-    rmarkdown
+    devtools
 VignetteBuilder: knitr
