@@ -8,9 +8,6 @@ Description: A health data analysis tool of electric medical record for data int
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports:
-    data.table,
-    ggplot2
 Depends: R (>= 3.4.0)
 URL: https://dhlab-tseng.github.io/emr/
 BugReports: https://github.com/DHLab-TSENG/emr/issues
