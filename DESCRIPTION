@@ -4,7 +4,7 @@ Version: 0.2.0
 Date: 2019-07-09
 Authors@R: c(person("Hsiang-Ju", "Chiu", role = c("aut", "cre"), email = "aibabi3@gmail.com"),
              person("Yi-Ju", "Tseng", role = "aut", email = "yjtseng@mail.cgu.edu.tw"))
-Description: A health data analysis tool of electric medical record for code standardization, data integration, exploratory data analysis preparation and visualization.
+Description: A health data analysis tool of electric medical record for data integration, data wrangling and visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -12,8 +12,8 @@ Imports:
     data.table,
     ggplot2
 Depends: R (>= 3.4.0)
-URL: https://dhlab-cgu.github.io/emr/
-BugReports: https://github.com/DHLab-CGU/emr/issues
+URL: https://dhlab-tseng.github.io/emr/
+BugReports: https://github.com/DHLab-TSENG/emr/issues
 RoxygenNote: 6.1.1
 Suggests:
     testthat,
