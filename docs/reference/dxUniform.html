@@ -145,15 +145,15 @@
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
@@ -167,7 +167,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>`icdDxShortToDecimal` is used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` can be used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function can not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.</p>
+    <p>`icdDxShortToDecimal` is used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` is used for grouping to the other classifications (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function do not only convert the ICD codes to uniform format codes but also check potential coding error of the ICD codes’ format or version.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

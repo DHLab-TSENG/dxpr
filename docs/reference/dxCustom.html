@@ -141,33 +141,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile</p></td>
+      <td><p>Column name for Member ID of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
-      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
+      <td><p>Only be used if customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>) is selected. Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings expressed in regular expression.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID.</p>
+    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by member ID.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>There are two functions for customized defined grouping method, the customized category grouping is based on precise (`icdDxToCustom`) and fuzzy (`IcdDxToCustomGrep`) grouping method, respectively.</p>
+    <p>There are two functions for customized defined grouping method, the customized category grouping is based on precise (`icdDxToCustom`) and fuzzy (`icdDxToCustomGrep`) grouping method, respectively.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

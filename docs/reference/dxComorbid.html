@@ -139,23 +139,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile</p></td>
+      <td><p>Column name for Member ID of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
@@ -173,7 +173,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID. 3) <code>Error</code>: Potential error codes from <code><a href='dxUniform.html'>dxUniform</a></code>.</p>
+    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by member ID. 3) <code>Error</code>: Potential error codes from <code><a href='dxUniform.html'>dxUniform</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 

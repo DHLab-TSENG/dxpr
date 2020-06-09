@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data integration for patient record period — recordPeriod • emr</title>
+<title>Data integration for patient record period — eligiblePeriod • emr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,7 @@
 
 
 
-<meta property="og:title" content="Data integration for patient record period — recordPeriod" />
+<meta property="og:title" content="Data integration for patient record period — eligiblePeriod" />
 
 <meta property="og:description" content="Function for researchers used for finding the first and last clinical event for a given patient as index date." />
 <meta name="twitter:card" content="summary" />
@@ -121,7 +121,7 @@
     <div class="page-header">
     <h1>Data integration for patient record period</h1>
     
-    <div class="hidden name"><code>recordPeriod.Rd</code></div>
+    <div class="hidden name"><code>eligiblePeriod.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -130,7 +130,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>patientRecordDate</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>dateColName</span>)</pre>
+    <pre class="usage"><span class='fu'>getEligiblePeriod</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>dateColName</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,11 +141,11 @@
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for Member ID of dxDataFile</p></td>
+      <td><p>Column name for Member ID of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name for Date of dxDataFile</p></td>
     </tr>
     </table>
     
@@ -174,7 +174,7 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># Earliest and latest admission date for each patient</span>
 
-<span class='no'>record</span> <span class='kw'>&lt;-</span> <span class='fu'>patientRecordDate</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>Date</span>)
+<span class='no'>record</span> <span class='kw'>&lt;-</span> <span class='fu'>getEligiblePeriod</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>Date</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>record</span>)</div><div class='output co'>#&gt;     ID firstRecordDate endRecordDate
 #&gt; 1:  D6      2005-10-09    2025-01-05
 #&gt; 2: A12      2006-01-12    2022-06-12
@@ -218,3 +218,5 @@
 
   </body>
 </html>
+
+

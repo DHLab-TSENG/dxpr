@@ -34,7 +34,7 @@
 
 <meta property="og:title" content="Data integration for case selection — selectCases" />
 
-<meta property="og:description" content="This query function can select the cases matching defined conditions for analyses." />
+<meta property="og:description" content="This query function can select the cases which matched selected conditions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,7 +126,7 @@
 
     <div class="ref-description">
     
-    <p>This query function can select the cases matching defined conditions for analyses.</p>
+    <p>This query function can select the cases which matched selected conditions.</p>
     
     </div>
 
@@ -140,23 +140,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile</p></td>
+      <td><p>Column name for Member ID of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
@@ -164,15 +164,15 @@
     </tr>
     <tr>
       <th>groupDataType</th>
-      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables, default it set to <code>"ccs"</code>.</p></td>
+      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>) and CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Default is <code>"ccs"</code>, and can be changed into any other possible methods (<code>'ICD'</code> is also available, but not recommended).</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
-      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
+      <td><p>Only be used if customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>) is selected. Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings expressed in regular expression.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>Category or description of standard classification methods for ICD diagnostic codes. The default value is <code>True</code> (standard description).</p></td>
+      <td><p>show category name or c ategory description in classification methods of ICD diagnostic codes. The default value is <code>True</code> (show standard description).</p></td>
     </tr>
     <tr>
       <th>caseCondition</th>
@@ -198,11 +198,11 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the options to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.</p>
+    <p>User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the option to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>dataSplit</a></code>, <code><a href='conditionEra.html'>conditionEra</a></code>, <code><a href='recordPeriod.html'>recordPeriod</a></code></p></div>
+    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>dataSplit</a></code>, <code><a href='conditionEra.html'>conditionEra</a></code>, <code><a href='eligiblePeriod.html'>eligiblePeriod</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -435,3 +435,5 @@
 
   </body>
 </html>
+
+
