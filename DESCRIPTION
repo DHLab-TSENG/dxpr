@@ -10,7 +10,8 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
-    data.table
+    data.table,
+    ggplot2
 URL: https://dhlab-tseng.github.io/emr/
 BugReports: https://github.com/DHLab-TSENG/emr/issues
 RoxygenNote: 6.1.1
