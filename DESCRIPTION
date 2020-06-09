@@ -15,8 +15,4 @@ Depends: R (>= 3.4.0)
 URL: https://dhlab-tseng.github.io/emr/
 BugReports: https://github.com/DHLab-TSENG/emr/issues
 RoxygenNote: 6.1.1
-Suggests:
-    testthat,
-    knitr,
-    devtools
 VignetteBuilder: knitr
