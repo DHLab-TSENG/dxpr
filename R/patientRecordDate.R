@@ -1,7 +1,7 @@
-#' @rdname recordPeriod
+#' @rdname eligiblePeriod
 #' @export
 #'
-patientRecordDate <- function(dxDataFile, idColName, dateColName){
+getEligiblePeriod <- function(dxDataFile, idColName, dateColName){
   dxDataFile <- as.data.table(dxDataFile)
   DataCol <- c(deparse(substitute(idColName)), deparse(substitute(dateColName)))
   dxDataFile <- dxDataFile[,DataCol,with = FALSE]
