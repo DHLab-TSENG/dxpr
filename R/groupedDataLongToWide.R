@@ -2,37 +2,19 @@
 #' @export
 #'
 
-groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs, customGroupingTable, isDescription = TRUE, numericOrBinary = B, count = 1, selectedCaseFile = NULL){
+groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateColName, reDup = TRUE, numericOrBinary = B, count = 1){
   dxDataFile <- as.data.table(dxDataFile)
 
-  if(deparse(substitute(icdVerColName)) != "NULL"){
-    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)), deparse(substitute(icdVerColName)))
-    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
-    names(dxDataFile) <- c("ID", "ICD", "Date", "Version")
-  }else{
-    dataCol <- c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
-    dxDataFile <- dxDataFile[,dataCol, with = FALSE]
-    names(dxDataFile) <- c("ID", "ICD", "Date")
-  }
+  dataCol <- c(deparse(substitute(idColName)), deparse(substitute(categoryColName)), deparse(substitute(dateColName)))
+  dxDataFile <- dxDataFile[,dataCol, with = FALSE]
+  names(dxDataFile) <- c("ID", "Category", "Date")
 
-  groupDataType <- toupper(deparse(substitute(groupDataType)))
-  if(deparse(substitute(icdVerColName)) != "NULL"){
-    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icdVerColName = Version, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
-  }else{
-    groupedData <- groupMethodSelect(dxDataFile, idColName = ID, icdColName = ICD, dateColName = Date,
-                                     icd10usingDate = icd10usingDate, groupMethod = groupDataType, customGroupingTable = customGroupingTable, isDescription = isDescription)
+  if (reDup == TRUE){
+    dxDataFile <- unique(dxDataFile)
   }
+  groupedData <- dxDataFile[!is.na(Category), .(count = .N), by = c("ID","Category")]
 
-  if(groupDataType != "ICD"){
-    groupedData <- groupedData$summarised_groupedDT
-    if(is.null(groupedData)){
-      return(groupedData)
-    }
-  }else{
-    groupedData <- groupedData[, list(firstCaseDate = min(Date), endCaseDate = max(Date), count = .N), by = c("ID","Short")][, period := (endCaseDate - firstCaseDate),]
-  }
-  groupedData_wide <- dcast(groupedData, ID~eval(parse(text = paste(names(groupedData)[2]))), value.var = c("count"))
+  groupedData_wide <- dcast(groupedData, ID ~ Category , value.var = c("count"))
 
   if(length(groupedData_wide$ID) != length(dxDataFile$ID)){
     OtherPatientID <- dxDataFile[!groupedData_wide, on = "ID"][!duplicated(ID),ID]
@@ -52,17 +34,5 @@ groupedDataLongToWide <- function(dxDataFile, idColName, icdColName, dateColName
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
-
-  if(!is.null(selectedCaseFile)){
-    wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
-    if(isDescription == FALSE  && groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
-      names(wideData_selected)[2:(ncol(wideData_selected)-1)] <- paste0(groupDataType,"_",names(wideData_selected)[2:(ncol(wideData_selected)-1)])
-    }
-    return(wideData_selected)
-  }else{
-    if(isDescription == FALSE && groupDataType == "ICD|CCS|CCSLVL|PHEWAS"){
-      names(wideData)[2:ncol(wideData)] <- paste0(groupDataType,"_",names(wideData)[2:ncol(wideData)])
-    }
-    return(wideData)
-  }
+  wideData
 }
