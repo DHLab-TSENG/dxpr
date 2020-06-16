@@ -1,21 +1,21 @@
-#' @rdname plotGroupedData
+#' @rdname plotDiagCat
 #' @export
-#'
-plot_groupedData <- function(groupedDataWide, topN = 10, limitFreq = 0.01, pvalue = 0.05){
+
+plotDiagCat <- function(groupedDataWide, groupColName = NULL, topN = 10, limitFreq = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
   plot_title <- "Diagnostic category"
-  groupedDataWide <- groupedDataWide[,-1]
-  if(names(groupedDataWide)[ncol(groupedDataWide)] == "selectedCase"){
-    if(is.numeric(groupedDataWide[[1,1]])){
-      groupedDataWide <- cbind(as.data.frame(groupedDataWide[,1:(ncol(groupedDataWide)-1)] >= 1L),
-                               Group = groupedDataWide[, "selectedCase"])
+  groupedDataWide <- as.data.table(groupedDataWide[,-1])
+
+  if(deparse(substitute(groupColName)) != "NULL"){
+    setnames(groupedDataWide, deparse(substitute(groupColName)), "Group")
+
+    if(!is.logical(groupedDataWide[,1])){
+      groupedDataWide <- cbind(groupedDataWide[,1:(ncol(groupedDataWide)-1)] >= 1L,
+                               groupedDataWide[, "Group"])
     }
-    groupedDataWide <- cbind(groupedDataWide[, -c(ncol(groupedDataWide))]*1,
-                             Group = groupedDataWide[, "selectedCase"])
 
     groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = list(Group, DiagnosticCategory)]
-
     caseN <- sum(!grepl("non|[*]",groupedDataWide$Group))
     ctrlN <- sum(grepl("non",groupedDataWide$Group))
     caseDataLong <- groupedDataLong[!grepl("non|[*]",groupedDataLong$Group),][,Percentage := round((N/caseN)*100,2)]
@@ -24,7 +24,7 @@ plot_groupedData <- function(groupedDataWide, topN = 10, limitFreq = 0.01, pvalu
     for(cat in 1:nrow(caseDataLong)){
       if(caseDataLong$Percentage[cat] >= limitFreq | ctrlDataLong$Percentage[cat] >= limitFreq){
         Table <- matrix(c(caseDataLong$N[cat], ctrlDataLong$N[cat],
-                          caseN - caseDataLong$N[cat], ctrlN - ctrlDataLong$N[cat]), 2, 2)
+                          caseN - caseDataLong$N[cat], ctrlN - ctrlDataLong$N[cat]), 2)
 
         if(sum(Table < 5) < 1 && sum((chisq.test(Table, simulate.p.value = TRUE)$expected) < 5) < 1){
           Test_pvalue[[length(Test_pvalue)+1]] <- chisq.test(Table, correct = FALSE)$p.value < pvalue
@@ -52,13 +52,10 @@ plot_groupedData <- function(groupedDataWide, topN = 10, limitFreq = 0.01, pvalu
         geom_bar(position="dodge", stat="identity")
     }
   }else{
-    if(is.numeric(groupedDataWide[[1,1]])){
-      groupedDataWide <- as.data.frame(groupedDataWide >= 1L)
-    }
     groupedDataWide <- groupedDataWide*1
-    groupedDataWide$Group <- "noGroup"
-    groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
-    groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = list(Group, DiagnosticCategory)][order(N)][,Percentage := round(N/nrow(groupedDataWide)*100,2)][,-"Group"][Percentage >= limitFreq,]
+#    groupedDataWide$Group <- "noGroup"
+    groupedDataLong <- melt(groupedDataWide, measure.vars = 1:ncol(groupedDataWide), variable.name = "DiagnosticCategory", value.name = "count")
+    groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = .(DiagnosticCategory)][order(N)][,Percentage := round(N/nrow(groupedDataWide)*100,2)][Percentage >= limitFreq,]
     groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
                                          list(factor(DiagnosticCategory, levels = DiagnosticCategory),
                                               nrow(groupedDataLong):1,
