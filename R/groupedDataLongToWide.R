@@ -28,7 +28,7 @@ groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateCo
 
   numericOrBinary <- toupper(deparse(substitute(numericOrBinary)))
   if(numericOrBinary == "B"){
-    wideData_B <- as.data.frame(wideData >= count)
+    wideData_B <- as.data.table(wideData >= count)
     wideData_B$ID <- wideData$ID
     wideData <- wideData_B
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
