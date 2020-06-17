@@ -10,8 +10,7 @@ plotDiagCat <- function(groupedDataWide, groupColName = NULL, topN = 10, limitFr
     setnames(groupedDataWide, deparse(substitute(groupColName)), "Group")
 
     if(!is.logical(groupedDataWide[,1])){
-      groupedDataWide <- cbind(groupedDataWide[,1:(ncol(groupedDataWide)-1)] >= 1L,
-                               groupedDataWide[, "Group"])
+      groupedDataWide <- groupedDataWide[ ,c(1:(ncol(groupedDataWide)-1)) := lapply(.SD, function(x) x >= 1L), .SDcols = 1:(ncol(groupedDataWide)-1)]
     }
 
     groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
