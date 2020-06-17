@@ -45,7 +45,8 @@ getConditionEra <- function(dxDataFile, idColName, icdColName, dateColName, icdV
   eraCount <- groupedData[order(eval(parse(text = paste(groupByCol))),Date)][,Gap :=  Date - shift(Date, fill = Date[1L], type = "lag"), by = groupByCol][,episode := Gap > gapDate][,era := cumsum(episode) +1 , by = groupByCol]#[,-"episode"]
   eraCount <- eraCount[,list(firstCaseDate = min(Date),
                              endCaseDate = max(Date),
-                             count = .N), by = c("ID", groupDataType,"era")][order(ID),]
+                             count = .N,
+                             period = max(Date) - min(Date)), by = c("ID", groupDataType,"era")][order(ID),]
   if(!is.null(selectedCaseFile)){
     eraCount <- merge(eraCount, selectedCaseFile[,list(ID, selectedCase)], all.x = TRUE)
   }
