@@ -2,7 +2,7 @@
 #' @export
 #'
 
-groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateColName, reDup = TRUE, numericOrBinary = B, count = 1){
+groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateColName, reDup = TRUE, numericOrBinary = B, count = 1, selectedCaseFile = NULL){
   dxDataFile <- as.data.table(dxDataFile)
 
   dataCol <- c(deparse(substitute(idColName)), deparse(substitute(categoryColName)), deparse(substitute(dateColName)))
@@ -34,5 +34,11 @@ groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateCo
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
-  wideData
+    
+  if(!is.null(selectedCaseFile)){
+    wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
+    return(wideData_selected)
+  }else{
+    return(wideData)
+  }
 }
