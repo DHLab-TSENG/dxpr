@@ -1,17 +1,18 @@
 #' @rdname plotDiagCat
 #' @export
 
-plotDiagCat <- function(groupedDataWide, groupColName = NULL, topN = 10, limitFreq = 0.01, pvalue = 0.05){
+plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 10, limitFreq = 0.01, pvalue = 0.05){
   Test_pvalue <- c()
   plot_title <- "Diagnostic category"
-  groupedDataWide <- as.data.table(groupedDataWide[,-1])
+  groupedDataWide <- as.data.table(groupedDataWide)
+  setnames(groupedDataWide, deparse(substitute(idColName)), "ID")
+  groupedDataWide$ID <- NULL
 
   if(deparse(substitute(groupColName)) != "NULL"){
     setnames(groupedDataWide, deparse(substitute(groupColName)), "Group")
+    setcolorder(groupedDataWide, "Group")
 
-    if(!is.logical(groupedDataWide[,1])){
-      groupedDataWide <- groupedDataWide[ ,c(1:(ncol(groupedDataWide)-1)) := lapply(.SD, function(x) x >= 1L), .SDcols = 1:(ncol(groupedDataWide)-1)]
-    }
+    groupedDataWide <- groupedDataWide[ ,c(2:(ncol(groupedDataWide))) := lapply(.SD, function(x) ifelse(x >= 1L, 1L, 0L)), .SDcols = 2:(ncol(groupedDataWide))]
 
     groupedDataLong <- melt(groupedDataWide, id.vars = "Group",variable.name = "DiagnosticCategory", value.name = "count")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = list(Group, DiagnosticCategory)]
@@ -51,9 +52,9 @@ plotDiagCat <- function(groupedDataWide, groupColName = NULL, topN = 10, limitFr
         geom_bar(position="dodge", stat="identity")
     }
   }else{
-    groupedDataWide <- groupedDataWide*1
-#    groupedDataWide$Group <- "noGroup"
-    groupedDataLong <- melt(groupedDataWide, measure.vars = 1:ncol(groupedDataWide), variable.name = "DiagnosticCategory", value.name = "count")
+    groupedDataWide <- groupedDataWide[ ,c(1:(ncol(groupedDataWide))) := lapply(.SD, function(x) ifelse(x >= 1L, 1L, 0L)), .SDcols = 1:(ncol(groupedDataWide))]
+
+    groupedDataLong <<- melt(groupedDataWide, measure.vars = 1:ncol(groupedDataWide), variable.name = "DiagnosticCategory", value.name = "count")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = .(DiagnosticCategory)][order(N)][,Percentage := round(N/nrow(groupedDataWide)*100,2)][Percentage >= limitFreq,]
     groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
                                          list(factor(DiagnosticCategory, levels = DiagnosticCategory),
