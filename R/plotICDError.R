@@ -1,7 +1,7 @@
 #' @rdname plotError
 #' @export
 #'
-plotICDE<- function(errorFile, icdVersion = all, wrongICDType = all, groupICD = FALSE, others = TRUE, topN = 10){
+plotICDError <- function(errorFile, icdVersion = all, wrongICDType = all, groupICD = FALSE, others = TRUE, topN = 10){
   icdVersion <- tolower(deparse(substitute(icdVersion)))
   wrongICDType <- tolower(deparse(substitute(wrongICDType)))
   title <- paste0("Error ICD: Top ",topN)
