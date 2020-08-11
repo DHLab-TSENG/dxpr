@@ -13,9 +13,8 @@ knitr::opts_chunk$set(
 The proposed open-source emr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The emr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.  
 
 ## Feature
-- **Code standardization** Transform codes into uniform format before the integration process.
-- **Data integration** Code classification and data integration.
-- **Exploratory data analysis (EDA) preparation** Transform data format which is fit to others analytical and plotting packages.
+- **Data integration** Transform codes into uniform format before the integration process.
+- **Data Wrangling** Code classification and data integration and transform data format which is fit to others analytical and plotting packages.
 - **Visualization** Provide overviews for diagnoses standardization and data integration.
 
 ## Geting start
