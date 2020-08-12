@@ -19,11 +19,11 @@ The proposed open-source dxpr package is a software tool aimed at expediting an 
 
 ## Geting start
 - Diagnostic part  
-    English: https://dhlab-tseng.github.io/emr/articles/Eng_Diagnosis.html   
-    Chinese: https://dhlab-tseng.github.io/emr/articles/Chi_Diagnosis.html   
+    English: https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html   
+    Chinese: https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html   
 - Procedure part  
-    English: https://dhlab-tseng.github.io/emr/articles/Eng_Procedure.html   
-    Chinese: https://dhlab-tseng.github.io/emr/articles/Chi_Procedure.html  
+    English: https://dhlab-tseng.github.io/dxpr/articles/Eng_Procedure.html   
+    Chinese: https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html  
   
 ## Development version
 
@@ -35,17 +35,17 @@ devtools::install_github("DHLab-TSENG/dxpr")
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-TSENG/emr")
+devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
 ## Overview
 
-<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
 
 ## Usage
 
 ```{r, message = FALSE, warning = FALSE}
-library(emr)  
+library(dxpr)  
  
 head(sampleDxFile)  
 
@@ -87,6 +87,6 @@ plot_groupedData
 ```  
 
 ## Getting help 
-See the `GitHub issues page` (https://github.com/DHLab-CGU/emr/issues) to see open issues and feature requests. 
+See the `GitHub issues page` (https://github.com/DHLab-CGU/dxpr/issues) to see open issues and feature requests. 
 
 

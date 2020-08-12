@@ -1,10 +1,10 @@
-Package: emr
-Title: An analysis tool of Electric Medical Record
-Version: 0.2.0
-Date: 2019-07-09
+Package: dxpr
+Title: An analysis tool for diagnosis and procedure records
+Version: 0.3.0
+Date: 2020-08-12
 Authors@R: c(person("Hsiang-Ju", "Chiu", role = c("aut", "cre"), email = "aibabi3@gmail.com"),
              person("Yi-Ju", "Tseng", role = "aut", email = "yjtseng@mail.cgu.edu.tw"))
-Description: A health data analysis tool of electric medical record for data integration, data wrangling and visualization.
+Description: "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electric medical record. It is used for data integration, data wrangling and visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
