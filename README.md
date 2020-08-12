@@ -22,14 +22,14 @@ visualize clinical data, including diagnosis and procedure records.
 
   - Diagnostic part  
     English:
-    <https://dhlab-tseng.github.io/emr/articles/Eng_Diagnosis.html>  
+    <https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html>  
     Chinese:
-    <https://dhlab-tseng.github.io/emr/articles/Chi_Diagnosis.html>  
+    <https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html>  
   - Procedure part  
     English:
-    <https://dhlab-tseng.github.io/emr/articles/Eng_Procedure.html>  
+    <https://dhlab-tseng.github.io/dxpr/articles/Eng_Procedure.html>  
     Chinese:
-    <https://dhlab-tseng.github.io/emr/articles/Chi_Procedure.html>
+    <https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html>
 
 ## Development version
 
@@ -38,14 +38,43 @@ visualize clinical data, including diagnosis and procedure records.
 devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
+    #> 
+    #>   
+       checking for file ‘/tmp/RtmpCHPJWM/remotes220d81784cb74/DHLab-TSENG-dxpr-fa80e1b/DESCRIPTION’ ...
+      
+    ✓  checking for file ‘/tmp/RtmpCHPJWM/remotes220d81784cb74/DHLab-TSENG-dxpr-fa80e1b/DESCRIPTION’
+    #> 
+      
+    ─  preparing ‘dxpr’:
+    #> 
+      
+       checking DESCRIPTION meta-information ...
+      
+    ✓  checking DESCRIPTION meta-information
+    #> 
+      
+    ─  checking for LF line-endings in source and make files and shell scripts
+    #> 
+      
+    ─  checking for empty or unneeded directories
+    #>    Removed empty directory ‘dxpr/emr-master’
+    #> ─  looking to see if a ‘data/datalist’ file should be added
+    #> 
+      
+    ─  building ‘dxpr_0.3.0.tar.gz’ (1.6s)
+    #> 
+      
+       
+    #> 
+
 ## Overview
 
-<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
 
 ## Usage
 
 ``` r
-library(emr)  
+library(dxpr)  
  
 head(sampleDxFile)  
 #>     ID  ICD       Date
@@ -165,5 +194,6 @@ plot_errorICD
 
 ## Getting help
 
-See the `GitHub issues page` (<https://github.com/DHLab-CGU/emr/issues>)
-to see open issues and feature requests.
+See the `GitHub issues page`
+(<https://github.com/DHLab-CGU/dxpr/issues>) to see open issues and
+feature requests.

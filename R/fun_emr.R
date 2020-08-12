@@ -5,14 +5,14 @@
 #' Common argument of diagnostic functions
 #' @name common_DxArg
 #' @import data.table
-#' @param DxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
-#' @param idColName A column for MemberID of DxDataFile.
-#' @param icdColName A column for ICD of DxDataFile
-#' @param dateColName A column for Date of DxDataFile
+#' @param dxDataFile A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"
+#' @param idColName A column for MemberID of dxDataFile.
+#' @param icdColName A column for ICD of dxDataFile
+#' @param dateColName A column for Date of dxDataFile
 #' @param icd10usingDate ICD-10 using date
 #' @param isDescription Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).
 #' @param groupDataType  Four Stratified methods can chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it set to \code{"ccs"}.
-#' @param CustomGroupingTable Define the grouping categories. `IcdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `IcdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.
+#' @param customGroupingTable Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.
 #' @param selectedCaseFile Table for selectedCases. Default is \code{'NULL'}
 NULL
 
@@ -20,12 +20,12 @@ NULL
 #'
 #' Convert the ICD diagnostic codes to a uniform format
 #'
-#' `IcdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (IcdDxToPheWAS). `IcdDxDecimalToShort` used for grouping to the others classification (IcdDxToCCS, IcdDxToCCSLvl, and IcdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.
+#' `icdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.
 #'
 #'
-#' @name DxUniform
+#' @name dxUniform
 #' @inherit common_DxArg
-#' @param DxDataFile A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"
+#' @param dxDataFile A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"
 #' @importFrom utils head
 #' @return Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes. 2) \code{Error}: Potential error codes.
 #' @examples
@@ -35,24 +35,24 @@ NULL
 #'
 #' # convert the diagnostic codes to the decimal format
 #'
-#' IcdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
+#' icdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
 #'
 #' # convert the diagnostic codes to the short format
 #'
-#' IcdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
+#' icdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
 NULL
 
 #' Code classification for CCS
 #'
 #' The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 #'
-#' These CCS functions (IcdDxToCCS and IcdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
+#' These CCS functions (icdDxToCCS and icdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
 #'
-#' @name DxCCS
+#' @name dxCCS
 #' @inherit common_DxArg
 #' @param CCSLevel By default it set to \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.
-#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
-#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxComorbid}}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{dxUniform}}.
+#' @seealso Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{dxComorbid}}
 #' @examples
 #' # sample file for example
 #'
@@ -60,11 +60,11 @@ NULL
 #'
 #' # Group diagnostic codes into single level of CCS classification
 #'
-#' IcdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 #' # Group diagnostic codes into multiple levels of CCS classification
 #'
-#' IcdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+#' icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 NULL
 
 #' Code classification for PheWAS
@@ -73,10 +73,10 @@ NULL
 #'
 #' Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
 #'
-#' @name DxPheWAS
+#' @name dxPheWAS
 #' @inherit common_DxArg
-#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
-#' @seealso Other code classification functions: \code{\link{DxCustom}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+#' @seealso Other code classification functions: \code{\link{dxCustom}}, \code{\link{dxComorbid}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -84,19 +84,19 @@ NULL
 #'
 #' # Group diagnostic codes into PheWAS
 #'
-#' IcdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+#' icdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 NULL
 
 #' Code classification for customized group
 #'
 #' Researches can define the grouping categories and therefore have more flexible for grouping ICD diagnostic codes.
 #'
-#' There are two functions for customized defined grouping method, the customized category grouping is based on precise (`IcdDxToCustom`) and fuzzy (`IcdDxToCustomGrep`) grouping method, respectively.
+#' There are two functions for customized defined grouping method, the customized category grouping is based on precise (`icdDxToCustom`) and fuzzy (`icdDxToCustomGrep`) grouping method, respectively.
 #'
-#' @name DxCustom
+#' @name dxCustom
 #' @inherit common_DxArg
-#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID.
-#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxComorbid}}, \code{\link{DxCCS}}
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID.
+#' @seealso Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxComorbid}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -108,7 +108,7 @@ NULL
 #'                             ICD = c("N181","5853","5854","5855","5856","5859"),
 #'                             stringsAsFactors = FALSE)
 #'
-#' IcdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+#' icdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
 #'
 #' # Group diagnostic codes into "Chronic kidney disease" with fuzzy grouping method
 #'
@@ -116,7 +116,7 @@ NULL
 #'                         grepIcd = "^585|^N18",
 #'                         stringsAsFactors = FALSE)
 #'
-#' IcdDxToCustomGrep(sampleDxFile,ID, ICD, Date,CustomGroupingTable = grepTable)
+#' icdDxToCustomGrep(sampleDxFile,ID, ICD, Date,CustomGroupingTable = grepTable)
 #'
 NULL
 
@@ -126,13 +126,13 @@ NULL
 #'
 #' Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
 #'
-#' @name DxComorbid
+#' @name dxComorbid
 #' @inherit common_DxArg
 #' @param comorbidMethod Three comorbidity methods: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).
 #' @param isDescription Category or description of standard classification methods for ICD diagnostic codes. By default it is set to \code{FALSE} ( Comorbidity categories).
 #'
-#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{DxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
-#' @seealso Other code classification functions: \code{\link{DxPheWAS}}, \code{\link{DxCustom}}, \code{\link{DxCCS}}
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
+#' @seealso Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{DxCCS}}
 #' @examples
 #' # sample file for example
 #'
@@ -140,7 +140,7 @@ NULL
 #'
 #' # Group diagnostic codes into charlson comorbidity categories
 #'
-#' IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+#' icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 NULL
 
 #' Data integration for case selection
@@ -149,14 +149,14 @@ NULL
 #'
 #' User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the options to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.
 #'
-#' @name selectCase
+#' @name selectCases
 #' @inherit common_DxArg
 #' @param caseCondition Certain diseases of standard groups.
 #' @param caseCount Minimum number of diagnoses.
 #' @param PeriodRange Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.
 #' @param CaseName Name of selected cases. By default, it set to \code{"selected"}.
 #' @return A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}
-#' @seealso Other data integration functions: \code{\link{DataSplit}}, \code{\link{recordPeriod}}, \code{\link{era}}
+#' @seealso Other data integration functions: \code{\link{dataSplit}}, \code{\link{recordPeriod}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -164,7 +164,7 @@ NULL
 #'
 #' #select case with "Diseases of the urinary system" by level 2 of CCS classification
 #'
-#' selectCases(DxDataFile = sampleDxFile,
+#' selectCases(dxDataFile = sampleDxFile,
 #'             ID, ICD, Date,
 #'             groupDataType = ccslvl2,
 #'             icd10usingDate = "2015/10/01",
@@ -178,12 +178,12 @@ NULL
 #'
 #' In most condition, users need to extract data by a specific clinical event (e.g., first diagnosis dates of chronic diseases). Users can define a table of clinical index dates of each patient. The date can be generated by `selectCases` function or first/last admission date by `patientRecordDate` function.
 #'
-#' @name DataSplit
+#' @name dataSplit
 #' @inherit common_DxArg
 #' @param Gap Gap length of the window. Default set to \code{30}.
 #' @param indexDateFile Diagnostic dates for each patient in an observed period.
-#' @return A new \code{data.table} based on \code{DxDataFile} and classified by \code{indexDateFile} for each patient.
-#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{recordPeriod}}, \code{\link{era}}
+#' @return A new \code{data.table} based on \code{dxDataFile} and classified by \code{indexDateFile} for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCases}}, \code{\link{recordPeriod}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -202,7 +202,7 @@ NULL
 #'
 #' splitedData <- splitDataByDate(SampleforCertainPatient, ID, ICD, Date,
 #'                                indexDateFile = indexDateTable,
-#'                                Gap = 30)
+#'                                gap = 30)
 #' splitedData[15:19,]
 NULL
 
@@ -212,10 +212,10 @@ NULL
 #'
 #' The function queries the earliest and latest admission date for each patient.
 #'
-#' @name recordPeriod
+#' @name eligiblePeriod
 #' @inherit common_DxArg
-#' @return A new \code{data.table} based on \code{DxDataFile} with the earliest and latest admission date for each patient.
-#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{era}}
+#' @return A new \code{data.table} based on \code{dxDataFile} with the earliest and latest admission date for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCases}}, \code{\link{dataSplit}}, \code{\link{era}}
 #' @examples
 #' # sample file for example
 #'
@@ -223,7 +223,7 @@ NULL
 #'
 #' # Earliest and latest admission date for each patient
 #'
-#' record <- patientRecordDate(sampleDxFile, ID, ICD, Date)
+#' record <- getEligiblePeriod(sampleDxFile, ID, Date)
 #' head(record)
 NULL
 
@@ -237,8 +237,8 @@ NULL
 #' @importFrom stats na.omit
 #' @inherit common_DxArg
 #' @param gapDate Length of condition gap, By default, it set to 30 days \code{"30"}.
-#' @return A new \code{data.table} based on classifying \code{DxDataFile} and calculated condition era by \code{groupDataType} for each patient.
-#' @seealso Other data integration functions: \code{\link{selectCase}}, \code{\link{DataSplit}}, \code{\link{recordPeriod}}
+#' @return A new \code{data.table} based on classifying \code{dxDataFile} and calculated condition era by \code{groupDataType} for each patient.
+#' @seealso Other data integration functions: \code{\link{selectCases}}, \code{\link{dataSplit}}, \code{\link{recordPeriod}}
 #' @examples
 #' # sample file for example
 #'
@@ -282,7 +282,7 @@ NULL
 #' @name dataWide
 #' @inherit common_DxArg
 #' @param numericOrBinary Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.
-#' @return A new \code{data.table} based on classifying \code{DxDataFile} and converted the dataset into a wide format dataset.
+#' @return A new \code{data.table} based on classifying \code{dxDataFile} and converted the dataset into a wide format dataset.
 #' @examples
 #' # sample file for example
 #'
@@ -316,7 +316,7 @@ NULL
 #' @import ggplot2
 #' @importFrom stats reorder
 #' @name plotError
-#' @param errorFile Error file from ICD uniform function (`IcdDxDecimalToShort` or `IcdDxShortToDecimal`)
+#' @param errorFile Error file from ICD uniform function (`icdDxDecimalToShort` or `icdDxShortToDecimal`)
 #' @param ICDVersion ICD version: ICD9 (\code{'9'}), ICD10 (\code{'10'}, and all version \code{'all'}
 #' @param wrongICDType Wrong ICD type: wrong version (\code{'version'}), wrong format (\code{'format'}, and both wrong type \code{'all'}
 #' @param groupICD Only ICD-9 codes can group, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE
@@ -330,7 +330,7 @@ NULL
 #'
 #' # Data of diagnosis codes with potential error
 #'
-#' error <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+#' error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
 #'
 #' # Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes
 #'
@@ -361,7 +361,7 @@ NULL
 #' @import ggplot2
 #' @importFrom stats chisq.test
 #' @importFrom stats fisher.test
-#' @name PlotGroupedData
+#' @name plotDiagCat
 #' @param groupedDataWide GroupedData file from functions of code classification (four stPercentagegies)
 #' @param TopN Default is Top "10"
 #' @param limitFreq The minimum frequency set to "0.01"; In other words, the limit at the same diagnostic category must have 1 percent patient in the total patient.
@@ -388,7 +388,7 @@ NULL
 #'
 #' # Select case with "Diseases of the urinary system" by level 2 of CCS classification
 #'
-#' selectedCaseFile <- selectCases(DxDataFile = sampleDxFile,
+#' selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
 #'                                 idColName = ID,
 #'                                 icdColName = ICD,
 #'                                 dateColName = Date,
@@ -421,10 +421,10 @@ NULL
 #' Common argument of procedure functions
 #' @name common_PrArg
 #' @import data.table
-#' @param PrDataFile A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"
-#' @param idColName A MemberID column of PrDataFile
-#' @param icdColName A ICD column of PrDataFile
-#' @param dateColName A Date column of PrDataFile
+#' @param prDataFile A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"
+#' @param idColName A MemberID column of prDataFile
+#' @param icdColName A ICD column of prDataFile
+#' @param dateColName A Date column of prDataFile
 #' @param icd10usingDate ICD-10 using date
 #' @param isDescription Category or description of standard classification methods for ICD procedure codes. By default, it set to \code{True} (standard description).
 NULL
@@ -437,8 +437,8 @@ NULL
 #' These transformative function does not only convert the ICD to uniform format code but also check the potential coding error of the ICD codes’ format or version.
 #'
 #' @inherit common_PrArg
-#' @name PrUniform
-#' @param PrDataFile A file of clinical procedure data with at least 2 columns: "ICD" and "Date"
+#' @name prUniform
+#' @param prDataFile A file of clinical procedure data with at least 2 columns: "ICD" and "Date"
 #' @return Two new \code{data.table}s. 1) \code{ICD}: Uniform format procedure codes. 2) \code{Error}: Potential error codes.
 #' @examples
 #' # sample file for example
@@ -447,11 +447,11 @@ NULL
 #'
 #' # convert the procedure codes to the short format
 #'
-#' IcdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
+#' icdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
 #'
 #' # convert the procedure codes to the decimal format
 #'
-#' IcdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")
+#' icdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")
 NULL
 
 #' Code classification for CCS
@@ -461,10 +461,10 @@ NULL
 #' These CCS functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.
 #'
 #' @importFrom stats complete.cases
-#' @name PrCCS
+#' @name prCCS
 #' @inherit common_PrArg
 #' @param CCSLevel By default, it set to \code{1}. CCS multiple level:1~3, CCS for ICD-10-CM only has 1~2 multiple levels.
-#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
 #' @seealso see other code classification: \code{\link{PC}}
 #' @examples
 #' # sample file for example
@@ -473,11 +473,11 @@ NULL
 #'
 #' # Group procedure codes into single level of CCS classification
 #'
-#' IcdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 #' # Group procedure codes into multiple levels of CCS classification
 #'
-#' IcdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+#' icdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 #'
 NULL
 
@@ -490,7 +490,7 @@ NULL
 #' @importFrom stats complete.cases
 #' @name PC
 #' @inherit common_PrArg
-#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+#' @return Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
 #' @seealso see other code classification: \code{\link{PrCCS}}
 #' @examples
 #' # sample file for example
@@ -499,6 +499,6 @@ NULL
 #'
 #' # Group procedure codes into procedure class classification
 #'
-#' IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 #'
 NULL

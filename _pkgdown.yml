@@ -1,11 +1,11 @@
-url: https://dhlab-cgu.github.io/emr/
+url: https://dhlab-tseng.github.io/dxpr/
 
-title: emr
+title: dxpr
 
 template:
   params:
     docsearch:
-    index_name: emr
+    index_name: dxpr
 
 articles:
 - title: All vignettes
@@ -18,56 +18,57 @@ articles:
 
 reference:
 
-- title: I. Code standardization
+- title: I. Data integration
   desc: ~
   contents:
-  - IcdDxShortToDecimal
-  - IcdDxDecimalToShort
+  - icdDxShortToDecimal
+  - icdDxDecimalToShort
+  - icdDxToCCS
+  - icdDxToCCSLvl
+  - icdDxToPheWAS
+  - icdDxToComorbid
+  - icdDxToCustom
+  - icdDxToCustomGrep
 
-- title: II. Data integration
+- title: II. Data wrangling
   desc: ~
   contents:
-  - IcdDxToCCS
-  - IcdDxToCCSLvl
-  - IcdDxToPheWAS
-  - IcdDxToComorbid
-  - IcdDxToCustom
-  - IcdDxToCustomGrep
   - selectCases
-  - patientRecordDate
+  - getEligiblePeriod
   - splitDataByDate
   - getConditionEra
-
-- title: III. EDA preparation
-  desc: ~
-  contents:
   - groupedDataLongToWide
 
-- title: IV. Visualization
+- title: III. Visualization
   desc: ~
   contents:
-  - plot_errorICD
-  - plot_groupedData
+  - plotICDError
+  - plotDiagCat
 
 - title: ICD-PCS function
   desc: ~
   contents:
-  - IcdPrShortToDecimal
-  - IcdPrDecimalToShort
-  - IcdPrToCCS
-  - IcdPrToCCSLvl
-  - IcdPrToProcedureClass
+  - icdPrShortToDecimal
+  - icdPrDecimalToShort
+  - icdPrToCCS
+  - icdPrToCCSLvl
+  - icdPrToProcedureClass
 
 - title: Data - Diagnosis
   desc: ~
   contents:
-  - sampleDxFile
   - Dx_dataset_standardization
   - Dx_dataset_classification
 
 - title: Data - Procedure
   desc: ~
   contents:
-  - samplePrFile
   - Pr_dataset_standardization
   - Pr_dataset_classification
+
+- title: Data - Sample File
+  desc: ~
+  contents:
+  - sampleDxFile
+  - samplePrFile
+  - sampleMIMICIII

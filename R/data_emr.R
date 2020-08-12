@@ -71,7 +71,7 @@ NULL
 
 #' Sample file for demo with diagnostic codes
 #'
-#' Demo for code standardization, data integration, exploratory data analysis (EDA) preparation and visualization.
+#' Demo for data integration, data wrangling and visualization.
 #'
 #' @docType data
 #' @name sampleDxFile
@@ -120,7 +120,7 @@ NULL
 
 #' Sample file for demo with procedure codes
 #'
-#' Demo for code standardization, data integration.
+#' Demo for data integration.
 #'
 #' @docType data
 #' @name samplePrFile
@@ -129,8 +129,10 @@ NULL
 
 #' Sample file for patients with patent ductus arteriosus (PDA) from MIMIC-III.
 #'
+#' Demo for data analysis.
+#'
 #' @docType data
-#' @name sample_MIMICIII
+#' @name sampleMIMICIII
 #' @format A data table with 45674 rows and 8 variables
 #' @source Pollard, T. J., & Johnson, A. E. W. The MIMIC-III Clinical Database {http://dx.doi.org/10.13026/C2XW26} (2016)
 #'
