@@ -8,34 +8,34 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-## emr
+## dxpr
 # I. Introduction
-The proposed open-source emr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The emr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.  
+The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The dxpr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.  
 
 ## Feature
-- **Data integration** Transform codes into uniform format before the integration process.
-- **Data Wrangling** Code classification and data integration and transform data format which is fit to others analytical and plotting packages.
-- **Visualization** Provide overviews for diagnoses standardization and data integration.
+- **Data integration** Transform codes into uniform format and group code into several categories.  
+- **Data Wrangling**  Generate statistical information about dataset and transform data into wide format, which fits better to other analytical and plotting packages.
+- **Visualization** Provide overviews for the result of diagnoses standardization and the grouped categories of diagnosis codes.
 
 ## Geting start
 - Diagnostic part  
-    English: https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html   
-    Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html   
+    English: https://dhlab-tseng.github.io/emr/articles/Eng_Diagnosis.html   
+    Chinese: https://dhlab-tseng.github.io/emr/articles/Chi_Diagnosis.html   
 - Procedure part  
-    English: https://dhlab-cgu.github.io/emr/articles/Eng_Procedure.html   
-    Chinese: https://dhlab-cgu.github.io/emr/articles/Chi_Procedure.html  
+    English: https://dhlab-tseng.github.io/emr/articles/Eng_Procedure.html   
+    Chinese: https://dhlab-tseng.github.io/emr/articles/Chi_Procedure.html  
   
 ## Development version
 
 ```r
 # install.packages("devtools")
-devtools::install_github("DHLab-CGU/emr")
+devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-CGU/emr")
+devtools::install_github("DHLab-TSENG/emr")
 ```
 
 ## Overview
@@ -49,25 +49,37 @@ library(emr)
  
 head(sampleDxFile)  
 
-# I. Code standardization
-short <- IcdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+# I. Data integration
+#   1. Data standardization
+short <- icdDxDecimalToShort(dxDataFile = sampleDxFile, 
+                             icdColName = ICD, 
+                             dateColName = Date,
+                             icd10usingDate = "2015/10/01")
 head(short$ICD)
 
 tail(short$Error)
 
-# II. Data integration
-ELIX <- IcdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
+#   2. Data grouping
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile, 
+                        idColName = ID, 
+                        icdColName = ICD, 
+                        dateColName = Date, 
+                        icd10usingDate = "2015/10/01", 
+                        comorbidMethod = elix)
 head(ELIX$groupedDT)
 
 head(ELIX$summarised_groupedDT)
 
-# III. EDA preparation
-groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015/10/01", groupDataType = Charlson)
-head(groupedData_Wide[,1:4])
+# II. Data wrangling
+groupedDataWide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
+                                         idColName = ID, 
+                                         categoryColName = Comorbidity, 
+                                         dateColName = Date)
+head(groupedDataWide[,1:4])
 
 # IV. Visualization
-plot_errorICD <- plot_errorICD(short$Error)  
-plot_groupedData <- plot_groupedData(groupedData_Wide)
+plot_errorICD <- plotICDError(short$Error)  
+plot_groupedData <- plotDiagCat(groupedDataWide, ID)
 
 plot_errorICD
 

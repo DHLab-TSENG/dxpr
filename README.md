@@ -1,45 +1,48 @@
 
-emr
----
+## dxpr
 
-I. Introduction
-===============
+# I. Introduction
 
-The proposed open-source emr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The emr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.
+The proposed open-source dxpr package is a software tool aimed at
+expediting an integrated analysis of electronic health records (EHRs).
+The dxpr package provides mechanisms to integrate, analyze, and
+visualize clinical data, including diagnosis and procedure records.
 
-Feature
--------
+## Feature
 
--   **Code standardization** Transform codes into uniform format before the integration process.
--   **Data integration** Code classification and data integration.
--   **Exploratory data analysis (EDA) preparation** Transform data format which is fit to others analytical and plotting packages.
--   **Visualization** Provide overviews for diagnoses standardization and data integration.
+  - **Data integration** Transform codes into uniform format and group
+    code into several categories.  
+  - **Data Wrangling** Generate statistical information about dataset
+    and transform data into wide format, which fits better to other
+    analytical and plotting packages.
+  - **Visualization** Provide overviews for the result of diagnoses
+    standardization and the grouped categories of diagnosis codes.
 
-Getting started
-------------
+## Geting start
 
--   Diagnostic part
-    English: <https://DHLab-TSENG.github.io/emr/articles/Eng_Diagnosis.html>
-    Chinese: <https://DHLab-TSENG.github.io/emr/articles/Chi_Diagnosis.html>
--   Procedure part
-    English: <https://DHLab-TSENG.github.io/emr/articles/Eng_Procedure.html>
-    Chinese: <https://DHLab-TSENG.github.io/emr/articles/Chi_Procedure.html>
+  - Diagnostic part  
+    English:
+    <https://dhlab-tseng.github.io/emr/articles/Eng_Diagnosis.html>  
+    Chinese:
+    <https://dhlab-tseng.github.io/emr/articles/Chi_Diagnosis.html>  
+  - Procedure part  
+    English:
+    <https://dhlab-tseng.github.io/emr/articles/Eng_Procedure.html>  
+    Chinese:
+    <https://dhlab-tseng.github.io/emr/articles/Chi_Procedure.html>
 
-Development version
--------------------
+## Development version
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("DHLab-TSENG/emr")
+devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
-Overview
---------
+## Overview
 
-<img src="https://github.com/DHLab-TSENG/dhlab-TSENG.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/emr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
 
-Usage
------
+## Usage
 
 ``` r
 library(emr)  
@@ -53,8 +56,12 @@ head(sampleDxFile)
 #> 5: A13 Z992 2025-02-02
 #> 6: A15 Z992 2023-05-12
 
-# I. Code standardization
-short <- icdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+# I. Data integration
+#   1. Data standardization
+short <- icdDxDecimalToShort(dxDataFile = sampleDxFile, 
+                             icdColName = ICD, 
+                             dateColName = Date,
+                             icd10usingDate = "2015/10/01")
 head(short$ICD)
 #>     ICD
 #> 1: Z992
@@ -73,8 +80,13 @@ tail(short$Error)
 #> 5:  755.2     3            ICD 9  Wrong format     755.29
 #> 6:   7552     2            ICD 9  Wrong format      75529
 
-# II. Data integration
-ELIX <- icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015/10/01", elix)
+#   2. Data grouping
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile, 
+                        idColName = ID, 
+                        icdColName = ICD, 
+                        dateColName = Date, 
+                        icd10usingDate = "2015/10/01", 
+                        comorbidMethod = elix)
 head(ELIX$groupedDT)
 #>    Short  ID  ICD       Date Comorbidity
 #> 1:  Z992  A2 Z992 2020-05-22    RENLFAIL
@@ -93,26 +105,29 @@ head(ELIX$summarised_groupedDT)
 #> 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days
 #> 6: A13    RENLFAIL    2006-04-29  2025-02-02     5 6854 days
 
-# III. EDA preparation
-groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015/10/01", groupDataType = Charlson)
-head(groupedData_Wide[,1:4])
-#>    ID Cancer Cerebrovascular Disease Chronic Pulmonary Disease
-#> 1  A0  FALSE                   FALSE                     FALSE
-#> 2  A1  FALSE                   FALSE                     FALSE
-#> 3 A10  FALSE                   FALSE                     FALSE
-#> 4 A11  FALSE                   FALSE                     FALSE
-#> 5 A12  FALSE                   FALSE                     FALSE
-#> 6 A13  FALSE                   FALSE                     FALSE
+# II. Data wrangling
+groupedDataWide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
+                                         idColName = ID, 
+                                         categoryColName = Comorbidity, 
+                                         dateColName = Date)
+head(groupedDataWide[,1:4])
+#>     ID  ARTH CHRNLUNG  DMCX
+#> 1:  A0 FALSE    FALSE FALSE
+#> 2:  A1 FALSE    FALSE FALSE
+#> 3: A10 FALSE    FALSE FALSE
+#> 4: A11 FALSE    FALSE FALSE
+#> 5: A12 FALSE    FALSE FALSE
+#> 6: A13 FALSE    FALSE FALSE
 
 # IV. Visualization
-plot_errorICD <- plot_errorICD(short$Error)  
-plot_groupedData <- plot_groupedData(groupedData_Wide)
+plot_errorICD <- plotICDError(short$Error)  
+plot_groupedData <- plotDiagCat(groupedDataWide, ID)
 
 plot_errorICD
 #> $graph
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
     #> 
     #> $ICD
@@ -127,29 +142,28 @@ plot_errorICD
     #>  8:  V24.1     6       72.48%           ICD 10 Wrong version           
     #>  9:  A0105     5       77.06%            ICD 9 Wrong version           
     #> 10:    001     5       81.65%            ICD 9  Wrong format       0019
-    #> 11: Others    20         100%            ICD 9  Wrong format
-
+    #> 11: others    20         100%            ICD 9  Wrong format
+    
     plot_groupedData
     #> $graph
 
-![](README_files/figure-markdown_github/unnamed-chunk-2-2.png)
+![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
     #> 
     #> $sigCate
-    #>                              DiagnosticCategory  N Percentage
-    #>  1:                               Renal Disease 24     63.16%
-    #>  2:                                      Cancer 10     26.32%
-    #>  3:                 Diabetes with complications  7     18.42%
-    #>  4: Connective Tissue Disease-Rheumatic Disease  3      7.89%
-    #>  5:                  Periphral Vascular Disease  2      5.26%
-    #>  6:                     Cerebrovascular Disease  1      2.63%
-    #>  7:                   Chronic Pulmonary Disease  1      2.63%
-    #>  8:            Moderate or Severe Liver Disease  1      2.63%
-    #>  9:                   Paraplegia and Hemiplegia  1      2.63%
-    #> 10:                        Peptic Ulcer Disease  1      2.63%
+    #>     DiagnosticCategory  N Percentage
+    #>  1:           RENLFAIL 24     63.16%
+    #>  2:              TUMOR  6     15.79%
+    #>  3:               ARTH  5     13.16%
+    #>  4:              LYMPH  4     10.53%
+    #>  5:              PSYCH  4     10.53%
+    #>  6:               DRUG  3      7.89%
+    #>  7:              NEURO  3      7.89%
+    #>  8:               PARA  2      5.26%
+    #>  9:           PERIVASC  2      5.26%
+    #> 10:              VALVE  2      5.26%
 
-Getting help
-------------
+## Getting help
 
-See the `GitHub issues page` (<https://github.com/DHLab-CGU/emr/issues>) to see open issues and feature requests.
-
+See the `GitHub issues page` (<https://github.com/DHLab-CGU/emr/issues>)
+to see open issues and feature requests.
