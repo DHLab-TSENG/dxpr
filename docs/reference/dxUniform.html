@@ -6,25 +6,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Code format transformation — dxUniform • emr</title>
+<title>Code format transformation — dxUniform • dxpr</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,7 +39,8 @@
 <meta property="og:title" content="Code format transformation — dxUniform" />
 
 <meta property="og:description" content="Convert the ICD diagnostic codes to a uniform format" />
-<meta name="twitter:card" content="summary" />
+
+
 
 
 
@@ -52,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,8 +70,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">emr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">dxpr</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -81,31 +86,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Chi_Diagnosis.html">Get started with emr: Diagnosis (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Chi_Procedure.html">Get started with emr: Procedure (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Diagnosis.html">Get started with emr: Diagnosis</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Procedure.html">Get started with emr: Procedure</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/DHLab-TSENG/emr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -120,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code format transformation</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxDecimalToShort.R'><code>R/icdDxDecimalToShort.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxShortToDecimal.R'><code>R/icdDxShortToDecimal.R</code></a></small>
     <div class="hidden name"><code>dxUniform.Rd</code></div>
     </div>
 
@@ -145,19 +137,15 @@
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>Column name for ICD of dxDataFile</p></td>
+      <td><p>A column for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name for Date of dxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdVerColName</th>
-      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>A column for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>The date that ICD-10 was started using</p></td>
+      <td><p>ICD-10 using date</p></td>
     </tr>
     </table>
     
@@ -167,7 +155,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>`icdDxShortToDecimal` is used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` is used for grouping to the other classifications (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function do not only convert the ICD codes to uniform format codes but also check potential coding error of the ICD codes’ format or version.</p>
+    <p>`icdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -182,87 +170,15 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># convert the diagnostic codes to the decimal format</span>
 
-<span class='fu'>icdDxShortToDecimal</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>, <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>, <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
-#&gt;         ICD
-#&gt;   1:  Z99.2
-#&gt;   2:  Z99.2
-#&gt;   3:  Z99.2
-#&gt;   4:  Z99.2
-#&gt;   5:  Z99.2
-#&gt;  ---       
-#&gt; 296:    650
-#&gt; 297:    650
-#&gt; 298: 123.45
-#&gt; 299: 123.45
-#&gt; 300: 123.45
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'>
+<span class='fu'>icdDxShortToDecimal</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(setDT(dxDataFile), , dataCol, with = FALSE): column(s) not found: "2015/10/01"</span></div><div class='input'>
 <span class='co'># convert the diagnostic codes to the short format</span>
 
-<span class='fu'>icdDxDecimalToShort</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>, <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>, <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
-#&gt;         ICD
-#&gt;   1:   Z992
-#&gt;   2:   Z992
-#&gt;   3:   Z992
-#&gt;   4:   Z992
-#&gt;   5:   Z992
-#&gt;  ---       
-#&gt; 296:    650
-#&gt; 297:    650
-#&gt; 298: 123.45
-#&gt; 299: 123.45
-#&gt; 300: 123.45
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div></pre>
+<span class='fu'>icdDxDecimalToShort</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(setDT(dxDataFile), , dataCol, with = FALSE): column(s) not found: "2015/10/01"</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -273,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

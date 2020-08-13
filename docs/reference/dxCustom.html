@@ -6,25 +6,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Code classification for customized group — dxCustom • emr</title>
+<title>Code classification for customized group — dxCustom • dxpr</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,7 +39,8 @@
 <meta property="og:title" content="Code classification for customized group — dxCustom" />
 
 <meta property="og:description" content="Researches can define the grouping categories and therefore have more flexible for grouping ICD diagnostic codes." />
-<meta name="twitter:card" content="summary" />
+
+
 
 
 
@@ -52,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,8 +70,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">emr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">dxpr</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -81,31 +86,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Chi_Diagnosis.html">Get started with emr: Diagnosis (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Chi_Procedure.html">Get started with emr: Procedure (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Diagnosis.html">Get started with emr: Diagnosis</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Procedure.html">Get started with emr: Procedure</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/DHLab-TSENG/emr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -120,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code classification for customized group</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxToCustom.R'><code>R/icdDxToCustom.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxToCustomGrep.R'><code>R/icdDxToCustomGrep.R</code></a></small>
     <div class="hidden name"><code>dxCustom.Rd</code></div>
     </div>
 
@@ -141,29 +133,29 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>Column name for Member ID of dxDataFile</p></td>
+      <td><p>A column for MemberID of dxDataFile.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>Column name for ICD of dxDataFile</p></td>
+      <td><p>A column for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name for Date of dxDataFile</p></td>
+      <td><p>A column for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
-      <td><p>Only be used if customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>) is selected. Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings expressed in regular expression.</p></td>
+      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by member ID.</p>
+    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -171,7 +163,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code>, <code><a href='dxComorbid.html'>dxComorbid</a></code>, <code><a href='dxCCS.html'>dxCCS</a></code></p></div>
+    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code>, <code><a href='dxComorbid.html'>dxComorbid</a></code>, <code>DxCCS</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -190,100 +182,20 @@
                             <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N181"</span>,<span class='st'>"5853"</span>,<span class='st'>"5854"</span>,<span class='st'>"5855"</span>,<span class='st'>"5856"</span>,<span class='st'>"5859"</span>),
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>icdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>customGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDT
-#&gt;         ICD  ID       Date Group
-#&gt;   1:   Z992  A2 2020-05-22  &lt;NA&gt;
-#&gt;   2:   Z992  A5 2020-01-24  &lt;NA&gt;
-#&gt;   3:   Z992  A8 2015-10-27  &lt;NA&gt;
-#&gt;   4:   Z992 A13 2020-04-26  &lt;NA&gt;
-#&gt;   5:   Z992 A13 2025-02-02  &lt;NA&gt;
-#&gt;  ---                            
-#&gt; 296:    650  C2 2017-10-10  &lt;NA&gt;
-#&gt; 297:    650  D4 2022-04-04  &lt;NA&gt;
-#&gt; 298: 123.45  C3 2022-09-28  &lt;NA&gt;
-#&gt; 299: 123.45  D8 2018-06-17  &lt;NA&gt;
-#&gt; 300: 123.45  C0 2017-05-09  &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;      ID                  Group firstCaseDate endCaseDate count    period
-#&gt;  1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
-#&gt;  2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
-#&gt;  3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days
-#&gt;  4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days
-#&gt;  5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days
-#&gt;  6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2 1394 days
-#&gt;  7: A14 Chronic kidney disease    2011-11-07  2013-07-26     2  627 days
-#&gt;  8: A17 Chronic kidney disease    2007-02-19  2013-09-30     2 2415 days
-#&gt;  9: A18 Chronic kidney disease    2007-04-05  2012-02-10     2 1772 days
-#&gt; 10:  A2 Chronic kidney disease    2011-09-20  2015-01-06     3 1204 days
-#&gt; 11:  A3 Chronic kidney disease    2010-11-12  2014-02-24     2 1200 days
-#&gt; 12:  A4 Chronic kidney disease    2015-03-09  2015-03-09     1    0 days
-#&gt; 13:  A5 Chronic kidney disease    2010-08-24  2010-08-24     1    0 days
-#&gt; 14:  A6 Chronic kidney disease    2007-10-01  2007-10-01     1    0 days
-#&gt; 15:  A7 Chronic kidney disease    2007-02-01  2013-12-16     2 2510 days
-#&gt; 16:  A8 Chronic kidney disease    2014-08-20  2014-08-20     1    0 days
-#&gt; </div><div class='input'>
+<span class='fu'>icdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; <span class='error'>Error in icdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable): unused argument (CustomGroupingTable = groupingTable)</span></div><div class='input'>
 <span class='co'># Group diagnostic codes into "Chronic kidney disease" with fuzzy grouping method</span>
 
 <span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Group</span> <span class='kw'>=</span> <span class='st'>"Chronic kidney disease"</span>,
                         <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^585|^N18"</span>,
                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>icdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,<span class='kw'>customGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; $groupedDT
-#&gt;       ID    ICD       Date Group
-#&gt;   1:  A2   Z992 2020-05-22  &lt;NA&gt;
-#&gt;   2:  A5   Z992 2020-01-24  &lt;NA&gt;
-#&gt;   3:  A8   Z992 2015-10-27  &lt;NA&gt;
-#&gt;   4: A13   Z992 2020-04-26  &lt;NA&gt;
-#&gt;   5: A13   Z992 2025-02-02  &lt;NA&gt;
-#&gt;  ---                            
-#&gt; 296:  C2    650 2017-10-10  &lt;NA&gt;
-#&gt; 297:  D4    650 2022-04-04  &lt;NA&gt;
-#&gt; 298:  C3 123.45 2022-09-28  &lt;NA&gt;
-#&gt; 299:  D8 123.45 2018-06-17  &lt;NA&gt;
-#&gt; 300:  C0 123.45 2017-05-09  &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;      ID                  Group firstCaseDate endCaseDate count    period
-#&gt;  1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
-#&gt;  2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
-#&gt;  3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days
-#&gt;  4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days
-#&gt;  5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days
-#&gt;  6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2 1394 days
-#&gt;  7: A14 Chronic kidney disease    2011-11-07  2013-07-26     2  627 days
-#&gt;  8: A17 Chronic kidney disease    2007-02-19  2013-09-30     2 2415 days
-#&gt;  9: A18 Chronic kidney disease    2007-04-05  2012-02-10     2 1772 days
-#&gt; 10:  A2 Chronic kidney disease    2011-09-20  2015-01-06     3 1204 days
-#&gt; 11:  A3 Chronic kidney disease    2010-11-12  2014-02-24     2 1200 days
-#&gt; 12:  A4 Chronic kidney disease    2015-03-09  2015-03-09     1    0 days
-#&gt; 13:  A5 Chronic kidney disease    2010-08-24  2010-08-24     1    0 days
-#&gt; 14:  A6 Chronic kidney disease    2007-10-01  2007-10-01     1    0 days
-#&gt; 15:  A7 Chronic kidney disease    2007-02-01  2013-12-16     2 2510 days
-#&gt; 16:  A8 Chronic kidney disease    2014-08-20  2014-08-20     1    0 days
-#&gt; 17:  B0 Chronic kidney disease    2015-12-26  2023-08-28     4 2802 days
-#&gt; 18:  B1 Chronic kidney disease    2016-08-08  2024-03-04     5 2765 days
-#&gt; 19:  B2 Chronic kidney disease    2016-03-20  2024-09-20     5 3106 days
-#&gt; 20:  B3 Chronic kidney disease    2019-05-07  2025-05-25     6 2210 days
-#&gt; 21:  B4 Chronic kidney disease    2015-12-02  2025-07-21     6 3519 days
-#&gt;      ID                  Group firstCaseDate endCaseDate count    period
-#&gt; </div><div class='input'>
+<span class='fu'>icdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,<span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; <span class='error'>Error in icdDxToCustomGrep(sampleDxFile, ID, ICD, Date, CustomGroupingTable = grepTable): unused argument (CustomGroupingTable = grepTable)</span></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -294,7 +206,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

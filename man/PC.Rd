@@ -9,18 +9,20 @@ icdPrToProcedureClass(prDataFile, idColName, icdColName, dateColName,
   icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE)
 }
 \arguments{
-\item{idColName}{A MemberID column of PrDataFile}
+\item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{icdColName}{A ICD column of PrDataFile}
+\item{idColName}{A MemberID column of prDataFile}
 
-\item{dateColName}{A Date column of PrDataFile}
+\item{icdColName}{A ICD column of prDataFile}
+
+\item{dateColName}{A Date column of prDataFile}
 
 \item{icd10usingDate}{ICD-10 using date}
 
 \item{isDescription}{Category or description of standard classification methods for ICD procedure codes. By default, it set to \code{True} (standard description).}
 }
 \value{
-Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{prUniform}}.
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
 }
 \description{
 The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data
@@ -35,9 +37,9 @@ head(samplePrFile)
 
 # Group procedure codes into procedure class classification
 
-IcdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+icdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 }
 \seealso{
-see other code classification: \code{\link{prCCS}}
+see other code classification: \code{\link{PrCCS}}
 }

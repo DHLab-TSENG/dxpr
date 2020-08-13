@@ -16,6 +16,6 @@ prICD10
 These datasets are used for procedure code standardization
 }
 \details{
-These datasets are used for \code{icdPrShortToDecimal}, and \code{icdPrDecimalToShort}
+These datasets are used for \code{IcdPrShortToDecimal}, and \code{IcdPrDecimalToShort}
 }
 \keyword{datasets}

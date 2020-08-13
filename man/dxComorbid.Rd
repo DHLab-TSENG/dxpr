@@ -12,22 +12,20 @@ icdDxToComorbid(dxDataFile, idColName, icdColName, dateColName,
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
-
-\item{icd10usingDate}{The date that ICD-10 was started using}
+\item{icd10usingDate}{ICD-10 using date}
 
 \item{comorbidMethod}{Three comorbidity methods: AHRQ, Charlson and Elixhauser Comorbidity. Change it to any of the other possible variables (\code{ahrq},\code{charlson}, and \code{elix}).}
 
 \item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default it is set to \code{FALSE} ( Comorbidity categories).}
 }
 \value{
-Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{dxUniform}}.
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
 }
 \description{
 The comorbidities classification (AHRQ, Charlson ,and Elixhauser Comorbidity) for ICD diagnostic codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
@@ -42,12 +40,8 @@ head(sampleDxFile)
 
 # Group diagnostic codes into charlson comorbidity categories
 
-icdDxToComorbid(dxDataFile = sampleDxFile, idColName = ID, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01", comorbidMethod = charlson, isDescription = FALSE)
-
-# Group diagnostic codes into ahrq comorbidity categories
-
-icdDxToComorbid(dxDataFile = sampleDxFile, idColName = ID, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01", comorbidMethod = ahrq, isDescription = TRUE)
+icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
 }
 \seealso{
-Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{dxCCS}}
+Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{DxCCS}}
 }

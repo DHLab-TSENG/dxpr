@@ -1,5 +1,5 @@
 ---
-title: "Get started with emr: Procedure"
+title: "Get started with dxpr: Procedure"
 author: "Hsiang-Ju, Chiu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -11,20 +11,20 @@ vignette: >
 
 # Description
 ```
-cat(utils::packageDescription("emr")$Description)
+cat(utils::packageDescription("dxpr")$Description)
 ```
 ### Development version
 ```r
 install.packages("devtools")
 # Install development version from GitHub
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ### ICD-CM code with two format
 
@@ -89,14 +89,14 @@ short <- icdPrDecimalToShort(prDataFile = samplePrFile,
                              icd10usingDate = "2015/10/01")
 head(short$ICD)
 ```
-**warning message** (More detail: [Get started with emr: Diagnosis](https://dhlab-cgu.github.io/emr/articles/Eng_Diagnosis.html#i--code-standardization))
+**warning message** (More detail: [Get started with dxpr: Diagnosis](https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html#i--code-standardization))
 
 Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.
 
 ## II. Data integration
 These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.
 
-The emr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.  
+The dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.  
 
 ### A. Clinical Classifications Software (CCS)
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures. 

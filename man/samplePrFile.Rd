@@ -6,5 +6,5 @@
 \title{Sample file for demo with procedure codes}
 \format{A data table with 170 rows and 3 variables}
 \description{
-Demo for code standardization, data integration.
+Demo for data integration.
 }

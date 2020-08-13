@@ -6,25 +6,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Code classification for Comorbidity — dxComorbid • emr</title>
+<title>Code classification for Comorbidity — dxComorbid • dxpr</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,7 +39,8 @@
 <meta property="og:title" content="Code classification for Comorbidity — dxComorbid" />
 
 <meta property="og:description" content="The comorbidities classification (AHRQ, Charlson ,and Elixhauser Comorbidity) for ICD diagnostic codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses." />
-<meta name="twitter:card" content="summary" />
+
+
 
 
 
@@ -52,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,8 +70,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">emr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">dxpr</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -81,31 +86,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Chi_Diagnosis.html">Get started with emr: Diagnosis (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Chi_Procedure.html">Get started with emr: Procedure (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Diagnosis.html">Get started with emr: Diagnosis</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Procedure.html">Get started with emr: Procedure</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/DHLab-TSENG/emr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -120,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code classification for Comorbidity</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxToComorbid.R'><code>R/icdDxToComorbid.R</code></a></small>
     <div class="hidden name"><code>dxComorbid.Rd</code></div>
     </div>
 
@@ -139,27 +131,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>Column name for Member ID of dxDataFile</p></td>
+      <td><p>A column for MemberID of dxDataFile.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>Column name for ICD of dxDataFile</p></td>
+      <td><p>A column for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name for Date of dxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdVerColName</th>
-      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>A column for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>The date that ICD-10 was started using</p></td>
+      <td><p>ICD-10 using date</p></td>
     </tr>
     <tr>
       <th>comorbidMethod</th>
@@ -173,7 +161,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by member ID. 3) <code>Error</code>: Potential error codes from <code><a href='dxUniform.html'>dxUniform</a></code>.</p>
+    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID. 3) <code>Error</code>: Potential error codes from <code>DxUniform</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -181,7 +169,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code>, <code><a href='dxCustom.html'>dxCustom</a></code>, <code><a href='dxCCS.html'>dxCCS</a></code></p></div>
+    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code>, <code><a href='dxCustom.html'>dxCustom</a></code>, <code>DxCCS</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -196,274 +184,12 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># Group diagnostic codes into charlson comorbidity categories</span>
 
-<span class='fu'>icdDxToComorbid</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>, <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>, <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>, <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>, <span class='kw'>comorbidMethod</span> <span class='kw'>=</span> <span class='no'>charlson</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;       Short  ID    ICD       Date Comorbidity
-#&gt;   1:   Z992  A2   Z992 2020-05-22          RD
-#&gt;   2:   Z992  A5   Z992 2020-01-24          RD
-#&gt;   3:   Z992  A8   Z992 2015-10-27          RD
-#&gt;   4:   Z992 A13   Z992 2020-04-26          RD
-#&gt;   5:   Z992 A13   Z992 2025-02-02          RD
-#&gt;  ---                                         
-#&gt; 296:    650  C2    650 2017-10-10        &lt;NA&gt;
-#&gt; 297:    650  D4    650 2022-04-04        &lt;NA&gt;
-#&gt; 298: 123.45  C3 123.45 2022-09-28        &lt;NA&gt;
-#&gt; 299: 123.45  D8 123.45 2018-06-17        &lt;NA&gt;
-#&gt; 300: 123.45  C0 123.45 2017-05-09        &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt;  1:  A0          RD    2009-07-25  2013-12-20     5 1609 days
-#&gt;  2:  A1          RD    2006-11-29  2014-09-24     5 2856 days
-#&gt;  3: A10          RD    2007-11-04  2012-07-30     5 1730 days
-#&gt;  4: A11          RD    2008-03-09  2011-09-03     5 1273 days
-#&gt;  5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days
-#&gt;  6: A12          RD    2006-05-14  2015-06-29     5 3333 days
-#&gt;  7: A13          RD    2006-04-29  2025-02-02     5 6854 days
-#&gt;  8: A14          RD    2006-11-28  2014-12-21     5 2945 days
-#&gt;  9: A15          RD    2007-05-25  2023-05-12     5 5831 days
-#&gt; 10: A16          RD    2007-04-15  2014-12-05     5 2791 days
-#&gt; 11: A17          RD    2007-02-19  2014-07-03     5 2691 days
-#&gt; 12: A18          RD    2007-04-05  2014-03-04     5 2525 days
-#&gt; 13:  A2          RD    2011-09-20  2020-05-22     5 3167 days
-#&gt; 14:  A3          RD    2008-07-08  2014-02-24     5 2057 days
-#&gt; 15:  A4          RD    2006-10-20  2015-03-09     5 3062 days
-#&gt; 16:  A5          RD    2009-09-10  2020-01-24     5 3788 days
-#&gt; 17:  A6          RD    2007-10-01  2015-07-12     5 2841 days
-#&gt; 18:  A7          RD    2007-02-01  2014-08-14     5 2751 days
-#&gt; 19:  A8          RD    2007-11-22  2015-10-27     5 2896 days
-#&gt; 20:  A9          RD    2007-03-05  2013-11-09     5 2441 days
-#&gt; 21:  B0          RD    2015-12-26  2024-02-12     6 2970 days
-#&gt; 22:  B1          RD    2016-08-08  2024-03-04     6 2765 days
-#&gt; 23:  B2          RD    2016-03-20  2024-09-20     6 3106 days
-#&gt; 24:  B3          RD    2019-05-07  2025-05-25     6 2210 days
-#&gt; 25:  B4          RD    2015-12-02  2025-07-21     6 3519 days
-#&gt; 26:  C0      CANCER    2015-12-05  2025-02-21     5 3366 days
-#&gt; 27:  C1      CANCER    2018-02-13  2025-02-20     5 2564 days
-#&gt; 28:  C2      CANCER    2016-09-09  2024-12-12     5 3016 days
-#&gt; 29:  C2      DIAB_C    2017-07-08  2017-07-08     1    0 days
-#&gt; 30:  C3      CANCER    2015-12-06  2021-10-22     4 2147 days
-#&gt; 31:  C4      CANCER    2017-08-29  2025-09-05     5 2929 days
-#&gt; 32:  C4      DIAB_C    2015-11-23  2015-11-23     1    0 days
-#&gt; 33:  D0         PUD    2017-12-24  2017-12-24     1    0 days
-#&gt; 34:  D0      DIAB_C    2017-01-29  2020-04-04     3 1161 days
-#&gt; 35:  D1       Rheum    2016-12-06  2016-12-06     1    0 days
-#&gt; 36:  D1        MSLD    2024-04-04  2024-04-04     1    0 days
-#&gt; 37:  D2      CANCER    2019-10-13  2019-10-13     1    0 days
-#&gt; 38:  D3         PVD    2017-11-19  2017-11-19     1    0 days
-#&gt; 39:  D4      CANCER    2020-03-10  2020-03-10     1    0 days
-#&gt; 40:  D4      DIAB_C    2019-01-03  2019-01-03     1    0 days
-#&gt; 41:  D4        CEVD    2020-10-06  2020-10-06     1    0 days
-#&gt; 42:  D5      CANCER    2021-02-13  2021-02-13     1    0 days
-#&gt; 43:  D5       Rheum    2022-10-10  2022-10-10     1    0 days
-#&gt; 44:  D5        COPD    2014-11-15  2014-11-15     1    0 days
-#&gt; 45:  D5      DIAB_C    2023-07-23  2023-07-23     1    0 days
-#&gt; 46:  D7       Rheum    2021-12-03  2021-12-03     1    0 days
-#&gt; 47:  D7      CANCER    2012-07-04  2012-07-04     1    0 days
-#&gt; 48:  D7      DIAB_C    2021-08-21  2021-08-21     1    0 days
-#&gt; 49:  D8         PVD    2021-03-18  2021-03-18     1    0 days
-#&gt; 50:  D8      CANCER    2025-09-10  2025-09-10     1    0 days
-#&gt; 51:  D8        PARA    2010-09-27  2010-09-27     1    0 days
-#&gt;      ID Comorbidity firstCaseDate endCaseDate count    period
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div><div class='input'>
-<span class='co'># Group diagnostic codes into ahrq comorbidity categories</span>
-
-<span class='fu'>icdDxToComorbid</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>, <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>, <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>, <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>, <span class='kw'>comorbidMethod</span> <span class='kw'>=</span> <span class='no'>ahrq</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
-#&gt;       Short  ID    ICD       Date   Description
-#&gt;   1:   Z992  A2   Z992 2020-05-22 Renal failure
-#&gt;   2:   Z992  A5   Z992 2020-01-24 Renal failure
-#&gt;   3:   Z992  A8   Z992 2015-10-27 Renal failure
-#&gt;   4:   Z992 A13   Z992 2020-04-26 Renal failure
-#&gt;   5:   Z992 A13   Z992 2025-02-02 Renal failure
-#&gt;  ---                                           
-#&gt; 296:    650  C2    650 2017-10-10          &lt;NA&gt;
-#&gt; 297:    650  D4    650 2022-04-04          &lt;NA&gt;
-#&gt; 298: 123.45  C3 123.45 2022-09-28          &lt;NA&gt;
-#&gt; 299: 123.45  D8 123.45 2018-06-17          &lt;NA&gt;
-#&gt; 300: 123.45  C0 123.45 2017-05-09          &lt;NA&gt;
-#&gt; 
-#&gt; $summarised_groupedDT
-#&gt;      ID                                     Description firstCaseDate
-#&gt;  1:  A0                                   Renal failure    2009-07-25
-#&gt;  2:  A1                                   Renal failure    2006-11-29
-#&gt;  3: A10                                   Renal failure    2007-11-04
-#&gt;  4: A11                                   Renal failure    2008-03-09
-#&gt;  5: A12                                   Renal failure    2006-05-14
-#&gt;  6: A13                                   Renal failure    2006-04-29
-#&gt;  7: A14                                   Renal failure    2006-11-28
-#&gt;  8: A15                                   Renal failure    2007-05-25
-#&gt;  9: A16                                   Renal failure    2007-04-15
-#&gt; 10: A17                                   Renal failure    2007-02-19
-#&gt; 11: A18                                   Renal failure    2007-04-05
-#&gt; 12:  A2                                   Renal failure    2011-09-20
-#&gt; 13:  A3                                   Renal failure    2008-07-08
-#&gt; 14:  A4                                   Renal failure    2006-10-20
-#&gt; 15:  A5                                   Renal failure    2009-09-10
-#&gt; 16:  A6                                   Renal failure    2007-10-01
-#&gt; 17:  A7                                   Renal failure    2007-02-01
-#&gt; 18:  A8                                   Renal failure    2007-11-22
-#&gt; 19:  A9                                   Renal failure    2007-03-05
-#&gt; 20:  B0                                   Renal failure    2015-12-26
-#&gt; 21:  B1                                   Renal failure    2016-08-08
-#&gt; 22:  B2                                   Renal failure    2016-03-20
-#&gt; 23:  B3                                   Renal failure    2019-05-07
-#&gt; 24:  B4                                   Renal failure    2015-12-02
-#&gt; 25:  C0                  Solid tumor without metastasis    2015-12-05
-#&gt; 26:  C1                  Solid tumor without metastasis    2018-02-13
-#&gt; 27:  C2                  Solid tumor without metastasis    2016-09-09
-#&gt; 28:  C3                  Solid tumor without metastasis    2018-01-16
-#&gt; 29:  C4                  Solid tumor without metastasis    2017-08-29
-#&gt; 30:  D0 Rheumatoid arthritis/collagen vascular diseases    2020-02-01
-#&gt; 31:  D0         Peptic ulcer disease excluding bleeding    2017-12-24
-#&gt; 32:  D0                                       Psychoses    2022-12-01
-#&gt; 33:  D1 Rheumatoid arthritis/collagen vascular diseases    2016-12-06
-#&gt; 34:  D1                                   Liver disease    2024-04-04
-#&gt; 35:  D1                       Hypertension, complicated    2006-02-12
-#&gt; 36:  D1                                     Weight loss    2011-06-18
-#&gt; 37:  D2                    Other neurological disorders    2023-10-23
-#&gt; 38:  D2                                      Drug abuse    2022-09-15
-#&gt; 39:  D2                                        Lymphoma    2019-10-13
-#&gt; 40:  D2                                Valvular disease    2016-11-21
-#&gt; 41:  D3                    Other neurological disorders    2024-01-27
-#&gt; 42:  D3                   Peripheral vascular disorders    2017-11-19
-#&gt; 43:  D3                                         Obesity    2016-01-22
-#&gt; 44:  D3                                       Psychoses    2014-03-23
-#&gt; 45:  D4                                        Lymphoma    2020-03-10
-#&gt; 46:  D4                       Hypertension, complicated    2020-01-12
-#&gt; 47:  D4                                       Paralysis    2020-10-06
-#&gt; 48:  D5                                        Lymphoma    2021-02-13
-#&gt; 49:  D5 Rheumatoid arthritis/collagen vascular diseases    2022-10-10
-#&gt; 50:  D5                       Chronic pulmonary disease    2014-11-15
-#&gt; 51:  D5                                Valvular disease    2013-07-16
-#&gt; 52:  D6 Rheumatoid arthritis/collagen vascular diseases    2024-05-21
-#&gt; 53:  D6                                      Drug abuse    2005-10-09
-#&gt; 54:  D6                    Other neurological disorders    2014-06-25
-#&gt; 55:  D7 Rheumatoid arthritis/collagen vascular diseases    2021-12-03
-#&gt; 56:  D7                  Solid tumor without metastasis    2012-07-04
-#&gt; 57:  D7                                       Psychoses    2012-01-25
-#&gt; 58:  D7                                      Drug abuse    2007-05-22
-#&gt; 59:  D8                   Peripheral vascular disorders    2021-03-18
-#&gt; 60:  D8                                        Lymphoma    2025-09-10
-#&gt; 61:  D8                                       Paralysis    2010-09-27
-#&gt; 62:  D8                                       Psychoses    2007-01-30
-#&gt;      ID                                     Description firstCaseDate
-#&gt;     endCaseDate count    period
-#&gt;  1:  2013-12-20     5 1609 days
-#&gt;  2:  2014-09-24     5 2856 days
-#&gt;  3:  2012-07-30     5 1730 days
-#&gt;  4:  2011-09-03     5 1273 days
-#&gt;  5:  2015-06-29     5 3333 days
-#&gt;  6:  2025-02-02     5 6854 days
-#&gt;  7:  2014-12-21     5 2945 days
-#&gt;  8:  2023-05-12     5 5831 days
-#&gt;  9:  2014-12-05     5 2791 days
-#&gt; 10:  2014-07-03     5 2691 days
-#&gt; 11:  2014-03-04     5 2525 days
-#&gt; 12:  2020-05-22     5 3167 days
-#&gt; 13:  2014-02-24     5 2057 days
-#&gt; 14:  2015-03-09     5 3062 days
-#&gt; 15:  2020-01-24     5 3788 days
-#&gt; 16:  2015-07-12     5 2841 days
-#&gt; 17:  2014-08-14     5 2751 days
-#&gt; 18:  2015-10-27     5 2896 days
-#&gt; 19:  2013-11-09     5 2441 days
-#&gt; 20:  2024-02-12     6 2970 days
-#&gt; 21:  2024-03-04     6 2765 days
-#&gt; 22:  2024-09-20     6 3106 days
-#&gt; 23:  2025-05-25     6 2210 days
-#&gt; 24:  2025-07-21     6 3519 days
-#&gt; 25:  2025-02-21     6 3366 days
-#&gt; 26:  2025-02-20     6 2564 days
-#&gt; 27:  2025-09-17     6 3295 days
-#&gt; 28:  2024-02-07     5 2213 days
-#&gt; 29:  2025-09-05     6 2929 days
-#&gt; 30:  2024-12-24     2 1788 days
-#&gt; 31:  2017-12-24     1    0 days
-#&gt; 32:  2022-12-01     1    0 days
-#&gt; 33:  2016-12-06     1    0 days
-#&gt; 34:  2024-04-04     1    0 days
-#&gt; 35:  2006-02-12     1    0 days
-#&gt; 36:  2011-06-18     1    0 days
-#&gt; 37:  2023-10-23     1    0 days
-#&gt; 38:  2022-09-15     1    0 days
-#&gt; 39:  2019-10-13     1    0 days
-#&gt; 40:  2016-11-21     1    0 days
-#&gt; 41:  2024-01-27     1    0 days
-#&gt; 42:  2017-11-19     1    0 days
-#&gt; 43:  2016-01-22     1    0 days
-#&gt; 44:  2014-03-23     1    0 days
-#&gt; 45:  2020-03-10     1    0 days
-#&gt; 46:  2020-01-12     1    0 days
-#&gt; 47:  2020-10-06     1    0 days
-#&gt; 48:  2021-02-13     1    0 days
-#&gt; 49:  2022-10-10     1    0 days
-#&gt; 50:  2014-11-15     1    0 days
-#&gt; 51:  2013-07-16     1    0 days
-#&gt; 52:  2024-05-21     1    0 days
-#&gt; 53:  2005-10-09     1    0 days
-#&gt; 54:  2014-06-25     1    0 days
-#&gt; 55:  2021-12-03     1    0 days
-#&gt; 56:  2012-07-04     1    0 days
-#&gt; 57:  2012-01-25     1    0 days
-#&gt; 58:  2007-05-22     1    0 days
-#&gt; 59:  2021-03-18     1    0 days
-#&gt; 60:  2025-09-10     1    0 days
-#&gt; 61:  2010-09-27     1    0 days
-#&gt; 62:  2007-01-30     1    0 days
-#&gt;     endCaseDate count    period
-#&gt; 
-#&gt; $Error
-#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
-#&gt;  1:  A0.11    20           ICD 10  Wrong format           
-#&gt;  2:  V27.0    18           ICD 10 Wrong version           
-#&gt;  3:   E114     8           ICD 10  Wrong format           
-#&gt;  4: A01.05     8            ICD 9 Wrong version           
-#&gt;  5:  42761     7           ICD 10 Wrong version           
-#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
-#&gt;  7:    F42     6           ICD 10  Wrong format           
-#&gt;  8:  V24.1     6           ICD 10 Wrong version           
-#&gt;  9:  A0105     5            ICD 9 Wrong version           
-#&gt; 10:    001     5            ICD 9  Wrong format       0019
-#&gt; 11:  75.52     4            ICD 9  Wrong format           
-#&gt; 12:  E03.0     4            ICD 9 Wrong version           
-#&gt; 13:    650     4           ICD 10 Wrong version           
-#&gt; 14: 123.45     3           ICD 10  Wrong format           
-#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
-#&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div></pre>
+<span class='fu'>icdDxToComorbid</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='no'>charlson</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(dxDataFile, , dataCol, with = FALSE): column(s) not found: "2015-10-01"</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -474,7 +200,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -6,25 +6,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data integration for case selection — selectCases • emr</title>
+<title>Data integration for case selection — selectCases • dxpr</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -34,8 +38,9 @@
 
 <meta property="og:title" content="Data integration for case selection — selectCases" />
 
-<meta property="og:description" content="This query function can select the cases which matched selected conditions." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:description" content="This query function can select the cases matching defined conditions for analyses." />
+
+
 
 
 
@@ -52,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,8 +70,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">emr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <a class="navbar-link" href="../index.html">dxpr</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -81,31 +86,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Chi_Diagnosis.html">Get started with emr: Diagnosis (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Chi_Procedure.html">Get started with emr: Procedure (Chinese)</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Diagnosis.html">Get started with emr: Diagnosis</a>
-    </li>
-    <li>
-      <a href="../articles/Eng_Procedure.html">Get started with emr: Procedure</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/DHLab-TSENG/emr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -120,13 +112,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Data integration for case selection</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/selectCases.R'><code>R/selectCases.R</code></a></small>
     <div class="hidden name"><code>selectCases.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This query function can select the cases which matched selected conditions.</p>
+    <p>This query function can select the cases matching defined conditions for analyses.</p>
     
     </div>
 
@@ -140,55 +132,51 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "Member ID", "ICD", and "Date"</p></td>
+      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>Column name for Member ID of dxDataFile</p></td>
+      <td><p>A column for MemberID of dxDataFile.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>Column name for ICD of dxDataFile</p></td>
+      <td><p>A column for ICD of dxDataFile</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name for Date of dxDataFile</p></td>
-    </tr>
-    <tr>
-      <th>icdVerColName</th>
-      <td><p>Column name for ICD Version used of dxDataFile. ICD version should be recorded as "9" or "10". If this argument is provided, then icd10usingDate is not needed.</p></td>
+      <td><p>A column for Date of dxDataFile</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>The date that ICD-10 was started using</p></td>
+      <td><p>ICD-10 using date</p></td>
     </tr>
     <tr>
       <th>groupDataType</th>
-      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>) and CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Default is <code>"ccs"</code>, and can be changed into any other possible methods (<code>'ICD'</code> is also available, but not recommended).</p></td>
+      <td><p>Four Stratified methods can chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables, default it set to <code>"ccs"</code>.</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
-      <td><p>Only be used if customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>) is selected. Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings expressed in regular expression.</p></td>
+      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>show category name or c ategory description in classification methods of ICD diagnostic codes. The default value is <code>True</code> (show standard description).</p></td>
+      <td><p>Category or description of standard classification methods for ICD diagnostic codes. By default, it set to <code>True</code> (standard description).</p></td>
     </tr>
     <tr>
       <th>caseCondition</th>
-      <td><p>Certain diseases' conditions that interested</p></td>
+      <td><p>Certain diseases of standard groups.</p></td>
     </tr>
     <tr>
       <th>caseCount</th>
-      <td><p>Required number of diagnoses. Only count above it will be selected</p></td>
+      <td><p>Minimum number of diagnoses.</p></td>
     </tr>
     <tr>
-      <th>periodRange</th>
-      <td><p>Determine days of interest for performing the case selection. By default, the range is set between 30 to 365 days.</p></td>
+      <th>PeriodRange</th>
+      <td><p>Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.</p></td>
     </tr>
     <tr>
-      <th>caseName</th>
-      <td><p>Name of selected cases. By default, it is set to <code>"selected"</code>.</p></td>
+      <th>CaseName</th>
+      <td><p>Name of selected cases. By default, it set to <code>"selected"</code>.</p></td>
     </tr>
     </table>
     
@@ -198,11 +186,11 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the option to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.</p>
+    <p>User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. The function also provides the options to set the minimum number of diagnoses within a specific duration. The output dataset can be passed to `groupedDataLongToWide` to create tables in wide format for statistical analytic usage.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>dataSplit</a></code>, <code><a href='conditionEra.html'>conditionEra</a></code>, <code><a href='eligiblePeriod.html'>eligiblePeriod</a></code></p></div>
+    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>dataSplit</a></code>, <code>recordPeriod</code>, <code><a href='era.html'>era</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,19 +203,14 @@
 #&gt; 4: A13 Z992 2020-04-26
 #&gt; 5: A13 Z992 2025-02-02
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
-<span class='co'># select cases with string "Diseases of the urinary system" by level 2 of CCS classification</span>
+<span class='co'>#select case with "Diseases of the urinary system" by level 2 of CCS classification</span>
 
 <span class='fu'>selectCases</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
-            <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-            <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
-            <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-            <span class='kw'>icdVerColName</span> <span class='kw'>=</span>  <span class='kw'>NULL</span>,
-            <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
+            <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
             <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
+            <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
             <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
-            <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-            <span class='kw'>periodRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>,<span class='fl'>180</span>),
-            <span class='kw'>caseName</span> <span class='kw'>=</span> <span class='st'>"Selected"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;      ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
+            <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;      ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
 #&gt;  1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420
 #&gt;  2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days          5855
 #&gt;  3: A10     Selected     5    2007-11-04  2012-07-30 1730 days         V5631
@@ -306,114 +289,12 @@
 #&gt; 36:                 NA
 #&gt; 37:                 NA
 #&gt; 38:                 NA
-#&gt;     MostCommonICDCount</div><div class='input'>
-<span class='co'># select cases with ICD codes match string "585" or "586"</span>
-
-<span class='fu'>selectCases</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
-            <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-            <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
-            <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-            <span class='kw'>icdVerColName</span> <span class='kw'>=</span>  <span class='kw'>NULL</span>,
-            <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
-            <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
-            <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"585|586"</span>,
-            <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-            <span class='kw'>periodRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>,<span class='fl'>180</span>),
-            <span class='kw'>caseName</span> <span class='kw'>=</span> <span class='st'>"selected"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt;      ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
-#&gt;  1:  A1    selected*     4    2006-11-29  2014-09-24 2856 days          5855
-#&gt;  2: A12    selected*     3    2006-05-14  2011-02-25 1748 days          5859
-#&gt;  3: A13    selected*     2    2006-04-29  2010-02-21 1394 days          5855
-#&gt;  4: A18    selected*     3    2007-04-05  2012-06-08 1891 days          5855
-#&gt;  5:  A2    selected*     3    2011-09-20  2015-01-06 1204 days          5855
-#&gt;  6:  A0    selected*     3    2009-07-25  2013-12-20 1609 days          5856
-#&gt;  7: A10    selected*     1    2007-11-04  2007-11-04    0 days          5859
-#&gt;  8: A11    selected*     2    2008-03-09  2010-02-21  714 days          5855
-#&gt;  9: A14    selected*     2    2011-11-07  2013-07-26  627 days          5853
-#&gt; 10: A15    selected*     1    2008-06-28  2008-06-28    0 days           586
-#&gt; 11: A16    selected*     1    2014-12-05  2014-12-05    0 days           586
-#&gt; 12: A17    selected*     2    2007-02-19  2013-09-30 2415 days          5856
-#&gt; 13:  A3    selected*     2    2010-11-12  2014-02-24 1200 days          5855
-#&gt; 14:  A4    selected*     1    2015-03-09  2015-03-09    0 days          5854
-#&gt; 15:  A5    selected*     1    2010-08-24  2010-08-24    0 days          5853
-#&gt; 16:  A6    selected*     1    2007-10-01  2007-10-01    0 days          5854
-#&gt; 17:  A7    selected*     3    2007-02-01  2013-12-16 2510 days          5854
-#&gt; 18:  A8    selected*     1    2014-08-20  2014-08-20    0 days          5855
-#&gt; 19:  A9    selected*     1    2008-12-19  2008-12-19    0 days           586
-#&gt; 20:  B0 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 21:  B1 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 22:  B2 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 23:  B3 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 24:  B4 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 25:  C0 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 26:  C1 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 27:  C2 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 28:  C3 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 29:  C4 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 30:  D0 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 31:  D1 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 32:  D2 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 33:  D3 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 34:  D4 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 35:  D5 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 36:  D6 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 37:  D7 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt; 38:  D8 non-selected    NA          &lt;NA&gt;        &lt;NA&gt;   NA days          &lt;NA&gt;
-#&gt;      ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
-#&gt;     MostCommonICDCount
-#&gt;  1:                  2
-#&gt;  2:                  2
-#&gt;  3:                  2
-#&gt;  4:                  2
-#&gt;  5:                  2
-#&gt;  6:                  1
-#&gt;  7:                  1
-#&gt;  8:                  1
-#&gt;  9:                  1
-#&gt; 10:                  1
-#&gt; 11:                  1
-#&gt; 12:                  1
-#&gt; 13:                  1
-#&gt; 14:                  1
-#&gt; 15:                  1
-#&gt; 16:                  1
-#&gt; 17:                  1
-#&gt; 18:                  1
-#&gt; 19:                  1
-#&gt; 20:                 NA
-#&gt; 21:                 NA
-#&gt; 22:                 NA
-#&gt; 23:                 NA
-#&gt; 24:                 NA
-#&gt; 25:                 NA
-#&gt; 26:                 NA
-#&gt; 27:                 NA
-#&gt; 28:                 NA
-#&gt; 29:                 NA
-#&gt; 30:                 NA
-#&gt; 31:                 NA
-#&gt; 32:                 NA
-#&gt; 33:                 NA
-#&gt; 34:                 NA
-#&gt; 35:                 NA
-#&gt; 36:                 NA
-#&gt; 37:                 NA
-#&gt; 38:                 NA
 #&gt;     MostCommonICDCount</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -424,7 +305,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

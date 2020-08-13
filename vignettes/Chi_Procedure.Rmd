@@ -1,5 +1,5 @@
 ---
-title: "Get started with emr: Procedure (Chinese)"
+title: "Get started with dxpr: Procedure (Chinese)"
 author: "Hsiang-Ju, Chiu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -13,20 +13,20 @@ vignette: >
 # 檢查與處置前處理與整合方法
 
 ```
-cat(utils::packageDescription("emr")$Description)
+cat(utils::packageDescription("dxpr")$Description)
 ```
 ### 安裝套件
 ```r
 install.packages("devtools")
 # Install development version from GitHub
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ### ICD-PCS-CODE 格式對照
 
@@ -92,10 +92,10 @@ short <- icdPrDecimalToShort(prDataFile = samplePrFile,
                              icd10usingDate = "2015/10/01")
 head(short$ICD)
 ```
-**warning message** (詳細流程請參考: [診斷前處理與整合方法](https://dhlab-cgu.github.io/emr/articles/Chi_Diagnosis.html#i--code-standardization))
+**warning message** (詳細流程請參考: [診斷前處理與整合方法](https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html#i--code-standardization))
 
 醫療數據的處置編碼有可能誤植導致處置編碼錯誤，而錯誤的處置編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。  
-為方便使用者修改錯誤的處置編碼，emr套件會提供warning message提醒使用者些錯誤的處置編碼。  
+為方便使用者修改錯誤的處置編碼，dxpr套件會提供warning message提醒使用者些錯誤的處置編碼。  
 
 
 ## II. Data integration

@@ -16,9 +16,9 @@ icdPrShortToDecimal(prDataFile, icdColName, dateColName,
 \arguments{
 \item{prDataFile}{A file of clinical procedure data with at least 2 columns: "ICD" and "Date"}
 
-\item{icdColName}{A ICD column of PrDataFile}
+\item{icdColName}{A ICD column of prDataFile}
 
-\item{dateColName}{A Date column of PrDataFile}
+\item{dateColName}{A Date column of prDataFile}
 
 \item{icd10usingDate}{ICD-10 using date}
 }
@@ -38,9 +38,9 @@ head(samplePrFile)
 
 # convert the procedure codes to the short format
 
-icdPrDecimalToShort(samplePrFile,ICD,Date, icd10usingDate = "2015/10/01")
+icdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
 
 # convert the procedure codes to the decimal format
 
-icdPrShortToDecimal(samplePrFile,ICD,Date, icd10usingDate = "2015/10/01")
+icdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")
 }

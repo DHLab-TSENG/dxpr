@@ -13,21 +13,19 @@ getConditionEra(dxDataFile, idColName, icdColName, dateColName,
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
+\item{icd10usingDate}{ICD-10 using date}
 
-\item{icd10usingDate}{The date that ICD-10 was started using}
+\item{groupDataType}{Four Stratified methods can chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it set to \code{"ccs"}.}
 
-\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it set to \code{"ccs"}.}
+\item{customGroupingTable}{Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.}
 
-\item{customGroupingTable}{Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing a regular expression.}
-
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. The default value is \code{True} (standard description).}
+\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 
 \item{gapDate}{Length of condition gap, By default, it set to 30 days \code{"30"}.}
 
@@ -57,7 +55,7 @@ selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 
 # Condition era calculation with case selection
 
-Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, icd10usingDate = "2015-10-01",
+Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
                         groupDataType = CCSlvl3,
                         selectedCaseFile = selectedCaseFile)
 
@@ -69,9 +67,9 @@ grepTable <- data.frame(Group = "Chronic kidney disease",
 
 # Condition era calculation with grouping custom method of code standardization
 
-Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, icd10usingDate = "2015-10-01",
+Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
                         groupDataType = customGrepIcdGroup,
-                        customGroupingTable = grepTable)
+                        CustomGroupingTable = grepTable)
 head(Era1)
 head(Era2)
 }

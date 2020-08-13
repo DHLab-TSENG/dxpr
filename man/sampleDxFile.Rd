@@ -6,5 +6,5 @@
 \title{Sample file for demo with diagnostic codes}
 \format{A sample data table with 300 rows and 3 variables}
 \description{
-Demo for code standardization, data integration, exploratory data analysis (EDA) preparation and visualization.
+Demo for data integration, data wrangling and visualization.
 }

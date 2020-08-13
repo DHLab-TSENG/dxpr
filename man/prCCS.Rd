@@ -14,11 +14,13 @@ icdPrToCCSLvl(prDataFile, idColName, icdColName, dateColName,
   isDescription = TRUE)
 }
 \arguments{
-\item{idColName}{A MemberID column of PrDataFile}
+\item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{icdColName}{A ICD column of PrDataFile}
+\item{idColName}{A MemberID column of prDataFile}
 
-\item{dateColName}{A Date column of PrDataFile}
+\item{icdColName}{A ICD column of prDataFile}
+
+\item{dateColName}{A Date column of prDataFile}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -27,7 +29,7 @@ icdPrToCCSLvl(prDataFile, idColName, icdColName, dateColName,
 \item{CCSLevel}{By default, it set to \code{1}. CCS multiple level:1~3, CCS for ICD-10-CM only has 1~2 multiple levels.}
 }
 \value{
-Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{PrDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{prUniform}}.
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
 }
 \description{
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures
@@ -42,11 +44,11 @@ head(samplePrFile)
 
 # Group procedure codes into single level of CCS classification
 
-icdPrToCCS(samplePrFile, ID, ICD, Date, icd10usingDate = "2015-10-01", isDescription = TRUE)
+icdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 # Group procedure codes into multiple levels of CCS classification
 
-icdPrToCCSLvl(samplePrFile, ID, ICD, Date, icd10usingDate = "2015-10-01", CCSLevel = 2, isDescription = TRUE)
+icdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 
 }
 \seealso{

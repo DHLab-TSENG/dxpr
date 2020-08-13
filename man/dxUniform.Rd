@@ -20,9 +20,7 @@ icdDxShortToDecimal(dxDataFile, icdColName, dateColName,
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
-
-\item{icd10usingDate}{The date that ICD-10 was started using}
+\item{icd10usingDate}{ICD-10 using date}
 }
 \value{
 Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes. 2) \code{Error}: Potential error codes.
@@ -31,7 +29,7 @@ Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes. 2) \
 Convert the ICD diagnostic codes to a uniform format
 }
 \details{
-`icdDxShortToDecimal` is used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `IcdDxDecimalToShort` can be used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function can not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.
+`icdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.
 }
 \examples{
 # sample file for example
@@ -40,9 +38,9 @@ head(sampleDxFile)
 
 # convert the diagnostic codes to the decimal format
 
-icdDxShortToDecimal(dxDataFile = sampleDxFile, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01")
+icdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
 
 # convert the diagnostic codes to the short format
 
-icdDxDecimalToShort(dxDataFile = sampleDxFile, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01")
+icdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
 }

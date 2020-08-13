@@ -16,19 +16,17 @@ icdDxToCCSLvl(dxDataFile, idColName, icdColName, dateColName,
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
+\item{icd10usingDate}{ICD-10 using date}
 
-\item{icd10usingDate}{The date that ICD-10 was started using}
+\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. The default value is \code{True} (standard description).}
-
-\item{CCSLevel}{The default value is \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.}
+\item{CCSLevel}{By default it set to \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.}
 }
 \value{
 Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{dxUniform}}.
@@ -37,7 +35,7 @@ Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} wi
 The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 }
 \details{
-These CCS functions (icdDxToCCS and icdDxToCCSLvl) divide ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
+These CCS functions (icdDxToCCS and icdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
 }
 \examples{
 # sample file for example
@@ -46,11 +44,11 @@ head(sampleDxFile)
 
 # Group diagnostic codes into single level of CCS classification
 
-icdDxToCCS(dxDataFile = sampleDxFile, idColName = ID, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01", isDescription = TRUE)
+icdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
 
 # Group diagnostic codes into multiple levels of CCS classification
 
-icdDxToCCSLvl(dxDataFile = sampleDxFile, idColName = ID, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01", CCSLevel = 2, isDescription = TRUE)
+icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
 }
 \seealso{
 Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{dxComorbid}}

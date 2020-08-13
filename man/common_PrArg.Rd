@@ -4,13 +4,13 @@
 \alias{common_PrArg}
 \title{Common argument of procedure functions}
 \arguments{
-\item{PrDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
+\item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A MemberID column of PrDataFile}
+\item{idColName}{A MemberID column of prDataFile}
 
-\item{icdColName}{A ICD column of PrDataFile}
+\item{icdColName}{A ICD column of prDataFile}
 
-\item{dateColName}{A Date column of PrDataFile}
+\item{dateColName}{A Date column of prDataFile}
 
 \item{icd10usingDate}{ICD-10 using date}
 

@@ -16,6 +16,6 @@ ICD10DxwithTwoFormat
 These datasets are used for diagnostic code standardization
 }
 \details{
-These datasets are used for \code{icdDxShortToDecimal}, and \code{icdDxDecimalToShort}. Transform the diagnosis codes into uniform format before the integration process.
+These datasets are used for \code{IcdDxShortToDecimal}, and \code{IcdDxDecimalToShort}. Transform the diagnosis codes into uniform format before the integration process.
 }
 \keyword{datasets}

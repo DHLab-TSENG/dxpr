@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data format transformation — dataWide • dxpr</title>
+<title>Data integration for condition era calculation — era • dxpr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 
 
 
-<meta property="og:title" content="Data format transformation — dataWide" />
+<meta property="og:title" content="Data integration for condition era calculation — era" />
 
-<meta property="og:description" content="Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages." />
+<meta property="og:description" content="Conditions era is used to integrate distributed data of clinical records into a single progression record" />
 
 
 
@@ -111,19 +111,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data format transformation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/groupedDataLongToWide.R'><code>R/groupedDataLongToWide.R</code></a></small>
-    <div class="hidden name"><code>dataWide.Rd</code></div>
+    <h1>Data integration for condition era calculation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/getConditionEra.R'><code>R/getConditionEra.R</code></a></small>
+    <div class="hidden name"><code>era.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages.</p>
+    <p>Conditions era is used to integrate distributed data of clinical records into a single progression record</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>categoryColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>reDup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+    <pre class="usage"><span class='fu'>getConditionEra</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccs</span>,
+  <span class='no'>customGroupingTable</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>gapDate</span> <span class='kw'>=</span> <span class='fl'>30</span>,
   <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -138,12 +139,32 @@
       <td><p>A column for MemberID of dxDataFile.</p></td>
     </tr>
     <tr>
+      <th>icdColName</th>
+      <td><p>A column for ICD of dxDataFile</p></td>
+    </tr>
+    <tr>
       <th>dateColName</th>
       <td><p>A column for Date of dxDataFile</p></td>
     </tr>
     <tr>
-      <th>numericOrBinary</th>
-      <td><p>Members have same diagnostic categories, type `N` or `B`, default is Binary <code>'B'</code>.</p></td>
+      <th>icd10usingDate</th>
+      <td><p>ICD-10 using date</p></td>
+    </tr>
+    <tr>
+      <th>groupDataType</th>
+      <td><p>Four Stratified methods can chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables, default it set to <code>"ccs"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>customGroupingTable</th>
+      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
+    </tr>
+    <tr>
+      <th>isDescription</th>
+      <td><p>Category or description of standard classification methods for ICD diagnostic codes. By default, it set to <code>True</code> (standard description).</p></td>
+    </tr>
+    <tr>
+      <th>gapDate</th>
+      <td><p>Length of condition gap, By default, it set to 30 days <code>"30"</code>.</p></td>
     </tr>
     <tr>
       <th>selectedCaseFile</th>
@@ -153,11 +174,15 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A new <code>data.table</code> based on classifying <code>dxDataFile</code> and converted the dataset into a wide format dataset.</p>
+    <p>A new <code>data.table</code> based on classifying <code>dxDataFile</code> and calculated condition era by <code>groupDataType</code> for each patient.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The output dataset of this function can be numeric or binary wide format</p>
+    <p>Calculate condition era by grouped categories of each patient. Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other data integration functions: <code><a href='selectCases.html'>selectCases</a></code>, <code><a href='dataSplit.html'>dataSplit</a></code>, <code>recordPeriod</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -177,13 +202,22 @@
                                 <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
                                 <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
-<span class='co'># Convert long format grouped data into a wide numeric format with selected case</span>
+<span class='co'># Condition era calculation with case selection</span>
 
-<span class='no'>groupedData_Wide</span> <span class='kw'>&lt;-</span> <span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                                          <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>,
-                                          <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>,
-                                          <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                          <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",     elix, numericOrBinary = N, isDescription = FALSE, selectedCaseFile = selectedCaseFile): unused argument (isDescription = FALSE)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>groupedData_Wide</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(groupedData_Wide): object 'groupedData_Wide' not found</span></div></pre>
+<span class='no'>Era1</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                        <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl3</span>,
+                        <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(dxDataFile, , dataCol, with = FALSE): column(s) not found: "2015-10-01"</span></div><div class='input'>
+<span class='co'># Define the grouping categories</span>
+
+<span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Group</span> <span class='kw'>=</span> <span class='st'>"Chronic kidney disease"</span>,
+                        <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^58|^N18"</span>,
+                        <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='co'># Condition era calculation with grouping custom method of code standardization</span>
+
+<span class='no'>Era2</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>,
+                        <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
+                        <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; <span class='error'>Error in getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01", groupDataType = customGrepIcdGroup,     CustomGroupingTable = grepTable): unused argument (CustomGroupingTable = grepTable)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Era1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(Era1): object 'Era1' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Era2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(Era2): object 'Era2' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

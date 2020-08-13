@@ -5,29 +5,16 @@
 \alias{groupedDataLongToWide}
 \title{Data format transformation}
 \usage{
-groupedDataLongToWide(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs,
-  customGroupingTable, isDescription = TRUE, numericOrBinary = B,
+groupedDataLongToWide(dxDataFile, idColName, categoryColName, dateColName,
+  reDup = TRUE, numericOrBinary = B, count = 1,
   selectedCaseFile = NULL)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
-
-\item{icdColName}{A column for ICD of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{dateColName}{A column for Date of dxDataFile}
-
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
-
-\item{icd10usingDate}{The date that ICD-10 was started using}
-
-\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it set to \code{"ccs"}.}
-
-\item{customGroupingTable}{Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories and "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing a regular expression.}
-
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. The default value is \code{True} (standard description).}
 
 \item{numericOrBinary}{Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.}
 
@@ -58,8 +45,7 @@ selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 # Convert long format grouped data into a wide numeric format with selected case
 
 groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                                          icd10usingDate = "2015-10-01",
-                                          groupDataType = elix,
+                                          "2015-10-01", elix,
                                           numericOrBinary = N,
                                           isDescription = FALSE,
                                           selectedCaseFile = selectedCaseFile)

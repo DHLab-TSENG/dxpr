@@ -37,6 +37,6 @@ icd10_elix
 These datasets are used for diagnostic code transformation.
 }
 \details{
-These datasets are used for \code{icdDxToCCS}, \code{icdDxToCCSLvl}, \code{icdDxToPheWAS}, and \code{icdDxToComorbid}
+These datasets are used for \code{IcdDxToCCS}, \code{IcdDxToCCSLvl}, \code{IcdDxToPheWAS}, and \code{IcdDxToComorbid}
 }
 \keyword{datasets}

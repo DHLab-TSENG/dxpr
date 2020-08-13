@@ -1,5 +1,5 @@
 ---
-title: "Get started with emr: Diagnosis (Chinese)"
+title: "Get started with dxpr: Diagnosis (Chinese)"
 author: "Hsiang-Ju, Chiu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -423,9 +423,8 @@ head(Case)
 ###六、就診紀錄第一筆資料及最後一筆資料
 取得病患的就診紀錄第一筆資料及最後一筆資料，可用來做為個案的指標日期供`splitDataByDate`使用
 ```{r, message = FALSE}
-admissionDate <- patientRecordDate(dxDataFile = sampleDxFile,
+admissionDate <- getEligiblePeriod(dxDataFile = sampleDxFile,
                                    idColName = ID,
-                                   icdColName = ICD,
                                    dateColName = Date)
 head(admissionDate)                                  
 ```
@@ -448,7 +447,7 @@ Data <- splitDataByDate(dxDataFile = sampleDxFile,
                         icdColName = ICD,
                         dateColName = Date,
                         indexDateFile = indexDateTable,
-                        Gap = 30) 
+                        gap = 30) 
 head(Data, 5)
 ```
 ### 八. 疾病世代
@@ -478,27 +477,32 @@ head(Era)
 以下範例以共病症 Elixhauser為範例進行兩種表示法回傳的資料型態
 ```{r, message = FALSE, warning = FALSE}
 #binary
-groupedData_Wide <- groupedDataLongToWide(dxDataFile = sampleDxFile, 
+
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                        idColName = ID,           
+                        icdColName = ICD,       
+                        dateColName = Date,
+                        icd10usingDate = "2015-10-01",
+                        comorbidMethod = elix)
+
+groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
                                           idColName = ID,    
-                                          icdColName = ICD,   
+                                          categoryColName = Comorbidity,   
                                           dateColName = Date,
-                                          icd10usingDate = "2015-10-01",
-                                          isDescription = FALSE,
-                                          groupDataType = Charlson,
+                                          reDup = TRUE,
                                           numericOrBinary = B)
-                                          
+                  
 head(groupedData_Wide, 5)
 ```
 
 ```{r, message = FALSE, warning = FALSE}
 # numeric
-groupedData_Wide <- groupedDataLongToWide(dxDataFile = sampleDxFile, 
+
+groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
                                           idColName = ID,    
-                                          icdColName = ICD,   
+                                          categoryColName = Comorbidity,   
                                           dateColName = Date,
-                                          icd10usingDate = "2015-10-01",
-                                          isDescription = FALSE,
-                                          groupDataType = Charlson,
+                                          reDup = TRUE,
                                           numericOrBinary = N)
 
 head(groupedData_Wide, 5)
@@ -526,7 +530,7 @@ error <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
                             dateColName = Date,
                             icd10usingDate = "2015/10/01")
 
-Plot_error1 <- plot_errorICD(errorFile = error$Error,
+Plot_error1 <- plotICDError(errorFile = error$Error,
                             icdVersion = all,
                             wrongICDType = all,
                             others = TRUE)
@@ -557,7 +561,7 @@ ICD-9共19章節疾病分類：
 * 第3名以後的錯誤編碼設為＂others＂
 
 ```{r, message = FALSE}
-Plot_error2 <- plot_errorICD(errorFile = error$Error,
+Plot_error2 <- plotICDError(errorFile = error$Error,
                              icdVersion = 9,
                              wrongICDType = all,
                              groupICD = TRUE,
@@ -588,17 +592,24 @@ Plot_error2$ICD
 * 設定作圖標準：顯示前幾名組別、限制比例  
 
 ```{r, message = FALSE, warning = FALSE}
-groupedDataWide <- groupedDataLongToWide(sampleDxFile,
-                                         idColName = ID,
-                                         icdColName = ICD,
-                                         dateColName = Date,
-                                         icd10usingDate = "2015-10-01",
-                                         isDescription = FALSE,
-                                         groupDataType = elix)
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                        idColName = ID,           
+                        icdColName = ICD,       
+                        dateColName = Date,
+                        icd10usingDate = "2015-10-01",
+                        comorbidMethod = elix)
 
-plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          topN = 10,
-                          limitFreq = 0.01)
+groupedDataWide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
+                                          idColName = ID,    
+                                          categoryColName = Comorbidity,   
+                                          dateColName = Date,
+                                          reDup = TRUE,
+                                          numericOrBinary = B)
+
+plot1 <- plotDiagCat(groupedDataWide = groupedDataWide, 
+                     idColName = ID,
+                     topN = 10,
+                     limitFreq = 0.01)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例  
@@ -627,16 +638,26 @@ selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
                                 groupDataType = ccslvl2,
                                 caseCondition = "Diseases of the urinary system",
                                 caseCount = 1)
-                                
-groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                                         icd10usingDate = "2015-10-01",
-                                         groupDataType = elix,
-                                         selectedCaseFile = selectedCaseFile)
 
-plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          topN = 10,
-                          limitFreq = 0.01,
-                          pvalue = 0.05)
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                        idColName = ID,           
+                        icdColName = ICD,       
+                        dateColName = Date,
+                        icd10usingDate = "2015-10-01",
+                        comorbidMethod = elix)
+
+groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
+                                          idColName = ID,    
+                                          categoryColName = Comorbidity,   
+                                          dateColName = Date,
+                                          reDup = TRUE,
+                                          selectedCaseFile = selectedCaseFile)
+
+plot2 <- plotDiagCat(groupedDataWide = groupedData_Wide, 
+                     idColName = ID,
+                     topN = 10,
+                     limitFreq = 0.01,
+                     pvalue = 0.05)
 ```
 
 <img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-2.png" style="display:block; margin:auto; width:70%;">

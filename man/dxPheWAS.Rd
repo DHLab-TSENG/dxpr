@@ -11,20 +11,18 @@ icdDxToPheWAS(dxDataFile, idColName, icdColName, dateColName,
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
+\item{icd10usingDate}{ICD-10 using date}
 
-\item{icd10usingDate}{The date that ICD-10 was started using}
-
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. The default value is \code{True} (standard description).}
+\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 }
 \value{
-Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{dxUniform}}.
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{DxUniform}}.
 }
 \description{
 The PheWAS classification for ICD-9-CM codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
@@ -39,8 +37,8 @@ head(sampleDxFile)
 
 # Group diagnostic codes into PheWAS
 
-icdDxToPheWAS(dxDataFile = sampleDxFile, idColName = ID, icdColName = ICD, dateColName = Date, icdVerColName = NULL, icd10usingDate = "2015/10/01", isDescription = FALSE)
+icdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
 }
 \seealso{
-Other code classification functions: \code{\link{dxCustom}}, \code{\link{dxComorbid}}, \code{\link{dxCCS}}
+Other code classification functions: \code{\link{dxCustom}}, \code{\link{dxComorbid}}, \code{\link{DxCCS}}
 }

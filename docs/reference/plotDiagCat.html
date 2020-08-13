@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data format transformation — dataWide • dxpr</title>
+<title>Plot of diagnostic categories — plotDiagCat • dxpr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 
 
 
-<meta property="og:title" content="Data format transformation — dataWide" />
+<meta property="og:title" content="Plot of diagnostic categories — plotDiagCat" />
 
-<meta property="og:description" content="Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages." />
+<meta property="og:description" content="Histogram plot of diagnostic categories" />
 
 
 
@@ -111,58 +111,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data format transformation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/groupedDataLongToWide.R'><code>R/groupedDataLongToWide.R</code></a></small>
-    <div class="hidden name"><code>dataWide.Rd</code></div>
+    <h1>Plot of diagnostic categories</h1>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/plotDiagCat.R'><code>R/plotDiagCat.R</code></a></small>
+    <div class="hidden name"><code>plotDiagCat.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages.</p>
+    <p>Histogram plot of diagnostic categories</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>categoryColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>reDup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>plotDiagCat</span>(<span class='no'>groupedDataWide</span>, <span class='no'>idColName</span>, <span class='kw'>groupColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>limitFreq</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <th>groupedDataWide</th>
+      <td><p>GroupedData file from functions of code classification (four stPercentagegies)</p></td>
     </tr>
     <tr>
-      <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile.</p></td>
+      <th>limitFreq</th>
+      <td><p>The minimum frequency set to "0.01"; In other words, the limit at the same diagnostic category must have 1 percent patient in the total patient.</p></td>
     </tr>
     <tr>
-      <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <th>pvalue</th>
+      <td><p>p value of chisq.test</p></td>
     </tr>
     <tr>
-      <th>numericOrBinary</th>
-      <td><p>Members have same diagnostic categories, type `N` or `B`, default is Binary <code>'B'</code>.</p></td>
-    </tr>
-    <tr>
-      <th>selectedCaseFile</th>
-      <td><p>Table for selectedCases. Default is <code>'NULL'</code></p></td>
+      <th>TopN</th>
+      <td><p>Default is Top "10"</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A new <code>data.table</code> based on classifying <code>dxDataFile</code> and converted the dataset into a wide format dataset.</p>
+    <p>A histogram plot and a <code>data.table</code> for classifying data.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The output dataset of this function can be numeric or binary wide format</p>
+    <p>An overview of grouping category of the diagnostic code summarizes the percentage of result in histogram plot. User can observe the number of diagnostic categories in their dataset through this function. This function also verifies by Chi-square test and Fisher’s exact test statistical significantly different diagnostic categories between case and control. The default level of significance considered at 5<!-- % (p = 0.05). --></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>other plot function: <code><a href='plotError.html'>plotError</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># sample file for example</span>
-
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
 #&gt; 1:  A2 Z992 2020-05-22
 #&gt; 2:  A5 Z992 2020-01-24
@@ -170,20 +168,40 @@
 #&gt; 4: A13 Z992 2020-04-26
 #&gt; 5: A13 Z992 2025-02-02
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
+<span class='co'># Convert long format of grouped data into wide binary format</span>
+
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                                         <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015-10-01"</span>,
+                                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>elix</span>,
+                                         <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in groupedDataLongToWide(sampleDxFile, ID, ICD, Date, icd10usingDate = "2015-10-01",     groupDataType = elix, isDescription = FALSE): unused arguments (icd10usingDate = "2015-10-01", groupDataType = elix, isDescription = FALSE)</span></div><div class='input'>
+<span class='co'># plot of top 10 common grouped categories and a list of the detail of grouped categories</span>
+
+<span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
+                          <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+                          <span class='kw'>limitFreq</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_groupedData(groupedDataWide = groupedDataWide, TopN = 10,     limitFreq = 0.01): could not find function "plot_groupedData"</span></div><div class='input'><span class='no'>plot1</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'plot1' not found</span></div><div class='input'>
 <span class='co'># Select case with "Diseases of the urinary system" by level 2 of CCS classification</span>
 
-<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
+                                <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
+                                <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
+                                <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
                                 <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
                                 <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
                                 <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
-<span class='co'># Convert long format grouped data into a wide numeric format with selected case</span>
+<span class='co'># Convert the long format of grouped data into a wide binary format with selected case</span>
 
-<span class='no'>groupedData_Wide</span> <span class='kw'>&lt;-</span> <span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                                          <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>,
-                                          <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>,
-                                          <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                          <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",     elix, numericOrBinary = N, isDescription = FALSE, selectedCaseFile = selectedCaseFile): unused argument (isDescription = FALSE)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>groupedData_Wide</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(groupedData_Wide): object 'groupedData_Wide' not found</span></div></pre>
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+                                         <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015-10-01"</span>,
+                                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>elix</span>,
+                                         <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                                         <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in groupedDataLongToWide(sampleDxFile, ID, ICD, Date, icd10usingDate = "2015-10-01",     groupDataType = elix, isDescription = FALSE, selectedCaseFile = selectedCaseFile): unused arguments (icd10usingDate = "2015-10-01", groupDataType = elix, isDescription = FALSE)</span></div><div class='input'>
+<span class='co'># plot of top 10 common grouped categories and a list of the detail of grouped categories</span>
+
+<span class='no'>plot2</span> <span class='kw'>&lt;-</span> <span class='fu'>plot_groupedData</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
+                          <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+                          <span class='kw'>limitFreq</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+                          <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_groupedData(groupedDataWide = groupedDataWide, TopN = 10,     limitFreq = 0.01, pvalue = 0.05): could not find function "plot_groupedData"</span></div><div class='input'><span class='no'>plot2</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'plot2' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

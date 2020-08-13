@@ -11,22 +11,23 @@ groupMethodSelect(dxDataFile, idColName, icdColName, dateColName,
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
 
-\item{idColName}{A column for MemberID of dxDataFile}
+\item{idColName}{A column for MemberID of dxDataFile.}
 
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
 
-\item{icdVerColName}{A column for ICD Version used of dxDataFile. If this argument is provided, then icd10usingDate is not needed.}
-
-\item{icd10usingDate}{The date that ICD-10 was started using}
+\item{icd10usingDate}{ICD-10 using date}
 
 \item{groupMethod}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), grepICD or customICD (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables.}
 
 \item{customGroupingTable}{Table is for groupDataType}
 
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. The default value is \code{True} (standard description).}
+\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
 }
 \description{
-code classification method
+Common argument of diagnostic functions
+}
+\details{
+Common argument of diagnostic functions
 }
