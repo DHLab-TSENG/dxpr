@@ -38,35 +38,6 @@ visualize clinical data, including diagnosis and procedure records.
 devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
-    #> 
-    #>   
-       checking for file ‘/tmp/RtmpCHPJWM/remotes220d81784cb74/DHLab-TSENG-dxpr-fa80e1b/DESCRIPTION’ ...
-      
-    ✓  checking for file ‘/tmp/RtmpCHPJWM/remotes220d81784cb74/DHLab-TSENG-dxpr-fa80e1b/DESCRIPTION’
-    #> 
-      
-    ─  preparing ‘dxpr’:
-    #> 
-      
-       checking DESCRIPTION meta-information ...
-      
-    ✓  checking DESCRIPTION meta-information
-    #> 
-      
-    ─  checking for LF line-endings in source and make files and shell scripts
-    #> 
-      
-    ─  checking for empty or unneeded directories
-    #>    Removed empty directory ‘dxpr/emr-master’
-    #> ─  looking to see if a ‘data/datalist’ file should be added
-    #> 
-      
-    ─  building ‘dxpr_0.3.0.tar.gz’ (1.6s)
-    #> 
-      
-       
-    #> 
-
 ## Overview
 
 <img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">

@@ -9,6 +9,7 @@
 #' @param idColName A column for MemberID of dxDataFile.
 #' @param icdColName A column for ICD of dxDataFile
 #' @param dateColName A column for Date of dxDataFile
+#' @param icdVerColName A column for ICD-9/10 version. The format should be numeric 9L or 10L.
 #' @param icd10usingDate ICD-10 using date
 #' @param isDescription Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).
 #' @param groupDataType  Four Stratified methods can chosen: CCS (\code{'ccs'}), CCS levels (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Change it to any of the other possible variables, default it set to \code{"ccs"}.

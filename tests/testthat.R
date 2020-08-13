@@ -1,4 +1,4 @@
 library(testthat)
-library(emr)
+library(dxpr)
 
-test_check("emr")
+test_check("dxpr")

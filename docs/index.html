@@ -110,34 +110,6 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <a href="#development-version" class="anchor"></a>Development version</h2>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)</pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt;   </span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">   checking <span class="cf">for</span> file ‘<span class="op">/</span>tmp<span class="op">/</span>RtmpCHPJWM<span class="op">/</span>remotes220d81784cb74<span class="op">/</span>DHLab<span class="op">-</span>TSENG<span class="op">-</span>dxpr<span class="op">-</span>fa80e1b<span class="op">/</span>DESCRIPTION’ ...</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">✓  checking <span class="cf">for</span> file ‘<span class="op">/</span>tmp<span class="op">/</span>RtmpCHPJWM<span class="op">/</span>remotes220d81784cb74<span class="op">/</span>DHLab<span class="op">-</span>TSENG<span class="op">-</span>dxpr<span class="op">-</span>fa80e1b<span class="op">/</span>DESCRIPTION’</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  </a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">─  preparing ‘dxpr’<span class="op">:</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">   </span>checking DESCRIPTION meta<span class="op">-</span>information ...</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">  </a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">✓  checking DESCRIPTION meta<span class="op">-</span>information</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">  </a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">─  checking <span class="cf">for</span> LF line<span class="op">-</span>endings <span class="cf">in</span> source and make files and shell scripts</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">  </a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">─  checking <span class="cf">for</span> empty or unneeded directories</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;    Removed empty directory ‘dxpr/emr-master’</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; ─  looking to see if a ‘data/datalist’ file should be added</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">  </a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">─  building ‘dxpr_<span class="dv">0</span>.<span class="dv">3</span>.<span class="fl">0.</span>tar.gz’ (<span class="fl">1.6</span>s)</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">  </a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">   </a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; </span></a></code></pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -147,7 +119,7 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sampleDxFile</span>)
 <span class="co">#&gt;     ID  ICD       Date</span>
@@ -228,37 +200,37 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <span class="no">plot_errorICD</span>
 <span class="co">#&gt; $graph</span></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-2-1.png"><!-- --></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; $ICD</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  3:   E114     8        42.2%           ICD 10  Wrong format           </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  4: A01.05     8       49.54%            ICD 9 Wrong version           </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  5:  42761     7       55.96%           ICD 10 Wrong version           </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  6:  Z9.90     6       61.47%           ICD 10  Wrong format           </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  7:    F42     6       66.97%           ICD 10  Wrong format           </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">plot_groupedData</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; $graph</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; $ICD</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  3:   E114     8        42.2%           ICD 10  Wrong format           </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  4: A01.05     8       49.54%            ICD 9 Wrong version           </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  5:  42761     7       55.96%           ICD 10 Wrong version           </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  6:  Z9.90     6       61.47%           ICD 10  Wrong format           </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  7:    F42     6       66.97%           ICD 10  Wrong format           </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">plot_groupedData</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; $graph</span></a></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-2-2.png"><!-- --></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; $sigCate</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt;     DiagnosticCategory  N Percentage</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;  1:           RENLFAIL 24     63.16%</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  2:              TUMOR  6     15.79%</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  3:               ARTH  5     13.16%</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  4:              LYMPH  4     10.53%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;  5:              PSYCH  4     10.53%</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  6:               DRUG  3      7.89%</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  7:              NEURO  3      7.89%</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  8:               PARA  2      5.26%</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  9:           PERIVASC  2      5.26%</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 10:              VALVE  2      5.26%</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; $sigCate</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;     DiagnosticCategory  N Percentage</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;  1:           RENLFAIL 24     63.16%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  2:              TUMOR  6     15.79%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  3:               ARTH  5     13.16%</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  4:              LYMPH  4     10.53%</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  5:              PSYCH  4     10.53%</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  6:               DRUG  3      7.89%</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  7:              NEURO  3      7.89%</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  8:               PARA  2      5.26%</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  9:           PERIVASC  2      5.26%</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 10:              VALVE  2      5.26%</span></a></code></pre></div>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
