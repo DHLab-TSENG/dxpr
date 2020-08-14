@@ -404,7 +404,7 @@ head(Charlson$summarised_groupedDT, 5)
 |病患編碼|個數|第一筆資料時間|最後一筆資料時間|第一筆資料與最後一筆資料相隔週期| 出現最多次數的診斷編碼|最常出現診斷編碼的次數 |
 
 
-符合條件的個案將整合為一筆資料，內容為符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD and most common ICD count）。
+符合條件的個案將整合為一筆資料，內容為符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD 和 most common ICD count）。
 
 符合篩選條件會在欄位`selectedCase`顯示"Selected"，使用者也可自行定義組別名稱 (在`selectCaseType`設定)  
 以第一筆做說明，個案A0符合篩選條件的診斷資料共5筆，第一筆診斷日期為"2008-07-08"，最後一筆診斷紀錄為"2014-02-24"。其中V420出現次數最高，共三筆。整個診斷紀錄週期為2057天
