@@ -12,20 +12,20 @@ vignette: >
 # 診斷前處理與整合方法
 
 ```
-cat(utils::packageDescription("emr")$Description)
+cat(utils::packageDescription("dxpr")$Description)
 ```
 ### 安裝套件
 ```r
 install.packages("devtools")
 # Install development version from GitHub
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-CGU/emr")
-library(emr)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr)
 ```
 ### ICD-CM-CODE 格式對照
 
@@ -98,7 +98,7 @@ short$ICD[6:10]
 **warning message**
 
 醫療數據的診斷編碼有可能誤植導致診斷編碼錯誤，而錯誤的診斷編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。  
-為方便使用者修改錯誤的診斷編碼，emr套件提供warning message提醒使用者錯誤的診斷編碼。  
+為方便使用者修改錯誤的診斷編碼，dxpr套件提供warning message提醒使用者錯誤的診斷編碼。  
 
 編碼錯誤的種類：**格式錯誤 (wrong format)**及**版本分類錯誤 (wrong version)**
 ```{r, message = FALSE, warning = FALSE}
@@ -125,7 +125,7 @@ sample$Error
 
 以下為判斷診斷編碼錯誤流程圖，以診斷編碼轉為 decimal 作為範例
 
-<img src="https://raw.githubusercontent.com/DHLab-CGU/dhlab-cgu.github.io/master/emr/warning.jpg" style="display:block; margin:auto; width:100%;">
+<img src="https://raw.githubusercontent.com/DHLab-TSENG/dhlab-tseng.github.io/master/dxpr/warning.jpg" style="display:block; margin:auto; width:100%;">
 
 * 將資料依照格式依診斷日期分為ICD-9及ICD-10兩部分  
 * Step 1: 將資料分為short及decimal  
@@ -535,7 +535,7 @@ Plot_error1 <- plotICDError(errorFile = error$Error,
                             wrongICDType = all,
                             others = TRUE)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;">
 上圖顯示前10名錯誤的診斷編碼，其餘名次的錯誤編碼則分類至"Others"  
 第一名的錯誤**A0.11**共有20筆，佔全部錯誤18.35% (20/109)
 ```{r, message = FALSE}
@@ -568,7 +568,7 @@ Plot_error2 <- plotICDError(errorFile = error$Error,
                              others = TRUE,
                              topN = 3)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
 由下表格得知第一名的錯誤編碼為**A01.05**佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%
 ```r
 Plot_error2$ICD
@@ -611,7 +611,7 @@ plot1 <- plotDiagCat(groupedDataWide = groupedDataWide,
                      topN = 10,
                      limitFreq = 0.01)
 ```
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
+<img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/PlotGroupedData-1.png" style="display:block; margin:auto; width:70%;"> 
 下表格為有符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例  
 本範例共有38個病患，以第一組為例，共有24人被分為 RENLFAIL 共病症，比例為63.16% (24/38)
 ```{r}
@@ -660,7 +660,7 @@ plot2 <- plotDiagCat(groupedDataWide = groupedData_Wide,
                      pvalue = 0.05)
 ```
 
-<img src="https://raw.githubusercontent.com/DHLab-CGU/emr/master/docs/reference/PlotGroupedData-2.png" style="display:block; margin:auto; width:70%;">
+<img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/PlotGroupedData-2.png" style="display:block; margin:auto; width:70%;">
 下表格為在selected/nonSelected兩組間達顯著差異的共病症組別RENLFAIL  
 在selected組佔了100% (24/24)，在nonSelected組佔了0% (0/14)  
 
