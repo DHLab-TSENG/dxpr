@@ -44,11 +44,11 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
 
       dignosticCate <- merge(groupedDataLong, rbind(caseDataLong[Test_pvalue,],ctrlDataLong[Test_pvalue,]),all.x = TRUE)[!is.na(Group),]
       dignosticCate[,c("Group","Percentage") := list(factor(Group, levels = unique(dignosticCate$Group)),
-                                                   paste0(Percentage,"%")),]
+                                                   Percentage),]
       dignosticCate <- dignosticCate[order(DiagnosticCategory, Group, N, decreasing = TRUE),]
 
-      g <- ggplot(dignosticCate, aes(fill =  Group, y = N, x = DiagnosticCategory, group = Group)) +
-        geom_text(aes(label = Percentage), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
+      g <- ggplot(dignosticCate, aes(fill =  Group, y = Percentage, x = DiagnosticCategory, group = Group)) +
+        geom_text(aes(label = paste("n =", N)), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
         geom_bar(position="dodge", stat="identity")
     }
   }else{
@@ -59,17 +59,16 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
     groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
                                          list(factor(DiagnosticCategory, levels = DiagnosticCategory),
                                               nrow(groupedDataLong):1,
-                                              paste0(Percentage,"%")),][Number <= topN,]
+                                              Percentage),][Number <= topN,]
     dignosticCate <- groupedDataLong[,-"Number"][order(N, decreasing = TRUE),]
 
-    g <- ggplot(groupedDataLong, aes(y = N, x = DiagnosticCategory)) +
+    g <- ggplot(groupedDataLong, aes(y = Percentage, x = DiagnosticCategory)) +
       geom_bar(position="dodge", stat="identity") +
-      geom_text(aes(label = Percentage), hjust = -.2, size = 3, position = position_dodge(width = 1))
+      geom_text(aes(label = paste("n =", N)), hjust = -.2, size = 3, position = position_dodge(width = 1))
   }
   plot_title <- paste0(plot_title,": Top ", topN)
   dignosticCate_graph <- g + coord_flip() +
-    xlab("Diagnostic category") + ylab("Diagnostic category, n") + ggtitle(plot_title) +
-    annotate("rect",xmin = 1,xmax = 1, ymin = 1, ymax = 25, fill = "white") +
+    xlab("Diagnostic category") + ylab("Diagnostic category, %") + ggtitle(plot_title) +
     theme_bw() +
     theme(axis.text.y = element_text(size = 10,face = "bold"),
           axis.text.x = element_text(size = 10,face = "bold"))
