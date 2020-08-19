@@ -67,7 +67,9 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
       geom_text(aes(label = paste("n =", N)), hjust = -.2, size = 3, position = position_dodge(width = 1))
   }
   plot_title <- paste0(plot_title,": Top ", topN)
-  dignosticCate_graph <- g + coord_flip() +
+  dignosticCate_graph <- g + coord_flip(clip = "off") +
+    scale_y_continuous(expand = c(0.1, 0)) +
+    expand_limits(y = c(0,100)) +
     xlab("Diagnostic category") + ylab("Diagnostic category, %") + ggtitle(plot_title) +
     theme_bw() +
     theme(axis.text.y = element_text(size = 10,face = "bold"),
