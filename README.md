@@ -38,9 +38,37 @@ visualize clinical data, including diagnosis and procedure records.
 devtools::install_github("DHLab-TSENG/dxpr")
 ```
 
+    #> 
+    #>   
+       checking for file ‘/tmp/RtmpCsd67h/remotes31f634fcc569b/DHLab-TSENG-dxpr-e2999ba/DESCRIPTION’ ...
+      
+    ✓  checking for file ‘/tmp/RtmpCsd67h/remotes31f634fcc569b/DHLab-TSENG-dxpr-e2999ba/DESCRIPTION’
+    #> 
+      
+    ─  preparing ‘dxpr’:
+    #> 
+      
+       checking DESCRIPTION meta-information ...
+      
+    ✓  checking DESCRIPTION meta-information
+    #> 
+      
+    ─  checking for LF line-endings in source and make files and shell scripts
+    #> 
+      
+    ─  checking for empty or unneeded directories
+    #> ─  looking to see if a ‘data/datalist’ file should be added
+    #> 
+      
+    ─  building ‘dxpr_0.3.0.tar.gz’ (1.6s)
+    #> 
+      
+       
+    #> 
+
 ## Overview
 
-<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;">
+<img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/image/overview.png?raw=true" style="display:block; margin:auto; width:100%;">
 
 ## Usage
 
@@ -152,16 +180,16 @@ plot_errorICD
     #> 
     #> $sigCate
     #>     DiagnosticCategory  N Percentage
-    #>  1:           RENLFAIL 24     63.16%
-    #>  2:              TUMOR  6     15.79%
-    #>  3:               ARTH  5     13.16%
-    #>  4:              LYMPH  4     10.53%
-    #>  5:              PSYCH  4     10.53%
-    #>  6:               DRUG  3      7.89%
-    #>  7:              NEURO  3      7.89%
-    #>  8:               PARA  2      5.26%
-    #>  9:           PERIVASC  2      5.26%
-    #> 10:              VALVE  2      5.26%
+    #>  1:           RENLFAIL 24      63.16
+    #>  2:              TUMOR  6      15.79
+    #>  3:               ARTH  5      13.16
+    #>  4:              LYMPH  4      10.53
+    #>  5:              PSYCH  4      10.53
+    #>  6:               DRUG  3       7.89
+    #>  7:              NEURO  3       7.89
+    #>  8:               PARA  2       5.26
+    #>  9:           PERIVASC  2       5.26
+    #> 10:              VALVE  2       5.26
 
 ## Getting help
 
