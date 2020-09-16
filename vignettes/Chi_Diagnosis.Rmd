@@ -60,7 +60,7 @@ head(sampleDxFile)
 ### 一、格式轉換
 **ICD-CM code兩種格式的轉換：Short <-> Decimal**
 
-將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據 CCS（Clinical Classifications Software）、共病症（Comorbidity）及 PheWAS 的分組表中 ICD 診斷碼格式如**表一**。
+將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據 Clinical Classifications Software (CCS)、共病症 (Comorbidity) 及 Phenome-wide association studies (PheWAS) 的分組表，其分別使用之 ICD 診斷碼格式如**表一**。
 
 **表一** 標準化分組之診斷編碼格式
 
