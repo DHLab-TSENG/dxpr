@@ -35,7 +35,7 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
         Test_pvalue[[length(Test_pvalue)+1]] <- FALSE
       }
     }
-    if(sum(Test_pvalue) == 0){
+    if(sum(unlist(Test_pvalue)) == 0){
       return(message("There is no significant category between case and control"))
     }else{
       groupedDataLong <- groupedDataLong[,list(sum = sum(N)),by = DiagnosticCategory][order(sum,decreasing = TRUE)]
