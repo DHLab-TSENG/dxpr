@@ -27,15 +27,15 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
                           caseN - caseDataLong$N[cat], ctrlN - ctrlDataLong$N[cat]), 2)
 
         if(sum(Table < 5) < 1 && sum((chisq.test(Table, simulate.p.value = TRUE)$expected) < 5) < 1){
-          Test_pvalue[[length(Test_pvalue)+1]] <- chisq.test(Table, correct = FALSE)$p.value < pvalue
+          Test_pvalue[length(Test_pvalue)+1] <- chisq.test(Table, correct = FALSE)$p.value < pvalue
         }else{
-          Test_pvalue[[length(Test_pvalue)+1]] <- fisher.test(Table, alternative = "greater")$p.value < pvalue
+          Test_pvalue[length(Test_pvalue)+1] <- fisher.test(Table, alternative = "greater")$p.value < pvalue
         }
       }else{
-        Test_pvalue[[length(Test_pvalue)+1]] <- FALSE
+        Test_pvalue[length(Test_pvalue)+1] <- FALSE
       }
     }
-    if(sum(unlist(Test_pvalue)) == 0){
+    if(sum(Test_pvalue) == 0){
       return(message("There is no significant category between case and control"))
     }else{
       groupedDataLong <- groupedDataLong[,list(sum = sum(N)),by = DiagnosticCategory][order(sum,decreasing = TRUE)]
