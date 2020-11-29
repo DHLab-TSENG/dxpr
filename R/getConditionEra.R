@@ -49,7 +49,7 @@ getConditionEra <- function(dxDataFile, idColName, icdColName, dateColName, icdV
   eraCount <- eraCount[,list(firstCaseDate = min(Date),
                              endCaseDate = max(Date),
                              count = .N,
-                             period = max(Date) - min(Date)), by = c("ID", groupDataType,"era")][order(ID),]
+                             period = max(Date) - min(Date)), by = c(groupByCol,"era")]#[order(ID),]
   if(!is.null(selectedCaseFile)){
     eraCount <- merge(eraCount, selectedCaseFile[,list(ID, selectedCase)], all.x = TRUE)
   }
