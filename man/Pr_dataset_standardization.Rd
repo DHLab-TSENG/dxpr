@@ -6,7 +6,11 @@
 \alias{ICD9PrwithTwoFormat}
 \alias{prICD10}
 \title{Datasets for code standardization}
-\format{These datatable with ICD9 and ICD10 procedure codes.}
+\format{
+These datatable with ICD9 and ICD10 procedure codes.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 78880 rows and 2 columns.
+}
 \usage{
 ICD9PrwithTwoFormat
 

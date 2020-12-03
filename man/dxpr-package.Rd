@@ -18,7 +18,7 @@ It has four main sections:
  \item Visualization: Provide overviews for diagnoses standardization and data integration, such as the differences of comorbidities between case and control groups, and the most common diagnoses which are fail to be grouped or standardized.
 }
 
-To learn more about emr, start with the vignettes:
+ To learn more about emr, start with the vignettes:
 `browseVignettes(package = "emr")`
 }
 \seealso{

@@ -4,7 +4,9 @@
 \name{samplePrFile}
 \alias{samplePrFile}
 \title{Sample file for demo with procedure codes}
-\format{A data table with 170 rows and 3 variables}
+\format{
+A data table with 170 rows and 3 variables
+}
 \description{
 Demo for data integration.
 }

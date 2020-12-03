@@ -122,11 +122,21 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>icdDxToCustom</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>customGroupingTable</span>)
+    <pre class="usage"><span class='fu'>icdDxToCustom</span>(
+  <span class='no'>dxDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='no'>customGroupingTable</span>
+)
 
-<span class='fu'>icdDxToCustomGrep</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='no'>customGroupingTable</span>)</pre>
+<span class='fu'>icdDxToCustomGrep</span>(
+  <span class='no'>dxDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='no'>customGroupingTable</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,14 +192,57 @@
                             <span class='kw'>ICD</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N181"</span>,<span class='st'>"5853"</span>,<span class='st'>"5854"</span>,<span class='st'>"5855"</span>,<span class='st'>"5856"</span>,<span class='st'>"5859"</span>),
                             <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>icdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; <span class='error'>Error in icdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable): unused argument (CustomGroupingTable = groupingTable)</span></div><div class='input'>
+<span class='fu'>icdDxToCustom</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>customGroupingTable</span> <span class='kw'>=</span> <span class='no'>groupingTable</span>)</div><div class='output co'>#&gt; $groupedDT
+#&gt;         ICD  ID       Date Group
+#&gt;   1:   Z992  A2 2020-05-22  &lt;NA&gt;
+#&gt;   2:   Z992  A5 2020-01-24  &lt;NA&gt;
+#&gt;   3:   Z992  A8 2015-10-27  &lt;NA&gt;
+#&gt;   4:   Z992 A13 2020-04-26  &lt;NA&gt;
+#&gt;   5:   Z992 A13 2025-02-02  &lt;NA&gt;
+#&gt;  ---                            
+#&gt; 296:    650  C2 2017-10-10  &lt;NA&gt;
+#&gt; 297:    650  D4 2022-04-04  &lt;NA&gt;
+#&gt; 298: 123.45  C3 2022-09-28  &lt;NA&gt;
+#&gt; 299: 123.45  D8 2018-06-17  &lt;NA&gt;
+#&gt; 300: 123.45  C0 2017-05-09  &lt;NA&gt;
+#&gt; 
+#&gt; $summarised_groupedDT
+#&gt;      ID                  Group firstCaseDate endCaseDate count    period
+#&gt;  1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days
+#&gt;  2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days
+#&gt;  3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days
+#&gt;  4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days
+#&gt;  5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days
+#&gt;  6: A13 Chronic kidney disease    2006-04-29  2010-02-21     2 1394 days
+#&gt;  7: A14 Chronic kidney disease    2011-11-07  2013-07-26     2  627 days
+#&gt;  8: A17 Chronic kidney disease    2007-02-19  2013-09-30     2 2415 days
+#&gt;  9: A18 Chronic kidney disease    2007-04-05  2012-02-10     2 1772 days
+#&gt; 10:  A2 Chronic kidney disease    2011-09-20  2015-01-06     3 1204 days
+#&gt; 11:  A3 Chronic kidney disease    2010-11-12  2014-02-24     2 1200 days
+#&gt; 12:  A4 Chronic kidney disease    2015-03-09  2015-03-09     1    0 days
+#&gt; 13:  A5 Chronic kidney disease    2010-08-24  2010-08-24     1    0 days
+#&gt; 14:  A6 Chronic kidney disease    2007-10-01  2007-10-01     1    0 days
+#&gt; 15:  A7 Chronic kidney disease    2007-02-01  2013-12-16     2 2510 days
+#&gt; 16:  A8 Chronic kidney disease    2014-08-20  2014-08-20     1    0 days
+#&gt; </div><div class='input'>
 <span class='co'># Group diagnostic codes into "Chronic kidney disease" with fuzzy grouping method</span>
 
 <span class='no'>grepTable</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>Group</span> <span class='kw'>=</span> <span class='st'>"Chronic kidney disease"</span>,
                         <span class='kw'>grepIcd</span> <span class='kw'>=</span> <span class='st'>"^585|^N18"</span>,
                         <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>icdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,<span class='kw'>CustomGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; <span class='error'>Error in icdDxToCustomGrep(sampleDxFile, ID, ICD, Date, CustomGroupingTable = grepTable): unused argument (CustomGroupingTable = grepTable)</span></div><div class='input'>
+<span class='fu'>icdDxToCustomGrep</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>customGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: There is no match diagnostic code with the grepTable</span></div><div class='output co'>#&gt;       ID    ICD       Date Group GrepedGroup
+#&gt;   1:  A2   Z992 2020-05-22    NA        &lt;NA&gt;
+#&gt;   2:  A5   Z992 2020-01-24    NA        &lt;NA&gt;
+#&gt;   3:  A8   Z992 2015-10-27    NA        &lt;NA&gt;
+#&gt;   4: A13   Z992 2020-04-26    NA        &lt;NA&gt;
+#&gt;   5: A13   Z992 2025-02-02    NA        &lt;NA&gt;
+#&gt;  ---                                        
+#&gt; 296:  C2    650 2017-10-10    NA        &lt;NA&gt;
+#&gt; 297:  D4    650 2022-04-04    NA        &lt;NA&gt;
+#&gt; 298:  C3 123.45 2022-09-28    NA        &lt;NA&gt;
+#&gt; 299:  D8 123.45 2018-06-17    NA        &lt;NA&gt;
+#&gt; 300:  C0 123.45 2017-05-09    NA        &lt;NA&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

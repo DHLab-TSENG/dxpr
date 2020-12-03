@@ -122,8 +122,15 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>icdPrToProcedureClass</span>(<span class='no'>prDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>icdPrToProcedureClass</span>(
+  <span class='no'>prDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,7 +186,23 @@
 #&gt; 6:  B  8812 2007-06-27</div><div class='input'>
 <span class='co'># Group procedure codes into procedure class classification</span>
 
-<span class='fu'>icdPrToProcedureClass</span>(<span class='no'>samplePrFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(prDataFile, , dataCol, with = FALSE): column(s) not found: "2015-10-01"</span></div><div class='input'>
+<span class='fu'>icdPrToProcedureClass</span>(<span class='no'>samplePrFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $groupedDT
+#&gt;        Short ID     ICD       Date PROCEDURE_CLASS_NAME
+#&gt;   1:    5681  B    5681 2008-01-14    Major Therapeutic
+#&gt;   2:    9774  A    9774 2009-01-11    Minor Therapeutic
+#&gt;   3:    4499  B   44.99 2009-05-10    Major Therapeutic
+#&gt;   4:    0759  C   07.59 2009-01-21    Major Therapeutic
+#&gt;   5:    0205  B    0205 2008-07-06    Major Therapeutic
+#&gt;  ---                                                   
+#&gt; 166: 00UH4KZ  B 00UH4KZ 2019-08-04    Major Therapeutic
+#&gt; 167: 001U074  A 001U074 2020-10-04    Major Therapeutic
+#&gt; 168: 02160AQ  C 02160AQ 2021-12-01    Major Therapeutic
+#&gt; 169: 02134KC  A 02134KC 2020-01-30    Major Therapeutic
+#&gt; 170: 00WU0YZ  B 00WU0YZ 2020-06-08    Major Therapeutic
+#&gt; 
+#&gt; $Error
+#&gt; NULL
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

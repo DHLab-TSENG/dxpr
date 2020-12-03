@@ -7,11 +7,21 @@
 \alias{icdDxToCustomGrep}
 \title{Code classification for customized group}
 \usage{
-icdDxToCustom(dxDataFile, idColName, icdColName, dateColName,
-  customGroupingTable)
+icdDxToCustom(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  customGroupingTable
+)
 
-icdDxToCustomGrep(dxDataFile, idColName, icdColName, dateColName,
-  customGroupingTable)
+icdDxToCustomGrep(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  customGroupingTable
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -44,7 +54,7 @@ groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
                             ICD = c("N181","5853","5854","5855","5856","5859"),
                             stringsAsFactors = FALSE)
 
-icdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+icdDxToCustom(sampleDxFile, ID, ICD, Date, customGroupingTable = groupingTable)
 
 # Group diagnostic codes into "Chronic kidney disease" with fuzzy grouping method
 
@@ -52,7 +62,7 @@ grepTable <- data.frame(Group = "Chronic kidney disease",
                         grepIcd = "^585|^N18",
                         stringsAsFactors = FALSE)
 
-icdDxToCustomGrep(sampleDxFile,ID, ICD, Date,CustomGroupingTable = grepTable)
+icdDxToCustomGrep(sampleDxFile, ID, ICD, Date, customGroupingTable = grepTable)
 
 }
 \seealso{

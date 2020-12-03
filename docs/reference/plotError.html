@@ -122,8 +122,14 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotICDError</span>(<span class='no'>errorFile</span>, <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='no'>all</span>, <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
-  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>plotICDError</span>(
+  <span class='no'>errorFile</span>,
+  <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
+  <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
+  <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>10</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,22 +184,39 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># Data of diagnosis codes with potential error</span>
 
-<span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dxUniform.html'>icdDxDecimalToShort</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(setDT(dxDataFile), , dataCol, with = FALSE): column(s) not found: "2015/10/01"</span></div><div class='input'>
+<span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dxUniform.html'>icdDxDecimalToShort</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
 <span class='co'># Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes</span>
 
-<span class='fu'>plot_errorICD</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
-              <span class='kw'>ICDVersion</span> <span class='kw'>=</span> <span class='fl'>9</span>,
+<span class='fu'>plotICDError</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
+              <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='fl'>9</span>,
               <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-              <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-              <span class='kw'>TopN</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_errorICD(errorFile = error$Error, ICDVersion = 9, wrongICDType = all,     groupICD = TRUE, Others = TRUE, TopN = 3): could not find function "plot_errorICD"</span></div><div class='input'>
+              <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+              <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotError-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $ICD
+#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType
+#&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version
+#&gt; 2:        7          9       70.97%          75.52         44.44%  Wrong format
+#&gt; 3:        0          5        87.1%            001           100%  Wrong format
+#&gt; 4:   others          4         100%          E03.0           100% Wrong version
+#&gt; </div><div class='input'>
 <span class='co'># Plot of top 10 common error ICD codes and a list of the detail of error ICD codes</span>
 
-<span class='fu'>plot_errorICD</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
-              <span class='kw'>ICDVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
+<span class='fu'>plotICDError</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
+              <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-              <span class='kw'>Others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_errorICD(errorFile = error$Error, ICDVersion = all, wrongICDType = all,     groupICD = FALSE, Others = TRUE): could not find function "plot_errorICD"</span></div><div class='input'>
+              <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotError-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+#&gt; $ICD
+#&gt;       ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion
+#&gt; 1: A01.05     8       25.81%            ICD 9 Wrong version           
+#&gt; 2:  A0105     5       41.94%            ICD 9 Wrong version           
+#&gt; 3:    001     5       58.06%            ICD 9  Wrong format       0019
+#&gt; 4:  75.52     4       70.97%            ICD 9  Wrong format           
+#&gt; 5:  E03.0     4       83.87%            ICD 9 Wrong version           
+#&gt; 6:  755.2     3       93.55%            ICD 9  Wrong format     755.29
+#&gt; 7:   7552     2         100%            ICD 9  Wrong format      75529
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

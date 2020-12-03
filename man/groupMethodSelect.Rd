@@ -4,9 +4,17 @@
 \alias{groupMethodSelect}
 \title{code classification method}
 \usage{
-groupMethodSelect(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, groupMethod = ccs,
-  customGroupingTable, isDescription)
+groupMethodSelect(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  groupMethod = ccs,
+  customGroupingTable,
+  isDescription
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -16,6 +24,8 @@ groupMethodSelect(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 

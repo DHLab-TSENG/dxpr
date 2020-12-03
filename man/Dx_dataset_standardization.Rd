@@ -6,7 +6,11 @@
 \alias{ICD9DxwithTwoFormat}
 \alias{ICD10DxwithTwoFormat}
 \title{Datasets for code standardization}
-\format{These datatable with ICD9 and ICD10 diagnosis codes.}
+\format{
+These datatable with ICD9 and ICD10 diagnosis codes.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 71931 rows and 2 columns.
+}
 \usage{
 ICD9DxwithTwoFormat
 

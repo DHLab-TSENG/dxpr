@@ -5,9 +5,16 @@
 \alias{groupedDataLongToWide}
 \title{Data format transformation}
 \usage{
-groupedDataLongToWide(dxDataFile, idColName, categoryColName, dateColName,
-  reDup = TRUE, numericOrBinary = B, count = 1,
-  selectedCaseFile = NULL)
+groupedDataLongToWide(
+  dxDataFile,
+  idColName,
+  categoryColName,
+  dateColName,
+  reDup = TRUE,
+  numericOrBinary = B,
+  count = 1,
+  selectedCaseFile = NULL
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -30,24 +37,36 @@ Convert the long format of grouped data into a wide format which is fit to other
 The output dataset of this function can be numeric or binary wide format
 }
 \examples{
-# sample file for example
 
-head(sampleDxFile)
+# Create a grouped data
+
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                       idColName = ID,
+                       icdColName = ICD,
+                       dateColName = Date,
+                       icd10usingDate = "2015/10/01",
+                       comorbidMethod = elix)
+
+head(ELIX$groupedDT)
 
 # Select case with "Diseases of the urinary system" by level 2 of CCS classification
 
-selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
+                                idColName = ID,
+                                icdColName = ICD,
+                                dateColName = Date,
+                                icdVerColName = NULL,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,
                                 caseCondition = "Diseases of the urinary system",
                                 caseCount = 1)
 
-# Convert long format grouped data into a wide numeric format with selected case
+# Convert the long format of grouped data into a wide binary format with selected case
 
-groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                                          "2015-10-01", elix,
-                                          numericOrBinary = N,
-                                          isDescription = FALSE,
-                                          selectedCaseFile = selectedCaseFile)
-head(groupedData_Wide)
+groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+                                         idColName = ID,
+                                         categoryColName = Comorbidity,
+                                         dateColName = Date,
+                                         selectedCaseFile = selectedCaseFile)
+groupedDataWide
 }

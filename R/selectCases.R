@@ -2,7 +2,7 @@
 #' @export
 #'
 
-selectCases <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS, customGroupingTable, isDescription = TRUE, caseCondition, caseCount, periodRange = c(30, 365), caseName = "Selected"){
+selectCases <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS, customGroupingTable, isDescription = TRUE, caseCondition, caseCount = 2, periodRange = c(30, 365), caseName = "Selected"){
 
   dxDataFile <- as.data.table(dxDataFile)
   if(deparse(substitute(icdVerColName)) != "NULL"){

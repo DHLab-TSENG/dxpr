@@ -12,7 +12,7 @@ icdDxToCustomGrep <- function(dxDataFile, idColName, icdColName, dateColName, cu
   ifelse(is.na(GrepedIcd$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),GrepedIcd$ICD)
 
   for (rule in 1:nrow(customGroupingTable)){
-    GrepedIcd$Group<-ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$Group)
+    GrepedIcd <- GrepedIcd[,GrepedGroup := ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$Group)]
   }
 
   if(sum(!is.na(GrepedIcd$Group)) > 0){

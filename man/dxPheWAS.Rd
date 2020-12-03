@@ -5,8 +5,15 @@
 \alias{icdDxToPheWAS}
 \title{Code classification for PheWAS}
 \usage{
-icdDxToPheWAS(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE)
+icdDxToPheWAS(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  isDescription = TRUE
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -16,6 +23,8 @@ icdDxToPheWAS(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -37,7 +46,7 @@ head(sampleDxFile)
 
 # Group diagnostic codes into PheWAS
 
-icdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+icdDxToPheWAS(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", FALSE)
 }
 \seealso{
 Other code classification functions: \code{\link{dxCustom}}, \code{\link{dxComorbid}}, \code{\link{DxCCS}}

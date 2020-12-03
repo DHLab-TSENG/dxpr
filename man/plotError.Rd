@@ -5,8 +5,14 @@
 \alias{plotICDError}
 \title{Plot for error ICD list}
 \usage{
-plotICDError(errorFile, icdVersion = all, wrongICDType = all,
-  groupICD = FALSE, others = TRUE, topN = 10)
+plotICDError(
+  errorFile,
+  icdVersion = all,
+  wrongICDType = all,
+  groupICD = FALSE,
+  others = TRUE,
+  topN = 10
+)
 }
 \arguments{
 \item{errorFile}{Error file from ICD uniform function (`icdDxDecimalToShort` or `icdDxShortToDecimal`)}
@@ -36,24 +42,24 @@ head(sampleDxFile)
 
 # Data of diagnosis codes with potential error
 
-error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, icdVerColName = NULL, "2015/10/01")
 
 # Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes
 
-plot_errorICD(errorFile = error$Error,
-              ICDVersion = 9,
+plotICDError(errorFile = error$Error,
+              icdVersion = 9,
               wrongICDType = all,
               groupICD = TRUE,
-              Others = TRUE,
-              TopN = 3)
+              others = TRUE,
+              topN = 3)
 
 # Plot of top 10 common error ICD codes and a list of the detail of error ICD codes
 
-plot_errorICD(errorFile = error$Error,
-              ICDVersion = all,
+plotICDError(errorFile = error$Error,
+              icdVersion = all,
               wrongICDType = all,
               groupICD = FALSE,
-              Others = TRUE)
+              others = TRUE)
 
 }
 \seealso{

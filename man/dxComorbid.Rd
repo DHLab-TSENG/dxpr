@@ -5,9 +5,16 @@
 \alias{icdDxToComorbid}
 \title{Code classification for Comorbidity}
 \usage{
-icdDxToComorbid(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, comorbidMethod,
-  isDescription = FALSE)
+icdDxToComorbid(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  comorbidMethod,
+  isDescription = FALSE
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -17,6 +24,8 @@ icdDxToComorbid(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -40,7 +49,7 @@ head(sampleDxFile)
 
 # Group diagnostic codes into charlson comorbidity categories
 
-icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+icdDxToComorbid(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", charlson)
 }
 \seealso{
 Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{DxCCS}}

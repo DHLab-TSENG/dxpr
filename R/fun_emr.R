@@ -36,11 +36,11 @@ NULL
 #'
 #' # convert the diagnostic codes to the decimal format
 #'
-#' icdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
+#' icdDxShortToDecimal(sampleDxFile,ICD,Date, icd10usingDate = "2015/10/01")
 #'
 #' # convert the diagnostic codes to the short format
 #'
-#' icdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
+#' icdDxDecimalToShort(sampleDxFile,ICD,Date, icd10usingDate = "2015/10/01")
 NULL
 
 #' Code classification for CCS
@@ -61,11 +61,11 @@ NULL
 #'
 #' # Group diagnostic codes into single level of CCS classification
 #'
-#' icdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdDxToCCS(sampleDxFile, ID, ICD, Date, icd10usingDate =  "2015-10-01", isDescription = TRUE)
 #'
 #' # Group diagnostic codes into multiple levels of CCS classification
 #'
-#' icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+#' icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 NULL
 
 #' Code classification for PheWAS
@@ -85,7 +85,7 @@ NULL
 #'
 #' # Group diagnostic codes into PheWAS
 #'
-#' icdDxToPheWAS(sampleDxFile, ID, ICD, Date, "2015-10-01", FALSE)
+#' icdDxToPheWAS(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", FALSE)
 NULL
 
 #' Code classification for customized group
@@ -109,7 +109,7 @@ NULL
 #'                             ICD = c("N181","5853","5854","5855","5856","5859"),
 #'                             stringsAsFactors = FALSE)
 #'
-#' icdDxToCustom(sampleDxFile, ID, ICD, Date, CustomGroupingTable = groupingTable)
+#' icdDxToCustom(sampleDxFile, ID, ICD, Date, customGroupingTable = groupingTable)
 #'
 #' # Group diagnostic codes into "Chronic kidney disease" with fuzzy grouping method
 #'
@@ -117,7 +117,7 @@ NULL
 #'                         grepIcd = "^585|^N18",
 #'                         stringsAsFactors = FALSE)
 #'
-#' icdDxToCustomGrep(sampleDxFile,ID, ICD, Date,CustomGroupingTable = grepTable)
+#' icdDxToCustomGrep(sampleDxFile, ID, ICD, Date, customGroupingTable = grepTable)
 #'
 NULL
 
@@ -141,7 +141,7 @@ NULL
 #'
 #' # Group diagnostic codes into charlson comorbidity categories
 #'
-#' icdDxToComorbid(sampleDxFile, ID, ICD, Date, "2015-10-01", charlson)
+#' icdDxToComorbid(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", charlson)
 NULL
 
 #' Data integration for case selection
@@ -167,6 +167,7 @@ NULL
 #'
 #' selectCases(dxDataFile = sampleDxFile,
 #'             ID, ICD, Date,
+#'             icdVerColName = NULL,
 #'             groupDataType = ccslvl2,
 #'             icd10usingDate = "2015/10/01",
 #'             caseCondition = "Diseases of the urinary system",
@@ -248,6 +249,7 @@ NULL
 #' # Select case with "Diseases of the urinary system" by level 2 of CCS classification
 #'
 #' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+#'                                 icdVerColName = NULL,
 #'                                 icd10usingDate = "2015/10/01",
 #'                                 groupDataType = ccslvl2,
 #'                                 caseCondition = "Diseases of the urinary system",
@@ -255,7 +257,7 @@ NULL
 #'
 #' # Condition era calculation with case selection
 #'
-#' Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+#' Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01",
 #'                         groupDataType = CCSlvl3,
 #'                         selectedCaseFile = selectedCaseFile)
 #'
@@ -267,9 +269,9 @@ NULL
 #'
 #' # Condition era calculation with grouping custom method of code standardization
 #'
-#' Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+#' Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01",
 #'                         groupDataType = customGrepIcdGroup,
-#'                         CustomGroupingTable = grepTable)
+#'                         customGroupingTable = grepTable)
 #' head(Era1)
 #' head(Era2)
 NULL
@@ -285,26 +287,38 @@ NULL
 #' @param numericOrBinary Members have same diagnostic categories, type `N` or `B`, default is Binary \code{'B'}.
 #' @return A new \code{data.table} based on classifying \code{dxDataFile} and converted the dataset into a wide format dataset.
 #' @examples
-#' # sample file for example
 #'
-#' head(sampleDxFile)
+#' # Create a grouped data
+#'
+#' ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+#'                        idColName = ID,
+#'                        icdColName = ICD,
+#'                        dateColName = Date,
+#'                        icd10usingDate = "2015/10/01",
+#'                        comorbidMethod = elix)
+#'
+#' head(ELIX$groupedDT)
 #'
 #' # Select case with "Diseases of the urinary system" by level 2 of CCS classification
 #'
-#' selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+#' selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
+#'                                 idColName = ID,
+#'                                 icdColName = ICD,
+#'                                 dateColName = Date,
+#'                                 icdVerColName = NULL,
 #'                                 icd10usingDate = "2015/10/01",
 #'                                 groupDataType = ccslvl2,
 #'                                 caseCondition = "Diseases of the urinary system",
 #'                                 caseCount = 1)
 #'
-#' # Convert long format grouped data into a wide numeric format with selected case
+#'# Convert the long format of grouped data into a wide binary format with selected case
 #'
-#' groupedData_Wide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                           "2015-10-01", elix,
-#'                                           numericOrBinary = N,
-#'                                           isDescription = FALSE,
-#'                                           selectedCaseFile = selectedCaseFile)
-#' head(groupedData_Wide)
+#' groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+#'                                          idColName = ID,
+#'                                          categoryColName = Comorbidity,
+#'                                          dateColName = Date,
+#'                                          selectedCaseFile = selectedCaseFile)
+#' groupedDataWide
 NULL
 
 #' Plot for error ICD list
@@ -331,24 +345,24 @@ NULL
 #'
 #' # Data of diagnosis codes with potential error
 #'
-#' error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, "2015/10/01")
+#' error <- icdDxDecimalToShort(sampleDxFile, ICD, Date, icdVerColName = NULL, "2015/10/01")
 #'
 #' # Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes
 #'
-#' plot_errorICD(errorFile = error$Error,
-#'               ICDVersion = 9,
+#' plotICDError(errorFile = error$Error,
+#'               icdVersion = 9,
 #'               wrongICDType = all,
 #'               groupICD = TRUE,
-#'               Others = TRUE,
-#'               TopN = 3)
+#'               others = TRUE,
+#'               topN = 3)
 #'
 #' # Plot of top 10 common error ICD codes and a list of the detail of error ICD codes
 #'
-#' plot_errorICD(errorFile = error$Error,
-#'               ICDVersion = all,
+#' plotICDError(errorFile = error$Error,
+#'               icdVersion = all,
 #'               wrongICDType = all,
 #'               groupICD = FALSE,
-#'               Others = TRUE)
+#'               others = TRUE)
 #'
 NULL
 
@@ -373,17 +387,29 @@ NULL
 #' # sample file for example
 #' head(sampleDxFile)
 #'
+#' # Create a grouped data
+#'
+#' ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+#'                        idColName = ID,
+#'                        icdColName = ICD,
+#'                        dateColName = Date,
+#'                        icd10usingDate = "2015/10/01",
+#'                        comorbidMethod = elix)
+#'
+#' head(ELIX$groupedDT)
+#'
 #' # Convert long format of grouped data into wide binary format
 #'
-#' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix,
-#'                                          isDescription = FALSE)
+#' groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+#'                                          idColName = ID,
+#'                                          categoryColName = Comorbidity,
+#'                                          dateColName = Date)
 #'
 #' # plot of top 10 common grouped categories and a list of the detail of grouped categories
 #'
-#' plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
-#'                           TopN = 10,
+#' plot1 <- plotDiagCat(groupedDataWide = groupedDataWide,
+#'                           idColName = ID,
+#'                           topN = 10,
 #'                           limitFreq = 0.01)
 #' plot1
 #'
@@ -393,6 +419,7 @@ NULL
 #'                                 idColName = ID,
 #'                                 icdColName = ICD,
 #'                                 dateColName = Date,
+#'                                 icdVerColName = NULL,
 #'                                 icd10usingDate = "2015/10/01",
 #'                                 groupDataType = ccslvl2,
 #'                                 caseCondition = "Diseases of the urinary system",
@@ -400,16 +427,17 @@ NULL
 #'
 #'# Convert the long format of grouped data into a wide binary format with selected case
 #'
-#' groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-#'                                          icd10usingDate = "2015-10-01",
-#'                                          groupDataType = elix,
-#'                                          isDescription = FALSE,
+#' groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+#'                                          idColName = ID,
+#'                                          categoryColName = Comorbidity,
+#'                                          dateColName = Date,
 #'                                          selectedCaseFile = selectedCaseFile)
 #'
 #' # plot of top 10 common grouped categories and a list of the detail of grouped categories
 #'
-#' plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
-#'                           TopN = 10,
+#' plot2 <- plotDiagCat(groupedDataWide = groupedDataWide,
+#'                           idColName = ID,
+#'                           topN = 10,
 #'                           limitFreq = 0.01,
 #'                           pvalue = 0.05)
 #' plot2
@@ -448,11 +476,11 @@ NULL
 #'
 #' # convert the procedure codes to the short format
 #'
-#' icdPrDecimalToShort(samplePrFile,ICD,Date,"2015/10/01")
+#' icdPrDecimalToShort(samplePrFile,ICD,Date, icdVerColName = NULL, "2015/10/01")
 #'
 #' # convert the procedure codes to the decimal format
 #'
-#' icdPrShortToDecimal(samplePrFile,ICD,Date,"2015/10/01")
+#' icdPrShortToDecimal(samplePrFile,ICD,Date, icdVerColName = NULL, "2015/10/01")
 NULL
 
 #' Code classification for CCS
@@ -474,11 +502,11 @@ NULL
 #'
 #' # Group procedure codes into single level of CCS classification
 #'
-#' icdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdPrToCCS(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", TRUE)
 #'
 #' # Group procedure codes into multiple levels of CCS classification
 #'
-#' icdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+#' icdPrToCCSLvl(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 #'
 NULL
 
@@ -500,6 +528,6 @@ NULL
 #'
 #' # Group procedure codes into procedure class classification
 #'
-#' icdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+#' icdPrToProcedureClass(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", TRUE)
 #'
 NULL

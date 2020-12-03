@@ -122,10 +122,21 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>selectCases</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCS</span>,
-  <span class='no'>customGroupingTable</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>caseCondition</span>, <span class='no'>caseCount</span>,
-  <span class='kw'>periodRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>365</span>), <span class='kw'>caseName</span> <span class='kw'>=</span> <span class='st'>"Selected"</span>)</pre>
+    <pre class="usage"><span class='fu'>selectCases</span>(
+  <span class='no'>dxDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCS</span>,
+  <span class='no'>customGroupingTable</span>,
+  <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>caseCondition</span>,
+  <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>periodRange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>365</span>),
+  <span class='kw'>caseName</span> <span class='kw'>=</span> <span class='st'>"Selected"</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,6 +156,10 @@
     <tr>
       <th>dateColName</th>
       <td><p>A column for Date of dxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>icdVerColName</th>
+      <td><p>A column for ICD-9/10 version. The format should be numeric 9L or 10L.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
@@ -207,6 +222,7 @@
 
 <span class='fu'>selectCases</span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
             <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+            <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
             <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
             <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
             <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,

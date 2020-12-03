@@ -5,10 +5,19 @@
 \alias{getConditionEra}
 \title{Data integration for condition era calculation}
 \usage{
-getConditionEra(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, groupDataType = ccs,
-  customGroupingTable, isDescription = TRUE, gapDate = 30,
-  selectedCaseFile = NULL)
+getConditionEra(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  groupDataType = ccs,
+  customGroupingTable,
+  isDescription = TRUE,
+  gapDate = 30,
+  selectedCaseFile = NULL
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -18,6 +27,8 @@ getConditionEra(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -48,6 +59,7 @@ head(sampleDxFile)
 # Select case with "Diseases of the urinary system" by level 2 of CCS classification
 
 selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
+                                icdVerColName = NULL,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,
                                 caseCondition = "Diseases of the urinary system",
@@ -55,7 +67,7 @@ selectedCaseFile <- selectCases(sampleDxFile, ID, ICD, Date,
 
 # Condition era calculation with case selection
 
-Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+Era1 <- getConditionEra(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01",
                         groupDataType = CCSlvl3,
                         selectedCaseFile = selectedCaseFile)
 
@@ -67,9 +79,9 @@ grepTable <- data.frame(Group = "Chronic kidney disease",
 
 # Condition era calculation with grouping custom method of code standardization
 
-Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, "2015-10-01",
+Era2 <- getConditionEra(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01",
                         groupDataType = customGrepIcdGroup,
-                        CustomGroupingTable = grepTable)
+                        customGroupingTable = grepTable)
 head(Era1)
 head(Era2)
 }

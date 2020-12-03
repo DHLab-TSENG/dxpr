@@ -5,8 +5,14 @@
 \alias{splitDataByDate}
 \title{Data integration for data split}
 \usage{
-splitDataByDate(dxDataFile, idColName, icdColName, dateColName,
-  indexDateFile, gap = 30)
+splitDataByDate(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  indexDateFile,
+  gap = 30
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}

@@ -27,7 +27,8 @@ devtools::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
 ### ICD-CM code with two format 
-There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format.
+dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
+
 
 ICD-9-CM
 ```{r}
@@ -45,36 +46,34 @@ head(ICD10DxwithTwoFormat$Decimal)
 ```
 
 ### Sample file
-An example of the data shows as below:  
-This data is a simulated medical data set of 38 patients with 300 records. 
+A sample file is included in dxpr package:  
+This dataset is a simulated medical dataset of 38 patients with overall 300 records. 
 ```{r}
 head(sampleDxFile)
 ```
 ## I.Code Integration
 ### A. ICD diagnostic code format transformation：Short <-> Decimal
 
-Standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before code grouping.
-
-Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.
+dxpr package helps users to standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as **Table 1**.
 
 **Table 1** Format of code classification methods 
 
 |   |ICD format|
 |--------|----|
-|Clinical Classifications Software|short format|
+|Clinical Classifications Software (CCS)|short format|
 |Comorbidity |short format|
-|PheWAS|decimal format|
+|Phenome-Wide Association Studies(PheWAS)|decimal format|
 
-To distinguish the version of ICD diagnostic code (ICD9/ICD10) in code standardization.  
-User can set the using date of ICD10.    
+Since formats of ICD code used in datasets could be different, the transformational type is according to the grouping method chosen by users. 
 
-Reimbursement claims with a date required to use of ICD-10 codes (`icd10usingdate`)   
-In America: October 1, 2015  
-In Taiwan: January 1, 2016  
+For example, if a user wants to group data by CCS,  then ICD codes should be transformed into **short** format.
+
+Code standardization for ICD-9 and ICD-10 is executed seperately, there are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific column that records version used (numeric \code{9} or \code{10}), the other is to set the starting using date of ICD-10. For example, reimbursement claims with a date required to use of ICD-10 codes in United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.
 
 #### A-1. Uniform decimal format
 
-The standardization function converts the ICD diagnostic codes to a uniform decimal format and is used for grouping diagnostic code to PheWAS classification (`icdDxToPheWAS`). 
+The standardization function converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.
+
 ```{r, message = FALSE, warning = FALSE}
 # Short to decimal
 decimal <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
@@ -83,9 +82,13 @@ decimal <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
                                icd10usingDate = "2015/10/01")
 decimal$ICD[6:10]
 ```
+
+In this example, the starting using date of ICD-10 is "2015/10/01".
+
 #### A-2. Uniform short format
 
-`icdDxDecimalToShort` function converts the diagnostic codes to the short format, and used for grouping to the others classification (`icdDxToCCS`, `icdDxToCCSLvl`, and `icdDxToComorbid`). 
+`icdDxDecimalToShort` function converts the diagnostic codes to the short format, which can be used for grouping to CCS and comorbidities classification. 
+
 ```{r, message = FALSE, warning = FALSE}
 # Decimal to short
 short <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
@@ -94,6 +97,7 @@ short <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
                             icd10usingDate = "2015/10/01")
 short$ICD[6:10]
 ```
+
 **Warning message**
 
 Through code standardization functions generate data of diagnosis codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.

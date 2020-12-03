@@ -4,10 +4,21 @@
 \alias{selectCases}
 \title{Data integration for case selection}
 \usage{
-selectCases(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, groupDataType = CCS,
-  customGroupingTable, isDescription = TRUE, caseCondition, caseCount,
-  periodRange = c(30, 365), caseName = "Selected")
+selectCases(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  groupDataType = CCS,
+  customGroupingTable,
+  isDescription = TRUE,
+  caseCondition,
+  caseCount = 2,
+  periodRange = c(30, 365),
+  caseName = "Selected"
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -17,6 +28,8 @@ selectCases(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -52,6 +65,7 @@ head(sampleDxFile)
 
 selectCases(dxDataFile = sampleDxFile,
             ID, ICD, Date,
+            icdVerColName = NULL,
             groupDataType = ccslvl2,
             icd10usingDate = "2015/10/01",
             caseCondition = "Diseases of the urinary system",

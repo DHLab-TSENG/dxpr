@@ -8,7 +8,15 @@
 \alias{pcICD9}
 \alias{pcICD10}
 \title{Datasets for code classification}
-\format{These datatable with ICD procedure codes and the specific Standardization categories.}
+\format{
+These datatable with ICD procedure codes and the specific Standardization categories.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 79758 rows and 8 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 3948 rows and 4 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 79758 rows and 4 columns.
+}
 \usage{
 ccsPrICD9
 

@@ -5,8 +5,15 @@
 \alias{icdPrToProcedureClass}
 \title{Code classification for procedure code}
 \usage{
-icdPrToProcedureClass(prDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE)
+icdPrToProcedureClass(
+  prDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  isDescription = TRUE
+)
 }
 \arguments{
 \item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -37,7 +44,7 @@ head(samplePrFile)
 
 # Group procedure codes into procedure class classification
 
-icdPrToProcedureClass(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+icdPrToProcedureClass(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", TRUE)
 
 }
 \seealso{

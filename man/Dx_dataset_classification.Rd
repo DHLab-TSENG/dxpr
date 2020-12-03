@@ -13,7 +13,25 @@
 \alias{icd9_elix}
 \alias{icd10_elix}
 \title{Datasets for code classification}
-\format{These datatable with ICD diagnostic codes and the specific Standardization categories.}
+\format{
+These datatable with ICD diagnostic codes and the specific Standardization categories.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 72446 rows and 8 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 15558 rows and 9 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1487 rows and 3 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 3217 rows and 3 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1241 rows and 3 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 2804 rows and 3 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 1474 rows and 3 columns.
+
+An object of class \code{data.table} (inherits from \code{data.frame}) with 3493 rows and 3 columns.
+}
 \usage{
 ccsDxICD9
 

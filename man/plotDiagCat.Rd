@@ -4,8 +4,14 @@
 \alias{plotDiagCat}
 \title{Plot of diagnostic categories}
 \usage{
-plotDiagCat(groupedDataWide, idColName, groupColName = NULL, topN = 10,
-  limitFreq = 0.01, pvalue = 0.05)
+plotDiagCat(
+  groupedDataWide,
+  idColName,
+  groupColName = NULL,
+  topN = 10,
+  limitFreq = 0.01,
+  pvalue = 0.05
+)
 }
 \arguments{
 \item{groupedDataWide}{GroupedData file from functions of code classification (four stPercentagegies)}
@@ -29,17 +35,29 @@ An overview of grouping category of the diagnostic code summarizes the percentag
 # sample file for example
 head(sampleDxFile)
 
+# Create a grouped data
+
+ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                       idColName = ID,
+                       icdColName = ICD,
+                       dateColName = Date,
+                       icd10usingDate = "2015/10/01",
+                       comorbidMethod = elix)
+
+head(ELIX$groupedDT)
+
 # Convert long format of grouped data into wide binary format
 
-groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                                         icd10usingDate = "2015-10-01",
-                                         groupDataType = elix,
-                                         isDescription = FALSE)
+groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+                                         idColName = ID,
+                                         categoryColName = Comorbidity,
+                                         dateColName = Date)
 
 # plot of top 10 common grouped categories and a list of the detail of grouped categories
 
-plot1 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          TopN = 10,
+plot1 <- plotDiagCat(groupedDataWide = groupedDataWide,
+                          idColName = ID,
+                          topN = 10,
                           limitFreq = 0.01)
 plot1
 
@@ -49,6 +67,7 @@ selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
                                 idColName = ID,
                                 icdColName = ICD,
                                 dateColName = Date,
+                                icdVerColName = NULL,
                                 icd10usingDate = "2015/10/01",
                                 groupDataType = ccslvl2,
                                 caseCondition = "Diseases of the urinary system",
@@ -56,16 +75,17 @@ selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
 
 # Convert the long format of grouped data into a wide binary format with selected case
 
-groupedDataWide <- groupedDataLongToWide(sampleDxFile, ID, ICD, Date,
-                                         icd10usingDate = "2015-10-01",
-                                         groupDataType = elix,
-                                         isDescription = FALSE,
+groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
+                                         idColName = ID,
+                                         categoryColName = Comorbidity,
+                                         dateColName = Date,
                                          selectedCaseFile = selectedCaseFile)
 
 # plot of top 10 common grouped categories and a list of the detail of grouped categories
 
-plot2 <- plot_groupedData(groupedDataWide = groupedDataWide,
-                          TopN = 10,
+plot2 <- plotDiagCat(groupedDataWide = groupedDataWide,
+                          idColName = ID,
+                          topN = 10,
                           limitFreq = 0.01,
                           pvalue = 0.05)
 plot2

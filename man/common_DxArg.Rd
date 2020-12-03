@@ -12,6 +12,8 @@
 
 \item{dateColName}{A column for Date of dxDataFile}
 
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
+
 \item{icd10usingDate}{ICD-10 using date}
 
 \item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}

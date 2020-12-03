@@ -122,8 +122,15 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>icdDxToPheWAS</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>icdDxToPheWAS</span>(
+  <span class='no'>dxDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +150,10 @@
     <tr>
       <th>dateColName</th>
       <td><p>A column for Date of dxDataFile</p></td>
+    </tr>
+    <tr>
+      <th>icdVerColName</th>
+      <td><p>A column for ICD-9/10 version. The format should be numeric 9L or 10L.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
@@ -179,7 +190,53 @@
 #&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
 <span class='co'># Group diagnostic codes into PheWAS</span>
 
-<span class='fu'>icdDxToPheWAS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(dxDataFile, , dataCol, with = FALSE): column(s) not found: "2015-10-01"</span></div></pre>
+<span class='fu'>icdDxToPheWAS</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>, <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $groupedDT
+#&gt;      Decimal  ID    ICD       Date PheCode
+#&gt;   1:   Z99.2  A2   Z992 2020-05-22  585.31
+#&gt;   2:   Z99.2  A5   Z992 2020-01-24  585.31
+#&gt;   3:   Z99.2  A8   Z992 2015-10-27  585.31
+#&gt;   4:   Z99.2 A13   Z992 2020-04-26  585.31
+#&gt;   5:   Z99.2 A13   Z992 2025-02-02  585.31
+#&gt;  ---                                      
+#&gt; 300:     650  C2    650 2017-10-10    &lt;NA&gt;
+#&gt; 301:     650  D4    650 2022-04-04    &lt;NA&gt;
+#&gt; 302:  123.45  C3 123.45 2022-09-28    &lt;NA&gt;
+#&gt; 303:  123.45  D8 123.45 2018-06-17    &lt;NA&gt;
+#&gt; 304:  123.45  C0 123.45 2017-05-09    &lt;NA&gt;
+#&gt; 
+#&gt; $summarised_groupedDT
+#&gt;       ID PheCode firstCaseDate endCaseDate count    period
+#&gt;   1:  A2  585.31    2015-08-12  2020-05-22     2 1745 days
+#&gt;   2:  A5  585.31    2014-10-27  2020-01-24     3 1915 days
+#&gt;   3:  A8  585.31    2007-11-22  2015-10-27     4 2896 days
+#&gt;   4: A13  585.31    2010-09-29  2025-02-02     3 5240 days
+#&gt;   5: A15  585.31    2007-05-25  2023-05-12     4 5831 days
+#&gt;  ---                                                      
+#&gt; 149:  D7   755.4    2009-01-12  2009-01-12     1    0 days
+#&gt; 150:  C4   300.3    2022-01-23  2022-09-27     2  247 days
+#&gt; 151:  D3   300.3    2022-02-22  2022-02-22     1    0 days
+#&gt; 152:  D0   300.3    2021-02-26  2024-07-15     2 1235 days
+#&gt; 153:  C2   300.3    2020-03-24  2020-03-24     1    0 days
+#&gt; 
+#&gt; $Error
+#&gt;        ICD count IcdVersionInFile     WrongType Suggestion
+#&gt;  1:  A0.11    20           ICD 10  Wrong format           
+#&gt;  2:  V27.0    18           ICD 10 Wrong version           
+#&gt;  3:   E114     8           ICD 10  Wrong format           
+#&gt;  4: A01.05     8            ICD 9 Wrong version           
+#&gt;  5:  42761     7           ICD 10 Wrong version           
+#&gt;  6:  Z9.90     6           ICD 10  Wrong format           
+#&gt;  7:    F42     6           ICD 10  Wrong format           
+#&gt;  8:  V24.1     6           ICD 10 Wrong version           
+#&gt;  9:  A0105     5            ICD 9 Wrong version           
+#&gt; 10:    001     5            ICD 9  Wrong format       0019
+#&gt; 11:  75.52     4            ICD 9  Wrong format           
+#&gt; 12:  E03.0     4            ICD 9 Wrong version           
+#&gt; 13:    650     4           ICD 10 Wrong version           
+#&gt; 14: 123.45     3           ICD 10  Wrong format           
+#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
+#&gt; 16:   7552     2            ICD 9  Wrong format      75529
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

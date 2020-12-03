@@ -122,9 +122,16 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(<span class='no'>dxDataFile</span>, <span class='no'>idColName</span>, <span class='no'>categoryColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>reDup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(
+  <span class='no'>dxDataFile</span>,
+  <span class='no'>idColName</span>,
+  <span class='no'>categoryColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>reDup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>B</span>,
+  <span class='kw'>count</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,29 +168,120 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># sample file for example</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Create a grouped data</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
-#&gt; 1:  A2 Z992 2020-05-22
-#&gt; 2:  A5 Z992 2020-01-24
-#&gt; 3:  A8 Z992 2015-10-27
-#&gt; 4: A13 Z992 2020-04-26
-#&gt; 5: A13 Z992 2025-02-02
-#&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
+<span class='no'>ELIX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dxComorbid.html'>icdDxToComorbid</a></span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
+                       <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
+                       <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
+                       <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+                       <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
+                       <span class='kw'>comorbidMethod</span> <span class='kw'>=</span> <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>)</div><div class='output co'>#&gt;    Short  ID  ICD       Date Comorbidity
+#&gt; 1:  Z992  A2 Z992 2020-05-22    RENLFAIL
+#&gt; 2:  Z992  A5 Z992 2020-01-24    RENLFAIL
+#&gt; 3:  Z992  A8 Z992 2015-10-27    RENLFAIL
+#&gt; 4:  Z992 A13 Z992 2020-04-26    RENLFAIL
+#&gt; 5:  Z992 A13 Z992 2025-02-02    RENLFAIL
+#&gt; 6:  Z992 A15 Z992 2023-05-12    RENLFAIL</div><div class='input'>
 <span class='co'># Select case with "Diseases of the urinary system" by level 2 of CCS classification</span>
 
-<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
+<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
+                                <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
+                                <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
+                                <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+                                <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
                                 <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
                                 <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
                                 <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
-<span class='co'># Convert long format grouped data into a wide numeric format with selected case</span>
+<span class='co'># Convert the long format of grouped data into a wide binary format with selected case</span>
 
-<span class='no'>groupedData_Wide</span> <span class='kw'>&lt;-</span> <span class='fu'>groupedDataLongToWide</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>,
-                                          <span class='st'>"2015-10-01"</span>, <span class='no'>elix</span>,
-                                          <span class='kw'>numericOrBinary</span> <span class='kw'>=</span> <span class='no'>N</span>,
-                                          <span class='kw'>isDescription</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                          <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='error'>Error in groupedDataLongToWide(sampleDxFile, ID, ICD, Date, "2015-10-01",     elix, numericOrBinary = N, isDescription = FALSE, selectedCaseFile = selectedCaseFile): unused argument (isDescription = FALSE)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>groupedData_Wide</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(groupedData_Wide): object 'groupedData_Wide' not found</span></div></pre>
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'>groupedDataLongToWide</span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
+                                         <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
+                                         <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
+                                         <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
+                                         <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)
+<span class='no'>groupedDataWide</span></div><div class='output co'>#&gt;      ID  ARTH CHRNLUNG  DMCX  DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE
+#&gt;  1:  A0 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  2:  A1 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  3: A10 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  4: A11 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  5: A12 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  6: A13 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  7: A14 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  8: A15 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt;  9: A16 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 10: A17 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 11: A18 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 12:  A2 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 13:  A3 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 14:  A4 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 15:  A5 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 16:  A6 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 17:  A7 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 18:  A8 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 19:  A9 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 20:  B0 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 21:  B1 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 22:  B2 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 23:  B3 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 24:  B4 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 25:  C0 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 26:  C1 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 27:  C2 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 28:  C3 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 29:  C4 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 30:  D0  TRUE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 31:  D1  TRUE    FALSE FALSE FALSE     TRUE   FALSE  TRUE FALSE FALSE FALSE
+#&gt; 32:  D2 FALSE    FALSE FALSE  TRUE    FALSE   FALSE FALSE  TRUE  TRUE FALSE
+#&gt; 33:  D3 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE  TRUE  TRUE
+#&gt; 34:  D4 FALSE    FALSE  TRUE FALSE    FALSE    TRUE FALSE  TRUE FALSE FALSE
+#&gt; 35:  D5  TRUE     TRUE FALSE FALSE    FALSE   FALSE FALSE  TRUE FALSE FALSE
+#&gt; 36:  D6  TRUE    FALSE  TRUE  TRUE    FALSE   FALSE FALSE FALSE  TRUE FALSE
+#&gt; 37:  D7  TRUE    FALSE FALSE  TRUE    FALSE   FALSE FALSE FALSE FALSE FALSE
+#&gt; 38:  D8 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE  TRUE FALSE FALSE
+#&gt;      ID  ARTH CHRNLUNG  DMCX  DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE
+#&gt;      PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS selectedCase
+#&gt;  1: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  2: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  3: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  4: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  6: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  7: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  8: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt;  9: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 10: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 11: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 12: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 13: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 14: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 15: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 16: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 17: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 18: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 19: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 20: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 21: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 22: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 23: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 24: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE     Selected
+#&gt; 25: FALSE    FALSE FALSE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 26: FALSE    FALSE FALSE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 27: FALSE    FALSE FALSE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 28: FALSE    FALSE FALSE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 29: FALSE    FALSE FALSE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 30: FALSE    FALSE  TRUE    FALSE FALSE  TRUE FALSE    FALSE non-Selected
+#&gt; 31: FALSE    FALSE FALSE    FALSE FALSE FALSE FALSE     TRUE non-Selected
+#&gt; 32: FALSE    FALSE FALSE    FALSE FALSE FALSE  TRUE    FALSE non-Selected
+#&gt; 33: FALSE     TRUE  TRUE    FALSE FALSE FALSE FALSE    FALSE non-Selected
+#&gt; 34:  TRUE    FALSE FALSE    FALSE FALSE FALSE FALSE    FALSE non-Selected
+#&gt; 35: FALSE    FALSE FALSE    FALSE FALSE FALSE  TRUE    FALSE non-Selected
+#&gt; 36: FALSE    FALSE FALSE    FALSE FALSE FALSE FALSE    FALSE non-Selected
+#&gt; 37: FALSE    FALSE  TRUE    FALSE  TRUE FALSE FALSE    FALSE non-Selected
+#&gt; 38:  TRUE     TRUE  TRUE    FALSE FALSE FALSE FALSE    FALSE non-Selected
+#&gt;      PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS selectedCase</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

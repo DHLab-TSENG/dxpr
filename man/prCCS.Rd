@@ -6,12 +6,26 @@
 \alias{icdPrToCCSLvl}
 \title{Code classification for CCS}
 \usage{
-icdPrToCCS(prDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE)
+icdPrToCCS(
+  prDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  isDescription = TRUE
+)
 
-icdPrToCCSLvl(prDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, CCSLevel = 1,
-  isDescription = TRUE)
+icdPrToCCSLvl(
+  prDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  CCSLevel = 1,
+  isDescription = TRUE
+)
 }
 \arguments{
 \item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -44,11 +58,11 @@ head(samplePrFile)
 
 # Group procedure codes into single level of CCS classification
 
-icdPrToCCS(samplePrFile, ID, ICD, Date, "2015-10-01", TRUE)
+icdPrToCCS(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", TRUE)
 
 # Group procedure codes into multiple levels of CCS classification
 
-icdPrToCCSLvl(samplePrFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+icdPrToCCSLvl(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 
 }
 \seealso{

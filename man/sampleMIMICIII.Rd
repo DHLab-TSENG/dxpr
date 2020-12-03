@@ -4,7 +4,9 @@
 \name{sampleMIMICIII}
 \alias{sampleMIMICIII}
 \title{Sample file for patients with patent ductus arteriosus (PDA) from MIMIC-III.}
-\format{A data table with 45674 rows and 8 variables}
+\format{
+A data table with 45674 rows and 8 variables
+}
 \source{
 Pollard, T. J., & Johnson, A. E. W. The MIMIC-III Clinical Database {http://dx.doi.org/10.13026/C2XW26} (2016)
 }

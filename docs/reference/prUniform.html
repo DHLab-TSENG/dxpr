@@ -122,11 +122,21 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>icdPrDecimalToShort</span>(<span class='no'>prDataFile</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>icdPrDecimalToShort</span>(
+  <span class='no'>prDataFile</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>icdPrShortToDecimal</span>(<span class='no'>prDataFile</span>, <span class='no'>icdColName</span>, <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>icdPrShortToDecimal</span>(
+  <span class='no'>prDataFile</span>,
+  <span class='no'>icdColName</span>,
+  <span class='no'>dateColName</span>,
+  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,10 +180,36 @@
 #&gt; 6:  B  8812 2007-06-27</div><div class='input'>
 <span class='co'># convert the procedure codes to the short format</span>
 
-<span class='fu'>icdPrDecimalToShort</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(setDT(prDataFile), , dataCol, with = FALSE): column(s) not found: "2015/10/01"</span></div><div class='input'>
+<span class='fu'>icdPrDecimalToShort</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; $ICD
+#&gt;          ICD
+#&gt;   1:    5681
+#&gt;   2:    9774
+#&gt;   3:    4499
+#&gt;   4:    0759
+#&gt;   5:    0205
+#&gt;  ---        
+#&gt; 166: 00UH4KZ
+#&gt; 167: 001U074
+#&gt; 168: 02160AQ
+#&gt; 169: 02134KC
+#&gt; 170: 00WU0YZ
+#&gt; </div><div class='input'>
 <span class='co'># convert the procedure codes to the decimal format</span>
 
-<span class='fu'>icdPrShortToDecimal</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>,<span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in `[.data.table`(setDT(prDataFile), , dataCol, with = FALSE): column(s) not found: "2015/10/01"</span></div></pre>
+<span class='fu'>icdPrShortToDecimal</span>(<span class='no'>samplePrFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; $ICD
+#&gt;          ICD
+#&gt;   1:   56.81
+#&gt;   2:   97.74
+#&gt;   3:   44.99
+#&gt;   4:   07.59
+#&gt;   5:   02.05
+#&gt;  ---        
+#&gt; 166: 00UH4KZ
+#&gt; 167: 001U074
+#&gt; 168: 02160AQ
+#&gt; 169: 02134KC
+#&gt; 170: 00WU0YZ
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

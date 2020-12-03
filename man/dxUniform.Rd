@@ -7,11 +7,21 @@
 \alias{icdDxShortToDecimal}
 \title{Code format transformation}
 \usage{
-icdDxDecimalToShort(dxDataFile, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL)
+icdDxDecimalToShort(
+  dxDataFile,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL
+)
 
-icdDxShortToDecimal(dxDataFile, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL)
+icdDxShortToDecimal(
+  dxDataFile,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"}
@@ -19,6 +29,8 @@ icdDxShortToDecimal(dxDataFile, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 }
@@ -38,9 +50,9 @@ head(sampleDxFile)
 
 # convert the diagnostic codes to the decimal format
 
-icdDxShortToDecimal(sampleDxFile,ICD,Date,"2015/10/01")
+icdDxShortToDecimal(sampleDxFile,ICD,Date, icd10usingDate = "2015/10/01")
 
 # convert the diagnostic codes to the short format
 
-icdDxDecimalToShort(sampleDxFile,ICD,Date, "2015/10/01")
+icdDxDecimalToShort(sampleDxFile,ICD,Date, icd10usingDate = "2015/10/01")
 }

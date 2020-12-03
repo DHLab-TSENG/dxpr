@@ -6,12 +6,26 @@
 \alias{icdDxToCCSLvl}
 \title{Code classification for CCS}
 \usage{
-icdDxToCCS(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE)
+icdDxToCCS(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  isDescription = TRUE
+)
 
-icdDxToCCSLvl(dxDataFile, idColName, icdColName, dateColName,
-  icdVerColName = NULL, icd10usingDate = NULL, CCSLevel = 1,
-  isDescription = TRUE)
+icdDxToCCSLvl(
+  dxDataFile,
+  idColName,
+  icdColName,
+  dateColName,
+  icdVerColName = NULL,
+  icd10usingDate = NULL,
+  CCSLevel = 1,
+  isDescription = TRUE
+)
 }
 \arguments{
 \item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
@@ -21,6 +35,8 @@ icdDxToCCSLvl(dxDataFile, idColName, icdColName, dateColName,
 \item{icdColName}{A column for ICD of dxDataFile}
 
 \item{dateColName}{A column for Date of dxDataFile}
+
+\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
 
 \item{icd10usingDate}{ICD-10 using date}
 
@@ -44,11 +60,11 @@ head(sampleDxFile)
 
 # Group diagnostic codes into single level of CCS classification
 
-icdDxToCCS(sampleDxFile, ID, ICD, Date, "2015-10-01", TRUE)
+icdDxToCCS(sampleDxFile, ID, ICD, Date, icd10usingDate =  "2015-10-01", isDescription = TRUE)
 
 # Group diagnostic codes into multiple levels of CCS classification
 
-icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, "2015-10-01", 2, TRUE)
+icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 }
 \seealso{
 Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{dxComorbid}}

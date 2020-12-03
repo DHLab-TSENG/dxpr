@@ -4,7 +4,9 @@
 \name{sampleDxFile}
 \alias{sampleDxFile}
 \title{Sample file for demo with diagnostic codes}
-\format{A sample data table with 300 rows and 3 variables}
+\format{
+A sample data table with 300 rows and 3 variables
+}
 \description{
 Demo for data integration, data wrangling and visualization.
 }
