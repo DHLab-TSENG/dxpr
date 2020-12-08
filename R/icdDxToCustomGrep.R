@@ -7,19 +7,19 @@ icdDxToCustomGrep <- function(dxDataFile, idColName, icdColName, dateColName, cu
   dataCol  <-c(deparse(substitute(idColName)), deparse(substitute(icdColName)), deparse(substitute(dateColName)))
   GrepedIcd <- GrepedIcd[,dataCol,with = FALSE]
   names(GrepedIcd) <- c("ID", "ICD", "Date")
-  GrepedIcd[,c("Date", "Number", "Group") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
+  GrepedIcd[,c("Date", "Number", "GrepedGroup") := list(as.Date(Date), 1:nrow(GrepedIcd), NA)]
   ifelse(is.na(GrepedIcd$Date), stop("NA is detected. Please make sure all values in ICD column are non-null and in the correct date format."),GrepedIcd$Date)
   ifelse(is.na(GrepedIcd$ICD), stop("NA is detected. Please make sure all values in ICD column are non-null."),GrepedIcd$ICD)
 
   for (rule in 1:nrow(customGroupingTable)){
-    GrepedIcd <- GrepedIcd[,GrepedGroup := ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$Group)]
+    GrepedIcd <- GrepedIcd[,GrepedGroup := ifelse(grepl(customGroupingTable[rule,"grepIcd"],GrepedIcd$ICD), customGroupingTable[rule,Group], GrepedIcd$GrepedGroup)]
   }
 
-  if(sum(!is.na(GrepedIcd$Group)) > 0){
-    summarisedGrepedIcd <- GrepedIcd[nchar(Group)>0,
+  if(sum(!is.na(GrepedIcd$GrepedGroup)) > 0){
+    summarisedGrepedIcd <- GrepedIcd[nchar(GrepedGroup)>0,
                                      list(firstCaseDate = min(Date),
                                           endCaseDate = max(Date),
-                                          count = .N),by = list(ID,Group)][,period := (endCaseDate - firstCaseDate),][order(ID),]
+                                          count = .N),by = list(ID,GrepedGroup)][,period := (endCaseDate - firstCaseDate),][order(ID),]
 
     return(list(groupedDT = GrepedIcd[order(Number),-"Number"],
                 summarised_groupedDT = summarisedGrepedIcd))
