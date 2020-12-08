@@ -54,7 +54,7 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
   }else{
     groupedDataWide <- groupedDataWide[ ,c(1:(ncol(groupedDataWide))) := lapply(.SD, function(x) ifelse(x >= 1L, 1L, 0L)), .SDcols = 1:(ncol(groupedDataWide))]
 
-    groupedDataLong <<- melt(groupedDataWide, measure.vars = 1:ncol(groupedDataWide), variable.name = "DiagnosticCategory", value.name = "count")
+    groupedDataLong <- melt(groupedDataWide, measure.vars = 1:ncol(groupedDataWide), variable.name = "DiagnosticCategory", value.name = "count")
     groupedDataLong <- as.data.table(groupedDataLong)[,list(N = sum(count)), by = .(DiagnosticCategory)][order(N)][,Percentage := round(N/nrow(groupedDataWide)*100,2)][Percentage >= limitFreq,]
     groupedDataLong <- groupedDataLong[][,c("DiagnosticCategory","Number","Percentage") :=
                                          list(factor(DiagnosticCategory, levels = DiagnosticCategory),
@@ -68,8 +68,6 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
   }
   plot_title <- paste0(plot_title,": Top ", topN)
   dignosticCate_graph <- g + coord_flip(clip = "off") +
-    scale_y_continuous(expand = c(0.1, 0)) +
-    expand_limits(y = c(0,100)) +
     xlab("Diagnostic category") + ylab("Diagnostic category, %") + ggtitle(plot_title) +
     theme_bw() +
     theme(axis.text.y = element_text(size = 10,face = "bold"),
