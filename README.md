@@ -18,7 +18,7 @@ visualize clinical data, including diagnosis and procedure records.
   - **Visualization** Provide overviews for the result of diagnoses
     standardization and the grouped categories of diagnosis codes.
 
-## Geting start
+## Getting started
 
   - Diagnostic part  
     English:
@@ -37,6 +37,34 @@ visualize clinical data, including diagnosis and procedure records.
 # install.packages("devtools")
 devtools::install_github("DHLab-TSENG/dxpr")
 ```
+
+    #> 
+    #>   
+       checking for file ‘/tmp/RtmpBkHTlN/remotesb87724027b12/DHLab-TSENG-dxpr-391653a/DESCRIPTION’ ...
+      
+    ✓  checking for file ‘/tmp/RtmpBkHTlN/remotesb87724027b12/DHLab-TSENG-dxpr-391653a/DESCRIPTION’
+    #> 
+      
+    ─  preparing ‘dxpr’:
+    #> 
+      
+       checking DESCRIPTION meta-information ...
+      
+    ✓  checking DESCRIPTION meta-information
+    #> 
+      
+    ─  checking for LF line-endings in source and make files and shell scripts
+    #> 
+      
+    ─  checking for empty or unneeded directories
+    #> ─  looking to see if a ‘data/datalist’ file should be added
+    #> 
+      
+    ─  building ‘dxpr_0.3.0.tar.gz’ (1.6s)
+    #> 
+      
+       
+    #> 
 
 ## Overview
 

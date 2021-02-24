@@ -17,7 +17,7 @@ The proposed open-source dxpr package is a software tool aimed at expediting an 
 - **Data Wrangling**  Generate statistical information about dataset and transform data into wide format, which fits better to other analytical and plotting packages.
 - **Visualization** Provide overviews for the result of diagnoses standardization and the grouped categories of diagnosis codes.
 
-## Geting start
+## Getting started
 - Diagnostic part  
     English: https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html   
     Chinese: https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html   
