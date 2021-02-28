@@ -1,5 +1,5 @@
 ---
-title: "Get started with dxpr: Diagnosis"
+title: "Getting started with dxpr: Diagnosis"
 author: "Hsiang-Ju, Chiu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -52,6 +52,22 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 head(sampleDxFile)
 ```
 ## I.Code Integration
+
+The input data should be in data frame format.
+
+```r
+con <- DBI::dbConnect(odbc::odbc(),
+                      Driver   = "[your driver's name]",
+                      Server   = "[your server's path]",
+                      Database = "[your database's name]",
+                      UID      = "[Database user]",
+                      PWD      = "[Database password]")
+dxDataFile <- dbSendQuery(con, "SELECT * FROM example_table WHERE ID = 'sampleID'")
+dbFetch(dxDataFile)
+```
+
+In the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the following processes are the same as the example.
+
 ### A. ICD diagnostic code format transformation：Short <-> Decimal
 
 dxpr package helps users to standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as **Table 1**.
