@@ -12,7 +12,7 @@ vignette: >
 
 # 檢查與處置前處理與整合方法
 
-```
+```{r}
 cat(utils::packageDescription("dxpr")$Description)
 ```
 ### 安裝套件

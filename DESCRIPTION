@@ -4,7 +4,7 @@ Version: 0.3.0
 Date: 2020-08-12
 Authors@R: c(person("Hsiang-Ju", "Chiu", role = c("aut", "cre"), email = "aibabi3@gmail.com"),
              person("Yi-Ju", "Tseng", role = "aut", email = "yjtseng@mail.cgu.edu.tw"))
-Description: "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electric medical record. It is used for data integration, data wrangling and visualization.
+Description: "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electronic medical record. It is used for data integration, data wrangling and visualization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

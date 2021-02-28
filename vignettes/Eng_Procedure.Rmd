@@ -10,7 +10,7 @@ vignette: >
 ---
 
 # Description
-```
+```{r}
 cat(utils::packageDescription("dxpr")$Description)
 ```
 ### Development version

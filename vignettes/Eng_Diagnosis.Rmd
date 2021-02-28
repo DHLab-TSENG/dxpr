@@ -10,7 +10,7 @@ vignette: >
 ---
 
 # Description
-```
+```{r set up, echo = FALSE, message = FALSE}
 cat(utils::packageDescription("dxpr")$Description)
 ```
 ### Development version
@@ -26,8 +26,34 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 devtools::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
+
+### Data Format
+
+dxpr (diagnosis part) is used to pre-process diagnosis codes of electronic health records (EHRs). To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD diagnosis codes and date.
+
+Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.
+
+```r
+con <- DBI::dbConnect(odbc::odbc(),
+                      Driver   = "[your driver's name]",
+                      Server   = "[your server's path]",
+                      Database = "[your database's name]",
+                      UID      = "[Database user]",
+                      PWD      = "[Database password]")
+dxDataFile <- dbSendQuery(con, "SELECT * FROM example_table WHERE ID = 'sampleID'")
+dbFetch(dxDataFile)
+```
+
+### Sample file
+A sample rda file is included in dxpr package:  
+This dataset is a simulated medical dataset of 38 patients with overall 300 records. 
+```{r}
+head(sampleDxFile)
+```
+
+
 ### ICD-CM code with two format 
-dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
+dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
 
 
 ICD-9-CM
@@ -45,28 +71,8 @@ head(ICD10DxwithTwoFormat$Short)
 head(ICD10DxwithTwoFormat$Decimal)
 ```
 
-### Sample file
-A sample file is included in dxpr package:  
-This dataset is a simulated medical dataset of 38 patients with overall 300 records. 
-```{r}
-head(sampleDxFile)
-```
+
 ## I.Code Integration
-
-The input data should be in data frame format.
-
-```r
-con <- DBI::dbConnect(odbc::odbc(),
-                      Driver   = "[your driver's name]",
-                      Server   = "[your server's path]",
-                      Database = "[your database's name]",
-                      UID      = "[Database user]",
-                      PWD      = "[Database password]")
-dxDataFile <- dbSendQuery(con, "SELECT * FROM example_table WHERE ID = 'sampleID'")
-dbFetch(dxDataFile)
-```
-
-In the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the following processes are the same as the example.
 
 ### A. ICD diagnostic code format transformation：Short <-> Decimal
 
