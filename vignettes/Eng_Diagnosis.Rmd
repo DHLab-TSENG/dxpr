@@ -61,7 +61,7 @@ head(sampleDxFile)
 
 ### ICD-CM code with two format 
 
-dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 diagnostic codes, decimal (with a decimal point separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
+dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 diagnostic codes, decimal (with a decimal point separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: `ICD9DxwithTwoFormat` and `ICD10DxwithTwoFormat`.
 
 
 ICD-9-CM
@@ -98,8 +98,7 @@ dxpr package helps users to standardize the ICD-9 and ICD-10 diagnostic codes in
 
 Since formats of ICD codes used within a dataset could be different, users can choose a target type (short or decimal) according to the corresponding grouping method. 
 
-For example, if a user wants to group data by CCS,  then ICD codes should be transformed into **short** format.
-
+For example, if a user wants to group data by CCS, then ICD codes should be transformed into **short** format.
 
 Code standardization for ICD-9 and ICD-10 are executed seperately. There are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric `9` or `10`), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.
 
@@ -110,7 +109,9 @@ Code standardization for ICD-9 and ICD-10 are executed seperately. There are two
 Besides, code standardization functions generate data of diagnosis codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.
 
 
-There are two error type：**wrong format** and **wrong version**. The former one means the ICD codes does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after `icd10usingDate`, etc.).
+There are two error type：**wrong format** and **wrong version**. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after `icd10usingDate`, etc.).
+
+Users can check data after receiving the warning message.
 
 dxpr package also provides an overview of error ICD data by Pareto chart (function `plotICDError`).
 
@@ -130,7 +131,7 @@ decimal <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
 
 In this example, the starting using date of ICD-10 is "2015/10/01" (format: "YYYY/MM/DD").
 
-And there are 9 ICD codes labeled as "wrong format", and 7 ICD labeled as "wrong version". Users can check data after receiving the warning message.
+Also, there are 9 ICD codes labeled as "wrong format", and 7 ICD labeled as "wrong version".
     
 
 The results are: 
@@ -172,7 +173,7 @@ dxpr package supports four strategies to group EHR diagnosis codes, including CC
 
 The output of code classification contains two data frames.
 
-1) groupedDT
+**1) groupedDT**
 
 **Table 2**  groupedDT
 
@@ -180,9 +181,10 @@ Short/Decimal|ID|ICD|Date|GroupType
 ----|--|-----|---|----
 ICD short/Decimal|patient ID| ICD |Admission date| group of code classification
 
-The original row order of the data is remained in groupedDT, and only one extra column `GroupType` is added. 
+The original row order of the data is remained the same in groupedDT, and only one extra column `GroupType` is added. 
 
-2) summarised_groupedDT
+
+**2) summarised_groupedDT**
 
 **Table 3** summarised_groupedDT
 
@@ -191,6 +193,7 @@ ID|GroupType|FirstCaseDate|EndCaseDate|Count|Period
 patient ID|group of code classification|first admission date|last admission date|counts of period|record period
 
 summarised_groupedDT summarised the ICD codes in the same group of the same patient together.
+
 
 The two outputs can be used in the following functions. **groupedDT** can be used to select relevant cases (function `selectCases`) and calculate condition era (function `getConditionEra`). **summarised_groupedDT** can be used to convert the long format of grouped data into a wide format (function `groupedDataLongToWide`) which is fit to other analytical and plotting packages.
 
@@ -230,7 +233,7 @@ head(CCS_category$summarised_groupedDT, 5)
 
 **2) multi-level**: `icdDxToCCSLvl`
 
-Multi-level CCS in ICD-9-CM has four levels, and ICD-10-CM has two levels.
+Multi-level CCS in ICD-9-CM has four levels, and multi-level CCS in ICD-10-CM has two levels.
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS multiple level 2 description
 CCSlvl_description <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
@@ -276,7 +279,7 @@ The dxpr package provides three grouping methods of comorbidity as below:
 
 **1) AHRQ**
 
-AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index.
+AHRQ comorbidity measure dataset is based on AHRQ Elixhauser Comorbidity Index.
 
 ```{r, message = FALSE, warning = FALSE}
 AHRQ <- icdDxToComorbid(dxDataFile = sampleDxFile,
@@ -320,12 +323,14 @@ head(ELIX$summarised_groupedDT, 5)
 ```
 
 #### B-4. Customize group method
-The dxpr package provided customized grouping functions, which researches can define the grouping categories and therefore have more flexible for grouping ICD diagnostic codes. 
+The dxpr package provided customized grouping functions, in which researches can define the grouping categories; therefore, it is more flexible for grouping ICD diagnostic codes.
 
-For example, researcher can convert an existing dataset into a grouped **chronic kidney disease** dataset in patients, and declare a customized grouping table for chronic kidney disease.  
-There are two functions for customized defined grouping method, the customized category grouping is based on precise and fuzzy grouping method, respectively.  
+For example, researcher can declare a customized grouping table for **chronic kidney disease** category, and convert an existing dataset into a grouped chronic kidney disease dataset.
 
-**1) Precise method**: icdDxToCustom
+There are two functions for customized defined grouping method based on precise and fuzzy grouping method, respectively.  
+
+**1) Precise method**: `icdDxToCustom`
+
 ```{r, message = FALSE, warning = FALSE}
 # CustomGroupingTable 
 groupingTable <- data.frame(Group = rep("Chronic kidney disease",6),
@@ -339,7 +344,10 @@ CustomGroup <- icdDxToCustom(dxDataFile = sampleDxFile,
 CustomGroup$groupedDT[10:14]
 head(CustomGroup$summarised_groupedDT, 5)
 ```
-**2) Fuzzy method**: icdDxToCustomGrep
+
+
+**2) Fuzzy method**: `icdDxToCustomGrep`
+
 ```{r, message = FALSE}
 # CustomGroupingTable
 grepTable <- data.frame(Group = "Chronic kidney disease",
@@ -357,23 +365,13 @@ head(CustomGrepGroup$summarised_groupedDT, 5)
 ## II. Data Wrangling
 
 ### A. Cases selection 
-The query function `selectCases` can select the cases matching defined conditions. User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. 
 
-searching criteria for example, 
+The query function `selectCases` can select the cases matching defined case conditions (been diagnosed with  certain condition for certain times within a specific duration). User can select cases by diagnostic categories, such as CCS category, ICD codes, etc. 
 
-1)     Querying conditions
-
-    `groupDataType`: Choose the method  of code classification: ICD, CCS, PheWAS, comorbidity or customized group method
-    
-    `caseCondition`: Certain diseases of standard groups by the `groupDataType` given above
-    
-2)     Searching range
-
-　　　`PeriodRange `: Determine the interval days of interest for performing the case selection. By default, it set from 30 to 365 days.
-
-3)     Minimum number of diagnoses
-
-　　　`caseCount`: A threshold of number of ICD for case selection  
+The output of this function provides the start and end dates of the cases, the
+number of days between them, and the most common ICD codes used in the case
+definition.
+　　　
 ```{r, message = FALSE, warning = FALSE}
 Case <- selectCases(dxDataFile = sampleDxFile,
                     idColName = ID,           
@@ -386,24 +384,33 @@ Case <- selectCases(dxDataFile = sampleDxFile,
                     caseName = "Selected")
 head(Case)                   
 ```
+
+
 ### B. Get eligible period of patient records
-The function used for querying the earliest and latest admission date for each patient.
+
+The function `getEligiblePeriod` is used for querying the earliest and latest admission date for each patient.
+
 ```{r, message = FALSE}
 admissionDate <- getEligiblePeriod(dxDataFile = sampleDxFile,
                                    idColName = ID,
                                    dateColName = Date)
 head(admissionDate)                                  
 ```
-### C. Data split
-Extract data by a specific clinical event (e.g., first diagnosis dates of chronic diseases).  
-Users can define a table of clinical index dates of each patient. The date can generate by selectCases function or first/last admission date by getEligiblePeriod function.  
 
-Split data by the clinical event date and shows the data recorded before or after the clinical event and the window counts, which is the gap between the record date and index date. 
+
+### C. Data split
+
+Function `splitDataByDate` extracts data by a specific clinical event (e.g., first diagnosis dates of chronic diseases).  
+Users can define a table of clinical index dates of each patient. The date can generate by `selectCases` function or first/last admission date by `getEligiblePeriod` function.  
+
+This function can split data through classifying the data recorded before or after the defined index date and calculating the period between the record date and index date based on a self-defined window gap. 
+
 ```{r, message = FALSE}
 indexDateTable <- data.frame(ID = c("A0","B0","C0","D0"),
                              indexDate = c("2009-07-25", "2015-12-26",
                                            "2015-12-05", "2017-01-29"),
                              stringsAsFactors = FALSE)
+
 Data <- splitDataByDate(dxDataFile = sampleDxFile,
                         idColName = ID,
                         icdColName = ICD,
@@ -412,11 +419,14 @@ Data <- splitDataByDate(dxDataFile = sampleDxFile,
                         gap = 30) 
 head(Data, 5)
 ```
+
+
 ### D. Condition era
-Calculate condition era by grouped categories of each patient.  
-Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.  
-The first case date is the start date of the first condition of the group category for each patient.
-The end case date is the end date of the last condition of the group category for each patient.
+
+The concept of condition era is committed to the length of the persistence gap: when the time interval of any two consecutive admissions for certain conditions is smaller than the length of the persistence gap, then these two admission events will be aggregated into the same condition era. 
+
+Function `getConditionEra` calculates condition era by using the grouped categories or self-defining groups of each patient and then generates a table with individual IDs, the first and last record of an era, and the sequence number of each episode. 
+
 ```{r, message = FALSE, warning = FALSE}
 Era <- getConditionEra(dxDataFile = sampleDxFile,
                        idColName = ID,
@@ -428,10 +438,14 @@ Era <- getConditionEra(dxDataFile = sampleDxFile,
                        isDescription = FALSE)
 head(Era)                       
 ```
-### E. EDA preparation
-After data integration, dxpr package provides function to convert long format of grouped data into wide format which is fit to others analytical and plotting packages.  
 
-There are two type of output: numeric and binary (`numericOrBinary` = `B` or `N` )  
+
+### E. EDA preparation
+
+After data integration, dxpr package provides a function to convert long format of grouped data into wide format which is fit to other analytical and plotting packages.  
+
+There are two type of output: numeric and binary (`numericOrBinary` = `B` or `N` )
+
 ```{r, message = FALSE, warning = FALSE}
 #binary
 groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
@@ -443,6 +457,7 @@ groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT,
 head(groupedData_Wide, 5)
 ```
 
+
 ```{r, message = FALSE, warning = FALSE}
 # numeric
 groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT, 
@@ -452,14 +467,18 @@ groupedData_Wide <- groupedDataLongToWide(dxDataFile = ELIX$groupedDT,
                                           numericOrBinary = N)
 head(groupedData_Wide, 5)
 ```
+
+
 ## III. Visualization
-Overview of grouped clinical data.
+
+Visualization provides overview of clinical data.
 
 ### A. Pareto chart of error ICD list
-Through first phase function, code standardization, which generates a data of diagnosis codes with potential error.  
+
+Through code standardization, the functions `icdDxDecimalToShort` and `icdDxShortToDecimal` generate a table of diagnosis codes with potential errors. 
+
 The Pareto chart includes bar plot and line chart to visualize individual possible error ICD codes represented in descending order and cumulative total.  
 
-For instance, user choose top 10 of common error ICD, then the output shows a Pareto chart with top 10 error codes and a list of the detail of error ICD codes.  
 ```{r, message = FALSE, warning = FALSE}
 error <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
                             icdColName = ICD,
@@ -468,22 +487,30 @@ error <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
 Plot_error1 <- plotICDError(errorFile = error$Error,
                             icdVersion = all,
                             wrongICDType = all,
-                            others = TRUE)
+                            others = TRUE,
+                            topN = 10)
 ```
 <img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotICDError.png" style="display:block; margin:auto; width:70%;">
-Plot of top 10 common error ICD codes and a list of the detail of error ICD codes  
-The Top 1 common error ICD is *A0.11* which has 20 admission records and error type is "wrong format"
+
+For instance, if a user chooses top 10 of common error ICD in dataset (`topN` = `10`), then the Pareto chart output shows with top 10 error codes in this dataset and a list of the detail of error ICD codes. 
+
 ```{r, message = FALSE}
 Plot_error1$ICD
 ```
-Also, user can divide **ICD-9** by the prefix of the ICD code: 0, 1, 2,..., 9, V and E  (`groupICD = TRUE`)
+
+The most common error ICD is *A0.11* which has 20 admission records and error type is "wrong format"
+
+
+
+Also, users can divide **ICD-9** by the prefix of the ICD code: 0, 1, 2,..., 9, V and E  (`groupICD = TRUE`)
 
 ICD-9-CM divided into 19 chapters:  
 　001-139: Infectious And Parasitic Diseases  
 　140-239: Neoplasms  
 　....  
 
-For instance, user choose top 3 of common error *ICD-9*, then the output shows a Pareto chart with top 3 error codes and a list of the detail of error ICD codes.  
+For instance, if user chooses top 3 of common error *ICD-9*,  the output Pareto chart shows with top 3 error codes and a list of the detail of error ICD codes.  
+
 ```{r, message = FALSE}
 Plot_error2 <- plotICDError(errorFile = error$Error,
                              icdVersion = 9,
@@ -492,9 +519,9 @@ Plot_error2 <- plotICDError(errorFile = error$Error,
                              others = TRUE,
                              topN = 3)
 ```
+
 <img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;">
-Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes  
-The Top 1 common error ICD is *A01.05* which has 13 admission records and error type is "wrong version"
+
 ```r
 Plot_error2$ICD
 #>    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType
@@ -503,8 +530,13 @@ Plot_error2$ICD
 00#> 3:        0          5        87.1%            001           100%  Wrong format
 #> 4:   Others          4         100%          E03.0           100% Wrong version
 ```
+
+The most common error ICD is *A01.05* which has 13 admission records and the error type is "wrong version".
+
+
 ### B. histogram plot
-This function provides an overview of grouping category of the diagnostic code and summarize the percentage of result in histogram plot. User can observe the number of diagnostic categories in their dataset.  
+
+`plotDiagCat` function provides an overview of grouping category of the diagnostic code in histogram plot. User can observe the proportion of diagnostic categories in their dataset.  
 
 ```{r, message = FALSE, warning = FALSE}
 groupedDataWide <- groupedDataLongToWide(ELIX$groupedDT,
@@ -516,13 +548,17 @@ plot1 <- plotDiagCat(groupedDataWide = groupedDataWide,
                      topN = 10,
                      limitFreq = 0.01)
 ```
+
 <img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagSing.png" style="display:block; margin:auto; width:70%;"> 
+
 The first group, for instance, is grouped into "RENLFAIL" of ELIX comorbidity index.  
+
 ```{r}
 plot1$sigCate
 ```
-This function also verifies by Chi-square test and Fisher’s exact test statistical significantly different diagnostic categories between case and control.
-The default level of significance considered at 5% (p = 0.05). 
+
+This function can also do the Chi-square test and Fisher’s exact test to see if it is statistical significantly different between the diagnostic categories of case and control.
+The default level of significance is of 5% (p = 0.05). 
 
 ```{r, message = FALSE, warning = FALSE}
 selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
@@ -545,11 +581,13 @@ plot2 <- plotDiagCat(groupedDataWide = groupedDataWide,
 ```
 
 <img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagMult.png" style="display:block; margin:auto; width:70%;">
-There are stastitcal significant different in "RENLFAIL" of ELIX comorbidity index between case and control.  
+
+There are stastitcal significant difference in "RENLFAIL" of ELIX comorbidity index between case and control.  
 
 ```{r}
 plot2$sigCate
 ```
+
 ## Reference
 ### I. Code transformation
 

@@ -13,7 +13,7 @@ vignette: >
 
 The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.
 
-In this part, the instruction of how dxpr package workes with diagnosis records is provided. 
+In this part, the instruction of how dxpr package workes with procedure records is provided. 
 
 ### Development version
 ```r
@@ -67,6 +67,7 @@ head(ICD9PrwithTwoFormat$Short)
 # ICD-9-PCS_Decimal
 head(ICD9PrwithTwoFormat$Decimal)
 ```
+
 ICD-10-PCS: only short format
 ```{r}
 # ICD-10-PCS_Short
@@ -77,23 +78,19 @@ head(prICD10$ICD)
 
 ### A. ICD-9-PCS code format transformation：Short <-> Decimal
 
-Standardize the ICD procedure codes into a uniform format before code classification.
-
-Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.  
+dxpr package helps users to standardize the ICD-9 procedure codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as **Table 1**.
 
 **Table 1** Format of code classification methods
 
 |   |ICD format|
 |--------|----|
-|Clinical Classifications Software|short format|
+|Clinical Classifications Software (CCS)|short format|
 |Procedure class|short format|
 
-To distinguish the version of ICD procedure code (ICD9/ICD10) in code standardization.  
-User can set the using date of ICD10.  
+Since formats of ICD-9 codes used within a dataset could be different, users can standardize the codes through this function. 
 
-Reimbursement claims with a date required to use of ICD-10 codes (`icd10usingdate`)   
-In America: 10/1/2015  
-In Taiwan: 1/1/2016   
+The function only standardizes ICD-9 codes. There are two ways to distinguish the version of ICD code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric `9` or `10`), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.
+
 
 #### A-1. Uniform decimal format
 
@@ -104,8 +101,11 @@ decimal <- icdPrShortToDecimal(prDataFile = samplePrFile,
                                icd10usingDate = "2015/10/01")
 head(decimal$ICD)
 ```
+
 #### A-2. Uniform short format
-Convert the diagnostic codes to the short format, and used for grouping to the others classification (`icdPrToCCS` and `icdPrToCCSLvl`). 
+
+`icdPrShortToDecimal` function converts the procedure codes to the short format, which can be used for grouping to the other classification functions (`icdPrToCCS`, `icdPrToCCSLvl` and `icdPrToProcedureClass`). 
+
 ```{r, message = FALSE, warning = FALSE}
 short <- icdPrDecimalToShort(prDataFile = samplePrFile,
                              icdColName = ICD, 
@@ -113,21 +113,32 @@ short <- icdPrDecimalToShort(prDataFile = samplePrFile,
                              icd10usingDate = "2015/10/01")
 head(short$ICD)
 ```
-**warning message** (More detail: [Get started with dxpr: Diagnosis](https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html#i--code-standardization))
 
-Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.
+
+**Warning message**
+
+Besides, code standardization functions generate data of procedure codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.
+
+
+There are two error type：**wrong format** and **wrong version**. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after `icd10usingDate`, etc.).
+
+Users can check data after receiving the warning message.
+ researcher identify the potential coding mistake that may affect clinical data analysis.
+
 
 ## II. Data integration
-These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.
 
-The dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.  
+Functions stated below collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.
+
+dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.  
 
 ### A. Clinical Classifications Software (CCS)
+
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures. 
 
 **1) single-level**: `icdPrToCCS`
 
-ICD-9-PCS and ICD-10-PCS code contains same 231 CCS categories.
+Both ICD-9-PCS and ICD-10-PCS code contains 231 single-level CCS categories which can be corresponded with each other.
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS category
@@ -143,7 +154,7 @@ head(CCS$groupedDT, 5)
 
 **2) multi-level**: `icdPrToCCSLvl`
 
-ICD-9-PCS has 3 levels, and ICD-10-PCS has two levels
+Multi-level CCS in ICD-9-PCS has 3 levels, and multi-level CCS in ICD-10-PCS has two levels.
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS multiple level 2 description
@@ -159,13 +170,15 @@ head(CCSLvl$groupedDT, 5)
 ```
 
 ### B. Procedure Class 
-Procedure Classes are part of the family of databases and software tools developed as part of the HCUP by AHRQ.     
+
+Procedure Classes are part of the family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP) by AHRQ.     
 The Procedure Classes assign all ICD procedure codes to one of four categories:  
 
 * Minor Diagnostic - Non-operating room procedures that are diagnostic 
 * Minor Therapeutic - Non-operating room procedures that are therapeutic
 * Major Diagnostic - Operating room procedures that are diagnostic
 * Major Therapeutic - Operating room procedures that are therapeutic
+ 
  
 ```{r, message = FALSE, warning = FALSE}
 ProcedureClass <- icdPrToProcedureClass(prDataFile = samplePrFile,
@@ -174,16 +187,10 @@ ProcedureClass <- icdPrToProcedureClass(prDataFile = samplePrFile,
                                         dateColName = Date,
                                         icd10usingDate = "2015-10-01",
                                         isDescription = FALSE)
-```
-```r
+
 head(ProcedureClass$groupedDT, 5)
-#>    Short ID   ICD       Date PROCEDURE_CLASS_NAME
-#> 1:  5681  B  5681 2008-01-14                    4
-#> 2:  9774  A  9774 2009-01-11                    2
-#> 3:  4499  B 44.99 2009-05-10                    4
-#> 4:  0759  C 07.59 2009-01-21                    4
-#> 5:  0205  B  0205 2008-07-06                    4
 ```
+
 
 ## Reference
 

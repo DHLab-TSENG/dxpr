@@ -52,7 +52,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -73,9 +73,9 @@
       <h1 data-toc-skip>Getting started with dxpr: Procedure</h1>
                         <h4 class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2021-02-28</h4>
+            <h4 class="date">2021-03-01</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/emr/blob/master/vignettes/Eng_Procedure.Rmd"><code>vignettes/Eng_Procedure.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/master/vignettes/Eng_Procedure.Rmd"><code>vignettes/Eng_Procedure.Rmd</code></a></small>
       <div class="hidden name"><code>Eng_Procedure.Rmd</code></div>
 
     </div>
@@ -86,7 +86,7 @@
 <h1 class="hasAnchor">
 <a href="#description" class="anchor"></a>Description</h1>
 <p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
-<p>In this part, the instruction of how dxpr package workes with diagnosis records is provided.</p>
+<p>In this part, the instruction of how dxpr package workes with procedure records is provided.</p>
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"></a>Development version</h3>
@@ -147,8 +147,7 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <div id="a--icd-9-pcs-code-format-transformationshort---decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--icd-9-pcs-code-format-transformationshort---decimal" class="anchor"></a>A. ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal</h3>
-<p>Standardize the ICD procedure codes into a uniform format before code classification.</p>
-<p>Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.</p>
+<p>dxpr package helps users to standardize the ICD-9 procedure codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as <strong>Table 1</strong>.</p>
 <p><strong>Table 1</strong> Format of code classification methods</p>
 <table class="table">
 <thead><tr class="header">
@@ -157,7 +156,7 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Clinical Classifications Software</td>
+<td>Clinical Classifications Software (CCS)</td>
 <td>short format</td>
 </tr>
 <tr class="even">
@@ -166,11 +165,8 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 </tr>
 </tbody>
 </table>
-<p>To distinguish the version of ICD procedure code (ICD9/ICD10) in code standardization.<br>
-User can set the using date of ICD10.</p>
-<p>Reimbursement claims with a date required to use of ICD-10 codes (<code>icd10usingdate</code>)<br>
-In America: 10/1/2015<br>
-In Taiwan: 1/1/2016</p>
+<p>Since formats of ICD-9 codes used within a dataset could be different, users can standardize the codes through this function.</p>
+<p>The function only standardizes ICD-9 codes. There are two ways to distinguish the version of ICD code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric <code>9</code> or <code>10</code>), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.</p>
 <div id="a-1--uniform-decimal-format" class="section level4">
 <h4 class="hasAnchor">
 <a href="#a-1--uniform-decimal-format" class="anchor"></a>A-1. Uniform decimal format</h4>
@@ -190,7 +186,7 @@ In Taiwan: 1/1/2016</p>
 <div id="a-2--uniform-short-format" class="section level4">
 <h4 class="hasAnchor">
 <a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
-<p>Convert the diagnostic codes to the short format, and used for grouping to the others classification (<code>icdPrToCCS</code> and <code>icdPrToCCSLvl</code>).</p>
+<p><code>icdPrShortToDecimal</code> function converts the procedure codes to the short format, which can be used for grouping to the other classification functions (<code>icdPrToCCS</code>, <code>icdPrToCCSLvl</code> and <code>icdPrToProcedureClass</code>).</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -203,22 +199,24 @@ In Taiwan: 1/1/2016</p>
 <span class="co">#&gt; 4: 0759</span>
 <span class="co">#&gt; 5: 0205</span>
 <span class="co">#&gt; 6: 8812</span></pre></body></html></div>
-<p><strong>warning message</strong> (More detail: <a href="https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html#i--code-standardization">Get started with dxpr: Diagnosis</a>)</p>
-<p>Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.</p>
+<p><strong>Warning message</strong></p>
+<p>Besides, code standardization functions generate data of procedure codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.</p>
+<p>There are two error type：<strong>wrong format</strong> and <strong>wrong version</strong>. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after <code>icd10usingDate</code>, etc.).</p>
+<p>Users can check data after receiving the warning message. researcher identify the potential coding mistake that may affect clinical data analysis.</p>
 </div>
 </div>
 </div>
 <div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ii--data-integration" class="anchor"></a>II. Data integration</h2>
-<p>These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.</p>
-<p>The dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.</p>
+<p>Functions stated below collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.</p>
+<p>dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.</p>
 <div id="a--clinical-classifications-software-ccs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--clinical-classifications-software-ccs" class="anchor"></a>A. Clinical Classifications Software (CCS)</h3>
 <p>The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures.</p>
 <p><strong>1) single-level</strong>: <code>icdPrToCCS</code></p>
-<p>ICD-9-PCS and ICD-10-PCS code contains same 231 CCS categories.</p>
+<p>Both ICD-9-PCS and ICD-10-PCS code contains 231 single-level CCS categories which can be corresponded with each other.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">## ICD to CCS category</span>
 <span class="no">CCS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCS</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                   <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
@@ -235,7 +233,7 @@ In Taiwan: 1/1/2016</p>
 <span class="co">#&gt; 4:  0759  C 07.59 2009-01-21           12</span>
 <span class="co">#&gt; 5:  0205  B  0205 2008-07-06            9</span></pre></body></html></div>
 <p><strong>2) multi-level</strong>: <code>icdPrToCCSLvl</code></p>
-<p>ICD-9-PCS has 3 levels, and ICD-10-PCS has two levels</p>
+<p>Multi-level CCS in ICD-9-PCS has 3 levels, and multi-level CCS in ICD-10-PCS has two levels.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
 <span class="no">CCSLvl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCSLvl</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
@@ -262,7 +260,7 @@ In Taiwan: 1/1/2016</p>
 <div id="b--procedure-class" class="section level3">
 <h3 class="hasAnchor">
 <a href="#b--procedure-class" class="anchor"></a>B. Procedure Class</h3>
-<p>Procedure Classes are part of the family of databases and software tools developed as part of the HCUP by AHRQ.<br>
+<p>Procedure Classes are part of the family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP) by AHRQ.<br>
 The Procedure Classes assign all ICD procedure codes to one of four categories:</p>
 <ul>
 <li>Minor Diagnostic - Non-operating room procedures that are diagnostic</li>
@@ -275,14 +273,15 @@ The Procedure Classes assign all ICD procedure codes to one of four categories:<
                                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                                         <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                        <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ProcedureClass</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
-<span class="co">#&gt;    Short ID   ICD       Date PROCEDURE_CLASS_NAME</span>
-<span class="co">#&gt; 1:  5681  B  5681 2008-01-14                    4</span>
-<span class="co">#&gt; 2:  9774  A  9774 2009-01-11                    2</span>
-<span class="co">#&gt; 3:  4499  B 44.99 2009-05-10                    4</span>
-<span class="co">#&gt; 4:  0759  C 07.59 2009-01-21                    4</span>
-<span class="co">#&gt; 5:  0205  B  0205 2008-07-06                    4</span></pre></body></html></div>
+                                        <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ProcedureClass</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="co">#&gt;    Short ID   ICD       Date PROCEDURE_CLASS</span>
+<span class="co">#&gt; 1:  5681  B  5681 2008-01-14               4</span>
+<span class="co">#&gt; 2:  9774  A  9774 2009-01-11               2</span>
+<span class="co">#&gt; 3:  4499  B 44.99 2009-05-10               4</span>
+<span class="co">#&gt; 4:  0759  C 07.59 2009-01-21               4</span>
+<span class="co">#&gt; 5:  0205  B  0205 2008-07-06               4</span></pre></body></html></div>
 </div>
 </div>
 <div id="reference" class="section level2">
