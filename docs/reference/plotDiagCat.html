@@ -38,8 +38,6 @@
 
 <meta property="og:title" content="Plot of diagnostic categories — plotDiagCat" />
 
-<meta property="og:description" content="Histogram plot of diagnostic categories" />
-
 
 
 
@@ -93,7 +91,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,14 +110,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot of diagnostic categories</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/plotDiagCat.R'><code>R/plotDiagCat.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/plotDiagCat.R'><code>R/plotDiagCat.R</code></a></small>
     <div class="hidden name"><code>plotDiagCat.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p>Histogram plot of diagnostic categories</p>
-    
+
     </div>
 
     <pre class="usage"><span class='fu'>plotDiagCat</span>(
@@ -136,126 +132,20 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>groupedDataWide</th>
-      <td><p>GroupedData file from functions of code classification (four stPercentagegies)</p></td>
+      <td><p>Wide table of data frame (generated from <code>groupedDataLongToWide</code> function).</p></td>
+    </tr>
+    <tr>
+      <th>topN</th>
+      <td><p>Numeric. Default is 10 (Top 10; 10 most common wrong ICD).</p></td>
     </tr>
     <tr>
       <th>limitFreq</th>
-      <td><p>The minimum frequency set to "0.01"; In other words, the limit at the same diagnostic category must have 1 percent patient in the total patient.</p></td>
-    </tr>
-    <tr>
-      <th>pvalue</th>
-      <td><p>p value of chisq.test</p></td>
-    </tr>
-    <tr>
-      <th>TopN</th>
-      <td><p>Default is Top "10"</p></td>
+      <td><p>Numeric. minimum frequency shown (frequency below this threshold will not be shown in plot). Default is 0.01. In other words, the threshold is 1<!-- % patient among total patients been diagnosed in the same diagnostic category.} --></p>
+<p>pvalueNumeric. p value of chisq.test. Default is 0.05.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A histogram plot and a <code>data.table</code> for classifying data.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>An overview of grouping category of the diagnostic code summarizes the percentage of result in histogram plot. User can observe the number of diagnostic categories in their dataset through this function. This function also verifies by Chi-square test and Fisher’s exact test statistical significantly different diagnostic categories between case and control. The default level of significance considered at 5<!-- % (p = 0.05). --></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>other plot function: <code><a href='plotError.html'>plotError</a></code></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># sample file for example</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
-#&gt; 1:  A2 Z992 2020-05-22
-#&gt; 2:  A5 Z992 2020-01-24
-#&gt; 3:  A8 Z992 2015-10-27
-#&gt; 4: A13 Z992 2020-04-26
-#&gt; 5: A13 Z992 2025-02-02
-#&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
-<span class='co'># Create a grouped data</span>
-
-<span class='no'>ELIX</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dxComorbid.html'>icdDxToComorbid</a></span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
-                       <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                       <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
-                       <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-                       <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
-                       <span class='kw'>comorbidMethod</span> <span class='kw'>=</span> <span class='no'>elix</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>)</div><div class='output co'>#&gt;    Short  ID  ICD       Date Comorbidity
-#&gt; 1:  Z992  A2 Z992 2020-05-22    RENLFAIL
-#&gt; 2:  Z992  A5 Z992 2020-01-24    RENLFAIL
-#&gt; 3:  Z992  A8 Z992 2015-10-27    RENLFAIL
-#&gt; 4:  Z992 A13 Z992 2020-04-26    RENLFAIL
-#&gt; 5:  Z992 A13 Z992 2025-02-02    RENLFAIL
-#&gt; 6:  Z992 A15 Z992 2023-05-12    RENLFAIL</div><div class='input'>
-<span class='co'># Convert long format of grouped data into wide binary format</span>
-
-<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
-                                         <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                                         <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
-                                         <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>)
-
-<span class='co'># plot of top 10 common grouped categories and a list of the detail of grouped categories</span>
-
-<span class='no'>plot1</span> <span class='kw'>&lt;-</span> <span class='fu'>plotDiagCat</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
-                          <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                          <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-                          <span class='kw'>limitFreq</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
-<span class='no'>plot1</span></div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotDiagCat-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $sigCate
-#&gt;     DiagnosticCategory  N Percentage
-#&gt;  1:           RENLFAIL 24      63.16
-#&gt;  2:              TUMOR  6      15.79
-#&gt;  3:               ARTH  5      13.16
-#&gt;  4:              LYMPH  4      10.53
-#&gt;  5:              PSYCH  4      10.53
-#&gt;  6:               DRUG  3       7.89
-#&gt;  7:              NEURO  3       7.89
-#&gt;  8:               PARA  2       5.26
-#&gt;  9:           PERIVASC  2       5.26
-#&gt; 10:              VALVE  2       5.26
-#&gt; </div><div class='input'>
-<span class='co'># Select case with "Diseases of the urinary system" by level 2 of CCS classification</span>
-
-<span class='no'>selectedCaseFile</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectCases.html'>selectCases</a></span>(<span class='kw'>dxDataFile</span> <span class='kw'>=</span> <span class='no'>sampleDxFile</span>,
-                                <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                                <span class='kw'>icdColName</span> <span class='kw'>=</span> <span class='no'>ICD</span>,
-                                <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-                                <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-                                <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>,
-                                <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>ccslvl2</span>,
-                                <span class='kw'>caseCondition</span> <span class='kw'>=</span> <span class='st'>"Diseases of the urinary system"</span>,
-                                <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
-<span class='co'># Convert the long format of grouped data into a wide binary format with selected case</span>
-
-<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
-                                         <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                                         <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
-                                         <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,
-                                         <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)
-
-<span class='co'># plot of top 10 common grouped categories and a list of the detail of grouped categories</span>
-
-<span class='no'>plot2</span> <span class='kw'>&lt;-</span> <span class='fu'>plotDiagCat</span>(<span class='kw'>groupedDataWide</span> <span class='kw'>=</span> <span class='no'>groupedDataWide</span>,
-                          <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
-                          <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-                          <span class='kw'>limitFreq</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-                          <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
-<span class='no'>plot2</span></div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotDiagCat-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $sigCate
-#&gt;     DiagnosticCategory  N Percentage
-#&gt;  1:       selectedCase 38     100.00
-#&gt;  2:           RENLFAIL 24      63.16
-#&gt;  3:              TUMOR  6      15.79
-#&gt;  4:               ARTH  5      13.16
-#&gt;  5:              LYMPH  4      10.53
-#&gt;  6:              PSYCH  4      10.53
-#&gt;  7:               DRUG  3       7.89
-#&gt;  8:              NEURO  3       7.89
-#&gt;  9:           PERIVASC  2       5.26
-#&gt; 10:              VALVE  2       5.26
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

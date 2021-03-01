@@ -1,4 +1,4 @@
-#' @rdname plotError
+#' @rdname plotICDError
 #' @export
 #'
 plotICDError <- function(errorFile, icdVersion = all, wrongICDType = all, groupICD = FALSE, others = TRUE, topN = 10){

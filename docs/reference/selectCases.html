@@ -93,7 +93,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Data integration for case selection</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/selectCases.R'><code>R/selectCases.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/selectCases.R'><code>R/selectCases.R</code></a></small>
     <div class="hidden name"><code>selectCases.Rd</code></div>
     </div>
 
@@ -143,61 +143,61 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A data frame object of clinical diagnostic data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile.</p></td>
+      <td><p>Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD-9/10 version. The format should be numeric 9L or 10L.</p></td>
+      <td><p>(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
+      <td><p>the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>groupDataType</th>
-      <td><p>Four Stratified methods can chosen: CCS (<code>'ccs'</code>), CCS levels (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Change it to any of the other possible variables, default it set to <code>"ccs"</code>.</p></td>
+      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>), multiple-level CCS (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Default value is <code>"ccs"</code>.</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
-      <td><p>Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.</p></td>
+      <td><p>Used-defined grouping categories. <code>icdDxToCustom</code> needs a dataset with two columns called "Group" and "ICD", respectively; User can define one or more disease categories in "Group" column, and define a list of corresponding category-related ICD codes in "ICD" column. <code>icdDxToCustomGrep</code> needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing regular expressions.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>Category or description of standard classification methods for ICD diagnostic codes. By default, it set to <code>True</code> (standard description).</p></td>
+      <td><p>Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to <code>True</code> (standard category description).</p></td>
     </tr>
     <tr>
       <th>caseCondition</th>
-      <td><p>Certain diseases of standard groups.</p></td>
+      <td><p>Certain diseases to be selected. The condition can be specific ICD, CCS category description, etc. String with regular expression is also supported.</p></td>
     </tr>
     <tr>
       <th>caseCount</th>
-      <td><p>Minimum number of diagnoses.</p></td>
+      <td><p>Minimum number of diagnoses time to be selected. If <code>caseCount</code> = <code>2</code>, then only patients who had been diagnosed twice (or above) would be selected. Default value is 1.</p></td>
+    </tr>
+    <tr>
+      <th>caseName</th>
+      <td><p>Value to identify selected or not. The value will be filled in the labeling column called <code>selectedCase</code>. By default, it is set to be <code>"selected"</code>.</p></td>
     </tr>
     <tr>
       <th>PeriodRange</th>
-      <td><p>Determine days of interest for performing the case selection. By default, it set from 30 to 365 days.</p></td>
-    </tr>
-    <tr>
-      <th>CaseName</th>
-      <td><p>Name of selected cases. By default, it set to <code>"selected"</code>.</p></td>
+      <td><p>Determine duration of interest for performing the case selection. By default, it is set from 30 to 365 days (with argument <code><a href='https://rdrr.io/r/base/c.html'>c(30,365)</a></code>). The lower bound and the upper of the wanted duration should be coded as a vector.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A new <code>data.table</code> based on standard classification dataset with a new column: <code>selectedCase</code></p>
+    <p>A new <code>data.table</code> based on standard classification dataset with a new column: <code>selectedCase</code>, in which each row is labeled as selected or not.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -205,7 +205,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>dataSplit</a></code>, <code>recordPeriod</code>, <code><a href='era.html'>era</a></code></p></div>
+    <div class='dont-index'><p>Other data integration functions: <code><a href='dataSplit.html'>splitDataByDate</a></code>, <code><a href='eligiblePeriod.html'>getEligiblePeriod</a></code>, <code><a href='era.html'>getConditionEra</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

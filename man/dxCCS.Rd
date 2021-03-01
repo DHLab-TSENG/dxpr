@@ -28,30 +28,31 @@ icdDxToCCSLvl(
 )
 }
 \arguments{
-\item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
+\item{dxDataFile}{A data frame object of clinical diagnostic data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
-\item{idColName}{A column for MemberID of dxDataFile.}
+\item{idColName}{Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{icdColName}{A column for ICD of dxDataFile}
+\item{icdColName}{Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{A column for Date of dxDataFile}
+\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
+\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{icd10usingDate}{ICD-10 using date}
+\item{icd10usingDate}{the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
-\item{isDescription}{Category or description of standard classification methods for ICD diagnostic codes. By default, it set to \code{True} (standard description).}
+\item{isDescription}{Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to \code{True} (standard category description).}
 
-\item{CCSLevel}{By default it set to \code{1}. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.}
+\item{CCSLevel}{Used for multi-level CCS. By default, it is set to \code{1}. There is 4 multi-level CCS (1~4) for ICD-9, and 2 multi-level CCS (1 and 2) for ICD-10.}
 }
 \value{
-Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID. 3) \code{Error}: Potential error codes from \code{\link{dxUniform}}.
+Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified categories. 2) \code{summarised_groupedDT}: Summarized the \code{groupedDT} dataset and sorted by memberID. 3) \code{Error}: Potential error codes from standardization step: \code{\link{dxUniform}} (icdDxShortToDecimal and icdDxDecimalToShort).
 }
 \description{
-The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
+These CCS functions (\code{icdDxToCCS} and \code{icdDxToCCSLvl}) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
+CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 }
 \details{
-These CCS functions (icdDxToCCS and icdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.
+Common argument of diagnostic functions
 }
 \examples{
 # sample file for example
@@ -67,5 +68,5 @@ icdDxToCCS(sampleDxFile, ID, ICD, Date, icd10usingDate =  "2015-10-01", isDescri
 icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 }
 \seealso{
-Other code classification functions: \code{\link{dxPheWAS}}, \code{\link{dxCustom}}, \code{\link{dxComorbid}}
+Other code classification functions: \code{\link{dxPheWAS}} (icdDxToPheWAS), \code{\link{dxCustom}} (icdDxToCustom and icdDxToCustomGrep), \code{\link{dxComorbid}} (icdDxToComorbid).
 }

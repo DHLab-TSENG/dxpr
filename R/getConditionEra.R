@@ -1,4 +1,4 @@
-#' @rdname era
+#' @rdname getConditionEra
 #' @export
 #'
 

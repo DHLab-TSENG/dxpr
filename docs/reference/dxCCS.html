@@ -38,7 +38,8 @@
 
 <meta property="og:title" content="Code classification for CCS — dxCCS" />
 
-<meta property="og:description" content="The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses." />
+<meta property="og:description" content="These CCS functions (icdDxToCCS and icdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
+CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses." />
 
 
 
@@ -93,7 +94,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,13 +113,14 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code classification for CCS</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxToCCS.R'><code>R/icdDxToCCS.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxToCCSLvl.R'><code>R/icdDxToCCSLvl.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdDxToCCS.R'><code>R/icdDxToCCS.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdDxToCCSLvl.R'><code>R/icdDxToCCSLvl.R</code></a></small>
     <div class="hidden name"><code>dxCCS.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.</p>
+    <p>These CCS functions (<code>icdDxToCCS</code> and <code>icdDxToCCSLvl</code>) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
+CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.</p>
     
     </div>
 
@@ -148,49 +150,49 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A data frame object of clinical diagnostic data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A column for MemberID of dxDataFile.</p></td>
+      <td><p>Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD-9/10 version. The format should be numeric 9L or 10L.</p></td>
+      <td><p>(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
+      <td><p>the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>Category or description of standard classification methods for ICD diagnostic codes. By default, it set to <code>True</code> (standard description).</p></td>
+      <td><p>Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to <code>True</code> (standard category description).</p></td>
     </tr>
     <tr>
       <th>CCSLevel</th>
-      <td><p>By default it set to <code>1</code>. CCS multiple level:1~4, CCS for ICD-10-CM has only 1~2 multiple levels.</p></td>
+      <td><p>Used for multi-level CCS. By default, it is set to <code>1</code>. There is 4 multi-level CCS (1~4) for ICD-9, and 2 multi-level CCS (1 and 2) for ICD-10.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified standard categories. 2) <code>summarised_groupedDT</code>: Summarized the dataset  <code>groupedDT</code> and sorted by memberID. 3) <code>Error</code>: Potential error codes from <code><a href='dxUniform.html'>dxUniform</a></code>.</p>
+    <p>Three new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>dxDataFile</code> with two new columns for uniform format diagnostic codes and classified categories. 2) <code>summarised_groupedDT</code>: Summarized the <code>groupedDT</code> dataset and sorted by memberID. 3) <code>Error</code>: Potential error codes from standardization step: <code><a href='dxUniform.html'>dxUniform</a></code> (icdDxShortToDecimal and icdDxDecimalToShort).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These CCS functions (icdDxToCCS and icdDxToCCSLvl) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.</p>
+    <p>Common argument of diagnostic functions</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code>, <code><a href='dxCustom.html'>dxCustom</a></code>, <code><a href='dxComorbid.html'>dxComorbid</a></code></p></div>
+    <div class='dont-index'><p>Other code classification functions: <code><a href='dxPheWAS.html'>dxPheWAS</a></code> (icdDxToPheWAS), <code><a href='dxCustom.html'>dxCustom</a></code> (icdDxToCustom and icdDxToCustomGrep), <code><a href='dxComorbid.html'>dxComorbid</a></code> (icdDxToComorbid).</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

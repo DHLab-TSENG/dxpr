@@ -24,8 +24,8 @@ It has four main sections:
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://dhlab-tseng.github.io/emr/}
-  \item Report bugs at \url{https://github.com/DHLab-TSENG/emr/issues}
+  \item \url{https://dhlab-tseng.github.io/dxpr/}
+  \item Report bugs at \url{https://github.com/DHLab-TSENG/dxpr/issues}
 }
 
 }

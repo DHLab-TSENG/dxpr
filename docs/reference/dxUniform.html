@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="Code format transformation — dxUniform" />
 
-<meta property="og:description" content="Convert the ICD diagnostic codes to a uniform format" />
+<meta property="og:description" content="These two functions can convert the ICD diagnostic codes to a uniform format." />
 
 
 
@@ -93,7 +93,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,13 +112,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code format transformation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxDecimalToShort.R'><code>R/icdDxDecimalToShort.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdDxShortToDecimal.R'><code>R/icdDxShortToDecimal.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdDxDecimalToShort.R'><code>R/icdDxDecimalToShort.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdDxShortToDecimal.R'><code>R/icdDxShortToDecimal.R</code></a></small>
     <div class="hidden name"><code>dxUniform.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert the ICD diagnostic codes to a uniform format</p>
+    <p>These two functions can convert the ICD diagnostic codes to a uniform format.</p>
     
     </div>
 
@@ -143,33 +143,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dxDataFile</th>
-      <td><p>A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"</p></td>
+      <td><p>A data frame object of clinical diagnostic data with at least 2 columns: ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A column for ICD of dxDataFile</p></td>
+      <td><p>Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A column for Date of dxDataFile</p></td>
+      <td><p>Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
-      <td><p>A column for ICD-9/10 version. The format should be numeric 9L or 10L.</p></td>
+      <td><p>(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
+      <td><p>the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two new <code>data.table</code>s. 1) <code>ICD</code>: Uniform format diagnostic codes. 2) <code>Error</code>: Potential error codes.</p>
+    <p>Two new <code>data.table</code>s. 1) <code>ICD</code>: Uniform format diagnostic codes with column name "ICD". 2) <code>Error</code>: Potential error codes with 5 columns: ICD, count, IcdVersionInFile, WrongType and Suggestion.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>`icdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.</p>
+    <p><code>icdDxShortToDecimal</code> can be used for grouping diagnostic code to PheWAS classification (<code><a href='dxPheWAS.html'>dxPheWAS</a></code>: icdDxToPheWAS). <code>icdDxDecimalToShort</code> can be used for grouping to the other classification methods (<code><a href='dxCCS.html'>dxCCS</a></code>: icdDxToCCS &amp; icdDxToCCSLvl; <code><a href='dxComorbid.html'>dxComorbid</a></code>: icdDxToComorbid). These transformation functions do not only convert the ICD codes to uniform format but also check potential coding error of the ICD format and version.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

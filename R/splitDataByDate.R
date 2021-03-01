@@ -1,4 +1,4 @@
-#' @rdname dataSplit
+#' @rdname splitDataByDate
 #' @export
 #'
 splitDataByDate <- function(dxDataFile, idColName, icdColName, dateColName, indexDateFile, gap = 30){

@@ -24,24 +24,24 @@ icdDxShortToDecimal(
 )
 }
 \arguments{
-\item{dxDataFile}{A file of clinical diagnostic data with at least 2 columns: "ICD" and "Date"}
+\item{dxDataFile}{A data frame object of clinical diagnostic data with at least 2 columns: ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
-\item{icdColName}{A column for ICD of dxDataFile}
+\item{icdColName}{Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{A column for Date of dxDataFile}
+\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{icdVerColName}{A column for ICD-9/10 version. The format should be numeric 9L or 10L.}
+\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{icd10usingDate}{ICD-10 using date}
+\item{icd10usingDate}{the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.}
 }
 \value{
-Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes. 2) \code{Error}: Potential error codes.
+Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes with column name "ICD". 2) \code{Error}: Potential error codes with 5 columns: ICD, count, IcdVersionInFile, WrongType and Suggestion.
 }
 \description{
-Convert the ICD diagnostic codes to a uniform format
+These two functions can convert the ICD diagnostic codes to a uniform format.
 }
 \details{
-`icdDxShortToDecimal` used for grouping diagnostic code to PheWAS classification (icdDxToPheWAS). `icdDxDecimalToShort` used for grouping to the others classification (icdDxToCCS, icdDxToCCSLvl, and icdDxToComorbid). The transformative function is not only convert the ICD to uniform format code but also check potential coding error of the ICD codes’ format or version.
+\code{icdDxShortToDecimal} can be used for grouping diagnostic code to PheWAS classification (\code{\link{dxPheWAS}}: icdDxToPheWAS). \code{icdDxDecimalToShort} can be used for grouping to the other classification methods (\code{\link{dxCCS}}: icdDxToCCS & icdDxToCCSLvl; \code{\link{dxComorbid}}: icdDxToComorbid). These transformation functions do not only convert the ICD codes to uniform format but also check potential coding error of the ICD format and version.
 }
 \examples{
 # sample file for example

@@ -16,13 +16,13 @@ icdPrToProcedureClass(
 )
 }
 \arguments{
-\item{prDataFile}{A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"}
+\item{prDataFile}{A data frame object of clinical procedure data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
-\item{idColName}{A MemberID column of prDataFile}
+\item{idColName}{Column name of ID column in prDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{icdColName}{A ICD column of prDataFile}
+\item{icdColName}{Column name of ICD column in prDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{A Date column of prDataFile}
+\item{dateColName}{Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
 \item{icd10usingDate}{ICD-10 using date}
 

@@ -1,4 +1,4 @@
-#' @rdname dataWide
+#' @rdname groupedDataLongToWide
 #' @export
 #'
 
@@ -34,7 +34,7 @@ groupedDataLongToWide <- function(dxDataFile, idColName, categoryColName, dateCo
   }else if(numericOrBinary != "B" && numericOrBinary != "N"){
     stop("'please enter N or B for 'numericOrBinary'", call. = FALSE)
   }
-    
+
   if(!is.null(selectedCaseFile)){
     wideData_selected <- merge(wideData, selectedCaseFile[,list(ID, selectedCase)],by = "ID")
     return(wideData_selected)

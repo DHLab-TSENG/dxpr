@@ -1,4 +1,4 @@
-#' @rdname eligiblePeriod
+#' @rdname getEligiblePeriod
 #' @export
 #'
 getEligiblePeriod <- function(dxDataFile, idColName, dateColName){

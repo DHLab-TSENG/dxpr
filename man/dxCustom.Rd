@@ -24,15 +24,15 @@ icdDxToCustomGrep(
 )
 }
 \arguments{
-\item{dxDataFile}{A file of clinical diagnostic data with at least 3 columns: "MemberID", "ICD", and "Date"}
+\item{dxDataFile}{A data frame object of clinical diagnostic data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
-\item{idColName}{A column for MemberID of dxDataFile.}
+\item{idColName}{Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{icdColName}{A column for ICD of dxDataFile}
+\item{icdColName}{Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{A column for Date of dxDataFile}
+\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{customGroupingTable}{Define the grouping categories. `icdDxToCustom` needs a dataset with two columns: "Group", "ICD"; "Group" defines one or more disease categories. "ICD" defines a list of disease-related ICD codes. `icdDxToCustomGrep`needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories. "grepICD" defines disease-related ICD code character strings containing a regular expression.}
+\item{customGroupingTable}{Used-defined grouping categories. \code{icdDxToCustom} needs a dataset with two columns called "Group" and "ICD", respectively; User can define one or more disease categories in "Group" column, and define a list of corresponding category-related ICD codes in "ICD" column. \code{icdDxToCustomGrep} needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing regular expressions.}
 }
 \value{
 Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified standard categories. 2) \code{summarised_groupedDT}: Summarized the dataset  \code{groupedDT} and sorted by memberID.

@@ -14,22 +14,23 @@ plotDiagCat(
 )
 }
 \arguments{
-\item{groupedDataWide}{GroupedData file from functions of code classification (four stPercentagegies)}
+\item{groupedDataWide}{Wide table of data frame (generated from \code{groupedDataLongToWide} function).}
 
-\item{limitFreq}{The minimum frequency set to "0.01"; In other words, the limit at the same diagnostic category must have 1 percent patient in the total patient.}
+\item{topN}{Numeric. Default is 10 (Top 10; 10 most common wrong ICD).}
 
-\item{pvalue}{p value of chisq.test}
+\item{limitFreq}{Numeric. minimum frequency shown (frequency below this threshold will not be shown in plot). Default is 0.01. In other words, the threshold is 1% patient among total patients been diagnosed in the same diagnostic category.}
 
-\item{TopN}{Default is Top "10"}
+\item{pvalue}{Numeric. p value of chisq.test. Default is 0.05.}
 }
 \value{
-A histogram plot and a \code{data.table} for classifying data.
+A histogram plot and a \code{data.table} of summarized classified data.
 }
 \description{
 Histogram plot of diagnostic categories
 }
 \details{
-An overview of grouping category of the diagnostic code summarizes the percentage of result in histogram plot. User can observe the number of diagnostic categories in their dataset through this function. This function also verifies by Chi-square test and Fisher’s exact test statistical significantly different diagnostic categories between case and control. The default level of significance considered at 5% (p = 0.05).
+This function provides an overview of grouping category of the diagnostic code in histogram plot. User can observe the proportion of diagnostic categories in their dataset through this function.
+Also, Chi-square test and Fisher’s exact test are also included in this function. User can test if the proportion of each diagnostic category in case group and control group are statistical significantly different.
 }
 \examples{
 # sample file for example
@@ -91,5 +92,5 @@ plot2 <- plotDiagCat(groupedDataWide = groupedDataWide,
 plot2
 }
 \seealso{
-other plot function: \code{\link{plotError}}
+Other plot function: \code{\link{plotICDError}}
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot for error ICD list — plotError • dxpr</title>
+<title>Plot for error ICD list — plotICDError • dxpr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
 
 
 
-<meta property="og:title" content="Plot for error ICD list — plotError" />
+<meta property="og:title" content="Plot for error ICD list — plotICDError" />
 
 <meta property="og:description" content="Pareto chart of error ICD list" />
 
@@ -113,7 +113,7 @@
     <div class="page-header">
     <h1>Plot for error ICD list</h1>
     <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/plotICDError.R'><code>R/plotICDError.R</code></a></small>
-    <div class="hidden name"><code>plotError.Rd</code></div>
+    <div class="hidden name"><code>plotICDError.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -122,7 +122,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotICDError</span>(
+    <pre class="usage"><span class='fu'><a href='plotError.html'>plotICDError</a></span>(
   <span class='no'>errorFile</span>,
   <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
   <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
@@ -136,37 +136,38 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>errorFile</th>
-      <td><p>Error file from ICD uniform function (`icdDxDecimalToShort` or `icdDxShortToDecimal`)</p></td>
+      <td><p>Error file (a data frame) from ICD uniform functions <code>dxUniform</code> (icdDxDecimalToShort or icdDxShortToDecimal)</p></td>
     </tr>
     <tr>
       <th>wrongICDType</th>
-      <td><p>Wrong ICD type: wrong version (<code>'version'</code>), wrong format (<code>'format'</code>, and both wrong type <code>'all'</code></p></td>
+      <td><p>Certain wrong type that interested. The value can either version, format, or all, and this argument is the also string data type without quotation mark.</p></td>
     </tr>
     <tr>
       <th>groupICD</th>
-      <td><p>Only ICD-9 codes can group, because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE</p></td>
+      <td><p>Binary data type. Only ICD-9 codes can group because ICD 10 already has unique alphanumeric codes to identify known diseases. Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>ICDVersion</th>
-      <td><p>ICD version: ICD9 (<code>'9'</code>), ICD10 (<code>'10'</code>, and all version <code>'all'</code></p></td>
-    </tr>
-    <tr>
-      <th>Others</th>
+      <th>others</th>
       <td><p>Default is TRUE</p></td>
     </tr>
     <tr>
-      <th>TopN</th>
-      <td><p>Default is Top "10"</p></td>
+      <th>topN</th>
+      <td><p>Numeric argument. Default is 10 (Top 10; 10 most common wrong ICD).</p></td>
+    </tr>
+    <tr>
+      <th>ICDVersion</th>
+      <td><p>Certain version that interested. The argument should be string data type: 9, 10 or all (without quotation mark).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A Pareto plot and a <code>data.table</code> for error codes.</p>
+    <p>A Pareto plot and a <code>data.table</code> of statistical information about error codes.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Through first phase function, code standardization, which generates a data of diagnosis codes with potential error. The Pareto chart includes bar plot and line chart to visualize individual possible error ICD codes represented in descending order and cumulative total.</p>
+    <p>Through first phase function, code standardization, it detects diagnosis codes with potential error.
+The Pareto chart includes bar plot and line chart to visualize individual possible error ICD codes represented in descending order and cumulative total.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -187,12 +188,12 @@
 <span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dxUniform.html'>icdDxDecimalToShort</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
 <span class='co'># Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes</span>
 
-<span class='fu'>plotICDError</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
+<span class='fu'><a href='plotError.html'>plotICDError</a></span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
               <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='fl'>9</span>,
               <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
               <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-              <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotError-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+              <span class='kw'>topN</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotICDError-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $ICD
 #&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType
 #&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version
@@ -202,11 +203,11 @@
 #&gt; </div><div class='input'>
 <span class='co'># Plot of top 10 common error ICD codes and a list of the detail of error ICD codes</span>
 
-<span class='fu'>plotICDError</span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
+<span class='fu'><a href='plotError.html'>plotICDError</a></span>(<span class='kw'>errorFile</span> <span class='kw'>=</span> <span class='no'>error</span>$<span class='no'>Error</span>,
               <span class='kw'>icdVersion</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>wrongICDType</span> <span class='kw'>=</span> <span class='no'>all</span>,
               <span class='kw'>groupICD</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-              <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotError-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
+              <span class='kw'>others</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $graph</div><div class='img'><img src='plotICDError-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
 #&gt; $ICD
 #&gt;       ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion
 #&gt; 1: A01.05     8       25.81%            ICD 9 Wrong version           

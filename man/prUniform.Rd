@@ -26,9 +26,9 @@ icdPrShortToDecimal(
 \arguments{
 \item{prDataFile}{A file of clinical procedure data with at least 2 columns: "ICD" and "Date"}
 
-\item{icdColName}{A ICD column of prDataFile}
+\item{icdColName}{Column name of ICD column in prDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{A Date column of prDataFile}
+\item{dateColName}{Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
 \item{icd10usingDate}{ICD-10 using date}
 }

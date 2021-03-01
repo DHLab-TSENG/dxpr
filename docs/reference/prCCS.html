@@ -93,7 +93,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/DHLab-TSENG/emr/">
+  <a href="https://github.com/DHLab-TSENG/dxpr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +112,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Code classification for CCS</h1>
-    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdPrToCCS.R'><code>R/icdPrToCCS.R</code></a>, <a href='https://github.com/DHLab-TSENG/emr/blob/master/R/icdPrToCCSLvl.R'><code>R/icdPrToCCSLvl.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/fun_emr.R'><code>R/fun_emr.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdPrToCCS.R'><code>R/icdPrToCCS.R</code></a>, <a href='https://github.com/DHLab-TSENG/dxpr/blob/master/R/icdPrToCCSLvl.R'><code>R/icdPrToCCSLvl.R</code></a></small>
     <div class="hidden name"><code>prCCS.Rd</code></div>
     </div>
 
@@ -148,19 +148,19 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>prDataFile</th>
-      <td><p>A file of clinical procedure data with at least 3 columns: "MemberID", "ICD", and "Date"</p></td>
+      <td><p>A data frame object of clinical procedure data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
     </tr>
     <tr>
       <th>idColName</th>
-      <td><p>A MemberID column of prDataFile</p></td>
+      <td><p>Column name of ID column in prDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdColName</th>
-      <td><p>A ICD column of prDataFile</p></td>
+      <td><p>Column name of ICD column in prDataFile. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>A Date column of prDataFile</p></td>
+      <td><p>Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icd10usingDate</th>
