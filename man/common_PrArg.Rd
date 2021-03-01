@@ -12,9 +12,11 @@
 
 \item{dateColName}{Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{icd10usingDate}{ICD-10 using date}
+\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in prDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{isDescription}{Category or description of standard classification methods for ICD procedure codes. By default, it set to \code{True} (standard description).}
+\item{icd10usingDate}{The date that ICD-10 was started to be used in prDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
+
+\item{isDescription}{Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be \code{True} (standard category description).}
 }
 \description{
 Common argument of procedure functions

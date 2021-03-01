@@ -163,11 +163,11 @@
     </tr>
     <tr>
       <th>icd10usingDate</th>
-      <td><p>the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.</p></td>
+      <td><p>The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.</p></td>
     </tr>
     <tr>
       <th>groupDataType</th>
-      <td><p>Four Stratified methods can be chosen: CCS (<code>'ccs'</code>), multiple-level CCS (<code>'ccslvl1'</code>, <code>'ccslvl2'</code>, <code>'ccslvl3'</code>, <code>'ccslvl4'</code>), PheWAS (<code>'PheWAS'</code>), comorbidities (<code>'ahrq'</code>,<code>'charlson'</code>, <code>'elix'</code>), precise or fuzzy customized  method (<code>'customGrepIcdGroup'</code>, <code>'customIcdGroup'</code>). Default value is <code>"ccs"</code>.</p></td>
+      <td><p>Four Stratified methods can be chosen: CCS (<code>ccs</code>), multiple-level CCS (<code>ccslvl1</code>, <code>ccslvl2</code>, <code>ccslvl3</code>, <code>ccslvl4</code>), PheWAS (<code>PheWAS</code>), comorbidities (<code>ahrq</code>,<code>charlson</code>, <code>elix</code>), precise or fuzzy customized  method (<code>customGrepIcdGroup</code>, <code>customIcdGroup</code>). The value should be string stated above without quotation mark. Default value is <code>ccs</code>.</p></td>
     </tr>
     <tr>
       <th>customGroupingTable</th>
@@ -175,7 +175,7 @@
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to <code>True</code> (standard category description).</p></td>
+      <td><p>Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be <code>True</code> (standard category description).</p></td>
     </tr>
     <tr>
       <th>caseCondition</th>

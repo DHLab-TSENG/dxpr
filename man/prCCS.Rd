@@ -36,20 +36,22 @@ icdPrToCCSLvl(
 
 \item{dateColName}{Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{icd10usingDate}{ICD-10 using date}
+\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in prDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{isDescription}{Category or description of standard classification methods for ICD procedure codes. By default, it set to \code{True} (standard description).}
+\item{icd10usingDate}{The date that ICD-10 was started to be used in prDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 
-\item{CCSLevel}{By default, it set to \code{1}. CCS multiple level:1~3, CCS for ICD-10-CM only has 1~2 multiple levels.}
+\item{isDescription}{Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be \code{True} (standard category description).}
+
+\item{CCSLevel}{Numeric. Used for multi-level CCS. By default, it is set to \code{1}. There is 3 multi-level CCS (1~3) for ICD-9, and 2 multi-level CCS (1 and 2) for ICD-10.}
 }
 \value{
-Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{PrUniform}}.
+Two new \code{data.table}s. 1) \code{groupedDT}: Based on \code{prDataFile} with two new columns for uniform format procedure codes and classified standard categories. 2) \code{Error}: Potential error codes from \code{\link{prUniform}}.
 }
 \description{
 The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures
 }
 \details{
-These CCS functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.
+These CCS functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.
 }
 \examples{
 # sample file for example
@@ -66,5 +68,5 @@ icdPrToCCSLvl(samplePrFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2
 
 }
 \seealso{
-see other code classification: \code{\link{PC}}
+see other code classification: \code{\link{PC}} (icdPrToProcedureClass).
 }

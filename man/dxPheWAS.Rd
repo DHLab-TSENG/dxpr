@@ -26,9 +26,9 @@ icdDxToPheWAS(
 
 \item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{icd10usingDate}{the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.}
+\item{icd10usingDate}{The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 
-\item{isDescription}{Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to \code{True} (standard category description).}
+\item{isDescription}{Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be \code{True} (standard category description).}
 }
 \value{
 Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified categories. 2) \code{summarised_groupedDT}: Summarized the \code{groupedDT} dataset and sorted by memberID. 3) \code{Error}: Potential error codes from standardization step: \code{\link{dxUniform}} (icdDxShortToDecimal and icdDxDecimalToShort).

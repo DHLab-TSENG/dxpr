@@ -16,7 +16,7 @@ groupedDataLongToWide(
 )
 }
 \arguments{
-\item{dxDataFile}{a \code{groupedDT} format data frame generated from four strategies of code classification.}
+\item{dxDataFile}{a \code{groupedDT} format data frame generated from four strategies of code classification (using unprocessed ICD codes as input is not recommended).}
 
 \item{idColName}{Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 

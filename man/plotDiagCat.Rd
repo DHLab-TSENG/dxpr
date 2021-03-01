@@ -14,11 +14,11 @@ plotDiagCat(
 )
 }
 \arguments{
-\item{groupedDataWide}{Wide table of data frame (generated from \code{groupedDataLongToWide} function).}
+\item{groupedDataWide}{Wide table of data frame (generated from \code{\link{groupedDataLongToWide}} function).}
 
 \item{topN}{Numeric. Default is 10 (Top 10; 10 most common wrong ICD).}
 
-\item{limitFreq}{Numeric. minimum frequency shown (frequency below this threshold will not be shown in plot). Default is 0.01. In other words, the threshold is 1% patient among total patients been diagnosed in the same diagnostic category.}
+\item{limitFreq}{Numeric. minimum frequency shown (frequency below this threshold will not be shown in plot). Default is 0.01. In other words, the threshold is 1 percent patient among total patients been diagnosed in the same diagnostic category.}
 
 \item{pvalue}{Numeric. p value of chisq.test. Default is 0.05.}
 }
@@ -88,7 +88,8 @@ plot2 <- plotDiagCat(groupedDataWide = groupedDataWide,
                           idColName = ID,
                           topN = 10,
                           limitFreq = 0.01,
-                          pvalue = 0.05)
+                          pvalue = 0.05,
+                          groupColName = selectedCase)
 plot2
 }
 \seealso{

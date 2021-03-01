@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="Code classification for procedure code — PC" />
 
-<meta property="og:description" content="The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data" />
+<meta property="og:description" content="The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects to analyze data." />
 
 
 
@@ -118,7 +118,7 @@
 
     <div class="ref-description">
     
-    <p>The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data</p>
+    <p>The Procedure Class classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects to analyze data.</p>
     
     </div>
 
@@ -152,26 +152,30 @@
       <td><p>Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
+      <th>icdVerColName</th>
+      <td><p>(Optional) Column name of ICD-9/10 version recorded in prDataFile. Data format in this column should be numeric 9L or 10L.</p></td>
+    </tr>
+    <tr>
       <th>icd10usingDate</th>
-      <td><p>ICD-10 using date</p></td>
+      <td><p>The date that ICD-10 was started to be used in prDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.</p></td>
     </tr>
     <tr>
       <th>isDescription</th>
-      <td><p>Category or description of standard classification methods for ICD procedure codes. By default, it set to <code>True</code> (standard description).</p></td>
+      <td><p>Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be <code>True</code> (standard category description).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>prDataFile</code> with two new columns for uniform format procedure codes and classified standard categories. 2) <code>Error</code>: Potential error codes from <code>PrUniform</code>.</p>
+    <p>Two new <code>data.table</code>s. 1) <code>groupedDT</code>: Based on <code>prDataFile</code> with two new columns for uniform format procedure codes and classified standard categories. 2) <code>Error</code>: Potential error codes from <code><a href='prUniform.html'>prUniform</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD procedure codes.</p>
+    <p>This function collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>see other code classification: <code>PrCCS</code></p></div>
+    <div class='dont-index'><p>see other code classification: <code><a href='prCCS.html'>prCCS</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

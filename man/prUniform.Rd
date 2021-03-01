@@ -24,22 +24,24 @@ icdPrShortToDecimal(
 )
 }
 \arguments{
-\item{prDataFile}{A file of clinical procedure data with at least 2 columns: "ICD" and "Date"}
+\item{prDataFile}{A data frame object of clinical procedure data with at least 2 columns: ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.}
 
 \item{icdColName}{Column name of ICD column in prDataFile. Data type of this argumant should be string without quotation marks.}
 
 \item{dateColName}{Column name of date column in prDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
 
-\item{icd10usingDate}{ICD-10 using date}
+\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in prDataFile. Data format in this column should be numeric 9L or 10L.}
+
+\item{icd10usingDate}{The date that ICD-10 was started to be used in prDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 }
 \value{
-Two new \code{data.table}s. 1) \code{ICD}: Uniform format procedure codes. 2) \code{Error}: Potential error codes.
+Two new \code{data.table}s. 1) \code{ICD}: Uniformly formatted procedure codes. 2) \code{Error}: Potential error codes.
 }
 \description{
-Converts the ICD procedure codes to a uniform format
+These two functions can convert the ICD diagnostic codes to a uniform format.
 }
 \details{
-These transformative function does not only convert the ICD to uniform format code but also check the potential coding error of the ICD codes’ format or version.
+These transformation functions do not only convert the ICD to uniform format, but also check the potential coding error of the ICD codes’ format or version.
 }
 \examples{
 # sample file for example

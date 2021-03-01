@@ -14,11 +14,11 @@
 
 \item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{icd10usingDate}{the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.}
+\item{icd10usingDate}{The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 
-\item{isDescription}{Category name or category description of standard classification methods for ICD diagnostic codes. By default, it is set to \code{True} (standard category description).}
+\item{isDescription}{Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be \code{True} (standard category description).}
 
-\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{'ccs'}), multiple-level CCS (\code{'ccslvl1'}, \code{'ccslvl2'}, \code{'ccslvl3'}, \code{'ccslvl4'}), PheWAS (\code{'PheWAS'}), comorbidities (\code{'ahrq'},\code{'charlson'}, \code{'elix'}), precise or fuzzy customized  method (\code{'customGrepIcdGroup'}, \code{'customIcdGroup'}). Default value is \code{"ccs"}.}
+\item{groupDataType}{Four Stratified methods can be chosen: CCS (\code{ccs}), multiple-level CCS (\code{ccslvl1}, \code{ccslvl2}, \code{ccslvl3}, \code{ccslvl4}), PheWAS (\code{PheWAS}), comorbidities (\code{ahrq},\code{charlson}, \code{elix}), precise or fuzzy customized  method (\code{customGrepIcdGroup}, \code{customIcdGroup}). The value should be string stated above without quotation mark. Default value is \code{ccs}.}
 
 \item{customGroupingTable}{Used-defined grouping categories. \code{icdDxToCustom} needs a dataset with two columns called "Group" and "ICD", respectively; User can define one or more disease categories in "Group" column, and define a list of corresponding category-related ICD codes in "ICD" column. \code{icdDxToCustomGrep} needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing regular expressions.}
 

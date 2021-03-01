@@ -32,7 +32,7 @@ icdDxShortToDecimal(
 
 \item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 
-\item{icd10usingDate}{the date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD.}
+\item{icd10usingDate}{The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 }
 \value{
 Two new \code{data.table}s. 1) \code{ICD}: Uniform format diagnostic codes with column name "ICD". 2) \code{Error}: Potential error codes with 5 columns: ICD, count, IcdVersionInFile, WrongType and Suggestion.
