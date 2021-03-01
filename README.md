@@ -166,5 +166,5 @@ plot_errorICD
 ## Getting help
 
 See the `GitHub issues page`
-(<https://github.com/DHLab-CGU/dxpr/issues>) to see open issues and
+(<https://github.com/DHLab-TSENG/dxpr/issues>) to see open issues and
 feature requests.
