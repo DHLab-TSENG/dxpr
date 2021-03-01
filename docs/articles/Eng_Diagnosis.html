@@ -85,40 +85,37 @@
 <div id="description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#description" class="anchor"></a>Description</h1>
-<pre><code><a href="https://rdrr.io/r/base/cat.html">cat(utils::packageDescription("dxpr")$Description)</a></code></pre>
+<p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
+<p>In this part, the instruction of how dxpr package workes with diagnosis records is provided.</p>
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"></a>Development version</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 <span class="co"># Install development version from GitHub</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
 </div>
-<div id="icd-cm-code-with-two-format" class="section level3">
+<div id="data-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
-<p>dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated:  and .</p>
-<p>ICD-9-CM</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Short</span>)
-<span class="co">#&gt; [1] "E0000" "E0001" "E0002" "E0008" "E0009" "E0010"</span>
-<span class="co"># Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></pre></body></html></div>
-<p>ICD-10-CM</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Short</span>)
-<span class="co">#&gt; [1] "A001"  "A009"  "A0100" "A0101" "A0102" "A0103"</span>
-<span class="co"># Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02" "A01.03"</span></pre></body></html></div>
+<a href="#data-format" class="anchor"></a>Data Format</h3>
+<p>dxpr (diagnosis part) is used to pre-process diagnosis codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD diagnosis codes and date.</p>
+<p>Column names or column order of these three columns does not need to necessarily follow a rule. Each required column name will be an argument in functions. Detailed information of required data type of every column and argument of functions can be found in the reference section.</p>
+<p>Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DBI/man/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">odbc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span>(),
+                      <span class="kw">Driver</span>   <span class="kw">=</span> <span class="st">"[your driver's name]"</span>,
+                      <span class="kw">Server</span>   <span class="kw">=</span> <span class="st">"[your server's path]"</span>,
+                      <span class="kw">Database</span> <span class="kw">=</span> <span class="st">"[your database's name]"</span>,
+                      <span class="kw">UID</span>      <span class="kw">=</span> <span class="st">"[Database user]"</span>,
+                      <span class="kw">PWD</span>      <span class="kw">=</span> <span class="st">"[Database password]"</span>)
+<span class="no">dxDataFile</span> <span class="kw">&lt;-</span> <span class="fu">dbSendQuery</span>(<span class="no">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span>)
+<span class="fu">dbFetch</span>(<span class="no">dxDataFile</span>)</pre></body></html></div>
 </div>
 <div id="sample-file" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-file" class="anchor"></a>Sample file</h3>
-<p>A sample file is included in dxpr package:<br>
+<p>A sample rda file is included in dxpr package:<br>
 This dataset is a simulated medical dataset of 38 patients with overall 300 records.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sampleDxFile</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sampleDxFile</span>)
 <span class="co">#&gt;     ID  ICD       Date</span>
 <span class="co">#&gt; 1:  A2 Z992 2020-05-22</span>
 <span class="co">#&gt; 2:  A5 Z992 2020-01-24</span>
@@ -127,19 +124,28 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
 <span class="co">#&gt; 6: A15 Z992 2023-05-12</span></pre></body></html></div>
 </div>
+<div id="icd-cm-code-with-two-format" class="section level3">
+<h3 class="hasAnchor">
+<a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
+<p>dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 diagnostic codes, decimal (with a decimal point separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs:  and .</p>
+<p>ICD-9-CM</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-9-CM_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Short</span>)
+<span class="co">#&gt; [1] "E0000" "E0001" "E0002" "E0008" "E0009" "E0010"</span>
+<span class="co"># ICD-9-CM_Decimal</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Decimal</span>)
+<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></pre></body></html></div>
+<p>ICD-10-CM</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># ICD-10-CM_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Short</span>)
+<span class="co">#&gt; [1] "A001"  "A009"  "A0100" "A0101" "A0102" "A0103"</span>
+<span class="co"># ICD-10-CM_Decimal</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Decimal</span>)
+<span class="co">#&gt; [1] "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02" "A01.03"</span></pre></body></html></div>
+</div>
 <div id="i-code-integration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#i-code-integration" class="anchor"></a>I.Code Integration</h2>
-<p>The input data should be in data frame format.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DBI/man/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">odbc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span>(),
-                      <span class="kw">Driver</span>   <span class="kw">=</span> <span class="st">"[your driver's name]"</span>,
-                      <span class="kw">Server</span>   <span class="kw">=</span> <span class="st">"[your server's path]"</span>,
-                      <span class="kw">Database</span> <span class="kw">=</span> <span class="st">"[your database's name]"</span>,
-                      <span class="kw">UID</span>      <span class="kw">=</span> <span class="st">"[Database user]"</span>,
-                      <span class="kw">PWD</span>      <span class="kw">=</span> <span class="st">"[Database password]"</span>)
-<span class="no">dxDataFile</span> <span class="kw">&lt;-</span> <span class="fu">dbSendQuery</span>(<span class="no">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span>)
-<span class="fu">dbFetch</span>(<span class="no">dxDataFile</span>)</pre></body></html></div>
-<p>In the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the following processes are the same as the example.</p>
 <div id="a--icd-diagnostic-code-format-transformationshort---decimal" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--icd-diagnostic-code-format-transformationshort---decimal" class="anchor"></a>A. ICD diagnostic code format transformation：Short &lt;-&gt; Decimal</h3>
@@ -160,67 +166,49 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <td>short format</td>
 </tr>
 <tr class="odd">
-<td>Phenome-Wide Association Studies(PheWAS)</td>
+<td>Phenome-Wide Association Studies (PheWAS)</td>
 <td>decimal format</td>
 </tr>
 </tbody>
 </table>
-<p>Since formats of ICD code used in datasets could be different, the transformational type is according to the grouping method chosen by users.</p>
+<p>Since formats of ICD codes used within a dataset could be different, users can choose a target type (short or decimal) according to the corresponding grouping method.</p>
 <p>For example, if a user wants to group data by CCS, then ICD codes should be transformed into <strong>short</strong> format.</p>
-<p>Code standardization for ICD-9 and ICD-10 is executed seperately, there are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific column that records version used (numeric  or ), the other is to set the starting using date of ICD-10. For example, reimbursement claims with a date required to use of ICD-10 codes in United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.</p>
+<p>Code standardization for ICD-9 and ICD-10 are executed seperately. There are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric <code>9</code> or <code>10</code>), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.</p>
+<p><strong>Warning message</strong></p>
+<p>Besides, code standardization functions generate data of diagnosis codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.</p>
+<p>There are two error type：<strong>wrong format</strong> and <strong>wrong version</strong>. The former one means the ICD codes does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after <code>icd10usingDate</code>, etc.).</p>
+<p>dxpr package also provides an overview of error ICD data by Pareto chart (function <code>plotICDError</code>).</p>
 <div id="a-1--uniform-decimal-format" class="section level4">
 <h4 class="hasAnchor">
 <a href="#a-1--uniform-decimal-format" class="anchor"></a>A-1. Uniform decimal format</h4>
-<p>The standardization function converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Short to decimal</span>
+<p>The standardization function <code>icdDxShortToDecimal</code> converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Short to decimal</span>
 <span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                                <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                                <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">decimal</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<span class="co">#&gt; Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span>
+<span class="co">#&gt; c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt; Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span>
+<span class="co">#&gt; c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt; Warning: The ICD mentioned above matches to "NA" due to the format or other</span>
+<span class="co">#&gt; issues.</span>
+<span class="co">#&gt; Warning: "Wrong ICD format" means the ICD has wrong format</span>
+<span class="co">#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version</span>
+<span class="co">#&gt; (cause the "icd10usingDate" or other issues)</span></pre></body></html></div>
+<p>In this example, the starting using date of ICD-10 is “2015/10/01” (format: “YYYY/MM/DD”).</p>
+<p>And there are 9 ICD codes labeled as “wrong format”, and 7 ICD labeled as “wrong version”. Users can check data after receiving the warning message.</p>
+<p>The results are:</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">decimal</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
 <span class="co">#&gt;       ICD</span>
 <span class="co">#&gt; 1:  Z99.2</span>
 <span class="co">#&gt; 2:  585.5</span>
 <span class="co">#&gt; 3: V45.11</span>
 <span class="co">#&gt; 4:  V56.0</span>
 <span class="co">#&gt; 5:  585.3</span></pre></body></html></div>
-<p>In this example, the starting using date of ICD-10 is “2015/10/01”.</p>
-</div>
-<div id="a-2--uniform-short-format" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
-<p><code>icdDxDecimalToShort</code> function converts the diagnostic codes to the short format, which can be used for grouping to CCS and comorbidities classification.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Decimal to short</span>
-<span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">short</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
-<span class="co">#&gt;      ICD</span>
-<span class="co">#&gt; 1:  Z992</span>
-<span class="co">#&gt; 2:  5855</span>
-<span class="co">#&gt; 3: V4511</span>
-<span class="co">#&gt; 4:  V560</span>
-<span class="co">#&gt; 5:  5853</span></pre></body></html></div>
-<p><strong>Warning message</strong></p>
-<p>Through code standardization functions generate data of diagnosis codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.</p>
-<p>Error type：<strong>wrong format</strong> and <strong>wrong version</strong></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                              <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)</pre></body></html></div>
-<ol style="list-style-type: decimal">
-<li>
-<p>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</p>
-<p>c(“A0.11 (20)”, “E114 (8)”, “Z9.90 (6)”, “F42 (6)”, “001 (5)”, “75.52 (4)”, “755.2 (3)”, “123.45 (3)”, “7552 (2)”)</p>
-</li>
-<li>
-<p>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</p>
-<p>c(“V27.0 (18)”, “A01.05 (8)”, “42761 (7)”, “V24.1 (6)”, “A0105 (5)”, “E03.0 (4)”, “650 (4)”)</p>
-</li>
-</ol>
-<p><code>sample$Error</code> shows individual error ICD codes in descending order.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">sample</span>$<span class="no">Error</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">decimal</span>$<span class="no">Error</span>
 <span class="co">#&gt;        ICD count IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18           ICD 10 Wrong version           </span>
@@ -238,39 +226,34 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <span class="co">#&gt; 14: 123.45     3           ICD 10  Wrong format           </span>
 <span class="co">#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29</span>
 <span class="co">#&gt; 16:   7552     2            ICD 9  Wrong format      75529</span></pre></body></html></div>
-<p>The dxpr package also provides an overview of error ICD data by Pareto chart (<code>plotICDError</code>).</p>
-<p><strong>Workflow of warning message</strong></p>
-<p>The example of warning messages are shown as below by <code>icdDxShortToDecimal</code>.</p>
-<p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dhlab-cgu.github.io/master/dxpr/warning.jpg" style="display:block; margin:auto; width:100%;"></p>
-<ul>
-<li>Separate ICD-9 and ICD-10 by <code>icd10usingdate</code>
-</li>
-<li>Step 1: Separate short and decimal</li>
-<li>Step 2: The first time convert and confirm<br>
-Group short: <strong>first</strong> transformat into decimal format<br>
-&gt; ICD-9: C, E<br>
-&gt; ICD-10: A<br>
-Group decimal: <strong>first</strong> transformat with correct decimal format<br>
-&gt; ICD-9: D<br>
-&gt; ICD-10: B<br>
-</li>
-<li>Step 3: The second time convert and confirm with patients who has NA (A, C, D, E)<br>
-&gt; A has ICD-10 code, the second time convert and confirm with <code>ICD9DxwithTwoFormat</code><br>
-&gt; C, D, E have ICD-9 code, the second time convert and confirm with <code>ICD10DxwithTwoFormat</code><br>
-Result:<br>
-Both A,C are <strong>wrong version</strong> (<em>42761</em> is ICD 9 diagnostic code and <em>A0105</em> is ICD 10 diagnostic code)<br>
-Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <em>001.9</em>)</li>
-</ul>
+<p><code>decimal$Error</code> shows individual error ICD codes in descending order.</p>
+</div>
+<div id="a-2--uniform-short-format" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
+<p><code>icdDxDecimalToShort</code> function converts the diagnostic codes to the short format, which can be used for grouping to CCS and comorbidities classification.</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Decimal to short</span>
+<span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
+                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
+                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
+<span class="no">short</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<span class="co">#&gt;      ICD</span>
+<span class="co">#&gt; 1:  Z992</span>
+<span class="co">#&gt; 2:  5855</span>
+<span class="co">#&gt; 3: V4511</span>
+<span class="co">#&gt; 4:  V560</span>
+<span class="co">#&gt; 5:  5853</span></pre></body></html></div>
 </div>
 </div>
 <div id="b--data-integration" class="section level3">
 <h3 class="hasAnchor">
 <a href="#b--data-integration" class="anchor"></a>B. Data integration</h3>
-<p>These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.</p>
-<p>The dxpr package supports four strategies to group EHR diagnosis codes, including CCS, PheWAS, comorbidities, and customized defined grouping methods.</p>
-<p>There are two types of output of code classification.</p>
+<p>Functions in data integration section collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.</p>
+<p>dxpr package supports four strategies to group EHR diagnosis codes, including CCS, PheWAS, comorbidities, and customized defined grouping methods.</p>
+<p>The output of code classification contains two data frames.</p>
 <ol style="list-style-type: decimal">
-<li>Usage: Select cases and calculate condition era</li>
+<li>groupedDT</li>
 </ol>
 <p><strong>Table 2</strong> groupedDT</p>
 <table class="table">
@@ -289,8 +272,9 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <td>group of code classification</td>
 </tr></tbody>
 </table>
+<p>The original row order of the data is remained in groupedDT, and only one extra column <code>GroupType</code> is added.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Usage: Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages.</li>
+<li>summarised_groupedDT</li>
 </ol>
 <p><strong>Table 3</strong> summarised_groupedDT</p>
 <table class="table">
@@ -311,7 +295,7 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <th>Period</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td>patient ICD</td>
+<td>patient ID</td>
 <td>group of code classification</td>
 <td>first admission date</td>
 <td>last admission date</td>
@@ -319,15 +303,17 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <td>record period</td>
 </tr></tbody>
 </table>
-<p>User can choose the type of classification is “category” or “description” (<code>isDescription</code> = <code>TRUE</code> or <code>FALSE</code>)</p>
-<p>For example, the ccs description is “Tuberculosis” when the category is “1”.</p>
+<p>summarised_groupedDT summarised the ICD codes in the same group of the same patient together.</p>
+<p>The two outputs can be used in the following functions. <strong>groupedDT</strong> can be used to select relevant cases (function <code>selectCases</code>) and calculate condition era (function <code>getConditionEra</code>). <strong>summarised_groupedDT</strong> can be used to convert the long format of grouped data into a wide format (function <code>groupedDataLongToWide</code>) which is fit to other analytical and plotting packages.</p>
+<p>Users can choose the column information of <code>groupType</code> is “category” or “description” (<code>isDescription</code> = <code>TRUE</code> or <code>FALSE</code>)</p>
+<p>For example, the ccs description is “Tuberculosis” while the category is “1”.</p>
 <div id="b-1--clinical-classifications-software-ccs" class="section level4">
 <h4 class="hasAnchor">
 <a href="#b-1--clinical-classifications-software-ccs" class="anchor"></a>B-1. Clinical Classifications Software (CCS)</h4>
 <p>The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.</p>
 <p><strong>1) single-level</strong>: <code>icdDxToCCS</code></p>
-<p>ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## ICD to CCS category's description </span>
+<p>Both ICD-9-CM and ICD-10-CM code contains 260 single-level CCS categories which can be corresponded with each other.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## ICD to CCS with category description </span>
 <span class="no">CCS_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                               <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                               <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
@@ -348,16 +334,31 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <span class="co">#&gt; 3: A10   Chronic kidney disease    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11   Chronic kidney disease    2008-03-09  2011-09-03     5 1273 days</span>
 <span class="co">#&gt; 5: A12   Chronic kidney disease    2006-05-14  2015-06-29     5 3333 days</span>
-<span class="co">## ICD to CCS category</span>
+
+<span class="co">## ICD to CCS with category</span>
 <span class="no">CCS_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                           <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                           <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                           <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                           <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                          <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+                          <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_category</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="co">#&gt;    Short  ID  ICD       Date CCS_CATEGORY</span>
+<span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22          158</span>
+<span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24          158</span>
+<span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27          158</span>
+<span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26          158</span>
+<span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02          158</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_category</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="co">#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0          158    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1          158    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10          158    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11          158    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12          158    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
 <p><strong>2) multi-level</strong>: <code>icdDxToCCSLvl</code></p>
-<p>ICD-9-CM has four levels, and ICD-10-CM has two levels</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
+<p>Multi-level CCS in ICD-9-CM has four levels, and ICD-10-CM has two levels.</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
 <span class="no">CCSlvl_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                     <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
@@ -385,6 +386,7 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <span class="co">#&gt; 3: 1730 days</span>
 <span class="co">#&gt; 4: 1273 days</span>
 <span class="co">#&gt; 5: 3333 days</span>
+
 <span class="co">## ICD to CCS multiple level 3 category</span>
 <span class="no">CCSLvl_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
@@ -397,8 +399,8 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <div id="b-2--phewas" class="section level4">
 <h4 class="hasAnchor">
 <a href="#b-2--phewas" class="anchor"></a>B-2. PheWAS</h4>
-<p>The dxpr package applied PheWAS, performing using a hierarchical grouping of ICD9 diagnostic codes.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co">## ICD to PheWAS</span>
+<p>The dxpr package applied PheWAS, performing a hierarchical grouping of ICD-9 diagnostic codes and ICD-10 diagnostic codes (beta version).</p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## ICD to PheWAS</span>
 <span class="no">PheWAS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxPheWAS.html">icdDxToPheWAS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                          <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
@@ -424,8 +426,9 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <h4 class="hasAnchor">
 <a href="#b-3--comorbidities" class="anchor"></a>B-3. Comorbidities</h4>
 <p>The dxpr package provides three grouping methods of comorbidity as below:</p>
-<p><strong>1) AHRQ</strong> AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">AHRQ</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<p><strong>1) AHRQ</strong></p>
+<p>AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index.</p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">AHRQ</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -445,8 +448,9 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <span class="co">#&gt; 3: A10       Renal    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11       Renal    2008-03-09  2011-09-03     5 1273 days</span>
 <span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
-<p><strong>2) Charlson</strong> Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">Charlson</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<p><strong>2) Charlson</strong></p>
+<p>Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index.</p>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">Charlson</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -466,9 +470,9 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <span class="co">#&gt; 3: A10          RD    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11          RD    2008-03-09  2011-09-03     5 1273 days</span>
 <span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></pre></body></html></div>
-<p><strong>3) Elixhauser</strong> Elixhauser comorbidity measure data.</p>
-<p>The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<p><strong>3) Elixhauser</strong></p>
+<p>The Elixhauser comorbidity software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -496,7 +500,7 @@ Both D,E are <strong>wrong format</strong> (They should be <em>755.2</em> and <e
 <p>For example, researcher can convert an existing dataset into a grouped <strong>chronic kidney disease</strong> dataset in patients, and declare a customized grouping table for chronic kidney disease.<br>
 There are two functions for customized defined grouping method, the customized category grouping is based on precise and fuzzy grouping method, respectively.</p>
 <p><strong>1) Precise method</strong>: icdDxToCustom</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># CustomGroupingTable </span>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># CustomGroupingTable </span>
 <span class="no">groupingTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Chronic kidney disease"</span>,<span class="fl">6</span>),
                             <span class="kw">ICD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>),
                             <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -520,7 +524,7 @@ There are two functions for customized defined grouping method, the customized c
 <span class="co">#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days</span>
 <span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></pre></body></html></div>
 <p><strong>2) Fuzzy method</strong>: icdDxToCustomGrep</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="co"># CustomGroupingTable</span>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># CustomGroupingTable</span>
 <span class="no">grepTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="st">"Chronic kidney disease"</span>,
                         <span class="kw">grepIcd</span> <span class="kw">=</span> <span class="st">"^585|^N18"</span>,
                         <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -567,7 +571,7 @@ There are two functions for customized defined grouping method, the customized c
 <li><pre><code>Minimum number of diagnoses</code></pre></li>
 </ol>
 <p>　　　<code>caseCount</code>: A threshold of number of ICD for case selection</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">Case</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">Case</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                     <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                     <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -596,7 +600,7 @@ There are two functions for customized defined grouping method, the customized c
 <h3 class="hasAnchor">
 <a href="#b--get-eligible-period-of-patient-records" class="anchor"></a>B. Get eligible period of patient records</h3>
 <p>The function used for querying the earliest and latest admission date for each patient.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">admissionDate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/eligiblePeriod.html">getEligiblePeriod</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">admissionDate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/eligiblePeriod.html">getEligiblePeriod</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">admissionDate</span>)
@@ -614,7 +618,7 @@ There are two functions for customized defined grouping method, the customized c
 <p>Extract data by a specific clinical event (e.g., first diagnosis dates of chronic diseases).<br>
 Users can define a table of clinical index dates of each patient. The date can generate by selectCases function or first/last admission date by getEligiblePeriod function.</p>
 <p>Split data by the clinical event date and shows the data recorded before or after the clinical event and the window counts, which is the gap between the record date and index date.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">indexDateTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">ID</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
+<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">indexDateTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">ID</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
                              <span class="kw">indexDate</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
                                            <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span>),
                              <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -638,7 +642,7 @@ Users can define a table of clinical index dates of each patient. The date can g
 <p>Calculate condition era by grouped categories of each patient.<br>
 Conditions era is used to integrate distributed data of clinical records into a single progression record when the interval of admission data is smaller than the length of condition gap, and these admission data are considered same condition era.<br>
 The first case date is the start date of the first condition of the group category for each patient. The end case date is the end date of the last condition of the group category for each patient.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">Era</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/era.html">getConditionEra</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">Era</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/era.html">getConditionEra</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -660,7 +664,7 @@ The first case date is the start date of the first condition of the group catego
 <a href="#e--eda-preparation" class="anchor"></a>E. EDA preparation</h3>
 <p>After data integration, dxpr package provides function to convert long format of grouped data into wide format which is fit to others analytical and plotting packages.</p>
 <p>There are two type of output: numeric and binary (<code>numericOrBinary</code> = <code>B</code> or <code>N</code> )</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co">#binary</span>
+<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="co">#binary</span>
 <span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dataWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
                                           <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                           <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
@@ -680,7 +684,7 @@ The first case date is the start date of the first condition of the group catego
 <span class="co">#&gt; 3: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 4: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span></pre></body></html></div>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="co"># numeric</span>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="co"># numeric</span>
 <span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dataWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
                                           <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                           <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
@@ -711,7 +715,7 @@ The first case date is the start date of the first condition of the group catego
 <p>Through first phase function, code standardization, which generates a data of diagnosis codes with potential error.<br>
 The Pareto chart includes bar plot and line chart to visualize individual possible error ICD codes represented in descending order and cumulative total.</p>
 <p>For instance, user choose top 10 of common error ICD, then the output shows a Pareto chart with top 10 error codes and a list of the detail of error ICD codes.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">error</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">error</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                             <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                             <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                             <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
@@ -721,7 +725,7 @@ The Pareto chart includes bar plot and line chart to visualize individual possib
                             <span class="kw">others</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotICDError.png" style="display:block; margin:auto; width:70%;"> Plot of top 10 common error ICD codes and a list of the detail of error ICD codes<br>
 The Top 1 common error ICD is <em>A0.11</em> which has 20 admission records and error type is “wrong format”</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">Plot_error1</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">Plot_error1</span>$<span class="no">ICD</span>
 <span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span>
@@ -740,7 +744,7 @@ The Top 1 common error ICD is <em>A0.11</em> which has 20 admission records and 
 　140-239: Neoplasms<br>
 　….</p>
 <p>For instance, user choose top 3 of common error <em>ICD-9</em>, then the output shows a Pareto chart with top 3 error codes and a list of the detail of error ICD codes.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">Plot_error2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
+<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">Plot_error2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
                              <span class="kw">icdVersion</span> <span class="kw">=</span> <span class="fl">9</span>,
                              <span class="kw">wrongICDType</span> <span class="kw">=</span> <span class="no">all</span>,
                              <span class="kw">groupICD</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
@@ -748,7 +752,7 @@ The Top 1 common error ICD is <em>A0.11</em> which has 20 admission records and 
                              <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;"> Plot of top 3 common error ICD-9 codes and a list of the detail of error ICD codes<br>
 The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and error type is “wrong version”</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">Plot_error2</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">Plot_error2</span>$<span class="no">ICD</span>
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType</span>
 <span class="co">#&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version</span>
 <span class="co">#&gt; 2:        7          9       70.97%          75.52         44.44%  Wrong format</span>
@@ -759,7 +763,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
 <h3 class="hasAnchor">
 <a href="#b--histogram-plot" class="anchor"></a>B. histogram plot</h3>
 <p>This function provides an overview of grouping category of the diagnostic code and summarize the percentage of result in histogram plot. User can observe the number of diagnostic categories in their dataset.</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dataWide.html">groupedDataLongToWide</a></span>(<span class="no">ELIX</span>$<span class="no">groupedDT</span>,
+<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dataWide.html">groupedDataLongToWide</a></span>(<span class="no">ELIX</span>$<span class="no">groupedDT</span>,
                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
@@ -768,7 +772,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
                      <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>,
                      <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>)</pre></body></html></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagSing.png" style="display:block; margin:auto; width:70%;"> The first group, for instance, is grouped into “RENLFAIL” of ELIX comorbidity index.</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">plot1</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">plot1</span>$<span class="no">sigCate</span>
 <span class="co">#&gt;     DiagnosticCategory  N Percentage</span>
 <span class="co">#&gt;  1:           RENLFAIL 24      63.16</span>
 <span class="co">#&gt;  2:              TUMOR  6      15.79</span>
@@ -781,7 +785,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
 <span class="co">#&gt;  9:           PERIVASC  2       5.26</span>
 <span class="co">#&gt; 10:              VALVE  2       5.26</span></pre></body></html></div>
 <p>This function also verifies by Chi-square test and Fisher’s exact test statistical significantly different diagnostic categories between case and control. The default level of significance considered at 5% (p = 0.05).</p>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">selectedCaseFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
+<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="no">selectedCaseFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
                                 <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                 <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                 <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -799,7 +803,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
                      <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>,
                      <span class="kw">pvalue</span> <span class="kw">=</span> <span class="fl">0.05</span>)</pre></body></html></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagMult.png" style="display:block; margin:auto; width:70%;"> There are stastitcal significant different in “RENLFAIL” of ELIX comorbidity index between case and control.</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="no">plot2</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">plot2</span>$<span class="no">sigCate</span>
 <span class="co">#&gt;    DiagnosticCategory        Group  N Percentage</span>
 <span class="co">#&gt; 1:           RENLFAIL non-Selected  0          0</span>
 <span class="co">#&gt; 2:           RENLFAIL     Selected 24        100</span></pre></body></html></div>
@@ -826,6 +830,7 @@ The Top 1 common error ICD is <em>A01.05</em> which has 13 admission records and
 <p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
 <p><strong>PheWAS</strong></p>
 <p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
+<p>ICD-10 Phecode (version 1.2 beta, 2019): <a href="https://phewascatalog.org/phecodes_icd10cm" class="uri">https://phewascatalog.org/phecodes_icd10cm</a></p>
 <p><strong>Comorbidities</strong></p>
 <p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
 <p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>

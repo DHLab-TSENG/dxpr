@@ -10,10 +10,13 @@ vignette: >
 ---
 
 # Description
-```{r set up, echo = FALSE, message = FALSE}
-cat(utils::packageDescription("dxpr")$Description)
-```
+
+The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.
+
+In this part, the instruction of how dxpr package workes with diagnosis records is provided. 
+
 ### Development version
+
 ```r
 install.packages("devtools")
 # Install development version from GitHub
@@ -29,7 +32,9 @@ library(dxpr)
 
 ### Data Format
 
-dxpr (diagnosis part) is used to pre-process diagnosis codes of electronic health records (EHRs). To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD diagnosis codes and date.
+dxpr (diagnosis part) is used to pre-process diagnosis codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD diagnosis codes and date.
+
+Column names or column order of these three columns does not need to necessarily follow a rule. Each required column name will be an argument in functions. Detailed information of required data type of every column and argument of functions can be found in the reference section.
 
 Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.
 
@@ -44,7 +49,9 @@ dxDataFile <- dbSendQuery(con, "SELECT * FROM example_table WHERE ID = 'sampleID
 dbFetch(dxDataFile)
 ```
 
+
 ### Sample file
+
 A sample rda file is included in dxpr package:  
 This dataset is a simulated medical dataset of 38 patients with overall 300 records. 
 ```{r}
@@ -53,21 +60,23 @@ head(sampleDxFile)
 
 
 ### ICD-CM code with two format 
-dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 codes, decimal (with a decimal place separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
+
+dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 diagnostic codes, decimal (with a decimal point separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: \code{ICD9DxwithTwoFormat} and \code{ICD10DxwithTwoFormat}.
 
 
 ICD-9-CM
 ```{r}
-# Short
+# ICD-9-CM_Short
 head(ICD9DxwithTwoFormat$Short)
-# Decimal
+# ICD-9-CM_Decimal
 head(ICD9DxwithTwoFormat$Decimal)
 ```
+
 ICD-10-CM
 ```{r}
-# Short
+# ICD-10-CM_Short
 head(ICD10DxwithTwoFormat$Short)
-# Decimal
+# ICD-10-CM_Decimal
 head(ICD10DxwithTwoFormat$Decimal)
 ```
 
@@ -84,28 +93,60 @@ dxpr package helps users to standardize the ICD-9 and ICD-10 diagnostic codes in
 |--------|----|
 |Clinical Classifications Software (CCS)|short format|
 |Comorbidity |short format|
-|Phenome-Wide Association Studies(PheWAS)|decimal format|
+|Phenome-Wide Association Studies (PheWAS)|decimal format|
 
-Since formats of ICD code used in datasets could be different, the transformational type is according to the grouping method chosen by users. 
+
+Since formats of ICD codes used within a dataset could be different, users can choose a target type (short or decimal) according to the corresponding grouping method. 
 
 For example, if a user wants to group data by CCS,  then ICD codes should be transformed into **short** format.
 
-Code standardization for ICD-9 and ICD-10 is executed seperately, there are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific column that records version used (numeric \code{9} or \code{10}), the other is to set the starting using date of ICD-10. For example, reimbursement claims with a date required to use of ICD-10 codes in United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.
+
+Code standardization for ICD-9 and ICD-10 are executed seperately. There are two ways to distinguish the version of ICD diagnostic code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric `9` or `10`), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.
+
+
+
+**Warning message**
+
+Besides, code standardization functions generate data of diagnosis codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.
+
+
+There are two error type：**wrong format** and **wrong version**. The former one means the ICD codes does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after `icd10usingDate`, etc.).
+
+dxpr package also provides an overview of error ICD data by Pareto chart (function `plotICDError`).
+
+
 
 #### A-1. Uniform decimal format
 
-The standardization function converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.
+The standardization function `icdDxShortToDecimal` converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.
 
-```{r, message = FALSE, warning = FALSE}
+```{r, message = TRUE, warning = TRUE}
 # Short to decimal
 decimal <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
                                icdColName = ICD, 
                                dateColName = Date,
                                icd10usingDate = "2015/10/01")
+```
+
+In this example, the starting using date of ICD-10 is "2015/10/01" (format: "YYYY/MM/DD").
+
+And there are 9 ICD codes labeled as "wrong format", and 7 ICD labeled as "wrong version". Users can check data after receiving the warning message.
+    
+
+The results are: 
+
+```{r}
 decimal$ICD[6:10]
 ```
 
-In this example, the starting using date of ICD-10 is "2015/10/01".
+
+```{r}
+decimal$Error
+```
+
+`decimal$Error` shows individual error ICD codes in descending order.
+
+
 
 #### A-2. Uniform short format
 
@@ -120,61 +161,18 @@ short <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
 short$ICD[6:10]
 ```
 
-**Warning message**
 
-Through code standardization functions generate data of diagnosis codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.
 
-Error type：**wrong format** and **wrong version**
-```{r, message = FALSE, warning = FALSE}
-sample <- icdDxShortToDecimal(dxDataFile = sampleDxFile,
-                              icdColName = ICD, 
-                              dateColName = Date,
-                              icd10usingDate = "2015/10/01")
-```
-1) Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)
-
-    c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")
-
-2) Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)
-
-    c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")
-    
-`sample$Error` shows individual error ICD codes in descending order.
-```{r}
-sample$Error
-```
-The dxpr package also provides an overview of error ICD data by Pareto chart (`plotICDError`).
-
-**Workflow of warning message**
-
-The example of warning messages are shown as below by `icdDxShortToDecimal`.
-
-<img src="https://raw.githubusercontent.com/DHLab-TSENG/dhlab-cgu.github.io/master/dxpr/warning.jpg" style="display:block; margin:auto; width:100%;">
-
-* Separate ICD-9 and ICD-10 by `icd10usingdate`
-* Step 1: Separate short and decimal
-* Step 2: The first time convert and confirm  
-Group short: **first** transformat into decimal format  
-> ICD-9: C, E  
-> ICD-10: A  
-Group decimal: **first** transformat with correct decimal format  
-> ICD-9: D  
-> ICD-10: B  
-* Step 3: The second time convert and confirm with patients who has NA (A, C, D, E)  
-> A has ICD-10 code, the second time convert and confirm with `ICD9DxwithTwoFormat`  
-> C, D, E have ICD-9 code, the second time convert and confirm with `ICD10DxwithTwoFormat`  
-Result:     
-Both A,C are  **wrong version** (*42761* is ICD 9 diagnostic code and *A0105* is ICD 10 diagnostic code)  
-Both D,E are  **wrong format** (They should be *755.2* and *001.9*)
 
 ### B. Data integration
-These functions collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than are individual ICD diagnostic codes.  
 
-The dxpr package supports four strategies to group EHR diagnosis codes, including CCS, PheWAS, comorbidities, and customized defined grouping methods.  
+Functions in data integration section collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
 
-There are two types of output of code classification.
+dxpr package supports four strategies to group EHR diagnosis codes, including CCS, PheWAS, comorbidities, and customized defined grouping methods.  
 
-1) Usage: Select cases and calculate condition era 
+The output of code classification contains two data frames.
+
+1) groupedDT
 
 **Table 2**  groupedDT
 
@@ -182,26 +180,34 @@ Short/Decimal|ID|ICD|Date|GroupType
 ----|--|-----|---|----
 ICD short/Decimal|patient ID| ICD |Admission date| group of code classification
 
-2) Usage: Convert the long format of grouped data into a wide format which is fit to others analytical and plotting packages.
+The original row order of the data is remained in groupedDT, and only one extra column `GroupType` is added. 
+
+2) summarised_groupedDT
 
 **Table 3** summarised_groupedDT
 
 ID|GroupType|FirstCaseDate|EndCaseDate|Count|Period
 |---------|------------|--------------|--------------|------------|---------|
-patient ICD|group of code classification|first admission date|last admission date|counts of period|record period
+patient ID|group of code classification|first admission date|last admission date|counts of period|record period
 
-User can choose the type of classification is "category" or "description" (`isDescription` = `TRUE` or `FALSE`)
+summarised_groupedDT summarised the ICD codes in the same group of the same patient together.
 
-For example, the ccs description is "Tuberculosis" when the category is "1".
+The two outputs can be used in the following functions. **groupedDT** can be used to select relevant cases (function `selectCases`) and calculate condition era (function `getConditionEra`). **summarised_groupedDT** can be used to convert the long format of grouped data into a wide format (function `groupedDataLongToWide`) which is fit to other analytical and plotting packages.
+
+Users can choose the column information of `groupType` is "category" or "description" (`isDescription` = `TRUE` or `FALSE`)
+
+For example, the ccs description is "Tuberculosis" while the category is "1".
 
 #### B-1. Clinical Classifications Software (CCS)
+
 The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses. 
 
 **1) single-level**: `icdDxToCCS`
 
-ICD-9-CM and ICD-10-CM code contains same 260 CCS categories.
+Both ICD-9-CM and ICD-10-CM code contains 260 single-level CCS categories which can be corresponded with each other.  
+
 ```{r, message = FALSE, warning = FALSE}
-## ICD to CCS category's description 
+## ICD to CCS with category description 
 CCS_description <- icdDxToCCS(dxDataFile = sampleDxFile,
                               idColName = ID,
                               icdColName = ICD,        
@@ -210,17 +216,21 @@ CCS_description <- icdDxToCCS(dxDataFile = sampleDxFile,
                               isDescription = TRUE)
 head(CCS_description$groupedDT, 5)
 head(CCS_description$summarised_groupedDT, 5)
-## ICD to CCS category
+
+## ICD to CCS with category
 CCS_category <- icdDxToCCS(dxDataFile = sampleDxFile, 
                           idColName = ID,         
                           icdColName = ICD,       
                           dateColName = Date, 
                           icd10usingDate = "2015-10-01",
                           isDescription = FALSE)
+head(CCS_category$groupedDT, 5)
+head(CCS_category$summarised_groupedDT, 5)
 ```
+
 **2) multi-level**: `icdDxToCCSLvl`
 
-ICD-9-CM has four levels, and ICD-10-CM has two levels
+Multi-level CCS in ICD-9-CM has four levels, and ICD-10-CM has two levels.
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to CCS multiple level 2 description
 CCSlvl_description <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
@@ -232,6 +242,7 @@ CCSlvl_description <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     isDescription = TRUE)
 head(CCSlvl_description$groupedDT, 5)
 head(CCSlvl_description$summarised_groupedDT, 5)
+
 ## ICD to CCS multiple level 3 category
 CCSLvl_category <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     idColName = ID,  
@@ -241,8 +252,11 @@ CCSLvl_category <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     CCSLevel = 3,
                                     isDescription = FALSE)
 ```
+
+
 #### B-2. PheWAS
-The dxpr package applied PheWAS, performing using a hierarchical grouping of ICD9 diagnostic codes.
+
+The dxpr package applied PheWAS, performing a hierarchical grouping of ICD-9 diagnostic codes and ICD-10  diagnostic codes (beta version). 
 
 ```{r, message = FALSE, warning = FALSE}
 ## ICD to PheWAS
@@ -257,10 +271,13 @@ PheWAS$summarised_groupedDT[7:11]
 ```
 
 #### B-3. Comorbidities
+
 The dxpr package provides three grouping methods of comorbidity as below:
 
 **1) AHRQ**
-AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index
+
+AHRQ comorbidity measure dataset is based on Elixhauser Comorbidity Index.
+
 ```{r, message = FALSE, warning = FALSE}
 AHRQ <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
@@ -271,8 +288,11 @@ AHRQ <- icdDxToComorbid(dxDataFile = sampleDxFile,
 AHRQ$groupedDT[160:164]
 head(AHRQ$summarised_groupedDT, 5)
 ```
+
 **2) Charlson**
-Charlson comorbidity measure dataset is based on Quan's translations of the Charlson Comorbidity Index
+
+Charlson comorbidity measure dataset is based on Quan's translations of the Charlson Comorbidity Index.
+
 ```{r, message = FALSE, warning = FALSE}
 Charlson <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
@@ -283,10 +303,11 @@ Charlson <- icdDxToComorbid(dxDataFile = sampleDxFile,
 Charlson$groupedDT[160:164]
 head(Charlson$summarised_groupedDT, 5)
 ```
-**3) Elixhauser**
-Elixhauser comorbidity measure data.
 
-The Elixhauser Comorbidity Software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
+**3) Elixhauser**
+
+The Elixhauser comorbidity software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).
+
 ```{r, message = FALSE, warning = FALSE}
 ELIX <- icdDxToComorbid(dxDataFile = sampleDxFile,
                         idColName = ID,           
@@ -555,6 +576,8 @@ ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10c
 **PheWAS**
 
 ICD-9-Phecode (version 1.2, 2015): https://phewascatalog.org/phecodes
+
+ICD-10 Phecode (version 1.2 beta, 2019): https://phewascatalog.org/phecodes_icd10cm
 
 **Comorbidities**
 

@@ -85,38 +85,37 @@
 <div id="description" class="section level1">
 <h1 class="hasAnchor">
 <a href="#description" class="anchor"></a>Description</h1>
-<pre><code><a href="https://rdrr.io/r/base/cat.html">cat(utils::packageDescription("dxpr")$Description)</a></code></pre>
+<p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
+<p>In this part, the instruction of how dxpr package workes with diagnosis records is provided.</p>
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"></a>Development version</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 <span class="co"># Install development version from GitHub</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
 </div>
-<div id="icd-cm-code-with-two-format" class="section level3">
+<div id="data-format" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
-<p>There are two formats of ICD-9 codes, decimal (with a decimal place separating the code) and short format.</p>
-<p>ICD-9-PCS</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># ICD-9-PCS_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Short</span>)
-<span class="co">#&gt; [1] "0001" "0002" "0003" "0009" "0010" "0011"</span>
-
-<span class="co"># ICD-9-PCS_Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "00.01" "00.02" "00.03" "00.09" "00.10" "00.11"</span></pre></body></html></div>
-<p>ICD-10-PCS只有short的格式</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-10-PCS_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">prICD10</span>$<span class="no">ICD</span>)
-<span class="co">#&gt; [1] "0016071" "0016072" "0016073" "0016074" "0016075" "0016076"</span></pre></body></html></div>
+<a href="#data-format" class="anchor"></a>Data Format</h3>
+<p>dxpr (procedute part) is used to pre-process procedure codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD procedure codes and date.</p>
+<p>Column names or column order of these three columns does not need to necessarily follow a rule. Each column name will be pass as argument. Detailed information of required data type of every column and argument of functions can be found in the reference section.</p>
+<p>Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DBI/man/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">odbc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span>(),
+                      <span class="kw">Driver</span>   <span class="kw">=</span> <span class="st">"[your driver's name]"</span>,
+                      <span class="kw">Server</span>   <span class="kw">=</span> <span class="st">"[your server's path]"</span>,
+                      <span class="kw">Database</span> <span class="kw">=</span> <span class="st">"[your database's name]"</span>,
+                      <span class="kw">UID</span>      <span class="kw">=</span> <span class="st">"[Database user]"</span>,
+                      <span class="kw">PWD</span>      <span class="kw">=</span> <span class="st">"[Database password]"</span>)
+<span class="no">dxDataFile</span> <span class="kw">&lt;-</span> <span class="fu">dbSendQuery</span>(<span class="no">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span>)
+<span class="fu">dbFetch</span>(<span class="no">dxDataFile</span>)</pre></body></html></div>
 </div>
 <div id="sample-file" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-file" class="anchor"></a>Sample file</h3>
 <p>An example of the data shows as below:<br>
 This data is a simulated medical data set of 3 patients with 170 records.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">samplePrFile</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">samplePrFile</span>)
 <span class="co">#&gt;    ID   ICD       Date</span>
 <span class="co">#&gt; 1:  B  5681 2008-01-14</span>
 <span class="co">#&gt; 2:  A  9774 2009-01-11</span>
@@ -125,10 +124,29 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <span class="co">#&gt; 5:  B  0205 2008-07-06</span>
 <span class="co">#&gt; 6:  B  8812 2007-06-27</span></pre></body></html></div>
 </div>
+<div id="icd-pcs-code-with-two-format" class="section level3">
+<h3 class="hasAnchor">
+<a href="#icd-pcs-code-with-two-format" class="anchor"></a>ICD-PCS code with two format</h3>
+<p>dxpr package uses ICD-PCS codes as procedure standard. There are two formats of ICD-9 procedure codes, decimal (with a decimal point separating the code) and short format. And ICD-10 is only with short format.</p>
+<p>ICD-9-PCS</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-9-PCS_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Short</span>)
+<span class="co">#&gt; [1] "0001" "0002" "0003" "0009" "0010" "0011"</span>
+
+<span class="co"># ICD-9-PCS_Decimal</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Decimal</span>)
+<span class="co">#&gt; [1] "00.01" "00.02" "00.03" "00.09" "00.10" "00.11"</span></pre></body></html></div>
+<p>ICD-10-PCS: only short format</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># ICD-10-PCS_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">prICD10</span>$<span class="no">ICD</span>)
+<span class="co">#&gt; [1] "0016071" "0016072" "0016073" "0016074" "0016075" "0016076"</span></pre></body></html></div>
+</div>
 <div id="i--code-standardization" class="section level2">
 <h2 class="hasAnchor">
 <a href="#i--code-standardization" class="anchor"></a>I. Code standardization</h2>
-<p><strong>ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal</strong></p>
+<div id="a--icd-9-pcs-code-format-transformationshort---decimal" class="section level3">
+<h3 class="hasAnchor">
+<a href="#a--icd-9-pcs-code-format-transformationshort---decimal" class="anchor"></a>A. ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal</h3>
 <p>Standardize the ICD procedure codes into a uniform format before code classification.</p>
 <p>Since the formats of ICD code used in the grouping tables could be different, the transformational type is according to the grouping method chosen by users.</p>
 <p><strong>Table 1</strong> Format of code classification methods</p>
@@ -153,7 +171,9 @@ User can set the using date of ICD10.</p>
 <p>Reimbursement claims with a date required to use of ICD-10 codes (<code>icd10usingdate</code>)<br>
 In America: 10/1/2015<br>
 In Taiwan: 1/1/2016</p>
-<p><strong>A. Uniform decimal format</strong></p>
+<div id="a-1--uniform-decimal-format" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a-1--uniform-decimal-format" class="anchor"></a>A-1. Uniform decimal format</h4>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrShortToDecimal</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                                <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -166,7 +186,11 @@ In Taiwan: 1/1/2016</p>
 <span class="co">#&gt; 4: 07.59</span>
 <span class="co">#&gt; 5: 02.05</span>
 <span class="co">#&gt; 6: 88.12</span></pre></body></html></div>
-<p><strong>B. Uniform short format</strong> Convert the diagnostic codes to the short format, and used for grouping to the others classification (<code>icdPrToCCS</code> and <code>icdPrToCCSLvl</code>).</p>
+</div>
+<div id="a-2--uniform-short-format" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
+<p>Convert the diagnostic codes to the short format, and used for grouping to the others classification (<code>icdPrToCCS</code> and <code>icdPrToCCSLvl</code>).</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
@@ -181,6 +205,8 @@ In Taiwan: 1/1/2016</p>
 <span class="co">#&gt; 6: 8812</span></pre></body></html></div>
 <p><strong>warning message</strong> (More detail: <a href="https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html#i--code-standardization">Get started with dxpr: Diagnosis</a>)</p>
 <p>Through code standardization functions generate data of procedure codes with potential error, to help a researcher identify the potential coding mistake that may affect clinical data analysis.</p>
+</div>
+</div>
 </div>
 <div id="ii--data-integration" class="section level2">
 <h2 class="hasAnchor">

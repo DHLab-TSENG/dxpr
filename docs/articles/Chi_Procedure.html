@@ -84,10 +84,11 @@
     
 <div class="section level1">
 <h1>檢查與處置前處理與整合方法</h1>
-<pre><code><a href="https://rdrr.io/r/base/cat.html">cat(utils::packageDescription("dxpr")$Description)</a></code></pre>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageDescription</a></span>(<span class="st">"dxpr"</span>)$<span class="no">Description</span>)</pre></body></html></div>
+<pre><code>## "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electronic medical record. It is used for data integration, data wrangling and visualization.</code></pre>
 <div class="section level3">
 <h3>安裝套件</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 <span class="co"># Install development version from GitHub</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
@@ -98,7 +99,7 @@
 <p>本套件使用的處置編碼依照CMS (Centers for Medicare &amp; Medicaid Services)所提供的處置編碼做為標準依據，並依照WHO訂定的處置編碼規則，產生 ICD-9-PCS 兩種格式的表格: <code>ICD9PrwithTwoFormat</code></p>
 <p>供後續處置編碼格式轉換的功能使用</p>
 <p>ICD-9-PCS</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># ICD-9-PCS_Short</span>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-9-PCS_Short</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Short</span>)
 <span class="co">#&gt; [1] "0001" "0002" "0003" "0009" "0010" "0011"</span>
 
@@ -106,14 +107,14 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Decimal</span>)
 <span class="co">#&gt; [1] "00.01" "00.02" "00.03" "00.09" "00.10" "00.11"</span></pre></body></html></div>
 <p>ICD-10-PCS只有short的格式</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-10-PCS_Short</span>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># ICD-10-PCS_Short</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">prICD10</span>$<span class="no">ICD</span>)
 <span class="co">#&gt; [1] "0016071" "0016072" "0016073" "0016074" "0016075" "0016076"</span></pre></body></html></div>
 </div>
 <div class="section level3">
 <h3>範例資料</h3>
 <p>以下功能介紹皆以<code>samplePrFile</code>做為範例，共有3位病患，170筆診斷紀錄</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">samplePrFile</span>)
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">samplePrFile</span>)
 <span class="co">#&gt;    ID   ICD       Date</span>
 <span class="co">#&gt; 1:  B  5681 2008-01-14</span>
 <span class="co">#&gt; 2:  A  9774 2009-01-11</span>
@@ -150,7 +151,7 @@
 如使用者分析美國的醫療資料，ICD-10使用日期設定為2015年10月1日。</p>
 <p>如範例，區分處置編碼版本的日期為：2015年10月1日</p>
 <p><strong>將 ICD-PCS code 的格式統一轉成 Decimal</strong></p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrShortToDecimal</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrShortToDecimal</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                                <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                                <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
@@ -163,7 +164,7 @@
 <span class="co">#&gt; 5: 02.05</span>
 <span class="co">#&gt; 6: 88.12</span></pre></body></html></div>
 <p><strong>將 ICD-PCS code 的格式統一轉成 Short</strong></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                              <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
@@ -193,7 +194,7 @@
 <p><strong>1) 單一階層分類</strong></p>
 <p><code>icdPrToCCS</code> 可取得處置編碼相對應的 CCS 分類(CCS Category)及分類之敘述<br>
 ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">## ICD to CCS category</span>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## ICD to CCS category</span>
 <span class="no">CCS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCS</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                   <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                   <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
@@ -221,7 +222,7 @@ ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 </li>
 <li>ICD-10-PCS 共 2個階層 (Level 1~2)</li>
 </ul>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
 <span class="no">CCSLvl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCSLvl</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
@@ -251,13 +252,13 @@ ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 2. Minor Therapeutic：非手術室執行之治療類處置<br>
 3. Major Diagnostic：需在手術室執行之診斷類處置<br>
 4. Major Therapeutic：需在手術室執行之治療類處置</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">ProcedureClass</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PC.html">icdPrToProcedureClass</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">ProcedureClass</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PC.html">icdPrToProcedureClass</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
                                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
                                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
                                         <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
                                         <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ProcedureClass</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ProcedureClass</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
 <span class="co">#&gt;    Short ID   ICD       Date PROCEDURE_CLASS_NAME</span>
 <span class="co">#&gt; 1:  5681  B  5681 2008-01-14                    4</span>
 <span class="co">#&gt; 2:  9774  A  9774 2009-01-11                    2</span>

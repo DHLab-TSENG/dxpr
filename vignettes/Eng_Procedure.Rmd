@@ -10,9 +10,11 @@ vignette: >
 ---
 
 # Description
-```{r}
-cat(utils::packageDescription("dxpr")$Description)
-```
+
+The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.
+
+In this part, the instruction of how dxpr package workes with diagnosis records is provided. 
+
 ### Development version
 ```r
 install.packages("devtools")
@@ -26,9 +28,36 @@ options(tibble.print_min = 4L, tibble.print_max = 4L)
 devtools::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
-### ICD-CM code with two format
 
-There are two formats of ICD-9 codes, decimal (with a decimal place separating the code) and short format.
+### Data Format
+
+dxpr (procedute part) is used to pre-process procedure codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD procedure codes and date.
+
+Column names or column order of these three columns does not need to necessarily follow a rule. Each column name will be pass as argument. Detailed information of required data type of every column and argument of functions can be found in the reference section.
+
+Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.
+
+```r
+con <- DBI::dbConnect(odbc::odbc(),
+                      Driver   = "[your driver's name]",
+                      Server   = "[your server's path]",
+                      Database = "[your database's name]",
+                      UID      = "[Database user]",
+                      PWD      = "[Database password]")
+dxDataFile <- dbSendQuery(con, "SELECT * FROM example_table WHERE ID = 'sampleID'")
+dbFetch(dxDataFile)
+```
+
+### Sample file
+An example of the data shows as below:  
+This data is a simulated medical data set of 3 patients with 170 records.
+```{r}
+head(samplePrFile)
+```
+
+### ICD-PCS code with two format
+
+dxpr package uses ICD-PCS codes as procedure standard. There are two formats of ICD-9 procedure codes, decimal (with a decimal point separating the code) and short format. And ICD-10 is only with short format.
 
 ICD-9-PCS
 ```{r}
@@ -38,20 +67,15 @@ head(ICD9PrwithTwoFormat$Short)
 # ICD-9-PCS_Decimal
 head(ICD9PrwithTwoFormat$Decimal)
 ```
-ICD-10-PCS只有short的格式
+ICD-10-PCS: only short format
 ```{r}
 # ICD-10-PCS_Short
 head(prICD10$ICD)
 ```
-### Sample file
-An example of the data shows as below:  
-This data is a simulated medical data set of 3 patients with 170 records.
-```{r}
-head(samplePrFile)
-```
+
 ## I. Code standardization
 
-**ICD-9-PCS code format transformation：Short <-> Decimal**
+### A. ICD-9-PCS code format transformation：Short <-> Decimal
 
 Standardize the ICD procedure codes into a uniform format before code classification.
 
@@ -71,7 +95,7 @@ Reimbursement claims with a date required to use of ICD-10 codes (`icd10usingdat
 In America: 10/1/2015  
 In Taiwan: 1/1/2016   
 
-**A. Uniform decimal format**
+#### A-1. Uniform decimal format
 
 ```{r, message = FALSE, warning = FALSE}
 decimal <- icdPrShortToDecimal(prDataFile = samplePrFile,
@@ -80,7 +104,7 @@ decimal <- icdPrShortToDecimal(prDataFile = samplePrFile,
                                icd10usingDate = "2015/10/01")
 head(decimal$ICD)
 ```
-**B. Uniform short format**
+#### A-2. Uniform short format
 Convert the diagnostic codes to the short format, and used for grouping to the others classification (`icdPrToCCS` and `icdPrToCCSLvl`). 
 ```{r, message = FALSE, warning = FALSE}
 short <- icdPrDecimalToShort(prDataFile = samplePrFile,

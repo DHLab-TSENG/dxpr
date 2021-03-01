@@ -48,7 +48,7 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
       dignosticCate <- dignosticCate[order(DiagnosticCategory, Group, N, decreasing = TRUE),]
 
       g <- ggplot(dignosticCate, aes(fill =  Group, y = Percentage, x = DiagnosticCategory, group = Group)) +
-        geom_text(aes(label = paste("n =", N)), hjust = -.2, size = 3, position = position_dodge(width = 1)) +
+        geom_text(aes(label = paste("n =", N)), hjust = 1.1, size = 3, color="white", position = position_dodge(width = 1)) +
         geom_bar(position="dodge", stat="identity")
     }
   }else{
@@ -64,7 +64,7 @@ plotDiagCat <- function(groupedDataWide, idColName, groupColName = NULL, topN = 
 
     g <- ggplot(groupedDataLong, aes(y = Percentage, x = DiagnosticCategory)) +
       geom_bar(position="dodge", stat="identity") +
-      geom_text(aes(label = paste("n =", N)), hjust = -.2, size = 3, position = position_dodge(width = 1))
+      geom_text(aes(label = paste("n =", N)), hjust = 1.1, size = 3, color="white", position = position_dodge(width = 1))
   }
   plot_title <- paste0(plot_title,": Top ", topN)
   dignosticCate_graph <- g + coord_flip(clip = "off") +
