@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="An analysis tool for diagnosis and procedure records">
-<meta property="og:description" content='"dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electric medical record. It is used for data integration, data wrangling and visualization.'>
+<meta property="og:description" content='"dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electronic medical record. It is used for data integration, data wrangling and visualization.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -91,9 +91,9 @@
 <strong>Visualization</strong> Provide overviews for the result of diagnoses standardization and the grouped categories of diagnosis codes.</li>
 </ul>
 </div>
-<div id="geting-start" class="section level2">
+<div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
-<a href="#geting-start" class="anchor"></a>Geting start</h2>
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
 <ul>
 <li>Diagnostic part<br>
 English: <a href="https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html" class="uri">https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html</a><br>
@@ -114,7 +114,7 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><img src="https://github.com/DHLab-CGU/dhlab-cgu.github.io/blob/master/dxpr/overview.jpg?raw=true" style="display:block; margin:auto; width:100%;"></p>
+<p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/overview.png" style="display:block; margin:auto; width:100%;"></p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -221,16 +221,16 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; $sigCate</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;     DiagnosticCategory  N Percentage</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;  1:           RENLFAIL 24     63.16%</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  2:              TUMOR  6     15.79%</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  3:               ARTH  5     13.16%</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  4:              LYMPH  4     10.53%</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  5:              PSYCH  4     10.53%</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  6:               DRUG  3      7.89%</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  7:              NEURO  3      7.89%</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  8:               PARA  2      5.26%</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  9:           PERIVASC  2      5.26%</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 10:              VALVE  2      5.26%</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;  1:           RENLFAIL 24      63.16</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;  2:              TUMOR  6      15.79</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;  3:               ARTH  5      13.16</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;  4:              LYMPH  4      10.53</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;  5:              PSYCH  4      10.53</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  6:               DRUG  3       7.89</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  7:              NEURO  3       7.89</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  8:               PARA  2       5.26</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  9:           PERIVASC  2       5.26</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 10:              VALVE  2       5.26</span></a></code></pre></div>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
