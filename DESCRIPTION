@@ -14,7 +14,7 @@ Imports:
     ggplot2
 Suggests:
     knitr
-URL: https://dhlab-tseng.github.io/emr/
-BugReports: https://github.com/DHLab-TSENG/emr/issues
+URL: https://dhlab-tseng.github.io/dxpr/
+BugReports: https://github.com/DHLab-TSENG/dxpr/issues
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
