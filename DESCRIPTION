@@ -13,7 +13,8 @@ Imports:
     data.table,
     ggplot2
 Suggests:
-    knitr
+    knitr,
+    testthat
 URL: https://dhlab-tseng.github.io/dxpr/
 BugReports: https://github.com/DHLab-TSENG/dxpr/issues
 RoxygenNote: 7.1.1
