@@ -25,7 +25,7 @@ getConditionEra(
 
 \item{icdColName}{Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
+\item{dateColName}{Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.}
 
 \item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
 

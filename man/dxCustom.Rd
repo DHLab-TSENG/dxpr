@@ -30,7 +30,7 @@ icdDxToCustomGrep(
 
 \item{icdColName}{Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
+\item{dateColName}{Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.}
 
 \item{customGroupingTable}{Used-defined grouping categories. \code{icdDxToCustom} needs a dataset with two columns called "Group" and "ICD", respectively; User can define one or more disease categories in "Group" column, and define a list of corresponding category-related ICD codes in "ICD" column. \code{icdDxToCustomGrep} needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing regular expressions.}
 }

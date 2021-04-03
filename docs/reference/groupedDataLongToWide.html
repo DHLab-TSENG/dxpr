@@ -122,7 +122,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(
+    <pre class="usage"><span class='fu'>groupedDataLongToWide</span>(
   <span class='no'>dxDataFile</span>,
   <span class='no'>idColName</span>,
   <span class='no'>categoryColName</span>,
@@ -146,7 +146,7 @@
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
+      <td><p>Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>numericOrBinary</th>
@@ -197,7 +197,7 @@
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
 <span class='co'># Convert the long format of grouped data into a wide binary format with selected case</span>
 
-<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'>groupedDataLongToWide</span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
                                          <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
                                          <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
                                          <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,

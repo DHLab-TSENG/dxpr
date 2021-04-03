@@ -122,7 +122,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='era.html'>getConditionEra</a></span>(
+    <pre class="usage"><span class='fu'>getConditionEra</span>(
   <span class='no'>dxDataFile</span>,
   <span class='no'>idColName</span>,
   <span class='no'>icdColName</span>,
@@ -153,7 +153,7 @@
     </tr>
     <tr>
       <th>dateColName</th>
-      <td><p>Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.</p></td>
+      <td><p>Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.</p></td>
     </tr>
     <tr>
       <th>icdVerColName</th>
@@ -195,7 +195,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other data integration functions: <code><a href='selectCases.html'>selectCases</a></code>, <code><a href='dataSplit.html'>splitDataByDate</a></code>, <code><a href='eligiblePeriod.html'>getEligiblePeriod</a></code></p></div>
+    <div class='dont-index'><p>Other data integration functions: <code><a href='selectCases.html'>selectCases</a></code>, <code><a href='splitDataByDate.html'>splitDataByDate</a></code>, <code><a href='getEligiblePeriod.html'>getEligiblePeriod</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -218,7 +218,7 @@
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
 <span class='co'># Condition era calculation with case selection</span>
 
-<span class='no'>Era1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='era.html'>getConditionEra</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>,
+<span class='no'>Era1</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>,
                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>CCSlvl3</span>,
                         <span class='kw'>selectedCaseFile</span> <span class='kw'>=</span> <span class='no'>selectedCaseFile</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Era1</span>)</div><div class='output co'>#&gt;    ID        CCS_LVL_3_LABEL era firstCaseDate endCaseDate count period
 #&gt; 1: A0 Chronic kidney disease   1    2009-07-25  2009-07-25     1 0 days
@@ -242,7 +242,7 @@
 
 <span class='co'># Condition era calculation with grouping custom method of code standardization</span>
 
-<span class='no'>Era2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='era.html'>getConditionEra</a></span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>,
+<span class='no'>Era2</span> <span class='kw'>&lt;-</span> <span class='fu'>getConditionEra</span>(<span class='no'>sampleDxFile</span>, <span class='no'>ID</span>, <span class='no'>ICD</span>, <span class='no'>Date</span>, <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='st'>"2015-10-01"</span>,
                         <span class='kw'>groupDataType</span> <span class='kw'>=</span> <span class='no'>customGrepIcdGroup</span>,
                         <span class='kw'>customGroupingTable</span> <span class='kw'>=</span> <span class='no'>grepTable</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Era2</span>)</div><div class='output co'>#&gt;    ID            GrepedGroup era firstCaseDate endCaseDate count period

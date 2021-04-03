@@ -20,7 +20,7 @@ groupedDataLongToWide(
 
 \item{idColName}{Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.}
 
-\item{dateColName}{Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.}
+\item{dateColName}{Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.}
 
 \item{numericOrBinary}{The wide format data with or without certain diagnostic categories can be marked as binary \code{True}/\code{False} or numeric diagnosi time counts. Type N or B (character without quotation mark) to specify one of the method. Default is Binary \code{B}.}
 

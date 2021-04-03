@@ -8,7 +8,7 @@
 #' @param dxDataFile A data frame object of clinical diagnostic data with at least 3 columns: ID, ICD, and Date. As for date column, the data format should be YYYY/MM/DD or YYYY-MM-DD.
 #' @param idColName Column name of ID column in dxDataFile. Data type of this argumant should be string without quotation marks.
 #' @param icdColName Column name of ICD column in dxDataFile. Data type of this argumant should be string without quotation marks.
-#' @param dateColName Column name of date column in dxDataFile (with date in YYYY/MM/DD or YYYY-MM-DD format). Data type of this argumant should be string without quotation marks.
+#' @param dateColName Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.
 #' @param icdVerColName (Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.
 #' @param icd10usingDate The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.
 #' @param isDescription Binary. If true, category description of classification methods will be used in the group column. If false, category name will be used. By default, it is set to be \code{True} (standard category description).
