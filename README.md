@@ -168,3 +168,10 @@ plot_errorICD
 See the `GitHub issues page`
 (<https://github.com/DHLab-TSENG/dxpr/issues>) to see open issues and
 feature requests.
+
+## Citation
+
+Tseng, Yi-Ju, Hsiang-Ju Chiu, and Chun Ju Chen. 2021. “dxpr: An R Package for Generating Analysis-Ready Data from Electronic Health Records—diagnoses and Procedures.” PeerJ Computer Science 7 (May): e520.
+
+https://peerj.com/articles/cs-520/
+
