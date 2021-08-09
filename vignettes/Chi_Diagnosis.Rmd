@@ -24,14 +24,12 @@ library(dxpr)
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-TSENG/dxpr")
+#devtools::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
 ### ICD-CM-CODE 格式對照
 
-本套件使用的診斷編碼依照 CMS （Centers for Medicare & Medicaid Services）所提供的診斷編碼做為標準依據，並依照WHO訂定的診斷編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: `ICD9DxwithTwoFormat 和 ICD10DxwithTwoFormat`
-
-供後續診斷編碼格式轉換的功能使用 
+本套件使用的診斷編碼依照 CMS （Centers for Medicare & Medicaid Services）所提供的診斷編碼做為標準依據，並依照WHO訂定的診斷編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: `ICD9DxwithTwoFormat` 和 `ICD10DxwithTwoFormat` 供後續診斷編碼格式轉換的功能使用 
 
 ICD-9-CM
 ```{r}
