@@ -1,0 +1,328 @@
+---
+output: md_document 
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Usage of dxpr Package
+
+
+```{r setup, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+devtools::install_github("DHLab-TSENG/dxpr")
+library(dxpr) 
+library(data.table)
+```
+
+## I. Data integration
+
+```{r, message = FALSE, warning = FALSE}
+head(sampleDxFile)  
+```
+
+### 1. Data standardization
+
+```{r, message = TRUE, warning = TRUE}
+# ICD to uniform short format
+ICD_Short <- icdDxDecimalToShort(dxDataFile = sampleDxFile,
+                                 icdColName = ICD,
+                                 dateColName = Date, 
+                                 icd10usingDate = "2015/10/01")
+
+head(ICD_Short$ICD)
+
+tail(ICD_Short$Error)
+
+sampleDxFile$Decimal <- ICD_Short$ICD 
+
+head(sampleDxFile)
+```
+
+### 2. Data grouping
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to level 2 CCS description of multiple-level CCS
+CCSlvl_description <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
+                                    idColName = ID,
+                                    icdColName = ICD,
+                                    dateColName = Date, 
+                                    icd10usingDate = "2015-10-01", 
+                                    CCSLevel = 2,
+                                    isDescription = TRUE)
+
+head(setorder(CCSlvl_description$groupedDT, "ID"))
+
+head(CCSlvl_description$summarised_groupedDT)
+```
+
+```{r, message = FALSE, warning = FALSE}
+## ICD to pheWAS
+pheWAS <- icdDxToPheWAS(dxDataFile  = sampleDxFile,
+                        idColName = ID,
+                        icdColName = ICD,
+                        dateColName = Date, 
+                        icd10usingDate = "2015-10-01", 
+                        isDescription = FALSE)
+
+head(setorder(pheWAS$groupedDT, "ID"))
+
+head(setorder(pheWAS$summarised_groupedDT, "ID"))
+```
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to Comorbidity: Elixhauser
+ELIX <- icdDxToComorbid(dxDataFile  = sampleDxFile,
+                        idColName = ID,
+                        icdColName = ICD,
+                        dateColName = Date, 
+                        icd10usingDate = "2015-10-01", 
+                        comorbidMethod = ELIX)
+
+head(setorder(ELIX$groupedDT, "ID"))
+
+head(ELIX$summarised_groupedDT)
+```
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to Comorbidity: AHRQ
+AHRQ <- icdDxToComorbid(dxDataFile  = sampleDxFile,
+                        idColName = ID,
+                        icdColName = ICD,
+                        dateColName = Date, 
+                        icd10usingDate = "2015-10-01", 
+                        comorbidMethod = ahrq)
+
+head(setorder(AHRQ$groupedDT, "ID"))
+
+head(AHRQ$summarised_groupedDT)
+```
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to Comorbidity: Charlson
+Charlson <- icdDxToComorbid(dxDataFile  = sampleDxFile,
+                        idColName = ID,
+                        icdColName = ICD,
+                        dateColName = Date, 
+                        icd10usingDate = "2015-10-01", 
+                        comorbidMethod = Charlson)
+
+head(setorder(Charlson$groupedDT, "ID"))
+
+head(Charlson$summarised_groupedDT)
+```
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to self-defined grouping method: precise matching
+groupingTable <- data.table(Group = rep("Chronic kidney disease",6),
+                            ICD = c("N181","5853","5854","5855","5856","5859"))
+
+groupingTable
+
+CustomGroup <- icdDxToCustom(dxDataFile  = sampleDxFile,
+                             idColName = ID,
+                             icdColName = ICD, 
+                             dateColName = Date, 
+                             customGroupingTable = groupingTable)
+
+head(setorder(CustomGroup$groupedDT, "ID"))
+
+head(CustomGroup$summarised_groupedDT)
+
+# ICD to self-defined grouping method: fuzzy matching
+grepTable <- data.table(Group = "Chronic kidney disease",
+                          grepIcd = "^585|^N18")
+
+grepTable
+
+CustomGrepGroup <- icdDxToCustomGrep(dxDataFile  = sampleDxFile,
+                                     idColName = ID,
+                                     icdColName = ICD, 
+                                     dateColName = Date, 
+                                     customGroupingTable = grepTable)
+
+head(setorder(CustomGrepGroup$groupedDT, "ID"))
+
+```
+
+## II. Data wrangling
+### 1. Case selection
+
+```{r, message = FALSE, warning = FALSE}
+# Select cases by ICD condition "^585"
+Case <- selectCases(dxDataFile = sampleDxFile,
+                    idColName = ID,
+                    icdColName = ICD, 
+                    dateColName = Date, 
+                    icd10usingDate = "2015/10/01",
+                    groupDataType = icd,
+                    caseCondition = "^585",
+                    caseCount = 2,	
+                    periodRange = c(30, 365))
+
+head(Case)
+
+tail(Case)
+
+# Select cases by AHRQ comorbidity condition  "Renal"
+Case <- selectCases(dxDataFile = sampleDxFile,
+                    idColName = ID,
+                    icdColName = ICD, 
+                    dateColName = Date, 
+                    icd10usingDate = "2015/10/01",
+                    groupDataType = ahrq,
+                    isDescription = FALSE,
+                    caseCondition = "Renal",
+                    caseCount = 1,
+                    periodRange = c(30, 365))
+
+head(Case)
+
+# Select cases by CCS Level 2 condition "Diseases of the urinary system"
+Case <- selectCases(dxDataFile = sampleDxFile,
+                    idColName = ID,
+                    icdColName = ICD, 
+                    dateColName = Date, 
+                    icd10usingDate = "2015/10/01",
+                    groupDataType = ccslvl2,
+                    isDescription = TRUE,
+                    caseCondition = "Diseases of the urinary system",
+                    caseCount = 1,
+                    periodRange = c(30, 365))
+
+head(Case)
+```
+
+### 2. Condition era generation
+
+```{r, message = FALSE, warning = FALSE}
+# get era by the comorbidity condition ELIX
+Era <- getConditionEra(dxDataFile = sampleDxFile,
+                       idColName = ID,
+                       icdColName = ICD,
+                       dateColName = Date,
+                       icd10usingDate = "2015/10/01",
+                       groupDataType = ELIX,
+                       isDescription = TRUE,
+                       gapDate = 30)
+
+head(Era)
+```
+
+### 3. Analysis ready data generation
+
+```{r, message = FALSE, warning = FALSE}
+# generate analysis ready data mapped with case and Control Group
+CHARLSON <- icdDxToComorbid(dxDataFile = sampleDxFile,
+                            idColName = ID,
+                            icdColName = ICD,
+                            dateColName = Date,
+                            icd10usingDate = "2015-10-01",
+                            comorbidMethod = CHARLSON)
+
+head(CHARLSON$groupedDT)
+
+selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
+                                idColName = ID,
+                                icdColName = ICD,
+                                dateColName = Date,
+                                icd10usingDate = "2015/10/01",
+                                groupDataType = ccs,
+                                caseCondition = "11",
+                                isDescription = FALSE,
+                                caseCount = 1)    
+
+head(selectedCaseFile)
+
+groupedDataWide <- groupedDataLongToWide(dxDataFile  = CHARLSON$groupedDT,
+                                         idColName = ID,
+                                         categoryColName = Comorbidity,
+                                         dateColName = Date,
+                                         reDup = TRUE,
+                                         numericOrBinary = N,
+                                         selectedCaseFile = selectedCaseFile)
+
+tail(groupedDataWide) 
+```
+
+## III. Visualization
+
+```{r, message = FALSE, warning = FALSE}
+# Bar chart of diagnostic categories – case and control groups
+selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
+                                idColName = ID,
+                                icdColName = ICD,
+                                dateColName = Date,
+                                icd10usingDate = "2015/10/01",
+                                groupDataType = ccs,
+                                caseCondition = "11",
+                                isDescription = FALSE,
+                                caseCount = 1) 
+
+groupedDataWide <- groupedDataLongToWide(dxDataFile  = ELIX$groupedDT,
+                                         idColName = ID,
+                                         categoryColName = Comorbidity,
+                                         dateColName = Date,
+                                         reDup = TRUE,
+                                         numericOrBinary = B,
+                                         count = 2,
+                                         selectedCaseFile = selectedCaseFile)
+
+plot <- plotDiagCat(groupedDataWide = groupedDataWide,
+                    idColName = ID,
+                    groupColName = selectedCase,
+                    topN = 10,
+                    limitFreq = 0.01,
+                    pvalue = 0.05)
+plot$graph 
+
+plot$sigCate
+```
+
+## IV. Procedure
+
+```{r, message = FALSE, warning = FALSE}
+head(samplePrFile)
+```  
+
+### 1. Code classification
+```{r, message = FALSE, warning = FALSE}
+# CCS single level classification
+CCS <- icdPrToCCS (prDataFile = samplePrFile,
+                   idColName = ID,
+                   icdColName = ICD, 
+                   dateColName = Date,
+                   icd10usingDate = "2015-10-01",
+                   isDescription = TRUE) 
+
+head(CCS$groupedDT)
+```
+
+```{r, message = FALSE, warning = FALSE}
+# ICD to CCS multiple level 1
+CCSlvl <- icdPrToCCSLvl(prDataFile = samplePrFile,
+                        idColName = ID,
+                        icdColName = ICD, 
+                        dateColName = Date,
+                        icd10usingDate = "2015-10-01",
+                        CCSLevel = 2,
+                        isDescription = FALSE)
+
+head(CCSlvl$groupedDT)
+```  
+
+```{r, message = FALSE, warning = FALSE}
+# Procedure class
+ProcedureClass <- icdPrToProcedureClass(prDataFile = samplePrFile,
+                                        idColName = ID,
+                                        icdColName = ICD, 
+                                        dateColName = Date, 
+                                        icd10usingDate = "2015-10-01", 
+                                        isDescription = FALSE)
+
+head(ProcedureClass$groupedDT)
+```

@@ -25,12 +25,6 @@
     <loc>https://dhlab-tseng.github.io/dxpr//reference/common_PrArg.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dataSplit.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dataWide.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-tseng.github.io/dxpr//reference/dxCCS.html</loc>
   </url>
   <url>
@@ -49,19 +43,22 @@
     <loc>https://dhlab-tseng.github.io/dxpr//reference/dxpr-package.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/eligiblePeriod.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr//reference/getConditionEra.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/era.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr//reference/getEligiblePeriod.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr//reference/groupMethodSelect.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-tseng.github.io/dxpr//reference/groupedDataLongToWide.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-tseng.github.io/dxpr//reference/plotDiagCat.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/plotError.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr//reference/plotICDError.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr//reference/prCCS.html</loc>
@@ -80,6 +77,9 @@
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr//reference/selectCases.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr//reference/splitDataByDate.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr//articles/Chi_Diagnosis.html</loc>

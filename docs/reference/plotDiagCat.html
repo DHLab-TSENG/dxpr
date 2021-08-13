@@ -136,7 +136,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>groupedDataWide</th>
-      <td><p>Wide table of data frame (generated from <code><a href='dataWide.html'>groupedDataLongToWide</a></code> function).</p></td>
+      <td><p>Wide table of data frame (generated from <code><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></code> function).</p></td>
     </tr>
     <tr>
       <th>topN</th>
@@ -163,7 +163,7 @@ Also, Chi-square test and Fisher’s exact test are also included in this functi
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other plot function: <code><a href='plotError.html'>plotICDError</a></code></p></div>
+    <div class='dont-index'><p>Other plot function: <code><a href='plotICDError.html'>plotICDError</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -192,7 +192,7 @@ Also, Chi-square test and Fisher’s exact test are also included in this functi
 #&gt; 6:  Z992 A15 Z992 2023-05-12    RENLFAIL</div><div class='input'>
 <span class='co'># Convert long format of grouped data into wide binary format</span>
 
-<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
                                          <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
                                          <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
                                          <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>)
@@ -230,7 +230,7 @@ Also, Chi-square test and Fisher’s exact test are also included in this functi
                                 <span class='kw'>caseCount</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='input'>
 <span class='co'># Convert the long format of grouped data into a wide binary format with selected case</span>
 
-<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dataWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
+<span class='no'>groupedDataWide</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='groupedDataLongToWide.html'>groupedDataLongToWide</a></span>(<span class='no'>ELIX</span>$<span class='no'>groupedDT</span>,
                                          <span class='kw'>idColName</span> <span class='kw'>=</span> <span class='no'>ID</span>,
                                          <span class='kw'>categoryColName</span> <span class='kw'>=</span> <span class='no'>Comorbidity</span>,
                                          <span class='kw'>dateColName</span> <span class='kw'>=</span> <span class='no'>Date</span>,

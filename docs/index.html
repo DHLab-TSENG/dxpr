@@ -180,7 +180,7 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <span class="co">#&gt; 6: A13    RENLFAIL    2006-04-29  2025-02-02     5 6854 days</span>
 
 <span class="co"># II. Data wrangling</span>
-<span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/dataWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
+<span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
@@ -194,7 +194,7 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <span class="co">#&gt; 6: A13 FALSE    FALSE FALSE</span>
 
 <span class="co"># IV. Visualization</span>
-<span class="no">plot_errorICD</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/plotError.html">plotICDError</a></span>(<span class="no">short</span>$<span class="no">Error</span>)
+<span class="no">plot_errorICD</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/plotICDError.html">plotICDError</a></span>(<span class="no">short</span>$<span class="no">Error</span>)
 <span class="no">plot_groupedData</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/plotDiagCat.html">plotDiagCat</a></span>(<span class="no">groupedDataWide</span>, <span class="no">ID</span>)
 
 <span class="no">plot_errorICD</span>
