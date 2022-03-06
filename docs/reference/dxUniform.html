@@ -8,11 +8,13 @@
 
 <title>Code format transformation — dxUniform • dxpr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
@@ -36,10 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Code format transformation — dxUniform" />
-
 <meta property="og:description" content="These two functions can convert the ICD diagnostic codes to a uniform format." />
-
 
 
 
@@ -79,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,11 +91,10 @@
   <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/DHLab-TSENG/dxpr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,27 +117,25 @@
     </div>
 
     <div class="ref-description">
-    
     <p>These two functions can convert the ICD diagnostic codes to a uniform format.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>icdDxDecimalToShort</span>(
-  <span class='no'>dxDataFile</span>,
-  <span class='no'>icdColName</span>,
-  <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+    <pre class="usage"><span class='fu'>icdDxDecimalToShort</span><span class='op'>(</span>
+  <span class='va'>dxDataFile</span>,
+  <span class='va'>icdColName</span>,
+  <span class='va'>dateColName</span>,
+  icdVerColName <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icd10usingDate <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>icdDxShortToDecimal</span>(
-  <span class='no'>dxDataFile</span>,
-  <span class='no'>icdColName</span>,
-  <span class='no'>dateColName</span>,
-  <span class='kw'>icdVerColName</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
-    
+<span class='fu'>icdDxShortToDecimal</span><span class='op'>(</span>
+  <span class='va'>dxDataFile</span>,
+  <span class='va'>icdColName</span>,
+  <span class='va'>dateColName</span>,
+  icdVerColName <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icd10usingDate <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -162,29 +160,29 @@
       <td><p>The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Two new <code>data.table</code>s. 1) <code>ICD</code>: Uniform format diagnostic codes with column name "ICD". 2) <code>Error</code>: Potential error codes with 5 columns: ICD, count, IcdVersionInFile, WrongType and Suggestion.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>icdDxShortToDecimal</code> can be used for grouping diagnostic code to PheWAS classification (<code><a href='dxPheWAS.html'>dxPheWAS</a></code>: icdDxToPheWAS). <code>icdDxDecimalToShort</code> can be used for grouping to the other classification methods (<code><a href='dxCCS.html'>dxCCS</a></code>: icdDxToCCS &amp; icdDxToCCSLvl; <code><a href='dxComorbid.html'>dxComorbid</a></code>: icdDxToComorbid). These transformation functions do not only convert the ICD codes to uniform format but also check potential coding error of the ICD format and version.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># sample file for example</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>sampleDxFile</span>)</div><div class='output co'>#&gt;     ID  ICD       Date
-#&gt; 1:  A2 Z992 2020-05-22
-#&gt; 2:  A5 Z992 2020-01-24
-#&gt; 3:  A8 Z992 2015-10-27
-#&gt; 4: A13 Z992 2020-04-26
-#&gt; 5: A13 Z992 2025-02-02
-#&gt; 6: A15 Z992 2023-05-12</div><div class='input'>
-<span class='co'># convert the diagnostic codes to the decimal format</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sampleDxFile</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     ID  ICD       Date Version
+#&gt; 1:  A2 Z992 2020-05-22      10
+#&gt; 2:  A5 Z992 2020-01-24      10
+#&gt; 3:  A8 Z992 2015-10-27      10
+#&gt; 4: A13 Z992 2020-04-26      10
+#&gt; 5: A13 Z992 2025-02-02      10
+#&gt; 6: A15 Z992 2023-05-12      10</div><div class='input'>
+<span class='co'># convert the diagnostic codes to the decimal format by Date</span>
 
-<span class='fu'>icdDxShortToDecimal</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
+<span class='fu'>icdDxShortToDecimal</span><span class='op'>(</span><span class='va'>sampleDxFile</span>, <span class='va'>ICD</span>, <span class='va'>Date</span>, icd10usingDate <span class='op'>=</span> <span class='st'>"2015/10/01"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
 #&gt;         ICD
 #&gt;   1:  Z99.2
 #&gt;   2:  Z99.2
@@ -217,9 +215,10 @@
 #&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
 #&gt; 16:   7552     2            ICD 9  Wrong format      75529
 #&gt; </div><div class='input'>
-<span class='co'># convert the diagnostic codes to the short format</span>
+<span class='co'># convert the diagnostic codes to the short format by ICD version</span>
 
-<span class='fu'>icdDxDecimalToShort</span>(<span class='no'>sampleDxFile</span>,<span class='no'>ICD</span>,<span class='no'>Date</span>, <span class='kw'>icd10usingDate</span> <span class='kw'>=</span> <span class='st'>"2015/10/01"</span>)</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
+<span class='fu'>icdDxDecimalToShort</span><span class='op'>(</span><span class='va'>sampleDxFile</span>, <span class='va'>ICD</span>, <span class='va'>Date</span>, icdVerColName <span class='op'>=</span> <span class='va'>Version</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='message'>Wrong ICD version: total 7 ICD codes (the number of occurrences is in brackets)</span></div><div class='output co'>#&gt; <span class='message'>c("V27.0 (18)", "A01.05 (8)", "42761 (7)", "V24.1 (6)", "A0105 (5)", "E03.0 (4)", "650 (4)")</span></div><div class='output co'>#&gt; <span class='message'>	</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The ICD mentioned above matches to "NA" due to the format or other issues.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD format" means the ICD has wrong format</span></div><div class='output co'>#&gt; <span class='warning'>Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause the "icd10usingDate" or other issues)</span></div><div class='output co'>#&gt; $ICD
 #&gt;         ICD
 #&gt;   1:   Z992
 #&gt;   2:   Z992
@@ -251,7 +250,9 @@
 #&gt; 14: 123.45     3           ICD 10  Wrong format           
 #&gt; 15:  755.2     3            ICD 9  Wrong format     755.29
 #&gt; 16:   7552     2            ICD 9  Wrong format      75529
-#&gt; </div></pre>
+#&gt; </div><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +268,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
