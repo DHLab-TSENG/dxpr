@@ -31,11 +31,9 @@ icdDxToCCSR <- function(dxDataFile, idColName, icdColName, dateColName, icdVerCo
     ccsr_col <- "CCSR_CATEGORY"
   }
   if (deparse(substitute(icdVerColName)) != "NULL"){
-    allCCSR <- rbind(dxDataFile[Version == 9,],
-                    merge(dxDataFile[Version == 10,],ccsrDxSingle[,c("ICD",ccsr_col)],by.x ="Short",by.y = "ICD",all.x = TRUE),  fill=TRUE)
+    allCCSR <- rbind(merge(dxDataFile[Version == 10,],ccsrDxSingle[,c("ICD",ccsr_col)],by.x ="Short",by.y = "ICD",all.x = TRUE), dxDataFile[Version == 9,], fill=TRUE)
   }else{
-    allCCSR <- rbind(dxDataFile[Date <icd10usingDate],
-                    merge(dxDataFile[Date >=icd10usingDate],ccsrDxSingle[,c("ICD",ccsr_col)],by.x ="Short",by.y = "ICD",all.x = TRUE),  fill=TRUE)
+    allCCSR <- rbind(merge(dxDataFile[Date >=icd10usingDate],ccsrDxSingle[,c("ICD",ccsr_col)],by.x ="Short",by.y = "ICD",all.x = TRUE), dxDataFile[Date <icd10usingDate], fill=TRUE)
   }
 
   allCCSR <- allCCSR[order(Number),-"Number"]
