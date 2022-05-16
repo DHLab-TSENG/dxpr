@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -52,8 +48,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/DHLab-TSENG/dxpr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/DHLab-TSENG/dxpr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -71,82 +67,87 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with dxpr: Procedure</h1>
-                        <h4 class="author">Hsiang-Ju, Chiu</h4>
+                        <h4 data-toc-skip class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2021-08-09</h4>
+            <h4 data-toc-skip class="date">2022-05-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/master/vignettes/Eng_Procedure.Rmd"><code>vignettes/Eng_Procedure.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/HEAD/vignettes/Eng_Procedure.Rmd" class="external-link"><code>vignettes/Eng_Procedure.Rmd</code></a></small>
       <div class="hidden name"><code>Eng_Procedure.Rmd</code></div>
 
     </div>
 
     
     
-<div id="description" class="section level1">
-<h1 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h1>
+<div class="section level2">
+<h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h2>
 <p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
 <p>In this part, the instruction of how dxpr package workes with procedure records is provided.</p>
-<div id="development-version" class="section level3">
-<h3 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h3>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="section level4">
+<h4 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
+</h4>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="co"># Install development version from GitHub</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="data-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-format" class="anchor"></a>Data Format</h3>
+<div class="section level4">
+<h4 id="data-format">Data Format<a class="anchor" aria-label="anchor" href="#data-format"></a>
+</h4>
 <p>dxpr (procedute part) is used to pre-process procedure codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD procedure codes and date.</p>
 <p>Column names or column order of these three columns does not need to necessarily follow a rule. Each column name will be pass as argument. Detailed information of required data type of every column and argument of functions can be found in the reference section.</p>
 <p>Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DBI/man/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">odbc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span>(),
-                      <span class="kw">Driver</span>   <span class="kw">=</span> <span class="st">"[your driver's name]"</span>,
-                      <span class="kw">Server</span>   <span class="kw">=</span> <span class="st">"[your server's path]"</span>,
-                      <span class="kw">Database</span> <span class="kw">=</span> <span class="st">"[your database's name]"</span>,
-                      <span class="kw">UID</span>      <span class="kw">=</span> <span class="st">"[Database user]"</span>,
-                      <span class="kw">PWD</span>      <span class="kw">=</span> <span class="st">"[Database password]"</span>)
-<span class="no">dxDataFile</span> <span class="kw">&lt;-</span> <span class="fu">dbSendQuery</span>(<span class="no">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span>)
-<span class="fu">dbFetch</span>(<span class="no">dxDataFile</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbConnect</span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu">odbc</span><span class="op">(</span><span class="op">)</span>,
+                      Driver   <span class="op">=</span> <span class="st">"[your driver's name]"</span>,
+                      Server   <span class="op">=</span> <span class="st">"[your server's path]"</span>,
+                      Database <span class="op">=</span> <span class="st">"[your database's name]"</span>,
+                      UID      <span class="op">=</span> <span class="st">"[Database user]"</span>,
+                      PWD      <span class="op">=</span> <span class="st">"[Database password]"</span><span class="op">)</span>
+<span class="va">dxDataFile</span> <span class="op">&lt;-</span> <span class="fu">dbSendQuery</span><span class="op">(</span><span class="va">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span><span class="op">)</span>
+<span class="fu">dbFetch</span><span class="op">(</span><span class="va">dxDataFile</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="sample-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sample-file" class="anchor"></a>Sample file</h3>
+<div class="section level4">
+<h4 id="sample-file">Sample file<a class="anchor" aria-label="anchor" href="#sample-file"></a>
+</h4>
 <p>An example of the data shows as below:<br>
 This data is a simulated medical data set of 3 patients with 170 records.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">samplePrFile</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">samplePrFile</span><span class="op">)</span>
 <span class="co">#&gt;    ID   ICD       Date</span>
 <span class="co">#&gt; 1:  B  5681 2008-01-14</span>
 <span class="co">#&gt; 2:  A  9774 2009-01-11</span>
 <span class="co">#&gt; 3:  B 44.99 2009-05-10</span>
 <span class="co">#&gt; 4:  C 07.59 2009-01-21</span>
 <span class="co">#&gt; 5:  B  0205 2008-07-06</span>
-<span class="co">#&gt; 6:  B  8812 2007-06-27</span></pre></body></html></div>
+<span class="co">#&gt; 6:  B  8812 2007-06-27</span></code></pre></div>
 </div>
-<div id="icd-pcs-code-with-two-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#icd-pcs-code-with-two-format" class="anchor"></a>ICD-PCS code with two format</h3>
+<div class="section level4">
+<h4 id="icd-pcs-code-with-two-format">ICD-PCS code with two format<a class="anchor" aria-label="anchor" href="#icd-pcs-code-with-two-format"></a>
+</h4>
 <p>dxpr package uses ICD-PCS codes as procedure standard. There are two formats of ICD-9 procedure codes, decimal (with a decimal point separating the code) and short format. And ICD-10 is only with short format.</p>
 <p>ICD-9-PCS</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-9-PCS_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Short</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ICD-9-PCS_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9PrwithTwoFormat</span><span class="op">$</span><span class="va">Short</span><span class="op">)</span>
 <span class="co">#&gt; [1] "0001" "0002" "0003" "0009" "0010" "0011"</span>
 
 <span class="co"># ICD-9-PCS_Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9PrwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "00.01" "00.02" "00.03" "00.09" "00.10" "00.11"</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9PrwithTwoFormat</span><span class="op">$</span><span class="va">Decimal</span><span class="op">)</span>
+<span class="co">#&gt; [1] "00.01" "00.02" "00.03" "00.09" "00.10" "00.11"</span></code></pre></div>
 <p>ICD-10-PCS: only short format</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># ICD-10-PCS_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">prICD10</span>$<span class="no">ICD</span>)
-<span class="co">#&gt; [1] "0016071" "0016072" "0016073" "0016074" "0016075" "0016076"</span></pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ICD-10-PCS_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">prICD10</span><span class="op">$</span><span class="va">ICD</span><span class="op">)</span>
+<span class="co">#&gt; [1] "0016071" "0016072" "0016073" "0016074" "0016075" "0016076"</span></code></pre></div>
 </div>
-<div id="i--code-standardization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#i--code-standardization" class="anchor"></a>I. Code standardization</h2>
-<div id="a--icd-9-pcs-code-format-transformationshort---decimal" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--icd-9-pcs-code-format-transformationshort---decimal" class="anchor"></a>A. ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal</h3>
+<div class="section level3">
+<h3 id="i--code-standardization">I. Code standardization<a class="anchor" aria-label="anchor" href="#i--code-standardization"></a>
+</h3>
+<div class="section level4">
+<h4 id="a--icd-9-pcs-code-format-transformationshort---decimal">A. ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal<a class="anchor" aria-label="anchor" href="#a--icd-9-pcs-code-format-transformationshort---decimal"></a>
+</h4>
 <p>dxpr package helps users to standardize the ICD-9 procedure codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as <strong>Table 1</strong>.</p>
 <p><strong>Table 1</strong> Format of code classification methods</p>
 <table class="table">
@@ -167,38 +168,40 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 </table>
 <p>Since formats of ICD-9 codes used within a dataset could be different, users can standardize the codes through this function.</p>
 <p>The function only standardizes ICD-9 codes. There are two ways to distinguish the version of ICD code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric <code>9</code> or <code>10</code>), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.</p>
-<div id="a-1--uniform-decimal-format" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a-1--uniform-decimal-format" class="anchor"></a>A-1. Uniform decimal format</h4>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrShortToDecimal</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
-                               <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                               <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                               <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">decimal</span>$<span class="no">ICD</span>)
+<div class="section level5">
+<h5 id="a-1--uniform-decimal-format">A-1. Uniform decimal format<a class="anchor" aria-label="anchor" href="#a-1--uniform-decimal-format"></a>
+</h5>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">decimal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrShortToDecimal</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
+                               icdColName <span class="op">=</span> <span class="va">ICD</span>, 
+                               dateColName <span class="op">=</span> <span class="va">Date</span>,
+                               icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">decimal</span><span class="op">$</span><span class="va">ICD</span><span class="op">)</span>
 <span class="co">#&gt;      ICD</span>
 <span class="co">#&gt; 1: 56.81</span>
 <span class="co">#&gt; 2: 97.74</span>
 <span class="co">#&gt; 3: 44.99</span>
 <span class="co">#&gt; 4: 07.59</span>
 <span class="co">#&gt; 5: 02.05</span>
-<span class="co">#&gt; 6: 88.12</span></pre></body></html></div>
+<span class="co">#&gt; 6: 88.12</span></code></pre></div>
 </div>
-<div id="a-2--uniform-short-format" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
+<div class="section level5">
+<h5 id="a-2--uniform-short-format">A-2. Uniform short format<a class="anchor" aria-label="anchor" href="#a-2--uniform-short-format"></a>
+</h5>
 <p><code>icdPrShortToDecimal</code> function converts the procedure codes to the short format, which can be used for grouping to the other classification functions (<code>icdPrToCCS</code>, <code>icdPrToCCSLvl</code> and <code>icdPrToProcedureClass</code>).</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
-                             <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                             <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                             <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">short</span>$<span class="no">ICD</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">short</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
+                             icdColName <span class="op">=</span> <span class="va">ICD</span>, 
+                             dateColName <span class="op">=</span> <span class="va">Date</span>,
+                             icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">short</span><span class="op">$</span><span class="va">ICD</span><span class="op">)</span>
 <span class="co">#&gt;     ICD</span>
 <span class="co">#&gt; 1: 5681</span>
 <span class="co">#&gt; 2: 9774</span>
 <span class="co">#&gt; 3: 4499</span>
 <span class="co">#&gt; 4: 0759</span>
 <span class="co">#&gt; 5: 0205</span>
-<span class="co">#&gt; 6: 8812</span></pre></body></html></div>
+<span class="co">#&gt; 6: 8812</span></code></pre></div>
 <p><strong>Warning message</strong></p>
 <p>Besides, code standardization functions generate data of procedure codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.</p>
 <p>There are two error type：<strong>wrong format</strong> and <strong>wrong version</strong>. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after <code>icd10usingDate</code>, etc.).</p>
@@ -206,60 +209,56 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 </div>
 </div>
 </div>
-<div id="ii--data-integration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ii--data-integration" class="anchor"></a>II. Data integration</h2>
+<div class="section level3">
+<h3 id="ii--data-integration">II. Data integration<a class="anchor" aria-label="anchor" href="#ii--data-integration"></a>
+</h3>
 <p>Functions stated below collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.</p>
 <p>dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.</p>
-<div id="a--clinical-classifications-software-ccs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--clinical-classifications-software-ccs" class="anchor"></a>A. Clinical Classifications Software (CCS)</h3>
+<div class="section level4">
+<h4 id="a--clinical-classifications-software-ccs">A. Clinical Classifications Software (CCS)<a class="anchor" aria-label="anchor" href="#a--clinical-classifications-software-ccs"></a>
+</h4>
 <p>The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures.</p>
 <p><strong>1) single-level</strong>: <code>icdPrToCCS</code></p>
 <p>Both ICD-9-PCS and ICD-10-PCS code contains 231 single-level CCS categories which can be corresponded with each other.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">## ICD to CCS category</span>
-<span class="no">CCS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCS</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
-                  <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                  <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                  <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                  <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                  <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS category</span>
+<span class="va">CCS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCS</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
+                  idColName <span class="op">=</span> <span class="va">ID</span>,
+                  icdColName <span class="op">=</span> <span class="va">ICD</span>,        
+                  dateColName <span class="op">=</span> <span class="va">Date</span>,
+                  icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                  isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short ID   ICD       Date CCS_CATEGORY</span>
 <span class="co">#&gt; 1:  5681  B  5681 2008-01-14          112</span>
 <span class="co">#&gt; 2:  9774  A  9774 2009-01-11          131</span>
 <span class="co">#&gt; 3:  4499  B 44.99 2009-05-10           94</span>
 <span class="co">#&gt; 4:  0759  C 07.59 2009-01-21           12</span>
-<span class="co">#&gt; 5:  0205  B  0205 2008-07-06            9</span></pre></body></html></div>
+<span class="co">#&gt; 5:  0205  B  0205 2008-07-06            9</span></code></pre></div>
 <p><strong>2) multi-level</strong>: <code>icdPrToCCSLvl</code></p>
 <p>Multi-level CCS in ICD-9-PCS has 3 levels, and multi-level CCS in ICD-10-PCS has two levels.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
-<span class="no">CCSLvl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCSLvl</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
-                       <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                       <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                       <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                       <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                       <span class="kw">CCSLevel</span> <span class="kw">=</span> <span class="fl">2</span>,
-                       <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS multiple level 2 description</span>
+<span class="va">CCSLvl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCSLvl</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
+                       idColName <span class="op">=</span> <span class="va">ID</span>,
+                       icdColName <span class="op">=</span> <span class="va">ICD</span>,        
+                       dateColName <span class="op">=</span> <span class="va">Date</span>,
+                       icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                       CCSLevel <span class="op">=</span> <span class="fl">2</span>,
+                       isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCSLvl</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
-<span class="co">#&gt;    Short ID   ICD       Date</span>
-<span class="co">#&gt; 1:  5681  B  5681 2008-01-14</span>
-<span class="co">#&gt; 2:  9774  A  9774 2009-01-11</span>
-<span class="co">#&gt; 3:  4499  B 44.99 2009-05-10</span>
-<span class="co">#&gt; 4:  0759  C 07.59 2009-01-21</span>
-<span class="co">#&gt; 5:  0205  B  0205 2008-07-06</span>
-<span class="co">#&gt;                                       CCS_LVL_2_LABEL</span>
-<span class="co">#&gt; 1:   Other OR therapeutic procedures of urinary tract</span>
-<span class="co">#&gt; 2: Other non-OR therapeutic procedures; female organs</span>
-<span class="co">#&gt; 3:           Other OR upper GI therapeutic procedures</span>
-<span class="co">#&gt; 4:             Other therapeutic endocrine procedures</span>
-<span class="co">#&gt; 5:     Other OR therapeutic nervous system procedures</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSLvl</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;    Short ID   ICD       Date                                    CCS_LVL_2_LABEL</span>
+<span class="co">#&gt; 1:  5681  B  5681 2008-01-14   Other OR therapeutic procedures of urinary tract</span>
+<span class="co">#&gt; 2:  9774  A  9774 2009-01-11 Other non-OR therapeutic procedures; female organs</span>
+<span class="co">#&gt; 3:  4499  B 44.99 2009-05-10           Other OR upper GI therapeutic procedures</span>
+<span class="co">#&gt; 4:  0759  C 07.59 2009-01-21             Other therapeutic endocrine procedures</span>
+<span class="co">#&gt; 5:  0205  B  0205 2008-07-06     Other OR therapeutic nervous system procedures</span></code></pre></div>
 </div>
-<div id="b--procedure-class" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--procedure-class" class="anchor"></a>B. Procedure Class</h3>
+<div class="section level4">
+<h4 id="b--procedure-class">B. Procedure Class<a class="anchor" aria-label="anchor" href="#b--procedure-class"></a>
+</h4>
 <p>Procedure Classes are part of the family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP) by AHRQ.<br>
 The Procedure Classes assign all ICD procedure codes to one of four categories:</p>
 <ul>
@@ -268,49 +267,51 @@ The Procedure Classes assign all ICD procedure codes to one of four categories:<
 <li>Major Diagnostic - Operating room procedures that are diagnostic</li>
 <li>Major Therapeutic - Operating room procedures that are therapeutic</li>
 </ul>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">ProcedureClass</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/PC.html">icdPrToProcedureClass</a></span>(<span class="kw">prDataFile</span> <span class="kw">=</span> <span class="no">samplePrFile</span>,
-                                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                        <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ProcedureClass</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PC.html">icdPrToProcedureClass</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
+                                        idColName <span class="op">=</span> <span class="va">ID</span>,
+                                        icdColName <span class="op">=</span> <span class="va">ICD</span>,      
+                                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                                        isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ProcedureClass</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ProcedureClass</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short ID   ICD       Date PROCEDURE_CLASS</span>
 <span class="co">#&gt; 1:  5681  B  5681 2008-01-14               4</span>
 <span class="co">#&gt; 2:  9774  A  9774 2009-01-11               2</span>
 <span class="co">#&gt; 3:  4499  B 44.99 2009-05-10               4</span>
 <span class="co">#&gt; 4:  0759  C 07.59 2009-01-21               4</span>
-<span class="co">#&gt; 5:  0205  B  0205 2008-07-06               4</span></pre></body></html></div>
+<span class="co">#&gt; 5:  0205  B  0205 2008-07-06               4</span></code></pre></div>
 </div>
 </div>
-<div id="reference" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
-<div id="i--code-standardization-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#i--code-standardization-1" class="anchor"></a>I. Code standardization</h3>
-<p>ICD-9-PCS code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
-<p>ICD-10-PCS code (2019):<a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
-<p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
-<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
+<div class="section level3">
+<h3 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
+</h3>
+<div class="section level4">
+<h4 id="i--code-standardization-1">I. Code standardization<a class="anchor" aria-label="anchor" href="#i--code-standardization-1"></a>
+</h4>
+<p>ICD-9-PCS code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-PCS code (2019):<a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-PCS.html</a></p>
+<p><a href="https://www.findacode.com/search/search.php" class="external-link uri">https://www.findacode.com/search/search.php</a></p>
+<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="external-link uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="ii--data-integration-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ii--data-integration-1" class="anchor"></a>II. Data integration</h3>
+<div class="section level4">
+<h4 id="ii--data-integration-1">II. Data integration<a class="anchor" aria-label="anchor" href="#ii--data-integration-1"></a>
+</h4>
 <p>** Clinical Classifications Software (CCS)**</p>
-<p>ICD-9-PCS CCS (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
-<p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
-<p>ICD-10-PCS CCS (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+<p>ICD-9-PCS CCS (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
+<p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
+<p>ICD-10-PCS CCS (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
 <p><strong>Procedure Class</strong></p>
-<p>ICD-9-Procedure Class (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
-<p>ICD-10-Procedure Class (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
+<p>ICD-9-Procedure Class (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedure/pc2015.csv</a></p>
+<p>ICD-10-Procedure Class (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
@@ -320,11 +321,13 @@ The Procedure Classes assign all ICD procedure codes to one of four categories:<
 
 
       <footer><div class="copyright">
-  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
+  <p></p>
+<p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng, Chun-Ju Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -332,6 +335,8 @@ The Procedure Classes assign all ICD procedure codes to one of four categories:<
 
   
 
+
+  
 
   </body>
 </html>

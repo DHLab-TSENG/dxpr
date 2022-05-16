@@ -35,6 +35,7 @@ Useful links:
 Authors:
 \itemize{
   \item Yi-Ju Tseng \email{yjtseng@mail.cgu.edu.tw}
+  \item Chun-Ju Chen \email{ju.chin.0902@mail.cgu.edu.tw}
 }
 
 }

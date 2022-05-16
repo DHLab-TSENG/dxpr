@@ -29,7 +29,7 @@ selectCases(
 
 \item{dateColName}{Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.}
 
-\item{icdVerColName}{(Optional) Column name of ICD-9/10 version recorded in dxDataFile. Data format in this column should be numeric 9L or 10L.}
+\item{icdVerColName}{(Optional) Column name if there is a columns to record ICD-9/10 version used in dxDataFile. In this column, data format should be numeric 9L or 10L to indicate which ICD version is used for every cell. See examples below to get more information.}
 
 \item{icd10usingDate}{The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.}
 

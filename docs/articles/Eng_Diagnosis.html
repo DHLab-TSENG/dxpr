@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -52,8 +48,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/DHLab-TSENG/dxpr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/DHLab-TSENG/dxpr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -71,84 +67,89 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with dxpr: Diagnosis</h1>
-                        <h4 class="author">Hsiang-Ju, Chiu</h4>
+                        <h4 data-toc-skip class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2021-08-09</h4>
+            <h4 data-toc-skip class="date">2022-05-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/master/vignettes/Eng_Diagnosis.Rmd"><code>vignettes/Eng_Diagnosis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/HEAD/vignettes/Eng_Diagnosis.Rmd" class="external-link"><code>vignettes/Eng_Diagnosis.Rmd</code></a></small>
       <div class="hidden name"><code>Eng_Diagnosis.Rmd</code></div>
 
     </div>
 
     
     
-<div id="description" class="section level1">
-<h1 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h1>
+<div class="section level2">
+<h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h2>
 <p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
 <p>In this part, the instruction of how dxpr package workes with diagnosis records is provided.</p>
-<div id="development-version" class="section level3">
-<h3 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h3>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="section level4">
+<h4 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
+</h4>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="co"># Install development version from GitHub</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="data-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-format" class="anchor"></a>Data Format</h3>
+<div class="section level4">
+<h4 id="data-format">Data Format<a class="anchor" aria-label="anchor" href="#data-format"></a>
+</h4>
 <p>dxpr (diagnosis part) is used to pre-process diagnosis codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD diagnosis codes and date.</p>
 <p>Column names or column order of these three columns does not need to necessarily follow a rule. Each required column name will be an argument in functions. Detailed information of required data type of every column and argument of functions can be found in the reference section.</p>
 <p>Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">con</span> <span class="kw">&lt;-</span> <span class="kw pkg">DBI</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/DBI/man/dbConnect.html">dbConnect</a></span>(<span class="kw pkg">odbc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span>(),
-                      <span class="kw">Driver</span>   <span class="kw">=</span> <span class="st">"[your driver's name]"</span>,
-                      <span class="kw">Server</span>   <span class="kw">=</span> <span class="st">"[your server's path]"</span>,
-                      <span class="kw">Database</span> <span class="kw">=</span> <span class="st">"[your database's name]"</span>,
-                      <span class="kw">UID</span>      <span class="kw">=</span> <span class="st">"[Database user]"</span>,
-                      <span class="kw">PWD</span>      <span class="kw">=</span> <span class="st">"[Database password]"</span>)
-<span class="no">dxDataFile</span> <span class="kw">&lt;-</span> <span class="fu">dbSendQuery</span>(<span class="no">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span>)
-<span class="fu">dbFetch</span>(<span class="no">dxDataFile</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbConnect</span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu">odbc</span><span class="op">(</span><span class="op">)</span>,
+                      Driver   <span class="op">=</span> <span class="st">"[your driver's name]"</span>,
+                      Server   <span class="op">=</span> <span class="st">"[your server's path]"</span>,
+                      Database <span class="op">=</span> <span class="st">"[your database's name]"</span>,
+                      UID      <span class="op">=</span> <span class="st">"[Database user]"</span>,
+                      PWD      <span class="op">=</span> <span class="st">"[Database password]"</span><span class="op">)</span>
+<span class="va">dxDataFile</span> <span class="op">&lt;-</span> <span class="fu">dbSendQuery</span><span class="op">(</span><span class="va">con</span>, <span class="st">"SELECT * FROM example_table WHERE ID = 'sampleID'"</span><span class="op">)</span>
+<span class="fu">dbFetch</span><span class="op">(</span><span class="va">dxDataFile</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="sample-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sample-file" class="anchor"></a>Sample file</h3>
+<div class="section level4">
+<h4 id="sample-file">Sample file<a class="anchor" aria-label="anchor" href="#sample-file"></a>
+</h4>
 <p>A sample rda file is included in dxpr package:<br>
 This dataset is a simulated medical dataset of 38 patients with overall 300 records.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sampleDxFile</span>)
-<span class="co">#&gt;     ID  ICD       Date</span>
-<span class="co">#&gt; 1:  A2 Z992 2020-05-22</span>
-<span class="co">#&gt; 2:  A5 Z992 2020-01-24</span>
-<span class="co">#&gt; 3:  A8 Z992 2015-10-27</span>
-<span class="co">#&gt; 4: A13 Z992 2020-04-26</span>
-<span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
-<span class="co">#&gt; 6: A15 Z992 2023-05-12</span></pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sampleDxFile</span><span class="op">)</span>
+<span class="co">#&gt;     ID  ICD       Date Version</span>
+<span class="co">#&gt; 1:  A2 Z992 2020-05-22      10</span>
+<span class="co">#&gt; 2:  A5 Z992 2020-01-24      10</span>
+<span class="co">#&gt; 3:  A8 Z992 2015-10-27      10</span>
+<span class="co">#&gt; 4: A13 Z992 2020-04-26      10</span>
+<span class="co">#&gt; 5: A13 Z992 2025-02-02      10</span>
+<span class="co">#&gt; 6: A15 Z992 2023-05-12      10</span></code></pre></div>
 </div>
-<div id="icd-cm-code-with-two-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#icd-cm-code-with-two-format" class="anchor"></a>ICD-CM code with two format</h3>
+<div class="section level4">
+<h4 id="icd-cm-code-with-two-format">ICD-CM code with two format<a class="anchor" aria-label="anchor" href="#icd-cm-code-with-two-format"></a>
+</h4>
 <p>dxpr package uses ICD-CM codes as diagnosis standard. There are two formats of ICD-9 and ICD-10 diagnostic codes, decimal (with a decimal point separating the code) and short format, respectively. So two tables of ICD-9-CM and ICD-10-CM are generated to deal with different user needs: <code>ICD9DxwithTwoFormat</code> and <code>ICD10DxwithTwoFormat</code>.</p>
 <p>ICD-9-CM</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># ICD-9-CM_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Short</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ICD-9-CM_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9DxwithTwoFormat</span><span class="op">$</span><span class="va">Short</span><span class="op">)</span>
 <span class="co">#&gt; [1] "E0000" "E0001" "E0002" "E0008" "E0009" "E0010"</span>
 <span class="co"># ICD-9-CM_Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9DxwithTwoFormat</span><span class="op">$</span><span class="va">Decimal</span><span class="op">)</span>
+<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></code></pre></div>
 <p>ICD-10-CM</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># ICD-10-CM_Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Short</span>)
-<span class="co">#&gt; [1] "A001"  "A009"  "A0100" "A0101" "A0102" "A0103"</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ICD-10-CM_Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD10DxwithTwoFormat</span><span class="op">$</span><span class="va">Short</span><span class="op">)</span>
+<span class="co">#&gt; [1] "A000"  "A001"  "A009"  "A0100" "A0101" "A0102"</span>
 <span class="co"># ICD-10-CM_Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02" "A01.03"</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD10DxwithTwoFormat</span><span class="op">$</span><span class="va">Decimal</span><span class="op">)</span>
+<span class="co">#&gt; [1] "A00.0"  "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02"</span></code></pre></div>
 </div>
-<div id="i-code-integration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#i-code-integration" class="anchor"></a>I.Code Integration</h2>
-<div id="a--icd-diagnostic-code-format-transformationshort---decimal" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--icd-diagnostic-code-format-transformationshort---decimal" class="anchor"></a>A. ICD diagnostic code format transformation：Short &lt;-&gt; Decimal</h3>
+<div class="section level3">
+<h3 id="i-code-integration">I.Code Integration<a class="anchor" aria-label="anchor" href="#i-code-integration"></a>
+</h3>
+<div class="section level4">
+<h4 id="a--icd-diagnostic-code-format-transformationshort---decimal">A. ICD diagnostic code format transformation：Short &lt;-&gt; Decimal<a class="anchor" aria-label="anchor" href="#a--icd-diagnostic-code-format-transformationshort---decimal"></a>
+</h4>
 <p>dxpr package helps users to standardize the ICD-9 and ICD-10 diagnostic codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as <strong>Table 1</strong>.</p>
 <p><strong>Table 1</strong> Format of code classification methods</p>
 <table class="table">
@@ -179,15 +180,16 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <p>There are two error type：<strong>wrong format</strong> and <strong>wrong version</strong>. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after <code>icd10usingDate</code>, etc.).</p>
 <p>Users can check data after receiving the warning message.</p>
 <p>dxpr package also provides an overview of error ICD data by Pareto chart (function <code>plotICDError</code>).</p>
-<div id="a-1--uniform-decimal-format" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a-1--uniform-decimal-format" class="anchor"></a>A-1. Uniform decimal format</h4>
+<div class="section level5">
+<h5 id="a-1--uniform-decimal-format">A-1. Uniform decimal format<a class="anchor" aria-label="anchor" href="#a-1--uniform-decimal-format"></a>
+</h5>
 <p>The standardization function <code>icdDxShortToDecimal</code> converts the ICD diagnostic codes to a uniform decimal format, which can be used for grouping diagnostic code to PheWAS classification.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Short to decimal</span>
-<span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                               <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                               <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                               <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Short to decimal</span>
+<span class="va">decimal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                               icdColName <span class="op">=</span> <span class="va">ICD</span>, 
+                               dateColName <span class="op">=</span> <span class="va">Date</span>,
+                               icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
 <span class="co">#&gt; Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span>
 <span class="co">#&gt; c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span>
 <span class="co">#&gt;  </span>
@@ -197,19 +199,21 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <span class="co">#&gt; Warning: The ICD mentioned above matches to "NA" due to the format or other</span>
 <span class="co">#&gt; issues.</span>
 <span class="co">#&gt; Warning: "Wrong ICD format" means the ICD has wrong format</span>
-<span class="co">#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version</span>
-<span class="co">#&gt; (cause the "icd10usingDate" or other issues)</span></pre></body></html></div>
+<span class="co">#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause</span>
+<span class="co">#&gt; the "icd10usingDate" or other issues)</span></code></pre></div>
 <p>In this example, the starting using date of ICD-10 is “2015/10/01” (format: “YYYY/MM/DD”).</p>
 <p>Also, there are 9 ICD codes labeled as “wrong format”, and 7 ICD labeled as “wrong version”.</p>
 <p>The results are:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">decimal</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">decimal</span><span class="op">$</span><span class="va">ICD</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;       ICD</span>
 <span class="co">#&gt; 1:  Z99.2</span>
 <span class="co">#&gt; 2:  585.5</span>
 <span class="co">#&gt; 3: V45.11</span>
 <span class="co">#&gt; 4:  V56.0</span>
-<span class="co">#&gt; 5:  585.3</span></pre></body></html></div>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">decimal</span>$<span class="no">Error</span>
+<span class="co">#&gt; 5:  585.3</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">decimal</span><span class="op">$</span><span class="va">Error</span>
 <span class="co">#&gt;        ICD count IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18           ICD 10 Wrong version           </span>
@@ -226,30 +230,31 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <span class="co">#&gt; 13:    650     4           ICD 10 Wrong version           </span>
 <span class="co">#&gt; 14: 123.45     3           ICD 10  Wrong format           </span>
 <span class="co">#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29</span>
-<span class="co">#&gt; 16:   7552     2            ICD 9  Wrong format      75529</span></pre></body></html></div>
+<span class="co">#&gt; 16:   7552     2            ICD 9  Wrong format      75529</span></code></pre></div>
 <p><code>decimal$Error</code> shows individual error ICD codes in descending order.</p>
 </div>
-<div id="a-2--uniform-short-format" class="section level4">
-<h4 class="hasAnchor">
-<a href="#a-2--uniform-short-format" class="anchor"></a>A-2. Uniform short format</h4>
+<div class="section level5">
+<h5 id="a-2--uniform-short-format">A-2. Uniform short format<a class="anchor" aria-label="anchor" href="#a-2--uniform-short-format"></a>
+</h5>
 <p><code>icdDxDecimalToShort</code> function converts the diagnostic codes to the short format, which can be used for grouping to CCS and comorbidities classification.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Decimal to short</span>
-<span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">short</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Decimal to short</span>
+<span class="va">short</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                            icdColName <span class="op">=</span> <span class="va">ICD</span>,         
+                            dateColName <span class="op">=</span> <span class="va">Date</span>,
+                            icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="va">short</span><span class="op">$</span><span class="va">ICD</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;      ICD</span>
 <span class="co">#&gt; 1:  Z992</span>
 <span class="co">#&gt; 2:  5855</span>
 <span class="co">#&gt; 3: V4511</span>
 <span class="co">#&gt; 4:  V560</span>
-<span class="co">#&gt; 5:  5853</span></pre></body></html></div>
+<span class="co">#&gt; 5:  5853</span></code></pre></div>
 </div>
 </div>
-<div id="b--data-integration" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--data-integration" class="anchor"></a>B. Data integration</h3>
+<div class="section level4">
+<h4 id="b--data-integration">B. Data integration<a class="anchor" aria-label="anchor" href="#b--data-integration"></a>
+</h4>
 <p>Functions in data integration section collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.</p>
 <p>dxpr package supports four strategies to group EHR diagnosis codes, including CCS, PheWAS, comorbidities, and customized defined grouping methods.</p>
 <p>The output of code classification contains two data frames.</p>
@@ -304,27 +309,29 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <p>The two outputs can be used in the following functions. <strong>groupedDT</strong> can be used to select relevant cases (function <code>selectCases</code>) and calculate condition era (function <code>getConditionEra</code>). <strong>summarised_groupedDT</strong> can be used to convert the long format of grouped data into a wide format (function <code>groupedDataLongToWide</code>) which is fit to other analytical and plotting packages.</p>
 <p>Users can choose the column information of <code>groupType</code> is “category” or “description” (<code>isDescription</code> = <code>TRUE</code> or <code>FALSE</code>)</p>
 <p>For example, the ccs description is “Tuberculosis” while the category is “1”.</p>
-<div id="b-1--clinical-classifications-software-ccs" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b-1--clinical-classifications-software-ccs" class="anchor"></a>B-1. Clinical Classifications Software (CCS)</h4>
+<div class="section level5">
+<h5 id="b-1-1--clinical-classifications-software-ccs">B-1-1. Clinical Classifications Software (CCS)<a class="anchor" aria-label="anchor" href="#b-1-1--clinical-classifications-software-ccs"></a>
+</h5>
 <p>The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.</p>
+<p><strong>Stop updating since 2019.</strong></p>
 <p><strong>1) single-level</strong>: <code>icdDxToCCS</code></p>
 <p>Both ICD-9-CM and ICD-10-CM code contains 260 single-level CCS categories which can be corresponded with each other.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## ICD to CCS with category description </span>
-<span class="no">CCS_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                              <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                              <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                              <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_description</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS with category description </span>
+<span class="va">CCS_description</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                              idColName <span class="op">=</span> <span class="va">ID</span>,
+                              icdColName <span class="op">=</span> <span class="va">ICD</span>,        
+                              dateColName <span class="op">=</span> <span class="va">Date</span>,
+                              icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                              isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_description</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short  ID  ICD       Date CCS_CATEGORY_DESCRIPTION</span>
 <span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22   Chronic kidney disease</span>
 <span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24   Chronic kidney disease</span>
 <span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27   Chronic kidney disease</span>
 <span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26   Chronic kidney disease</span>
 <span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02   Chronic kidney disease</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_description</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_description</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID CCS_CATEGORY_DESCRIPTION firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0   Chronic kidney disease    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1   Chronic kidney disease    2006-11-29  2014-09-24     5 2856 days</span>
@@ -333,329 +340,363 @@ This dataset is a simulated medical dataset of 38 patients with overall 300 reco
 <span class="co">#&gt; 5: A12   Chronic kidney disease    2006-05-14  2015-06-29     5 3333 days</span>
 
 <span class="co">## ICD to CCS with category</span>
-<span class="no">CCS_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                          <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                          <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                          <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_category</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="va">CCS_category</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>, 
+                          idColName <span class="op">=</span> <span class="va">ID</span>,         
+                          icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                          dateColName <span class="op">=</span> <span class="va">Date</span>, 
+                          icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                          isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_category</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short  ID  ICD       Date CCS_CATEGORY</span>
 <span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22          158</span>
 <span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24          158</span>
 <span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27          158</span>
 <span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26          158</span>
 <span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02          158</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_category</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_category</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID CCS_CATEGORY firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0          158    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1          158    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10          158    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11          158    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12          158    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12          158    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>2) multi-level</strong>: <code>icdDxToCCSLvl</code></p>
 <p>Multi-level CCS in ICD-9-CM has four levels, and multi-level CCS in ICD-10-CM has two levels.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
-<span class="no">CCSlvl_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                    <span class="kw">CCSLevel</span> <span class="kw">=</span> <span class="fl">2</span>,
-                                    <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCSlvl_description</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS multiple level 2 description</span>
+<span class="va">CCSlvl_description</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                    idColName <span class="op">=</span> <span class="va">ID</span>,  
+                                    icdColName <span class="op">=</span> <span class="va">ICD</span>,   
+                                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                    icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                                    CCSLevel <span class="op">=</span> <span class="fl">2</span>,
+                                    isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSlvl_description</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short  ID  ICD       Date                CCS_LVL_2_LABEL</span>
 <span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22 Diseases of the urinary system</span>
 <span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24 Diseases of the urinary system</span>
 <span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27 Diseases of the urinary system</span>
 <span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26 Diseases of the urinary system</span>
 <span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02 Diseases of the urinary system</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCSlvl_description</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
-<span class="co">#&gt;     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count</span>
-<span class="co">#&gt; 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5</span>
-<span class="co">#&gt; 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5</span>
-<span class="co">#&gt; 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5</span>
-<span class="co">#&gt; 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5</span>
-<span class="co">#&gt; 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5</span>
-<span class="co">#&gt;       period</span>
-<span class="co">#&gt; 1: 1609 days</span>
-<span class="co">#&gt; 2: 2856 days</span>
-<span class="co">#&gt; 3: 1730 days</span>
-<span class="co">#&gt; 4: 1273 days</span>
-<span class="co">#&gt; 5: 3333 days</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSlvl_description</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5 3333 days</span>
 
 <span class="co">## ICD to CCS multiple level 3 category</span>
-<span class="no">CCSLvl_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                    <span class="kw">CCSLevel</span> <span class="kw">=</span> <span class="fl">3</span>,
-                                    <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="va">CCSLvl_category</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                    idColName <span class="op">=</span> <span class="va">ID</span>,  
+                                    icdColName <span class="op">=</span> <span class="va">ICD</span>,   
+                                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                    icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                                    CCSLevel <span class="op">=</span> <span class="fl">3</span>,
+                                    isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="b-2--phewas" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b-2--phewas" class="anchor"></a>B-2. PheWAS</h4>
+<div class="section level5">
+<h5 id="b-1-2--clinical-classifications-software-refined-ccsr">B-1-2. Clinical Classifications Software Refined (CCSR)<a class="anchor" aria-label="anchor" href="#b-1-2--clinical-classifications-software-refined-ccsr"></a>
+</h5>
+<p>The CCSR classification for ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.</p>
+<p>Unlike CCS, a diagnosis code can be classified into more than one categories in CCSR. However, it is only applicable to ICD-10.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCSR with category description </span>
+<span class="va">CCSR_description</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCSR.html">icdDxToCCSR</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                              idColName <span class="op">=</span> <span class="va">ID</span>,
+                              icdColName <span class="op">=</span> <span class="va">ICD</span>,        
+                              dateColName <span class="op">=</span> <span class="va">Date</span>,
+                              icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                              isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSR_description</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;    Short  ID  ICD       Date CCSR_CATEGORY_DESCRIPTION</span>
+<span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22    Other specified status</span>
+<span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24    Other specified status</span>
+<span class="co">#&gt; 3:  Z992  A8 Z992 2015-10-27    Other specified status</span>
+<span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26    Other specified status</span>
+<span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02    Other specified status</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSR_description</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;     ID CCSR_CATEGORY_DESCRIPTION firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1: A13    Other specified status    2020-04-26  2025-02-02     2 1743 days</span>
+<span class="co">#&gt; 2: A15    Other specified status    2023-05-12  2023-05-12     1    0 days</span>
+<span class="co">#&gt; 3:  A2    Other specified status    2020-05-22  2020-05-22     1    0 days</span>
+<span class="co">#&gt; 4:  A5    Other specified status    2020-01-24  2020-01-24     1    0 days</span>
+<span class="co">#&gt; 5:  A8    Other specified status    2015-10-27  2015-10-27     1    0 days</span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="b-2--phewas">B-2. PheWAS<a class="anchor" aria-label="anchor" href="#b-2--phewas"></a>
+</h5>
 <p>The dxpr package applied PheWAS, performing a hierarchical grouping of ICD-9 diagnostic codes and ICD-10 diagnostic codes (beta version).</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## ICD to PheWAS</span>
-<span class="no">PheWAS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxPheWAS.html">icdDxToPheWAS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                         <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                         <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">PheWAS</span>$<span class="no">groupedDT</span>[<span class="fl">7</span>:<span class="fl">11</span>]
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to PheWAS</span>
+<span class="va">PheWAS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxPheWAS.html">icdDxToPheWAS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                         idColName <span class="op">=</span> <span class="va">ID</span>,           
+                         icdColName <span class="op">=</span> <span class="va">ICD</span>,     
+                         dateColName <span class="op">=</span> <span class="va">Date</span>,
+                         icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                         isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">PheWAS</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>
 <span class="co">#&gt;    Decimal ID   ICD       Date PheCode</span>
 <span class="co">#&gt; 1:   585.5 A0  5855 2013-12-20  585.32</span>
 <span class="co">#&gt; 2:  V45.11 A0 V4511 2012-04-05  585.31</span>
 <span class="co">#&gt; 3:   V56.0 A0  V560 2010-03-28  585.31</span>
 <span class="co">#&gt; 4:   585.3 A0  5853 2010-10-29  585.33</span>
 <span class="co">#&gt; 5:   585.6 A0  5856 2009-07-25  585.32</span>
-<span class="no">PheWAS</span>$<span class="no">summarised_groupedDT</span>[<span class="fl">7</span>:<span class="fl">11</span>]
+<span class="va">PheWAS</span><span class="op">$</span><span class="va">summarised_groupedDT</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>
 <span class="co">#&gt;    ID PheCode firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1: A0  585.31    2010-03-28  2012-04-05     2  739 days</span>
 <span class="co">#&gt; 2: A0  585.33    2010-10-29  2010-10-29     1    0 days</span>
 <span class="co">#&gt; 3: A1  585.32    2006-11-29  2013-04-28     3 2342 days</span>
 <span class="co">#&gt; 4: A1  585.33    2014-09-24  2014-09-24     1    0 days</span>
-<span class="co">#&gt; 5: A1  585.31    2008-06-25  2008-06-25     1    0 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A1  585.31    2008-06-25  2008-06-25     1    0 days</span></code></pre></div>
 </div>
-<div id="b-3--comorbidities" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b-3--comorbidities" class="anchor"></a>B-3. Comorbidities</h4>
+<div class="section level5">
+<h5 id="b-3--comorbidities">B-3. Comorbidities<a class="anchor" aria-label="anchor" href="#b-3--comorbidities"></a>
+</h5>
 <p>The dxpr package provides three grouping methods of comorbidity as below:</p>
 <p><strong>1) AHRQ</strong></p>
 <p>AHRQ comorbidity measure dataset is based on AHRQ Elixhauser Comorbidity Index.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">AHRQ</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">AHRQ</span>)
-<span class="no">AHRQ</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AHRQ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">AHRQ</span><span class="op">)</span>
+<span class="va">AHRQ</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06   Rheumatic</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       Liver</span>
 <span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23  NeuroOther</span>
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15       Drugs</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13    Lymphoma</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">AHRQ</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">AHRQ</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0       Renal    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1       Renal    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10       Renal    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11       Renal    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>2) Charlson</strong></p>
 <p>Charlson comorbidity measure dataset is based on Quan’s translations of the Charlson Comorbidity Index.</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">Charlson</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">charlson</span>)
-<span class="no">Charlson</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Charlson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">charlson</span><span class="op">)</span>
+<span class="va">Charlson</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06       Rheum</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04        MSLD</span>
 <span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23        &lt;NA&gt;</span>
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        &lt;NA&gt;</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13      CANCER</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Charlson</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Charlson</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0          RD    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1          RD    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10          RD    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11          RD    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></code></pre></div>
 <p><strong>3) Elixhauser</strong></p>
 <p>The Elixhauser comorbidity software is one in a family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP).</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">elix</span>)
-<span class="no">ELIX</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ELIX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">elix</span><span class="op">)</span>
+<span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06        ARTH</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       LIVER</span>
 <span class="co">#&gt; 3: O99353 D2 O99353 2023-10-23       NEURO</span>
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        DRUG</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13       LYMPH</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ELIX</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ELIX</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 </div>
-<div id="b-4--customize-group-method" class="section level4">
-<h4 class="hasAnchor">
-<a href="#b-4--customize-group-method" class="anchor"></a>B-4. Customize group method</h4>
+<div class="section level5">
+<h5 id="b-4--customize-group-method">B-4. Customize group method<a class="anchor" aria-label="anchor" href="#b-4--customize-group-method"></a>
+</h5>
 <p>The dxpr package provided customized grouping functions, in which researches can define the grouping categories; therefore, it is more flexible for grouping ICD diagnostic codes.</p>
 <p>For example, researcher can declare a customized grouping table for <strong>chronic kidney disease</strong> category, and convert an existing dataset into a grouped chronic kidney disease dataset.</p>
 <p>There are two functions for customized defined grouping method based on precise and fuzzy grouping method, respectively.</p>
 <p><strong>1) Precise method</strong>: <code>icdDxToCustom</code></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># CustomGroupingTable </span>
-<span class="no">groupingTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Chronic kidney disease"</span>,<span class="fl">6</span>),
-                            <span class="kw">ICD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>),
-                            <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">CustomGroup</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustom</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                             <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                             <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                             <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                             <span class="kw">customGroupingTable</span> <span class="kw">=</span> <span class="no">groupingTable</span>)
-<span class="no">CustomGroup</span>$<span class="no">groupedDT</span>[<span class="fl">10</span>:<span class="fl">14</span>]
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># CustomGroupingTable </span>
+<span class="va">groupingTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Chronic kidney disease"</span>,<span class="fl">6</span><span class="op">)</span>,
+                            ICD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span><span class="op">)</span>,
+                            stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">CustomGroup</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustom</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,  
+                             idColName <span class="op">=</span> <span class="va">ID</span>,         
+                             icdColName <span class="op">=</span> <span class="va">ICD</span>,  
+                             dateColName <span class="op">=</span> <span class="va">Date</span>,
+                             customGroupingTable <span class="op">=</span> <span class="va">groupingTable</span><span class="op">)</span>
+<span class="va">CustomGroup</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span>
 <span class="co">#&gt;     ICD ID       Date                  Group</span>
 <span class="co">#&gt; 1: 5853 A0 2010-10-29 Chronic kidney disease</span>
 <span class="co">#&gt; 2: 5856 A0 2009-07-25 Chronic kidney disease</span>
 <span class="co">#&gt; 3: 5856 A1 2006-11-29 Chronic kidney disease</span>
 <span class="co">#&gt; 4: 5855 A1 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: 5855 A1 2013-04-28 Chronic kidney disease</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CustomGroup</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CustomGroup</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID                  Group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
 <span class="co">#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days</span>
 <span class="co">#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days</span>
-<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></code></pre></div>
 <p><strong>2) Fuzzy method</strong>: <code>icdDxToCustomGrep</code></p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># CustomGroupingTable</span>
-<span class="no">grepTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="st">"Chronic kidney disease"</span>,
-                        <span class="kw">grepIcd</span> <span class="kw">=</span> <span class="st">"^585|^N18"</span>,
-                        <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">CustomGrepGroup</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustomGrep</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                    <span class="kw">customGroupingTable</span> <span class="kw">=</span> <span class="no">grepTable</span>)
-<span class="no">CustomGrepGroup</span>$<span class="no">groupedDT</span>[<span class="fl">10</span>:<span class="fl">14</span>]
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># CustomGroupingTable</span>
+<span class="va">grepTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="st">"Chronic kidney disease"</span>,
+                        grepIcd <span class="op">=</span> <span class="st">"^585|^N18"</span>,
+                        stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">CustomGrepGroup</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustomGrep</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>, 
+                                    idColName <span class="op">=</span> <span class="va">ID</span>,            
+                                    icdColName <span class="op">=</span> <span class="va">ICD</span>,   
+                                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                    customGroupingTable <span class="op">=</span> <span class="va">grepTable</span><span class="op">)</span>
+<span class="va">CustomGrepGroup</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span>
 <span class="co">#&gt;    ID  ICD       Date            GrepedGroup</span>
 <span class="co">#&gt; 1: A0 5853 2010-10-29 Chronic kidney disease</span>
 <span class="co">#&gt; 2: A0 5856 2009-07-25 Chronic kidney disease</span>
 <span class="co">#&gt; 3: A1 5856 2006-11-29 Chronic kidney disease</span>
 <span class="co">#&gt; 4: A1 5855 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: A1 5855 2013-04-28 Chronic kidney disease</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CustomGrepGroup</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CustomGrepGroup</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID            GrepedGroup firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
 <span class="co">#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days</span>
 <span class="co">#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days</span>
-<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="ii--data-wrangling" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ii--data-wrangling" class="anchor"></a>II. Data Wrangling</h2>
-<div id="a--cases-selection" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--cases-selection" class="anchor"></a>A. Cases selection</h3>
+<div class="section level3">
+<h3 id="ii--data-wrangling">II. Data Wrangling<a class="anchor" aria-label="anchor" href="#ii--data-wrangling"></a>
+</h3>
+<div class="section level4">
+<h4 id="a--cases-selection">A. Cases selection<a class="anchor" aria-label="anchor" href="#a--cases-selection"></a>
+</h4>
 <p>The query function <code>selectCases</code> can select the cases matching defined case conditions (been diagnosed with certain condition for certain times within a specific duration). User can select cases by diagnostic categories, such as CCS category, ICD codes, etc.</p>
 <p>The output of this function provides the start and end dates of the cases, the number of days between them, and the most common ICD codes used in the case definition. 　　　</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">Case</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                    <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccslvl2</span>,
-                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>,
-                    <span class="kw">caseCondition</span> <span class="kw">=</span> <span class="st">"Diseases of the urinary system"</span>,
-                    <span class="kw">caseCount</span> <span class="kw">=</span> <span class="fl">1</span>,
-                    <span class="kw">caseName</span> <span class="kw">=</span> <span class="st">"Selected"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Case</span>)
-<span class="co">#&gt;     ID selectedCase count firstCaseDate endCaseDate    period</span>
-<span class="co">#&gt; 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days</span>
-<span class="co">#&gt; 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days</span>
-<span class="co">#&gt; 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days</span>
-<span class="co">#&gt; 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days</span>
-<span class="co">#&gt; 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days</span>
-<span class="co">#&gt; 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days</span>
-<span class="co">#&gt;    MostCommonICD MostCommonICDCount</span>
-<span class="co">#&gt; 1:          V420                  3</span>
-<span class="co">#&gt; 2:          5855                  2</span>
-<span class="co">#&gt; 3:         V5631                  2</span>
-<span class="co">#&gt; 4:          5859                  2</span>
-<span class="co">#&gt; 5:          5855                  2</span>
-<span class="co">#&gt; 6:         V5631                  2</span></pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Case</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                    idColName <span class="op">=</span> <span class="va">ID</span>,           
+                    icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                    groupDataType <span class="op">=</span> <span class="va">ccslvl2</span>,
+                    icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span>,
+                    caseCondition <span class="op">=</span> <span class="st">"Diseases of the urinary system"</span>,
+                    caseCount <span class="op">=</span> <span class="fl">1</span>,
+                    caseName <span class="op">=</span> <span class="st">"Selected"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Case</span><span class="op">)</span>                   
+<span class="co">#&gt;     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD</span>
+<span class="co">#&gt; 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420</span>
+<span class="co">#&gt; 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days          5855</span>
+<span class="co">#&gt; 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days         V5631</span>
+<span class="co">#&gt; 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days          5859</span>
+<span class="co">#&gt; 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days          5855</span>
+<span class="co">#&gt; 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days         V5631</span>
+<span class="co">#&gt;    MostCommonICDCount</span>
+<span class="co">#&gt; 1:                  3</span>
+<span class="co">#&gt; 2:                  2</span>
+<span class="co">#&gt; 3:                  2</span>
+<span class="co">#&gt; 4:                  2</span>
+<span class="co">#&gt; 5:                  2</span>
+<span class="co">#&gt; 6:                  2</span></code></pre></div>
 </div>
-<div id="b--get-eligible-period-of-patient-records" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--get-eligible-period-of-patient-records" class="anchor"></a>B. Get eligible period of patient records</h3>
+<div class="section level4">
+<h4 id="b--get-eligible-period-of-patient-records">B. Get eligible period of patient records<a class="anchor" aria-label="anchor" href="#b--get-eligible-period-of-patient-records"></a>
+</h4>
 <p>The function <code>getEligiblePeriod</code> is used for querying the earliest and latest admission date for each patient.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">admissionDate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getEligiblePeriod.html">getEligiblePeriod</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                   <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                   <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">admissionDate</span>)
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">admissionDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getEligiblePeriod.html">getEligiblePeriod</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                   idColName <span class="op">=</span> <span class="va">ID</span>,
+                                   dateColName <span class="op">=</span> <span class="va">Date</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">admissionDate</span><span class="op">)</span>                                  
 <span class="co">#&gt;     ID firstRecordDate endRecordDate</span>
 <span class="co">#&gt; 1:  D6      2005-10-09    2025-01-05</span>
 <span class="co">#&gt; 2: A12      2006-01-12    2022-06-12</span>
 <span class="co">#&gt; 3:  D1      2006-02-12    2024-04-04</span>
 <span class="co">#&gt; 4: A13      2006-04-29    2025-02-02</span>
 <span class="co">#&gt; 5:  A9      2006-06-30    2023-12-10</span>
-<span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></pre></body></html></div>
+<span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></code></pre></div>
 </div>
-<div id="c--data-split" class="section level3">
-<h3 class="hasAnchor">
-<a href="#c--data-split" class="anchor"></a>C. Data split</h3>
+<div class="section level4">
+<h4 id="c--data-split">C. Data split<a class="anchor" aria-label="anchor" href="#c--data-split"></a>
+</h4>
 <p>Function <code>splitDataByDate</code> extracts data by a specific clinical event (e.g., first diagnosis dates of chronic diseases).<br>
 Users can define a table of clinical index dates of each patient. The date can generate by <code>selectCases</code> function or first/last admission date by <code>getEligiblePeriod</code> function.</p>
 <p>This function can split data through classifying the data recorded before or after the defined index date and calculating the period between the record date and index date based on a self-defined window gap.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">indexDateTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">ID</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
-                             <span class="kw">indexDate</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
-                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span>),
-                             <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">indexDateTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span><span class="op">)</span>,
+                             indexDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
+                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span><span class="op">)</span>,
+                             stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="no">Data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">indexDateFile</span> <span class="kw">=</span> <span class="no">indexDateTable</span>,
-                        <span class="kw">gap</span> <span class="kw">=</span> <span class="fl">30</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Data</span>, <span class="fl">5</span>)
+<span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        indexDateFile <span class="op">=</span> <span class="va">indexDateTable</span>,
+                        gap <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> 
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Data</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    ID   ICD       Date  indexDate timeTag window</span>
 <span class="co">#&gt; 1: A0  5856 2009-07-25 2009-07-25       A      1</span>
 <span class="co">#&gt; 2: A0  V560 2010-03-28 2009-07-25       A      9</span>
 <span class="co">#&gt; 3: A0  5853 2010-10-29 2009-07-25       A     16</span>
 <span class="co">#&gt; 4: A0 V4511 2012-04-05 2009-07-25       A     33</span>
-<span class="co">#&gt; 5: A0  5855 2013-12-20 2009-07-25       A     54</span></pre></body></html></div>
+<span class="co">#&gt; 5: A0  5855 2013-12-20 2009-07-25       A     54</span></code></pre></div>
 </div>
-<div id="d--condition-era" class="section level3">
-<h3 class="hasAnchor">
-<a href="#d--condition-era" class="anchor"></a>D. Condition era</h3>
+<div class="section level4">
+<h4 id="d--condition-era">D. Condition era<a class="anchor" aria-label="anchor" href="#d--condition-era"></a>
+</h4>
 <p>The concept of condition era is committed to the length of the persistence gap: when the time interval of any two consecutive admissions for certain conditions is smaller than the length of the persistence gap, then these two admission events will be aggregated into the same condition era.</p>
 <p>Function <code>getConditionEra</code> calculates condition era by using the grouped categories or self-defining groups of each patient and then generates a table with individual IDs, the first and last record of an era, and the sequence number of each episode.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">Era</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getConditionEra.html">getConditionEra</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                       <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                       <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                       <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                       <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                       <span class="kw">gapDate</span> <span class="kw">=</span> <span class="fl">30</span>,
-                       <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccs</span>,
-                       <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Era</span>)
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Era</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getConditionEra.html">getConditionEra</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                       idColName <span class="op">=</span> <span class="va">ID</span>,
+                       icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                       dateColName <span class="op">=</span> <span class="va">Date</span>,
+                       icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>, 
+                       gapDate <span class="op">=</span> <span class="fl">30</span>,
+                       groupDataType <span class="op">=</span> <span class="va">ccs</span>,
+                       isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Era</span><span class="op">)</span>                       
 <span class="co">#&gt;    ID CCS_CATEGORY era firstCaseDate endCaseDate count period</span>
 <span class="co">#&gt; 1: A0          158   1    2009-07-25  2009-07-25     1 0 days</span>
 <span class="co">#&gt; 2: A0          158   2    2010-03-28  2010-03-28     1 0 days</span>
 <span class="co">#&gt; 3: A0          158   3    2010-10-29  2010-10-29     1 0 days</span>
 <span class="co">#&gt; 4: A0          158   4    2012-04-05  2012-04-05     1 0 days</span>
 <span class="co">#&gt; 5: A0          158   5    2013-12-20  2013-12-20     1 0 days</span>
-<span class="co">#&gt; 6: A1          158   1    2006-11-29  2006-11-29     1 0 days</span></pre></body></html></div>
+<span class="co">#&gt; 6: A1          158   1    2006-11-29  2006-11-29     1 0 days</span></code></pre></div>
 </div>
-<div id="e--eda-preparation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#e--eda-preparation" class="anchor"></a>E. EDA preparation</h3>
+<div class="section level4">
+<h4 id="e--eda-preparation">E. EDA preparation<a class="anchor" aria-label="anchor" href="#e--eda-preparation"></a>
+</h4>
 <p>After data integration, dxpr package provides a function to convert long format of grouped data into wide format which is fit to other analytical and plotting packages.</p>
 <p>There are two type of output: numeric and binary (<code>numericOrBinary</code> = <code>B</code> or <code>N</code> )</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="co">#binary</span>
-<span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">numericOrBinary</span> <span class="kw">=</span> <span class="no">B</span>)
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">groupedData_Wide</span>, <span class="fl">5</span>)
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#binary</span>
+<span class="va">groupedData_Wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          numericOrBinary <span class="op">=</span> <span class="va">B</span><span class="op">)</span>
+                                          
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">groupedData_Wide</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID  ARTH CHRNLUNG  DMCX  DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE</span>
 <span class="co">#&gt; 1:  A0 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE</span>
 <span class="co">#&gt; 2:  A1 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE</span>
@@ -667,49 +708,52 @@ Users can define a table of clinical index dates of each patient. The date can g
 <span class="co">#&gt; 2: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 3: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 4: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
-<span class="co">#&gt; 5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span></pre></body></html></div>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co"># numeric</span>
-<span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">numericOrBinary</span> <span class="kw">=</span> <span class="no">N</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">groupedData_Wide</span>, <span class="fl">5</span>)
-<span class="co">#&gt;     ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE</span>
-<span class="co">#&gt; 1:  A0    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 2:  A1    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 3: A10    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 4: A11    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 5: A12    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt;    PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS</span>
-<span class="co">#&gt; 1:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 2:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 3:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 4:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 5:    0        0     0        5     0     0     0        0</span></pre></body></html></div>
+<span class="co">#&gt; 5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># numeric</span>
+<span class="va">groupedData_Wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          numericOrBinary <span class="op">=</span> <span class="va">N</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">groupedData_Wide</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;     ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE PARA</span>
+<span class="co">#&gt; 1:  A0    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 2:  A1    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 3: A10    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 4: A11    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 5: A12    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt;    PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS</span>
+<span class="co">#&gt; 1:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 2:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 3:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 4:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 5:        0     0        5     0     0     0        0</span></code></pre></div>
 </div>
 </div>
-<div id="iii--visualization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#iii--visualization" class="anchor"></a>III. Visualization</h2>
+<div class="section level3">
+<h3 id="iii--visualization">III. Visualization<a class="anchor" aria-label="anchor" href="#iii--visualization"></a>
+</h3>
 <p>Visualization provides overview of clinical data.</p>
-<div id="a--pareto-chart-of-error-icd-list" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--pareto-chart-of-error-icd-list" class="anchor"></a>A. Pareto chart of error ICD list</h3>
+<div class="section level4">
+<h4 id="a--pareto-chart-of-error-icd-list">A. Pareto chart of error ICD list<a class="anchor" aria-label="anchor" href="#a--pareto-chart-of-error-icd-list"></a>
+</h4>
 <p>Through code standardization, the functions <code>icdDxDecimalToShort</code> and <code>icdDxShortToDecimal</code> generate a table of diagnosis codes with potential errors.</p>
 <p>The Pareto chart includes bar plot and line chart to visualize individual possible error ICD codes represented in descending order and cumulative total.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">error</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">Plot_error1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
-                            <span class="kw">icdVersion</span> <span class="kw">=</span> <span class="no">all</span>,
-                            <span class="kw">wrongICDType</span> <span class="kw">=</span> <span class="no">all</span>,
-                            <span class="kw">others</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                            <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">error</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                            icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                            dateColName <span class="op">=</span> <span class="va">Date</span>,
+                            icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="va">Plot_error1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span><span class="op">(</span>errorFile <span class="op">=</span> <span class="va">error</span><span class="op">$</span><span class="va">Error</span>,
+                            icdVersion <span class="op">=</span> <span class="va">all</span>,
+                            wrongICDType <span class="op">=</span> <span class="va">all</span>,
+                            others <span class="op">=</span> <span class="cn">TRUE</span>,
+                            topN <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotICDError.png" style="display:block; margin:auto; width:70%;"></p>
 <p>For instance, if a user chooses top 10 of common error ICD in dataset (<code>topN</code> = <code>10</code>), then the Pareto chart output shows with top 10 error codes in this dataset and a list of the detail of error ICD codes.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">Plot_error1</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error1</span><span class="op">$</span><span class="va">ICD</span>
 <span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span>
@@ -721,7 +765,7 @@ Users can define a table of clinical index dates of each patient. The date can g
 <span class="co">#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           </span>
 <span class="co">#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           </span>
 <span class="co">#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019</span>
-<span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></pre></body></html></div>
+<span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></code></pre></div>
 <p>The most common error ICD is <em>A0.11</em> which has 20 admission records and error type is “wrong format”</p>
 <p>Also, users can divide <strong>ICD-9</strong> by the prefix of the ICD code: 0, 1, 2,…, 9, V and E (<code>groupICD = TRUE</code>)</p>
 <p>ICD-9-CM divided into 19 chapters:<br>
@@ -729,38 +773,42 @@ Users can define a table of clinical index dates of each patient. The date can g
 　140-239: Neoplasms<br>
 　….</p>
 <p>For instance, if user chooses top 3 of common error <em>ICD-9</em>, the output Pareto chart shows with top 3 error codes and a list of the detail of error ICD codes.</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">Plot_error2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
-                             <span class="kw">icdVersion</span> <span class="kw">=</span> <span class="fl">9</span>,
-                             <span class="kw">wrongICDType</span> <span class="kw">=</span> <span class="no">all</span>,
-                             <span class="kw">groupICD</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                             <span class="kw">others</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                             <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">3</span>)
-<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use</span>
-<span class="co">#&gt; `guides(&lt;scale&gt; = "none")` instead.</span></pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span><span class="op">(</span>errorFile <span class="op">=</span> <span class="va">error</span><span class="op">$</span><span class="va">Error</span>,
+                             icdVersion <span class="op">=</span> <span class="fl">9</span>,
+                             wrongICDType <span class="op">=</span> <span class="va">all</span>,
+                             groupICD <span class="op">=</span> <span class="cn">TRUE</span>,
+                             others <span class="op">=</span> <span class="cn">TRUE</span>,
+                             topN <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =</span>
+<span class="co">#&gt; "none")` instead.</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-1.png" style="display:block; margin:auto; width:70%;"></p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">Plot_error2</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error2</span><span class="op">$</span><span class="va">ICD</span>
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType</span>
 <span class="co">#&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version</span>
 <span class="co">#&gt; 2:        7          9       70.97%          75.52         44.44%  Wrong format</span>
 <span class="fl">00</span><span class="co">#&gt; 3:        0          5        87.1%            001           100%  Wrong format</span>
-<span class="co">#&gt; 4:   Others          4         100%          E03.0           100% Wrong version</span></pre></body></html></div>
+<span class="co">#&gt; 4:   Others          4         100%          E03.0           100% Wrong version</span></code></pre></div>
 <p>The most common error ICD is <em>A01.05</em> which has 13 admission records and the error type is “wrong version”.</p>
 </div>
-<div id="b--histogram-plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--histogram-plot" class="anchor"></a>B. histogram plot</h3>
+<div class="section level4">
+<h4 id="b--histogram-plot">B. histogram plot<a class="anchor" aria-label="anchor" href="#b--histogram-plot"></a>
+</h4>
 <p><code>plotDiagCat</code> function provides an overview of grouping category of the diagnostic code in histogram plot. User can observe the proportion of diagnostic categories in their dataset.</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                         <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
-<span class="no">plot1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span>(<span class="kw">groupedDataWide</span> <span class="kw">=</span> <span class="no">groupedDataWide</span>,
-                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                     <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>,
-                     <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">groupedDataWide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span><span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>,
+                                         idColName <span class="op">=</span> <span class="va">ID</span>,
+                                         categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,
+                                         dateColName <span class="op">=</span> <span class="va">Date</span><span class="op">)</span>
+<span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span><span class="op">(</span>groupedDataWide <span class="op">=</span> <span class="va">groupedDataWide</span>,
+                     idColName <span class="op">=</span> <span class="va">ID</span>,
+                     topN <span class="op">=</span> <span class="fl">10</span>,
+                     limitFreq <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagSing.png" style="display:block; margin:auto; width:70%;"></p>
 <p>The first group, for instance, is grouped into “RENLFAIL” of ELIX comorbidity index.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">plot1</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot1</span><span class="op">$</span><span class="va">sigCate</span>
 <span class="co">#&gt;     DiagnosticCategory  N Percentage</span>
 <span class="co">#&gt;  1:           RENLFAIL 24      63.16</span>
 <span class="co">#&gt;  2:              TUMOR  6      15.79</span>
@@ -771,68 +819,71 @@ Users can define a table of clinical index dates of each patient. The date can g
 <span class="co">#&gt;  7:              NEURO  3       7.89</span>
 <span class="co">#&gt;  8:               PARA  2       5.26</span>
 <span class="co">#&gt;  9:           PERIVASC  2       5.26</span>
-<span class="co">#&gt; 10:              VALVE  2       5.26</span></pre></body></html></div>
+<span class="co">#&gt; 10:              VALVE  2       5.26</span></code></pre></div>
 <p>This function can also do the Chi-square test and Fisher’s exact test to see if it is statistical significantly different between the diagnostic categories of case and control. The default level of significance is of 5% (p = 0.05).</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">selectedCaseFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>,
-                                <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccslvl2</span>,
-                                <span class="kw">caseCondition</span> <span class="kw">=</span> <span class="st">"Diseases of the urinary system"</span>,
-                                <span class="kw">caseCount</span> <span class="kw">=</span> <span class="fl">1</span>)
-
-<span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="no">ELIX</span>$<span class="no">groupedDT</span>, <span class="no">ID</span>, <span class="no">Comorbidity</span>, <span class="no">Date</span>,
-                                         <span class="kw">selectedCaseFile</span> <span class="kw">=</span> <span class="no">selectedCaseFile</span>)
-<span class="no">plot2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span>(<span class="kw">groupedDataWide</span> <span class="kw">=</span> <span class="no">groupedDataWide</span>,
-                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                     <span class="kw">groupColName</span> <span class="kw">=</span> <span class="no">selectedCase</span>,
-                     <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>,
-                     <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>,
-                     <span class="kw">pvalue</span> <span class="kw">=</span> <span class="fl">0.05</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">selectedCaseFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                idColName <span class="op">=</span> <span class="va">ID</span>,
+                                icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                                dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span>,
+                                groupDataType <span class="op">=</span> <span class="va">ccslvl2</span>,
+                                caseCondition <span class="op">=</span> <span class="st">"Diseases of the urinary system"</span>,
+                                caseCount <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+                                
+<span class="va">groupedDataWide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span><span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="va">ID</span>, <span class="va">Comorbidity</span>, <span class="va">Date</span>,
+                                         selectedCaseFile <span class="op">=</span> <span class="va">selectedCaseFile</span><span class="op">)</span>
+<span class="va">plot2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span><span class="op">(</span>groupedDataWide <span class="op">=</span> <span class="va">groupedDataWide</span>,
+                     idColName <span class="op">=</span> <span class="va">ID</span>,
+                     groupColName <span class="op">=</span> <span class="va">selectedCase</span>,
+                     topN <span class="op">=</span> <span class="fl">10</span>,
+                     limitFreq <span class="op">=</span> <span class="fl">0.01</span>,
+                     pvalue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagMult.png" style="display:block; margin:auto; width:70%;"></p>
 <p>There are stastitcal significant difference in “RENLFAIL” of ELIX comorbidity index between case and control.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">plot2</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot2</span><span class="op">$</span><span class="va">sigCate</span>
 <span class="co">#&gt;    DiagnosticCategory        Group  N Percentage</span>
 <span class="co">#&gt; 1:           RENLFAIL non-Selected  0          0</span>
-<span class="co">#&gt; 2:           RENLFAIL     Selected 24        100</span></pre></body></html></div>
+<span class="co">#&gt; 2:           RENLFAIL     Selected 24        100</span></code></pre></div>
 </div>
 </div>
-<div id="reference" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
-<div id="i--code-transformation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#i--code-transformation" class="anchor"></a>I. Code transformation</h3>
-<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
-<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
-<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
-<p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
-<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
+<div class="section level3">
+<h3 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
+</h3>
+<div class="section level4">
+<h4 id="i--code-transformation">I. Code transformation<a class="anchor" aria-label="anchor" href="#i--code-transformation"></a>
+</h4>
+<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-CM code (2019-2022): <a href="https://www.cms.gov/Medicare/Coding/ICD10" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD10</a></p>
+<p><a href="https://www.findacode.com/search/search.php" class="external-link uri">https://www.findacode.com/search/search.php</a></p>
+<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="external-link uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="ii--code-grouping" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ii--code-grouping" class="anchor"></a>II. Code grouping</h3>
+<div class="section level4">
+<h4 id="ii--code-grouping">II. Code grouping<a class="anchor" aria-label="anchor" href="#ii--code-grouping"></a>
+</h4>
 <p><strong>CCS (Clinical Classifications Software)</strong></p>
-<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
-<p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
-<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
+<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/ccs.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/ccs.jsp</a> <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
+<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs10.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs10.jsp</a> <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
+<p><strong>CCSR (Clinical Classifications Software Refined)</strong></p>
+<p>ICD-10-CM (v2022-1): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccsr/ccs_refined.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccsr/ccs_refined.jsp</a></p>
 <p><strong>PheWAS</strong></p>
-<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
-<p>ICD-10 Phecode (version 1.2 beta, 2019): <a href="https://phewascatalog.org/phecodes_icd10cm" class="uri">https://phewascatalog.org/phecodes_icd10cm</a></p>
+<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="external-link uri">https://phewascatalog.org/phecodes</a></p>
+<p>ICD-10 Phecode (version 1.2 beta, 2019): <a href="https://phewascatalog.org/phecodes_icd10cm" class="external-link uri">https://phewascatalog.org/phecodes_icd10cm</a></p>
 <p><strong>Comorbidities</strong></p>
-<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
-<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
-<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="external-link uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
+<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="external-link uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
@@ -842,11 +893,13 @@ Users can define a table of clinical index dates of each patient. The date can g
 
 
       <footer><div class="copyright">
-  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
+  <p></p>
+<p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng, Chun-Ju Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -854,6 +907,8 @@ Users can define a table of clinical index dates of each patient. The date can g
 
   
 
+
+  
 
   </body>
 </html>

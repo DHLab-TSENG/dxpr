@@ -1,96 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//index.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/404.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/Dx_dataset_classification.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/Dx_dataset_standardization.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/PC.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/Pr_dataset_classification.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/articles/Eng_Procedure.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/Pr_dataset_standardization.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/common_DxArg.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/authors.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/common_PrArg.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/index.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxCCS.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxComorbid.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/common_DxArg.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxCustom.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/common_PrArg.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxPheWAS.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/conditionEra.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxUniform.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dataSplit.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/dxpr-package.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dataWide.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/getConditionEra.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/diagnosis_dataset_classification.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/getEligiblePeriod.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/diagnosis_dataset_standardization.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/groupMethodSelect.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxCCS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/groupedDataLongToWide.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxCCSR.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/plotDiagCat.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxComorbid.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/plotICDError.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxCustom.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/prCCS.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxPheWAS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/prUniform.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxpr-package.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/sampleDxFile.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxUniform.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/sampleMIMICIII.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_classification.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/samplePrFile.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_standardization.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/selectCases.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/eligiblePeriod.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//reference/splitDataByDate.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/emr-package.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//articles/Chi_Diagnosis.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/era.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//articles/Chi_Procedure.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/getConditionEra.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//articles/Eng_Diagnosis.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/getEligiblePeriod.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr//articles/Eng_Procedure.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/groupedDataLongToWide.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/groupMethodSelect.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/PC.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/plotDiagCat.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/plotError.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/plotGroupedData.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/plotICDError.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/prCCS.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/procedure_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/procedure_dataset_standardization.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/prUniform.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_standardization.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/sampleDxFile.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/sampleFile_MIMIC.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/sampleMIMICIII.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/samplePrFile.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/sample_MIMICIII.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/selectCases.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/splitDataByDate.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/Supplement.html</loc>
   </url>
 </urlset>

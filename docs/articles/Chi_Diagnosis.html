@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -52,8 +48,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/DHLab-TSENG/dxpr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/DHLab-TSENG/dxpr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -71,66 +67,75 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with dxpr: Diagnosis (Chinese)</h1>
-                        <h4 class="author">Hsiang-Ju, Chiu</h4>
+                        <h4 data-toc-skip class="author">Hsiang-Ju, Chiu</h4>
             
-            <h4 class="date">2021-08-09</h4>
+            <h4 data-toc-skip class="date">2022-05-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/master/vignettes/Chi_Diagnosis.Rmd"><code>vignettes/Chi_Diagnosis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/HEAD/vignettes/Chi_Diagnosis.Rmd" class="external-link"><code>vignettes/Chi_Diagnosis.Rmd</code></a></small>
       <div class="hidden name"><code>Chi_Diagnosis.Rmd</code></div>
 
     </div>
 
     
     
-<div class="section level1">
-<h1>診斷前處理與整合方法</h1>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageDescription</a></span>(<span class="st">"dxpr"</span>)$<span class="no">Description</span>)</pre></body></html></div>
-<pre><code>## "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electronic medical record. It is used for data integration, data wrangling and visualization.</code></pre>
-<div class="section level3">
-<h3>安裝套件</h3>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
+<div class="section level2">
+<h2 id="診斷前處理與整合方法">診斷前處理與整合方法<a class="anchor" aria-label="anchor" href="#%E8%A8%BA%E6%96%B7%E5%89%8D%E8%99%95%E7%90%86%E8%88%87%E6%95%B4%E5%90%88%E6%96%B9%E6%B3%95"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageDescription</a></span><span class="op">(</span><span class="st">"dxpr"</span><span class="op">)</span><span class="op">$</span><span class="va">Description</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## "dxpr" is a health data analysis tool for ICD diagnosis and procedure codes in electronic medical record. It is used for data integration, data wrangling and visualization.</span></code></pre>
+<div class="section level4">
+<h4 id="安裝套件">安裝套件<a class="anchor" aria-label="anchor" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="co"># Install development version from GitHub</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"DHLab-TSENG/dxpr"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dxpr</span>)</pre></body></html></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="icd-cm-code-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#icd-cm-code-" class="anchor"></a>ICD-CM-CODE 格式對照</h3>
+<div class="section level4">
+<h4 id="icd-cm-code-格式對照">ICD-CM-CODE 格式對照<a class="anchor" aria-label="anchor" href="#icd-cm-code-%E6%A0%BC%E5%BC%8F%E5%B0%8D%E7%85%A7"></a>
+</h4>
 <p>本套件使用的診斷編碼依照 CMS （Centers for Medicare &amp; Medicaid Services）所提供的診斷編碼做為標準依據，並依照WHO訂定的診斷編碼規則，分別產生 ICD-9-CM and ICD-10-CM 的兩種格式的表格: <code>ICD9DxwithTwoFormat</code> 和 <code>ICD10DxwithTwoFormat</code> 供後續診斷編碼格式轉換的功能使用</p>
 <p>ICD-9-CM</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Short</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9DxwithTwoFormat</span><span class="op">$</span><span class="va">Short</span><span class="op">)</span>
 <span class="co">#&gt; [1] "E0000" "E0001" "E0002" "E0008" "E0009" "E0010"</span>
 
 <span class="co"># Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD9DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD9DxwithTwoFormat</span><span class="op">$</span><span class="va">Decimal</span><span class="op">)</span>
+<span class="co">#&gt; [1] "E000.0" "E000.1" "E000.2" "E000.8" "E000.9" "E001.0"</span></code></pre></div>
 <p>ICD-10-CM</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Short</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Short</span>)
-<span class="co">#&gt; [1] "A001"  "A009"  "A0100" "A0101" "A0102" "A0103"</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Short</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD10DxwithTwoFormat</span><span class="op">$</span><span class="va">Short</span><span class="op">)</span>
+<span class="co">#&gt; [1] "A000"  "A001"  "A009"  "A0100" "A0101" "A0102"</span>
 
 <span class="co"># Decimal</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ICD10DxwithTwoFormat</span>$<span class="no">Decimal</span>)
-<span class="co">#&gt; [1] "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02" "A01.03"</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ICD10DxwithTwoFormat</span><span class="op">$</span><span class="va">Decimal</span><span class="op">)</span>
+<span class="co">#&gt; [1] "A00.0"  "A00.1"  "A00.9"  "A01.00" "A01.01" "A01.02"</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3>範例資料</h3>
+<div class="section level4">
+<h4 id="範例資料">範例資料<a class="anchor" aria-label="anchor" href="#%E7%AF%84%E4%BE%8B%E8%B3%87%E6%96%99"></a>
+</h4>
 <p>以下功能介紹皆以<code>sampleDxFile</code>做為範例，共有38位病患，300筆診斷紀錄</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">sampleDxFile</span>)
-<span class="co">#&gt;     ID  ICD       Date</span>
-<span class="co">#&gt; 1:  A2 Z992 2020-05-22</span>
-<span class="co">#&gt; 2:  A5 Z992 2020-01-24</span>
-<span class="co">#&gt; 3:  A8 Z992 2015-10-27</span>
-<span class="co">#&gt; 4: A13 Z992 2020-04-26</span>
-<span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
-<span class="co">#&gt; 6: A15 Z992 2023-05-12</span></pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sampleDxFile</span><span class="op">)</span>
+<span class="co">#&gt;     ID  ICD       Date Version</span>
+<span class="co">#&gt; 1:  A2 Z992 2020-05-22      10</span>
+<span class="co">#&gt; 2:  A5 Z992 2020-01-24      10</span>
+<span class="co">#&gt; 3:  A8 Z992 2015-10-27      10</span>
+<span class="co">#&gt; 4: A13 Z992 2020-04-26      10</span>
+<span class="co">#&gt; 5: A13 Z992 2025-02-02      10</span>
+<span class="co">#&gt; 6: A15 Z992 2023-05-12      10</span></code></pre></div>
 </div>
-<div id="i--data-integration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#i--data-integration" class="anchor"></a>I. Data Integration</h2>
 <div class="section level3">
-<h3>一、格式轉換</h3>
+<h3 id="i--data-integration">I. Data Integration<a class="anchor" aria-label="anchor" href="#i--data-integration"></a>
+</h3>
+<div class="section level4">
+<h4 id="一格式轉換">一、格式轉換<a class="anchor" aria-label="anchor" href="#%E4%B8%80%E6%A0%BC%E5%BC%8F%E8%BD%89%E6%8F%9B"></a>
+</h4>
 <p><strong>ICD-CM code兩種格式的轉換：Short &lt;-&gt; Decimal</strong></p>
 <p>將醫療大數據中的診斷編碼進行編碼一致格式的轉換，以便後續診斷編碼的標準化分群。依據 Clinical Classifications Software (CCS)、共病症 (Comorbidity) 及 Phenome-wide association studies (PheWAS) 的分組表，其分別使用之 ICD 診斷碼格式如<strong>表一</strong>。</p>
 <p><strong>表一</strong> 標準化分組之診斷編碼格式</p>
@@ -160,39 +165,42 @@
 如使用者分析美國的醫療資料，ICD-10 使用日期設定為 2015 年 10 月 1 日。</p>
 <p>如範例，區分診斷編碼版本的日期為：2015年10月1日</p>
 <p><strong>將 ICD-CM code 的格式統一轉成 Decimal</strong></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Short to decimal</span>
-<span class="no">decimal</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                               <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                               <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                               <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">decimal</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Short to decimal</span>
+<span class="va">decimal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                               icdColName <span class="op">=</span> <span class="va">ICD</span>, 
+                               dateColName <span class="op">=</span> <span class="va">Date</span>,
+                               icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="va">decimal</span><span class="op">$</span><span class="va">ICD</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;       ICD</span>
 <span class="co">#&gt; 1:  Z99.2</span>
 <span class="co">#&gt; 2:  585.5</span>
 <span class="co">#&gt; 3: V45.11</span>
 <span class="co">#&gt; 4:  V56.0</span>
-<span class="co">#&gt; 5:  585.3</span></pre></body></html></div>
+<span class="co">#&gt; 5:  585.3</span></code></pre></div>
 <p><strong>將 ICD-CM code 的格式統一轉成 Short</strong></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Decimal to short</span>
-<span class="no">short</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
-<span class="no">short</span>$<span class="no">ICD</span>[<span class="fl">6</span>:<span class="fl">10</span>]
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Decimal to short</span>
+<span class="va">short</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                            icdColName <span class="op">=</span> <span class="va">ICD</span>,         
+                            dateColName <span class="op">=</span> <span class="va">Date</span>,
+                            icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
+<span class="va">short</span><span class="op">$</span><span class="va">ICD</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;      ICD</span>
 <span class="co">#&gt; 1:  Z992</span>
 <span class="co">#&gt; 2:  5855</span>
 <span class="co">#&gt; 3: V4511</span>
 <span class="co">#&gt; 4:  V560</span>
-<span class="co">#&gt; 5:  5853</span></pre></body></html></div>
+<span class="co">#&gt; 5:  5853</span></code></pre></div>
 <p>進行格式轉換後，會得到兩項回傳的結果：轉換成統一格式之 <code>ICD</code>、診斷編碼錯誤列表 <code>Error</code>。 <strong>warning message</strong></p>
 <p>醫療數據的診斷編碼有可能誤植導致診斷編碼錯誤，而錯誤的診斷編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。<br>
 為方便使用者修改錯誤的診斷編碼，dxpr 套件提供 warning message 提醒使用者錯誤的診斷編碼。</p>
 <p>編碼錯誤的種類：<strong>格式錯誤 (wrong format)</strong>及<strong>版本分類錯誤 (wrong version)</strong></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                              <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxShortToDecimal</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                              icdColName <span class="op">=</span> <span class="va">ICD</span>, 
+                              dateColName <span class="op">=</span> <span class="va">Date</span>,
+                              icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
 <span class="co">#&gt; Wrong ICD format: total 9 ICD codes (the number of occurrences is in brackets)</span>
 <span class="co">#&gt; c("A0.11 (20)", "E114 (8)", "Z9.90 (6)", "F42 (6)", "001 (5)", "75.52 (4)", "755.2 (3)", "123.45 (3)", "7552 (2)")</span>
 <span class="co">#&gt;  </span>
@@ -202,8 +210,8 @@
 <span class="co">#&gt; Warning: The ICD mentioned above matches to "NA" due to the format or other</span>
 <span class="co">#&gt; issues.</span>
 <span class="co">#&gt; Warning: "Wrong ICD format" means the ICD has wrong format</span>
-<span class="co">#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version</span>
-<span class="co">#&gt; (cause the "icd10usingDate" or other issues)</span></pre></body></html></div>
+<span class="co">#&gt; Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause</span>
+<span class="co">#&gt; the "icd10usingDate" or other issues)</span></code></pre></div>
 <p>從上述例子中，可見診斷編碼錯誤相關訊息。</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -216,7 +224,8 @@
 </li>
 </ol>
 <p>函式回傳之<code>Error</code>會顯示資料中全部的錯誤，顯示錯誤的診斷編碼、出現次數、在檔案中編碼被判斷為何種版本、錯誤的類別及建議該如何修正</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">sample</span>$<span class="no">Error</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sample</span><span class="op">$</span><span class="va">Error</span>
 <span class="co">#&gt;        ICD count IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18           ICD 10 Wrong version           </span>
@@ -233,7 +242,7 @@
 <span class="co">#&gt; 13:    650     4           ICD 10 Wrong version           </span>
 <span class="co">#&gt; 14: 123.45     3           ICD 10  Wrong format           </span>
 <span class="co">#&gt; 15:  755.2     3            ICD 9  Wrong format     755.29</span>
-<span class="co">#&gt; 16:   7552     2            ICD 9  Wrong format      75529</span></pre></body></html></div>
+<span class="co">#&gt; 16:   7552     2            ICD 9  Wrong format      75529</span></code></pre></div>
 <p>除了錯誤編碼表格供使用者了解錯誤的種類數量；本套件另提供圖表功能(<code>plotICDError</code>)供使用者觀察錯誤編碼的分布情形。</p>
 <p><strong>Warning message判斷流程</strong></p>
 <p>以下為判斷診斷編碼錯誤流程圖，以診斷編碼轉為 decimal 作為範例</p>
@@ -260,8 +269,9 @@ Decimal 的組別: 依診斷編碼版本分組進行<strong>第一次</strong>�
 A和C 轉換格式的結果不是NA，表示診斷編碼<strong>版本錯誤</strong>（42761應為ICD 9的診斷編碼，A0105應為ICD 10的診斷編碼）<br>
 D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> （應為755.2和001.9）</p>
 </div>
-<div class="section level3">
-<h3>二、疾病分組</h3>
+<div class="section level4">
+<h4 id="二疾病分組">二、疾病分組<a class="anchor" aria-label="anchor" href="#%E4%BA%8C%E7%96%BE%E7%97%85%E5%88%86%E7%B5%84"></a>
+</h4>
 <p>將分散的診斷編碼基於臨床意義整合成較大群組的疾病分組功能，以供後續分析使用。</p>
 <p>目前套件提供四種標準化分組的種類，包括CCS階層式編碼轉換、PheWAS分群編碼、共病症（AHRQ、Charlson、Elixhauser Comorbidity）分組以及自定義診斷分組，以下將分別介紹之。</p>
 <p>經過四種標準化處理後，可得三項回傳的結果：</p>
@@ -318,9 +328,9 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <li>
 <strong>Error</strong>：若 ICD 格式仍未在格式轉換階段進行修正，則進行標準化分組時，會遇到 ICD 格式錯誤的情況，將回傳錯誤 ICD 列表。</li>
 </ol>
-<div id="ccs-" class="section level4">
-<h4 class="hasAnchor">
-<a href="#ccs-" class="anchor"></a>1. CCS 臨床分類軟體</h4>
+<div class="section level5">
+<h5 id="ccs-臨床分類軟體">1. CCS 臨床分類軟體<a class="anchor" aria-label="anchor" href="#ccs-%E8%87%A8%E5%BA%8A%E5%88%86%E9%A1%9E%E8%BB%9F%E9%AB%94"></a>
+</h5>
 <p>美國Healthcare Cost and Utilization Project (HCUP)發展出一套診斷與處置的臨床分組標準CCS。基於此機制，將分散的診斷碼依照其臨床意義進行單層式或階層式的標準化診斷整合分類，其階層式診斷分類可依使用需求調整分類標準。</p>
 <ul>
 <li>單一階層：較通用的分類<br>
@@ -329,15 +339,16 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </ul>
 <p><strong>1) CCS單一階層分類</strong></p>
 <p><code>icdDxToCCS</code> 可取得診斷編碼相對應的 CCS 分類 (CCS category) 及分類之敘述，ICD-9-CM 和 ICD-10-CM 的 CCS 單一階層一致：共260種。</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co">## ICD to CCS category's description </span>
-<span class="no">CCS_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                              <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                              <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                              <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                              <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                              <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS category's description </span>
+<span class="va">CCS_description</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                              idColName <span class="op">=</span> <span class="va">ID</span>,
+                              icdColName <span class="op">=</span> <span class="va">ICD</span>,        
+                              dateColName <span class="op">=</span> <span class="va">Date</span>,
+                              icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                              isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_description</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_description</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short  ID  ICD       Date CCS_CATEGORY_DESCRIPTION</span>
 <span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22   Chronic kidney disease</span>
 <span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24   Chronic kidney disease</span>
@@ -345,7 +356,7 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26   Chronic kidney disease</span>
 <span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02   Chronic kidney disease</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCS_description</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCS_description</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID CCS_CATEGORY_DESCRIPTION firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0   Chronic kidney disease    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1   Chronic kidney disease    2006-11-29  2014-09-24     5 2856 days</span>
@@ -354,12 +365,12 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 5: A12   Chronic kidney disease    2006-05-14  2015-06-29     5 3333 days</span>
 
 <span class="co">## ICD to CCS category</span>
-<span class="no">CCS_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                          <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                          <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                          <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="va">CCS_category</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>, 
+                          idColName <span class="op">=</span> <span class="va">ID</span>,         
+                          icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                          dateColName <span class="op">=</span> <span class="va">Date</span>, 
+                          icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                          isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><strong>2) CCS多階層分類</strong></p>
 <p><code>icdDxToCCSLvl</code> 可取得診斷編碼相對應的 CCS 多階層分類 (Multiple CCS level) 及分類之敘述。</p>
 <ul>
@@ -367,16 +378,17 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </li>
 <li>ICD-10-CM 共 2 個階層 (Level 1~2)</li>
 </ul>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">## ICD to CCS multiple level 2 description</span>
-<span class="no">CCSlvl_description</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                    <span class="kw">CCSLevel</span> <span class="kw">=</span> <span class="fl">2</span>,
-                                    <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to CCS multiple level 2 description</span>
+<span class="va">CCSlvl_description</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                    idColName <span class="op">=</span> <span class="va">ID</span>,  
+                                    icdColName <span class="op">=</span> <span class="va">ICD</span>,   
+                                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                    icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                                    CCSLevel <span class="op">=</span> <span class="fl">2</span>,
+                                    isDescription <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCSlvl_description</span>$<span class="no">groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSlvl_description</span><span class="op">$</span><span class="va">groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    Short  ID  ICD       Date                CCS_LVL_2_LABEL</span>
 <span class="co">#&gt; 1:  Z992  A2 Z992 2020-05-22 Diseases of the urinary system</span>
 <span class="co">#&gt; 2:  Z992  A5 Z992 2020-01-24 Diseases of the urinary system</span>
@@ -384,44 +396,39 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4:  Z992 A13 Z992 2020-04-26 Diseases of the urinary system</span>
 <span class="co">#&gt; 5:  Z992 A13 Z992 2025-02-02 Diseases of the urinary system</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CCSlvl_description</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
-<span class="co">#&gt;     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count</span>
-<span class="co">#&gt; 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5</span>
-<span class="co">#&gt; 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5</span>
-<span class="co">#&gt; 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5</span>
-<span class="co">#&gt; 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5</span>
-<span class="co">#&gt; 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5</span>
-<span class="co">#&gt;       period</span>
-<span class="co">#&gt; 1: 1609 days</span>
-<span class="co">#&gt; 2: 2856 days</span>
-<span class="co">#&gt; 3: 1730 days</span>
-<span class="co">#&gt; 4: 1273 days</span>
-<span class="co">#&gt; 5: 3333 days</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CCSlvl_description</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count    period</span>
+<span class="co">#&gt; 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5 1609 days</span>
+<span class="co">#&gt; 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5 2856 days</span>
+<span class="co">#&gt; 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5 1730 days</span>
+<span class="co">#&gt; 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5 1273 days</span>
+<span class="co">#&gt; 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5 3333 days</span>
 
 <span class="co">## ICD to CCS multiple level 3 category</span>
-<span class="no">CCSLvl_category</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                                    <span class="kw">CCSLevel</span> <span class="kw">=</span> <span class="fl">3</span>,
-                                    <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="va">CCSLvl_category</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCCS.html">icdDxToCCSLvl</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                    idColName <span class="op">=</span> <span class="va">ID</span>,  
+                                    icdColName <span class="op">=</span> <span class="va">ICD</span>,   
+                                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                    icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                                    CCSLevel <span class="op">=</span> <span class="fl">3</span>,
+                                    isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="phewas" class="section level4">
-<h4 class="hasAnchor">
-<a href="#phewas" class="anchor"></a>2. PheWAS</h4>
+<div class="section level5">
+<h5 id="phewas">2. PheWAS<a class="anchor" aria-label="anchor" href="#phewas"></a>
+</h5>
 <p>由 Vanderbilt University Medical Center 開發的 PheWAS 工具，將分散的診斷碼依照其臨床意義進行標準化分組，ICD和PheWAS為多對多的配對關係，ICD-9-CM共1,866種的PheWAS分類，ICD-10-CM則有1,755種的PheWAS分類。</p>
 <p><code>icdDxToPheWAS</code>可取得診斷碼相對應的 PheWAS 分類及分類敘述。</p>
 <p>dxpr套件使用 version 1.2 (phecode_icd9_2) 以及 beta 版本之 version 1.2 (phecode_icd10) 進行標準化分組。</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co">## ICD to PheWAS</span>
-<span class="no">PheWAS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxPheWAS.html">icdDxToPheWAS</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                         <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                         <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                         <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                         <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                         <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## ICD to PheWAS</span>
+<span class="va">PheWAS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxPheWAS.html">icdDxToPheWAS</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                         idColName <span class="op">=</span> <span class="va">ID</span>,           
+                         icdColName <span class="op">=</span> <span class="va">ICD</span>,     
+                         dateColName <span class="op">=</span> <span class="va">Date</span>,
+                         icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                         isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="no">PheWAS</span>$<span class="no">groupedDT</span>[<span class="fl">7</span>:<span class="fl">11</span>]
+<span class="va">PheWAS</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>
 <span class="co">#&gt;    Decimal ID   ICD       Date PheCode</span>
 <span class="co">#&gt; 1:   585.5 A0  5855 2013-12-20  585.32</span>
 <span class="co">#&gt; 2:  V45.11 A0 V4511 2012-04-05  585.31</span>
@@ -429,28 +436,30 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4:   585.3 A0  5853 2010-10-29  585.33</span>
 <span class="co">#&gt; 5:   585.6 A0  5856 2009-07-25  585.32</span>
 
-<span class="no">PheWAS</span>$<span class="no">summarised_groupedDT</span>[<span class="fl">7</span>:<span class="fl">11</span>]
+<span class="va">PheWAS</span><span class="op">$</span><span class="va">summarised_groupedDT</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>
 <span class="co">#&gt;    ID PheCode firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1: A0  585.31    2010-03-28  2012-04-05     2  739 days</span>
 <span class="co">#&gt; 2: A0  585.33    2010-10-29  2010-10-29     1    0 days</span>
 <span class="co">#&gt; 3: A1  585.32    2006-11-29  2013-04-28     3 2342 days</span>
 <span class="co">#&gt; 4: A1  585.33    2014-09-24  2014-09-24     1    0 days</span>
-<span class="co">#&gt; 5: A1  585.31    2008-06-25  2008-06-25     1    0 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A1  585.31    2008-06-25  2008-06-25     1    0 days</span></code></pre></div>
 </div>
-<div class="section level4">
-<h4>3. 共病症</h4>
+<div class="section level5">
+<h5 id="共病症">3. 共病症<a class="anchor" aria-label="anchor" href="#%E5%85%B1%E7%97%85%E7%97%87"></a>
+</h5>
 <p>共病症(Comorbidities)為病患於主診斷之外，其他已存在且會對主診斷疾病產生影響的疾病症狀，共病症分群基於診斷編碼進行標準化分組， 根據不同測量方法對共病症的定義分別介紹之：AHRQ、Charlson及Elixhauser。</p>
 <p><strong>1) Elixhauser</strong></p>
 <p>Elixhauser Comorbidity為 Dr. Elixhauser 與其團隊在1998年提出基於標準ICD診斷碼的共病症分類分組標準，Elixhauser database共病症測量指標為 HCUP 發展的共病症資料庫之一，ICD-9-CM 及 ICD-10-CM 的 Elixhauser 共病症種類一致，共 29 種。</p>
 <p>欲將診斷編碼依照 Elixhauser 共病症分類，在 function <code>icdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>elix</code></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">elix</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ELIX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">elix</span><span class="op">)</span>
 
-<span class="no">ELIX</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06        ARTH</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       LIVER</span>
@@ -458,25 +467,26 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        DRUG</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13       LYMPH</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">ELIX</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ELIX</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0    RENLFAIL    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1    RENLFAIL    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10    RENLFAIL    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11    RENLFAIL    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12    RENLFAIL    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>2) AHRQ</strong></p>
 <p>於2017年基於 Elixhauser Comorbidity 更進一步設計 AHRQ Elixhauser Comorbidity Index，此index為單一的風險評估分數，可用於再入院與死亡的風險評估。</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 AHRQ 共病症種類一致，共30種。</p>
 <p>欲將診斷編碼依照 AHRQ 共病症分類，在 function <code>icdDxToComorbid</code> 的 <code>comorbidMethod</code> 輸入 <code>AHRQ</code></p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">AHRQ</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">AHRQ</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AHRQ</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">AHRQ</span><span class="op">)</span>
 
-<span class="no">AHRQ</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<span class="va">AHRQ</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06   Rheumatic</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04       Liver</span>
@@ -484,25 +494,26 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15       Drugs</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13    Lymphoma</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">AHRQ</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">AHRQ</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0       Renal    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1       Renal    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10       Renal    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11       Renal    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12       Renal    2006-05-14  2015-06-29     5 3333 days</span></code></pre></div>
 <p><strong>3) Charlson</strong></p>
 <p>Charlson database 共病症測量指標的是基於 Quan 的 Charlson Comorbidity Index 版本，依診斷編碼其相關的共病症做分類。</p>
 <p>ICD-9-CM 及 ICD-10-CM 的 Charlson 共病症種類一致，共17種。</p>
 <p>欲將診斷編碼依照 Charlson 共病症分類，在 function <code>icdDxToComorbid</code> 的<code>comorbidMethod</code> 輸入 <code>Charlson</code></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">Charlson</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">charlson</span>)
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Charlson</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">charlson</span><span class="op">)</span>
 
-<span class="no">Charlson</span>$<span class="no">groupedDT</span>[<span class="fl">160</span>:<span class="fl">164</span>]
+<span class="va">Charlson</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">160</span><span class="op">:</span><span class="fl">164</span><span class="op">]</span>
 <span class="co">#&gt;     Short ID    ICD       Date Comorbidity</span>
 <span class="co">#&gt; 1: M06821 D1 M06821 2016-12-06       Rheum</span>
 <span class="co">#&gt; 2:  K7291 D1  K7291 2024-04-04        MSLD</span>
@@ -510,16 +521,17 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4: F13230 D2 F13230 2022-09-15        &lt;NA&gt;</span>
 <span class="co">#&gt; 5:  C8397 D2  C8397 2019-10-13      CANCER</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Charlson</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Charlson</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID Comorbidity firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0          RD    2009-07-25  2013-12-20     5 1609 days</span>
 <span class="co">#&gt; 2:  A1          RD    2006-11-29  2014-09-24     5 2856 days</span>
 <span class="co">#&gt; 3: A10          RD    2007-11-04  2012-07-30     5 1730 days</span>
 <span class="co">#&gt; 4: A11          RD    2008-03-09  2011-09-03     5 1273 days</span>
-<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A11      DIAB_C    2015-12-16  2015-12-16     1    0 days</span></code></pre></div>
 </div>
-<div class="section level4">
-<h4>4. 自定義診斷碼分組</h4>
+<div class="section level5">
+<h5 id="自定義診斷碼分組">4. 自定義診斷碼分組<a class="anchor" aria-label="anchor" href="#%E8%87%AA%E5%AE%9A%E7%BE%A9%E8%A8%BA%E6%96%B7%E7%A2%BC%E5%88%86%E7%B5%84"></a>
+</h5>
 <p>因應臨床研究需求，本套件採多樣的分組方式以維持診斷醫療大數據分析的彈性，提供進階使用者自行定義診斷分組類別及類別項目，使用者可選擇精確比對或是模糊比對的方式訂定篩選的分組類別及類別項目進行診斷碼的分群。</p>
 <p>範例如下，使用者欲定義符合慢性腎臟疾病（Chronic kidney disease）的疾病編碼，相關診斷編碼如下：</p>
 <ul>
@@ -530,18 +542,19 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <p>自定義診斷分組提供兩種分組方法供使用者選擇，將符合條件的診斷編碼分類為心律異常的組別。</p>
 <p><strong>1) icdDxToCustom</strong>：<strong>精確比對</strong></p>
 <p>使用者須定義精確分組的表格 (groupingTable)，輸入詳細的診斷編碼 (N181, 5853, 5854…)， 進行分組的資料須要完全符合，才會歸類為 Cardiac dysrhythmias，另外不符合條件的組別則顯示 <code>NA</code>。</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># CustomGroupingTable </span>
-<span class="no">groupingTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"Chronic kidney disease"</span>,<span class="fl">6</span>),
-                            <span class="kw">ICD</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span>),
-                            <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># CustomGroupingTable </span>
+<span class="va">groupingTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Chronic kidney disease"</span>,<span class="fl">6</span><span class="op">)</span>,
+                            ICD <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N181"</span>,<span class="st">"5853"</span>,<span class="st">"5854"</span>,<span class="st">"5855"</span>,<span class="st">"5856"</span>,<span class="st">"5859"</span><span class="op">)</span>,
+                            stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="no">CustomGroup</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustom</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                             <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                             <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                             <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                             <span class="kw">customGroupingTable</span> <span class="kw">=</span> <span class="no">groupingTable</span>)
+<span class="va">CustomGroup</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustom</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                             idColName <span class="op">=</span> <span class="va">ID</span>,
+                             icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                             dateColName <span class="op">=</span> <span class="va">Date</span>,
+                             customGroupingTable <span class="op">=</span> <span class="va">groupingTable</span><span class="op">)</span>
 
-<span class="no">CustomGroup</span>$<span class="no">groupedDT</span>[<span class="fl">10</span>:<span class="fl">14</span>]
+<span class="va">CustomGroup</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span>
 <span class="co">#&gt;     ICD ID       Date                  Group</span>
 <span class="co">#&gt; 1: 5853 A0 2010-10-29 Chronic kidney disease</span>
 <span class="co">#&gt; 2: 5856 A0 2009-07-25 Chronic kidney disease</span>
@@ -549,27 +562,28 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4: 5855 A1 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: 5855 A1 2013-04-28 Chronic kidney disease</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CustomGroup</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CustomGroup</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID                  Group firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
 <span class="co">#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days</span>
 <span class="co">#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days</span>
-<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></code></pre></div>
 <p><strong>2) icdDxToCustomGrep</strong>：<strong>模糊比對</strong></p>
 <p>使用者須定義模糊分組的表格 (grepTable)，以字串比對之正規表示式 (585* , N18*…)，當資料開頭為585* (ICD-9-CM) 或是N18* (ICD-10-CM) 即符合使用者定義之組別條件 Chronic kidney disease，另外不符合條件的組別則顯示 <code>NA</code>。</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="co"># CustomGroupingTable</span>
-<span class="no">grepTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Group</span> <span class="kw">=</span> <span class="st">"Chronic kidney disease"</span>,
-                        <span class="kw">grepIcd</span> <span class="kw">=</span> <span class="st">"^585|^N18"</span>,
-                        <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># CustomGroupingTable</span>
+<span class="va">grepTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="st">"Chronic kidney disease"</span>,
+                        grepIcd <span class="op">=</span> <span class="st">"^585|^N18"</span>,
+                        stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="no">CustomGrepGroup</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustomGrep</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                     <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                     <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                     <span class="kw">customGroupingTable</span> <span class="kw">=</span> <span class="no">grepTable</span>)
+<span class="va">CustomGrepGroup</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxCustom.html">icdDxToCustomGrep</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                     idColName <span class="op">=</span> <span class="va">ID</span>,
+                                     icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                                     dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                     customGroupingTable <span class="op">=</span> <span class="va">grepTable</span><span class="op">)</span>
 
-<span class="no">CustomGrepGroup</span>$<span class="no">groupedDT</span>[<span class="fl">10</span>:<span class="fl">14</span>]
+<span class="va">CustomGrepGroup</span><span class="op">$</span><span class="va">groupedDT</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">14</span><span class="op">]</span>
 <span class="co">#&gt;    ID  ICD       Date            GrepedGroup</span>
 <span class="co">#&gt; 1: A0 5853 2010-10-29 Chronic kidney disease</span>
 <span class="co">#&gt; 2: A0 5856 2009-07-25 Chronic kidney disease</span>
@@ -577,21 +591,22 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 4: A1 5855 2012-06-19 Chronic kidney disease</span>
 <span class="co">#&gt; 5: A1 5855 2013-04-28 Chronic kidney disease</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">CustomGrepGroup</span>$<span class="no">summarised_groupedDT</span>, <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CustomGrepGroup</span><span class="op">$</span><span class="va">summarised_groupedDT</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID            GrepedGroup firstCaseDate endCaseDate count    period</span>
 <span class="co">#&gt; 1:  A0 Chronic kidney disease    2009-07-25  2013-12-20     3 1609 days</span>
 <span class="co">#&gt; 2:  A1 Chronic kidney disease    2006-11-29  2014-09-24     4 2856 days</span>
 <span class="co">#&gt; 3: A10 Chronic kidney disease    2007-11-04  2007-11-04     1    0 days</span>
 <span class="co">#&gt; 4: A11 Chronic kidney disease    2008-03-09  2010-02-21     2  714 days</span>
-<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></pre></body></html></div>
+<span class="co">#&gt; 5: A12 Chronic kidney disease    2006-05-14  2011-02-25     3 1748 days</span></code></pre></div>
 </div>
 </div>
 </div>
-<div id="ii--data-wrangling" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ii--data-wrangling" class="anchor"></a>II. Data Wrangling</h2>
 <div class="section level3">
-<h3>一、篩選符合條件的個案</h3>
+<h3 id="ii--data-wrangling">II. Data Wrangling<a class="anchor" aria-label="anchor" href="#ii--data-wrangling"></a>
+</h3>
+<div class="section level4">
+<h4 id="一篩選符合條件的個案">一、篩選符合條件的個案<a class="anchor" aria-label="anchor" href="#%E4%B8%80%E7%AF%A9%E9%81%B8%E7%AC%A6%E5%90%88%E6%A2%9D%E4%BB%B6%E7%9A%84%E5%80%8B%E6%A1%88"></a>
+</h4>
 <p>將醫療大數據診斷資訊進行標準化處理與整合後，將依據使用者所設立的條件篩選符合條件的個案。篩選個案的功能和疾病世代的概念類似，適用於一般疾病（限制搜尋範圍）或慢性病（沒有限制搜尋範圍）的計算。</p>
 <p>為選取符合特定條件之診斷資料，目前有三種條件進行篩選：</p>
 <ol style="list-style-type: decimal">
@@ -631,120 +646,126 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </table>
 <p>符合條件的個案將整合為一筆資料，內容為符合條件的資料總數（count），第一筆診斷資料（first case date）及最後一筆資料時間（end case date）及資料時間相隔週期（period），出現最多次的ICD及次數（most common ICD 和 most common ICD count）。</p>
 <p>符合篩選條件會在欄位 <code>selectedCase</code> 顯示 “Selected”，使用者也可自行定義組別名稱 (在 <code>caseName</code> 引數項中設定)</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">Case</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                    <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                    <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                    <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                    <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccslvl2</span>,
-                    <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>,
-                    <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                    <span class="kw">caseCondition</span> <span class="kw">=</span> <span class="st">"Diseases of the urinary system"</span>,
-                    <span class="kw">caseCount</span> <span class="kw">=</span> <span class="fl">1</span>,
-                    <span class="kw">caseName</span> <span class="kw">=</span> <span class="st">"Selected"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Case</span>)
-<span class="co">#&gt;     ID selectedCase count firstCaseDate endCaseDate    period</span>
-<span class="co">#&gt; 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days</span>
-<span class="co">#&gt; 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days</span>
-<span class="co">#&gt; 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days</span>
-<span class="co">#&gt; 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days</span>
-<span class="co">#&gt; 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days</span>
-<span class="co">#&gt; 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days</span>
-<span class="co">#&gt;    MostCommonICD MostCommonICDCount</span>
-<span class="co">#&gt; 1:          V420                  3</span>
-<span class="co">#&gt; 2:          5855                  2</span>
-<span class="co">#&gt; 3:         V5631                  2</span>
-<span class="co">#&gt; 4:          5859                  2</span>
-<span class="co">#&gt; 5:          5855                  2</span>
-<span class="co">#&gt; 6:         V5631                  2</span></pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Case</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                    idColName <span class="op">=</span> <span class="va">ID</span>,           
+                    icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                    dateColName <span class="op">=</span> <span class="va">Date</span>,
+                    groupDataType <span class="op">=</span> <span class="va">ccslvl2</span>,
+                    icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span>,
+                    isDescription <span class="op">=</span> <span class="cn">TRUE</span>,
+                    caseCondition <span class="op">=</span> <span class="st">"Diseases of the urinary system"</span>,
+                    caseCount <span class="op">=</span> <span class="fl">1</span>,
+                    caseName <span class="op">=</span> <span class="st">"Selected"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Case</span><span class="op">)</span>                   
+<span class="co">#&gt;     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD</span>
+<span class="co">#&gt; 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420</span>
+<span class="co">#&gt; 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days          5855</span>
+<span class="co">#&gt; 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days         V5631</span>
+<span class="co">#&gt; 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days          5859</span>
+<span class="co">#&gt; 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days          5855</span>
+<span class="co">#&gt; 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days         V5631</span>
+<span class="co">#&gt;    MostCommonICDCount</span>
+<span class="co">#&gt; 1:                  3</span>
+<span class="co">#&gt; 2:                  2</span>
+<span class="co">#&gt; 3:                  2</span>
+<span class="co">#&gt; 4:                  2</span>
+<span class="co">#&gt; 5:                  2</span>
+<span class="co">#&gt; 6:                  2</span></code></pre></div>
 <p>以上述例子結果之第一筆做說明，個案 A3 符合篩選條件的診斷資料共 5 筆，第一筆診斷日期為 “2008-07-08”，最後一筆診斷紀錄為 “2014-02-24”。其中 V420 出現次數最高，共 3 筆。整個診斷紀錄週期為 2057 天。</p>
 </div>
-<div class="section level3">
-<h3>二、就診紀錄第一筆資料及最後一筆資料</h3>
+<div class="section level4">
+<h4 id="二就診紀錄第一筆資料及最後一筆資料">二、就診紀錄第一筆資料及最後一筆資料<a class="anchor" aria-label="anchor" href="#%E4%BA%8C%E5%B0%B1%E8%A8%BA%E7%B4%80%E9%8C%84%E7%AC%AC%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99%E5%8F%8A%E6%9C%80%E5%BE%8C%E4%B8%80%E7%AD%86%E8%B3%87%E6%96%99"></a>
+</h4>
 <p>取得病患的就診紀錄第一筆資料及最後一筆資料，可用來做為個案的指標日期供 <code>splitDataByDate</code> 使用。</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">admissionDate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getEligiblePeriod.html">getEligiblePeriod</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                   <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                   <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">admissionDate</span>)
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">admissionDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getEligiblePeriod.html">getEligiblePeriod</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                   idColName <span class="op">=</span> <span class="va">ID</span>,
+                                   dateColName <span class="op">=</span> <span class="va">Date</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">admissionDate</span><span class="op">)</span>                                  
 <span class="co">#&gt;     ID firstRecordDate endRecordDate</span>
 <span class="co">#&gt; 1:  D6      2005-10-09    2025-01-05</span>
 <span class="co">#&gt; 2: A12      2006-01-12    2022-06-12</span>
 <span class="co">#&gt; 3:  D1      2006-02-12    2024-04-04</span>
 <span class="co">#&gt; 4: A13      2006-04-29    2025-02-02</span>
 <span class="co">#&gt; 5:  A9      2006-06-30    2023-12-10</span>
-<span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></pre></body></html></div>
+<span class="co">#&gt; 6:  D2      2006-09-01    2025-08-11</span></code></pre></div>
 </div>
-<div id="index-date" class="section level3">
-<h3 class="hasAnchor">
-<a href="#index-date" class="anchor"></a>三、以事件（index date）區分事件前後的醫療紀錄</h3>
+<div class="section level4">
+<h4 id="三以事件index-date區分事件前後的醫療紀錄">三、以事件（index date）區分事件前後的醫療紀錄<a class="anchor" aria-label="anchor" href="#%E4%B8%89%E4%BB%A5%E4%BA%8B%E4%BB%B6index-date%E5%8D%80%E5%88%86%E4%BA%8B%E4%BB%B6%E5%89%8D%E5%BE%8C%E7%9A%84%E9%86%AB%E7%99%82%E7%B4%80%E9%8C%84"></a>
+</h4>
 <p>醫學研究常需要觀察特定事件發生前後的改變，因此需要一個指標時間（index date）來記錄事件的發生。timeTag 欄位可顯示此紀錄為事件前或是事件後（Before or After），使用者可依此結果再行篩選事件發生前／後的資料。</p>
 <p>指標日期 (<code>indexDateFile</code>) 由使用者定義，可依據個案之醫療紀錄個別定義，如使用 <code>getEligiblePeriod</code>函數所得之結果。<br>
 另外本套見也提供週期（window）計算功能，使用者可自行定義週期長度 (<code>gap</code>)，預設週期長度為30天。</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">indexDateTable</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">ID</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span>),
-                             <span class="kw">indexDate</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
-                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span>),
-                             <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">Data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">indexDateFile</span> <span class="kw">=</span> <span class="no">indexDateTable</span>,
-                        <span class="kw">gap</span> <span class="kw">=</span> <span class="fl">30</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Data</span>, <span class="fl">5</span>)
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">indexDateTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A0"</span>,<span class="st">"B0"</span>,<span class="st">"C0"</span>,<span class="st">"D0"</span><span class="op">)</span>,
+                             indexDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2009-07-25"</span>, <span class="st">"2015-12-26"</span>,
+                                           <span class="st">"2015-12-05"</span>, <span class="st">"2017-01-29"</span><span class="op">)</span>,
+                             stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/splitDataByDate.html">splitDataByDate</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        indexDateFile <span class="op">=</span> <span class="va">indexDateTable</span>,
+                        gap <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> 
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Data</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;    ID   ICD       Date  indexDate timeTag window</span>
 <span class="co">#&gt; 1: A0  5856 2009-07-25 2009-07-25       A      1</span>
 <span class="co">#&gt; 2: A0  V560 2010-03-28 2009-07-25       A      9</span>
 <span class="co">#&gt; 3: A0  5853 2010-10-29 2009-07-25       A     16</span>
 <span class="co">#&gt; 4: A0 V4511 2012-04-05 2009-07-25       A     33</span>
-<span class="co">#&gt; 5: A0  5855 2013-12-20 2009-07-25       A     54</span></pre></body></html></div>
+<span class="co">#&gt; 5: A0  5855 2013-12-20 2009-07-25       A     54</span></code></pre></div>
 <p>舉例來說，個案 A0 之指標日期為 2009-07-25，則個案 A0 的第一筆診斷資料時間為 2009-07-25 視為指標日期之後發生的紀錄，TimeTag 為 A (after)。兩筆資料間隔天數為 0 天，故為第 1 個週期；個案 A0 的第二筆診斷資料時間為 2010-03-28 ，亦為指標日期後的紀錄，TimeTag 為 A。資料間隔天數為 246 天，為第 9 個週期。</p>
 </div>
-<div id="-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#-" class="anchor"></a>四、 疾病世代</h3>
+<div class="section level4">
+<h4 id="四-疾病世代">四、 疾病世代<a class="anchor" aria-label="anchor" href="#%E5%9B%9B-%E7%96%BE%E7%97%85%E4%B8%96%E4%BB%A3"></a>
+</h4>
 <p>在診斷紀錄整合機制方面，Dr. Ryan 提出疾病世代（Condition era）概念整合處理連續性的醫療行為， 將分散的醫療紀錄整合為單一病程發展紀錄，以利後續醫療大數據分析使用。</p>
 <p>疾病世代的概念是針對疾病定義持續期（gap）長度，若任兩個連續診斷之間的間隔小於 gap，則此兩個診斷視為同一個疾病世代。<br>
 疾病世代的診斷分類可選擇 ICD 診斷編碼或四種標準化分組，計算病患之疾病世代，其持續期長度預設值為30天（<code>gapDate</code>）。</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">Era</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getConditionEra.html">getConditionEra</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                       <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                       <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                       <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                       <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                       <span class="kw">gapDate</span> <span class="kw">=</span> <span class="fl">30</span>,
-                       <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccs</span>,
-                       <span class="kw">isDescription</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">Era</span>)
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Era</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getConditionEra.html">getConditionEra</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                       idColName <span class="op">=</span> <span class="va">ID</span>,
+                       icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                       dateColName <span class="op">=</span> <span class="va">Date</span>,
+                       icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>, 
+                       gapDate <span class="op">=</span> <span class="fl">30</span>,
+                       groupDataType <span class="op">=</span> <span class="va">ccs</span>,
+                       isDescription <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Era</span><span class="op">)</span>                       
 <span class="co">#&gt;    ID CCS_CATEGORY era firstCaseDate endCaseDate count period</span>
 <span class="co">#&gt; 1: A0          158   1    2009-07-25  2009-07-25     1 0 days</span>
 <span class="co">#&gt; 2: A0          158   2    2010-03-28  2010-03-28     1 0 days</span>
 <span class="co">#&gt; 3: A0          158   3    2010-10-29  2010-10-29     1 0 days</span>
 <span class="co">#&gt; 4: A0          158   4    2012-04-05  2012-04-05     1 0 days</span>
 <span class="co">#&gt; 5: A0          158   5    2013-12-20  2013-12-20     1 0 days</span>
-<span class="co">#&gt; 6: A1          158   1    2006-11-29  2006-11-29     1 0 days</span></pre></body></html></div>
+<span class="co">#&gt; 6: A1          158   1    2006-11-29  2006-11-29     1 0 days</span></code></pre></div>
 <p>以範例的第一個結果做說明：個案 A0 被分組到 CCS 類別 158 共有 5 筆資料，第一筆診斷日期為 “2009-07-25” 、最後一筆診斷紀錄為 “2013-12-20”，其中任意兩個連續的診斷，相差間隔皆不小於 30 天，所以有 5 個世代。</p>
 </div>
-<div id="-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#-" class="anchor"></a>五、 探索性資料寬表轉換</h3>
+<div class="section level4">
+<h4 id="五-探索性資料寬表轉換">五、 探索性資料寬表轉換<a class="anchor" aria-label="anchor" href="#%E4%BA%94-%E6%8E%A2%E7%B4%A2%E6%80%A7%E8%B3%87%E6%96%99%E5%AF%AC%E8%A1%A8%E8%BD%89%E6%8F%9B"></a>
+</h4>
 <p>診斷碼整合分組後，為能進行後續的探索性資料分析（EDA preparation），本套件提供資料型態轉換的功能，以便轉換為更利於進行統計分析的寬表型態。</p>
 <p>寬表提供兩種表示方式，以二分法（binary）或是數量（numeric）的方式呈現（<code>numericOrBinary</code> = <code>N</code> 或 <code>B</code>）。當病患沒有相關的疾病診斷，或診斷次數低於使用者設定之閾值（引數 <code>count</code>，預設為 1），則二分法表示為 FALSE，反之，超過閾值的診斷紀錄數目時，二分法表示為 TRUE；數量表示法則計算該病患在相關疾病的分組上共有幾筆疾病診斷資料。</p>
 <p>以下範例以共病症 Elixhauser為範例進行兩種表示法回傳的資料型態。</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="co">#binary</span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#binary</span>
 
-<span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">elix</span>)
+<span class="va">ELIX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">elix</span><span class="op">)</span>
 
-<span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">reDup</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                          <span class="kw">numericOrBinary</span> <span class="kw">=</span> <span class="no">B</span>)
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">groupedData_Wide</span>, <span class="fl">5</span>)
+<span class="va">groupedData_Wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          reDup <span class="op">=</span> <span class="cn">TRUE</span>,
+                                          numericOrBinary <span class="op">=</span> <span class="va">B</span><span class="op">)</span>
+                  
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">groupedData_Wide</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;     ID  ARTH CHRNLUNG  DMCX  DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE</span>
 <span class="co">#&gt; 1:  A0 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE</span>
 <span class="co">#&gt; 2:  A1 FALSE    FALSE FALSE FALSE    FALSE   FALSE FALSE FALSE FALSE FALSE</span>
@@ -756,38 +777,39 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt; 2: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 3: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
 <span class="co">#&gt; 4: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span>
-<span class="co">#&gt; 5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span></pre></body></html></div>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="co"># numeric</span>
+<span class="co">#&gt; 5: FALSE    FALSE FALSE     TRUE FALSE FALSE FALSE    FALSE</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># numeric</span>
 
-<span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">reDup</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                          <span class="kw">numericOrBinary</span> <span class="kw">=</span> <span class="no">N</span>)
+<span class="va">groupedData_Wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          reDup <span class="op">=</span> <span class="cn">TRUE</span>,
+                                          numericOrBinary <span class="op">=</span> <span class="va">N</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">groupedData_Wide</span>, <span class="fl">5</span>)
-<span class="co">#&gt;     ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE</span>
-<span class="co">#&gt; 1:  A0    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 2:  A1    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 3: A10    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 4: A11    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt; 5: A12    0        0    0    0        0       0     0     0     0     0</span>
-<span class="co">#&gt;    PARA PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS</span>
-<span class="co">#&gt; 1:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 2:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 3:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 4:    0        0     0        5     0     0     0        0</span>
-<span class="co">#&gt; 5:    0        0     0        5     0     0     0        0</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">groupedData_Wide</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;     ID ARTH CHRNLUNG DMCX DRUG HRENWORF HTNPREG LIVER LYMPH NEURO OBESE PARA</span>
+<span class="co">#&gt; 1:  A0    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 2:  A1    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 3: A10    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 4: A11    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt; 5: A12    0        0    0    0        0       0     0     0     0     0    0</span>
+<span class="co">#&gt;    PERIVASC PSYCH RENLFAIL TUMOR ULCER VALVE WGHTLOSS</span>
+<span class="co">#&gt; 1:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 2:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 3:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 4:        0     0        5     0     0     0        0</span>
+<span class="co">#&gt; 5:        0     0        5     0     0     0        0</span></code></pre></div>
 </div>
 </div>
-<div id="iii--visualization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#iii--visualization" class="anchor"></a>III. Visualization</h2>
+<div class="section level3">
+<h3 id="iii--visualization">III. Visualization<a class="anchor" aria-label="anchor" href="#iii--visualization"></a>
+</h3>
 <p>第三部份視覺化：套件將前述功能之結果整合，以圖表形式呈現。</p>
-<div id="-pareto-plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#-pareto-plot" class="anchor"></a>一、 Pareto plot：錯誤編碼之柏拉圖圖表</h3>
+<div class="section level4">
+<h4 id="一-pareto-plot錯誤編碼之柏拉圖圖表">一、 Pareto plot：錯誤編碼之柏拉圖圖表<a class="anchor" aria-label="anchor" href="#%E4%B8%80-pareto-plot%E9%8C%AF%E8%AA%A4%E7%B7%A8%E7%A2%BC%E4%B9%8B%E6%9F%8F%E6%8B%89%E5%9C%96%E5%9C%96%E8%A1%A8"></a>
+</h4>
 <p>將第一階段－ ICD 診斷編碼格式轉換（Code transformation）過程中產生之錯誤編碼訊息列表換成圖表。<br>
 以柏拉圖圖表(Pareto plot)的方式呈現，使用者可得知錯誤編碼的種類及出現比例，並依照錯誤數量依序排名。</p>
 <ul>
@@ -802,17 +824,19 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <li>第 10 名以後的錯誤編碼設為＂others＂（<code>Others</code> = <code>TRUE</code>）</li>
 </ul>
 <p>如欲觀察前十名的錯誤編碼種類及分布比例，則範例如下：</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="no">error</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                            <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                            <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                            <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>)
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">error</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxUniform.html">icdDxDecimalToShort</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                            icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                            dateColName <span class="op">=</span> <span class="va">Date</span>,
+                            icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span><span class="op">)</span>
 
-<span class="no">Plot_error1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
-                            <span class="kw">icdVersion</span> <span class="kw">=</span> <span class="no">all</span>,
-                            <span class="kw">wrongICDType</span> <span class="kw">=</span> <span class="no">all</span>,
-                            <span class="kw">others</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="va">Plot_error1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span><span class="op">(</span>errorFile <span class="op">=</span> <span class="va">error</span><span class="op">$</span><span class="va">Error</span>,
+                            icdVersion <span class="op">=</span> <span class="va">all</span>,
+                            wrongICDType <span class="op">=</span> <span class="va">all</span>,
+                            others <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/docs/reference/plotError-2.png" style="display:block; margin:auto; width:70%;"> 上圖顯示前10名錯誤的診斷編碼，其中第一名的錯誤<strong>A0.11</strong>共有20筆，佔全部錯誤18.35% (20/109)，其餘名次的錯誤編碼則分類至 “Others”。</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">Plot_error1</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error1</span><span class="op">$</span><span class="va">ICD</span>
 <span class="co">#&gt;        ICD count CumCountPerc IcdVersionInFile     WrongType Suggestion</span>
 <span class="co">#&gt;  1:  A0.11    20       18.35%           ICD 10  Wrong format           </span>
 <span class="co">#&gt;  2:  V27.0    18       34.86%           ICD 10 Wrong version           </span>
@@ -824,7 +848,7 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt;  8:  V24.1     6       72.48%           ICD 10 Wrong version           </span>
 <span class="co">#&gt;  9:  A0105     5       77.06%            ICD 9 Wrong version           </span>
 <span class="co">#&gt; 10:    001     5       81.65%            ICD 9  Wrong format       0019</span>
-<span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></pre></body></html></div>
+<span class="co">#&gt; 11: others    20         100%            ICD 9  Wrong format</span></code></pre></div>
 <p>另外使用者可選擇將 <strong>ICD-9</strong> 依照章節<strong>分組</strong> (<code>groupICD = TRUE</code>)；僅 ICD9 有此功能， ICD10 本身已有前綴之字母編號故無須額外編組。</p>
 <p>ICD-9 共 19 章節疾病分類：<br>
 　001-139：傳染病或寄生蟲相關疾病<br>
@@ -832,26 +856,28 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 　…等。</p>
 <p><code>plotICDError</code>依照編碼開頭分類，大致分為 12 組：0, 1, 2,…, 9, V 和 E</p>
 <p>如欲觀察 ICD9 的前三名錯誤編碼種類及分布比例，則範例如下。</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">Plot_error2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span>(<span class="kw">errorFile</span> <span class="kw">=</span> <span class="no">error</span>$<span class="no">Error</span>,
-                             <span class="kw">icdVersion</span> <span class="kw">=</span> <span class="fl">9</span>,
-                             <span class="kw">wrongICDType</span> <span class="kw">=</span> <span class="no">all</span>,
-                             <span class="kw">groupICD</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                             <span class="kw">others</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                             <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">3</span>)
-<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use</span>
-<span class="co">#&gt; `guides(&lt;scale&gt; = "none")` instead.</span></pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotICDError.html">plotICDError</a></span><span class="op">(</span>errorFile <span class="op">=</span> <span class="va">error</span><span class="op">$</span><span class="va">Error</span>,
+                             icdVersion <span class="op">=</span> <span class="fl">9</span>,
+                             wrongICDType <span class="op">=</span> <span class="va">all</span>,
+                             groupICD <span class="op">=</span> <span class="cn">TRUE</span>,
+                             others <span class="op">=</span> <span class="cn">TRUE</span>,
+                             topN <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =</span>
+<span class="co">#&gt; "none")` instead.</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotICDError.png" style="display:block; margin:auto; width:70%;"></p>
 <p><code>icdVersion</code>設為 9，緊顯示 ICD9 版本之錯誤編碼，並設 <code>groupICD</code> 為 TRUE，使 ICD9 依編碼開頭分組， * 顯示前三名的錯誤編碼 * 第3名以後的錯誤編碼設為＂others＂ 由下表格得知第一名的錯誤編碼為<strong>A01.05</strong>佔組別A共61.54%，總共有13筆錯誤，佔全部的錯誤的比例為41.94%</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">Plot_error2</span>$<span class="no">ICD</span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Plot_error2</span><span class="op">$</span><span class="va">ICD</span>
 <span class="co">#&gt;    ICDGroup groupCount CumCountPerc MostICDInGroup ICDPercInGroup     WrongType</span>
 <span class="co">#&gt; 1:        A         13       41.94%         A01.05         61.54% Wrong version</span>
 <span class="co">#&gt; 2:        7          9       70.97%          75.52         44.44%  Wrong format</span>
 <span class="co">#&gt; 3:        0          5        87.1%            001           100%  Wrong format</span>
-<span class="co">#&gt; 4:   Others          4         100%          E03.0           100% Wrong version</span></pre></body></html></div>
+<span class="co">#&gt; 4:   Others          4         100%          E03.0           100% Wrong version</span></code></pre></div>
 </div>
-<div id="-histogram-plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#-histogram-plot" class="anchor"></a>二、 histogram plot：標準化分組之長條圖表</h3>
+<div class="section level4">
+<h4 id="二-histogram-plot標準化分組之長條圖表">二、 histogram plot：標準化分組之長條圖表<a class="anchor" aria-label="anchor" href="#%E4%BA%8C-histogram-plot%E6%A8%99%E6%BA%96%E5%8C%96%E5%88%86%E7%B5%84%E4%B9%8B%E9%95%B7%E6%A2%9D%E5%9C%96%E8%A1%A8"></a>
+</h4>
 <p>將第二階段－探索性資料轉換之寬表資料圖形化，以便觀察診斷資料在各分群（如 comorbidity）的分布情形及數量。</p>
 <p>使用者可選擇顯示前幾名的分組資料（Top N），且可限制每個分群的病患至少有一定比例（limit Frequency）。</p>
 <ul>
@@ -859,28 +885,30 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <li>限制最低比例預設為 1% （<code>limitFreq</code> = <code>0.01</code>）；假設使用者的資料共 1000 個病患，則每種組別至少要有 10 個病患</li>
 </ul>
 <p>範例使用步驟如下：</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">elix</span>)
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ELIX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">elix</span><span class="op">)</span>
 
-<span class="no">groupedDataWide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">reDup</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                          <span class="kw">numericOrBinary</span> <span class="kw">=</span> <span class="no">B</span>)
+<span class="va">groupedDataWide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          reDup <span class="op">=</span> <span class="cn">TRUE</span>,
+                                          numericOrBinary <span class="op">=</span> <span class="va">B</span><span class="op">)</span>
 
-<span class="no">plot1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span>(<span class="kw">groupedDataWide</span> <span class="kw">=</span> <span class="no">groupedDataWide</span>,
-                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                     <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>,
-                     <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>)</pre></body></html></div>
+<span class="va">plot1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span><span class="op">(</span>groupedDataWide <span class="op">=</span> <span class="va">groupedDataWide</span>, 
+                     idColName <span class="op">=</span> <span class="va">ID</span>,
+                     topN <span class="op">=</span> <span class="fl">10</span>,
+                     limitFreq <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagSing.png" style="display:block; margin:auto; width:70%;"></p>
 <p>上述程式碼先將資料以共病症 Elixhauser 做標準化分組並轉成寬表，最後製圖：顯示前 10 名、至少 1% 比例的組別。</p>
 <p>下表格為符合條件設定的共病症前十名，每組分別有多少人，且該共病症在資料中的比例。 本範例共有 38 個病患，以第一組為例，共有 24 人被分為 RENLFAIL 共病症，比例為 63.16% (24/38)</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">plot1</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot1</span><span class="op">$</span><span class="va">sigCate</span>
 <span class="co">#&gt;     DiagnosticCategory  N Percentage</span>
 <span class="co">#&gt;  1:           RENLFAIL 24      63.16</span>
 <span class="co">#&gt;  2:              TUMOR  6      15.79</span>
@@ -891,41 +919,42 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 <span class="co">#&gt;  7:              NEURO  3       7.89</span>
 <span class="co">#&gt;  8:               PARA  2       5.26</span>
 <span class="co">#&gt;  9:           PERIVASC  2       5.26</span>
-<span class="co">#&gt; 10:              VALVE  2       5.26</span></pre></body></html></div>
+<span class="co">#&gt; 10:              VALVE  2       5.26</span></code></pre></div>
 <p>若資料有進行病患分組 Case/Control，於每個類別（如comorbidity）將進行兩組（Case and Control）的卡方獨立性檢定，圖表將顯示<strong>達統計上顯著差異</strong>的分組類別。<br>
 若樣本數過小以致不適用卡方檢定時，則採用費雪爾精確檢定（Fisher’s Exact Test）</p>
 <p>顯著差異 p-value 預設門檻為 0.05，預設顯示前 10 名的類別，且每群種類的病患在兩組的比率至少有一組達 1%<br>
 舉例來說，假設 Case 和 Control 組各 500 人，在某特定組別至少有一組的人數有 5 個病患 (1%)。</p>
 <p>範例如下：</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="no">selectedCaseFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                                <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                                <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015/10/01"</span>,
-                                <span class="kw">groupDataType</span> <span class="kw">=</span> <span class="no">ccslvl2</span>,
-                                <span class="kw">caseCondition</span> <span class="kw">=</span> <span class="st">"Diseases of the urinary system"</span>,
-                                <span class="kw">caseCount</span> <span class="kw">=</span> <span class="fl">1</span>)
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">selectedCaseFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/selectCases.html">selectCases</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                                idColName <span class="op">=</span> <span class="va">ID</span>,
+                                icdColName <span class="op">=</span> <span class="va">ICD</span>,
+                                dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                icd10usingDate <span class="op">=</span> <span class="st">"2015/10/01"</span>,
+                                groupDataType <span class="op">=</span> <span class="va">ccslvl2</span>,
+                                caseCondition <span class="op">=</span> <span class="st">"Diseases of the urinary system"</span>,
+                                caseCount <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
-<span class="no">ELIX</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">sampleDxFile</span>,
-                        <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                        <span class="kw">icdColName</span> <span class="kw">=</span> <span class="no">ICD</span>,
-                        <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                        <span class="kw">icd10usingDate</span> <span class="kw">=</span> <span class="st">"2015-10-01"</span>,
-                        <span class="kw">comorbidMethod</span> <span class="kw">=</span> <span class="no">elix</span>)
+<span class="va">ELIX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dxComorbid.html">icdDxToComorbid</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">sampleDxFile</span>,
+                        idColName <span class="op">=</span> <span class="va">ID</span>,           
+                        icdColName <span class="op">=</span> <span class="va">ICD</span>,       
+                        dateColName <span class="op">=</span> <span class="va">Date</span>,
+                        icd10usingDate <span class="op">=</span> <span class="st">"2015-10-01"</span>,
+                        comorbidMethod <span class="op">=</span> <span class="va">elix</span><span class="op">)</span>
 
-<span class="no">groupedData_Wide</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span>(<span class="kw">dxDataFile</span> <span class="kw">=</span> <span class="no">ELIX</span>$<span class="no">groupedDT</span>,
-                                          <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                                          <span class="kw">categoryColName</span> <span class="kw">=</span> <span class="no">Comorbidity</span>,
-                                          <span class="kw">dateColName</span> <span class="kw">=</span> <span class="no">Date</span>,
-                                          <span class="kw">reDup</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                                          <span class="kw">selectedCaseFile</span> <span class="kw">=</span> <span class="no">selectedCaseFile</span>)
+<span class="va">groupedData_Wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groupedDataLongToWide.html">groupedDataLongToWide</a></span><span class="op">(</span>dxDataFile <span class="op">=</span> <span class="va">ELIX</span><span class="op">$</span><span class="va">groupedDT</span>, 
+                                          idColName <span class="op">=</span> <span class="va">ID</span>,    
+                                          categoryColName <span class="op">=</span> <span class="va">Comorbidity</span>,   
+                                          dateColName <span class="op">=</span> <span class="va">Date</span>,
+                                          reDup <span class="op">=</span> <span class="cn">TRUE</span>,
+                                          selectedCaseFile <span class="op">=</span> <span class="va">selectedCaseFile</span><span class="op">)</span>
 
-<span class="no">plot2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span>(<span class="kw">groupedDataWide</span> <span class="kw">=</span> <span class="no">groupedData_Wide</span>,
-                     <span class="kw">idColName</span> <span class="kw">=</span> <span class="no">ID</span>,
-                     <span class="kw">groupColName</span> <span class="kw">=</span> <span class="no">selectedCase</span>,
-                     <span class="kw">topN</span> <span class="kw">=</span> <span class="fl">10</span>,
-                     <span class="kw">limitFreq</span> <span class="kw">=</span> <span class="fl">0.01</span>,
-                     <span class="kw">pvalue</span> <span class="kw">=</span> <span class="fl">0.05</span>)</pre></body></html></div>
+<span class="va">plot2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plotDiagCat.html">plotDiagCat</a></span><span class="op">(</span>groupedDataWide <span class="op">=</span> <span class="va">groupedData_Wide</span>, 
+                     idColName <span class="op">=</span> <span class="va">ID</span>,
+                     groupColName <span class="op">=</span> <span class="va">selectedCase</span>,
+                     topN <span class="op">=</span> <span class="fl">10</span>,
+                     limitFreq <span class="op">=</span> <span class="fl">0.01</span>,
+                     pvalue <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/DHLab-TSENG/dxpr/master/image/plotDiagMult.png" style="display:block; margin:auto; width:70%;"></p>
 <p>上述範例之步驟為：</p>
 <ul>
@@ -936,50 +965,52 @@ D和E 轉換格式的結果為NA，表示診斷編<strong>格式錯誤</strong> 
 </ul>
 <p>下表格為在 selected / nonSelected 兩組間達顯著差異的共病症組別 RENLFAIL<br>
 在 selected 組佔了 100% (24/24)，在 nonSelected 組佔了0% (0/14)</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">plot2</span>$<span class="no">sigCate</span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot2</span><span class="op">$</span><span class="va">sigCate</span>
 <span class="co">#&gt;    DiagnosticCategory        Group  N Percentage</span>
 <span class="co">#&gt; 1:           RENLFAIL non-Selected  0          0</span>
-<span class="co">#&gt; 2:           RENLFAIL     Selected 24        100</span></pre></body></html></div>
+<span class="co">#&gt; 2:           RENLFAIL     Selected 24        100</span></code></pre></div>
 </div>
 </div>
-<div id="reference" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
-<div id="i--code-tramsformation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#i--code-tramsformation" class="anchor"></a>I. Code tramsformation</h3>
-<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
-<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
-<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
-<p><a href="https://www.findacode.com/search/search.php" class="uri">https://www.findacode.com/search/search.php</a></p>
-<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
+<div class="section level3">
+<h3 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
+</h3>
+<div class="section level4">
+<h4 id="i--code-tramsformation">I. Code tramsformation<a class="anchor" aria-label="anchor" href="#i--code-tramsformation"></a>
+</h4>
+<p>ICD-9-CM code (2014): <a href="https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html</a></p>
+<p>ICD-10-CM code (2019): <a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+<p><a href="https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html" class="external-link uri">https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html</a></p>
+<p><a href="https://www.findacode.com/search/search.php" class="external-link uri">https://www.findacode.com/search/search.php</a></p>
+<p><a href="https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf" class="external-link uri">https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/HospitalQualityInits/Downloads/HospitalAppendix_F.pdf</a></p>
 </div>
-<div id="ii--code-grouping" class="section level3">
-<h3 class="hasAnchor">
-<a href="#ii--code-grouping" class="anchor"></a>II. Code grouping</h3>
+<div class="section level4">
+<h4 id="ii--code-grouping">II. Code grouping<a class="anchor" aria-label="anchor" href="#ii--code-grouping"></a>
+</h4>
 <p>本套件使用之CCS版本依照HCUP提供之最新版本進行年度的更新，目前ICD-9-CM與ICD-10-CM的CCS定義版本分別為2015年及2019年版。<br>
 PheWAS依照PheWAS Resources網站 進行更新，目前版本為第二版（2015年）。<br>
 Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-10的Elixhauser共病症定義版本分別為2015年及2019年版。</p>
 <p><strong>CCS (Clinical Classifications Software)</strong></p>
-<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
-<p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
-<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
+<p>ICD-9-CM (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
+<p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
+<p>ICD-10-CM (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip</a></p>
 <p><strong>PheWAS</strong></p>
-<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="uri">https://phewascatalog.org/phecodes</a></p>
-<p>ICD-10 Phecode (version 1.2 beta, 2019): <a href="https://phewascatalog.org/phecodes_icd10cm" class="uri">https://phewascatalog.org/phecodes_icd10cm</a></p>
+<p>ICD-9-Phecode (version 1.2, 2015): <a href="https://phewascatalog.org/phecodes" class="external-link uri">https://phewascatalog.org/phecodes</a></p>
+<p>ICD-10 Phecode (version 1.2 beta, 2019): <a href="https://phewascatalog.org/phecodes_icd10cm" class="external-link uri">https://phewascatalog.org/phecodes_icd10cm</a></p>
 <p><strong>Comorbidities</strong></p>
-<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
-<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
-<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
-<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
-<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+<p>ICD-9-AHRQ (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-AHRQ (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
+<p>ICD-9-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt" class="external-link uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD9_E_Charlson.sas.txt</a></p>
+<p>ICD-10-Charlson: <a href="http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt" class="external-link uri">http://mchp-appserv.cpe.umanitoba.ca/Upload/SAS/ICD10_Charlson.sas.txt</a></p>
+<p>ICD-9-Elixhauser (2012-2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp#references</a></p>
+<p>ICD-10-Elixhauser (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2019_1.txt</a></p>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
         <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
 </div>
@@ -989,11 +1020,13 @@ Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-
 
 
       <footer><div class="copyright">
-  <p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng.</p>
+  <p></p>
+<p>Developed by Hsiang-Ju Chiu, Yi-Ju Tseng, Chun-Ju Chen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -1001,6 +1034,8 @@ Elixhauser共病症依照HCUP提供之版本進行更新，目前ICD-9-CM與ICD-
 
   
 
+
+  
 
   </body>
 </html>

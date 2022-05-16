@@ -201,9 +201,11 @@ Users can choose the column information of `groupType` is "category" or "descrip
 
 For example, the ccs description is "Tuberculosis" while the category is "1".
 
-#### B-1. Clinical Classifications Software (CCS)
+#### B-1-1. Clinical Classifications Software (CCS)
 
 The CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses. 
+
+**Stop updating since 2019.**
 
 **1) single-level**: `icdDxToCCS`
 
@@ -256,6 +258,24 @@ CCSLvl_category <- icdDxToCCSLvl(dxDataFile = sampleDxFile,
                                     isDescription = FALSE)
 ```
 
+#### B-1-2. Clinical Classifications Software Refined (CCSR)
+
+The CCSR classification for ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses. 
+
+Unlike CCS, a diagnosis code can be classified into more than one categories in CCSR. However, it is only applicable to ICD-10.
+
+```{r, message = FALSE, warning = FALSE}
+## ICD to CCSR with category description 
+CCSR_description <- icdDxToCCSR(dxDataFile = sampleDxFile,
+                              idColName = ID,
+                              icdColName = ICD,        
+                              dateColName = Date,
+                              icd10usingDate = "2015-10-01",
+                              isDescription = TRUE)
+head(CCSR_description$groupedDT, 5)
+head(CCSR_description$summarised_groupedDT, 5)
+
+```
 
 #### B-2. PheWAS
 
@@ -593,9 +613,7 @@ plot2$sigCate
 
 ICD-9-CM code (2014): https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 
-ICD-10-CM code (2019): https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html
-
-https://www.cms.gov/Medicare/Coding/ICD10/2019-ICD-10-CM.html
+ICD-10-CM code (2019-2022): https://www.cms.gov/Medicare/Coding/ICD10
 
 https://www.findacode.com/search/search.php
 
@@ -605,11 +623,16 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 
 **CCS (Clinical Classifications Software)**
 
-ICD-9-CM (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip
-
+ICD-9-CM (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/ccs.jsp
 https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
-ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
+ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs10.jsp
+https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
+
+**CCSR (Clinical Classifications Software Refined)**
+
+ICD-10-CM (v2022-1): https://www.hcup-us.ahrq.gov/toolssoftware/ccsr/ccs_refined.jsp
+
 
 **PheWAS**
 

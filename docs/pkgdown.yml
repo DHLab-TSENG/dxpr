@@ -1,13 +1,13 @@
-pandoc: 2.3.1
-pkgdown: 1.5.1
+pandoc: 2.11.4
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   Chi_Diagnosis: Chi_Diagnosis.html
   Chi_Procedure: Chi_Procedure.html
   Eng_Diagnosis: Eng_Diagnosis.html
   Eng_Procedure: Eng_Procedure.html
-last_built: 2021-08-09T14:00Z
+last_built: 2022-05-16T05:46Z
 urls:
-  reference: https://dhlab-tseng.github.io/dxpr//reference
-  article: https://dhlab-tseng.github.io/dxpr//articles
+  reference: https://dhlab-tseng.github.io/dxpr/reference
+  article: https://dhlab-tseng.github.io/dxpr/articles
 
