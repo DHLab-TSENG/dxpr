@@ -624,9 +624,11 @@ https://www.cms.gov/Medicare/Quality-Initiatives-Patient-Assessment-Instruments/
 **CCS (Clinical Classifications Software)**
 
 ICD-9-CM (2015): https://www.hcup-us.ahrq.gov/toolssoftware/ccs/ccs.jsp
+
 https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip
 
-ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs10.jsp
+ICD-10-CM (2019): https://www.hcup-us.ahrq.gov/toolssoftware/ccsr/ccsr_archive.jsp
+
 https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs_dx_icd10cm_2019_1.zip
 
 **CCSR (Clinical Classifications Software Refined)**
