@@ -1,6 +1,6 @@
 ---
 title: "Getting started with dxpr: Diagnosis"
-author: "Hsiang-Ju, Chiu"
+author: "Hsiang-Ju, Chiu, Yi-Ju Tseng, Chun-Ju, Chen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
