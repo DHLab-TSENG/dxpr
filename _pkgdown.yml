@@ -25,6 +25,7 @@ reference:
   - icdDxDecimalToShort
   - icdDxToCCS
   - icdDxToCCSLvl
+  - icdDxToCCSR
   - icdDxToPheWAS
   - icdDxToComorbid
   - icdDxToCustom

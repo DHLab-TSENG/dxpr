@@ -48,11 +48,13 @@ NULL
 #' These CCS functions (\code{icdDxToCCS} and \code{icdDxToCCSLvl}) collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD diagnostic codes are.
 #' CCS classification for ICD-9 and ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
 #'
+#' Notice: CCS stopped updating since 2019, replacing by Clinical Classifications Software Refined (CCSR). \code{\link{dxCCSR}} (icdDxToCCSR) function is also provided.
+#'
 #' @name dxCCS
 #' @inherit common_DxArg
 #' @param CCSLevel Numeric. Used for multi-level CCS. By default, it is set to \code{1}. There is 4 multi-level CCS (1~4) for ICD-9, and 2 multi-level CCS (1 and 2) for ICD-10.
 #' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified categories. 2) \code{summarised_groupedDT}: Summarized the \code{groupedDT} dataset and sorted by memberID. 3) \code{Error}: Potential error codes from standardization step: \code{\link{dxUniform}} (icdDxShortToDecimal and icdDxDecimalToShort).
-#' @seealso Other code classification functions: \code{\link{dxPheWAS}} (icdDxToPheWAS), \code{\link{dxCustom}} (icdDxToCustom and icdDxToCustomGrep), \code{\link{dxComorbid}} (icdDxToComorbid).
+#' @seealso Other code classification functions: \code{\link{dxCCSR}} (icdDxToCCSR), \code{\link{dxPheWAS}} (icdDxToPheWAS), \code{\link{dxCustom}} (icdDxToCustom and icdDxToCustomGrep), \code{\link{dxComorbid}} (icdDxToComorbid).
 #' @examples
 #' # sample file for example
 #'
@@ -66,6 +68,28 @@ NULL
 #'
 #' icdDxToCCSLvl(sampleDxFile, ID, ICD, Date, icdVerColName = NULL, "2015-10-01", 2, TRUE)
 NULL
+
+#' Code classification for CCSR
+#'
+#' The CCSR function (\code{icdDxToCCSR} collapses ICD-10 codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD-10 diagnostic codes are.
+#' CCSR classification for ICD-10 codes is a diagnostic categorization scheme that can employ in many types of projects analyzing data on diagnoses.
+#'
+#' Notice: CCSR is only applicable to ICD-10. To process ICD-9 data, please use \code{\link{dxCCS}} (icdDxToCCS) function.
+#'
+#' @name dxCCSR
+#' @inherit common_DxArg
+#' @return Three new \code{data.table}s. 1) \code{groupedDT}: Based on \code{dxDataFile} with two new columns for uniform format diagnostic codes and classified categories. 2) \code{summarised_groupedDT}: Summarized the \code{groupedDT} dataset and sorted by memberID. 3) \code{Error}: Potential error codes from standardization step: \code{\link{dxUniform}} (icdDxShortToDecimal and icdDxDecimalToShort).
+#' @seealso Other code classification functions: \code{\link{dxCCS}} (icdDxToCCS), \code{\link{dxPheWAS}} (icdDxToPheWAS), \code{\link{dxCustom}} (icdDxToCustom and icdDxToCustomGrep), \code{\link{dxComorbid}} (icdDxToComorbid).
+#' @examples
+#' # sample file for example
+#'
+#' head(sampleDxFile)
+#'
+#' # Group diagnostic codes into single level of CCSR classification
+#'
+#' icdDxToCCSR(sampleDxFile, ID, ICD, Date, icdVerCol = Version, isDescription = TRUE)
+NULL
+
 
 #' Code classification for PheWAS
 #'

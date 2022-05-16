@@ -1,6 +1,6 @@
 #' @importFrom stats complete.cases
-#' @export
 #' @rdname dxCCSR
+#' @export
 #'
 icdDxToCCSR <- function(dxDataFile, idColName, icdColName, dateColName, icdVerColName = NULL, icd10usingDate = NULL, isDescription = TRUE){
   dxDataFile <- as.data.table(dxDataFile)
