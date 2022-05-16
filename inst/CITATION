@@ -1,0 +1,3 @@
+citHeader("To cite dxpr, please use:")
+
+citEntry( textVersion  = "Tseng Y, Chiu H, Chen CJ. 2021. dxpr: an R package for generating analysis-ready data from electronic health records—diagnoses and procedures. PeerJ Computer Science 7:e520 https://doi.org/10.7717/peerj-cs.520")
