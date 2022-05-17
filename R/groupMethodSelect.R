@@ -33,6 +33,12 @@ groupMethodSelect <- function(dxDataFile, idColName, icdColName, dateColName, ic
     }else{
       groupedData <- icdDxToCCSLvl(dxDataFile, ID, ICD, Date, NULL, icd10usingDate, CCSLevel, isDescription)
     }
+  }else if(groupMethod == "CCSR"){
+      if(deparse(substitute(icdVerColName)) != "NULL"){
+        groupedData <- icdDxToCCSR(dxDataFile, ID, ICD, Date, Version, NULL, isDescription)
+      }else{
+        groupedData <- icdDxToCCSR(dxDataFile, ID, ICD, Date, NULL, icd10usingDate, isDescription)
+      }
   }else if(groupMethod == "PHEWAS"){
     if(deparse(substitute(icdVerColName)) != "NULL"){
       groupedData <- icdDxToPheWAS(dxDataFile, ID, ICD, Date, Version, NULL, isDescription)
