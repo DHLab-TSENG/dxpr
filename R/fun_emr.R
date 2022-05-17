@@ -178,7 +178,7 @@ NULL
 #' @param caseCount  Minimum number of diagnoses time to be selected. If \code{caseCount} = \code{2}, then only patients who had been diagnosed twice (or above) would be selected. Default value is 1.
 #' @param PeriodRange Determine duration of interest for performing the case selection. By default, it is set from 30 to 365 days (with argument \code{c(30,365)}). The lower bound and the upper of the wanted duration should be coded as a vector.
 #' @param caseName Value to identify selected or not. The value will be filled in the labeling column called \code{selectedCase}. By default, it is set to be \code{"selected"}.
-#' @return A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}, in which each row is labeled as selected or not.
+#' @return A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}, in which each cell is labeled as selected or not. If the patient was diagnosed with certain diseases, but the selection condition is not satisfied, then the \code{selectedCase} cell will be labeled with a star (*).
 #' @seealso Other data integration functions: \code{\link{splitDataByDate}}, \code{\link{getEligiblePeriod}}, \code{\link{getConditionEra}}
 #' @examples
 #' # sample file for example

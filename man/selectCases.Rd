@@ -48,7 +48,7 @@ selectCases(
 \item{PeriodRange}{Determine duration of interest for performing the case selection. By default, it is set from 30 to 365 days (with argument \code{c(30,365)}). The lower bound and the upper of the wanted duration should be coded as a vector.}
 }
 \value{
-A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}, in which each row is labeled as selected or not.
+A new \code{data.table} based on standard classification dataset with a new column: \code{selectedCase}, in which each cell is labeled as selected or not. If the patient was diagnosed with certain diseases, but the selection condition is not satisfied, then the \code{selectedCase} cell will be labeled with a star (*).
 }
 \description{
 This query function can select the cases matching defined conditions for analyses.
