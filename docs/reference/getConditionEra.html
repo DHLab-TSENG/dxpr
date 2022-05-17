@@ -79,11 +79,11 @@
 <dt>dateColName</dt>
 <dd><p>Column name of date column in dxDataFile, and the type of date column should be a date format in R or a string format with date information in YYYY/MM/DD or YYYY-MM-DD. Data type of this argumant should be string without quotation marks.</p></dd>
 <dt>icdVerColName</dt>
-<dd><p>(Optional) Column name if there is a columns to record ICD-9/10 version used in dxDataFile. In this column, data format should be numeric 9L or 10L to indicate which ICD version is used for every cell. See examples below to get more information.</p></dd>
+<dd><p>(Optional) Column name if there is a columns to record ICD-9/10 version used in dxDataFile. In this column, data format should be numeric 9L or 10L to indicate which ICD version is used for each cell. See examples below to get more information.</p></dd>
 <dt>icd10usingDate</dt>
 <dd><p>The date that ICD-10 was started to be used in dxDataFile dataset. The data format should be YYYY/MM/DD or YYYY-MM-DD. Necessary if icdVerColName is null.</p></dd>
 <dt>groupDataType</dt>
-<dd><p>Four Stratified methods can be chosen: CCS (<code>ccs</code>), multiple-level CCS (<code>ccslvl1</code>, <code>ccslvl2</code>, <code>ccslvl3</code>, <code>ccslvl4</code>), PheWAS (<code>PheWAS</code>), comorbidities (<code>ahrq</code>,<code>charlson</code>, <code>elix</code>), precise or fuzzy customized  method (<code>customGrepIcdGroup</code>, <code>customIcdGroup</code>). The value should be string stated above without quotation mark. Default value is <code>ccs</code>.</p></dd>
+<dd><p>Five Stratified methods can be chosen: CCS (<code>ccs</code>), multiple-level CCS (<code>ccslvl1</code>, <code>ccslvl2</code>, CCSR (<code>ccsr</code>),<code>ccslvl3</code>, <code>ccslvl4</code>), PheWAS (<code>PheWAS</code>), comorbidities (<code>ahrq</code>,<code>charlson</code>, <code>elix</code>), precise or fuzzy customized  method (<code>customGrepIcdGroup</code>, <code>customIcdGroup</code>). The value should be string stated above without quotation mark. Default value is <code>ccs</code>. When conducting cases selection by un-grouped ICD codes, then use the method: ICD (<code>ICD</code>).</p></dd>
 <dt>customGroupingTable</dt>
 <dd><p>Used-defined grouping categories. <code>icdDxToCustom</code> needs a dataset with two columns called "Group" and "ICD", respectively; User can define one or more disease categories in "Group" column, and define a list of corresponding category-related ICD codes in "ICD" column. <code>icdDxToCustomGrep</code> needs a dataset with two columns: "Group", "grepIcd"; "Group" defines one or more disease categories and "grepICD" defines disease-related ICD code character strings containing regular expressions.</p></dd>
 <dt>isDescription</dt>

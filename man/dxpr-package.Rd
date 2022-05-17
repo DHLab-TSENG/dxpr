@@ -30,11 +30,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Hsiang-Ju Chiu \email{aibabi3@gmail.com}
+\strong{Maintainer}: Yi-Ju Tseng \email{yjtseng@mail.cgu.edu.tw}
 
 Authors:
 \itemize{
-  \item Yi-Ju Tseng \email{yjtseng@mail.cgu.edu.tw}
+  \item Hsiang-Ju Chiu \email{aibabi3@gmail.com}
   \item Chun-Ju Chen \email{ju.chin.0902@mail.cgu.edu.tw}
 }
 
