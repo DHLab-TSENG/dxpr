@@ -1,5 +1,7 @@
 
-## dxpr
+## Getting started with dxpr package
+
+![dxpr](https://user-images.githubusercontent.com/8377506/176842906-997ef98f-ee28-42bc-a542-919dc80c6684.png)
 
 # I. Introduction
 
