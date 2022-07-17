@@ -1,7 +1,7 @@
 Package: dxpr
 Title: An analysis tool for diagnosis and procedure records
-Version: 0.9.0
-Date: 2022-05-16
+Version: 0.9.1
+Date: 2022-07-17
 Authors@R: c(person("Yi-Ju", "Tseng", role = c("aut", "cre"), email = "yjtseng@mail.cgu.edu.tw"),
              person("Hsiang-Ju", "Chiu", role = "aut", email = "aibabi3@gmail.com"),
              person("Chun-Ju", "Chen", role = "aut", email = "ju.chin.0902@mail.cgu.edu.tw"))
