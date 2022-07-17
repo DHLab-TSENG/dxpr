@@ -1,17 +1,15 @@
-Usage of dxpr Package
-=====================
+# Usage of dxpr Package
 
-I. Data integration
--------------------
+## I. Data integration
 
     head(sampleDxFile)  
-    #>     ID  ICD       Date
-    #> 1:  A2 Z992 2020-05-22
-    #> 2:  A5 Z992 2020-01-24
-    #> 3:  A8 Z992 2015-10-27
-    #> 4: A13 Z992 2020-04-26
-    #> 5: A13 Z992 2025-02-02
-    #> 6: A15 Z992 2023-05-12
+    #>     ID  ICD       Date Version
+    #> 1:  A2 Z992 2020-05-22      10
+    #> 2:  A5 Z992 2020-01-24      10
+    #> 3:  A8 Z992 2015-10-27      10
+    #> 4: A13 Z992 2020-04-26      10
+    #> 5: A13 Z992 2025-02-02      10
+    #> 6: A15 Z992 2023-05-12      10
 
 ### 1. Data standardization
 
@@ -29,8 +27,8 @@ I. Data integration
     #> Warning: The ICD mentioned above matches to "NA" due to the format or other
     #> issues.
     #> Warning: "Wrong ICD format" means the ICD has wrong format
-    #> Warning: "Wrong ICD version" means the ICD classify to wrong ICD version
-    #> (cause the "icd10usingDate" or other issues)
+    #> Warning: "Wrong ICD version" means the ICD classify to wrong ICD version (cause
+    #> the "icd10usingDate" or other issues)
 
     head(ICD_Short$ICD)
     #>     ICD
@@ -53,13 +51,13 @@ I. Data integration
     sampleDxFile$Decimal <- ICD_Short$ICD 
 
     head(sampleDxFile)
-    #>     ID  ICD       Date Decimal
-    #> 1:  A2 Z992 2020-05-22    Z992
-    #> 2:  A5 Z992 2020-01-24    Z992
-    #> 3:  A8 Z992 2015-10-27    Z992
-    #> 4: A13 Z992 2020-04-26    Z992
-    #> 5: A13 Z992 2025-02-02    Z992
-    #> 6: A15 Z992 2023-05-12    Z992
+    #>     ID  ICD       Date Version Decimal
+    #> 1:  A2 Z992 2020-05-22      10    Z992
+    #> 2:  A5 Z992 2020-01-24      10    Z992
+    #> 3:  A8 Z992 2015-10-27      10    Z992
+    #> 4: A13 Z992 2020-04-26      10    Z992
+    #> 5: A13 Z992 2025-02-02      10    Z992
+    #> 6: A15 Z992 2023-05-12      10    Z992
 
 ### 2. Data grouping
 
@@ -82,20 +80,13 @@ I. Data integration
     #> 6:   001 A0   001 2014-11-05                           <NA>
 
     head(CCSlvl_description$summarised_groupedDT)
-    #>     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count
-    #> 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5
-    #> 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5
-    #> 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5
-    #> 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5
-    #> 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5
-    #> 6: A13 Diseases of the urinary system    2006-04-29  2025-02-02     5
-    #>       period
-    #> 1: 1609 days
-    #> 2: 2856 days
-    #> 3: 1730 days
-    #> 4: 1273 days
-    #> 5: 3333 days
-    #> 6: 6854 days
+    #>     ID                CCS_LVL_2_LABEL firstCaseDate endCaseDate count    period
+    #> 1:  A0 Diseases of the urinary system    2009-07-25  2013-12-20     5 1609 days
+    #> 2:  A1 Diseases of the urinary system    2006-11-29  2014-09-24     5 2856 days
+    #> 3: A10 Diseases of the urinary system    2007-11-04  2012-07-30     5 1730 days
+    #> 4: A11 Diseases of the urinary system    2008-03-09  2011-09-03     5 1273 days
+    #> 5: A12 Diseases of the urinary system    2006-05-14  2015-06-29     5 3333 days
+    #> 6: A13 Diseases of the urinary system    2006-04-29  2025-02-02     5 6854 days
 
     ## ICD to pheWAS
     pheWAS <- icdDxToPheWAS(dxDataFile  = sampleDxFile,
@@ -261,8 +252,7 @@ I. Data integration
     #> 5: A0  5856 2009-07-25 Chronic kidney disease
     #> 6: A0   001 2014-11-05                   <NA>
 
-II. Data wrangling
-------------------
+## II. Data wrangling
 
 ### 1. Case selection
 
@@ -278,20 +268,20 @@ II. Data wrangling
                         periodRange = c(30, 365))
 
     head(Case)
-    #>     ID selectedCase count firstCaseDate endCaseDate    period
-    #> 1:  A1     Selected     4    2006-11-29  2014-09-24 2856 days
-    #> 2: A12    Selected*     3    2006-05-14  2011-02-25 1748 days
-    #> 3: A13    Selected*     2    2006-04-29  2010-02-21 1394 days
-    #> 4: A18    Selected*     2    2007-04-05  2012-02-10 1772 days
-    #> 5:  A2    Selected*     3    2011-09-20  2015-01-06 1204 days
-    #> 6:  A0    Selected*     3    2009-07-25  2013-12-20 1609 days
-    #>    MostCommonICD MostCommonICDCount
-    #> 1:          5855                  2
-    #> 2:          5859                  2
-    #> 3:          5855                  2
-    #> 4:          5855                  2
-    #> 5:          5855                  2
-    #> 6:          5856                  1
+    #>     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
+    #> 1:  A1     Selected     4    2006-11-29  2014-09-24 2856 days          5855
+    #> 2: A12    Selected*     3    2006-05-14  2011-02-25 1748 days          5859
+    #> 3: A13    Selected*     2    2006-04-29  2010-02-21 1394 days          5855
+    #> 4: A18    Selected*     2    2007-04-05  2012-02-10 1772 days          5855
+    #> 5:  A2    Selected*     3    2011-09-20  2015-01-06 1204 days          5855
+    #> 6:  A0    Selected*     3    2009-07-25  2013-12-20 1609 days          5856
+    #>    MostCommonICDCount
+    #> 1:                  2
+    #> 2:                  2
+    #> 3:                  2
+    #> 4:                  2
+    #> 5:                  2
+    #> 6:                  1
 
     tail(Case)
     #>    ID selectedCase count firstCaseDate endCaseDate  period MostCommonICD
@@ -322,20 +312,20 @@ II. Data wrangling
                         periodRange = c(30, 365))
 
     head(Case)
-    #>     ID selectedCase count firstCaseDate endCaseDate    period
-    #> 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days
-    #> 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days
-    #> 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days
-    #> 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days
-    #> 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days
-    #> 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days
-    #>    MostCommonICD MostCommonICDCount
-    #> 1:          V420                  3
-    #> 2:          5855                  2
-    #> 3:         V5631                  2
-    #> 4:          5859                  2
-    #> 5:          5855                  2
-    #> 6:         V5631                  2
+    #>     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
+    #> 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420
+    #> 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days          5855
+    #> 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days         V5631
+    #> 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days          5859
+    #> 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days          5855
+    #> 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days         V5631
+    #>    MostCommonICDCount
+    #> 1:                  3
+    #> 2:                  2
+    #> 3:                  2
+    #> 4:                  2
+    #> 5:                  2
+    #> 6:                  2
 
     # Select cases by CCS Level 2 condition "Diseases of the urinary system"
     Case <- selectCases(dxDataFile = sampleDxFile,
@@ -350,20 +340,20 @@ II. Data wrangling
                         periodRange = c(30, 365))
 
     head(Case)
-    #>     ID selectedCase count firstCaseDate endCaseDate    period
-    #> 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days
-    #> 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days
-    #> 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days
-    #> 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days
-    #> 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days
-    #> 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days
-    #>    MostCommonICD MostCommonICDCount
-    #> 1:          V420                  3
-    #> 2:          5855                  2
-    #> 3:         V5631                  2
-    #> 4:          5859                  2
-    #> 5:          5855                  2
-    #> 6:         V5631                  2
+    #>     ID selectedCase count firstCaseDate endCaseDate    period MostCommonICD
+    #> 1:  A3     Selected     5    2008-07-08  2014-02-24 2057 days          V420
+    #> 2:  A1     Selected     5    2006-11-29  2014-09-24 2856 days          5855
+    #> 3: A10     Selected     5    2007-11-04  2012-07-30 1730 days         V5631
+    #> 4: A12     Selected     5    2006-05-14  2015-06-29 3333 days          5859
+    #> 5: A13     Selected     5    2006-04-29  2025-02-02 6854 days          5855
+    #> 6: A15     Selected     5    2007-05-25  2023-05-12 5831 days         V5631
+    #>    MostCommonICDCount
+    #> 1:                  3
+    #> 2:                  2
+    #> 3:                  2
+    #> 4:                  2
+    #> 5:                  2
+    #> 6:                  2
 
 ### 2. Condition era generation
 
@@ -448,8 +438,7 @@ II. Data wrangling
     #> 5: D7      1    0    0      1    0    0   0   0  0     1 non-Selected
     #> 6: D8      1    0    0      0    0    1   0   1  0     0 non-Selected
 
-III. Visualization
-------------------
+## III. Visualization
 
     # Bar chart of diagnostic categories – case and control groups
     selectedCaseFile <- selectCases(dxDataFile = sampleDxFile,
@@ -487,8 +476,7 @@ III. Visualization
     #> 1:              TUMOR non-Selected 1       3.03
     #> 2:              TUMOR     Selected 4      80.00
 
-IV. Procedure
--------------
+## IV. Procedure
 
     head(samplePrFile)
     #>    ID   ICD       Date
@@ -510,20 +498,13 @@ IV. Procedure
                        isDescription = TRUE) 
 
     head(CCS$groupedDT)
-    #>    Short ID   ICD       Date
-    #> 1:  5681  B  5681 2008-01-14
-    #> 2:  9774  A  9774 2009-01-11
-    #> 3:  4499  B 44.99 2009-05-10
-    #> 4:  0759  C 07.59 2009-01-21
-    #> 5:  0205  B  0205 2008-07-06
-    #> 6:  8812  B  8812 2007-06-27
-    #>                              CCS_CATEGORY_DESCRIPTION
-    #> 1:   Other OR therapeutic procedures of urinary tract
-    #> 2: Other non-OR therapeutic procedures; female organs
-    #> 3:           Other OR upper GI therapeutic procedures
-    #> 4:                   Therapeutic endocrine procedures
-    #> 5:     Other OR therapeutic nervous system procedures
-    #> 6:  Other diagnostic radiology and related techniques
+    #>    Short ID   ICD       Date                           CCS_CATEGORY_DESCRIPTION
+    #> 1:  5681  B  5681 2008-01-14   Other OR therapeutic procedures of urinary tract
+    #> 2:  9774  A  9774 2009-01-11 Other non-OR therapeutic procedures; female organs
+    #> 3:  4499  B 44.99 2009-05-10           Other OR upper GI therapeutic procedures
+    #> 4:  0759  C 07.59 2009-01-21                   Therapeutic endocrine procedures
+    #> 5:  0205  B  0205 2008-07-06     Other OR therapeutic nervous system procedures
+    #> 6:  8812  B  8812 2007-06-27  Other diagnostic radiology and related techniques
 
     # ICD to CCS multiple level 1
     CCSlvl <- icdPrToCCSLvl(prDataFile = samplePrFile,

@@ -12,22 +12,22 @@ visualize clinical data, including diagnosis and procedure records.
 
 ## Feature
 
-  - **Data integration** Transform codes into uniform format and group
+-   **Data integration** Transform codes into uniform format and group
     code into several categories.  
-  - **Data Wrangling** Generate statistical information about dataset
+-   **Data Wrangling** Generate statistical information about dataset
     and transform data into wide format, which fits better to other
     analytical and plotting packages.
-  - **Visualization** Provide overviews for the result of diagnoses
+-   **Visualization** Provide overviews for the result of diagnoses
     standardization and the grouped categories of diagnosis codes.
 
 ## Getting started
 
-  - Diagnostic part  
+-   Diagnostic part  
     English:
     <https://dhlab-tseng.github.io/dxpr/articles/Eng_Diagnosis.html>  
     Chinese:
     <https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html>  
-  - Procedure part  
+-   Procedure part  
     English:
     <https://dhlab-tseng.github.io/dxpr/articles/Eng_Procedure.html>  
     Chinese:
@@ -36,8 +36,8 @@ visualize clinical data, including diagnosis and procedure records.
 ## Development version
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("DHLab-TSENG/dxpr")
+# install.packages("remotes")
+remotes::install_github("DHLab-TSENG/dxpr")
 ```
 
 ## Overview
@@ -50,13 +50,13 @@ devtools::install_github("DHLab-TSENG/dxpr")
 library(dxpr)  
  
 head(sampleDxFile)  
-#>     ID  ICD       Date
-#> 1:  A2 Z992 2020-05-22
-#> 2:  A5 Z992 2020-01-24
-#> 3:  A8 Z992 2015-10-27
-#> 4: A13 Z992 2020-04-26
-#> 5: A13 Z992 2025-02-02
-#> 6: A15 Z992 2023-05-12
+#>     ID  ICD       Date Version
+#> 1:  A2 Z992 2020-05-22      10
+#> 2:  A5 Z992 2020-01-24      10
+#> 3:  A8 Z992 2015-10-27      10
+#> 4: A13 Z992 2020-04-26      10
+#> 5: A13 Z992 2025-02-02      10
+#> 6: A15 Z992 2023-05-12      10
 
 # I. Data integration
 #   1. Data standardization
@@ -145,7 +145,7 @@ plot_errorICD
     #>  9:  A0105     5       77.06%            ICD 9 Wrong version           
     #> 10:    001     5       81.65%            ICD 9  Wrong format       0019
     #> 11: others    20         100%            ICD 9  Wrong format
-    
+
     plot_groupedData
     #> $graph
 
@@ -170,10 +170,3 @@ plot_errorICD
 See the `GitHub issues page`
 (<https://github.com/DHLab-TSENG/dxpr/issues>) to see open issues and
 feature requests.
-
-## Citation
-
-Tseng, Yi-Ju, Hsiang-Ju Chiu, and Chun Ju Chen. 2021. “dxpr: An R Package for Generating Analysis-Ready Data from Electronic Health Records—diagnoses and Procedures.” PeerJ Computer Science 7 (May): e520.
-
-https://peerj.com/articles/cs-520/
-

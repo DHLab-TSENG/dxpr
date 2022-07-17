@@ -16,15 +16,15 @@ cat(utils::packageDescription("dxpr")$Description)
 ```
 ### 安裝套件
 ```r
-install.packages("devtools")
+install.packages("remotes")
 # Install development version from GitHub
-devtools::install_github("DHLab-TSENG/dxpr")
+remotes::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-#devtools::install_github("DHLab-TSENG/dxpr")
+#remotes::install_github("DHLab-TSENG/dxpr")
 library(dxpr)
 ```
 ### ICD-CM-CODE 格式對照

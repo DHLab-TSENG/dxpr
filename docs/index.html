@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -66,8 +66,13 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div class="section level2"><h2 id="dxpr">dxpr<a class="anchor" aria-label="anchor" href="#dxpr"></a>
-</h2></div>
+<div class="section level2">
+<h2 id="getting-started-with-dxpr-package">Getting started with dxpr package<a class="anchor" aria-label="anchor" href="#getting-started-with-dxpr-package"></a>
+</h2>
+<div class="figure">
+<img src="https://user-images.githubusercontent.com/8377506/176842906-997ef98f-ee28-42bc-a542-919dc80c6684.png" alt=""><p class="caption">dxpr</p>
+</div>
+</div>
 <div class="section level1">
 <div class="page-header"><h1 id="i-introduction">I. Introduction<a class="anchor" aria-label="anchor" href="#i-introduction"></a>
 </h1></div>
@@ -103,8 +108,8 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <h2 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -118,13 +123,13 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span>  
  
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sampleDxFile</span><span class="op">)</span>  
-<span class="co">#&gt;     ID  ICD       Date</span>
-<span class="co">#&gt; 1:  A2 Z992 2020-05-22</span>
-<span class="co">#&gt; 2:  A5 Z992 2020-01-24</span>
-<span class="co">#&gt; 3:  A8 Z992 2015-10-27</span>
-<span class="co">#&gt; 4: A13 Z992 2020-04-26</span>
-<span class="co">#&gt; 5: A13 Z992 2025-02-02</span>
-<span class="co">#&gt; 6: A15 Z992 2023-05-12</span>
+<span class="co">#&gt;     ID  ICD       Date Version</span>
+<span class="co">#&gt; 1:  A2 Z992 2020-05-22      10</span>
+<span class="co">#&gt; 2:  A5 Z992 2020-01-24      10</span>
+<span class="co">#&gt; 3:  A8 Z992 2015-10-27      10</span>
+<span class="co">#&gt; 4: A13 Z992 2020-04-26      10</span>
+<span class="co">#&gt; 5: A13 Z992 2025-02-02      10</span>
+<span class="co">#&gt; 6: A15 Z992 2023-05-12      10</span>
 
 <span class="co"># I. Data integration</span>
 <span class="co">#   1. Data standardization</span>
@@ -232,12 +237,6 @@ Chinese: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Procedure.html
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h2>
 <p>See the <code>GitHub issues page</code> (<a href="https://github.com/DHLab-TSENG/dxpr/issues" class="external-link uri">https://github.com/DHLab-TSENG/dxpr/issues</a>) to see open issues and feature requests.</p>
-</div>
-<div class="section level2">
-<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
-</h2>
-<p>Tseng, Yi-Ju, Hsiang-Ju Chiu, and Chun Ju Chen. 2021. “dxpr: An R Package for Generating Analysis-Ready Data from Electronic Health Records—diagnoses and Procedures.” PeerJ Computer Science 7 (May): e520.</p>
-<p><a href="https://peerj.com/articles/cs-520/" class="external-link uri">https://peerj.com/articles/cs-520/</a></p>
 </div>
 </div>
 

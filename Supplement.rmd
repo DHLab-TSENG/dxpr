@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-TSENG/dxpr")
+remotes::install_github("DHLab-TSENG/dxpr")
 library(dxpr) 
 library(data.table)
 ```

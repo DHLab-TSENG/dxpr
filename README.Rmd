@@ -8,7 +8,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-## dxpr
+## Getting started with dxpr package
+
+![dxpr](https://user-images.githubusercontent.com/8377506/176842906-997ef98f-ee28-42bc-a542-919dc80c6684.png)
+
 # I. Introduction
 The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). The dxpr package provides mechanisms to integrate, analyze, and visualize clinical data, including diagnosis and procedure records.  
 
@@ -28,14 +31,14 @@ The proposed open-source dxpr package is a software tool aimed at expediting an 
 ## Development version
 
 ```r
-# install.packages("devtools")
-devtools::install_github("DHLab-TSENG/dxpr")
+# install.packages("remotes")
+remotes::install_github("DHLab-TSENG/dxpr")
 ```
 
 ```{r setup, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 4L, tibble.print_max = 4L)
-devtools::install_github("DHLab-TSENG/dxpr")
+remotes::install_github("DHLab-TSENG/dxpr")
 ```
 
 ## Overview

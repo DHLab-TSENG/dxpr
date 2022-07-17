@@ -4,6 +4,12 @@
     <loc>https://dhlab-tseng.github.io/dxpr/404.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/Supplement.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html</loc>
   </url>
   <url>
@@ -25,7 +31,19 @@
     <loc>https://dhlab-tseng.github.io/dxpr/index.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/LICENSE-text.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_standardization.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/PC.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_classification.html</loc>
+  </url>
+  <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_standardization.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/common_DxArg.html</loc>
@@ -64,16 +82,10 @@
     <loc>https://dhlab-tseng.github.io/dxpr/reference/dxPheWAS.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxpr-package.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/dxUniform.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_classification.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/Dx_dataset_standardization.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/dxpr-package.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/eligiblePeriod.html</loc>
@@ -91,16 +103,13 @@
     <loc>https://dhlab-tseng.github.io/dxpr/reference/getEligiblePeriod.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/groupedDataLongToWide.html</loc>
-  </url>
-  <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/groupMethodSelect.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/index.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/groupedDataLongToWide.html</loc>
   </url>
   <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/PC.html</loc>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/plotDiagCat.html</loc>
@@ -118,19 +127,13 @@
     <loc>https://dhlab-tseng.github.io/dxpr/reference/prCCS.html</loc>
   </url>
   <url>
+    <loc>https://dhlab-tseng.github.io/dxpr/reference/prUniform.html</loc>
+  </url>
+  <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/procedure_dataset_classification.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/procedure_dataset_standardization.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/prUniform.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_classification.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/reference/Pr_dataset_standardization.html</loc>
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/sampleDxFile.html</loc>
@@ -152,8 +155,5 @@
   </url>
   <url>
     <loc>https://dhlab-tseng.github.io/dxpr/reference/splitDataByDate.html</loc>
-  </url>
-  <url>
-    <loc>https://dhlab-tseng.github.io/dxpr/Supplement.html</loc>
   </url>
 </urlset>

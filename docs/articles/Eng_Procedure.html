@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -67,9 +67,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started with dxpr: Procedure</h1>
-                        <h4 data-toc-skip class="author">Hsiang-Ju, Chiu</h4>
+                        <h4 data-toc-skip class="author">Hsiang-Ju,
+Chiu</h4>
             
-            <h4 data-toc-skip class="date">2022-05-17</h4>
+            <h4 data-toc-skip class="date">2022-07-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/HEAD/vignettes/Eng_Procedure.Rmd" class="external-link"><code>vignettes/Eng_Procedure.Rmd</code></a></small>
       <div class="hidden name"><code>Eng_Procedure.Rmd</code></div>
@@ -81,25 +82,38 @@
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
-<p>The proposed open-source dxpr package is a software tool aimed at expediting an integrated analysis of electronic health records (EHRs). By implementing dxpr package, it is easier to integrate, analyze, and visualize clinical data.</p>
-<p>In this part, the instruction of how dxpr package workes with procedure records is provided.</p>
+<p>The proposed open-source dxpr package is a software tool aimed at
+expediting an integrated analysis of electronic health records (EHRs).
+By implementing dxpr package, it is easier to integrate, analyze, and
+visualize clinical data.</p>
+<p>In this part, the instruction of how dxpr package workes with
+procedure records is provided.</p>
 <div class="section level4">
 <h4 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
 </h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="co"># Install development version from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="data-format">Data Format<a class="anchor" aria-label="anchor" href="#data-format"></a>
 </h4>
-<p>dxpr (procedute part) is used to pre-process procedure codes of EHRs. To execute functions in dxpr, the EHR data input should be a data frame object in R, and contain at least three columns: patient ID, ICD procedure codes and date.</p>
-<p>Column names or column order of these three columns does not need to necessarily follow a rule. Each column name will be pass as argument. Detailed information of required data type of every column and argument of functions can be found in the reference section.</p>
-<p>Also, in the R ecosystem, DBI, odbc, and other packages provide access to databases within R. As long as the data is retrieved from databases to a data frame in R, the processes are the same as the following example.</p>
+<p>dxpr (procedure part) is used to pre-process procedure codes of EHRs.
+To execute functions in dxpr, the EHR data input should be a data frame
+object in R, and contain at least three columns: patient ID, ICD
+procedure codes and date.</p>
+<p>Column names or column order of these three columns does not need to
+necessarily follow a rule. Each column name will be pass as argument.
+Detailed information of required data type of every column and argument
+of functions can be found in the reference section.</p>
+<p>Also, in the R ecosystem, DBI, odbc, and other packages provide
+access to databases within R. As long as the data is retrieved from
+databases to a data frame in R, the processes are the same as the
+following example.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu">dbConnect</span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu">odbc</span><span class="op">(</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html" class="external-link">odbc</a></span><span class="op">(</span><span class="op">)</span>,
                       Driver   <span class="op">=</span> <span class="st">"[your driver's name]"</span>,
                       Server   <span class="op">=</span> <span class="st">"[your server's path]"</span>,
                       Database <span class="op">=</span> <span class="st">"[your database's name]"</span>,
@@ -112,7 +126,8 @@
 <h4 id="sample-file">Sample file<a class="anchor" aria-label="anchor" href="#sample-file"></a>
 </h4>
 <p>An example of the data shows as below:<br>
-This data is a simulated medical data set of 3 patients with 170 records.</p>
+This data is a simulated medical data set of 3 patients with 170
+records.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">samplePrFile</span><span class="op">)</span>
 <span class="co">#&gt;    ID   ICD       Date</span>
@@ -126,7 +141,10 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <div class="section level4">
 <h4 id="icd-pcs-code-with-two-format">ICD-PCS code with two format<a class="anchor" aria-label="anchor" href="#icd-pcs-code-with-two-format"></a>
 </h4>
-<p>dxpr package uses ICD-PCS codes as procedure standard. There are two formats of ICD-9 procedure codes, decimal (with a decimal point separating the code) and short format. And ICD-10 is only with short format.</p>
+<p>dxpr package uses ICD-PCS codes as procedure standard. There are two
+formats of ICD-9 procedure codes, decimal (with a decimal point
+separating the code) and short format. And ICD-10 is only with short
+format.</p>
 <p>ICD-9-PCS</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># ICD-9-PCS_Short</span>
@@ -146,9 +164,12 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <h3 id="i--code-standardization">I. Code standardization<a class="anchor" aria-label="anchor" href="#i--code-standardization"></a>
 </h3>
 <div class="section level4">
-<h4 id="a--icd-9-pcs-code-format-transformationshort---decimal">A. ICD-9-PCS code format transformation：Short &lt;-&gt; Decimal<a class="anchor" aria-label="anchor" href="#a--icd-9-pcs-code-format-transformationshort---decimal"></a>
+<h4 id="a--icd-9-pcs-code-format-transformationshort---decimal">A. ICD-9-PCS code format transformation：Short &lt;-&gt;
+Decimal<a class="anchor" aria-label="anchor" href="#a--icd-9-pcs-code-format-transformationshort---decimal"></a>
 </h4>
-<p>dxpr package helps users to standardize the ICD-9 procedure codes into a uniform format before further code grouping. The formats used for different grouping methods are shown as <strong>Table 1</strong>.</p>
+<p>dxpr package helps users to standardize the ICD-9 procedure codes
+into a uniform format before further code grouping. The formats used for
+different grouping methods are shown as <strong>Table 1</strong>.</p>
 <p><strong>Table 1</strong> Format of code classification methods</p>
 <table class="table">
 <thead><tr class="header">
@@ -166,8 +187,16 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 </tr>
 </tbody>
 </table>
-<p>Since formats of ICD-9 codes used within a dataset could be different, users can standardize the codes through this function.</p>
-<p>The function only standardizes ICD-9 codes. There are two ways to distinguish the version of ICD code (ICD-9/ICD-10) used in data: one is a specific extra column that records version used (data type in this column should be numeric <code>9</code> or <code>10</code>), the other is a specific date that is the starting date of using ICD-10 in the dataset. For example, reimbursement claims with a date required to use ICD-10 codes in the United States and Taiwan are October 1st, 2015 and January 1st, 2016, respectively.</p>
+<p>Since formats of ICD-9 codes used within a dataset could be
+different, users can standardize the codes through this function.</p>
+<p>The function only standardizes ICD-9 codes. There are two ways to
+distinguish the version of ICD code (ICD-9/ICD-10) used in data: one is
+a specific extra column that records version used (data type in this
+column should be numeric <code>9</code> or <code>10</code>), the other
+is a specific date that is the starting date of using ICD-10 in the
+dataset. For example, reimbursement claims with a date required to use
+ICD-10 codes in the United States and Taiwan are October 1st, 2015 and
+January 1st, 2016, respectively.</p>
 <div class="section level5">
 <h5 id="a-1--uniform-decimal-format">A-1. Uniform decimal format<a class="anchor" aria-label="anchor" href="#a-1--uniform-decimal-format"></a>
 </h5>
@@ -188,7 +217,10 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <div class="section level5">
 <h5 id="a-2--uniform-short-format">A-2. Uniform short format<a class="anchor" aria-label="anchor" href="#a-2--uniform-short-format"></a>
 </h5>
-<p><code>icdPrShortToDecimal</code> function converts the procedure codes to the short format, which can be used for grouping to the other classification functions (<code>icdPrToCCS</code>, <code>icdPrToCCSLvl</code> and <code>icdPrToProcedureClass</code>).</p>
+<p><code>icdPrShortToDecimal</code> function converts the procedure
+codes to the short format, which can be used for grouping to the other
+classification functions (<code>icdPrToCCS</code>,
+<code>icdPrToCCSLvl</code> and <code>icdPrToProcedureClass</code>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">short</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prUniform.html">icdPrDecimalToShort</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
                              icdColName <span class="op">=</span> <span class="va">ICD</span>, 
@@ -203,23 +235,38 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <span class="co">#&gt; 5: 0205</span>
 <span class="co">#&gt; 6: 8812</span></code></pre></div>
 <p><strong>Warning message</strong></p>
-<p>Besides, code standardization functions generate data of procedure codes with potential error to help researchers identify the potential coding mistake that may affect the result of following clinical data analysis.</p>
-<p>There are two error type：<strong>wrong format</strong> and <strong>wrong version</strong>. The former one means the ICD code does not exist (maybe because ICD is wrongly coded or with a wrong place of decimal point). And the latter one means the version is wrong (still use ICD 9 after <code>icd10usingDate</code>, etc.).</p>
-<p>Users can check data after receiving the warning message. researcher identify the potential coding mistake that may affect clinical data analysis.</p>
+<p>Besides, code standardization functions generate data of procedure
+codes with potential error to help researchers identify the potential
+coding mistake that may affect the result of following clinical data
+analysis.</p>
+<p>There are two error type：<strong>wrong format</strong> and
+<strong>wrong version</strong>. The former one means the ICD code does
+not exist (maybe because ICD is wrongly coded or with a wrong place of
+decimal point). And the latter one means the version is wrong (still use
+ICD 9 after <code>icd10usingDate</code>, etc.).</p>
+<p>Users can check data after receiving the warning message. researcher
+identify the potential coding mistake that may affect clinical data
+analysis.</p>
 </div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="ii--data-integration">II. Data integration<a class="anchor" aria-label="anchor" href="#ii--data-integration"></a>
 </h3>
-<p>Functions stated below collapse ICD codes into a smaller number of clinically meaningful categories that are more useful for presenting descriptive statistics than individual ICD procedure codes are.</p>
-<p>dxpr package supports two strategies to group EHR procedure codes, including CCS and procedure classes.</p>
+<p>Functions stated below collapse ICD codes into a smaller number of
+clinically meaningful categories that are more useful for presenting
+descriptive statistics than individual ICD procedure codes are.</p>
+<p>dxpr package supports two strategies to group EHR procedure codes,
+including CCS and procedure classes.</p>
 <div class="section level4">
 <h4 id="a--clinical-classifications-software-ccs">A. Clinical Classifications Software (CCS)<a class="anchor" aria-label="anchor" href="#a--clinical-classifications-software-ccs"></a>
 </h4>
-<p>The CCS classification for ICD-9 and ICD-10 codes is a procedure categorization scheme that can employ in many types of projects analyzing data on procedures.</p>
+<p>The CCS classification for ICD-9 and ICD-10 codes is a procedure
+categorization scheme that can employ in many types of projects
+analyzing data on procedures.</p>
 <p><strong>1) single-level</strong>: <code>icdPrToCCS</code></p>
-<p>Both ICD-9-PCS and ICD-10-PCS code contains 231 single-level CCS categories which can be corresponded with each other.</p>
+<p>Both ICD-9-PCS and ICD-10-PCS code contains 231 single-level CCS
+categories which can be corresponded with each other.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## ICD to CCS category</span>
 <span class="va">CCS</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCS</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
@@ -237,7 +284,8 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <span class="co">#&gt; 4:  0759  C 07.59 2009-01-21           12</span>
 <span class="co">#&gt; 5:  0205  B  0205 2008-07-06            9</span></code></pre></div>
 <p><strong>2) multi-level</strong>: <code>icdPrToCCSLvl</code></p>
-<p>Multi-level CCS in ICD-9-PCS has 3 levels, and multi-level CCS in ICD-10-PCS has two levels.</p>
+<p>Multi-level CCS in ICD-9-PCS has 3 levels, and multi-level CCS in
+ICD-10-PCS has two levels.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## ICD to CCS multiple level 2 description</span>
 <span class="va">CCSLvl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prCCS.html">icdPrToCCSLvl</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,
@@ -259,13 +307,20 @@ This data is a simulated medical data set of 3 patients with 170 records.</p>
 <div class="section level4">
 <h4 id="b--procedure-class">B. Procedure Class<a class="anchor" aria-label="anchor" href="#b--procedure-class"></a>
 </h4>
-<p>Procedure Classes are part of the family of databases and software tools developed as part of the Healthcare Cost and Utilization Project (HCUP) by AHRQ.<br>
-The Procedure Classes assign all ICD procedure codes to one of four categories:</p>
+<p>Procedure Classes are part of the family of databases and software
+tools developed as part of the Healthcare Cost and Utilization Project
+(HCUP) by AHRQ.<br>
+The Procedure Classes assign all ICD procedure codes to one of four
+categories:</p>
 <ul>
-<li>Minor Diagnostic - Non-operating room procedures that are diagnostic</li>
-<li>Minor Therapeutic - Non-operating room procedures that are therapeutic</li>
-<li>Major Diagnostic - Operating room procedures that are diagnostic</li>
-<li>Major Therapeutic - Operating room procedures that are therapeutic</li>
+<li>Minor Diagnostic - Non-operating room procedures that are
+diagnostic</li>
+<li>Minor Therapeutic - Non-operating room procedures that are
+therapeutic</li>
+<li>Major Diagnostic - Operating room procedures that are
+diagnostic</li>
+<li>Major Therapeutic - Operating room procedures that are
+therapeutic</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ProcedureClass</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PC.html">icdPrToProcedureClass</a></span><span class="op">(</span>prDataFile <span class="op">=</span> <span class="va">samplePrFile</span>,

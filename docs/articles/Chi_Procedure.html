@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dxpr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1</span>
       </span>
     </div>
 
@@ -66,10 +66,12 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Getting started with dxpr: Procedure (Chinese)</h1>
-                        <h4 data-toc-skip class="author">Hsiang-Ju, Chiu</h4>
+      <h1 data-toc-skip>Getting started with dxpr: Procedure
+(Chinese)</h1>
+                        <h4 data-toc-skip class="author">Hsiang-Ju,
+Chiu</h4>
             
-            <h4 data-toc-skip class="date">2022-05-17</h4>
+            <h4 data-toc-skip class="date">2022-07-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/DHLab-TSENG/dxpr/blob/HEAD/vignettes/Chi_Procedure.Rmd" class="external-link"><code>vignettes/Chi_Procedure.Rmd</code></a></small>
       <div class="hidden name"><code>Chi_Procedure.Rmd</code></div>
@@ -88,15 +90,17 @@
 <h4 id="安裝套件">安裝套件<a class="anchor" aria-label="anchor" href="#%E5%AE%89%E8%A3%9D%E5%A5%97%E4%BB%B6"></a>
 </h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="co"># Install development version from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DHLab-TSENG/dxpr"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dhlab-tseng.github.io/dxpr/">dxpr</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="icd-pcs-code-格式對照">ICD-PCS-CODE 格式對照<a class="anchor" aria-label="anchor" href="#icd-pcs-code-%E6%A0%BC%E5%BC%8F%E5%B0%8D%E7%85%A7"></a>
 </h4>
-<p>本套件使用的處置編碼依照CMS (Centers for Medicare &amp; Medicaid Services)所提供的處置編碼做為標準依據，並依照WHO訂定的處置編碼規則，產生 ICD-9-PCS 兩種格式的表格: <code>ICD9PrwithTwoFormat</code></p>
+<p>本套件使用的處置編碼依照CMS (Centers for Medicare &amp; Medicaid
+Services)所提供的處置編碼做為標準依據，並依照WHO訂定的處置編碼規則，產生
+ICD-9-PCS 兩種格式的表格: <code>ICD9PrwithTwoFormat</code></p>
 <p>供後續處置編碼格式轉換的功能使用</p>
 <p>ICD-9-PCS</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -130,8 +134,11 @@
 <div class="section level3">
 <h3 id="i--code-standardization">I. Code standardization<a class="anchor" aria-label="anchor" href="#i--code-standardization"></a>
 </h3>
-<p><strong>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt; Decimal</strong></p>
-<p>將醫療大數據中的處置編碼進行編碼一致格式的轉換，以便後續處置編碼的標準化分群。依據CCS（Clinical Classifications Software）及Procedure class分組表中處置編碼格式如<strong>表一</strong>。</p>
+<p><strong>ICD-9-PCS 兩種格式的轉換: Short &lt;-&gt;
+Decimal</strong></p>
+<p>將醫療大數據中的處置編碼進行編碼一致格式的轉換，以便後續處置編碼的標準化分群。依據CCS（Clinical
+Classifications Software）及Procedure
+class分組表中處置編碼格式如<strong>表一</strong>。</p>
 <p><strong>表一</strong> 標準化分組之處置編碼格式</p>
 <table class="table">
 <thead><tr class="header">
@@ -184,21 +191,27 @@
 <span class="co">#&gt; 6: 8812</span></code></pre></div>
 <p><strong>warning message</strong> (詳細流程請參考: <a href="https://dhlab-tseng.github.io/dxpr/articles/Chi_Diagnosis.html#i--code-standardization">診斷前處理與整合方法</a>)</p>
 <p>醫療數據的處置編碼有可能誤植導致處置編碼錯誤，而錯誤的處置編碼將影響後續臨床疾病分組錯誤或是無法分組的情形。<br>
-為方便使用者修改錯誤的處置編碼，dxpr套件會提供warning message提醒使用者些錯誤的處置編碼。</p>
+為方便使用者修改錯誤的處置編碼，dxpr套件會提供warning
+message提醒使用者些錯誤的處置編碼。</p>
 </div>
 <div class="section level3">
 <h3 id="ii--data-integration">II. Data integration<a class="anchor" aria-label="anchor" href="#ii--data-integration"></a>
 </h3>
-<p>將處置編碼依照不同的分類標準分類：分散的處置編碼依照其臨床上意義相似的歸併整合為較大的群組， 標準化的分類以便於後續的整合統計分析使用</p>
+<p>將處置編碼依照不同的分類標準分類：分散的處置編碼依照其臨床上意義相似的歸併整合為較大的群組，
+標準化的分類以便於後續的整合統計分析使用</p>
 <p>目前分類標準：CCS及 Procedure Class，以下將分別介紹之</p>
-<p>###一、臨床分類軟體 係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical Classifications Software, CCS)。 CCS 分為單一階層及多階層的分群，其階層是診斷分類可依使用需求調整分類標準</p>
+<p>###一、臨床分類軟體
+係以美國醫療照護政策研究品質局（AHRQ）為提供健康政策研究而所發展之「臨床分類軟體」(Clinical
+Classifications Software, CCS)。 CCS
+分為單一階層及多階層的分群，其階層是診斷分類可依使用需求調整分類標準</p>
 <ul>
 <li>單一階層: 較通用的分類<br>
 </li>
 <li>多階層: 將診斷碼分為較精確的分組</li>
 </ul>
 <p><strong>1) 單一階層分類</strong></p>
-<p><code>icdPrToCCS</code> 可取得處置編碼相對應的 CCS 分類(CCS Category)及分類之敘述<br>
+<p><code>icdPrToCCS</code> 可取得處置編碼相對應的 CCS 分類(CCS
+Category)及分類之敘述<br>
 ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## ICD to CCS category</span>
@@ -217,7 +230,8 @@ ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 <span class="co">#&gt; 4:  0759  C 07.59 2009-01-21                   Therapeutic endocrine procedures</span>
 <span class="co">#&gt; 5:  0205  B  0205 2008-07-06     Other OR therapeutic nervous system procedures</span></code></pre></div>
 <p><strong>2) 多階層分類</strong></p>
-<p><code>icdPrToCCSLvl</code> 可取得處置編碼相對應的 CCS 多階層分類 (Multiple ccs level) 及分類之敘述</p>
+<p><code>icdPrToCCSLvl</code> 可取得處置編碼相對應的 CCS 多階層分類
+(Multiple ccs level) 及分類之敘述</p>
 <ul>
 <li>ICD-9-PCS 共 3個階層 (Level 1~3)<br>
 </li>
@@ -243,7 +257,9 @@ ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 <div class="section level4">
 <h4 id="二procedure-class">二、Procedure Class<a class="anchor" aria-label="anchor" href="#%E4%BA%8Cprocedure-class"></a>
 </h4>
-<p>由美國醫療照護政策研究品質局（AHRQ）提供的HCUP Classes，將檢查與處置碼基於其特性分組，共ICD-PCS code分為下列四個組別：<br>
+<p>由美國醫療照護政策研究品質局（AHRQ）提供的HCUP
+Classes，將檢查與處置碼基於其特性分組，共ICD-PCS
+code分為下列四個組別：<br>
 1. Minor Diagnostic：非手術室執行之診斷類處置<br>
 2. Minor Therapeutic：非手術室執行之治療類處置<br>
 3. Major Diagnostic：需在手術室執行之診斷類處置<br>
@@ -280,7 +296,8 @@ ICD-9-PCS 和 ICD-10-PCS 的ccs單一階層一致：共231種</p>
 <h4 id="ii--data-integration-1">II. Data integration<a class="anchor" aria-label="anchor" href="#ii--data-integration-1"></a>
 </h4>
 <p>目前 ICD-9-PCS 的 CCS 版本為 2015 , ICD-10-PCS 的 CCS 版本為 2019</p>
-<p><strong>臨床分類軟體 (Clinical Classifications Software, CCS)</strong></p>
+<p><strong>臨床分類軟體 (Clinical Classifications Software,
+CCS)</strong></p>
 <p>ICD-9-PCS CCS (2015): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Single_Level_CCS_2015.zip</a></p>
 <p><a href="https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/ccs/Multi_Level_CCS_2015.zip</a></p>
 <p>ICD-10-PCS CCS (2019): <a href="https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp" class="external-link uri">https://www.hcup-us.ahrq.gov/toolssoftware/procedureicd10/procedure_icd10.jsp</a></p>

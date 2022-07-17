@@ -9,7 +9,7 @@
 \format{
 These datatable with ICD9 and ICD10 diagnosis codes.
 
-An object of class \code{data.frame} with 72962 rows and 2 columns.
+An object of class \code{data.frame} with 72863 rows and 2 columns.
 }
 \usage{
 ICD9DxwithTwoFormat
