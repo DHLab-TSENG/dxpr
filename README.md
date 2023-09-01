@@ -1,5 +1,5 @@
-
-## Getting started with dxpr package
+Getting started with dxpr package
+================
 
 ![dxpr](https://user-images.githubusercontent.com/8377506/176842906-997ef98f-ee28-42bc-a542-919dc80c6684.png)
 
@@ -168,5 +168,9 @@ plot_errorICD
 ## Getting help
 
 See the `GitHub issues page`
+
+## Citation
+
+Tseng YJ, Chiu HJ, Chen CJ. 2021. dxpr: an R package for generating analysis-ready data from electronic health records—diagnoses and procedures. PeerJ Computer Science 7:e520 [https://doi.org/10.7717/peerj-cs.520](https://doi.org/10.7717/peerj-cs.520)
 (<https://github.com/DHLab-TSENG/dxpr/issues>) to see open issues and
 feature requests.
